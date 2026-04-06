@@ -741,7 +741,7 @@
 
   // SUBMIT LEAD
   // Replace YOUR_MAKE_WEBHOOK_URL with your actual Make.com webhook
-  const LEAD_WEBHOOK = 'https://hook.us2.make.com/xi9ykaeq8cqv39ux6znbe5ll6jthd4xy';
+  const LEAD_WEBHOOK = 'https://hook.us2.make.com/gkus4m2lusfv3anug85pfjfedqpn9pju';
   const PSW_WEBHOOK = 'https://hook.us2.make.com/cmhgra3to6ov5zefs7ic9o89tqie25ue';
 
   async function submitLead() {
@@ -757,37 +757,41 @@
     const carePlan = document.querySelector('input[name="care-plan"]:checked');
 
     const payload = {
-      eventId: crypto.randomUUID(),
-      eventType: "FORM_RESPONSE",
-      createdAt: new Date().toISOString(),
-      data: {
-        responseId: crypto.randomUUID(),
-        submissionId: crypto.randomUUID(),
-        respondentId: crypto.randomUUID(),
-        formId: "2EvOGb",
-        formName: "Proximity Care — Client Assessment",
-        createdAt: new Date().toISOString(),
-        fields: [
-          { key: "Your Name", label: "Your Name", type: "INPUT_TEXT", value: firstName + ' ' + lastName },
-          { key: "Phone Number", label: "Phone Number", type: "INPUT_TEXT", value: phone },
-          { key: "Email Address", label: "Email Address", type: "INPUT_EMAIL", value: document.getElementById('lead-email').value },
-          { key: "City", label: "City", type: "INPUT_TEXT", value: document.getElementById('lead-city').value },
-          { key: "Who needs care?", label: "Who needs care?", type: "INPUT_TEXT", value: document.getElementById('lead-relationship').value + ' — ' + document.getElementById('lead-client-name').value },
-          { key: "Which care plan interests you?", label: "Which care plan interests you?", type: "INPUT_TEXT", value: carePlan ? carePlan.value : '' },
-          { key: "Type of care needed?", label: "Type of care needed?", type: "INPUT_TEXT", value: document.getElementById('lead-care-type').value },
-          { key: "Tell us about your situation", label: "Tell us about your situation", type: "TEXTAREA", value: document.getElementById('lead-notes').value + ' | Urgency: ' + document.getElementById('lead-urgency').value + ' | Source: ' + document.getElementById('lead-source').value }
-        ]
-      }
+      Timestamp: new Date().toISOString(),
+      Full_Name: firstName + ' ' + lastName,
+      Phone: phone,
+      Email: document.getElementById('lead-email').value,
+      City: document.getElementById('lead-city').value,
+      Relationship: document.getElementById('lead-relationship').value,
+      Client_Name: document.getElementById('lead-client-name').value,
+      Care_Plan: carePlan ? carePlan.value : '',
+      Urgency: document.getElementById('lead-urgency').value,
+      Care_Type: document.getElementById('lead-care-type').value,
+      Source: document.getElementById('lead-source').value,
+      Notes: document.getElementById('lead-notes').value,
+      Status: 'New'
     };
 
     try {
-      await fetch(LEAD_WEBHOOK, {
+      const response = await fetch(LEAD_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'no-cors'
+        body: JSON.stringify(payload)
       });
-    } catch(e) {}
+      console.log('Lead webhook response:', response.status);
+    } catch(e) {
+      console.log('Lead webhook error:', e);
+      try {
+        await fetch(LEAD_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          mode: 'no-cors'
+        });
+      } catch(e2) {
+        console.log('Fallback error:', e2);
+      }
+    }
 
     showSuccess('lead-capture', firstName + ' ' + lastName);
   }
