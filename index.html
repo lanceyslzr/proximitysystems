@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proximity Systems — Within Reach</title>
+<title>Proximity Care Systems — Within Reach</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,14 +15,11 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; cursor: none; }
 
-  /* CURSOR — fixed, no mix-blend-mode */
   .cursor { width: 8px; height: 8px; background: var(--teal-dark); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease; }
   .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--teal); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; opacity: 0.6; transition: transform 0.15s ease, opacity 0.15s ease; }
 
-  /* NOISE */
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
 
-  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 24px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
   nav.scrolled { background: rgba(246,243,238,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 64px; }
   .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 4px; color: var(--dark); text-decoration: none; text-transform: uppercase; }
@@ -36,7 +33,6 @@
   .nav-cta::after { display: none !important; }
   .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; }
 
-  /* HERO */
   #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 64px; position: relative; overflow: hidden; gap: 80px; }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
@@ -65,18 +61,16 @@
   .notif-title { font-size: 11px; color: #fff; font-weight: 500; margin-bottom: 3px; }
   .notif-desc { font-size: 10px; color: rgba(255,255,255,0.35); line-height: 1.4; }
   .notif-time { font-size: 9px; color: rgba(255,255,255,0.2); margin-top: 4px; }
-  .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.06); border-top: 1px solid rgba(255,255,255,0.06); }
-  .hero-stat { padding: 16px 20px; background: var(--dark); text-align: center; }
-  .hero-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--teal); font-weight: 300; }
-  .hero-stat-label { font-size: 8px; color: rgba(255,255,255,0.25); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.06); border-top: 1px solid rgba(255,255,255,0.06); }
+  .hero-stat { padding: 16px 12px; background: var(--dark); text-align: center; }
+  .hero-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--teal); font-weight: 300; }
+  .hero-stat-label { font-size: 7px; color: rgba(255,255,255,0.25); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
 
-  /* TRUST BAR */
   .trust-bar { background: var(--dark); padding: 20px 64px; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; }
   .trust-item { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3); text-transform: uppercase; }
   .trust-item::before { content: '·'; color: var(--teal); font-size: 20px; }
   .trust-item:first-child::before { display: none; }
 
-  /* SECTIONS */
   .section-wrap { padding: 140px 64px; max-width: 100%; }
   .section-wrap .inner { max-width: 1200px; margin: 0 auto; }
   #problem { background: var(--dark2); }
@@ -91,7 +85,6 @@
   .s-title.light { color: #fff; } .s-title.dark { color: var(--dark); }
   .s-title em { font-style: italic; color: var(--teal); }
 
-  /* PROBLEM */
   .problem-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .problem-items { display: flex; flex-direction: column; gap: 2px; }
   .prob-item { padding: 24px 28px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
@@ -108,7 +101,6 @@
   .problem-quote p { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(255,255,255,0.6); line-height: 1.5; }
   .problem-quote strong { color: #fff; font-style: normal; }
 
-  /* SOLUTION */
   .solution-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
   .solution-intro { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; color: var(--muted); line-height: 1.4; margin-bottom: 40px; }
   .auto-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
@@ -134,7 +126,6 @@
   .f-name { font-size: 11px; color: #fff; margin-bottom: 4px; font-weight: 500; }
   .f-desc { font-size: 10px; color: rgba(255,255,255,0.3); line-height: 1.5; }
 
-  /* PACKAGE */
   .package-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 64px; }
   .package-intro-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--muted); line-height: 1.6; }
   .package-intro-text strong { color: var(--dark); font-style: normal; }
@@ -151,7 +142,6 @@
   .sys-card.wide { grid-column: span 2; }
   .sys-card.full { grid-column: span 4; }
 
-  /* CODE MOCKUP VISUALS */
   .mockup-window { background: var(--dark); border-radius: 5px; overflow: hidden; margin-top: 14px; }
   .mockup-bar { padding: 7px 12px; background: #0a0e10; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .mockup-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -178,7 +168,6 @@
   .mockup-invoice-total { display: flex; justify-content: space-between; font-size: 9px; font-weight: 500; color: var(--dark); border-top: 1px solid #eee; margin-top: 5px; padding-top: 5px; }
   .mockup-invoice-sent { display: inline-block; background: rgba(90,138,106,0.1); color: var(--green); font-size: 7px; padding: 2px 8px; border-radius: 100px; border: 1px solid rgba(90,138,106,0.2); margin-top: 6px; }
 
-  /* WEBSITE MOCKUP */
   .website-mockup { background: #fff; border-radius: 4px; overflow: hidden; border: 1px solid var(--border); margin-top: 14px; }
   .wm-browser { background: #f0ece6; padding: 6px 10px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid var(--border); }
   .wm-dots { display: flex; gap: 4px; }
@@ -198,7 +187,6 @@
   .wm-card-title { font-size: 7px; color: #1a2738; font-weight: 500; margin-bottom: 2px; }
   .wm-card-body { font-size: 6px; color: #888; line-height: 1.4; }
 
-  /* TESTIMONIAL */
   .testimonial-bar { background: var(--teal-dark); padding: 64px; }
   .testimonial-bar .inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
   .testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px,3vw,36px); font-style: italic; color: #fff; line-height: 1.4; font-weight: 300; }
@@ -206,7 +194,6 @@
   .testimonial-attr strong { color: rgba(255,255,255,0.8); font-weight: 500; }
   .testimonial-stars { font-size: 20px; letter-spacing: 2px; color: #f0c040; }
 
-  /* PROOF + PRICING — 3 TIERS */
   .proof-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .proof-story { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 2; margin-bottom: 40px; }
   .proof-story strong { color: #fff; font-weight: 500; }
@@ -216,12 +203,18 @@
   .ba.after { background: rgba(90,138,106,0.08); border: 1px solid rgba(90,138,106,0.2); }
   .ba-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
   .ba.before .ba-tag { color: rgba(192,80,80,0.7); } .ba.after .ba-tag { color: var(--green); }
-  .ba-list { font-size: 11px; line-height: 2; }
-  .ba.before .ba-list { color: rgba(255,255,255,0.3); } .ba.after .ba-list { color: rgba(255,255,255,0.6); }
-  .proof-closer { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(255,255,255,0.5); line-height: 1.5; border-left: 2px solid var(--teal); padding-left: 24px; }
+  .ba-list { font-size: 11px; line-height: 2.4; }
+  .ba.before .ba-list { color: rgba(255,255,255,0.55); }
+  .ba.after .ba-list { color: rgba(255,255,255,0.75); }
+  .proof-closer { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(255,255,255,0.5); line-height: 1.5; border-left: 2px solid var(--teal); padding-left: 24px; margin-bottom: 40px; }
   .proof-closer strong { color: #fff; font-style: normal; }
 
-  /* OFFER TIERS */
+  /* PROOF STATS — NEW */
+  .proof-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+  .proof-stat { padding: 24px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); }
+  .ps-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--teal); display: block; line-height: 1; margin-bottom: 6px; }
+  .ps-lbl { font-size: 9px; letter-spacing: 1px; color: rgba(255,255,255,0.3); text-transform: uppercase; line-height: 1.5; display: block; }
+
   .offer-stack { display: flex; flex-direction: column; gap: 10px; }
   .offer-card { border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); transition: border-color 0.2s; }
   .offer-card:hover { border-color: rgba(106,158,170,0.3); }
@@ -249,7 +242,6 @@
   .urgency-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; color: rgba(255,200,100,0.7); letter-spacing: 1px; margin-bottom: 16px; }
   .urgency-tag::before { content: '⚡'; font-size: 12px; }
 
-  /* BUTTONS */
   .btn-primary { display: inline-block; background: var(--dark); color: #fff; padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; border: 1px solid var(--dark); }
   .btn-primary:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
   .btn-primary.light { background: #fff; color: var(--dark); border-color: #fff; }
@@ -258,7 +250,6 @@
   .btn-secondary { display: inline-block; border: 1px solid var(--border); color: var(--muted); padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
   .btn-secondary:hover { border-color: var(--dark); color: var(--dark); }
 
-  /* CTA */
   #cta { background: var(--bg); padding: 160px 64px; text-align: center; }
   #cta .inner { max-width: 800px; margin: 0 auto; }
   .cta-pre { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 32px; }
@@ -268,7 +259,6 @@
   .cta-sub strong { color: var(--text); font-weight: 500; }
   .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-  /* FOOTER */
   footer { background: var(--dark); }
   .footer-top { padding: 64px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #fff; letter-spacing: 4px; font-weight: 300; margin-bottom: 16px; }
@@ -290,10 +280,8 @@
   .footer-bottom { padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   .footer-copy { font-size: 10px; color: rgba(255,255,255,0.15); letter-spacing: 1px; }
 
-  /* MOBILE */
   .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); z-index: 90; padding: 16px 24px; }
 
-  /* REVEAL */
   @keyframes fadeUp { from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);} }
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -309,6 +297,7 @@
     .systems-grid { grid-template-columns: repeat(2,1fr); }
     .sys-card.wide { grid-column: span 2; }
     .ba-grid { grid-template-columns: 1fr; }
+    .proof-stats { grid-template-columns: 1fr 1fr; }
     .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
     .footer-bottom { padding: 20px 24px; flex-direction: column; text-align: center; }
     .trust-bar { padding: 20px 24px; gap: 24px; }
@@ -327,7 +316,7 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav id="nav">
-  <a href="#hero" class="nav-brand">PROXIMITY <em>Systems</em></a>
+  <a href="#hero" class="nav-brand">PROXIMITY <em>Care Systems</em></a>
   <ul class="nav-links">
     <li><a href="#problem">The Problem</a></li>
     <li><a href="#solution">The Solution</a></li>
@@ -364,9 +353,10 @@
         <div class="notification"><div class="notif-icon blue">💬</div><div><div class="notif-title">WhatsApp — Auto-replied to 3 families</div><div class="notif-desc">Questions answered · No action needed</div><div class="notif-time">3 hrs ago</div></div></div>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-val">8</div><div class="hero-stat-label">Systems Live</div></div>
-        <div class="hero-stat"><div class="hero-stat-val">24/7</div><div class="hero-stat-label">Always On</div></div>
-        <div class="hero-stat"><div class="hero-stat-val">0</div><div class="hero-stat-label">Manual Work</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Leads Captured</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Invoices Sent</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">15+</div><div class="hero-stat-label">Hrs Saved/Mo</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">$0</div><div class="hero-stat-label">Admin Staff</div></div>
       </div>
     </div>
   </div>
@@ -376,7 +366,7 @@
   <div class="trust-item">Built in Canada</div>
   <div class="trust-item">Serving Ontario</div>
   <div class="trust-item">Expanding to Philippines</div>
-  <div class="trust-item">Tested on a Real Home Care Business</div>
+  <div class="trust-item">Live on Proximity Care Services — Mississauga</div>
   <div class="trust-item">100% Remote Setup</div>
 </div>
 
@@ -538,8 +528,8 @@
       </div>
       <div class="sys-card wide">
         <div class="sys-num">07</div>
-        <div class="sys-name">AI Intake Chatbot</div>
-        <div class="sys-desc">Your website qualifies leads, answers questions and books discovery calls while you sleep. The system never stops working — even when you do.</div>
+        <div class="sys-name">Automated Intake Assistant</div>
+        <div class="sys-desc">Trained on your company — services, pricing, coverage area. Qualifies leads, answers questions, and books discovery calls while you sleep. The system never stops working — even when you do.</div>
         <div class="mockup-window">
           <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Website Chatbot · Live</div></div>
           <div class="mockup-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
@@ -602,17 +592,39 @@
       <div class="reveal">
         <p class="proof-story"><strong>We didn't build this to sell it. We built it because we needed it.</strong><br><br>Our business. Our problem. Our solution.<br>Proximity Care Services — Mississauga, Ontario.</p>
         <div class="ba-grid">
-          <div class="ba before"><div class="ba-tag">Before</div><div class="ba-list">Missed leads.<br>Manual timesheets.<br>Invoices in Excel.<br>Midnight client calls.<br>Website that lost leads.</div></div>
-          <div class="ba after"><div class="ba-tag">After</div><div class="ba-list">Everything automated.<br>Nothing missed.<br>Zero manual work.<br>Business runs itself.<br>Website converts 24/7.</div></div>
+          <div class="ba before">
+            <div class="ba-tag">Before</div>
+            <div class="ba-list">
+              ❌ &nbsp;Missed leads.<br>
+              ❌ &nbsp;Manual timesheets.<br>
+              ❌ &nbsp;Invoices in Excel.<br>
+              ❌ &nbsp;Midnight client calls.<br>
+              ❌ &nbsp;Website that lost leads.
+            </div>
+          </div>
+          <div class="ba after">
+            <div class="ba-tag">After</div>
+            <div class="ba-list">
+              ✅ &nbsp;Everything automated.<br>
+              ✅ &nbsp;Nothing missed.<br>
+              ✅ &nbsp;Zero manual work.<br>
+              ✅ &nbsp;Business runs itself.<br>
+              ✅ &nbsp;Website converts 24/7.
+            </div>
+          </div>
         </div>
         <div class="proof-closer">Same system. Your business.<br><strong>Built from scratch. Handed to you running.</strong></div>
+        <div class="proof-stats">
+          <div class="proof-stat"><span class="ps-num">100+</span><span class="ps-lbl">Leads captured automatically</span></div>
+          <div class="proof-stat"><span class="ps-num">100+</span><span class="ps-lbl">Invoices auto-sent monthly</span></div>
+          <div class="proof-stat"><span class="ps-num">15+</span><span class="ps-lbl">Hours saved every month</span></div>
+          <div class="proof-stat"><span class="ps-num">$0</span><span class="ps-lbl">Admin staff needed</span></div>
+        </div>
       </div>
 
       <div class="reveal reveal-delay-2">
         <div class="urgency-tag">Currently accepting 3 new clients this month</div>
         <div class="offer-stack">
-
-          <!-- TIER 1 -->
           <div class="offer-card">
             <div class="offer-head">
               <div>
@@ -637,8 +649,6 @@
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta outline">Book a Call →</a>
             </div>
           </div>
-
-          <!-- TIER 2 FEATURED -->
           <div class="offer-card featured">
             <div class="offer-head">
               <div>
@@ -662,8 +672,6 @@
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta solid">Book a Call →</a>
             </div>
           </div>
-
-          <!-- TIER 3 -->
           <div class="offer-card">
             <div class="offer-head">
               <div>
@@ -685,7 +693,6 @@
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta outline">Book a Call →</a>
             </div>
           </div>
-
         </div>
         <div class="offer-note">Most operators recover the full setup cost within <strong style="color:rgba(255,255,255,0.4)">60 days</strong> from admin hours saved alone.</div>
       </div>
@@ -697,10 +704,10 @@
 <div id="cta">
   <div class="inner">
     <div class="cta-pre reveal">Within Reach</div>
-    <h2 class="cta-title reveal">The only question is —<br><em>how much longer are you going to do it manually?</em></h2>
-    <p class="cta-sub reveal">Book a free 30-minute call. We'll map out exactly what we'd build for your business — <strong>no pressure, no obligation.</strong> Just clarity.</p>
+    <h2 class="cta-title reveal">Are you ready to stop running<br>your agency <em>manually?</em></h2>
+    <p class="cta-sub reveal">Book a free 20-minute call. We'll show you exactly what we'd build for your business — <strong>no pressure, no obligation.</strong> Just clarity.</p>
     <div class="cta-btns reveal">
-      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="btn-primary">Book Your Free Discovery Call</a>
+      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="btn-primary">Yes — Show Me How It Works</a>
       <a href="mailto:lancesalazar56@gmail.com" class="btn-secondary">Email Us Directly</a>
     </div>
   </div>
@@ -710,7 +717,7 @@
 <footer>
   <div class="footer-top">
     <div class="footer-brand-block">
-      <div class="footer-brand">PROXIMITY <em>Systems</em></div>
+      <div class="footer-brand">PROXIMITY <em>Care Systems</em></div>
       <div class="footer-tagline">Within Reach.</div>
       <ul class="footer-contact-list">
         <li><a href="mailto:lancesalazar56@gmail.com">lancesalazar56@gmail.com</a></li>
@@ -737,7 +744,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Proximity Systems. All rights reserved.</div>
+    <div class="footer-copy">© 2026 Proximity Care Systems. All rights reserved.</div>
     <div class="footer-copy">Built and tested on Proximity Care Services Inc.</div>
   </div>
 </footer>
@@ -747,46 +754,18 @@
 </div>
 
 <script>
-  // CURSOR — clean, no Cloudflare interference
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-
-  (function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = (rx - 18) + 'px';
-    ring.style.top = (ry - 18) + 'px';
-    requestAnimationFrame(animateRing);
-  })();
-
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+  (function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = (rx - 18) + 'px'; ring.style.top = (ry - 18) + 'px'; requestAnimationFrame(animateRing); })();
   document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
-      ring.style.transform = 'scale(1.4)';
-      ring.style.opacity = '0.3';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-      ring.style.transform = 'scale(1)';
-      ring.style.opacity = '0.6';
-    });
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.transform = 'scale(1.4)'; ring.style.opacity = '0.3'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.6'; });
   });
-
-  // NAV SCROLL
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
-
-  // REVEAL
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
