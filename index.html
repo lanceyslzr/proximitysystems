@@ -14,12 +14,9 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; cursor: none; }
-
   .cursor { width: 8px; height: 8px; background: var(--teal-dark); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease; }
   .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--teal); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; opacity: 0.6; transition: transform 0.15s ease, opacity 0.15s ease; }
-
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
-
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 24px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
   nav.scrolled { background: rgba(246,243,238,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 64px; }
   .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 4px; color: var(--dark); text-decoration: none; text-transform: uppercase; }
@@ -32,7 +29,6 @@
   .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; border-radius: 2px; font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
   .nav-cta::after { display: none !important; }
   .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; }
-
   #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 64px; position: relative; overflow: hidden; gap: 80px; }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
@@ -65,26 +61,22 @@
   .hero-stat { padding: 16px 12px; background: var(--dark); text-align: center; }
   .hero-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--teal); font-weight: 300; }
   .hero-stat-label { font-size: 7px; color: rgba(255,255,255,0.25); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
-
   .trust-bar { background: var(--dark); padding: 20px 64px; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; }
   .trust-item { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3); text-transform: uppercase; }
   .trust-item::before { content: '·'; color: var(--teal); font-size: 20px; }
   .trust-item:first-child::before { display: none; }
-
   .section-wrap { padding: 140px 64px; max-width: 100%; }
   .section-wrap .inner { max-width: 1200px; margin: 0 auto; }
   #problem { background: var(--dark2); }
   #solution { background: var(--cream); }
   #package { background: var(--bg); }
   #proof { background: var(--dark); }
-
   .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .eyebrow-line { width: 40px; height: 1px; background: var(--teal); }
   .eyebrow-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; }
   .s-title.light { color: #fff; } .s-title.dark { color: var(--dark); }
   .s-title em { font-style: italic; color: var(--teal); }
-
   .problem-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .problem-items { display: flex; flex-direction: column; gap: 2px; }
   .prob-item { padding: 24px 28px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
@@ -100,7 +92,6 @@
   .problem-quote { border-left: 2px solid var(--teal); padding: 24px 28px; margin-top: 40px; }
   .problem-quote p { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(255,255,255,0.6); line-height: 1.5; }
   .problem-quote strong { color: #fff; font-style: normal; }
-
   .solution-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
   .solution-intro { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; color: var(--muted); line-height: 1.4; margin-bottom: 40px; }
   .auto-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
@@ -125,7 +116,6 @@
   .f-num.done { background: rgba(90,138,106,0.15); border: 1px solid var(--green); color: var(--green); }
   .f-name { font-size: 11px; color: #fff; margin-bottom: 4px; font-weight: 500; }
   .f-desc { font-size: 10px; color: rgba(255,255,255,0.3); line-height: 1.5; }
-
   .package-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 64px; }
   .package-intro-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--muted); line-height: 1.6; }
   .package-intro-text strong { color: var(--dark); font-style: normal; }
@@ -141,7 +131,6 @@
   .sys-desc { font-size: 10px; color: var(--muted); line-height: 1.8; }
   .sys-card.wide { grid-column: span 2; }
   .sys-card.full { grid-column: span 4; }
-
   .mockup-window { background: var(--dark); border-radius: 5px; overflow: hidden; margin-top: 14px; }
   .mockup-bar { padding: 7px 12px; background: #0a0e10; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .mockup-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -167,7 +156,6 @@
   .mockup-invoice-row { display: flex; justify-content: space-between; font-size: 8px; color: #666; padding: 3px 0; }
   .mockup-invoice-total { display: flex; justify-content: space-between; font-size: 9px; font-weight: 500; color: var(--dark); border-top: 1px solid #eee; margin-top: 5px; padding-top: 5px; }
   .mockup-invoice-sent { display: inline-block; background: rgba(90,138,106,0.1); color: var(--green); font-size: 7px; padding: 2px 8px; border-radius: 100px; border: 1px solid rgba(90,138,106,0.2); margin-top: 6px; }
-
   .website-mockup { background: #fff; border-radius: 4px; overflow: hidden; border: 1px solid var(--border); margin-top: 14px; }
   .wm-browser { background: #f0ece6; padding: 6px 10px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid var(--border); }
   .wm-dots { display: flex; gap: 4px; }
@@ -186,14 +174,12 @@
   .wm-card { background: #f8f6f2; border: 1px solid #e2dbd0; padding: 7px; border-radius: 2px; }
   .wm-card-title { font-size: 7px; color: #1a2738; font-weight: 500; margin-bottom: 2px; }
   .wm-card-body { font-size: 6px; color: #888; line-height: 1.4; }
-
   .testimonial-bar { background: var(--teal-dark); padding: 64px; }
   .testimonial-bar .inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
   .testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px,3vw,36px); font-style: italic; color: #fff; line-height: 1.4; font-weight: 300; }
   .testimonial-attr { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 20px; letter-spacing: 1px; }
   .testimonial-attr strong { color: rgba(255,255,255,0.8); font-weight: 500; }
   .testimonial-stars { font-size: 20px; letter-spacing: 2px; color: #f0c040; }
-
   .proof-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .proof-story { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 2; margin-bottom: 40px; }
   .proof-story strong { color: #fff; font-weight: 500; }
@@ -208,13 +194,10 @@
   .ba.after .ba-list { color: rgba(255,255,255,0.75); }
   .proof-closer { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(255,255,255,0.5); line-height: 1.5; border-left: 2px solid var(--teal); padding-left: 24px; margin-bottom: 40px; }
   .proof-closer strong { color: #fff; font-style: normal; }
-
-  /* PROOF STATS — NEW */
   .proof-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; margin-top: 8px; }
   .proof-stat { padding: 24px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); }
   .ps-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--teal); display: block; line-height: 1; margin-bottom: 6px; }
   .ps-lbl { font-size: 9px; letter-spacing: 1px; color: rgba(255,255,255,0.3); text-transform: uppercase; line-height: 1.5; display: block; }
-
   .offer-stack { display: flex; flex-direction: column; gap: 10px; }
   .offer-card { border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); transition: border-color 0.2s; }
   .offer-card:hover { border-color: rgba(106,158,170,0.3); }
@@ -241,15 +224,13 @@
   .offer-note { font-size: 9px; color: rgba(255,255,255,0.2); text-align: center; margin-top: 14px; line-height: 1.7; }
   .urgency-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; color: rgba(255,200,100,0.7); letter-spacing: 1px; margin-bottom: 16px; }
   .urgency-tag::before { content: '⚡'; font-size: 12px; }
-
   .btn-primary { display: inline-block; background: var(--dark); color: #fff; padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; border: 1px solid var(--dark); }
   .btn-primary:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
   .btn-primary.light { background: #fff; color: var(--dark); border-color: #fff; }
   .btn-primary.light:hover { background: var(--teal-light); border-color: var(--teal-light); }
-  .btn-primary.full { display: block; text-align: center; }
+  .btn-primary.full { display: block; text-align: center; white-space: nowrap; }
   .btn-secondary { display: inline-block; border: 1px solid var(--border); color: var(--muted); padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
   .btn-secondary:hover { border-color: var(--dark); color: var(--dark); }
-
   #cta { background: var(--bg); padding: 160px 64px; text-align: center; }
   #cta .inner { max-width: 800px; margin: 0 auto; }
   .cta-pre { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 32px; }
@@ -258,7 +239,6 @@
   .cta-sub { font-size: 12px; color: var(--muted); line-height: 2; margin-bottom: 56px; max-width: 500px; margin-left: auto; margin-right: auto; }
   .cta-sub strong { color: var(--text); font-weight: 500; }
   .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
   footer { background: var(--dark); }
   .footer-top { padding: 64px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #fff; letter-spacing: 4px; font-weight: 300; margin-bottom: 16px; }
@@ -279,9 +259,7 @@
   .market-status { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
   .footer-bottom { padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   .footer-copy { font-size: 10px; color: rgba(255,255,255,0.15); letter-spacing: 1px; }
-
   .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); z-index: 90; padding: 16px 24px; }
-
   @keyframes fadeUp { from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);} }
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -294,8 +272,11 @@
     .hero-bg-text { display: none; }
     .problem-cols,.solution-cols,.proof-cols { grid-template-columns: 1fr; gap: 48px; }
     .package-header { grid-template-columns: 1fr; gap: 24px; }
-    .systems-grid { grid-template-columns: repeat(2,1fr); }
-    .sys-card.wide { grid-column: span 2; }
+    .systems-grid { grid-template-columns: 1fr; }
+    .sys-card.wide { grid-column: span 1; }
+    .sys-card.full { grid-column: span 1; }
+    .sys-card { padding: 24px 20px; }
+    .sys-card.addon > div { grid-template-columns: 1fr; gap: 24px; }
     .ba-grid { grid-template-columns: 1fr; }
     .proof-stats { grid-template-columns: 1fr 1fr; }
     .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
@@ -329,10 +310,7 @@
 <div id="hero">
   <div class="hero-bg-text">PS</div>
   <div class="hero-left">
-    <div class="hero-eyebrow">
-      <div class="eyebrow-dot"></div>
-      <div class="eyebrow-text">Currently accepting new clients</div>
-    </div>
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Currently accepting new clients</div></div>
     <h1 class="hero-title">Your Home Care Business.<em>On Autopilot.</em></h1>
     <p class="hero-sub">We build <strong>done-for-you AI automation systems</strong> for home care operators in <strong>Canada and the Philippines.</strong> No tech skills needed. Just results.</p>
     <div class="hero-btns">
@@ -370,7 +348,6 @@
   <div class="trust-item">100% Remote Setup</div>
 </div>
 
-<!-- PROBLEM -->
 <div id="problem" class="section-wrap">
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#c05050"></div><div class="eyebrow-tag" style="color:#c05050">The Problem</div></div>
@@ -388,15 +365,12 @@
           <div class="big-stat-num">15+</div>
           <div class="big-stat-label">Hours wasted every month on admin work that <strong>should run itself.</strong></div>
         </div>
-        <div class="problem-quote">
-          <p>While you're doing all of this manually — <strong>your competitors are automating it.</strong></p>
-        </div>
+        <div class="problem-quote"><p>While you're doing all of this manually — <strong>your competitors are automating it.</strong></p></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SOLUTION -->
 <div id="solution" class="section-wrap">
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:var(--teal-dark)"></div><div class="eyebrow-tag" style="color:var(--teal-dark)">The Solution</div></div>
@@ -430,7 +404,6 @@
   </div>
 </div>
 
-<!-- PACKAGE -->
 <div id="package" class="section-wrap">
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:var(--teal-dark)"></div><div class="eyebrow-tag" style="color:var(--teal-dark)">The Package</div></div>
@@ -440,103 +413,39 @@
     </div>
     <div class="systems-grid reveal">
       <div class="sys-card">
-        <div class="sys-num">01</div>
-        <div class="sys-name">PSW Timesheet System</div>
+        <div class="sys-num">01</div><div class="sys-name">PSW Timesheet System</div>
         <div class="sys-desc">PSWs log visits from their phone. Hours auto-calculate. No paper. No spreadsheets. Ever.</div>
-        <div class="mockup-window">
-          <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">PSW Visit Log</div></div>
-          <div class="mockup-body">
-            <div class="mockup-row active"><div class="mockup-text">Sarah K. · 8hrs · Client: M. Thompson</div><div class="mockup-pill auto">Logged</div></div>
-            <div class="mockup-row"><div class="mockup-text">James R. · 4hrs · Client: B. Chen</div><div class="mockup-pill auto">Logged</div></div>
-            <div class="mockup-row"><div class="mockup-text">Total hours: 12 · Auto-calculated</div><div class="mockup-pill live">Live</div></div>
-          </div>
-        </div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">PSW Visit Log</div></div><div class="mockup-body"><div class="mockup-row active"><div class="mockup-text">Sarah K. · 8hrs · Client: M. Thompson</div><div class="mockup-pill auto">Logged</div></div><div class="mockup-row"><div class="mockup-text">James R. · 4hrs · Client: B. Chen</div><div class="mockup-pill auto">Logged</div></div><div class="mockup-row"><div class="mockup-text">Total hours: 12 · Auto-calculated</div><div class="mockup-pill live">Live</div></div></div></div>
       </div>
       <div class="sys-card">
-        <div class="sys-num">02</div>
-        <div class="sys-name">Auto-Calculating Billing</div>
+        <div class="sys-num">02</div><div class="sys-name">Auto-Calculating Billing</div>
         <div class="sys-desc">Hours matched automatically to care plan rates. Always accurate. Never manual.</div>
-        <div class="mockup-invoice">
-          <div class="mockup-invoice-header">
-            <div class="mockup-invoice-brand">Proximity Care</div>
-            <div class="mockup-invoice-meta">INV-2026-041<br>Auto-generated</div>
-          </div>
-          <div class="mockup-invoice-row"><span>Standard Care · 40hrs</span><span>$1,600.00</span></div>
-          <div class="mockup-invoice-row"><span>Medication support · 4hrs</span><span>$120.00</span></div>
-          <div class="mockup-invoice-total"><span>Total Due</span><span>$1,720.00</span></div>
-          <div class="mockup-invoice-sent">✓ Sent automatically</div>
-        </div>
+        <div class="mockup-invoice"><div class="mockup-invoice-header"><div class="mockup-invoice-brand">Proximity Care</div><div class="mockup-invoice-meta">INV-2026-041<br>Auto-generated</div></div><div class="mockup-invoice-row"><span>Standard Care · 40hrs</span><span>$1,600.00</span></div><div class="mockup-invoice-row"><span>Medication support · 4hrs</span><span>$120.00</span></div><div class="mockup-invoice-total"><span>Total Due</span><span>$1,720.00</span></div><div class="mockup-invoice-sent">✓ Sent automatically</div></div>
       </div>
       <div class="sys-card">
-        <div class="sys-num">03</div>
-        <div class="sys-name">Instant Lead Notifications</div>
+        <div class="sys-num">03</div><div class="sys-name">Instant Lead Notifications</div>
         <div class="sys-desc">Full client details hit your phone the second they inquire.</div>
-        <div class="mockup-window">
-          <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">New Lead Alert</div></div>
-          <div class="mockup-body">
-            <div class="mockup-notif">
-              <div class="mockup-notif-title">🔔 New Lead — Maria Santos</div>
-              <div class="mockup-notif-body">Mississauga · Standard Care · Starts ASAP<br>📞 647-555-0183 · Son is primary contact</div>
-              <div class="mockup-notif-time">Just now · Auto-captured</div>
-            </div>
-          </div>
-        </div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">New Lead Alert</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">🔔 New Lead — Maria Santos</div><div class="mockup-notif-body">Mississauga · Standard Care · Starts ASAP<br>📞 647-555-0183 · Son is primary contact</div><div class="mockup-notif-time">Just now · Auto-captured</div></div></div></div>
       </div>
       <div class="sys-card">
-        <div class="sys-num">04</div>
-        <div class="sys-name">Monthly Invoice Automation</div>
+        <div class="sys-num">04</div><div class="sys-name">Monthly Invoice Automation</div>
         <div class="sys-desc">Generated and sent to every client at end of month. Zero work from you.</div>
-        <div class="mockup-window">
-          <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Invoice Run · Apr 2026</div></div>
-          <div class="mockup-body">
-            <div class="mockup-row active"><div class="mockup-text">Thompson Family · $1,720</div><div class="mockup-pill auto">Sent</div></div>
-            <div class="mockup-row active"><div class="mockup-text">Chen Family · $800</div><div class="mockup-pill auto">Sent</div></div>
-            <div class="mockup-row active"><div class="mockup-text">Nguyen Family · $3,000</div><div class="mockup-pill auto">Sent</div></div>
-            <div class="mockup-row"><div class="mockup-text">12 invoices · $0 manual work</div><div class="mockup-pill live">Done</div></div>
-          </div>
-        </div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Invoice Run · Apr 2026</div></div><div class="mockup-body"><div class="mockup-row active"><div class="mockup-text">Thompson Family · $1,720</div><div class="mockup-pill auto">Sent</div></div><div class="mockup-row active"><div class="mockup-text">Chen Family · $800</div><div class="mockup-pill auto">Sent</div></div><div class="mockup-row active"><div class="mockup-text">Nguyen Family · $3,000</div><div class="mockup-pill auto">Sent</div></div><div class="mockup-row"><div class="mockup-text">12 invoices · $0 manual work</div><div class="mockup-pill live">Done</div></div></div></div>
       </div>
       <div class="sys-card">
-        <div class="sys-num">05</div>
-        <div class="sys-name">AI-Written Care Summaries</div>
+        <div class="sys-num">05</div><div class="sys-name">AI-Written Care Summaries</div>
         <div class="sys-desc">Families receive professional updates about their loved one. Builds trust on autopilot.</div>
-        <div class="mockup-window">
-          <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Care Summary · Sent</div></div>
-          <div class="mockup-body">
-            <div class="mockup-notif">
-              <div class="mockup-notif-title">Weekly Update — Margaret T.</div>
-              <div class="mockup-notif-body">Margaret had a great week. She completed all morning routines and enjoyed her daily walk. Appetite improved. PSW Sarah notes she seemed in high spirits.</div>
-              <div class="mockup-notif-time">Auto-written & sent · Sunday 8am</div>
-            </div>
-          </div>
-        </div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Care Summary · Sent</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Weekly Update — Margaret T.</div><div class="mockup-notif-body">Margaret had a great week. She completed all morning routines and enjoyed her daily walk. Appetite improved. PSW Sarah notes she seemed in high spirits.</div><div class="mockup-notif-time">Auto-written & sent · Sunday 8am</div></div></div></div>
       </div>
       <div class="sys-card">
-        <div class="sys-num">06</div>
-        <div class="sys-name">24/7 WhatsApp Automation</div>
+        <div class="sys-num">06</div><div class="sys-name">24/7 WhatsApp Automation</div>
         <div class="sys-desc">Client questions answered automatically around the clock. Even at midnight.</div>
-        <div class="mockup-window">
-          <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">WhatsApp · 11:47pm</div></div>
-          <div class="mockup-body">
-            <div class="mockup-notif">
-              <div class="mockup-notif-title">Family: "What are your rates?"</div>
-              <div class="mockup-notif-body">Bot: "Our plans start at $800/month for 20hrs. Would you like to book a free assessment?"</div>
-              <div class="mockup-notif-time">Replied in 3 seconds · You were asleep</div>
-            </div>
-          </div>
-        </div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">WhatsApp · 11:47pm</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Family: "What are your rates?"</div><div class="mockup-notif-body">Bot: "Our plans start at $800/month for 20hrs. Would you like to book a free assessment?"</div><div class="mockup-notif-time">Replied in 3 seconds · You were asleep</div></div></div></div>
       </div>
       <div class="sys-card wide">
-        <div class="sys-num">07</div>
-        <div class="sys-name">Automated Intake Assistant</div>
+        <div class="sys-num">07</div><div class="sys-name">Automated Intake Assistant</div>
         <div class="sys-desc">Trained on your company — services, pricing, coverage area. Qualifies leads, answers questions, and books discovery calls while you sleep. The system never stops working — even when you do.</div>
-        <div class="mockup-window">
-          <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Website Chatbot · Live</div></div>
-          <div class="mockup-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="mockup-notif"><div class="mockup-notif-title">Visitor: "Do you serve Brampton?"</div><div class="mockup-notif-body">Bot: "Yes! We cover Brampton, Mississauga, and Caledon. What level of care does your loved one need?"</div></div>
-            <div class="mockup-notif"><div class="mockup-notif-title">Bot: "Great — I've booked a free assessment for you on Wednesday at 10am."</div><div class="mockup-notif-body">Calendly booking confirmed · Lead captured · Lance notified</div><div class="mockup-notif-time">2:34am · You were asleep</div></div>
-          </div>
-        </div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Website Chatbot · Live</div></div><div class="mockup-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "Do you serve Brampton?"</div><div class="mockup-notif-body">Bot: "Yes! We cover Brampton, Mississauga, and Caledon. What level of care does your loved one need?"</div></div><div class="mockup-notif"><div class="mockup-notif-title">Bot: "Great — I've booked a free assessment for you on Wednesday at 10am."</div><div class="mockup-notif-body">Calendly booking confirmed · Lead captured · Lance notified</div><div class="mockup-notif-time">2:34am · You were asleep</div></div></div></div>
       </div>
       <div class="sys-card full addon">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
@@ -546,25 +455,7 @@
             <div class="sys-desc">A premium, done-for-you website built specifically for your home care business — connected to your lead capture system from day one. Warm, professional, built to convert families who are searching for care at midnight.<br><br>Live within 7 days. No templates. No DIY.<br><br><em style="color:var(--teal-dark)">We built one for our own agency first. See it live: proximitycares.com</em></div>
           </div>
           <div>
-            <div class="website-mockup">
-              <div class="wm-browser">
-                <div class="wm-dots"><div class="wm-dot r"></div><div class="wm-dot y"></div><div class="wm-dot g"></div></div>
-                <div class="wm-url">proximitycares.com</div>
-              </div>
-              <div class="wm-body">
-                <div class="wm-nav"><div class="wm-logo">Proximity Care Services</div><div class="wm-btn">Get Started</div></div>
-                <div class="wm-hero">
-                  <div class="wm-hero-title">Care Your Family Can Actually Trust.</div>
-                  <div class="wm-hero-sub">In-home senior care in Mississauga, Brampton & Caledon. Same PSW every visit. First 6 hours free.</div>
-                  <div class="wm-hero-cta">Book a Free Assessment</div>
-                </div>
-                <div class="wm-cards">
-                  <div class="wm-card"><div class="wm-card-title">Dementia Care</div><div class="wm-card-body">Consistent routines, patient PSWs</div></div>
-                  <div class="wm-card"><div class="wm-card-title">Daily Support</div><div class="wm-card-body">Bathing, meals, medication</div></div>
-                  <div class="wm-card"><div class="wm-card-title">From $800/mo</div><div class="wm-card-body">Flexible monthly plans</div></div>
-                </div>
-              </div>
-            </div>
+            <div class="website-mockup"><div class="wm-browser"><div class="wm-dots"><div class="wm-dot r"></div><div class="wm-dot y"></div><div class="wm-dot g"></div></div><div class="wm-url">proximitycares.com</div></div><div class="wm-body"><div class="wm-nav"><div class="wm-logo">Proximity Care Services</div><div class="wm-btn">Get Started</div></div><div class="wm-hero"><div class="wm-hero-title">Care Your Family Can Actually Trust.</div><div class="wm-hero-sub">In-home senior care in Mississauga, Brampton & Caledon. Same PSW every visit. First 6 hours free.</div><div class="wm-hero-cta">Book a Free Assessment</div></div><div class="wm-cards"><div class="wm-card"><div class="wm-card-title">Dementia Care</div><div class="wm-card-body">Consistent routines, patient PSWs</div></div><div class="wm-card"><div class="wm-card-title">Daily Support</div><div class="wm-card-body">Bathing, meals, medication</div></div><div class="wm-card"><div class="wm-card-title">From $800/mo</div><div class="wm-card-body">Flexible monthly plans</div></div></div></div></div>
           </div>
         </div>
       </div>
@@ -572,7 +463,6 @@
   </div>
 </div>
 
-<!-- TESTIMONIAL -->
 <div class="testimonial-bar">
   <div class="inner">
     <div class="reveal">
@@ -583,7 +473,6 @@
   </div>
 </div>
 
-<!-- PROOF + PRICING -->
 <div id="proof" class="section-wrap">
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Built For Operators</div></div>
@@ -594,23 +483,11 @@
         <div class="ba-grid">
           <div class="ba before">
             <div class="ba-tag">Before</div>
-            <div class="ba-list">
-              ❌ &nbsp;Missed leads.<br>
-              ❌ &nbsp;Manual timesheets.<br>
-              ❌ &nbsp;Invoices in Excel.<br>
-              ❌ &nbsp;Midnight client calls.<br>
-              ❌ &nbsp;Website that lost leads.
-            </div>
+            <div class="ba-list">❌ &nbsp;Missed leads.<br>❌ &nbsp;Manual timesheets.<br>❌ &nbsp;Invoices in Excel.<br>❌ &nbsp;Midnight client calls.<br>❌ &nbsp;Website that lost leads.</div>
           </div>
           <div class="ba after">
             <div class="ba-tag">After</div>
-            <div class="ba-list">
-              ✅ &nbsp;Everything automated.<br>
-              ✅ &nbsp;Nothing missed.<br>
-              ✅ &nbsp;Zero manual work.<br>
-              ✅ &nbsp;Business runs itself.<br>
-              ✅ &nbsp;Website converts 24/7.
-            </div>
+            <div class="ba-list">✅ &nbsp;Everything automated.<br>✅ &nbsp;Nothing missed.<br>✅ &nbsp;Zero manual work.<br>✅ &nbsp;Business runs itself.<br>✅ &nbsp;Website converts 24/7.</div>
           </div>
         </div>
         <div class="proof-closer">Same system. Your business.<br><strong>Built from scratch. Handed to you running.</strong></div>
@@ -621,74 +498,41 @@
           <div class="proof-stat"><span class="ps-num">$0</span><span class="ps-lbl">Admin staff needed</span></div>
         </div>
       </div>
-
       <div class="reveal reveal-delay-2">
         <div class="urgency-tag">Currently accepting 3 new clients this month</div>
         <div class="offer-stack">
           <div class="offer-card">
             <div class="offer-head">
-              <div>
-                <div class="offer-name">Automation Only</div>
-                <div class="offer-tagline">7 systems built, installed, handed to you running.</div>
-              </div>
-              <div class="offer-price">
-                <div class="offer-price-num">$2,000–$2,500</div>
-                <div class="offer-price-retainer">setup · $500/mo retainer</div>
-              </div>
+              <div><div class="offer-name">Automation Only</div><div class="offer-tagline">7 systems built, installed, handed to you running.</div></div>
+              <div class="offer-price"><div class="offer-price-num">$2,000–$2,500</div><div class="offer-price-retainer">setup · $500/mo retainer</div></div>
             </div>
             <div class="offer-body">
               <div class="offer-items">
-                <div class="offer-item">PSW timesheets</div>
-                <div class="offer-item">Auto billing</div>
-                <div class="offer-item">Lead notifications</div>
-                <div class="offer-item">Invoice automation</div>
-                <div class="offer-item">WhatsApp bot</div>
-                <div class="offer-item">AI chatbot</div>
-                <div class="offer-item">Care summaries</div>
+                <div class="offer-item">PSW timesheets</div><div class="offer-item">Auto billing</div><div class="offer-item">Lead notifications</div><div class="offer-item">Invoice automation</div><div class="offer-item">WhatsApp bot</div><div class="offer-item">AI chatbot</div><div class="offer-item">Care summaries</div>
               </div>
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta outline">Book a Call →</a>
             </div>
           </div>
           <div class="offer-card featured">
             <div class="offer-head">
-              <div>
-                <div class="offer-badge">Best Value</div>
-                <div class="offer-name">Automation + Website</div>
-                <div class="offer-tagline">Full system plus a premium conversion website — built, connected, live.</div>
-              </div>
-              <div class="offer-price">
-                <div class="offer-price-num">$2,800–$3,200</div>
-                <div class="offer-price-retainer">setup · $500/mo retainer</div>
-              </div>
+              <div><div class="offer-badge">Best Value</div><div class="offer-name">Automation + Website</div><div class="offer-tagline">Full system plus a premium conversion website — built, connected, live.</div></div>
+              <div class="offer-price"><div class="offer-price-num">$2,800–$3,200</div><div class="offer-price-retainer">setup · $500/mo retainer</div></div>
             </div>
             <div class="offer-body">
               <div class="offer-items">
-                <div class="offer-item">Everything in Automation Only</div>
-                <div class="offer-item gold">Custom conversion website</div>
-                <div class="offer-item gold">Lead form embedded & connected</div>
-                <div class="offer-item gold">Live within 7 days</div>
-                <div class="offer-item gold">Built to convert families searching for care</div>
+                <div class="offer-item">Everything in Automation Only</div><div class="offer-item gold">Custom conversion website</div><div class="offer-item gold">Lead form embedded & connected</div><div class="offer-item gold">Live within 7 days</div><div class="offer-item gold">Built to convert families searching for care</div>
               </div>
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta solid">Book a Call →</a>
             </div>
           </div>
           <div class="offer-card">
             <div class="offer-head">
-              <div>
-                <div class="offer-name">Growth Partner</div>
-                <div class="offer-tagline">We become your ongoing tech partner — maintaining, optimizing, and scaling your system month over month.</div>
-              </div>
-              <div class="offer-price">
-                <div class="offer-price-num">$3,500+</div>
-                <div class="offer-price-retainer">setup · $750/mo retainer</div>
-              </div>
+              <div><div class="offer-name">Growth Partner</div><div class="offer-tagline">We become your ongoing tech partner — maintaining, optimizing, and scaling your system month over month.</div></div>
+              <div class="offer-price"><div class="offer-price-num">$3,500+</div><div class="offer-price-retainer">setup · $750/mo retainer</div></div>
             </div>
             <div class="offer-body">
               <div class="offer-items">
-                <div class="offer-item">Everything in Automation + Website</div>
-                <div class="offer-item">Priority support & direct line to Lance</div>
-                <div class="offer-item">Monthly system updates & optimizations</div>
-                <div class="offer-item">Performance reporting & recommendations</div>
+                <div class="offer-item">Everything in Automation + Website</div><div class="offer-item">Priority support & direct line to Lance</div><div class="offer-item">Monthly system updates & optimizations</div><div class="offer-item">Performance reporting & recommendations</div>
               </div>
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta outline">Book a Call →</a>
             </div>
@@ -700,7 +544,6 @@
   </div>
 </div>
 
-<!-- CTA -->
 <div id="cta">
   <div class="inner">
     <div class="cta-pre reveal">Within Reach</div>
@@ -713,7 +556,6 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand-block">
