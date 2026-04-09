@@ -558,12 +558,16 @@ async function sendMessage(text) {
       })
     });
 
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}));
-      throw new Error(err.error?.message || `API error (${response.status})`);
-    }
+    console.log('Proxy response status:', response.status);
+    console.log('Proxy response headers:', Object.fromEntries(response.headers.entries()));
 
     const data = await response.json();
+    console.log('Proxy response body:', JSON.stringify(data, null, 2));
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || `API error (${response.status})`);
+    }
+
     const reply = data.content?.[0]?.text || "I'm sorry, I had trouble responding. Please try again.";
 
     hideTyping();
