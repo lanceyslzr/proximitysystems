@@ -385,14 +385,8 @@
 
 <script>
 // ─── CONFIGURATION ──────────────────────────────────────────
-// Set your Anthropic API key before loading this page:
-//   window.ANTHROPIC_API_KEY = 'sk-ant-...';
-// Or pass it via URL param: ?key=sk-ant-...
-const API_KEY = window.ANTHROPIC_API_KEY
-  || new URLSearchParams(window.location.search).get('key')
-  || '';
-
-const API_URL = 'https://api.anthropic.com/v1/messages';
+// Proxy URL — API key is handled server-side
+const API_URL = 'https://young-meadow-e6fb.lancesalazar56.workers.dev';
 const MODEL = 'claude-sonnet-4-6';
 
 const SYSTEM_PROMPT = `You are the friendly intake assistant for Proximity Care Services, a trusted home care agency serving families in Mississauga, Brampton, and Caledon, Ontario, Canada.
@@ -546,12 +540,6 @@ async function sendMessage(text) {
   inputEl.style.height = 'auto';
   inputEl.focus();
 
-  // Check API key
-  if (!API_KEY) {
-    addMessage('assistant', "I'm sorry, but I'm not configured yet. Please contact us directly at **proximitycares.com** or book your free assessment here: [Start Your Care Journey](https://proximitycares.com/start-your-in-home-care-with-us)");
-    return;
-  }
-
   isProcessing = true;
   sendBtn.disabled = true;
   showTyping();
@@ -560,10 +548,7 @@ async function sendMessage(text) {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: MODEL,
