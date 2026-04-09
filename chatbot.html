@@ -574,7 +574,6 @@ async function sendMessage(text) {
     hideTyping();
     console.error('Chat error:', err);
     showError('Something went wrong. Please try again.');
-    addMessage('assistant', "I'm having a little trouble right now. You can always reach us directly at [proximitycares.com](https://proximitycares.com/start-your-in-home-care-with-us) to book your free assessment.");
   } finally {
     isProcessing = false;
     sendBtn.disabled = false;
