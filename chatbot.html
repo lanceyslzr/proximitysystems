@@ -617,12 +617,12 @@ async function sendMessage(text) {
       try {
         const raw = JSON.parse(intakeMatch[1]);
         const intakeData = {
-          Agency_Name: raw.Agency_Name || '',
-          City: raw.City || '',
-          Phone: raw.Phone || '',
-          Pain_Point: raw.Pain_Point || '',
+          agency_name: raw.Agency_Name || '',
+          city: raw.City || '',
+          phone: raw.Phone || '',
+          pain_point: raw.Pain_Point || '',
           Status: 'New',
-          Source: 'AI Chatbot',
+          Source: 'AI Chatbot Operator',
           Timestamp: new Date().toISOString()
         };
         console.log('Intake data collected:', intakeData);
