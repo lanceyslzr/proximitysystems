@@ -389,13 +389,15 @@
 const API_URL = 'https://young-meadow-e6fb.lancesalazar56.workers.dev';
 const MODEL = 'claude-haiku-4-5-20251001';
 
+const WEBHOOK_URL = 'https://hook.us2.make.com/gkus4m2lusfv3anug85pfjfedqpn9pju';
+
 const SYSTEM_PROMPT = `You are the friendly intake assistant for Proximity Care Services, a trusted home care agency serving families in Mississauga, Brampton, and Caledon, Ontario, Canada.
 
 Your role:
 - Warmly greet families and understand their home care needs
-- Ask qualifying questions one or two at a time (don't overwhelm)
-- Gather: who needs care, type of care needed, location (confirm it's in your service area), urgency/timeline, and any special requirements
+- Ask qualifying questions one at a time (don't overwhelm)
 - Answer common questions about services offered
+- When a user expresses intent to book, schedule, or get an assessment, collect their intake information through the conversation
 
 Services offered by Proximity Care Services:
 - Personal Support Workers (PSWs) for daily living assistance (bathing, dressing, mobility, toileting)
@@ -420,14 +422,27 @@ Conversation guidelines:
 - Be warm, empathetic, and reassuring — families reaching out are often stressed
 - Use simple, clear language — avoid medical jargon
 - Keep responses concise (2-4 sentences typically)
-- Ask one or two questions at a time to keep it conversational
+- Ask ONE question at a time to keep it conversational
 - If someone is outside the service area, be kind but let them know you currently serve Mississauga, Brampton, and Caledon only
 - If someone describes a medical emergency, tell them to call 911 immediately
 - Do NOT provide medical advice, diagnoses, or specific pricing
 - For pricing questions, explain that costs depend on the care plan and encourage them to book a free assessment
 
-When you have gathered enough information (who needs care, what kind, and where they are), guide them to book a free in-home assessment:
-"You can book your free assessment here: [Start Your Care Journey](https://proximitycares.com/start-your-in-home-care-with-us)"
+INTAKE COLLECTION — IMPORTANT:
+When a user wants to book, schedule, or request an assessment, you must collect ALL of the following, one question at a time:
+1. Their full name
+2. Their city (confirm it's in your service area)
+3. Who needs care and what type of care they need
+4. Their preferred contact method — phone number or email
+5. Their preferred time to be contacted
+
+Once you have ALL five pieces of information, output a hidden JSON block in EXACTLY this format on its own line, followed by a confirmation message:
+
+<!--INTAKE_DATA:{"name":"...","city":"...","care_needs":"...","contact":"...","preferred_time":"..."}-->
+
+Then write a warm confirmation message telling them their request has been received and a care coordinator will reach out within the hour. Thank them for trusting Proximity Care Services.
+
+CRITICAL: Do NOT output the JSON block until you have collected ALL five fields. Do NOT redirect users to any external website or form — handle everything inside this chat. The JSON block must be on its own line and must use the exact format shown above.
 
 Format your responses in plain text. You may use **bold** for emphasis. Keep it conversational and human.`;
 
@@ -568,7 +583,27 @@ async function sendMessage(text) {
       throw new Error(data.error?.message || `API error (${response.status})`);
     }
 
-    const reply = data.content?.[0]?.text || "I'm sorry, I had trouble responding. Please try again.";
+    const rawReply = data.content?.[0]?.text || "I'm sorry, I had trouble responding. Please try again.";
+
+    // Check for intake data JSON block and send to webhook
+    const intakeMatch = rawReply.match(/<!--INTAKE_DATA:(.*?)-->/);
+    if (intakeMatch) {
+      try {
+        const intakeData = JSON.parse(intakeMatch[1]);
+        console.log('Intake data collected:', intakeData);
+        await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(intakeData)
+        });
+        console.log('Intake data sent to webhook successfully');
+      } catch (webhookErr) {
+        console.error('Webhook error:', webhookErr);
+      }
+    }
+
+    // Strip the hidden JSON block before displaying
+    const reply = rawReply.replace(/<!--INTAKE_DATA:.*?-->\n?/, '').trim();
 
     hideTyping();
     addMessage('assistant', reply);
@@ -603,8 +638,8 @@ function init() {
 
   showQuickReplies([
     "I need care for a parent",
+    "Book a free assessment",
     "What services do you offer?",
-    "How much does it cost?",
     "I need help right away"
   ]);
 }
