@@ -612,15 +612,22 @@ async function sendMessage(text) {
     const rawReply = data.content?.[0]?.text || "I'm sorry, I had trouble responding. Please try again.";
 
     // Check for intake data JSON block and send to webhook
-    const intakeMatch = rawReply.match(/<!--INTAKE_DATA:(.*?)-->/);
+    // Use dotAll-style match to handle whitespace/newlines around the block
+    const intakeMatch = rawReply.match(/<!--\s*INTAKE_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
+    console.log('Intake match result:', intakeMatch ? 'FOUND' : 'NOT FOUND');
+    if (intakeMatch) {
+      console.log('Raw intake JSON:', intakeMatch[1]);
+    }
+
+    let intakeSuccess = false;
     if (intakeMatch) {
       try {
         const raw = JSON.parse(intakeMatch[1]);
         const intakeData = {
-          agency_name: raw.Agency_Name || '',
-          city: raw.City || '',
-          phone: raw.Phone || '',
-          pain_point: raw.Pain_Point || '',
+          agency_name: raw.Agency_Name || raw.agency_name || '',
+          city: raw.City || raw.city || '',
+          phone: raw.Phone || raw.phone || '',
+          pain_point: raw.Pain_Point || raw.pain_point || '',
           Status: 'New',
           Source: 'AI Chatbot Operator',
           Timestamp: new Date().toISOString()
@@ -632,20 +639,23 @@ async function sendMessage(text) {
           body: JSON.stringify(intakeData)
         });
         console.log('Intake data sent to webhook successfully');
+        intakeSuccess = true;
       } catch (webhookErr) {
         console.error('Webhook error:', webhookErr);
       }
     }
 
     // Strip the hidden JSON block before displaying
-    const reply = rawReply.replace(/<!--INTAKE_DATA:.*?-->\n?/, '').trim();
+    let reply = rawReply.replace(/<!--\s*INTAKE_DATA\s*:\s*\{[\s\S]*?\}\s*-->\n?/, '').trim();
 
     hideTyping();
-    addMessage('assistant', reply);
-    conversationHistory.push({ role: 'assistant', content: reply });
 
-    // Embed Calendly widget after intake is complete
-    if (intakeMatch) {
+    // If intake was successful, show our own confirmation + Calendly embed
+    if (intakeSuccess) {
+      reply = "Perfect — you're all set. Pick a time below to book your free discovery call with Lance:";
+      addMessage('assistant', reply);
+      conversationHistory.push({ role: 'assistant', content: reply });
+
       const embedDiv = document.createElement('div');
       embedDiv.className = 'calendly-embed';
       embedDiv.innerHTML = '<div class="calendly-inline-widget" data-url="https://calendly.com/lancesalazar56/discovery?hide_gdpr_banner=1"></div>';
@@ -659,9 +669,12 @@ async function sendMessage(text) {
         script.async = true;
         document.head.appendChild(script);
       } else {
-        // Re-initialize if script already loaded
         if (window.Calendly) window.Calendly.initInlineWidgets();
       }
+    } else {
+      addMessage('assistant', reply);
+      conversationHistory.push({ role: 'assistant', content: reply });
+    }
     }
 
   } catch (err) {
