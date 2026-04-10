@@ -675,7 +675,6 @@ async function sendMessage(text) {
       addMessage('assistant', reply);
       conversationHistory.push({ role: 'assistant', content: reply });
     }
-    }
 
   } catch (err) {
     hideTyping();
