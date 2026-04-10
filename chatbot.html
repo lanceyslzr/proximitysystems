@@ -662,15 +662,27 @@ async function sendMessage(text) {
       messagesEl.appendChild(embedDiv);
       scrollToBottom();
 
-      // Load Calendly embed script if not already loaded
+      // Load Calendly embed script and initialize widget
       if (!document.querySelector('script[src*="calendly.com"]')) {
         const script = document.createElement('script');
         script.src = 'https://assets.calendly.com/assets/external/widget.js';
         script.async = true;
+        script.onload = () => {
+          setTimeout(() => {
+            if (window.Calendly) window.Calendly.initInlineWidgets();
+          }, 500);
+        };
         document.head.appendChild(script);
       } else {
-        if (window.Calendly) window.Calendly.initInlineWidgets();
+        setTimeout(() => {
+          if (window.Calendly) window.Calendly.initInlineWidgets();
+        }, 500);
       }
+
+      // Disable input after intake is complete
+      inputEl.disabled = true;
+      inputEl.placeholder = 'Book your call above — we\'ll be in touch!';
+      sendBtn.disabled = true;
     } else {
       addMessage('assistant', reply);
       conversationHistory.push({ role: 'assistant', content: reply });
