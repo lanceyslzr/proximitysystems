@@ -438,10 +438,11 @@ When a user wants to book, schedule, or request an assessment, you must collect 
 
 Once you have ALL five pieces of information, output a hidden JSON block in EXACTLY this format on its own line, followed by a confirmation message:
 
-<!--INTAKE_DATA:{"Full_Name":"...","Phone":"...","City":"...","Care_Type":"...","Notes":"..."}-->
+<!--INTAKE_DATA:{"Full_Name":"...","Client_Name":"...","Phone":"...","City":"...","Care_Type":"...","Notes":"..."}-->
 
 Where:
-- Full_Name: their full name
+- Full_Name: their full name (the person contacting you)
+- Client_Name: the name of the person who needs care (e.g. "Maria Santos", "my mother Dorothy"). If they don't give a name, use the relationship (e.g. "Father", "Mother", "Spouse")
 - Phone: their phone number
 - City: their city
 - Care_Type: the type of care needed (e.g. "Personal care for elderly mother")
@@ -599,6 +600,7 @@ async function sendMessage(text) {
         const raw = JSON.parse(intakeMatch[1]);
         const intakeData = {
           Full_Name: raw.Full_Name || '',
+          Client_Name: raw.Client_Name || '',
           Phone: raw.Phone || '',
           City: raw.City || '',
           Care_Type: raw.Care_Type || '',
