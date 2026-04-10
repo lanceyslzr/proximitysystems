@@ -309,6 +309,26 @@
     line-height: 1.4;
   }
 
+  /* CALENDLY EMBED */
+  .calendly-embed {
+    background: var(--white);
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    overflow: hidden;
+    max-width: 88%;
+    animation: msgIn 0.3s ease;
+    margin-left: 40px;
+  }
+  .calendly-embed .calendly-inline-widget {
+    min-width: 280px;
+    height: 500px;
+  }
+  @media (max-width: 600px) {
+    .calendly-embed { max-width: 92%; margin-left: 0; }
+    .calendly-embed .calendly-inline-widget { height: 480px; }
+  }
+
   /* ERROR BANNER */
   .error-banner {
     background: #fef2f2;
@@ -632,6 +652,26 @@ async function sendMessage(text) {
     hideTyping();
     addMessage('assistant', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
+
+    // Embed Calendly widget after intake is complete
+    if (intakeMatch) {
+      const embedDiv = document.createElement('div');
+      embedDiv.className = 'calendly-embed';
+      embedDiv.innerHTML = '<div class="calendly-inline-widget" data-url="https://calendly.com/lancesalazar56/discovery?hide_gdpr_banner=1"></div>';
+      messagesEl.appendChild(embedDiv);
+      scrollToBottom();
+
+      // Load Calendly embed script if not already loaded
+      if (!document.querySelector('script[src*="calendly.com"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        script.async = true;
+        document.head.appendChild(script);
+      } else {
+        // Re-initialize if script already loaded
+        if (window.Calendly) window.Calendly.initInlineWidgets();
+      }
+    }
 
   } catch (err) {
     hideTyping();
