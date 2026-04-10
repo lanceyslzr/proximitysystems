@@ -309,24 +309,101 @@
     line-height: 1.4;
   }
 
-  /* CALENDLY EMBED */
-  .calendly-embed {
-    background: var(--white);
+  /* BOOKING FORM */
+  .booking-form {
+    background: var(--cream);
+    border: 1px solid var(--border);
     border-radius: 16px;
     border-bottom-left-radius: 4px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    overflow: hidden;
+    padding: 20px;
     max-width: 88%;
     animation: msgIn 0.3s ease;
     margin-left: 40px;
   }
-  .calendly-embed .calendly-inline-widget {
-    min-width: 280px;
-    height: 500px;
+  .booking-form-title {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .booking-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .booking-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .booking-date {
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .booking-date:hover { border-color: var(--accent); color: var(--accent); }
+  .booking-date.selected { background: var(--accent); color: var(--white); border-color: var(--accent); }
+  .booking-date .day-name { display: block; font-size: 10px; font-weight: 500; }
+  .booking-date .day-num { display: block; font-size: 13px; font-weight: 600; }
+  .booking-times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .booking-time {
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .booking-time:hover { border-color: var(--accent); color: var(--accent); }
+  .booking-time.selected { background: var(--accent); color: var(--white); border-color: var(--accent); }
+  .booking-confirm {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .booking-confirm:hover { background: var(--accent-light); }
+  .booking-confirm:disabled { background: var(--border); cursor: not-allowed; }
+  .booking-confirmed {
+    text-align: center;
+    padding: 8px 0 0;
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+    display: none;
   }
   @media (max-width: 600px) {
-    .calendly-embed { max-width: 92%; margin-left: 0; }
-    .calendly-embed .calendly-inline-widget { height: 480px; }
+    .booking-form { max-width: 92%; margin-left: 0; padding: 16px; }
   }
 
   /* ERROR BANNER */
@@ -475,6 +552,7 @@ Format your responses in plain text. You may use **bold** for emphasis. Keep it 
 // ─── STATE ──────────────────────────────────────────────────
 let conversationHistory = [];
 let isProcessing = false;
+let lastIntakeData = null;
 
 // ─── DOM ELEMENTS ───────────────────────────────────────────
 const messagesEl = document.getElementById('chatMessages');
@@ -639,6 +717,7 @@ async function sendMessage(text) {
           body: JSON.stringify(intakeData)
         });
         console.log('Intake data sent to webhook successfully');
+        lastIntakeData = intakeData;
         intakeSuccess = true;
       } catch (webhookErr) {
         console.error('Webhook error:', webhookErr);
@@ -656,32 +735,98 @@ async function sendMessage(text) {
       addMessage('assistant', reply);
       conversationHistory.push({ role: 'assistant', content: reply });
 
-      const embedDiv = document.createElement('div');
-      embedDiv.className = 'calendly-embed';
-      embedDiv.innerHTML = '<div class="calendly-inline-widget" data-url="https://calendly.com/lancesalazar56/discovery?hide_gdpr_banner=1"></div>';
-      messagesEl.appendChild(embedDiv);
+      // Build booking form with next 7 weekdays
+      const dates = [];
+      const now = new Date();
+      let d = new Date(now);
+      d.setDate(d.getDate() + 1); // start tomorrow
+      while (dates.length < 7) {
+        const day = d.getDay();
+        if (day >= 1 && day <= 5) { // Mon-Fri
+          dates.push(new Date(d));
+        }
+        d.setDate(d.getDate() + 1);
+      }
+
+      const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+      const dateButtons = dates.map(dt => {
+        const iso = dt.toISOString().split('T')[0];
+        return `<button class="booking-date" data-date="${iso}"><span class="day-name">${dayNames[dt.getDay()]}</span><span class="day-num">${monthNames[dt.getMonth()]} ${dt.getDate()}</span></button>`;
+      }).join('');
+
+      const formDiv = document.createElement('div');
+      formDiv.className = 'booking-form';
+      formDiv.innerHTML = `
+        <div class="booking-form-title">Book a Discovery Call</div>
+        <label class="booking-label">Select a day</label>
+        <div class="booking-dates">${dateButtons}</div>
+        <label class="booking-label">Select a time</label>
+        <div class="booking-times">
+          <button class="booking-time" data-time="Morning (9–11 AM)">Morning (9–11 AM)</button>
+          <button class="booking-time" data-time="Afternoon (12–2 PM)">Afternoon (12–2 PM)</button>
+          <button class="booking-time" data-time="Evening (3–5 PM)">Evening (3–5 PM)</button>
+        </div>
+        <button class="booking-confirm" disabled>Confirm Booking</button>
+        <div class="booking-confirmed">Booked! We'll see you then.</div>
+      `;
+      messagesEl.appendChild(formDiv);
       scrollToBottom();
 
-      // Load Calendly embed script and initialize widget
-      if (!document.querySelector('script[src*="calendly.com"]')) {
-        const script = document.createElement('script');
-        script.src = 'https://assets.calendly.com/assets/external/widget.js';
-        script.async = true;
-        script.onload = () => {
-          setTimeout(() => {
-            if (window.Calendly) window.Calendly.initInlineWidgets();
-          }, 500);
-        };
-        document.head.appendChild(script);
-      } else {
-        setTimeout(() => {
-          if (window.Calendly) window.Calendly.initInlineWidgets();
-        }, 500);
-      }
+      // Booking form interactivity
+      let selectedDate = null;
+      let selectedTime = null;
+      const confirmBtn = formDiv.querySelector('.booking-confirm');
+      const confirmedMsg = formDiv.querySelector('.booking-confirmed');
+
+      formDiv.querySelectorAll('.booking-date').forEach(btn => {
+        btn.addEventListener('click', () => {
+          formDiv.querySelectorAll('.booking-date').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedDate = btn.dataset.date;
+          confirmBtn.disabled = !(selectedDate && selectedTime);
+        });
+      });
+
+      formDiv.querySelectorAll('.booking-time').forEach(btn => {
+        btn.addEventListener('click', () => {
+          formDiv.querySelectorAll('.booking-time').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedTime = btn.dataset.time;
+          confirmBtn.disabled = !(selectedDate && selectedTime);
+        });
+      });
+
+      confirmBtn.addEventListener('click', async () => {
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Booking...';
+        try {
+          const bookingData = {
+            ...lastIntakeData,
+            preferred_time: `${selectedDate} — ${selectedTime}`
+          };
+          console.log('Booking data:', bookingData);
+          await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData)
+          });
+          confirmBtn.style.display = 'none';
+          confirmedMsg.style.display = 'block';
+          addMessage('assistant', "You're all booked! Lance will reach out to confirm. Talk soon!");
+          scrollToBottom();
+        } catch (err) {
+          console.error('Booking webhook error:', err);
+          confirmBtn.textContent = 'Confirm Booking';
+          confirmBtn.disabled = false;
+          showError('Something went wrong. Please try again.');
+        }
+      });
 
       // Disable input after intake is complete
       inputEl.disabled = true;
-      inputEl.placeholder = 'Book your call above — we\'ll be in touch!';
+      inputEl.placeholder = 'Pick a time above to book your call!';
       sendBtn.disabled = true;
     } else {
       addMessage('assistant', reply);
