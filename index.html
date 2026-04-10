@@ -693,7 +693,7 @@
   const chatFrame = document.getElementById('chatFrame');
 
   chatBubble.addEventListener('click', () => {
-    if (!chatFrame.src) chatFrame.src = 'chatbot.html';
+    if (!chatFrame.src) chatFrame.src = 'chatbot.html?v=2';
     chatOverlay.classList.add('open');
     chatBubble.style.display = 'none';
   });
