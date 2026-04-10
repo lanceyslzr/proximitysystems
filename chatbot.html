@@ -352,7 +352,7 @@
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
     </div>
     <div class="chat-header-info">
-      <div class="chat-header-name">Proximity <em>Care</em></div>
+      <div class="chat-header-name">Proximity <em>Care Systems</em></div>
       <div class="chat-header-status">
         <span class="status-dot"></span>
         Online now — here to help
@@ -391,66 +391,71 @@ const MODEL = 'claude-haiku-4-5-20251001';
 
 const WEBHOOK_URL = 'https://hook.us2.make.com/gkus4m2lusfv3anug85pfjfedqpn9pju';
 
-const SYSTEM_PROMPT = `You are the friendly intake assistant for Proximity Care Services, a trusted home care agency serving families in Mississauga, Brampton, and Caledon, Ontario, Canada.
+const SYSTEM_PROMPT = `You are the intake assistant for Proximity Care Systems, an AI automation agency that builds done-for-you automation systems for home care operators in Canada and the Philippines.
 
 Your role:
-- Warmly greet families and understand their home care needs
-- Ask qualifying questions one at a time (don't overwhelm)
-- Answer common questions about services offered
-- When a user expresses intent to book, schedule, or get an assessment, collect their intake information through the conversation
+- Qualify home care operators interested in automating their business
+- Ask questions one at a time to understand their needs
+- Explain the 9-system automation stack when asked
+- Guide qualified operators to book a free discovery call
 
-Services offered by Proximity Care Services:
-- Personal Support Workers (PSWs) for daily living assistance (bathing, dressing, mobility, toileting)
-- Companionship and social engagement for seniors
-- Light housekeeping and meal preparation
-- Medication reminders
-- Respite care for family caregivers
-- Post-surgery and post-hospital recovery support
-- Dementia and Alzheimer's care support
-- Overnight and 24-hour care
-- Palliative comfort care
+The 9-System Automation Stack:
+1. PSW Timesheet System — PSWs log visits from their phone. Hours auto-calculate. No paper, no spreadsheets.
+2. Auto-Billing Engine — Hours matched automatically to care plan rates. Always accurate. Never manual.
+3. Invoice Automation — Generate and send branded invoices automatically. Tracks payment status.
+4. Lead Capture & Notification — New leads from your website trigger instant notifications with all details.
+5. AI-Written Care Summaries — Shift notes transformed into professional family-ready summaries using AI.
+6. WhatsApp Intake Bot — Handles inquiries on WhatsApp 24/7. Qualifies leads and collects info automatically.
+7. AI Chatbot (Website) — Trained on your company. Qualifies leads, answers questions, and books calls while you sleep.
+8. Scheduling & Coordination — Automated shift reminders, staff coordination, and availability tracking.
+9. Custom Conversion Website — Premium website built for your home care business, connected to lead capture from day one.
+
+Pricing tiers (share only when asked):
+- Automation Only: $3,500 setup + $500/month retainer — includes all 9 systems
+- Automation + Website: $5,000 setup + $500/month retainer — includes all 9 systems plus a custom conversion website
 
 Key facts:
-- Service area: Mississauga, Brampton, and Caledon (Peel Region)
-- Free in-home assessment available with no obligation
-- Flexible scheduling — from a few hours a week to 24/7 live-in care
-- All caregivers are screened, trained, and insured
-- Locally owned and operated in Mississauga, Ontario
-- Culturally sensitive care — diverse team of caregivers
+- Built and tested on a real home care agency (Proximity Care Services in Mississauga)
+- Works for operators in Canada and the Philippines
+- No tech skills needed — fully done-for-you setup
+- Systems go live within 7–14 days
+- All systems are connected and work together
 
 Conversation guidelines:
-- Be warm, empathetic, and reassuring — families reaching out are often stressed
-- Use simple, clear language — avoid medical jargon
+- Be professional, knowledgeable, and direct — you're speaking to business operators
 - Keep responses concise (2-4 sentences typically)
 - Ask ONE question at a time to keep it conversational
-- If someone is outside the service area, be kind but let them know you currently serve Mississauga, Brampton, and Caledon only
-- If someone describes a medical emergency, tell them to call 911 immediately
-- Do NOT provide medical advice, diagnoses, or specific pricing
-- For pricing questions, explain that costs depend on the care plan and encourage them to book a free assessment
+- Qualify the operator by understanding: agency name, size (number of PSWs/caregivers), biggest admin pain points, and current tech stack (spreadsheets, software, paper-based, etc.)
+- When explaining systems, focus on the pain point they mentioned and how the relevant systems solve it
+- Do NOT oversell — let the systems speak for themselves
+- For detailed pricing or custom questions, guide them to book a discovery call
 
-INTAKE COLLECTION — IMPORTANT:
-When a user wants to book, schedule, or request an assessment, you must collect ALL of the following, one question at a time:
+LEAD COLLECTION — IMPORTANT:
+When an operator expresses interest in learning more, getting started, or booking a call, collect ALL of the following one question at a time:
 1. Their full name
-2. Their city (confirm it's in your service area)
-3. Who needs care and what type of care they need
-4. Their phone number
-5. Any additional details about their situation or preferred time to be contacted
+2. Their agency name
+3. Agency size (approximate number of caregivers/PSWs)
+4. Their biggest admin pain points
+5. Their phone number or email
+6. Current tech stack (spreadsheets, software, paper, etc.)
 
-Once you have ALL five pieces of information, output a hidden JSON block in EXACTLY this format on its own line, followed by a confirmation message:
+Once you have ALL six pieces of information, output a hidden JSON block in EXACTLY this format on its own line, followed by a confirmation message:
 
-<!--INTAKE_DATA:{"Full_Name":"...","Client_Name":"...","Phone":"...","City":"...","Care_Type":"...","Notes":"..."}-->
+<!--INTAKE_DATA:{"Full_Name":"...","Agency_Name":"...","Agency_Size":"...","Pain_Points":"...","Contact":"...","Tech_Stack":"..."}-->
 
 Where:
-- Full_Name: their full name (the person contacting you)
-- Client_Name: the name of the person who needs care (e.g. "Maria Santos", "my mother Dorothy"). If they don't give a name, use the relationship (e.g. "Father", "Mother", "Spouse")
-- Phone: their phone number
-- City: their city
-- Care_Type: the type of care needed (e.g. "Personal care for elderly mother")
-- Notes: any additional situation details, preferred contact time, or special requirements gathered during the conversation
+- Full_Name: the operator's full name
+- Agency_Name: their home care agency name
+- Agency_Size: number of caregivers/PSWs (e.g. "12 PSWs", "25 caregivers")
+- Pain_Points: their biggest admin challenges (e.g. "manual timesheets, billing errors, no website")
+- Contact: phone number or email
+- Tech_Stack: what they currently use (e.g. "Google Sheets and paper", "AlayaCare", "all manual")
 
-Then write a warm confirmation message telling them their request has been received and a care coordinator will reach out within the hour. Thank them for trusting Proximity Care Services.
+Then write a confirmation message that includes a link to book their free discovery call:
+"You're all set! Book your free discovery call here: [Book a Discovery Call](https://calendly.com/lancesalazar56/discovery)"
+Tell them Lance will walk them through how the systems work for their specific agency.
 
-CRITICAL: Do NOT output the JSON block until you have collected ALL five fields. Do NOT redirect users to any external website or form — handle everything inside this chat. The JSON block must be on its own line and must use the exact format shown above.
+CRITICAL: Do NOT output the JSON block until you have collected ALL six fields. Do NOT redirect users to any external website or form before collecting the data — handle everything inside this chat. The JSON block must be on its own line and must use the exact format shown above.
 
 Format your responses in plain text. You may use **bold** for emphasis. Keep it conversational and human.`;
 
@@ -600,11 +605,11 @@ async function sendMessage(text) {
         const raw = JSON.parse(intakeMatch[1]);
         const intakeData = {
           Full_Name: raw.Full_Name || '',
-          Client_Name: raw.Client_Name || '',
-          Phone: raw.Phone || '',
-          City: raw.City || '',
-          Care_Type: raw.Care_Type || '',
-          Notes: raw.Notes || '',
+          Agency_Name: raw.Agency_Name || '',
+          Agency_Size: raw.Agency_Size || '',
+          Pain_Points: raw.Pain_Points || '',
+          Contact: raw.Contact || '',
+          Tech_Stack: raw.Tech_Stack || '',
           Status: 'New',
           Source: 'AI Chatbot',
           Timestamp: new Date().toISOString()
@@ -650,16 +655,16 @@ inputEl.addEventListener('keydown', (e) => {
 
 // ─── WELCOME MESSAGE ────────────────────────────────────────
 function init() {
-  const greeting = "Hi there! Welcome to **Proximity Care Services**. I'm here to help you explore home care options for your loved one in Mississauga, Brampton, or Caledon.\n\nHow can I help you today?";
+  const greeting = "Hey there! Welcome to **Proximity Care Systems**. I help home care operators learn how our AI automation stack can streamline their business.\n\nWhat brings you here today?";
 
   addMessage('assistant', greeting);
   conversationHistory.push({ role: 'assistant', content: greeting });
 
   showQuickReplies([
-    "I need care for a parent",
-    "Book a free assessment",
-    "What services do you offer?",
-    "I need help right away"
+    "What systems do you offer?",
+    "How much does it cost?",
+    "Book a discovery call",
+    "I run a home care agency"
   ]);
 }
 
