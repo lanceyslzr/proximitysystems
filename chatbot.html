@@ -433,12 +433,19 @@ When a user wants to book, schedule, or request an assessment, you must collect 
 1. Their full name
 2. Their city (confirm it's in your service area)
 3. Who needs care and what type of care they need
-4. Their preferred contact method — phone number or email
-5. Their preferred time to be contacted
+4. Their phone number
+5. Any additional details about their situation or preferred time to be contacted
 
 Once you have ALL five pieces of information, output a hidden JSON block in EXACTLY this format on its own line, followed by a confirmation message:
 
-<!--INTAKE_DATA:{"name":"...","city":"...","care_needs":"...","contact":"...","preferred_time":"..."}-->
+<!--INTAKE_DATA:{"Full_Name":"...","Phone":"...","City":"...","Care_Type":"...","Notes":"..."}-->
+
+Where:
+- Full_Name: their full name
+- Phone: their phone number
+- City: their city
+- Care_Type: the type of care needed (e.g. "Personal care for elderly mother")
+- Notes: any additional situation details, preferred contact time, or special requirements gathered during the conversation
 
 Then write a warm confirmation message telling them their request has been received and a care coordinator will reach out within the hour. Thank them for trusting Proximity Care Services.
 
@@ -589,7 +596,17 @@ async function sendMessage(text) {
     const intakeMatch = rawReply.match(/<!--INTAKE_DATA:(.*?)-->/);
     if (intakeMatch) {
       try {
-        const intakeData = JSON.parse(intakeMatch[1]);
+        const raw = JSON.parse(intakeMatch[1]);
+        const intakeData = {
+          Full_Name: raw.Full_Name || '',
+          Phone: raw.Phone || '',
+          City: raw.City || '',
+          Care_Type: raw.Care_Type || '',
+          Notes: raw.Notes || '',
+          Status: 'New',
+          Source: 'AI Chatbot',
+          Timestamp: new Date().toISOString()
+        };
         console.log('Intake data collected:', intakeData);
         await fetch(WEBHOOK_URL, {
           method: 'POST',
