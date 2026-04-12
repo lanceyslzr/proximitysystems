@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manage2Retain — Employee Retention Consulting | Douglas Brown</title>
+<meta name="description" content="Reduce turnover, absenteeism, and burnout in your organization. Manage2Retain helps leaders build workplaces where people choose to stay." />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ivory: #faf8f4;
+    --warm: #f2ede4;
+    --ink: #1c1a17;
+    --ink-light: #3a3730;
+    --muted: #8a8378;
+    --sage: #5c7a6b;
+    --sage-light: #e8f0ec;
+    --border: #e0d8cc;
+    --border-dark: #ccc3b5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Figtree', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(250,248,244,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--sage); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink) !important;
+    color: var(--ivory) !important;
+    padding: 10px 24px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--ink-light) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 150px 60px 100px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: rise 0.8s ease 0.1s forwards;
+  }
+  .hero-tag::before { content: ''; width: 22px; height: 1px; background: var(--sage); }
+
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(46px, 5.5vw, 74px);
+    font-weight: 500;
+    line-height: 1.07;
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: rise 0.8s ease 0.25s forwards;
+  }
+  .hero-h1 em { font-style: italic; color: var(--sage); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 42px;
+    line-height: 1.85;
+    opacity: 0;
+    animation: rise 0.8s ease 0.4s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: rise 0.8s ease 0.5s forwards;
+  }
+
+  .btn-dark {
+    background: var(--ink);
+    color: var(--ivory);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-dark:hover { background: var(--ink-light); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    text-decoration: none;
+    border: 1px solid var(--border-dark);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  /* HERO CARD */
+  .hero-right {
+    opacity: 0;
+    animation: rise 0.8s ease 0.45s forwards;
+  }
+
+  .hero-card {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 46px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(92,122,107,0.2) 0%, transparent 70%);
+  }
+
+  .card-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(250,248,244,0.35);
+    margin-bottom: 26px;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .r-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--ivory);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .r-label { font-size: 11px; color: rgba(250,248,244,0.4); line-height: 1.5; }
+
+  .card-divider { height: 1px; background: rgba(250,248,244,0.08); margin: 24px 0; }
+
+  .card-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: rgba(250,248,244,0.7);
+    line-height: 1.65;
+  }
+
+  .card-attr {
+    font-size: 11px;
+    color: rgba(250,248,244,0.3);
+    margin-top: 14px;
+    letter-spacing: 0.06em;
+  }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 26px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 52px;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .trust-dot { width: 5px; height: 5px; background: var(--sage); border-radius: 50%; flex-shrink: 0; }
+
+  /* SECTIONS */
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 60px; }
+  .section { padding: 110px 0; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .section-label::before { content: ''; width: 18px; height: 1px; background: var(--sage); }
+
+  .section-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 4vw, 56px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .section-h2 em { font-style: italic; color: var(--sage); }
+  .section-p { font-size: 15px; color: var(--muted); max-width: 520px; line-height: 1.85; }
+
+  /* WHY RETENTION */
+  .why-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: start;
+  }
+
+  .why-points { margin-top: 16px; }
+
+  .why-item {
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .why-item:first-child { border-top: 1px solid var(--border); }
+
+  .why-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; color: var(--ink); }
+  .why-body { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  .cost-block {
+    background: var(--sage-light);
+    border-left: 3px solid var(--sage);
+    padding: 28px 30px;
+    margin-top: 40px;
+  }
+  .cost-title { font-weight: 500; font-size: 13px; color: var(--sage); margin-bottom: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .cost-body { font-size: 13px; color: var(--ink-light); line-height: 1.75; }
+
+  /* DARK APPROACH */
+  .dark-section {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 110px 0;
+  }
+
+  .dark-section .section-label { color: rgba(250,248,244,0.3); }
+  .dark-section .section-label::before { background: rgba(250,248,244,0.2); }
+  .dark-section .section-h2 { color: var(--ivory); }
+  .dark-section .section-h2 em { color: #a8c4b5; }
+  .dark-section .section-p { color: rgba(250,248,244,0.5); }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+  }
+
+  .approach-card {
+    background: rgba(250,248,244,0.04);
+    border: 1px solid rgba(250,248,244,0.07);
+    padding: 38px 30px;
+    transition: background 0.3s;
+  }
+  .approach-card:hover { background: rgba(250,248,244,0.07); }
+
+  .a-icon { font-size: 18px; margin-bottom: 20px; opacity: 0.5; }
+  .a-title { font-family: 'Cormorant Garamond', serif; font-size: 21px; color: var(--ivory); margin-bottom: 12px; }
+  .a-body { font-size: 12px; color: rgba(250,248,244,0.45); line-height: 1.8; }
+
+  /* PROCESS */
+  .process-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 90px;
+    align-items: start;
+  }
+
+  .process-sticky { position: sticky; top: 100px; }
+
+  .steps { display: flex; flex-direction: column; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .step:first-child { border-top: 1px solid var(--border); }
+  .step:hover .step-num { color: var(--sage); }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    color: var(--border-dark);
+    transition: color 0.2s;
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .step-title { font-size: 15px; font-weight: 500; margin-bottom: 7px; }
+  .step-body { font-size: 13px; color: var(--muted); line-height: 1.72; }
+
+  /* RESULTS */
+  .results-section {
+    background: var(--warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 110px 0;
+  }
+
+  .results-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .big-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .big-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .big-num sup { font-size: 26px; }
+  .big-label { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+  .testimonial {
+    border-left: 2px solid var(--sage);
+    padding-left: 28px;
+  }
+
+  .t-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .t-attr { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 90px;
+    align-items: start;
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--warm);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 90px;
+    font-weight: 500;
+    color: var(--border-dark);
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: 0; right: 0;
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 18px 22px;
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 170px;
+  }
+
+  .badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .about-body { font-size: 15px; color: var(--ink-light); line-height: 1.9; margin-bottom: 24px; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .cred-item {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cred-dot { color: var(--sage); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 120px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(92,122,107,0.18) 0%, transparent 60%);
+  }
+
+  .cta-section .section-label { justify-content: center; color: rgba(250,248,244,0.35); }
+  .cta-section .section-label::before { display: none; }
+
+  .cta-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0 auto 18px;
+    max-width: 660px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: #a8c4b5; }
+
+  .cta-sub {
+    font-size: 15px;
+    color: rgba(250,248,244,0.5);
+    max-width: 440px;
+    margin: 0 auto 44px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-sage {
+    background: var(--sage);
+    color: var(--ivory);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-sage:hover { background: #4e6b5e; }
+
+  .btn-ghost {
+    background: transparent;
+    color: rgba(250,248,244,0.65);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border: 1px solid rgba(250,248,244,0.2);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(250,248,244,0.5); color: var(--ivory); }
+
+  /* FOOTER */
+  footer {
+    background: #131210;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 44px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: rgba(250,248,244,0.7);
+    font-weight: 500;
+  }
+  .footer-logo span { color: #a8c4b5; }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .footer-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(250,248,244,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(250,248,244,0.6); }
+
+  .footer-copy { font-size: 11px; color: rgba(250,248,244,0.18); }
+
+  /* ANIMATIONS */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 120px 24px 70px; gap: 50px; }
+    .container { padding: 0 24px; }
+    .trust-bar { padding: 22px 24px; gap: 22px; }
+    .why-layout, .approach-grid, .process-layout,
+    .results-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .big-stats { grid-template-columns: 1fr 1fr; }
+    footer { padding: 34px 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Manage<span>2</span>Retain</a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Retention</a></li>
+    <li><a href="#approach">Our Approach</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About Douglas</a></li>
+    <li><a href="#contact" class="nav-cta">Free Diagnostic</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1280px;margin:0 auto;padding:0 60px;">
+  <section class="hero" style="padding-left:0;padding-right:0;">
+    <div>
+      <div class="hero-tag">Employee Retention Consulting</div>
+      <h1 class="hero-h1">Your people want<br>to stay. Help them<br><em>find a reason to.</em></h1>
+      <p class="hero-sub">For over 15 years, Douglas Brown has helped organizations across healthcare, manufacturing, and professional services cut turnover, reduce absenteeism, and build workplaces people genuinely choose.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-dark">Get Your Free Diagnostic</a>
+        <a href="#why" class="btn-outline">How It Works</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <p class="card-label">Proven Client Results</p>
+        <div class="results-grid">
+          <div>
+            <span class="r-num">22→14%</span>
+            <p class="r-label">Average turnover rate reduction</p>
+          </div>
+          <div>
+            <span class="r-num">4→2.2%</span>
+            <p class="r-label">Absenteeism after engagement</p>
+          </div>
+          <div>
+            <span class="r-num">+17.5%</span>
+            <p class="r-label">Employee engagement increase</p>
+          </div>
+          <div>
+            <span class="r-num">15yrs</span>
+            <p class="r-label">In the retention field</p>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="card-quote">"Turnover isn't an HR problem. It's a business problem rooted in human experience."</p>
+        <p class="card-attr">Douglas Brown · Founder, Manage2Retain</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-dot"></span>Healthcare Organizations</div>
+  <div class="trust-item"><span class="trust-dot"></span>Manufacturing</div>
+  <div class="trust-item"><span class="trust-dot"></span>Professional Services</div>
+  <div class="trust-item"><span class="trust-dot"></span>Kitchener-Waterloo Region</div>
+  <div class="trust-item"><span class="trust-dot"></span>Remote Engagements Available</div>
+</div>
+
+<!-- WHY RETENTION -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="why-layout">
+      <div class="reveal">
+        <div class="section-label">The Real Problem</div>
+        <h2 class="section-h2">Turnover isn't<br>about <em>compensation.</em></h2>
+        <p class="section-p">Most organizations throw money at retention. Higher wages. Better benefits. Perks. And people still leave. Because the real drivers are invisible until someone walks out the door.</p>
+        <div class="cost-block">
+          <p class="cost-title">The True Cost of One Resignation</p>
+          <p class="cost-body">Lost productivity. Disrupted workflows. Increased overtime. Diminished morale. Weakened patient and client experiences. Every resignation costs far more than it looks like on paper — and it compounds with every one that follows.</p>
+        </div>
+      </div>
+      <div class="why-points reveal reveal-d1">
+        <div class="why-item">
+          <p class="why-title">Poor manager relationships</p>
+          <p class="why-body">Employees don't leave companies. They leave managers. When the daily relationship between a team member and their supervisor breaks down, disengagement starts long before the resignation letter.</p>
+        </div>
+        <div class="why-item">
+          <p class="why-title">Feeling undervalued and unheard</p>
+          <p class="why-body">Recognition isn't about awards. It's daily acknowledgement that someone's work matters. When people feel invisible, they stop investing and start looking.</p>
+        </div>
+        <div class="why-item">
+          <p class="why-title">Lack of clarity and purpose</p>
+          <p class="why-body">Without understanding how their role connects to something meaningful, employees drift. Purpose drives retention more than any perk in every sector we work in.</p>
+        </div>
+        <div class="why-item">
+          <p class="why-title">Erosion of trust over time</p>
+          <p class="why-body">Trust breaks slowly, then all at once. Inconsistent communication, unmet promises, and micromanagement compound into a resignation no one saw coming.</p>
+        </div>
+        <div class="why-item">
+          <p class="why-title">Excessive workload and burnout</p>
+          <p class="why-body">When staff shortages create chronic overload, your best people carry the weight until they can't. Burnout exits accelerate the very cycle you're trying to stop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="dark-section" id="approach">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Our Approach</div>
+      <h2 class="section-h2">Ground-up.<br>Not top-down.<br>Not <em>HR.</em></h2>
+      <p class="section-p">Unlike traditional programs that live in policy documents, Manage2Retain works at the level where retention actually happens — the daily experience between a person and their environment.</p>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card reveal reveal-d1">
+        <div class="a-icon">◈</div>
+        <p class="a-title">Manager Capability and Relationships</p>
+        <p class="a-body">Managers shape whether people stay or go. We equip frontline managers with the language, habits, and relationship skills that build loyalty over time.</p>
+      </div>
+      <div class="approach-card reveal reveal-d2">
+        <div class="a-icon">◇</div>
+        <p class="a-title">Trust and Communication Systems</p>
+        <p class="a-body">Structures that create psychological safety so employees surface concerns before they become exit interviews and leaders can respond before it's too late.</p>
+      </div>
+      <div class="approach-card reveal reveal-d3">
+        <div class="a-icon">○</div>
+        <p class="a-title">Employee Emotional Experience</p>
+        <p class="a-body">Career decisions are emotional not logical. We map the emotional journey of your workforce and identify where experience turns from positive to corrosive.</p>
+      </div>
+      <div class="approach-card reveal reveal-d1">
+        <div class="a-icon">▽</div>
+        <p class="a-title">Recognition and Value</p>
+        <p class="a-body">Built into the rhythm of operations so people feel seen consistently, not occasionally. Recognition that lives in the day to day, not just the annual review.</p>
+      </div>
+      <div class="approach-card reveal reveal-d2">
+        <div class="a-icon">△</div>
+        <p class="a-title">Wellbeing, Clarity and Growth</p>
+        <p class="a-body">When employees understand their path, feel supported, and see a future they stay. We create frameworks for clarity and growth that managers can run themselves.</p>
+      </div>
+      <div class="approach-card reveal reveal-d3">
+        <div class="a-icon">□</div>
+        <p class="a-title">Complimentary Diagnostic</p>
+        <p class="a-body">Every engagement starts with a no-cost diagnostic. We identify where retention risk lives in your organization before recommending anything. Diagnose first, prescribe second.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:60px;">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-h2">An effective 3-step<br>system built around<br><em>your people.</em></h2>
+    </div>
+    <div class="process-layout">
+      <div class="process-sticky reveal">
+        <p class="section-p">We don't sell a program. We identify the specific friction points in your workplace and build a customized engagement designed to produce measurable, lasting results.</p>
+        <br />
+        <a href="#contact" class="btn-dark" style="margin-top:16px;">Start with a Diagnostic</a>
+      </div>
+      <div class="steps reveal reveal-d1">
+        <div class="step">
+          <span class="step-num">01</span>
+          <div>
+            <p class="step-title">Complimentary Diagnostic</p>
+            <p class="step-body">A structured conversation to understand your current turnover rates, absenteeism trends, manager dynamics, and where trust may be breaking down. Not a survey. A real conversation.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <div>
+            <p class="step-title">Identify Root Causes</p>
+            <p class="step-body">Using behavioral economics and leadership science we identify the specific emotional and operational factors driving disengagement. Every organization is different. We go deep before we prescribe anything.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <div>
+            <p class="step-title">Build the Solution</p>
+            <p class="step-body">We design and implement a retention strategy tailored to your managers, your culture, and your workforce. Training, communication structures, and recognition systems that actually stick.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">04</span>
+          <div>
+            <p class="step-title">Measure and Sustain</p>
+            <p class="step-body">We track turnover, absenteeism, and engagement over time and adjust. Retention is not a one-time fix. It is an ongoing practice. We stay with you through the change.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results-section" id="results">
+  <div class="container">
+    <div class="results-layout">
+      <div class="reveal">
+        <div class="section-label">Outcomes</div>
+        <h2 class="section-h2">Numbers that<br>move <em>leadership.</em></h2>
+        <p class="section-p" style="margin-bottom:40px;">Measurable improvement across the metrics that matter most. And the work holds over time because it is built on behavior change, not policy updates.</p>
+        <div class="big-stats">
+          <div>
+            <span class="big-num">36<sup>%</sup></span>
+            <p class="big-label">Average turnover reduction across engagements</p>
+          </div>
+          <div>
+            <span class="big-num">45<sup>%</sup></span>
+            <p class="big-label">Reduction in absenteeism after engagement</p>
+          </div>
+          <div>
+            <span class="big-num">17.5<sup>%</sup></span>
+            <p class="big-label">Increase in employee engagement scores</p>
+          </div>
+          <div>
+            <span class="big-num">15<sup>+</sup></span>
+            <p class="big-label">Years working exclusively in retention</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="testimonial">
+          <p class="t-quote">"When leaders understand the true financial and operational cost of every resignation, retention becomes a strategic priority. Not an HR checkbox."</p>
+          <p class="t-attr" style="margin-top:20px;">Douglas Brown · Manage2Retain</p>
+        </div>
+        <div style="margin-top:48px;display:flex;flex-wrap:wrap;gap:10px;">
+          <span style="font-size:11px;letter-spacing:0.07em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border-dark);color:var(--muted);">Healthcare</span>
+          <span style="font-size:11px;letter-spacing:0.07em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border-dark);color:var(--muted);">Manufacturing</span>
+          <span style="font-size:11px;letter-spacing:0.07em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border-dark);color:var(--muted);">Professional Services</span>
+          <span style="font-size:11px;letter-spacing:0.07em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border-dark);color:var(--muted);">Non-Profit</span>
+          <span style="font-size:11px;letter-spacing:0.07em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border-dark);color:var(--muted);">Technology</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-photo">
+          <span class="about-photo-initials">DB</span>
+          <div class="about-badge">
+            <span class="badge-num">15+</span>
+            Years in Employee Retention
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="section-label">About Douglas</div>
+        <h2 class="section-h2" style="font-size:clamp(32px,3.5vw,48px);">One central truth<br>learned over<br><em>15 years.</em></h2>
+        <p class="about-body">Turnover, absenteeism, disengagement, and burnout are not HR problems. They are <strong>business problems rooted in human experience.</strong></p>
+        <p class="about-body">Working across healthcare, manufacturing, technology, and professional services, Douglas identified three elements that must be present before any retention strategy will succeed and built Manage2Retain around them.</p>
+        <p class="about-body">Today Douglas works with executive leaders and their management teams across Canada to reduce the cost of turnover and build organizations where people genuinely want to stay.</p>
+        <div class="credentials">
+          <div class="cred-item"><span class="cred-dot">◆</span>Founder, Manage2Retain · Wellesley, Ontario</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>University of Guelph</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>9,400+ LinkedIn connections in retention and HR</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>Available remote or in-person across Greater Kitchener-Cambridge-Waterloo</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>Business Consulting · HR Consulting · Healthcare Consulting · Training</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="section-label">Get Started</div>
+    <h2 class="cta-h2">Start with a<br><em>free diagnostic.</em><br>No obligation.</h2>
+    <p class="cta-sub">A 30 minute conversation that identifies where retention risk lives in your organization and what it is costing you. Complimentary, no strings attached.</p>
+    <div class="cta-actions">
+      <a href="https://www.linkedin.com/in/douglasbrown-manage2retain/" class="btn-sage" target="_blank">Book an Appointment</a>
+      <a href="mailto:douglas@manage2retain.com" class="btn-ghost">Send a Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Manage<span>2</span>Retain</span>
+  <ul class="footer-links">
+    <li><a href="#why">Why Retention</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="footer-copy">© 2025 Manage2Retain · Kitchener-Waterloo, Ontario</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
