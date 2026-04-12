@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Black Print Solutions LLC — Keep Talent. Grow Profit. | Robert E. Smith</title>
+<meta name="description" content="Robert E. Smith helps healthcare organizations and businesses keep talent, reduce turnover costs, and grow profit. 36 years of proven results." />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f5f4f0;
+    --ink: #0d0d0b;
+    --ink2: #1c1c1a;
+    --mid: #555550;
+    --muted: #999990;
+    --black: #111110;
+    --accent: #c8a84b;
+    --accent2: #e0c070;
+    --accent-pale: #faf3e0;
+    --border: #e6e4de;
+    --red: #8b1a1a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(200,168,75,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 28px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    padding: 18px 64px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    text-decoration: none;
+  }
+
+  .nav-logo-main {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    line-height: 1;
+    transition: color 0.4s;
+  }
+
+  nav.scrolled .nav-logo-main { color: var(--ink); }
+
+  .nav-logo-main span { color: var(--accent); }
+
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+    transition: color 0.4s;
+  }
+
+  nav.scrolled .nav-logo-sub { color: var(--muted); }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  nav.scrolled .nav-links a { color: var(--mid); }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white) !important; }
+  nav.scrolled .nav-links a:hover { color: var(--ink) !important; }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-btn {
+    background: var(--accent) !important;
+    color: var(--ink) !important;
+    padding: 11px 24px;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-btn::after { display: none !important; }
+  .nav-btn:hover { background: var(--accent2) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 160px 64px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+
+  .hero-h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 6.5vw, 86px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 .gold { color: var(--accent); }
+  .hero-h1 .stroke { -webkit-text-stroke: 2px rgba(255,255,255,0.25); color: transparent; }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    max-width: 460px;
+    margin-bottom: 44px;
+    line-height: 1.85;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-fill {
+    background: var(--accent);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s;
+  }
+
+  .btn-fill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent2);
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-fill:hover::before { transform: translateX(0); }
+  .btn-fill span { position: relative; z-index: 1; }
+  .btn-fill:hover { transform: translateY(-2px); }
+
+  .btn-ghost-white {
+    background: transparent;
+    color: rgba(255,255,255,0.55);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: all 0.2s;
+  }
+  .btn-ghost-white:hover { border-color: rgba(255,255,255,0.35); color: var(--white); transform: translateY(-2px); }
+
+  /* HERO CARD */
+  .hero-right {
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+  }
+
+  .card-wrap { perspective: 1000px; }
+
+  .hero-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    padding: 44px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(200,168,75,0.12) 0%, transparent 70%);
+  }
+
+  .hc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,168,75,0.12);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    margin-bottom: 28px;
+  }
+  .hc-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+  .hc-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 26px;
+  }
+
+  .hs-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .hs-label { font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.5; }
+
+  .hc-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 22px 0; }
+
+  .hc-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+  .hc-attr { font-size: 11px; color: rgba(255,255,255,0.28); margin-top: 12px; letter-spacing: 0.06em; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--accent);
+    padding: 17px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 24s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    white-space: nowrap;
+  }
+  .m-dot { color: rgba(0,0,0,0.5); font-size: 14px; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 120px 0; }
+
+  .s-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .s-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+
+  .s-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .s-h2 em { font-style: normal; color: var(--accent); }
+  .s-p { font-size: 15px; color: var(--mid); max-width: 500px; line-height: 1.85; }
+
+  /* RESULTS */
+  .results-bg { background: var(--off); }
+
+  .results-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .big-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .bs-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+  }
+  .bs-num sup { font-size: 26px; }
+  .bs-label { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+  /* SERVICES */
+  .svc-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .svc-card {
+    background: var(--off);
+    padding: 40px 34px;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .svc-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--black);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .svc-card:hover::before { transform: translateY(0); }
+  .svc-card:hover .sv-num { color: var(--accent); }
+  .svc-card:hover .sv-title { color: var(--white); }
+  .svc-card:hover .sv-body { color: rgba(255,255,255,0.45); }
+
+  .sv-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  .sv-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.25;
+    transition: color 0.3s;
+  }
+
+  .sv-body {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  /* TESTIMONIALS */
+  .testi-bg { background: var(--black); color: var(--white); padding: 120px 0; }
+
+  .testi-bg .s-label { color: var(--accent); }
+  .testi-bg .s-label::before { background: var(--accent); }
+  .testi-bg .s-h2 { color: var(--white); }
+  .testi-bg .s-h2 em { color: var(--accent); }
+
+  .testi-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .testi-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 36px 32px;
+    transition: background 0.3s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.07); }
+
+  .t-quote-mark {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    color: var(--accent);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .t-body { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+
+  .t-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 18px; }
+
+  .t-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--white); }
+  .t-role { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; margin-top: 3px; }
+
+  /* CREDENTIALS */
+  .creds-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .cred-list { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+
+  .cred-item {
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+  }
+  .cred-item:first-child { border-top: 1px solid var(--border); }
+  .cred-item:hover { padding-left: 8px; }
+
+  .ci-icon {
+    width: 32px; height: 32px;
+    background: var(--accent-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    font-family: 'Syne', sans-serif;
+    margin-top: 2px;
+  }
+
+  .ci-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .ci-body { font-size: 12px; color: var(--mid); line-height: 1.65; }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .about-photo-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--off);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200,168,75,0.08) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'Syne', sans-serif;
+    font-size: 100px;
+    font-weight: 800;
+    color: rgba(200,168,75,0.12);
+    letter-spacing: -0.05em;
+  }
+
+  .about-float {
+    position: absolute;
+    bottom: 0; right: 0;
+    background: var(--black);
+    color: var(--white);
+    padding: 20px 24px;
+    min-width: 155px;
+  }
+
+  .af-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+
+  .af-label { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  .about-body { font-size: 15px; color: var(--mid); line-height: 1.9; margin-bottom: 22px; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .about-creds { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .ac-item { display: flex; gap: 12px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+  .ac-dot { color: var(--accent); font-size: 13px; margin-top: 3px; flex-shrink: 0; }
+
+  /* CTA */
+  .cta-section {
+    padding: 140px 0;
+    text-align: center;
+    background: var(--off);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: 'GROW';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(100px, 20vw, 260px);
+    font-weight: 800;
+    color: rgba(200,168,75,0.07);
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+  }
+
+  .cta-section .s-label { justify-content: center; }
+  .cta-section .s-label::before { display: none; }
+
+  .cta-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 5.5vw, 68px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 auto 20px;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: normal; color: var(--accent); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 420px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-dark {
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-dark:hover { background: var(--ink2); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 48px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .f-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: rgba(255,255,255,0.7);
+  }
+  .f-logo span { color: var(--accent); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .f-links a:hover { color: rgba(255,255,255,0.6); }
+
+  .f-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+  /* ANIMATIONS */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero-inner { grid-template-columns: 1fr; padding: 130px 24px 70px; gap: 48px; }
+    .container { padding: 0 24px; }
+    .results-layout, .svc-top, .testi-top, .creds-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid, .testi-grid { grid-template-columns: 1fr; }
+    footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">Black <span>Print</span> Solutions</span>
+    <span class="nav-logo-sub">Keep Talent. Grow Profit.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#results">Results</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#about">About Robert</a></li>
+    <li><a href="#contact" class="nav-btn">Meet Robert</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Executive Coaching · Culture Change · Operational Excellence</div>
+      <h1 class="hero-h1">
+        <span style="display:block;">Keep</span>
+        <span style="display:block;" class="gold">Talent.</span>
+        <span style="display:block;" class="stroke">Grow</span>
+        <span style="display:block;">Profit.</span>
+      </h1>
+      <p class="hero-sub">Robert E. Smith has generated millions of dollars in growth for business owners over 36 years. His focus is simple — improve retention, reduce turnover costs, and protect profitability.</p>
+      <div class="hero-actions">
+        <a href="https://calendly.com/smithknight98/30min" class="btn-fill" target="_blank"><span>Schedule a Discovery Call</span></a>
+        <a href="#services" class="btn-ghost-white">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card-wrap">
+        <div class="hero-card" id="heroCard">
+          <div class="hc-badge">36 Years of Proven Results</div>
+          <div class="hc-stats">
+            <div>
+              <span class="hs-num">36yrs</span>
+              <p class="hs-label">Generating growth for business owners</p>
+            </div>
+            <div>
+              <span class="hs-num">$M+</span>
+              <p class="hs-label">In growth generated for clients</p>
+            </div>
+            <div>
+              <span class="hs-num">+7pt</span>
+              <p class="hs-label">Profitability improvement in 30 days for one client</p>
+            </div>
+            <div>
+              <span class="hs-num">+3pt</span>
+              <p class="hs-label">ROI boost in 60 days for repeat client</p>
+            </div>
+          </div>
+          <div class="hc-divider"></div>
+          <p class="hc-quote">"Passionate about building workplaces where people stay, grow, and perform at their best."</p>
+          <p class="hc-attr">Robert E. Smith · Founder, Black Print Solutions LLC</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Keep Talent <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Grow Profit <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Lean Six Sigma Black Belt <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Certified PMP <span class="m-dot">◆</span></div>
+    <div class="marquee-item">DiSC Authorized Partner <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Prosci Change Management <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Healthcare Organizations <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Operational Excellence <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Keep Talent <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Grow Profit <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Lean Six Sigma Black Belt <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Certified PMP <span class="m-dot">◆</span></div>
+    <div class="marquee-item">DiSC Authorized Partner <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Prosci Change Management <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Healthcare Organizations <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Operational Excellence <span class="m-dot">◆</span></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<section class="section results-bg" id="results">
+  <div class="container">
+    <div class="results-layout">
+      <div class="reveal">
+        <div class="s-label">Proven Outcomes</div>
+        <h2 class="s-h2">Numbers that<br>move the <em>bottom line.</em></h2>
+        <p class="s-p">Every engagement is designed with one goal — to help your business perform better, grow stronger, and succeed faster. These are the results clients actually see.</p>
+        <br /><br />
+        <a href="#contact" class="btn-dark">Schedule a Discovery Call</a>
+      </div>
+      <div class="big-stats reveal d1">
+        <div>
+          <span class="bs-num">36<sup>+</sup></span>
+          <p class="bs-label">Years generating millions in growth for business owners</p>
+        </div>
+        <div>
+          <span class="bs-num">+7<sup>pt</sup></span>
+          <p class="bs-label">Profitability improvement in 30 days for one healthcare client</p>
+        </div>
+        <div>
+          <span class="bs-num">+3<sup>pt</sup></span>
+          <p class="bs-label">ROI boost in 60 days for a repeat engagement client</p>
+        </div>
+        <div>
+          <span class="bs-num">15X</span>
+          <p class="bs-label">Revenue growth achieved using Lean and operational frameworks</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="svc-top">
+      <div class="reveal">
+        <div class="s-label">How We Help</div>
+        <h2 class="s-h2">Operational excellence<br>starts with <em>people.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p">Services are delivered through a tailored mix of coaching, workshops, and strategic advisory — meeting you where you are and building from there.</p>
+      </div>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <p class="sv-num">01</p>
+        <p class="sv-title">Leadership Coaching</p>
+        <p class="sv-body">Become the kind of leader others want to follow. One-on-one coaching that builds self-awareness, decision-making clarity, and the habits that drive team performance.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">02</p>
+        <p class="sv-title">Team Workshops and Development</p>
+        <p class="sv-body">Build trust, collaboration, and accountability across your team. Including DiSC and The Five Behaviors by Wiley for lasting behavioral transformation.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">03</p>
+        <p class="sv-title">Change Management and Process Optimization</p>
+        <p class="sv-body">Turn disruption into opportunity. Using Lean Six Sigma and Prosci frameworks to streamline operations and drive measurable improvement across your business.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">04</p>
+        <p class="sv-title">Culture and People Practices</p>
+        <p class="sv-body">Create an environment where your people stay, grow, and perform at their best. Reduce turnover costs and protect the profitability that depends on stable, engaged teams.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-bg" id="testimonials">
+  <div class="container">
+    <div class="testi-top">
+      <div class="reveal">
+        <div class="s-label">What Clients Say</div>
+        <h2 class="s-h2">Real results.<br><em>Real clients.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p" style="color:rgba(255,255,255,0.45);">Every engagement is built around accountability, respect, and measurable outcomes. Here is what clients say after working with Robert.</p>
+      </div>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="t-quote-mark">"</div>
+        <p class="t-body">Robert demonstrated patience and caring with our government employees. He took us through the Change Continuum and helped the team process current initiatives. An exceptional experience from start to finish.</p>
+        <div class="t-divider"></div>
+        <p class="t-name">Wayne Brewster</p>
+        <p class="t-role">Operations Manager · U.S. Treasury</p>
+      </div>
+      <div class="testi-card">
+        <div class="t-quote-mark">"</div>
+        <p class="t-body">We began the relationship working on leadership. However, Robert's Lean knowledge improved our capacity and our team's knowledge. It gave us and the team more confidence in what we do.</p>
+        <div class="t-divider"></div>
+        <p class="t-name">George B. Long</p>
+        <p class="t-role">Founder · GBL Enterprises LLC</p>
+      </div>
+      <div class="testi-card">
+        <div class="t-quote-mark">"</div>
+        <p class="t-body">After thirty days of Robert's recommendation and a few onsite visits, we improved our profitability by 7 points. I was hesitant at first. Now I'm a repeat customer.</p>
+        <div class="t-divider"></div>
+        <p class="t-name">Jabari and Keonna Daughtry</p>
+        <p class="t-role">Founders · Greater Foods Group</p>
+      </div>
+      <div class="testi-card">
+        <div class="t-quote-mark">"</div>
+        <p class="t-body">After working on procedures and routines, we came back for a DiSC leadership workshop. It's been sixty days and our team's confidence, knowledge, and throughput have all increased. ROI boost of 3 points.</p>
+        <div class="t-divider"></div>
+        <p class="t-name">Jabari and Keonna Daughtry</p>
+        <p class="t-role">Founders · Greater Foods Group · Repeat Engagement</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="section" id="credentials">
+  <div class="container">
+    <div class="creds-layout">
+      <div class="reveal">
+        <div class="s-label">Credentials and Partnerships</div>
+        <h2 class="s-h2">A comprehensive<br>toolkit for <em>driving</em><br>performance.</h2>
+        <p class="s-p">Robert brings a powerful blend of hands-on experience, certifications, and authorized partnerships that give clients access to the best tools available for sustainable growth.</p>
+      </div>
+      <div class="cred-list reveal d1">
+        <div class="cred-item">
+          <div class="ci-icon">◈</div>
+          <div>
+            <p class="ci-title">Lean Six Sigma Black Belt</p>
+            <p class="ci-body">The highest level of Lean Six Sigma certification — applied to eliminate waste, streamline operations, and drive measurable profitability improvement.</p>
+          </div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-icon">◇</div>
+          <div>
+            <p class="ci-title">Certified PMP</p>
+            <p class="ci-body">Project Management Professional certification — ensuring every engagement is structured, accountable, and delivered with precision.</p>
+          </div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-icon">○</div>
+          <div>
+            <p class="ci-title">Prosci Change Management Professional</p>
+            <p class="ci-body">The gold standard in change management — helping organizations navigate transitions with clarity and confidence.</p>
+          </div>
+        </div>
+        <div class="cred-item">
+          <div class="ci-icon">△</div>
+          <div>
+            <p class="ci-title">DiSC and The Five Behaviors by Wiley</p>
+            <p class="ci-body">Authorized partner for the world's most trusted team development tools. Used to build trust, accountability, and high-performance team culture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section results-bg" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-photo-box">
+          <span class="about-initials">RES</span>
+          <div class="about-float">
+            <span class="af-num">36+</span>
+            <p class="af-label">Years generating millions in business growth</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Robert</div>
+        <h2 class="s-h2" style="font-size:clamp(30px,3.8vw,48px);">Simple focus.<br>Proven over<br><em>36 years.</em></h2>
+        <p class="about-body">Robert E. Smith is passionate about <strong>building workplaces where people stay, grow, and perform at their best.</strong> His focus has never changed — improve retention, reduce turnover costs, and protect profitability.</p>
+        <p class="about-body">With 36 years of experience, Robert has generated millions of dollars in growth for business owners who were tired of working hard without seeing the financial return they deserve.</p>
+        <p class="about-body">He works with healthcare organizations, small and mid-sized businesses, and leadership teams across the United States using proven methodologies including Lean Six Sigma, Change Management, and Agile.</p>
+        <div class="about-creds">
+          <div class="ac-item"><span class="ac-dot">◆</span>Founder, Black Print Solutions LLC · Birmingham, Alabama</div>
+          <div class="ac-item"><span class="ac-dot">◆</span>Troy University</div>
+          <div class="ac-item"><span class="ac-dot">◆</span>Lean Six Sigma Black Belt · Certified PMP · Prosci Change Management Professional</div>
+          <div class="ac-item"><span class="ac-dot">◆</span>Authorized Partner · Everything DiSC and The Five Behaviors by Wiley</div>
+          <div class="ac-item"><span class="ac-dot">◆</span>Hoover Area Chamber of Commerce</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="s-label">Get Started</div>
+    <h2 class="cta-h2">Ready to keep talent<br>and <em>grow profit?</em></h2>
+    <p class="cta-sub">Schedule a complimentary discovery call with Robert. A focused conversation about your business, your challenges, and whether working together makes sense.</p>
+    <div class="cta-actions">
+      <a href="https://calendly.com/smithknight98/30min" class="btn-fill" target="_blank"><span>Schedule a Discovery Call</span></a>
+      <a href="https://www.blackprintsolutionsllc.com" class="btn-outline" target="_blank">Visit the Website</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">Black <span>Print</span> Solutions LLC</span>
+  <ul class="f-links">
+    <li><a href="#results">Results</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Black Print Solutions LLC · blackprintsolutionsllc.com · Birmingham, AL</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const card = document.getElementById('heroCard');
+  const wrap = card?.parentElement;
+  if (wrap) {
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  }
+
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 1.8 + 0.4;
+      this.speedX = (Math.random() - 0.5) * 0.35;
+      this.speedY = (Math.random() - 0.5) * 0.35;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.6 ? '#c8a84b' : '#ffffff';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#c8a84b';
+          ctx.globalAlpha = (1 - dist / 110) * 0.07;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawConnections();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
