@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>6S Advisory — Build a Healthier, More Profitable Company | Cole Dolny</title>
+<meta name="description" content="Cole Dolny helps CEOs and business owners build healthier, more profitable companies, faster. Executive coaching, strategic advisory, and leadership development." />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f6f5f2;
+    --ink: #0c0c0b;
+    --ink2: #1e1e1c;
+    --mid: #555550;
+    --muted: #999990;
+    --blue: #1a3a5c;
+    --blue2: #254e7a;
+    --blue-pale: #e8eef5;
+    --border: #e5e3de;
+    --gold: #c8a84b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--blue);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(26,58,92,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 28px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    padding: 18px 64px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-decoration: none;
+  }
+
+  .nav-logo-main {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .nav-logo-main span { color: var(--blue); }
+
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--blue);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-btn {
+    background: var(--blue) !important;
+    color: var(--white) !important;
+    padding: 11px 26px;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-btn::after { display: none !important; }
+  .nav-btn:hover { background: var(--blue2) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 160px 64px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(50px, 6vw, 82px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 .gold { color: var(--gold); }
+  .hero-h1 .stroke {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 460px;
+    margin-bottom: 44px;
+    line-height: 1.85;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-fill {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-fill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-fill:hover::before { transform: translateX(0); }
+  .btn-fill span { position: relative; z-index: 1; }
+  .btn-fill:hover { transform: translateY(-2px); }
+
+  .btn-ghost-white {
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.2s;
+  }
+  .btn-ghost-white:hover { border-color: rgba(255,255,255,0.4); color: var(--white); transform: translateY(-2px); }
+
+  /* HERO STAT CARD */
+  .hero-right {
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+  }
+
+  .stat-card-wrap { perspective: 1000px; }
+
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 44px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(200,168,75,0.12) 0%, transparent 70%);
+  }
+
+  .sc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,168,75,0.15);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    margin-bottom: 28px;
+  }
+
+  .sc-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .ss-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .ss-label { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+
+  .sc-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 24px 0; }
+
+  .sc-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+  .sc-attr { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 12px; letter-spacing: 0.06em; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--blue);
+    padding: 18px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+  }
+
+  .m-dot { color: var(--gold); font-size: 16px; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 120px 0; }
+
+  .s-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .s-label::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+
+  .s-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .s-h2 em { font-style: normal; color: var(--blue); }
+  .s-p { font-size: 15px; color: var(--mid); max-width: 500px; line-height: 1.85; }
+
+  /* WHO SECTION */
+  .who-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .who-right { padding-top: 10px; }
+
+  .who-points { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+
+  .w-item {
+    display: flex;
+    gap: 20px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+  }
+  .w-item:first-child { border-top: 1px solid var(--border); }
+  .w-item:hover { padding-left: 8px; }
+
+  .w-icon {
+    width: 32px; height: 32px;
+    background: var(--blue-pale);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue);
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .w-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+  .w-body { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+  /* SERVICES */
+  .services-bg { background: var(--off); }
+
+  .services-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .svc-card {
+    background: var(--white);
+    padding: 36px 30px;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    border-bottom: 3px solid transparent;
+  }
+
+  .svc-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 3px;
+    background: var(--blue);
+    transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .svc-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+  .svc-card:hover::after { width: 100%; }
+  .svc-card:hover .svc-icon { background: var(--blue); color: var(--white); }
+
+  .svc-icon {
+    width: 40px; height: 40px;
+    background: var(--blue-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+
+  .svc-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+  .svc-body { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .about-visual { position: relative; }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--off);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(26,58,92,0.08) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'Syne', sans-serif;
+    font-size: 100px;
+    font-weight: 800;
+    color: rgba(26,58,92,0.1);
+    letter-spacing: -0.05em;
+  }
+
+  .about-float {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    background: var(--blue);
+    color: var(--white);
+    padding: 20px 24px;
+    min-width: 155px;
+  }
+
+  .af-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+    color: var(--gold);
+  }
+
+  .af-label { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+  .about-body { font-size: 15px; color: var(--mid); line-height: 1.9; margin-bottom: 22px; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .creds { display: flex; flex-direction: column; gap: 13px; margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--border); }
+  .cred { display: flex; gap: 12px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+  .cred-dot { color: var(--blue); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+
+  /* RIGHTS SECTION */
+  .rights-bg { background: var(--blue); color: var(--white); }
+
+  .rights-bg .s-label { color: rgba(255,255,255,0.4); }
+  .rights-bg .s-label::before { background: rgba(255,255,255,0.3); }
+  .rights-bg .s-h2 { color: var(--white); }
+  .rights-bg .s-h2 em { color: var(--gold); }
+  .rights-bg .s-p { color: rgba(255,255,255,0.5); }
+
+  .rights-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 16px; }
+
+  .right-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 28px 24px;
+    transition: background 0.3s;
+  }
+  .right-item:hover { background: rgba(255,255,255,0.08); }
+
+  .ri-icon { font-size: 18px; margin-bottom: 14px; opacity: 0.5; }
+  .ri-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .ri-body { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+  /* CTA */
+  .cta-section {
+    padding: 140px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--off);
+  }
+
+  .cta-section::before {
+    content: '2X';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(120px, 22vw, 280px);
+    font-weight: 800;
+    color: rgba(26,58,92,0.05);
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+  }
+
+  .cta-section .s-label { justify-content: center; }
+  .cta-section .s-label::before { display: none; }
+
+  .cta-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 5.5vw, 68px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 auto 20px;
+    max-width: 700px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: normal; color: var(--blue); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 420px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-blue {
+    background: var(--blue);
+    color: var(--white);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-blue:hover { background: var(--blue2); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 48px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .f-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: rgba(255,255,255,0.7);
+  }
+  .f-logo span { color: var(--gold); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .f-links a:hover { color: rgba(255,255,255,0.6); }
+
+  .f-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+  /* ANIMATIONS */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero-inner { grid-template-columns: 1fr; padding: 130px 24px 70px; gap: 48px; }
+    .container { padding: 0 24px; }
+    .who-layout, .services-top, .about-layout, .rights-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .rights-grid { grid-template-columns: 1fr; }
+    footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main"><span>6S</span> Advisory</span>
+    <span class="nav-logo-sub">Executive Coaching · Strategic Growth</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#who">Who We Serve</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About Cole</a></li>
+    <li><a href="#contact" class="nav-btn">Book a Session</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Executive Coaching · CEO Growth Partner · TEC Canada</div>
+      <h1 class="hero-h1">
+        <span style="display:block;">2X Your</span>
+        <span style="display:block;" class="gold">Business.</span>
+        <span style="display:block;" class="stroke">Start With</span>
+        <span style="display:block;">Yourself.</span>
+      </h1>
+      <p class="hero-sub">Cole Dolny helps CEOs and business owners build healthier, more profitable companies — faster. 25+ years of experience turning leadership capability into measurable business growth.</p>
+      <div class="hero-actions">
+        <a href="https://calendly.com/cole-dolny" class="btn-fill" target="_blank"><span>Book Your Discovery Session</span></a>
+        <a href="#who" class="btn-ghost-white">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-card-wrap">
+        <div class="stat-card" id="heroCard">
+          <div class="sc-badge">25+ Years Building Profitable Companies</div>
+          <div class="sc-stats">
+            <div>
+              <span class="ss-num">25+</span>
+              <p class="ss-label">Years of CEO and entrepreneurial experience</p>
+            </div>
+            <div>
+              <span class="ss-num">15X</span>
+              <p class="ss-label">Revenue growth achieved at ASL Distribution</p>
+            </div>
+            <div>
+              <span class="ss-num">17</span>
+              <p class="ss-label">Consecutive Best Managed Company designations</p>
+            </div>
+            <div>
+              <span class="ss-num">12K+</span>
+              <p class="ss-label">LinkedIn followers in the CEO and growth space</p>
+            </div>
+          </div>
+          <div class="sc-divider"></div>
+          <p class="sc-quote">"If you want to improve the organization, you have to improve yourself."</p>
+          <p class="sc-attr">Cole Dolny · Founder, 6S Advisory · Oakville, Ontario</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Executive Coaching <span class="m-dot">◆</span></div>
+    <div class="marquee-item">CEO Growth Partner <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Strategic Planning <span class="m-dot">◆</span></div>
+    <div class="marquee-item">TEC Canada Chair <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Leadership Development <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Business Scaling <span class="m-dot">◆</span></div>
+    <div class="marquee-item">M&amp;A Advisory <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Profitable Growth <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Executive Coaching <span class="m-dot">◆</span></div>
+    <div class="marquee-item">CEO Growth Partner <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Strategic Planning <span class="m-dot">◆</span></div>
+    <div class="marquee-item">TEC Canada Chair <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Leadership Development <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Business Scaling <span class="m-dot">◆</span></div>
+    <div class="marquee-item">M&amp;A Advisory <span class="m-dot">◆</span></div>
+    <div class="marquee-item">Profitable Growth <span class="m-dot">◆</span></div>
+  </div>
+</div>
+
+<!-- WHO WE SERVE -->
+<section class="section" id="who">
+  <div class="container">
+    <div class="who-layout">
+      <div class="reveal">
+        <div class="s-label">Who We Serve</div>
+        <h2 class="s-h2">CEOs who want<br>to grow without<br><em>burning out.</em></h2>
+        <p class="s-p">Cole works with CEOs, presidents, and owners of small to mid-sized enterprises who are ready to solve complex challenges, align their teams, and build sustainable, profitable growth.</p>
+        <br /><br />
+        <a href="#contact" class="btn-blue">Book a Discovery Session</a>
+      </div>
+      <div class="who-points reveal d1">
+        <div class="w-item">
+          <div class="w-icon">01</div>
+          <div>
+            <p class="w-title">You're growing but feeling stuck</p>
+            <p class="w-body">Revenue is climbing but so is the chaos. You need structure, clarity, and a partner who's been in the seat and knows what it takes to scale without breaking things.</p>
+          </div>
+        </div>
+        <div class="w-item">
+          <div class="w-icon">02</div>
+          <div>
+            <p class="w-title">Your leadership team isn't aligned</p>
+            <p class="w-body">Everyone's working hard but pulling in different directions. Getting your executive team aligned is the highest-leverage move you can make right now.</p>
+          </div>
+        </div>
+        <div class="w-item">
+          <div class="w-icon">03</div>
+          <div>
+            <p class="w-title">You're making big decisions alone</p>
+            <p class="w-body">M&A, transitions, exits, new markets. These decisions are too important to make without a thinking partner who has navigated them before and can help you see clearly.</p>
+          </div>
+        </div>
+        <div class="w-item">
+          <div class="w-icon">04</div>
+          <div>
+            <p class="w-title">Personal growth has stalled</p>
+            <p class="w-body">You've hit a ceiling. The skills that got you here aren't enough for where you're going. Your growth as a leader is the bottleneck — and that's exactly where Cole starts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="container">
+    <div class="services-top">
+      <div class="reveal">
+        <div class="s-label">What We Do</div>
+        <h2 class="s-h2">A tailored mix of<br>coaching, mentoring,<br>and <em>strategy.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p">Services are delivered through a personalized blend of business and executive coaching, mentoring, and strategic advisory. We meet you where you are and build from there.</p>
+      </div>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <div class="svc-icon">◈</div>
+        <p class="svc-title">Executive Coaching</p>
+        <p class="svc-body">One-on-one coaching that builds the leadership capability, self-awareness, and decision-making clarity that drives organizational performance.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">◇</div>
+        <p class="svc-title">CEO Growth Partnership</p>
+        <p class="svc-body">An ongoing strategic relationship for CEOs who want a thinking partner in their corner as they scale, pivot, and navigate complex challenges.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">△</div>
+        <p class="svc-title">Executive Team Alignment</p>
+        <p class="svc-body">Structured workshops and facilitated sessions that get your leadership team moving in the same direction — with clarity, accountability, and trust.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">○</div>
+        <p class="svc-title">Strategic Planning</p>
+        <p class="svc-body">From annual planning to long-term strategy, we help you build roadmaps that are ambitious, realistic, and owned by the people who execute them.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">□</div>
+        <p class="svc-title">Change Management</p>
+        <p class="svc-body">Leading through transition, transformation, or crisis. Cole has navigated M&A, exits, and turnarounds — and he brings that experience to your most critical moments.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">▽</div>
+        <p class="svc-title">TEC Canada Peer Groups</p>
+        <p class="svc-body">As a TEC Canada Chair, Cole runs peer advisory groups for CEOs — a confidential forum where leaders tackle real challenges together with no agenda but growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-visual">
+          <div class="about-photo">
+            <span class="about-initials">CD</span>
+          </div>
+          <div class="about-float">
+            <span class="af-num">25+</span>
+            <p class="af-label">Years of CEO and entrepreneurial experience</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Cole</div>
+        <h2 class="s-h2" style="font-size:clamp(32px,4vw,50px);">He has been in<br>the seat. He knows<br><em>what it takes.</em></h2>
+        <p class="about-body">Cole Dolny brings <strong>25+ years of CEO and entrepreneurial experience</strong> to every coaching engagement. He led ASL Distribution Services through 15X revenue growth and 17 consecutive Best Managed Company designations.</p>
+        <p class="about-body">His background includes co-founding a logistics company, managing M&A deals, leading through crisis, and scaling teams with measurable impact. He has done the hard things firsthand.</p>
+        <p class="about-body">Today Cole combines proven frameworks with deep listening and practical implementation to help business leaders gain clarity, increase accountability, and execute — faster.</p>
+        <div class="creds">
+          <div class="cred"><span class="cred-dot">◆</span>Founder, 6S Advisory · Oakville, Ontario</div>
+          <div class="cred"><span class="cred-dot">◆</span>TEC Canada Chair · The Executive Committee</div>
+          <div class="cred"><span class="cred-dot">◆</span>York University</div>
+          <div class="cred"><span class="cred-dot">◆</span>Certified Executive and Business Coach · Center for Executive Coaching</div>
+          <div class="cred"><span class="cred-dot">◆</span>SMG Assessment Consultant</div>
+          <div class="cred"><span class="cred-dot">◆</span>12,800+ LinkedIn followers in the CEO and leadership space</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT BILL OF RIGHTS -->
+<section class="section rights-bg" id="rights">
+  <div class="container">
+    <div class="rights-layout">
+      <div class="reveal">
+        <div class="s-label">Our Commitment</div>
+        <h2 class="s-h2">A Client Bill<br>of <em>Rights.</em></h2>
+        <p class="s-p">Trusted partnerships built on accountability, respect, and results. This is how we ensure you always know what to expect from every engagement with Cole.</p>
+        <br /><br />
+        <a href="#contact" style="background:var(--gold);color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:16px 34px;text-decoration:none;display:inline-block;transition:all 0.2s;">Book a Discovery Session</a>
+      </div>
+      <div class="rights-grid reveal d1">
+        <div class="right-item">
+          <div class="ri-icon">◈</div>
+          <p class="ri-title">Trust and Confidentiality</p>
+          <p class="ri-body">Your trust is paramount. We ensure a secure, confidential environment for every discussion and decision.</p>
+        </div>
+        <div class="right-item">
+          <div class="ri-icon">◇</div>
+          <p class="ri-title">Return on Investment</p>
+          <p class="ri-body">Measurable, impactful results that align with your goals so you see clear value from every engagement.</p>
+        </div>
+        <div class="right-item">
+          <div class="ri-icon">○</div>
+          <p class="ri-title">Clear Communication</p>
+          <p class="ri-body">Open, honest, and timely communication. You are always fully informed and engaged every step of the way.</p>
+        </div>
+        <div class="right-item">
+          <div class="ri-icon">△</div>
+          <p class="ri-title">Client-Led Focus</p>
+          <p class="ri-body">You set the agenda. We meet you where you are — respecting your timing, priorities, and readiness.</p>
+        </div>
+        <div class="right-item">
+          <div class="ri-icon">□</div>
+          <p class="ri-title">Respect for Your Time</p>
+          <p class="ri-body">We prioritize your objectives and your time. Every session is designed to move you forward, not fill a calendar slot.</p>
+        </div>
+        <div class="right-item">
+          <div class="ri-icon">▽</div>
+          <p class="ri-title">Honest Feedback</p>
+          <p class="ri-body">Direct, constructive feedback to help you overcome challenges and accelerate your growth. No sugarcoating.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="s-label">Get Started</div>
+    <h2 class="cta-h2">Start with a<br>complimentary <em>discovery</em><br>session.</h2>
+    <p class="cta-sub">A strategic conversation about where you are, where you want to go, and whether working together makes sense. No obligation.</p>
+    <div class="cta-actions">
+      <a href="https://calendly.com/cole-dolny" class="btn-blue" target="_blank">Book Your Session</a>
+      <a href="mailto:cole.dolny@gmail.com" class="btn-outline">Send Cole a Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo"><span>6S</span> Advisory</span>
+  <ul class="f-links">
+    <li><a href="#who">Who We Serve</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About Cole</a></li>
+    <li><a href="#rights">Our Commitment</a></li>
+  </ul>
+  <span class="f-copy">© 2025 6S Advisory · 6sadvisory.com · Oakville, Ontario</span>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // 3D CARD TILT
+  const card = document.getElementById('heroCard');
+  const wrap = card?.parentElement;
+  if (wrap) {
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  }
+
+  // CANVAS PARTICLES
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 1.8 + 0.4;
+      this.speedX = (Math.random() - 0.5) * 0.35;
+      this.speedY = (Math.random() - 0.5) * 0.35;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.55 ? '#c8a84b' : '#4a7aaa';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#4a7aaa';
+          ctx.globalAlpha = (1 - dist / 110) * 0.07;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawConnections();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // REVEALS
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
