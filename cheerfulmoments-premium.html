@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cheerful Moments Home Care — Compassionate Care in the Bay Area | Abdullah Mahmud</title>
+<meta name="description" content="Cheerful Moments Home Care provides compassionate, high-quality non-medical home care services in the Bay Area. Founded by Abdullah Mahmud." />
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f8f6f2;
+    --warm: #f2ede4;
+    --ink: #111210;
+    --ink2: #1e2019;
+    --mid: #5a5e52;
+    --muted: #9a9e92;
+    --green: #2d5a3d;
+    --green2: #3d7a52;
+    --green3: #4e9a66;
+    --green-pale: #eaf3ec;
+    --teal: #1a4a5a;
+    --gold: #c8a84b;
+    --border: #e4e0d8;
+    --border2: #d8e8dc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(45,90,61,0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 26px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    padding: 16px 64px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-logo { text-decoration: none; }
+
+  .nav-logo-main {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+    transition: color 0.4s;
+  }
+
+  nav.scrolled .nav-logo-main { color: var(--green); }
+
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    margin-top: 3px;
+    transition: color 0.4s;
+  }
+
+  nav.scrolled .nav-logo-sub { color: var(--muted); }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  nav.scrolled .nav-links a { color: var(--mid); }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--green);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white) !important; }
+  nav.scrolled .nav-links a:hover { color: var(--green) !important; }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-btn {
+    background: var(--white) !important;
+    color: var(--green) !important;
+    padding: 11px 24px;
+    border-radius: 50px;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    transition: all 0.2s !important;
+  }
+
+  nav.scrolled .nav-btn {
+    background: var(--green) !important;
+    color: var(--white) !important;
+  }
+
+  .nav-btn::after { display: none !important; }
+  .nav-btn:hover { transform: translateY(-1px) !important; box-shadow: 0 8px 24px rgba(45,90,61,0.2) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--green);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  /* Geometric background shape */
+  .hero-shape {
+    position: absolute;
+    right: -10%;
+    top: -10%;
+    width: 70%;
+    height: 120%;
+    background: rgba(255,255,255,0.03);
+    border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 160px 64px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px; height: 1.5px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 2px;
+  }
+
+  .hero-h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 em { font-style: italic; color: rgba(255,255,255,0.6); }
+  .hero-h1 .gold { color: var(--gold); font-style: italic; }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    max-width: 460px;
+    margin-bottom: 44px;
+    line-height: 1.9;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--green);
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 50px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-white::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    border-radius: 50px;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-white:hover::before { transform: translateX(0); }
+  .btn-white span { position: relative; z-index: 1; }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+  .btn-ghost-white {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    transition: all 0.25s;
+  }
+  .btn-ghost-white:hover { border-color: rgba(255,255,255,0.5); color: var(--white); transform: translateY(-2px); }
+
+  /* HERO CARD */
+  .hero-right {
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+  }
+
+  .card-3d-wrap { perspective: 1000px; }
+
+  .hero-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 44px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  }
+
+  .hc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .hc-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+
+  .hc-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 26px;
+  }
+
+  .hs-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .hs-label { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+  .hc-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 22px 0; }
+
+  .hc-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+  .hc-attr { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 12px; letter-spacing: 0.05em; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--ink);
+    padding: 17px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 24s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    white-space: nowrap;
+  }
+
+  .m-sep { width: 4px; height: 4px; background: var(--green3); border-radius: 50%; display: inline-block; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 120px 0; }
+
+  .s-label {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .s-label::before { content: ''; width: 18px; height: 1.5px; background: var(--green); border-radius: 2px; }
+
+  .s-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .s-h2 em { font-style: italic; color: var(--green); }
+  .s-p { font-size: 15px; color: var(--mid); max-width: 500px; line-height: 1.9; }
+
+  /* SERVICES */
+  .svc-bg { background: var(--off); }
+
+  .svc-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .svc-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .svc-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--green);
+    border-radius: 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .svc-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(45,90,61,0.12); border-color: var(--green); }
+  .svc-card:hover::before { transform: translateY(0); }
+  .svc-card:hover .sv-num { color: rgba(255,255,255,0.4); }
+  .svc-card:hover .sv-title { color: white; }
+  .svc-card:hover .sv-body { color: rgba(255,255,255,0.6); }
+
+  .sv-num {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.18em;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+
+  .sv-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.3;
+    transition: color 0.3s;
+    color: var(--ink);
+  }
+
+  .sv-body {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  /* WHY US */
+  .why-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .why-list { display: flex; flex-direction: column; gap: 0; margin-top: 16px; }
+
+  .why-item {
+    display: flex;
+    gap: 20px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+    cursor: default;
+  }
+  .why-item:first-child { border-top: 1px solid var(--border); }
+  .why-item:hover { padding-left: 8px; }
+
+  .wi-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: rgba(45,90,61,0.25);
+    width: 28px;
+    flex-shrink: 0;
+    padding-top: 2px;
+    transition: color 0.25s;
+  }
+  .why-item:hover .wi-num { color: var(--green); }
+
+  .wi-title { font-family: 'DM Serif Display', serif; font-size: 16px; margin-bottom: 5px; color: var(--ink); }
+  .wi-body { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+  /* PROCESS */
+  .process-bg { background: var(--green); color: var(--white); padding: 120px 0; }
+
+  .process-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  .process-bg .s-label { color: rgba(255,255,255,0.4); }
+  .process-bg .s-label::before { background: rgba(255,255,255,0.3); }
+  .process-bg .s-h2 { color: var(--white); }
+  .process-bg .s-h2 em { color: var(--gold); }
+  .process-bg .s-p { color: rgba(255,255,255,0.5); }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .step-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 36px 28px;
+    transition: background 0.3s;
+  }
+  .step-card:hover { background: rgba(255,255,255,0.09); }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 44px;
+    color: rgba(255,255,255,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .step-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--white); margin-bottom: 10px; }
+  .step-body { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.75; }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--green-pale);
+    border: 1.5px solid var(--border2);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(45,90,61,0.08) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'DM Serif Display', serif;
+    font-size: 90px;
+    color: rgba(45,90,61,0.15);
+    letter-spacing: -0.03em;
+  }
+
+  .about-float {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--green);
+    color: white;
+    padding: 18px 22px;
+    border-radius: 18px;
+    min-width: 145px;
+  }
+
+  .af-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    display: block;
+    margin-bottom: 4px;
+    color: rgba(255,255,255,0.9);
+  }
+  .af-label { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  .about-body { font-size: 15px; color: var(--mid); line-height: 1.95; margin-bottom: 20px; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .about-creds { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .ac-item { display: flex; gap: 12px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+  .ac-dot { width: 16px; height: 16px; background: var(--green-pale); border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; }
+  .ac-dot::after { content: ''; width: 5px; height: 5px; background: var(--green); border-radius: 50%; }
+
+  /* CTA */
+  .cta-section {
+    padding: 140px 0;
+    text-align: center;
+    background: var(--off);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(80px, 16vw, 200px);
+    color: rgba(45,90,61,0.05);
+    pointer-events: none;
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .cta-section .s-label { justify-content: center; }
+  .cta-section .s-label::before { display: none; }
+
+  .cta-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 400;
+    line-height: 1.12;
+    margin: 0 auto 20px;
+    max-width: 620px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: var(--green); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 420px;
+    margin: 0 auto 44px;
+    line-height: 1.9;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-green {
+    background: var(--green);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 50px;
+    transition: all 0.2s;
+  }
+  .btn-green:hover { background: var(--green2); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(45,90,61,0.25); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 48px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .f-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+  }
+  .f-logo span { color: var(--green3); font-style: italic; }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .f-links a:hover { color: rgba(255,255,255,0.65); }
+
+  .f-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+  /* ANIMATIONS */
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 18px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero-inner { grid-template-columns: 1fr; padding: 130px 24px 70px; gap: 50px; }
+    .container { padding: 0 24px; }
+    .svc-top, .why-layout, .process-top, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 34px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">Cheerful Moments</span>
+    <span class="nav-logo-sub">Home Care · Bay Area, California</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#about">About Abdullah</a></li>
+    <li><a href="#contact" class="nav-btn">Get Care Today</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-shape"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Non-Medical Home Care · Bay Area, California</div>
+      <h1 class="hero-h1">
+        Compassionate care.<br>
+        <em>Cheerful</em> moments.<br>
+        <span class="gold">Every day.</span>
+      </h1>
+      <p class="hero-sub">Cheerful Moments Home Care provides compassionate, high-quality non-medical home care to families across the Bay Area — so your loved ones can live with dignity, comfort, and joy at home.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-white"><span>Get Care Today</span></a>
+        <a href="#services" class="btn-ghost-white">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card-3d-wrap">
+        <div class="hero-card" id="heroCard">
+          <div class="hc-badge">Serving the Bay Area Since 2024</div>
+          <div class="hc-stats">
+            <div>
+              <span class="hs-num">Bay</span>
+              <p class="hs-label">Area California home care specialists</p>
+            </div>
+            <div>
+              <span class="hs-num">24/7</span>
+              <p class="hs-label">Availability for your family's care needs</p>
+            </div>
+            <div>
+              <span class="hs-num">Non</span>
+              <p class="hs-label">Medical personal care and daily living support</p>
+            </div>
+            <div>
+              <span class="hs-num">Free</span>
+              <p class="hs-label">Consultation to assess your loved one's needs</p>
+            </div>
+          </div>
+          <div class="hc-divider"></div>
+          <p class="hc-quote">"Providing compassionate, high-quality care to those in need — with a focus on dignity and cheerful moments every day."</p>
+          <p class="hc-attr">Abdullah Mahmud · Founder and CEO, Cheerful Moments Home Care</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Personal Care <span class="m-sep"></span></div>
+    <div class="marquee-item">Companionship <span class="m-sep"></span></div>
+    <div class="marquee-item">Meal Preparation <span class="m-sep"></span></div>
+    <div class="marquee-item">Light Housekeeping <span class="m-sep"></span></div>
+    <div class="marquee-item">Transportation <span class="m-sep"></span></div>
+    <div class="marquee-item">Medication Reminders <span class="m-sep"></span></div>
+    <div class="marquee-item">Memory Care Support <span class="m-sep"></span></div>
+    <div class="marquee-item">Bay Area California <span class="m-sep"></span></div>
+    <div class="marquee-item">Personal Care <span class="m-sep"></span></div>
+    <div class="marquee-item">Companionship <span class="m-sep"></span></div>
+    <div class="marquee-item">Meal Preparation <span class="m-sep"></span></div>
+    <div class="marquee-item">Light Housekeeping <span class="m-sep"></span></div>
+    <div class="marquee-item">Transportation <span class="m-sep"></span></div>
+    <div class="marquee-item">Medication Reminders <span class="m-sep"></span></div>
+    <div class="marquee-item">Memory Care Support <span class="m-sep"></span></div>
+    <div class="marquee-item">Bay Area California <span class="m-sep"></span></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section svc-bg" id="services">
+  <div class="container">
+    <div class="svc-top">
+      <div class="reveal">
+        <div class="s-label">Our Services</div>
+        <h2 class="s-h2">Care that fits<br>your loved one's<br><em>daily life.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p">Every care plan is tailored to the individual — building on their strengths, honoring their routines, and supporting their independence at home.</p>
+      </div>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <p class="sv-num">01</p>
+        <p class="sv-title">Personal Care</p>
+        <p class="sv-body">Assistance with bathing, grooming, dressing, and personal hygiene — delivered with dignity, patience, and genuine care.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">02</p>
+        <p class="sv-title">Companionship</p>
+        <p class="sv-body">Meaningful connection and social engagement to combat loneliness. A cheerful presence that brightens every visit.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">03</p>
+        <p class="sv-title">Meal Preparation</p>
+        <p class="sv-body">Nutritious, home-cooked meals prepared to your loved one's preferences and dietary needs — with care and a personal touch.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">04</p>
+        <p class="sv-title">Light Housekeeping</p>
+        <p class="sv-body">A clean, safe, and comfortable home environment — laundry, dishes, tidying, and more so your loved one can focus on living.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">05</p>
+        <p class="sv-title">Transportation and Errands</p>
+        <p class="sv-body">Safe transportation to appointments, social activities, and errands — keeping your loved one connected to their community.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">06</p>
+        <p class="sv-title">Medication Reminders</p>
+        <p class="sv-body">Timely reminders and support to ensure medications are taken on schedule — giving families peace of mind every day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="why-layout">
+      <div class="reveal">
+        <div class="s-label">Why Choose Us</div>
+        <h2 class="s-h2">Care built on<br>experience and<br><em>genuine compassion.</em></h2>
+        <p class="s-p" style="margin-top:4px;">Abdullah Mahmud brings years of hands-on senior care experience — from Memory Care Director to Care Director — to every client relationship at Cheerful Moments.</p>
+        <br /><br />
+        <a href="#contact" class="btn-green">Book a Free Consultation</a>
+      </div>
+      <div class="why-list reveal d1">
+        <div class="why-item">
+          <span class="wi-num">01</span>
+          <div>
+            <p class="wi-title">Founded by a Care Professional</p>
+            <p class="wi-body">Abdullah comes from the inside — Memory Care Director, Care Director, Client Care Coordinator. He built Cheerful Moments because he knows what good care looks like.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="wi-num">02</span>
+          <div>
+            <p class="wi-title">Personalized Care Plans</p>
+            <p class="wi-body">No two clients are the same. Every care plan is built around the individual's needs, routines, and preferences — not a generic checklist.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="wi-num">03</span>
+          <div>
+            <p class="wi-title">Reliable and Consistent Caregivers</p>
+            <p class="wi-body">Consistency matters in home care. We match clients with caregivers who show up — on time, every time — and build real relationships.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="wi-num">04</span>
+          <div>
+            <p class="wi-title">Family Communication</p>
+            <p class="wi-body">Families stay informed and involved. Regular updates and open communication mean you always know how your loved one is doing.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="wi-num">05</span>
+          <div>
+            <p class="wi-title">Bay Area Community Focus</p>
+            <p class="wi-body">We are a local Bay Area business, deeply committed to the communities of Concord, Walnut Creek, and the surrounding area.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-bg" id="process">
+  <div class="container">
+    <div class="process-top">
+      <div class="reveal">
+        <div class="s-label">How It Works</div>
+        <h2 class="s-h2">Getting started<br>is <em>simple.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p">From your first call to your first care visit, we make the process smooth, clear, and supportive — so you can focus on your family, not the paperwork.</p>
+      </div>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <p class="step-title">Free Consultation</p>
+        <p class="step-body">A no-obligation conversation to understand your loved one's needs, your family's concerns, and what care looks like for your situation.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <p class="step-title">Care Assessment</p>
+        <p class="step-body">We conduct a thorough in-home assessment to understand daily routines, health considerations, preferences, and goals.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <p class="step-title">Custom Care Plan</p>
+        <p class="step-body">A personalized plan built around your loved one — the right services, the right schedule, and the right caregiver match.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">04</span>
+        <p class="step-title">Care Begins</p>
+        <p class="step-body">Your caregiver starts — and we stay in close contact with your family to ensure everything is working and adjust as needs evolve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-photo">
+          <span class="about-initials">AM</span>
+          <div class="about-float">
+            <span class="af-num">4+</span>
+            <p class="af-label">Years in senior and memory care operations</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Abdullah</div>
+        <h2 class="s-h2" style="font-size:clamp(30px,3.8vw,48px);">Built by someone<br>who has been <em>inside</em><br>the care world.</h2>
+        <p class="about-body">Abdullah Mahmud is the Founder and CEO of <strong>Cheerful Moments Home Care</strong> — a non-medical home care agency serving families across the Bay Area in California.</p>
+        <p class="about-body">Before founding Cheerful Moments, Abdullah served as Memory Care Director and Care Director at Aegis Living, and as a Client Care Coordinator at Comfort Keepers. He brings that frontline experience to every client relationship.</p>
+        <p class="about-body">His mission is simple — to provide compassionate, high-quality care to those in need, while building an agency that families trust and caregivers are proud to work for.</p>
+        <div class="about-creds">
+          <div class="ac-item"><div class="ac-dot"></div>Founder and CEO · Cheerful Moments Home Care · Walnut Creek, CA</div>
+          <div class="ac-item"><div class="ac-dot"></div>Former Memory Care Director and Care Director · Aegis Living</div>
+          <div class="ac-item"><div class="ac-dot"></div>Former Client Care Coordinator · Comfort Keepers</div>
+          <div class="ac-item"><div class="ac-dot"></div>North South University</div>
+          <div class="ac-item"><div class="ac-dot"></div>Serving Concord, Walnut Creek, and the Greater Bay Area</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-text">Care</div>
+  <div class="container">
+    <div class="s-label">Get Started</div>
+    <h2 class="cta-h2">Your loved one<br>deserves <em>cheerful</em><br>moments every day.</h2>
+    <p class="cta-sub">Book a free consultation with Abdullah today. A simple conversation to understand your family's needs and how Cheerful Moments can help.</p>
+    <div class="cta-actions">
+      <a href="mailto:abdullah@cheerfulmomentshomecare.com" class="btn-green">Book a Free Consultation</a>
+      <a href="tel:" class="btn-outline">Call Us Today</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">Cheerful <span>Moments</span> Home Care</span>
+  <ul class="f-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Cheerful Moments Home Care · Bay Area, California</span>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // 3D CARD
+  const heroCard = document.getElementById('heroCard');
+  const heroWrap = heroCard?.parentElement;
+  if (heroWrap) {
+    heroWrap.addEventListener('mousemove', e => {
+      const r = heroWrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      heroCard.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 9}deg) translateZ(10px)`;
+    });
+    heroWrap.addEventListener('mouseleave', () => {
+      heroCard.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  }
+
+  // CANVAS PARTICLES
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.6
+        ? `rgba(200,168,75,${this.opacity})`
+        : `rgba(255,255,255,${this.opacity})`;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = 1;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = 'rgba(255,255,255,1)';
+          ctx.globalAlpha = (1 - dist / 110) * 0.06;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // REVEALS
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
