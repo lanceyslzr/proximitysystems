@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Purple Vine — Caregiver Coach & Alzheimer's Educator | Debbie Compton</title>
+<meta name="description" content="Debbie Compton helps caregivers reduce stress, block burnout, and laugh again. Certified Caregiving Coach, bestselling author, and Alzheimer's educator." />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #faf7f2;
+    --warm: #f3ece0;
+    --soft: #ede6f5;
+    --purple: #6b4d9a;
+    --purple2: #8b6dba;
+    --purple-dark: #4e357a;
+    --purple-pale: #f0eaf8;
+    --rose: #b86878;
+    --rose-pale: #f8edf0;
+    --ink: #1e1820;
+    --ink2: #352d38;
+    --mid: #6e6272;
+    --muted: #a898ae;
+    --border: #e0d5ec;
+    --border2: #e8ddd0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--purple);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(107,77,154,0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 26px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.5s, padding 0.4s, box-shadow 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(250,247,242,0.96);
+    backdrop-filter: blur(16px);
+    padding: 16px 64px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-logo { text-decoration: none; }
+
+  .nav-logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 0.01em;
+    display: block;
+    line-height: 1;
+  }
+
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 3px;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--purple);
+    transition: width 0.3s;
+    border-radius: 2px;
+  }
+
+  .nav-links a:hover { color: var(--purple); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-btn {
+    background: var(--purple) !important;
+    color: white !important;
+    padding: 11px 24px;
+    border-radius: 50px;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    transition: all 0.2s !important;
+  }
+  .nav-btn::after { display: none !important; }
+  .nav-btn:hover { background: var(--purple-dark) !important; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(107,77,154,0.25) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: var(--cream);
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 160px 64px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px; height: 1.5px;
+    background: var(--purple);
+    border-radius: 2px;
+  }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(46px, 5.5vw, 74px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 em { font-style: italic; color: var(--purple); }
+  .hero-h1 .rose-text { color: var(--rose); font-style: italic; }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 460px;
+    margin-bottom: 42px;
+    line-height: 1.9;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-purple {
+    background: var(--purple);
+    color: white;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 50px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-purple::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--purple-dark);
+    border-radius: 50px;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-purple:hover::before { transform: translateX(0); }
+  .btn-purple span { position: relative; z-index: 1; }
+  .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(107,77,154,0.3); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--purple);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    transition: all 0.25s;
+  }
+  .btn-outline:hover { border-color: var(--purple); transform: translateY(-2px); }
+
+  /* HERO CARD */
+  .hero-right {
+    opacity: 0;
+    animation: riseUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+  }
+
+  .card-3d-wrap { perspective: 1000px; }
+
+  .hero-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 28px;
+    padding: 48px;
+    box-shadow: 0 40px 90px rgba(107,77,154,0.08), 0 0 0 1px rgba(107,77,154,0.04);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(107,77,154,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--purple-pale);
+    color: var(--purple);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+
+  .hc-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--purple);
+    border-radius: 50%;
+  }
+
+  .hc-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 26px;
+  }
+
+  .hs-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--purple);
+    line-height: 1;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .hs-label { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  .hc-divider { height: 1px; background: var(--border); margin: 22px 0; }
+
+  .hc-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink2);
+    line-height: 1.7;
+  }
+  .hc-attr { font-size: 11px; color: var(--muted); margin-top: 12px; letter-spacing: 0.05em; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--purple);
+    padding: 18px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 26s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+  }
+
+  .m-sep {
+    width: 4px; height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 120px 0; }
+
+  .s-label {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .s-label::before { content: ''; width: 18px; height: 1.5px; background: var(--purple); border-radius: 2px; }
+
+  .s-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 4vw, 54px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+  }
+  .s-h2 em { font-style: italic; color: var(--purple); }
+  .s-h2 .rose-text { color: var(--rose); font-style: italic; }
+  .s-p { font-size: 15px; color: var(--mid); max-width: 500px; line-height: 1.9; }
+
+  /* STORY */
+  .story-bg { background: var(--warm); }
+
+  .story-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .story-text { font-size: 15px; color: var(--ink2); line-height: 1.95; }
+  .story-text p { margin-bottom: 20px; }
+  .story-text p:last-child { margin-bottom: 0; }
+  .story-text strong { color: var(--purple); font-weight: 600; }
+
+  .story-card {
+    background: white;
+    border-radius: 24px;
+    padding: 44px;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 24px 60px rgba(107,77,154,0.06);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+  }
+
+  .sc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .sc-items { display: flex; flex-direction: column; gap: 14px; }
+
+  .sc-item {
+    display: flex;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.65;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+  }
+  .sc-item:last-child { border-bottom: none; }
+  .sc-item:hover { padding-left: 6px; }
+
+  .sc-marker {
+    width: 20px; height: 20px;
+    background: var(--purple-pale);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sc-marker::after {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--purple);
+    border-radius: 50%;
+  }
+
+  /* SERVICES */
+  .svc-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .svc-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .svc-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--purple);
+    border-radius: 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .svc-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(107,77,154,0.14); border-color: var(--purple); }
+  .svc-card:hover::before { transform: translateY(0); }
+  .svc-card:hover .sv-num { color: rgba(255,255,255,0.4); }
+  .svc-card:hover .sv-title { color: white; }
+  .svc-card:hover .sv-body { color: rgba(255,255,255,0.6); }
+
+  .sv-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+
+  .sv-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.3;
+    transition: color 0.3s;
+    color: var(--ink);
+  }
+
+  .sv-body {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  /* WHO I HELP */
+  .who-bg { background: var(--soft); }
+
+  .who-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .who-list { display: flex; flex-direction: column; gap: 0; margin-top: 16px; }
+
+  .who-item {
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+    cursor: default;
+  }
+  .who-item:first-child { border-top: 1px solid var(--border); }
+  .who-item:hover { padding-left: 8px; }
+
+  .wi-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: rgba(107,77,154,0.3);
+    width: 28px;
+    flex-shrink: 0;
+    padding-top: 2px;
+    font-weight: 700;
+    transition: color 0.25s;
+  }
+  .who-item:hover .wi-num { color: var(--purple); }
+
+  .wi-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; margin-bottom: 5px; color: var(--ink); }
+  .wi-body { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+  /* BOOKS */
+  .books-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .book-stack { display: flex; flex-direction: column; gap: 14px; }
+
+  .book-card {
+    background: white;
+    border: 1.5px solid var(--border2);
+    border-radius: 18px;
+    padding: 26px 30px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    cursor: default;
+  }
+
+  .book-card:hover {
+    transform: translateX(8px);
+    border-color: var(--rose);
+    box-shadow: 0 12px 36px rgba(184,104,120,0.1);
+  }
+
+  .book-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(107,77,154,0.15);
+    flex-shrink: 0;
+    width: 36px;
+  }
+
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .book-meta { font-size: 11px; color: var(--muted); }
+
+  .book-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--rose-pale);
+    color: var(--rose);
+    font-size: 9px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .about-visual { position: relative; }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--soft);
+    border: 1.5px solid var(--border);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(107,77,154,0.07) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 100px;
+    font-weight: 700;
+    color: rgba(107,77,154,0.12);
+    letter-spacing: -0.03em;
+  }
+
+  .about-float {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--purple);
+    color: white;
+    padding: 18px 22px;
+    border-radius: 18px;
+    min-width: 145px;
+  }
+
+  .af-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+    color: rgba(255,255,255,0.9);
+  }
+  .af-label { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  .about-body { font-size: 15px; color: var(--mid); line-height: 1.95; margin-bottom: 20px; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .about-creds { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .ac-item { display: flex; gap: 12px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+  .ac-dot { width: 16px; height: 16px; background: var(--purple-pale); border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; }
+  .ac-dot::after { content: ''; width: 5px; height: 5px; background: var(--purple); border-radius: 50%; }
+
+  /* CTA */
+  .cta-section {
+    padding: 140px 0;
+    text-align: center;
+    background: var(--warm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 16vw, 200px);
+    font-weight: 700;
+    color: rgba(107,77,154,0.05);
+    pointer-events: none;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .cta-section .s-label { justify-content: center; }
+  .cta-section .s-label::before { display: none; }
+
+  .cta-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 auto 20px;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: var(--purple); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 420px;
+    margin: 0 auto 44px;
+    line-height: 1.9;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 48px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .f-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }
+  .f-logo span { color: var(--purple2); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .f-links a:hover { color: rgba(255,255,255,0.65); }
+
+  .f-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+  /* ANIMATIONS */
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 18px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero-inner { grid-template-columns: 1fr; padding: 130px 24px 70px; gap: 50px; }
+    .container { padding: 0 24px; }
+    .story-layout, .svc-top, .who-layout, .books-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 34px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">The Purple Vine</span>
+    <span class="nav-logo-sub">Caregiver Coach · Author · Speaker</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#story">My Story</a></li>
+    <li><a href="#services">How I Help</a></li>
+    <li><a href="#books">Books</a></li>
+    <li><a href="#about">About Debbie</a></li>
+    <li><a href="#contact" class="nav-btn">Let's Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Certified Caregiving Coach · Alzheimer's Educator</div>
+      <h1 class="hero-h1">
+        Reduce stress.<br>
+        Block burnout.<br>
+        <em>Laugh again.</em>
+      </h1>
+      <p class="hero-sub">Debbie Compton turned her own caregiving journey into a mission — helping caregivers across the country find tools, community, and hope when they need it most.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-purple"><span>Book a Consultation</span></a>
+        <a href="#story" class="btn-outline">Read My Story</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card-3d-wrap">
+        <div class="hero-card" id="heroCard">
+          <div class="hc-badge">Bestselling Author · 11K+ Followers</div>
+          <div class="hc-stats">
+            <div>
+              <span class="hs-num">11K+</span>
+              <p class="hs-label">Followers in caregiving and Alzheimer's</p>
+            </div>
+            <div>
+              <span class="hs-num">No.1</span>
+              <p class="hs-label">Bestselling books on Amazon for caregivers</p>
+            </div>
+            <div>
+              <span class="hs-num">Zoom</span>
+              <p class="hs-label">Consultations from the privacy of your home</p>
+            </div>
+            <div>
+              <span class="hs-num">Free</span>
+              <p class="hs-label">Assessment available to get started today</p>
+            </div>
+          </div>
+          <div class="hc-divider"></div>
+          <p class="hc-quote">"It is my mission to empower all caregivers to reduce stress, block burnout, and laugh again."</p>
+          <p class="hc-attr">Debbie Compton · Founder, The Purple Vine LLC</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Certified Caregiving Coach <span class="m-sep"></span></div>
+    <div class="marquee-item">Alzheimer's Educator <span class="m-sep"></span></div>
+    <div class="marquee-item">Bestselling Author <span class="m-sep"></span></div>
+    <div class="marquee-item">Keynote Speaker <span class="m-sep"></span></div>
+    <div class="marquee-item">Workshop Facilitator <span class="m-sep"></span></div>
+    <div class="marquee-item">Caregiver Support <span class="m-sep"></span></div>
+    <div class="marquee-item">Team Building Expert <span class="m-sep"></span></div>
+    <div class="marquee-item">Oklahoma City, Oklahoma <span class="m-sep"></span></div>
+    <div class="marquee-item">Certified Caregiving Coach <span class="m-sep"></span></div>
+    <div class="marquee-item">Alzheimer's Educator <span class="m-sep"></span></div>
+    <div class="marquee-item">Bestselling Author <span class="m-sep"></span></div>
+    <div class="marquee-item">Keynote Speaker <span class="m-sep"></span></div>
+    <div class="marquee-item">Workshop Facilitator <span class="m-sep"></span></div>
+    <div class="marquee-item">Caregiver Support <span class="m-sep"></span></div>
+    <div class="marquee-item">Team Building Expert <span class="m-sep"></span></div>
+    <div class="marquee-item">Oklahoma City, Oklahoma <span class="m-sep"></span></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="section story-bg" id="story">
+  <div class="container">
+    <div class="story-layout">
+      <div class="reveal">
+        <div class="s-label">My Story</div>
+        <h2 class="s-h2">From corporate<br>America to <em>full-time</em><br>caregiver.</h2>
+        <div class="story-text" style="margin-top:26px;">
+          <p>Imagine going from a corporate career to becoming a full-time caregiver for both parents struggling with different forms of dementia — plus a mother-in-law with Alzheimer's. <strong>That happened to me.</strong></p>
+          <p>It completely rocked my world. And when it happened, I needed ideas, solutions, strategies, and tools. I couldn't find the useful information I needed — and I don't want that to happen to you.</p>
+          <p>My experience has turned into my passion. I now help others who find themselves in the same position — dealing daily with the challenges that caregiving brings.</p>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="story-card" id="storyCard">
+          <p class="sc-title">Can you relate to any of these?</p>
+          <div class="sc-items">
+            <div class="sc-item">
+              <div class="sc-marker"></div>
+              <p>You have aging parents who need help but you don't know where to begin.</p>
+            </div>
+            <div class="sc-item">
+              <div class="sc-marker"></div>
+              <p>Your assisted living facility is constantly dealing with turnover of your staff.</p>
+            </div>
+            <div class="sc-item">
+              <div class="sc-marker"></div>
+              <p>You are a caregiver completely burned out or stressed on a daily basis with no support.</p>
+            </div>
+            <div class="sc-item">
+              <div class="sc-marker"></div>
+              <p>You struggle with the differences between Alzheimer's, other dementia types, and normal aging.</p>
+            </div>
+            <div class="sc-item">
+              <div class="sc-marker"></div>
+              <p>You need education sessions and resources for your organization or group.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="svc-top">
+      <div class="reveal">
+        <div class="s-label">How I Help</div>
+        <h2 class="s-h2">You don't have<br>to figure this<br><em>out alone.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p">On those really tough days when you need to vent, I am here. When you need ideas to prevent wandering, deal with hallucinations, or minimize mood swings — I am here for that too.</p>
+      </div>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card">
+        <p class="sv-num">01</p>
+        <p class="sv-title">Private Coaching</p>
+        <p class="sv-body">One-on-one sessions from the privacy of your home via Zoom. Real tools, strategies, and someone in your corner who has been through it firsthand.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">02</p>
+        <p class="sv-title">Keynote Speaking</p>
+        <p class="sv-body">Engaging presentations for conferences, healthcare organizations, and corporate teams on caregiving, Alzheimer's education, and burnout prevention.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">03</p>
+        <p class="sv-title">Workshops and Training</p>
+        <p class="sv-body">Live and virtual workshops for organizations wanting to support employee caregivers and reduce the impact of caregiver stress on team performance.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">04</p>
+        <p class="sv-title">Alzheimer's Education</p>
+        <p class="sv-body">Education sessions on Alzheimer's prevention, warning signs, and the differences between Alzheimer's, dementia types, and normal aging for groups and facilities.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">05</p>
+        <p class="sv-title">Corporate Support Programs</p>
+        <p class="sv-body">If you are a company wanting to support employees who are caregivers, Debbie brings practical tools and compassionate education directly to your team.</p>
+      </div>
+      <div class="svc-card">
+        <p class="sv-num">06</p>
+        <p class="sv-title">Healthcare Consulting</p>
+        <p class="sv-body">For assisted living facilities dealing with staff turnover and burnout. Bringing the caregiver perspective to your leadership and organizational culture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO I HELP -->
+<section class="section who-bg">
+  <div class="container">
+    <div class="who-layout">
+      <div class="reveal">
+        <div class="s-label">Who I Serve</div>
+        <h2 class="s-h2">Caregivers,<br>organizations,<br>and <em>families.</em></h2>
+        <p class="s-p" style="margin-top:4px;">Whether you are an individual caregiver at home or a healthcare organization serving hundreds — Debbie brings practical, compassionate support that makes a real difference.</p>
+        <br /><br />
+        <a href="#contact" class="btn-purple"><span>Start a Conversation</span></a>
+      </div>
+      <div class="who-list reveal d1">
+        <div class="who-item">
+          <span class="wi-num">01</span>
+          <div>
+            <p class="wi-title">Family Caregivers</p>
+            <p class="wi-body">Adults caring for aging parents, spouses, or loved ones with dementia or Alzheimer's who need real support and practical tools — not just sympathy.</p>
+          </div>
+        </div>
+        <div class="who-item">
+          <span class="wi-num">02</span>
+          <div>
+            <p class="wi-title">Assisted Living Facilities</p>
+            <p class="wi-body">Organizations struggling with staff turnover and burnout who need a fresh perspective on caregiver culture and retention from someone who lived it.</p>
+          </div>
+        </div>
+        <div class="who-item">
+          <span class="wi-num">03</span>
+          <div>
+            <p class="wi-title">Corporate Teams</p>
+            <p class="wi-body">Companies whose employees are caregivers — and who understand that supporting those employees directly impacts productivity, retention, and morale.</p>
+          </div>
+        </div>
+        <div class="who-item">
+          <span class="wi-num">04</span>
+          <div>
+            <p class="wi-title">Healthcare Organizations</p>
+            <p class="wi-body">Hospitals, clinics, and senior care networks looking for Alzheimer's education, caregiver wellness programming, and staff development workshops.</p>
+          </div>
+        </div>
+        <div class="who-item">
+          <span class="wi-num">05</span>
+          <div>
+            <p class="wi-title">Non-Profits and Community Groups</p>
+            <p class="wi-body">Organizations serving caregivers and seniors who want to bring education, inspiration, and practical support to the communities they serve.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section class="section" id="books">
+  <div class="container">
+    <div class="books-layout">
+      <div class="reveal">
+        <div class="s-label">Bestselling Books</div>
+        <h2 class="s-h2">Written from<br><em>lived experience.</em></h2>
+        <p class="s-p" style="margin-top:4px;">Available on Amazon and used by caregivers, healthcare professionals, and organizations across the country. Search Debbie DeMoss Compton on Amazon to find the full collection.</p>
+        <br /><br />
+        <a href="https://www.amazon.com/s?k=Debbie+DeMoss+Compton" class="btn-purple" target="_blank"><span>Find on Amazon</span></a>
+      </div>
+      <div class="book-stack reveal d1">
+        <div class="book-card">
+          <span class="book-num">01</span>
+          <div>
+            <p class="book-title">Caregiving: How to Hold On While Letting Go</p>
+            <p class="book-meta">Debbie DeMoss Compton</p>
+            <span class="book-badge">Bestseller</span>
+          </div>
+        </div>
+        <div class="book-card">
+          <span class="book-num">02</span>
+          <div>
+            <p class="book-title">Color Me Calm — Mandala Adult Coloring Book</p>
+            <p class="book-meta">Debbie DeMoss Compton</p>
+            <span class="book-badge">Bestseller</span>
+          </div>
+        </div>
+        <div class="book-card">
+          <span class="book-num">03</span>
+          <div>
+            <p class="book-title">Faith Lives Here — Adult Coloring Book</p>
+            <p class="book-meta">Debbie DeMoss Compton</p>
+            <span class="book-badge">Bestseller</span>
+          </div>
+        </div>
+        <div class="book-card">
+          <span class="book-num">04</span>
+          <div>
+            <p class="book-title">The Caregiver Advocate — A Complete Guide</p>
+            <p class="book-meta">Debbie DeMoss Compton</p>
+            <span class="book-badge">Bestseller</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section story-bg" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-visual">
+          <div class="about-photo">
+            <span class="about-initials">DC</span>
+          </div>
+          <div class="about-float">
+            <span class="af-num">11K+</span>
+            <p class="af-label">Followers in the caregiving community</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Debbie</div>
+        <h2 class="s-h2" style="font-size:clamp(30px,3.5vw,46px);">Turning personal<br>pain into <em>purpose</em><br>for others.</h2>
+        <p class="about-body">Debbie Compton is a <strong>Certified Caregiving Coach, bestselling author, speaker, and Alzheimer's educator</strong> based in Oklahoma City, Oklahoma.</p>
+        <p class="about-body">Her journey began when she left corporate America to care for both parents with dementia and a mother-in-law with Alzheimer's. That experience became her mission — to make sure no caregiver has to face it alone.</p>
+        <p class="about-body">Today she helps caregivers, healthcare organizations, corporate teams, and assisted living facilities build the tools, knowledge, and resilience they need to keep going.</p>
+        <div class="about-creds">
+          <div class="ac-item"><div class="ac-dot"></div>Founder, The Purple Vine LLC · Oklahoma City, Oklahoma</div>
+          <div class="ac-item"><div class="ac-dot"></div>Certified Caregiving Coach</div>
+          <div class="ac-item"><div class="ac-dot"></div>Bestselling Author on Amazon</div>
+          <div class="ac-item"><div class="ac-dot"></div>Keynote Speaker · Workshop Facilitator · Team Building Expert</div>
+          <div class="ac-item"><div class="ac-dot"></div>Alzheimer's Educator and Caregiver Supporter</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-text">Together</div>
+  <div class="container">
+    <div class="s-label">Let's Connect</div>
+    <h2 class="cta-h2">You don't have to<br>do this <em>alone.</em></h2>
+    <p class="cta-sub">Book a consultation, reach out with a question, or just start a conversation. Debbie is here for all of it — on the tough days and the good ones.</p>
+    <div class="cta-actions">
+      <a href="mailto:DebCompton1@gmail.com" class="btn-purple"><span>Send Debbie a Message</span></a>
+      <a href="tel:4056409354" class="btn-outline">Call 405-640-9354</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">The <span>Purple</span> Vine LLC</span>
+  <ul class="f-links">
+    <li><a href="#story">My Story</a></li>
+    <li><a href="#services">How I Help</a></li>
+    <li><a href="#books">Books</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <span class="f-copy">© 2025 The Purple Vine LLC · ThePurpleVine.com · Oklahoma City, OK</span>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // 3D TILT - HERO CARD
+  const heroCard = document.getElementById('heroCard');
+  const heroWrap = heroCard?.parentElement;
+  if (heroWrap) {
+    heroWrap.addEventListener('mousemove', e => {
+      const r = heroWrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      heroCard.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 9}deg) translateZ(10px)`;
+    });
+    heroWrap.addEventListener('mouseleave', () => {
+      heroCard.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  }
+
+  // 3D TILT - STORY CARD
+  const storyCard = document.getElementById('storyCard');
+  if (storyCard) {
+    storyCard.addEventListener('mousemove', e => {
+      const r = storyCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      storyCard.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 6}deg) translateZ(6px)`;
+    });
+    storyCard.addEventListener('mouseleave', () => {
+      storyCard.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  }
+
+  // CANVAS — SOFT PARTICLE FIELD
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.18 + 0.04;
+      this.color = Math.random() > 0.5
+        ? `rgba(107,77,154,${this.opacity})`
+        : `rgba(184,104,120,${this.opacity})`;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = 1;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 70; i++) particles.push(new Particle());
+
+  // Gentle connection lines
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = 'rgba(107,77,154,1)';
+          ctx.globalAlpha = (1 - dist / 120) * 0.06;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // SCROLL REVEALS
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
