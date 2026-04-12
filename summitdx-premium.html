@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Summit Dynamics Advisory — Incident-Proof. Audit-Ready.</title>
+<meta name="description" content="Stop scrambling after incidents. The InvestiClear 9-Step System helps home care agencies become incident-proof and audit-ready." />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f7f6f3;
+    --ink: #0a0a0a;
+    --ink2: #1a1a1a;
+    --mid: #444;
+    --muted: #888;
+    --gold: #b8935a;
+    --gold2: #d4a96a;
+    --gold-pale: #f5ead8;
+    --border: #e8e5df;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(184,147,90,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.3s, height 0.3s;
+  }
+
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 24px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    padding: 16px 60px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-btn {
+    background: var(--ink);
+    color: var(--white) !important;
+    padding: 11px 24px;
+    font-size: 11px !important;
+    letter-spacing: 0.12em !important;
+    font-weight: 500 !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-btn::after { display: none !important; }
+  .nav-btn:hover { background: var(--gold) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--off);
+  }
+
+  /* 3D CANVAS BG */
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 160px 60px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-left {}
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 6.5vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 .line { display: block; overflow: hidden; }
+  .hero-h1 .gold { color: var(--gold); }
+  .hero-h1 .stroke {
+    -webkit-text-stroke: 2px var(--ink);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 420px;
+    margin-bottom: 44px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-fill {
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-fill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .btn-fill:hover::before { transform: translateX(0); }
+  .btn-fill span { position: relative; z-index: 1; }
+  .btn-fill:hover { transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  /* HERO RIGHT — 3D CARD */
+  .hero-right {
+    opacity: 0;
+    animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+  }
+
+  .card-3d-wrap {
+    perspective: 1000px;
+  }
+
+  .card-3d {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 48px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative;
+  }
+
+  .card-3d::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 20px; right: 20px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.06), transparent);
+    filter: blur(10px);
+  }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-pale);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    margin-bottom: 28px;
+  }
+
+  .card-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .cs-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .cs-label { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  .card-divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  .card-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--ink2);
+  }
+
+  .card-attr { font-size: 11px; color: var(--muted); margin-top: 12px; letter-spacing: 0.06em; }
+
+  /* MARQUEE */
+  .marquee-section {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--ink);
+    padding: 18px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+  }
+
+  .marquee-dot { color: var(--gold); font-size: 18px; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  .section { padding: 120px 0; }
+
+  .s-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .s-label::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+
+  .s-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 4.5vw, 60px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .s-h2 em { font-style: normal; color: var(--gold); }
+  .s-p { font-size: 15px; color: var(--mid); max-width: 500px; line-height: 1.85; }
+
+  /* PROBLEM SECTION */
+  .problem-bg { background: var(--off); }
+
+  .problem-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .problem-items { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+
+  .p-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.25s;
+  }
+  .p-item:first-child { border-top: 1px solid var(--border); }
+  .p-item:hover { padding-left: 8px; }
+
+  .p-n {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    padding-top: 3px;
+  }
+
+  .p-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+  .p-body { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+  .callout {
+    margin-top: 40px;
+    background: var(--ink);
+    color: var(--white);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(184,147,90,0.2) 0%, transparent 70%);
+  }
+
+  .callout-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--gold); margin-bottom: 10px; letter-spacing: 0.06em; }
+  .callout-body { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.75; }
+
+  /* SYSTEM SECTION */
+  .system-section { padding: 120px 0; background: var(--white); }
+
+  .system-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 70px;
+  }
+
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .step-card {
+    background: var(--off);
+    padding: 32px 28px;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ink);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .step-card:hover::before { transform: translateY(0); }
+  .step-card:hover .sc-num { color: var(--gold); }
+  .step-card:hover .sc-title { color: var(--white); }
+  .step-card:hover .sc-body { color: rgba(255,255,255,0.5); }
+
+  .sc-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  .sc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.3;
+    transition: color 0.3s;
+  }
+
+  .sc-body {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  /* EARLY ACCESS */
+  .early-section { background: var(--ink); color: var(--white); padding: 120px 0; }
+
+  .early-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .early-section .s-label { color: var(--gold); }
+  .early-section .s-label::before { background: var(--gold); }
+  .early-section .s-h2 { color: var(--white); }
+  .early-section .s-p { color: rgba(255,255,255,0.5); }
+
+  .early-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .early-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(184,147,90,0.15) 0%, transparent 70%);
+  }
+
+  .ec-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .ec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .ec-body { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 28px; }
+
+  .ec-perks { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+
+  .perk {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .perk-icon {
+    width: 20px; height: 20px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    color: var(--ink);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .btn-gold-fill {
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-gold-fill:hover { background: var(--gold2); transform: translateY(-2px); }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 90px;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-photo-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--off);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(184,147,90,0.08) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'Syne', sans-serif;
+    font-size: 100px;
+    font-weight: 800;
+    color: rgba(184,147,90,0.15);
+    letter-spacing: -0.05em;
+  }
+
+  .about-float-card {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--ink);
+    color: var(--white);
+    padding: 20px 24px;
+    min-width: 160px;
+  }
+
+  .afc-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+    color: var(--gold);
+  }
+
+  .afc-label { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  .about-body { font-size: 15px; color: var(--mid); line-height: 1.9; margin-bottom: 20px; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .creds { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--border); }
+  .cred { display: flex; gap: 12px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+  .cred-dot { color: var(--gold); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+
+  /* CTA SECTION */
+  .cta-section {
+    padding: 140px 0;
+    background: var(--off);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: 'AUDIT';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(100px, 18vw, 220px);
+    font-weight: 800;
+    color: rgba(184,147,90,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+
+  .cta-section .s-label { justify-content: center; }
+  .cta-section .s-label::before { display: none; }
+
+  .cta-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 5.5vw, 70px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 auto 20px;
+    max-width: 700px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: normal; color: var(--gold); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 420px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 48px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .f-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .f-logo span { color: var(--gold); }
+
+  .f-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+  .f-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .f-links a:hover { color: rgba(255,255,255,0.7); }
+
+  .f-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+  /* ANIMATIONS */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero-inner { grid-template-columns: 1fr; padding: 130px 24px 70px; gap: 48px; }
+    .container { padding: 0 24px; }
+    .problem-layout, .system-top, .early-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .step-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+    .cta-section::before { font-size: 80px; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Summit<span>DX</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#system">InvestiClear</a></li>
+    <li><a href="#about">About Jess</a></li>
+    <li><a href="#early" class="nav-btn">Early Access</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Home Care · Incident Readiness · Audit Confidence</div>
+      <h1 class="hero-h1">
+        <span class="line">Incident-</span>
+        <span class="line gold">Proof.</span>
+        <span class="line stroke">Audit-</span>
+        <span class="line">Ready.</span>
+      </h1>
+      <p class="hero-sub">Stop scrambling when oversight shows up. Jess Arnold built the system she wishes she'd had — after 16 years and 1,800+ real incidents.</p>
+      <div class="hero-actions">
+        <a href="#early" class="btn-fill"><span>Join Early Access</span></a>
+        <a href="#system" class="btn-ghost">See the System</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card-3d-wrap">
+        <div class="card-3d" id="heroCard">
+          <div class="card-badge">Built from 16 years inside home care</div>
+          <div class="card-stats">
+            <div>
+              <span class="cs-num">1,800+</span>
+              <p class="cs-label">Incidents personally handled and documented</p>
+            </div>
+            <div>
+              <span class="cs-num">9-Step</span>
+              <p class="cs-label">Proven incident operations system</p>
+            </div>
+            <div>
+              <span class="cs-num">16yrs</span>
+              <p class="cs-label">In home care audit and compliance</p>
+            </div>
+            <div>
+              <span class="cs-num">Free</span>
+              <p class="cs-label">Workshop for early access members</p>
+            </div>
+          </div>
+          <div class="card-divider"></div>
+          <p class="card-quote">"I started in the chaos. Thin policies, messy documentation, late-night fixes before every review. So I built the system I wish we'd had."</p>
+          <p class="card-attr">Jess Arnold · Founder, Summit Dynamics Advisory</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">Incident Operations <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Audit Readiness <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Regulatory Compliance <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Home Care Agencies <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Documentation Standards <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">InvestiClear System <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Incident Operations <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Audit Readiness <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Regulatory Compliance <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Home Care Agencies <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">Documentation Standards <span class="marquee-dot">◆</span></div>
+    <div class="marquee-item">InvestiClear System <span class="marquee-dot">◆</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section problem-bg" id="problem">
+  <div class="container">
+    <div class="problem-layout">
+      <div class="reveal">
+        <div class="s-label">The Problem</div>
+        <h2 class="s-h2">Most agencies are<br>one audit away<br>from <em>chaos.</em></h2>
+        <p class="s-p">It's not that leaders don't care. It's that nobody ever handed them a system. So when oversight shows up, the scrambling starts.</p>
+        <div class="callout" style="margin-top:40px;">
+          <p class="callout-title">What it costs you</p>
+          <p class="callout-body">Every scrambled audit, every inconsistent incident report, every late-night fix before a review — it adds up in stress, liability, staff burnout, and reputation. You deserve a system that makes oversight something you welcome, not fear.</p>
+        </div>
+      </div>
+      <div class="problem-items reveal d1">
+        <div class="p-item">
+          <span class="p-n">01</span>
+          <div>
+            <p class="p-title">Thin policies that don't hold up</p>
+            <p class="p-body">Written once, never revisited. When a surveyor asks the hard questions, there's nothing solid to stand behind.</p>
+          </div>
+        </div>
+        <div class="p-item">
+          <span class="p-n">02</span>
+          <div>
+            <p class="p-title">Messy, inconsistent documentation</p>
+            <p class="p-body">No standard format, no audit trail. When you need to show your process, it isn't there.</p>
+          </div>
+        </div>
+        <div class="p-item">
+          <span class="p-n">03</span>
+          <div>
+            <p class="p-title">Late-night fixes before reviews</p>
+            <p class="p-body">Scrambling to pull records and prepare staff hours before a visit. The stress is unnecessary and the risk is real.</p>
+          </div>
+        </div>
+        <div class="p-item">
+          <span class="p-n">04</span>
+          <div>
+            <p class="p-title">No standard incident process</p>
+            <p class="p-body">Every incident handled differently depending on who's working. No playbook means no confidence when it matters most.</p>
+          </div>
+        </div>
+        <div class="p-item">
+          <span class="p-n">05</span>
+          <div>
+            <p class="p-title">Leaders turned into compliance officers</p>
+            <p class="p-body">Without a system, every incident becomes a full-time project for the owner. That is not sustainable and it is not their job.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section class="system-section" id="system">
+  <div class="container">
+    <div class="system-top">
+      <div class="reveal">
+        <div class="s-label">The InvestiClear System</div>
+        <h2 class="s-h2">A 9-step playbook.<br>Built from <em>1,800+</em><br>real incidents.</h2>
+      </div>
+      <div class="reveal d1">
+        <p class="s-p">Not theory. Not a policy template. A practical, proven incident, complaint, and documentation system that turns operational chaos into audit confidence.</p>
+        <br />
+        <a href="#early" class="btn-fill" style="margin-top:8px;"><span>Get Early Access</span></a>
+      </div>
+    </div>
+    <div class="step-grid reveal">
+      <div class="step-card">
+        <p class="sc-num">Step 01</p>
+        <p class="sc-title">Immediate Incident Response</p>
+        <p class="sc-body">A clear first-response protocol so staff know exactly what to do in the first 60 minutes. No guessing, no variation.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 02</p>
+        <p class="sc-title">Documentation Standards</p>
+        <p class="sc-body">Consistent, audit-ready formats that hold up under scrutiny and tell the full story of every incident.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 03</p>
+        <p class="sc-title">Complaint Intake and Tracking</p>
+        <p class="sc-body">A structured process so no complaint gets lost, delayed, or mishandled regardless of who receives it.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 04</p>
+        <p class="sc-title">Investigation Framework</p>
+        <p class="sc-body">A step-by-step process that is thorough, objective, and defensible when reviewed by a regulator.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 05</p>
+        <p class="sc-title">Regulatory Reporting</p>
+        <p class="sc-body">Know exactly when, what, and how to report. No missed obligations. No violations from late filings.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 06</p>
+        <p class="sc-title">Family Communication</p>
+        <p class="sc-body">Templates and protocols for notifying families with the right information at the right time. Clear, compassionate, sound.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 07</p>
+        <p class="sc-title">Root Cause Analysis</p>
+        <p class="sc-body">Move beyond what happened to understand why. Prevents recurrence and demonstrates continuous improvement.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 08</p>
+        <p class="sc-title">Corrective Action Planning</p>
+        <p class="sc-body">Plans that satisfy surveyors and actually change the conditions that led to the incident in the first place.</p>
+      </div>
+      <div class="step-card">
+        <p class="sc-num">Step 09</p>
+        <p class="sc-title">Audit Readiness Maintenance</p>
+        <p class="sc-body">Ongoing practices that keep the agency audit-ready at all times. Not just before a visit. Always.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EARLY ACCESS -->
+<section class="early-section" id="early">
+  <div class="container">
+    <div class="early-layout">
+      <div class="reveal">
+        <div class="s-label">Coming Soon</div>
+        <h2 class="s-h2">The InvestiClear<br>course is almost<br><em>here.</em></h2>
+        <p class="s-p">Jess is building the full course and template library so agencies can implement the 9-step system themselves, step by step. Early access members get in first.</p>
+      </div>
+      <div class="early-card reveal d1">
+        <p class="ec-label">What Early Access Gets You</p>
+        <p class="ec-title">First in line when<br>enrollment opens.</p>
+        <p class="ec-body">Join the list now and get access to a free live workshop with Jess before the course launches, plus founding-member pricing when it does.</p>
+        <div class="ec-perks">
+          <div class="perk"><div class="perk-icon">✓</div>Free live InvestiClear workshop with Jess</div>
+          <div class="perk"><div class="perk-icon">✓</div>Founding-member pricing when enrollment opens</div>
+          <div class="perk"><div class="perk-icon">✓</div>First access to templates and implementation guides</div>
+          <div class="perk"><div class="perk-icon">✓</div>Direct access to Jess during the beta phase</div>
+        </div>
+        <a href="https://summitdx.co" class="btn-gold-fill" target="_blank">Join the Early Access List</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-visual">
+          <div class="about-photo-box">
+            <span class="about-initials">JA</span>
+          </div>
+          <div class="about-float-card">
+            <span class="afc-num">1,800+</span>
+            <p class="afc-label">Incidents personally handled over 16 years</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Jess</div>
+        <h2 class="s-h2" style="font-size:clamp(32px,4vw,50px);">Built from chaos.<br>Not from a<br><em>textbook.</em></h2>
+        <p class="about-body">Jess Arnold spent 16 years inside home care, personally handling <strong>1,800+ incidents, complaints, audits, and licensing visits and investigations.</strong></p>
+        <p class="about-body">She did not start with a clean system. She started in the chaos — and she learned everything about what breaks and why. That experience became InvestiClear.</p>
+        <p class="about-body">Today Jess helps home care agency leaders stop being reactive and start being confident — before oversight ever shows up at the door.</p>
+        <div class="creds">
+          <div class="cred"><span class="cred-dot">◆</span>Founder, Summit Dynamics Advisory · Naples, Maine</div>
+          <div class="cred"><span class="cred-dot">◆</span>Green Mountain College</div>
+          <div class="cred"><span class="cred-dot">◆</span>Top skills: Home Care · Regulatory Compliance · Operations Management</div>
+          <div class="cred"><span class="cred-dot">◆</span>Healthcare Consulting · Business Consulting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="s-label">Get Started</div>
+    <h2 class="cta-h2">Your agency deserves<br>to be <em>audit-ready</em><br>every single day.</h2>
+    <p class="cta-sub">Join the early access list and be first in line for the InvestiClear workshop and course. No cost to join. No obligation.</p>
+    <div class="cta-actions">
+      <a href="https://summitdx.co" class="btn-fill" target="_blank"><span>Join the Early Access List</span></a>
+      <a href="mailto:jess@summitdx.co" class="btn-ghost">Send Jess a Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">Summit<span>DX</span> Advisory</span>
+  <ul class="f-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#system">InvestiClear</a></li>
+    <li><a href="#early">Early Access</a></li>
+    <li><a href="#about">About Jess</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Summit Dynamics Advisory · summitdx.co</span>
+</footer>
+
+<script>
+  // CUSTOM CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // NAV SCROLL
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // 3D CARD TILT
+  const card = document.getElementById('heroCard');
+  const wrap = card?.parentElement;
+
+  if (wrap) {
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0px)';
+    });
+  }
+
+  // CANVAS PARTICLES
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.4;
+      this.speedY = (Math.random() - 0.5) * 0.4;
+      this.opacity = Math.random() * 0.25 + 0.05;
+      this.color = Math.random() > 0.6 ? '#b8935a' : '#0a0a0a';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#b8935a';
+          ctx.globalAlpha = (1 - dist / 100) * 0.08;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawConnections();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // SCROLL REVEALS
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
