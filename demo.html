@@ -87,17 +87,17 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
 
 /* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.slides{flex:1;overflow-y:auto;padding:22px 28px}
+.slides{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column}
 .slides::-webkit-scrollbar{width:3px}
 .slides::-webkit-scrollbar-thumb{background:var(--border)}
 
 /* ── SLIDES ── */
 .slide{display:none}
-.slide.on{display:block;animation:fin .4s ease forwards}
+.slide.on{display:block;animation:fin .4s ease forwards;flex-shrink:0}
 @keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* Overview uses 2-col */
-#s0.on{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:20px;align-items:start}
+#s0.on{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:20px;align-items:start;flex-shrink:0}
 
 /* System slides: left content full width, visual below */
 .sys-wrap{display:flex;gap:18px;align-items:flex-start}
