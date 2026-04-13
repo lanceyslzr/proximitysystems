@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nurture Bridge AI Consults — Ethical AI for Healthcare Leaders | Sabina Ben Kasim</title>
+<meta name="description" content="Sabina Ben Kasim helps healthcare leaders implement AI responsibly, optimize clinical workflows, and strengthen operational governance." />
+<link href="https://fonts.googleapis.com/css2?family=Editorial+New:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #f5f2eb;
+    --warm: #ede9de;
+    --ink: #111008;
+    --ink2: #1e1c10;
+    --mid: #5c5a50;
+    --muted: #9c9a8e;
+    --navy: #0a1628;
+    --blue: #1446a0;
+    --blue2: #1a5fd4;
+    --blue-pale: #dde8f8;
+    --teal: #0a7a72;
+    --gold: #c8940a;
+    --gold2: #e8b020;
+    --border: #dedad0;
+    --border-navy: rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--blue);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 38px; height: 38px;
+    border: 1px solid rgba(20,70,160,0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV — minimal top strip */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(245,242,235,0.97);
+    backdrop-filter: blur(16px);
+    padding: 14px 60px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-wordmark {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color 0.4s;
+  }
+
+  .nav-wordmark span { color: var(--gold2); font-style: italic; }
+
+  nav.scrolled .nav-wordmark { color: var(--ink); }
+  nav.scrolled .nav-wordmark span { color: var(--blue); }
+
+  .nav-right { display: flex; align-items: center; gap: 32px; }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(245,242,235,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cream); }
+  nav.scrolled .nav-links a { color: var(--muted); }
+  nav.scrolled .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: all 0.2s;
+  }
+  nav.scrolled .nav-cta { background: var(--navy); }
+  .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+
+  /* ─── HERO — full editorial split ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--navy);
+    padding: 160px 64px 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .hero-left-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold2);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: slideRight 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+  .hero-tag::before { content: ''; width: 20px; height: 1px; background: var(--gold2); }
+
+  .hero-h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: slideRight 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 em { font-style: italic; color: var(--gold2); }
+
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(245,242,235,0.5);
+    max-width: 380px;
+    line-height: 1.85;
+    opacity: 0;
+    animation: slideRight 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-left-bottom {
+    position: relative;
+    z-index: 2;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideRight 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    text-decoration: none;
+    border-radius: 40px;
+    display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+
+  .btn-outline-cream {
+    background: transparent;
+    color: rgba(245,242,235,0.6);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-outline-cream:hover { border-color: var(--gold2); color: var(--gold2); }
+
+  /* HERO RIGHT — stat wall */
+  .hero-right {
+    background: var(--warm);
+    padding: 160px 64px 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    animation: slideLeft 0.9s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+  }
+
+  .hero-right-top {}
+
+  .manifesto {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blue);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pillars { display: flex; flex-direction: column; gap: 0; }
+
+  .pillar {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+    cursor: default;
+    transition: padding-left 0.25s;
+  }
+  .pillar:hover { padding-left: 8px; }
+
+  .pillar-num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(20,70,160,0.15);
+    line-height: 1;
+    transition: color 0.25s;
+  }
+  .pillar:hover .pillar-num { color: var(--blue); }
+
+  .pillar-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; color: var(--ink); }
+  .pillar-body { font-size: 13px; color: var(--mid); line-height: 1.65; }
+
+  .hero-right-bottom {
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .hero-stat {}
+  .hs-big {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .hs-label { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* ─── BAND ─── */
+  .band {
+    background: var(--blue);
+    padding: 18px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .band-track {
+    display: flex;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+    gap: 0;
+  }
+
+  .band-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 36px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+  }
+
+  .b-dot { width: 4px; height: 4px; background: var(--gold2); border-radius: 50%; opacity: 0.7; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── PROBLEM — overlapping editorial layout ─── */
+  .problem-section {
+    padding: 120px 0;
+    background: var(--cream);
+  }
+
+  .problem-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .problem-header {
+    display: grid;
+    grid-template-columns: 0.6fr 1.4fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 70px;
+  }
+
+  .problem-label {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  .problem-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(44px, 5.5vw, 72px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .problem-h2 em { font-style: italic; color: var(--blue); }
+
+  /* Masonry-style risk grid */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+  }
+
+  .risk-card {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .risk-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--blue);
+    transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .risk-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(20,70,160,0.08); }
+  .risk-card:hover::after { width: 100%; }
+
+  /* First card spans 2 rows */
+  .risk-card.span2 { grid-row: span 2; background: var(--navy); color: var(--cream); display: flex; flex-direction: column; justify-content: space-between; }
+  .risk-card.span2 .rc-title { color: var(--cream); }
+  .risk-card.span2 .rc-body { color: rgba(245,242,235,0.55); }
+  .risk-card.span2 .rc-num { color: rgba(255,255,255,0.2); }
+  .risk-card.span2::after { background: var(--gold2); }
+
+  .rc-num {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: rgba(20,70,160,0.1);
+    line-height: 1;
+    margin-bottom: 20px;
+    display: block;
+    letter-spacing: -0.03em;
+  }
+
+  .rc-title { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: var(--ink); line-height: 1.3; }
+  .rc-body { font-size: 12px; color: var(--mid); line-height: 1.75; }
+
+  /* ─── SERVICES — horizontal scroll feel ─── */
+  .services-section {
+    padding: 120px 0;
+    background: var(--navy);
+    color: var(--cream);
+    overflow: hidden;
+  }
+
+  .svc-container { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+
+  .svc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .svc-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5vw, 66px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+  }
+  .svc-h2 em { font-style: italic; color: var(--gold2); }
+
+  .svc-sub { font-size: 14px; color: rgba(245,242,235,0.45); max-width: 320px; line-height: 1.8; text-align: right; }
+
+  /* Two-column uneven grid */
+  .svc-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3px;
+  }
+
+  .svc-col { display: flex; flex-direction: column; gap: 3px; }
+
+  .svc-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 36px 32px;
+    transition: all 0.3s;
+    cursor: default;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .svc-item:hover { background: rgba(20,95,212,0.15); border-color: rgba(40,120,255,0.2); }
+
+  .si-num {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 0.25s;
+  }
+  .svc-item:hover .si-num { color: var(--gold2); }
+
+  .si-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--cream); }
+  .si-body { font-size: 12px; color: rgba(245,242,235,0.4); line-height: 1.75; }
+
+  /* ─── ABOUT — full-bleed magazine layout ─── */
+  .about-section {
+    padding: 0;
+    background: var(--warm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+  }
+
+  .about-visual {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+  }
+
+  /* Diagonal lines texture */
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(20,70,160,0.05) 40px,
+      rgba(20,70,160,0.05) 41px
+    );
+  }
+
+  .about-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(20,95,212,0.15) 0%, transparent 65%);
+  }
+
+  .about-initials-block {
+    font-family: 'Fraunces', serif;
+    font-size: 120px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: -0.04em;
+    position: relative;
+    z-index: 1;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .about-badge-block {
+    position: absolute;
+    bottom: 0; right: 0;
+    background: var(--gold);
+    color: var(--cream);
+    padding: 24px 28px;
+    z-index: 2;
+  }
+
+  .ab-num {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .ab-label { font-size: 10px; color: rgba(245,242,235,0.7); line-height: 1.5; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .about-content {
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-label {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .about-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+  .about-h2 em { font-style: italic; color: var(--blue); }
+
+  .about-body { font-size: 14px; color: var(--mid); line-height: 1.95; margin-bottom: 18px; }
+  .about-body strong { color: var(--ink); font-weight: 600; }
+
+  .creds-list { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+  .cred-row { display: flex; gap: 12px; font-size: 12px; color: var(--muted); align-items: flex-start; }
+  .cred-mark { width: 6px; height: 6px; background: var(--blue); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+  /* ─── CTA — oversized centered ─── */
+  .cta-section {
+    padding: 140px 60px;
+    background: var(--cream);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg-word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-size: clamp(100px, 20vw, 260px);
+    font-weight: 700;
+    font-style: italic;
+    color: rgba(20,70,160,0.04);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: -0.04em;
+  }
+
+  .cta-label {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(44px, 6vw, 80px);
+    font-weight: 700;
+    line-height: 0.97;
+    letter-spacing: -0.03em;
+    margin: 0 auto 24px;
+    max-width: 760px;
+    color: var(--ink);
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: var(--blue); }
+
+  .cta-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 440px;
+    margin: 0 auto 48px;
+    line-height: 1.85;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; position: relative; z-index: 1; }
+
+  .btn-navy {
+    background: var(--navy);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border-radius: 40px;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-navy:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(20,70,160,0.2); }
+
+  .btn-outline-ink {
+    background: transparent;
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline-ink:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 44px 60px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .f-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(245,242,235,0.7);
+  }
+  .f-logo em { font-style: italic; color: var(--gold2); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; justify-content: center; }
+  .f-links a {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,242,235,0.2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .f-links a:hover { color: rgba(245,242,235,0.6); }
+
+  .f-copy { font-size: 10px; color: rgba(245,242,235,0.18); text-align: right; }
+
+  /* ANIMATIONS */
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideLeft {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left, .hero-right { padding: 120px 24px 60px; }
+    .problem-container { padding: 0 24px; }
+    .problem-header { grid-template-columns: 1fr; gap: 24px; }
+    .risk-grid { grid-template-columns: 1fr 1fr; }
+    .risk-card.span2 { grid-row: span 1; }
+    .svc-container { padding: 0 24px; }
+    .svc-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .svc-layout { grid-template-columns: 1fr; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-content { padding: 60px 24px; }
+    .cta-section { padding: 100px 24px; }
+    footer { grid-template-columns: 1fr; padding: 36px 24px; }
+    .f-copy { text-align: left; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-wordmark">Nurture<span>Bridge</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#problem">The Risk</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Start the Conversation</a>
+  </div>
+</nav>
+
+<!-- HERO — SPLIT LAYOUT -->
+<section class="hero">
+  <div class="hero-left">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-left-content">
+      <div class="hero-tag">AI Healthcare Strategist · FNP · MSN · RN · AANP</div>
+      <h1 class="hero-h1">
+        Govern<br>
+        AI before<br>
+        you deploy<br>
+        <em>it.</em>
+      </h1>
+      <p class="hero-sub">Sabina Ben Kasim helps healthcare leaders implement AI responsibly — with governance frameworks, workflow alignment, and compliance structures that protect patients and staff.</p>
+    </div>
+    <div class="hero-left-bottom">
+      <a href="#contact" class="btn-gold">Start the Conversation</a>
+      <a href="#services" class="btn-outline-cream">Our Framework</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-top">
+      <p class="manifesto">Innovation must be governed · Efficiency must protect dignity · Technology must enhance, not replace, clinical judgment</p>
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar-num">01</span>
+          <div>
+            <p class="pillar-title">Governance First</p>
+            <p class="pillar-body">No AI deployment moves forward without a governance structure. Clinical AI governance frameworks, safeguards, and accountability mechanisms built before anything else.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">02</span>
+          <div>
+            <p class="pillar-title">Workflow Optimization</p>
+            <p class="pillar-body">Evaluating and redesigning workflows before automation is introduced — because AI layered on broken processes just automates the problems.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">03</span>
+          <div>
+            <p class="pillar-title">AI Strategy</p>
+            <p class="pillar-body">Readiness assessments, implementation roadmaps, and ongoing advisory support to build sustainable AI strategy aligned with clinical reality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right-bottom">
+      <div class="hero-stat">
+        <span class="hs-big">21+</span>
+        <p class="hs-label">Years across nursing, case management, and quality improvement</p>
+      </div>
+      <div class="hero-stat">
+        <span class="hs-big">FNP</span>
+        <p class="hs-label">Family Nurse Practitioner with frontline clinical experience</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band">
+  <div class="band-track">
+    <div class="band-item">Clinical AI Governance <span class="b-dot"></span></div>
+    <div class="band-item">Workflow Optimization <span class="b-dot"></span></div>
+    <div class="band-item">AI Readiness Assessments <span class="b-dot"></span></div>
+    <div class="band-item">Compliance Safeguards <span class="b-dot"></span></div>
+    <div class="band-item">Process Redesign <span class="b-dot"></span></div>
+    <div class="band-item">Ethical AI Implementation <span class="b-dot"></span></div>
+    <div class="band-item">Healthcare Systems Design <span class="b-dot"></span></div>
+    <div class="band-item">Washington DC and Baltimore <span class="b-dot"></span></div>
+    <div class="band-item">Clinical AI Governance <span class="b-dot"></span></div>
+    <div class="band-item">Workflow Optimization <span class="b-dot"></span></div>
+    <div class="band-item">AI Readiness Assessments <span class="b-dot"></span></div>
+    <div class="band-item">Compliance Safeguards <span class="b-dot"></span></div>
+    <div class="band-item">Process Redesign <span class="b-dot"></span></div>
+    <div class="band-item">Ethical AI Implementation <span class="b-dot"></span></div>
+    <div class="band-item">Healthcare Systems Design <span class="b-dot"></span></div>
+    <div class="band-item">Washington DC and Baltimore <span class="b-dot"></span></div>
+  </div>
+</div>
+
+<!-- PROBLEM — MASONRY GRID -->
+<section class="problem-section" id="problem">
+  <div class="problem-container">
+    <div class="problem-header reveal">
+      <p class="problem-label">The Risk</p>
+      <h2 class="problem-h2">AI without<br>governance<br><em>creates risk.</em></h2>
+    </div>
+    <div class="risk-grid reveal d1">
+      <div class="risk-card span2">
+        <div>
+          <span class="rc-num">01</span>
+          <p class="rc-title">Healthcare innovation is accelerating. The gap between deployment and governance is widening.</p>
+          <p class="rc-body">Many organizations introduce AI before workflows, compliance structures, and oversight mechanisms are fully aligned. That gap creates compounding risk — for patients, for staff, and for the organization. Sabina closes that gap.</p>
+        </div>
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:rgba(245,242,235,0.5);margin-top:32px;line-height:1.5;">"Organizations that approach AI strategically build sustainable efficiency, stronger compliance, improved financial performance, and resilient care delivery systems."</p>
+      </div>
+      <div class="risk-card">
+        <span class="rc-num">02</span>
+        <p class="rc-title">AI implemented before workflows are aligned</p>
+        <p class="rc-body">Automation of broken processes just automates the problems. Workflow redesign must come first.</p>
+      </div>
+      <div class="risk-card">
+        <span class="rc-num">03</span>
+        <p class="rc-title">Compliance structures not built for AI</p>
+        <p class="rc-body">Regulatory standards written for human processes don't automatically apply to AI systems. Specific safeguards are required.</p>
+      </div>
+      <div class="risk-card">
+        <span class="rc-num">04</span>
+        <p class="rc-title">Clinical judgment replaced, not enhanced</p>
+        <p class="rc-body">AI that overrides rather than supports clinicians creates dependency, erodes skill, and ultimately puts patients at risk.</p>
+      </div>
+      <div class="risk-card">
+        <span class="rc-num">05</span>
+        <p class="rc-title">No roadmap for ongoing oversight</p>
+        <p class="rc-body">AI is not a one-time implementation. Without audit mechanisms, risk compounds silently over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES — UNEVEN COLUMNS -->
+<section class="services-section" id="services">
+  <div class="svc-container">
+    <div class="svc-header reveal">
+      <h2 class="svc-h2">What<br>Sabina<br><em>builds.</em></h2>
+      <p class="svc-sub">Working alongside healthcare executives, boards, and clinical operations leaders to implement AI that is clinically sound, operationally aligned, and governance-ready.</p>
+    </div>
+    <div class="svc-layout reveal d1">
+      <div class="svc-col">
+        <div class="svc-item">
+          <span class="si-num">01</span>
+          <div>
+            <p class="si-title">AI Governance Frameworks</p>
+            <p class="si-body">Building clinical AI governance structures, accountability frameworks, and oversight mechanisms aligned with regulatory standards and organizational risk tolerance.</p>
+          </div>
+        </div>
+        <div class="svc-item">
+          <span class="si-num">02</span>
+          <div>
+            <p class="si-title">Workflow Assessment and Redesign</p>
+            <p class="si-body">Evaluating clinical workflows to identify bottlenecks, inefficiencies, and automation opportunities — with process redesign completed before any AI is introduced.</p>
+          </div>
+        </div>
+        <div class="svc-item">
+          <span class="si-num">03</span>
+          <div>
+            <p class="si-title">Compliance and Documentation Safeguards</p>
+            <p class="si-body">Strengthening documentation integrity and building compliance safeguards specific to AI-assisted clinical environments and audit requirements.</p>
+          </div>
+        </div>
+      </div>
+      <div class="svc-col">
+        <div class="svc-item">
+          <span class="si-num">04</span>
+          <div>
+            <p class="si-title">AI Readiness and Strategy</p>
+            <p class="si-body">Assessing organizational readiness and building phased implementation roadmaps that protect quality, compliance, and staff wellbeing throughout the transition.</p>
+          </div>
+        </div>
+        <div class="svc-item">
+          <span class="si-num">05</span>
+          <div>
+            <p class="si-title">Audit and Risk Reduction</p>
+            <p class="si-body">Ongoing advisory support to monitor AI performance, identify emerging risks, and ensure governance frameworks evolve alongside the technology.</p>
+          </div>
+        </div>
+        <div class="svc-item">
+          <span class="si-num">06</span>
+          <div>
+            <p class="si-title">Leadership and Board Advisory</p>
+            <p class="si-body">Working with healthcare boards and executive teams to build AI literacy, governance accountability, and strategic alignment at the leadership level.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT — FULL BLEED -->
+<section class="about-section" id="about">
+  <div class="about-visual reveal">
+    <div class="about-initials-block">SBK</div>
+    <div class="about-badge-block">
+      <span class="ab-num">21+</span>
+      <p class="ab-label">Years in healthcare operations and clinical leadership</p>
+    </div>
+  </div>
+  <div class="about-content reveal d1">
+    <p class="about-label">About Sabina</p>
+    <h2 class="about-h2">Frontline nurse.<br>Frontline <em>leader.</em></h2>
+    <p class="about-body">Sabina Ben Kasim is a <strong>Family Nurse Practitioner, MSN, RN, and AANP member</strong> with over 21 years of experience across frontline nursing, case management, utilization review, leadership, and quality improvement.</p>
+    <p class="about-body">As Founder of Nurture Bridge AI Consults, Sabina works alongside healthcare executives, boards, and clinical operations leaders to implement AI responsibly — with governance structures that protect patients, support staff, and build long-term organizational resilience.</p>
+    <p class="about-body">Her advisory philosophy is clear: innovation must be governed, efficiency must protect dignity, and technology must enhance — not replace — clinical judgment.</p>
+    <div class="creds-list">
+      <div class="cred-row"><div class="cred-mark"></div>Founder · Nurture Bridge AI Consults · Washington DC and Baltimore Area</div>
+      <div class="cred-row"><div class="cred-mark"></div>Family Nurse Practitioner (FNP) · MSN · RN · AANP</div>
+      <div class="cred-row"><div class="cred-mark"></div>21+ years across nursing, case management, quality improvement, and healthcare leadership</div>
+      <div class="cred-row"><div class="cred-mark"></div>Chamberlain University</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-word">Govern</div>
+  <span class="cta-label">Start the Conversation</span>
+  <h2 class="cta-h2">If you lead<br>transformation,<br><em>let's talk.</em></h2>
+  <p class="cta-sub">Sabina welcomes the conversation with healthcare leaders responsible for AI strategy, governance, and clinical operations. No pressure. Just clarity.</p>
+  <div class="cta-actions">
+    <a href="tel:4433717838" class="btn-navy">Call 443-371-7838</a>
+    <a href="https://homecare.nurturebridgemarketing.com" class="btn-outline-ink" target="_blank">Visit Nurture Bridge</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">Nurture<em>Bridge</em> AI Consults</span>
+  <ul class="f-links">
+    <li><a href="#problem">The Risk</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Nurture Bridge AI Consults · Washington DC and Baltimore</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '38px'; ring.style.height = '38px';
+    });
+  });
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // CANVAS — subtle particles on dark left panel
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 1.5 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.5 ? '#1a5fd4' : '#e8b020';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 70; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#1a5fd4';
+          ctx.globalAlpha = (1 - dist / 100) * 0.08;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
