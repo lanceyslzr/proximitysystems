@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seniors Helping Seniors Buckhead — Lara Smith PharmD | In-Home Senior Care Atlanta</title>
+<meta name="description" content="Lara Smith PharmD brings 23 years of healthcare expertise to Seniors Helping Seniors Buckhead — providing compassionate, non-medical in-home care across Buckhead, Brookhaven and Chamblee, GA." />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f7f9f8;
+    --warm: #f0f4f2;
+    --ink: #0e1a16;
+    --mid: #3e5248;
+    --muted: #7a9288;
+    --teal: #1a7060;
+    --teal2: #228870;
+    --teal3: #2eb090;
+    --teal-pale: #e0f2ee;
+    --teal-dark: #0e4438;
+    --coral: #e06040;
+    --coral2: #f07858;
+    --coral-pale: #fdeee8;
+    --gold: #c89030;
+    --gold2: #e0b040;
+    --border: #d0e0da;
+    --border2: #c0d8d0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off);
+    color: var(--ink);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed; width: 10px; height: 10px;
+    background: var(--teal); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed; width: 38px; height: 38px;
+    border: 1.5px solid rgba(26,112,96,0.3); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    padding: 20px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(247,249,248,0.97);
+    backdrop-filter: blur(16px);
+    padding: 14px 64px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+  .nav-mark {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(26,112,96,0.3); flex-shrink: 0;
+  }
+  .nav-mark svg { width: 18px; height: 18px; fill: white; }
+
+  .nav-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--white); display: block; line-height: 1;
+    transition: color 0.4s;
+  }
+  nav.scrolled .nav-name { color: var(--teal-dark); }
+
+  .nav-sub {
+    font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); display: block; margin-top: 2px;
+    transition: color 0.4s;
+  }
+  nav.scrolled .nav-sub { color: var(--muted); }
+
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s;
+  }
+  nav.scrolled .nav-links a { color: var(--mid); }
+  .nav-links a:hover { color: var(--white) !important; }
+  nav.scrolled .nav-links a:hover { color: var(--teal) !important; }
+
+  .nav-cta {
+    background: var(--teal) !important; color: white !important;
+    padding: 10px 22px; border-radius: 50px;
+    font-size: 11px !important; font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(26,112,96,0.3);
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal2) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--teal-dark);
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+  }
+
+  #hero-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; opacity: 0.45;
+  }
+
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .blob-a { width: 500px; height: 500px; background: rgba(46,176,144,0.1); top: -80px; right: 8%; }
+  .blob-b { width: 300px; height: 300px; background: rgba(200,144,48,0.07); bottom: 10%; left: 15%; }
+
+  .hero-left {
+    position: relative; z-index: 2;
+    padding: 160px 60px 100px 80px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(46,176,144,0.15);
+    border: 1px solid rgba(46,176,144,0.25);
+    border-radius: 50px; padding: 7px 16px 7px 10px;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .badge-pulse { width: 8px; height: 8px; background: var(--gold2); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.75); } }
+
+  .badge-text { font-size: 11px; font-weight: 700; color: var(--teal3); letter-spacing: 0.06em; }
+
+  .hero-h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(46px, 6vw, 76px);
+    font-weight: 700; line-height: 1.08;
+    letter-spacing: -0.01em; color: white;
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+  .hero-h1 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .hero-sub {
+    font-size: 15px; color: rgba(255,255,255,0.5);
+    max-width: 440px; margin-bottom: 40px; line-height: 1.85;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-teal {
+    background: var(--teal); color: white;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 14px 30px; text-decoration: none; border-radius: 50px;
+    display: inline-block; transition: all 0.25s;
+    box-shadow: 0 6px 20px rgba(26,112,96,0.35);
+    position: relative; overflow: hidden;
+  }
+  .btn-teal::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--teal2); border-radius: 50px;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-teal:hover::before { transform: translateX(0); }
+  .btn-teal span { position: relative; z-index: 1; }
+  .btn-teal:hover { transform: translateY(-2px); }
+
+  .btn-ghost-hero {
+    color: rgba(255,255,255,0.6); font-size: 12px;
+    letter-spacing: 0.06em; padding: 14px 30px; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.18); border-radius: 50px;
+    display: inline-block; transition: all 0.25s;
+  }
+  .btn-ghost-hero:hover { border-color: var(--gold2); color: var(--gold2); transform: translateY(-2px); }
+
+  /* HERO RIGHT */
+  .hero-right {
+    position: relative; z-index: 2;
+    padding: 160px 60px 100px 20px;
+    display: flex; justify-content: center;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s forwards;
+  }
+
+  .hero-card-wrap { position: relative; }
+  .card-3d-wrap { perspective: 1000px; }
+
+  .hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 40px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative; overflow: hidden;
+    backdrop-filter: blur(10px); width: 340px;
+  }
+
+  .hero-card::before {
+    content: ''; position: absolute; top: 0; right: 0;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(200,144,48,0.12) 0%, transparent 70%);
+  }
+
+  .hc-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold2);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
+  }
+  .hc-label::before { content: ''; width: 5px; height: 5px; background: var(--gold2); border-radius: 50%; }
+
+  .hc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 22px; }
+
+  .hs-num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px; font-weight: 700; color: white;
+    line-height: 1; display: block; margin-bottom: 6px;
+  }
+  .hs-label { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+
+  .hc-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 18px 0; }
+
+  .hc-quote {
+    font-family: 'Fraunces', serif;
+    font-size: 14px; font-style: italic;
+    color: rgba(255,255,255,0.6); line-height: 1.6;
+  }
+  .hc-attr { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 10px; letter-spacing: 0.04em; }
+
+  .float-badge {
+    position: absolute; background: white;
+    border-radius: 16px; padding: 12px 16px;
+    box-shadow: 0 14px 36px rgba(0,0,0,0.12);
+    border: 1px solid var(--border);
+  }
+
+  .fb-1 { top: 22%; left: -52px; animation: bob 4s ease-in-out infinite; }
+  .fb-2 { bottom: 22%; right: -32px; animation: bob 5.5s ease-in-out infinite 1s; }
+  .fb-3 { top: 46%; left: -52px; animation: bob 6s ease-in-out infinite 0.5s; }
+
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  .fb-icon { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+  .fb-icon svg { width: 12px; height: 12px; fill: white; }
+  .fbi-t { background: var(--teal); }
+  .fbi-c { background: var(--coral); }
+  .fbi-g { background: var(--gold); }
+
+  .fb-val { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .fb-label { font-size: 9px; color: var(--muted); margin-top: 1px; }
+
+  /* BAND */
+  .band { background: var(--teal); padding: 14px 0; overflow: hidden; }
+  .band-track { display: flex; animation: marquee 26s linear infinite; width: max-content; }
+  .band-item {
+    display: flex; align-items: center; gap: 18px; padding: 0 36px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap;
+  }
+  .b-dot { width: 4px; height: 4px; background: var(--gold2); border-radius: 50%; opacity: 0.7; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 110px 0; }
+
+  .s-label {
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--teal); display: flex; align-items: center;
+    gap: 10px; margin-bottom: 14px; font-weight: 700;
+  }
+  .s-label::before { content: ''; width: 16px; height: 2px; background: var(--coral); border-radius: 2px; }
+
+  .s-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4.8vw, 56px); font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 16px;
+  }
+  .s-h2 em { font-style: italic; color: var(--teal); font-weight: 400; }
+  .s-p { font-size: 14px; color: var(--mid); max-width: 480px; line-height: 1.9; }
+
+  /* WHY — CSS care dashboard mockup */
+  .why-bg { background: var(--white); }
+  .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+
+  .why-visual { position: relative; display: flex; align-items: center; justify-content: center; height: 500px; }
+
+  /* Care dashboard mockup */
+  .dash-card {
+    width: 260px;
+    background: var(--teal-dark);
+    border-radius: 24px; padding: 12px;
+    box-shadow:
+      0 40px 80px rgba(14,68,56,0.3),
+      0 0 0 1px rgba(255,255,255,0.06),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+    transform: perspective(800px) rotateY(-10deg) rotateX(5deg);
+    transition: transform 0.4s;
+    position: relative; z-index: 2;
+  }
+
+  .why-visual:hover .dash-card {
+    transform: perspective(800px) rotateY(-5deg) rotateX(2deg);
+  }
+
+  .dc-notch { width: 55px; height: 5px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 auto 12px; }
+
+  .dc-screen { background: var(--off); border-radius: 16px; overflow: hidden; min-height: 400px; }
+
+  .dc-header {
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    padding: 18px 16px 20px;
+  }
+
+  .dc-logo-row { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+  .dc-logo-dot { width: 18px; height: 18px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .dc-logo-dot::after { content: ''; width: 7px; height: 7px; background: var(--teal); border-radius: 50%; }
+  .dc-logo-name { font-size: 10px; font-weight: 700; color: white; }
+
+  .dc-greeting { font-size: 9px; color: rgba(255,255,255,0.6); margin-bottom: 3px; }
+  .dc-title { font-size: 12px; font-weight: 700; color: white; }
+
+  .dc-body { padding: 10px; }
+
+  /* Subtle automation system indicators */
+  .dc-row {
+    background: white; border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 7px;
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .dcr-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .dcr-icon svg { width: 13px; height: 13px; fill: white; }
+  .dcri-t { background: var(--teal); }
+  .dcri-c { background: var(--coral); }
+  .dcri-g { background: var(--gold); }
+  .dcri-td { background: var(--teal-dark); }
+
+  .dcr-text {}
+  .dcr-title { font-size: 10px; font-weight: 700; color: var(--ink); display: block; }
+  .dcr-sub { font-size: 8px; color: var(--muted); }
+
+  .dcr-status {
+    margin-left: auto;
+    font-size: 8px; font-weight: 700;
+    padding: 3px 8px; border-radius: 10px;
+  }
+  .s-active { background: var(--teal-pale); color: var(--teal); }
+  .s-done { background: #f0f0f0; color: #888; }
+
+  /* Floating badges */
+  .dc-float {
+    position: absolute; background: white; border-radius: 14px;
+    padding: 12px 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1); border: 1px solid var(--border); z-index: 3;
+  }
+
+  .dcf-1 { top: 8%; left: -5px; animation: bob 4.5s ease-in-out infinite; }
+  .dcf-2 { bottom: 18%; right: -10px; animation: bob 5.5s ease-in-out infinite 1.2s; }
+
+  .dcf-icon { width: 24px; height: 24px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+  .dcf-icon svg { width: 12px; height: 12px; fill: white; }
+  .dcfi-t { background: var(--teal); }
+  .dcfi-c { background: var(--coral); }
+
+  .dcf-val { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .dcf-label { font-size: 9px; color: var(--muted); }
+
+  .why-points { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+
+  .wp-item {
+    display: flex; gap: 18px; padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s; cursor: default;
+  }
+  .wp-item:first-child { border-top: 1px solid var(--border); }
+  .wp-item:hover { padding-left: 8px; }
+
+  .wp-num {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 700;
+    color: rgba(26,112,96,0.2); width: 30px;
+    flex-shrink: 0; line-height: 1.1; padding-top: 2px;
+    transition: color 0.25s;
+  }
+  .wp-item:hover .wp-num { color: var(--teal); }
+
+  .wp-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
+  .wp-body { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+  /* SERVICES — 3D cards */
+  .services-bg { background: var(--warm); }
+
+  .svc-top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 52px; }
+
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .svc-3d { perspective: 900px; }
+
+  .svc-card {
+    background: var(--white); border-radius: 20px;
+    padding: 34px 26px; border: 1.5px solid var(--border);
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease, box-shadow 0.3s;
+    cursor: default; position: relative; overflow: hidden;
+    box-shadow: 0 4px 18px rgba(26,112,96,0.05);
+  }
+
+  .svc-card::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(90deg, var(--teal), var(--teal3));
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .svc-card:hover { box-shadow: 0 20px 50px rgba(26,112,96,0.1); }
+  .svc-card:hover::after { opacity: 1; }
+
+  .svc-icon-3d {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    box-shadow: 0 7px 0 rgba(0,0,0,0.1), 0 9px 18px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .svc-icon-3d::before {
+    content: ''; position: absolute; top: 5px; left: 8px;
+    width: 40%; height: 28%; background: rgba(255,255,255,0.22);
+    border-radius: 50%; filter: blur(3px);
+  }
+
+  .svc-card:hover .svc-icon-3d {
+    transform: translateY(-4px);
+    box-shadow: 0 11px 0 rgba(0,0,0,0.1), 0 15px 24px rgba(0,0,0,0.09);
+  }
+
+  .svc-icon-3d svg { width: 24px; height: 24px; fill: white; position: relative; z-index: 1; }
+
+  .icon-companion { background: linear-gradient(135deg, #1a7060, #2eb090); }
+  .icon-personal  { background: linear-gradient(135deg, #e06040, #f07858); }
+  .icon-transport { background: linear-gradient(135deg, #c89030, #e0b040); }
+  .icon-errand    { background: linear-gradient(135deg, #0e4438, #1a7060); }
+  .icon-hospital  { background: linear-gradient(135deg, #1a7060, #c89030); }
+  .icon-pharma    { background: linear-gradient(135deg, #e06040, #1a7060); }
+
+  .sv-num { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .sv-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--ink); line-height: 1.2; }
+  .sv-body { font-size: 12px; color: var(--mid); line-height: 1.8; }
+
+  /* PHARMACY EDGE — dark section highlighting Lara's pharma background */
+  .pharma-bg { background: var(--teal-dark); color: white; padding: 110px 0; position: relative; overflow: hidden; }
+
+  .pharma-bg::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 35% 50%, rgba(200,144,48,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .pharma-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+
+  .pharma-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold2); font-weight: 700; margin-bottom: 18px; }
+
+  .pharma-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 5vw, 58px); font-weight: 700;
+    line-height: 1.1; color: white; margin-bottom: 22px;
+  }
+  .pharma-h2 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .pharma-body { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.9; margin-bottom: 18px; }
+
+  .pharma-quote {
+    font-family: 'Fraunces', serif;
+    font-size: 18px; font-style: italic; color: rgba(255,255,255,0.55);
+    line-height: 1.6; border-left: 3px solid var(--gold); padding-left: 20px; margin-top: 28px;
+  }
+
+  /* Subtle systems mention — the automation advantage */
+  .systems-grid { display: flex; flex-direction: column; gap: 14px; }
+
+  .sys-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 22px 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+    transition: background 0.3s;
+  }
+  .sys-card:hover { background: rgba(255,255,255,0.09); }
+
+  .sc-icon {
+    width: 32px; height: 32px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .sc-icon svg { width: 15px; height: 15px; fill: white; }
+  .sci-t { background: rgba(46,176,144,0.3); }
+  .sci-g { background: rgba(200,144,48,0.3); }
+  .sci-c { background: rgba(224,96,64,0.3); }
+
+  .sc-title { font-size: 14px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .sc-body { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+  /* ABOUT */
+  .about-bg { background: var(--warm); }
+
+  .about-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 80px; align-items: center; }
+
+  .about-photo {
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--teal-pale);
+    border: 1.5px solid var(--border2);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(26,112,96,0.1);
+  }
+
+  .about-photo::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(26,112,96,0.06) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'Fraunces', serif;
+    font-size: 90px; font-weight: 700; font-style: italic;
+    color: rgba(26,112,96,0.1); position: relative; z-index: 1; letter-spacing: -0.03em;
+  }
+
+  .about-float {
+    position: absolute; bottom: 16px; right: 16px;
+    background: var(--teal); color: white;
+    padding: 16px 20px; border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(26,112,96,0.3);
+  }
+
+  .af-num {
+    font-family: 'Fraunces', serif;
+    font-size: 28px; font-weight: 700; display: block;
+    margin-bottom: 3px; color: var(--gold2); line-height: 1;
+  }
+  .af-label { font-size: 9px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+
+  .about-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 3.8vw, 46px); font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 20px;
+  }
+  .about-h2 em { font-style: italic; color: var(--teal); font-weight: 400; }
+
+  .about-body { font-size: 14px; color: var(--mid); line-height: 1.95; margin-bottom: 16px; }
+  .about-body strong { color: var(--ink); font-weight: 700; }
+
+  .creds { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .cred { display: flex; gap: 14px; font-size: 12px; color: var(--muted); align-items: flex-start; }
+
+  .cred-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cred-icon svg { width: 12px; height: 12px; fill: white; }
+  .ci-t { background: var(--teal); }
+  .ci-c { background: var(--coral); }
+  .ci-g { background: var(--gold); }
+
+  .cred-title { font-size: 13px; font-weight: 700; color: var(--ink); display: block; margin-bottom: 1px; }
+  .cred-sub { font-size: 11px; color: var(--muted); }
+
+  /* CTA */
+  .cta-section {
+    padding: 120px 64px; background: var(--teal-dark);
+    text-align: center; position: relative; overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(46,176,144,0.1) 0%, transparent 65%);
+  }
+
+  .cta-bg-word {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-size: clamp(100px, 18vw, 220px);
+    font-weight: 700; font-style: italic;
+    color: rgba(255,255,255,0.03); pointer-events: none;
+    white-space: nowrap; letter-spacing: -0.04em;
+  }
+
+  .cta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--teal3); font-weight: 700; margin-bottom: 18px; display: block; position: relative; z-index: 1; }
+
+  .cta-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(42px, 6vw, 70px); font-weight: 700;
+    line-height: 1.07; letter-spacing: -0.01em;
+    margin: 0 auto 18px; max-width: 660px;
+    color: white; position: relative; z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .cta-sub { font-size: 15px; color: rgba(255,255,255,0.45); max-width: 420px; margin: 0 auto 44px; line-height: 1.85; position: relative; z-index: 1; }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-white {
+    background: white; color: var(--teal-dark); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.06em; padding: 16px 36px;
+    text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.2s;
+  }
+  .btn-white:hover { background: var(--off); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+
+  .btn-outline-light {
+    background: transparent; color: rgba(255,255,255,0.6); font-size: 12px;
+    letter-spacing: 0.06em; padding: 16px 36px; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.2); border-radius: 50px;
+    display: inline-block; transition: all 0.2s;
+  }
+  .btn-outline-light:hover { border-color: var(--gold2); color: var(--gold2); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); padding: 44px 64px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 20px;
+    border-top: 3px solid var(--teal);
+  }
+
+  .f-brand { display: flex; align-items: center; gap: 10px; }
+  .f-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--teal); display: flex; align-items: center; justify-content: center; }
+  .f-mark svg { width: 14px; height: 14px; fill: white; }
+  .f-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.7); }
+  .f-name em { font-style: italic; color: var(--gold2); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.22); text-decoration: none; transition: color 0.2s; }
+  .f-links a:hover { color: var(--gold2); }
+
+  .f-copy { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 120px 24px 50px; }
+    .hero-right { display: none; }
+    .container { padding: 0 24px; }
+    .svc-top, .why-layout, .pharma-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .why-visual { display: none; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <div>
+      <span class="nav-name">Seniors Helping Seniors Buckhead</span>
+      <span class="nav-sub">Lara Smith PharmD · Atlanta, Georgia</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pharma">Lara's Edge</a></li>
+    <li><a href="#about">About Lara</a></li>
+    <li><a href="#contact" class="nav-cta">Get Care Now</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-pulse"></div>
+      <span class="badge-text">PharmD · 23 Years Healthcare · Buckhead · Brookhaven · Chamblee</span>
+    </div>
+    <h1 class="hero-h1">
+      Like getting help<br>
+      from a <em>trusted</em><br>
+      friend.
+    </h1>
+    <p class="hero-sub">Lara Smith PharmD brings 23 years of healthcare expertise to Seniors Helping Seniors Buckhead — providing compassionate, non-medical in-home care and companionship for seniors across Atlanta.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-teal"><span>Get Care Started</span></a>
+      <a href="#services" class="btn-ghost-hero">Our Services</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card-wrap">
+      <div class="card-3d-wrap">
+        <div class="hero-card" id="heroCard">
+          <div class="hc-label">Seniors Helping Seniors · Buckhead GA</div>
+          <div class="hc-stats">
+            <div>
+              <span class="hs-num count-up" data-target="23">0</span>
+              <p class="hs-label">Years in healthcare as a Publix PharmD</p>
+            </div>
+            <div>
+              <span class="hs-num">3</span>
+              <p class="hs-label">Areas served — Buckhead, Brookhaven, Chamblee</p>
+            </div>
+            <div>
+              <span class="hs-num">PharmD</span>
+              <p class="hs-label">Doctor of Pharmacy · University of Florida</p>
+            </div>
+            <div>
+              <span class="hs-num">SHS</span>
+              <p class="hs-label">Seniors Helping Seniors — like friends helping friends</p>
+            </div>
+          </div>
+          <div class="hc-divider"></div>
+          <p class="hc-quote">"I understand the importance of remaining independent and strive to brighten and empower the lives of our clients."</p>
+          <p class="hc-attr">Lara Smith PharmD · Owner, Seniors Helping Seniors Buckhead</p>
+        </div>
+      </div>
+
+      <div class="float-badge fb-1">
+        <div class="fb-icon fbi-t">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <p class="fb-val">PharmD</p>
+        <p class="fb-label">Healthcare expert</p>
+      </div>
+
+      <div class="float-badge fb-2">
+        <div class="fb-icon fbi-c">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <p class="fb-val">Atlanta GA</p>
+        <p class="fb-label">Buckhead area</p>
+      </div>
+
+      <div class="float-badge fb-3">
+        <div class="fb-icon fbi-g">
+          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <p class="fb-val">Women-Owned</p>
+        <p class="fb-label">Chamber spotlight</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-track">
+    <div class="band-item">Companionship <span class="b-dot"></span></div>
+    <div class="band-item">Personal Care <span class="b-dot"></span></div>
+    <div class="band-item">Transportation <span class="b-dot"></span></div>
+    <div class="band-item">Errands and Grocery <span class="b-dot"></span></div>
+    <div class="band-item">Hospital Discharge <span class="b-dot"></span></div>
+    <div class="band-item">Medication Support <span class="b-dot"></span></div>
+    <div class="band-item">Buckhead · Brookhaven · Chamblee <span class="b-dot"></span></div>
+    <div class="band-item">PharmD Owner <span class="b-dot"></span></div>
+    <div class="band-item">Companionship <span class="b-dot"></span></div>
+    <div class="band-item">Personal Care <span class="b-dot"></span></div>
+    <div class="band-item">Transportation <span class="b-dot"></span></div>
+    <div class="band-item">Errands and Grocery <span class="b-dot"></span></div>
+    <div class="band-item">Hospital Discharge <span class="b-dot"></span></div>
+    <div class="band-item">Medication Support <span class="b-dot"></span></div>
+    <div class="band-item">Buckhead · Brookhaven · Chamblee <span class="b-dot"></span></div>
+    <div class="band-item">PharmD Owner <span class="b-dot"></span></div>
+  </div>
+</div>
+
+<!-- WHY — with care dashboard mockup -->
+<section class="section why-bg" id="why">
+  <div class="container">
+    <div class="why-layout">
+      <div class="why-visual reveal">
+        <div class="dash-card">
+          <div class="dc-notch"></div>
+          <div class="dc-screen">
+            <div class="dc-header">
+              <div class="dc-logo-row">
+                <div class="dc-logo-dot"></div>
+                <span class="dc-logo-name">SHS Buckhead</span>
+              </div>
+              <p class="dc-greeting">Today's Care Schedule</p>
+              <p class="dc-title">3 clients active</p>
+            </div>
+            <div class="dc-body">
+              <div class="dc-row">
+                <div class="dcr-icon dcri-t">
+                  <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+                </div>
+                <div class="dcr-text">
+                  <span class="dcr-title">Morning Companion Visit</span>
+                  <span class="dcr-sub">Buckhead · 9am–11am</span>
+                </div>
+                <span class="dcr-status s-active">Active</span>
+              </div>
+              <div class="dc-row">
+                <div class="dcr-icon dcri-c">
+                  <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
+                </div>
+                <div class="dcr-text">
+                  <span class="dcr-title">Family Update Sent</span>
+                  <span class="dcr-sub">Visit log delivered</span>
+                </div>
+                <span class="dcr-status s-done">Done</span>
+              </div>
+              <div class="dc-row">
+                <div class="dcr-icon dcri-g">
+                  <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36 0-2.57-2.1-4.64-4.67-4.64-1.4 0-2.67.59-3.57 1.53L8 3.35 6.24 1.53C5.34.59 4.07 0 2.67 0 .1 0-2 2.07-2 4.64c0 .48.11.92.18 1.36H-4v14h24V6z"/></svg>
+                </div>
+                <div class="dcr-text">
+                  <span class="dcr-title">Grocery Run Scheduled</span>
+                  <span class="dcr-sub">Chamblee · 2pm</span>
+                </div>
+                <span class="dcr-status s-active">Today</span>
+              </div>
+              <div class="dc-row">
+                <div class="dcr-icon dcri-td">
+                  <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                </div>
+                <div class="dcr-text">
+                  <span class="dcr-title">Client Intake Form</span>
+                  <span class="dcr-sub">New family inquiry</span>
+                </div>
+                <span class="dcr-status s-active">New</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dc-float dcf-1">
+          <div class="dcf-icon dcfi-t">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          </div>
+          <p class="dcf-val">Brookhaven</p>
+          <p class="dcf-label">Coverage area</p>
+        </div>
+
+        <div class="dc-float dcf-2">
+          <div class="dcf-icon dcfi-c">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          </div>
+          <p class="dcf-val">Automated</p>
+          <p class="dcf-label">Family updates</p>
+        </div>
+      </div>
+
+      <div class="reveal d1">
+        <div class="s-label">The Approach</div>
+        <h2 class="s-h2">Care that feels like<br><em>family.</em></h2>
+        <p class="s-p" style="margin-bottom:28px;">Seniors Helping Seniors is built on a simple idea — seniors helping seniors. Lara's team brings warmth, lived experience, and genuine companionship to every home visit.</p>
+        <div class="why-points">
+          <div class="wp-item">
+            <span class="wp-num">01</span>
+            <div>
+              <p class="wp-title">Non-medical, professional care</p>
+              <p class="wp-body">Comprehensive in-home support that goes beyond tasks — building real relationships with clients and families based on trust and consistency.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">02</span>
+            <div>
+              <p class="wp-title">Healthcare-informed leadership</p>
+              <p class="wp-body">With 23 years as a PharmD, Lara brings clinical understanding and regulatory expertise to every aspect of how care is delivered and documented.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">03</span>
+            <div>
+              <p class="wp-title">Focused on independence</p>
+              <p class="wp-body">The goal is always to help seniors stay in their own homes, on their own terms — empowered, safe, and supported by people who genuinely care.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">04</span>
+            <div>
+              <p class="wp-title">Family kept in the loop</p>
+              <p class="wp-body">Families stay informed and at ease through regular updates and open communication — so everyone feels connected, wherever they are.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="container">
+    <div class="svc-top">
+      <div class="reveal">
+        <div class="s-label">Services</div>
+        <h2 class="s-h2">Everything seniors<br><em>need at home.</em></h2>
+      </div>
+      <p class="s-p reveal d1">From daily companionship to practical household help — Seniors Helping Seniors Buckhead covers every non-medical need so your loved one can stay comfortably at home.</p>
+    </div>
+    <div class="svc-grid reveal">
+
+      <div class="svc-3d" id="sc1">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-companion">
+            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <span class="sv-num">01</span>
+          <p class="sv-title">Companionship</p>
+          <p class="sv-body">Genuine connection and conversation — visits that brighten the day, reduce isolation, and give families peace of mind knowing someone they trust is there.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc2">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-personal">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          </div>
+          <span class="sv-num">02</span>
+          <p class="sv-title">Personal Care Assistance</p>
+          <p class="sv-body">Dignified help with daily living activities — grooming, dressing, bathing, and mobility support delivered with patience, respect, and warmth.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc3">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-transport">
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
+          </div>
+          <span class="sv-num">03</span>
+          <p class="sv-title">Transportation</p>
+          <p class="sv-body">Safe, reliable rides to medical appointments, errands, social activities, and family visits — keeping seniors connected to the life they love.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc4">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-errand">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.1 15.9 0 13.33 0c-1.4 0-2.67.59-3.57 1.53L8 3.35 6.24 1.53C5.34.59 4.07 0 2.67 0 .1 0-2 2.1-2 4.64c0 .48.11.92.18 1.36H-4v14h24V6z"/></svg>
+          </div>
+          <span class="sv-num">04</span>
+          <p class="sv-title">Errands and Grocery</p>
+          <p class="sv-body">Shopping, pharmacy pickups, and everyday errands handled with care — so seniors have what they need without the stress or physical strain of doing it alone.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc5">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-hospital">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <span class="sv-num">05</span>
+          <p class="sv-title">Hospital Discharge Support</p>
+          <p class="sv-body">Smooth, supported transitions from hospital to home — ensuring seniors arrive safely, are settled comfortably, and have everything they need to recover well.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc6">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-pharma">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36 0-2.57-2.1-4.64-4.67-4.64-1.4 0-2.67.59-3.57 1.53L8 3.35 6.24 1.53C5.34.59 4.07 0 2.67 0 .1 0-2 2.07-2 4.64c0 .48.11.92.18 1.36H-4v14h24V6zM11.5 11H13v3h-1.5v-3zm0-4H13v1.5h-1.5V7zm3 4h1.5v3H14.5v-3zm0-4h1.5v1.5H14.5V7z"/></svg>
+          </div>
+          <span class="sv-num">06</span>
+          <p class="sv-title">Medication Reminders</p>
+          <p class="sv-body">Gentle, consistent reminders to take medications as prescribed — backed by Lara's PharmD expertise and deep commitment to medication safety for seniors.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LARA'S EDGE — pharma background + subtle systems mention -->
+<section class="pharma-bg" id="pharma">
+  <div class="container">
+    <div class="pharma-layout">
+      <div class="reveal">
+        <p class="pharma-label">What Sets Lara Apart</p>
+        <h2 class="pharma-h2">23 years of<br>healthcare expertise<br><em>in your corner.</em></h2>
+        <p class="pharma-body">Most home care agency owners come from business backgrounds. Lara comes from the pharmacy. 23 years as a PharmD at Publix means she understands clinical care, medication safety, regulatory compliance, and what families actually need — at a level most operators simply don't have.</p>
+        <p class="pharma-body">That expertise shapes how care is delivered, how staff are trained, and how the business runs — and families feel the difference.</p>
+        <div class="pharma-quote">
+          "I have honed my skills in regulatory compliance and employee training, which have been instrumental in maintaining high standards of care."
+        </div>
+      </div>
+      <div class="systems-grid reveal d1">
+        <div class="sys-card">
+          <div class="sc-icon sci-t">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
+          <div>
+            <p class="sc-title">Clinical-grade care standards</p>
+            <p class="sc-body">Lara's pharmacy background brings rigorous compliance, documentation standards, and clinical awareness to a non-medical care setting — creating a higher bar across the board.</p>
+          </div>
+        </div>
+        <div class="sys-card">
+          <div class="sc-icon sci-g">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <p class="sc-title">Families kept informed automatically</p>
+            <p class="sc-body">Automated care updates, visit logs, and family notifications mean no one is left wondering how their loved one is doing — communication runs in the background, always on.</p>
+          </div>
+        </div>
+        <div class="sys-card">
+          <div class="sc-icon sci-c">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <div>
+            <p class="sc-title">Streamlined intake and onboarding</p>
+            <p class="sc-body">New clients are onboarded through a smooth, digital intake process — collecting care preferences, health context, and family contacts from day one, with no paperwork left behind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-bg" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-photo">
+          <span class="about-initials">LS</span>
+          <div class="about-float">
+            <span class="af-num">23+</span>
+            <p class="af-label">Years in healthcare as a PharmD</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Lara</div>
+        <h2 class="about-h2">A pharmacist who<br>chose to <em>care</em><br>differently.</h2>
+        <p class="about-body">Lara Smith PharmD spent 23 years as a pharmacist at Publix Pharmacy — building deep expertise in healthcare, medication management, regulatory compliance, and working directly with senior patients every day.</p>
+        <p class="about-body">In 2025, she channeled that experience into Seniors Helping Seniors Buckhead — bringing clinical knowledge and genuine passion for senior wellbeing to an in-home care business that is truly different from the rest.</p>
+        <p class="about-body">Featured by the Brookhaven Chamber of Commerce as part of their Women-Owned Business Spotlight, Lara is building something that matters — and families across Buckhead, Brookhaven, and Chamblee are already feeling it.</p>
+        <div class="creds">
+          <div class="cred">
+            <div class="cred-icon ci-t">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Company Owner · Seniors Helping Seniors Buckhead</span>
+              <span class="cred-sub">Buckhead · Brookhaven · Chamblee · Atlanta, Georgia</span>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-icon ci-c">
+              <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36 0-2.57-2.1-4.64-4.67-4.64-1.4 0-2.67.59-3.57 1.53L8 3.35 6.24 1.53C5.34.59 4.07 0 2.67 0 .1 0-2 2.07-2 4.64c0 .48.11.92.18 1.36H-4v14h24V6z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Doctor of Pharmacy (PharmD) · University of Florida</span>
+              <span class="cred-sub">23 years as Pharmacist at Publix Pharmacy</span>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-icon ci-g">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Brookhaven Chamber of Commerce · Women-Owned Business Spotlight</span>
+              <span class="cred-sub">Florida State University · BS Biology and Chemistry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-word">Care</div>
+  <span class="cta-label">Get Care Started</span>
+  <h2 class="cta-h2">Your loved one<br>deserves care that<br><em>feels like family.</em></h2>
+  <p class="cta-sub">Reach out today and let's talk about how Seniors Helping Seniors Buckhead can support your loved one — and give your family peace of mind.</p>
+  <div class="cta-actions">
+    <a href="https://locations.seniorshelpingseniors.com/ga/brookhaven/237.html" class="btn-white" target="_blank">Get Care Started</a>
+    <a href="#services" class="btn-outline-light">See All Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <span class="f-name">Seniors Helping Seniors <em>Buckhead</em></span>
+  </div>
+  <ul class="f-links">
+    <li><a href="#why">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pharma">Lara's Edge</a></li>
+    <li><a href="#about">About Lara</a></li>
+    <li><a href="#contact">Get Care</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Seniors Helping Seniors Buckhead · Lara Smith PharmD · Atlanta, Georgia</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; ring.style.width = '52px'; ring.style.height = '52px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '38px'; ring.style.height = '38px'; });
+  });
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // 3D HERO CARD
+  const heroCard = document.getElementById('heroCard');
+  const heroWrap = heroCard?.parentElement;
+  if (heroWrap) {
+    heroWrap.addEventListener('mousemove', e => {
+      const r = heroWrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      heroCard.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 9}deg) translateZ(10px)`;
+    });
+    heroWrap.addEventListener('mouseleave', () => { heroCard.style.transform = ''; });
+  }
+
+  // 3D SERVICE CARDS
+  ['sc1','sc2','sc3','sc4','sc5','sc6'].forEach(id => {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    const card = wrap.querySelector('.svc-card');
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 10}deg) translateZ(8px)`;
+    });
+    wrap.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  // COUNT-UP
+  function countUp(el) {
+    const target = parseInt(el.dataset.target);
+    const start = performance.now();
+    function update(now) {
+      const progress = Math.min((now - start) / 1800, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(update);
+  }
+  setTimeout(() => { document.querySelectorAll('.hero-card .count-up').forEach(countUp); }, 800);
+
+  // CANVAS
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W; this.y = Math.random() * H;
+      this.size = Math.random() * 1.6 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.28; this.speedY = (Math.random() - 0.5) * 0.28;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.6 ? '#c89030' : '#2eb090';
+    }
+    update() {
+      this.x += this.speedX; this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity; ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 75; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 100) {
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#2eb090'; ctx.globalAlpha = (1 - dist/100) * 0.08;
+          ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H); ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines(); requestAnimationFrame(animate);
+  }
+  animate();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
