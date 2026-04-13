@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Life Care Experts | Jennifer Crowley RN</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --forest:#07100a;
+  --forest2:#0c1a0f;
+  --forest3:#112215;
+  --gold:#c9a84c;
+  --gold2:#e4c87a;
+  --gold-glow:rgba(201,168,76,0.13);
+  --sage:#82ab8a;
+  --cream:#f3efe5;
+  --muted:#6e8272;
+  --white:#fff;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--forest);color:var(--cream);cursor:none;overflow-x:hidden;}
+
+/* CURSOR */
+.cur{position:fixed;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s;}
+.cur-ring{position:fixed;width:30px;height:30px;border:1.5px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 4rem;
+  background:rgba(7,16,10,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,.18);
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--cream);font-weight:400;}
+.nav-logo em{color:var(--gold);font-style:italic;}
+.nav-links{display:flex;gap:2.4rem;}
+.nav-links a{color:rgba(243,239,229,.6);text-decoration:none;font-size:.8rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;transition:color .3s;}
+.nav-links a:hover{color:var(--gold2);}
+.nav-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:.55rem 1.4rem;font-family:'Jost',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none;}
+.nav-btn:hover{background:var(--gold);color:var(--forest);}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;padding:8rem 4rem 5rem;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--forest) 0%,var(--forest2) 60%,#0a180d 100%);
+}
+#cvs{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.hero-left{position:relative;z-index:2;padding-right:2rem;}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);
+  padding:.38rem 1rem;border-radius:2px;margin-bottom:2rem;
+}
+.pulse-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:pdot 2s ease-in-out infinite;}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.5);}50%{box-shadow:0 0 0 6px rgba(201,168,76,0);}}
+.eyebrow span{font-size:.72rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,4.5vw,4.6rem);font-weight:700;line-height:1.08;
+  color:var(--cream);margin-bottom:1.5rem;
+}
+.hero-title em{color:var(--gold);font-style:italic;}
+.hero-title .sub{display:block;font-size:clamp(1.4rem,2.5vw,2.2rem);font-weight:400;font-style:italic;color:rgba(243,239,229,.5);margin-top:.3rem;}
+
+.hero-desc{font-size:1rem;font-weight:300;line-height:1.8;color:rgba(243,239,229,.7);max-width:480px;margin-bottom:2.2rem;}
+.hero-desc strong{color:var(--gold2);font-weight:500;}
+
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.btn-primary{background:var(--gold);color:var(--forest);padding:.75rem 2rem;font-family:'Jost',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--cream);padding:.75rem 2rem;font-family:'Jost',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(243,239,229,.3);cursor:none;transition:all .3s;text-decoration:none;display:inline-block;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.06em;border:1px solid rgba(201,168,76,.3);color:var(--gold2);background:rgba(201,168,76,.07);}
+
+/* 3D CARD */
+.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;}
+.card-scene{width:360px;height:520px;perspective:900px;position:relative;}
+.card-3d{
+  width:100%;height:100%;
+  background:linear-gradient(145deg,var(--forest3),#0a180d);
+  border:1px solid rgba(201,168,76,.22);border-radius:14px;padding:2.5rem 2rem;
+  position:relative;
+  transition:transform .08s ease-out;
+  box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 1px rgba(201,168,76,.07),inset 0 1px 0 rgba(255,255,255,.04);
+  display:flex;flex-direction:column;gap:1.4rem;overflow:hidden;
+}
+.card-3d::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 50%);border-radius:14px;pointer-events:none;}
+.card-shine{position:absolute;inset:0;border-radius:14px;pointer-events:none;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.07) 0%,transparent 60%);transition:background .2s;}
+
+.card-header{display:flex;align-items:center;gap:1rem;}
+.card-avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#7a5a1a);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--forest);font-weight:700;border:2px solid rgba(201,168,76,.4);flex-shrink:0;}
+.card-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--cream);}
+.card-role{font-size:.73rem;color:var(--gold2);margin-top:.12rem;}
+.rn-badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);padding:.18rem .55rem;border-radius:3px;font-size:.62rem;color:var(--gold2);letter-spacing:.1em;font-weight:600;margin-top:.3rem;}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.28),transparent);}
+
+.card-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.cs-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;}
+.cs-lbl{font-size:.67rem;color:var(--muted);letter-spacing:.06em;margin-top:.2rem;}
+
+.card-books{display:flex;flex-direction:column;gap:.5rem;}
+.book-row{display:flex;align-items:center;gap:.7rem;padding:.52rem .75rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.1);border-radius:5px;}
+.book-ico{width:26px;height:26px;border-radius:4px;background:rgba(201,168,76,.14);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
+.book-n{font-size:.73rem;color:var(--cream);line-height:1.25;}
+.book-t{margin-left:auto;font-size:.6rem;background:rgba(201,168,76,.1);color:var(--gold2);padding:.12rem .45rem;border-radius:8px;white-space:nowrap;}
+
+.card-foot{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.14);border-radius:6px;padding:.6rem .85rem;display:flex;align-items:center;gap:.55rem;}
+.foot-dot{width:7px;height:7px;background:var(--sage);border-radius:50%;}
+.foot-txt{font-size:.7rem;color:var(--sage);}
+
+/* FLOATING BADGES */
+.bf{position:absolute;background:var(--forest3);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:.48rem .85rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);font-size:.7rem;color:var(--cream);font-weight:500;white-space:nowrap;z-index:20;}
+.bf .bd{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.bf1{top:-18px;right:20px;animation:f1 4s ease-in-out infinite;}
+.bf2{bottom:80px;left:-45px;animation:f2 5s ease-in-out infinite;}
+.bf3{top:100px;right:-55px;animation:f3 4.5s ease-in-out infinite;}
+@keyframes f1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes f2{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+@keyframes f3{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* TICKER */
+.ticker-wrap{background:var(--gold);overflow:hidden;padding:.72rem 0;}
+.ticker-inner{display:flex;animation:tick 30s linear infinite;width:max-content;}
+.ticker-inner span{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--forest);padding:0 2.5rem;white-space:nowrap;}
+.ticker-inner span::before{content:"✦  ";}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* STATS */
+.stats-bar{background:var(--forest2);border-bottom:1px solid rgba(201,168,76,.1);padding:4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat-label{font-size:.75rem;color:var(--muted);letter-spacing:.08em;margin-top:.4rem;text-transform:uppercase;}
+
+/* FOUNDER */
+.founder{padding:8rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;background:linear-gradient(180deg,var(--forest2),var(--forest));position:relative;overflow:hidden;}
+.founder::before{content:'';position:absolute;top:-80px;left:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 70%);pointer-events:none;}
+
+.sec-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;}
+.sec-label::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
+.sec-heading{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3vw,2.8rem);font-weight:700;line-height:1.15;color:var(--cream);margin-bottom:1.6rem;}
+.sec-heading em{color:var(--gold);font-style:italic;}
+.body-text{font-size:.95rem;line-height:1.85;color:rgba(243,239,229,.7);margin-bottom:1.3rem;}
+.body-text strong{color:var(--cream);}
+.pull-quote{border-left:3px solid var(--gold);padding:1rem 1.4rem;background:rgba(201,168,76,.07);border-radius:0 6px 6px 0;font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:var(--gold2);line-height:1.65;margin:1.8rem 0;}
+
+/* DASHBOARD DEVICE */
+.device-wrap{position:relative;display:flex;justify-content:center;align-items:center;}
+.dash-device{
+  width:100%;max-width:380px;
+  background:var(--forest3);border:1px solid rgba(201,168,76,.2);border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .1s ease-out;
+}
+.dash-header{background:rgba(201,168,76,.09);border-bottom:1px solid rgba(201,168,76,.14);padding:.75rem 1.2rem;display:flex;align-items:center;gap:.6rem;}
+.dash-dots{display:flex;gap:.35rem;}
+.dash-dots span{width:8px;height:8px;border-radius:50%;}
+.dash-dots span:nth-child(1){background:#ff6b6b;}
+.dash-dots span:nth-child(2){background:#ffd93d;}
+.dash-dots span:nth-child(3){background:#6bcb77;}
+.dash-title-bar{font-size:.68rem;color:var(--muted);letter-spacing:.08em;margin-left:.3rem;}
+.dash-body{padding:1.4rem;}
+.dash-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.9rem;}
+.dash-stat{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.12);border-radius:7px;padding:.9rem;}
+.ds-num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--gold);line-height:1;}
+.ds-lbl{font-size:.62rem;color:var(--muted);margin-top:.2rem;}
+.dash-card{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.1);border-radius:7px;padding:.72rem 1rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.75rem;}
+.dc-ico{width:32px;height:32px;border-radius:6px;background:rgba(201,168,76,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.dc-name{font-size:.72rem;font-weight:600;color:var(--cream);}
+.dc-sub{font-size:.62rem;color:var(--muted);}
+.dc-status{margin-left:auto;font-size:.6rem;padding:.12rem .42rem;border-radius:8px;flex-shrink:0;}
+.st-g{background:rgba(107,203,119,.1);color:#6bcb77;}
+.st-b{background:rgba(201,168,76,.1);color:var(--gold2);}
+.dash-footer{font-size:.62rem;color:var(--muted);text-align:center;padding:.6rem;background:rgba(0,0,0,.12);}
+
+/* device badges */
+.db{position:absolute;background:var(--forest3);border:1px solid rgba(201,168,76,.26);border-radius:7px;padding:.42rem .76rem;font-size:.68rem;color:var(--cream);box-shadow:0 8px 20px rgba(0,0,0,.35);white-space:nowrap;z-index:10;}
+.db .gm{color:var(--gold);font-weight:600;}
+.db1{top:-14px;right:-20px;animation:f1 4.2s ease-in-out infinite;}
+.db2{bottom:40px;left:-55px;animation:f2 5.2s ease-in-out infinite;}
+.db3{top:180px;right:-60px;animation:f3 4.8s ease-in-out infinite;}
+
+/* SERVICES */
+.services{padding:8rem 4rem;background:var(--forest);}
+.sec-sub{font-size:.93rem;color:rgba(243,239,229,.55);max-width:520px;line-height:1.7;margin-bottom:3.5rem;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+.svc-card{background:var(--forest3);border:1px solid rgba(201,168,76,.1);border-radius:10px;padding:2.2rem 1.8rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:none;}
+.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 60%);opacity:0;transition:opacity .3s;border-radius:10px;}
+.svc-card:hover{transform:translateY(-6px) rotateX(2deg);border-color:rgba(201,168,76,.28);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.svc-card:hover::before{opacity:1;}
+.svc-card.feat{border-color:rgba(201,168,76,.25);background:linear-gradient(145deg,#142215,#0c1a0f);}
+.svc-card.feat::after{content:'FLAGSHIP';position:absolute;top:.9rem;right:.9rem;font-size:.56rem;letter-spacing:.12em;background:var(--gold);color:var(--forest);padding:.18rem .48rem;border-radius:2px;font-weight:600;}
+.svc-icon{width:50px;height:50px;border-radius:10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:1.3rem;position:relative;z-index:1;transition:background .3s;}
+.svc-card:hover .svc-icon{background:rgba(201,168,76,.2);}
+.svc-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--cream);margin-bottom:.55rem;position:relative;z-index:1;}
+.svc-desc{font-size:.82rem;color:rgba(243,239,229,.6);line-height:1.7;position:relative;z-index:1;}
+.svc-tag{display:inline-block;margin-top:1rem;font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);border:1px solid rgba(201,168,76,.22);padding:.18rem .6rem;border-radius:3px;position:relative;z-index:1;}
+
+/* BOOKS */
+.books{padding:8rem 4rem;background:var(--forest2);border-top:1px solid rgba(201,168,76,.08);}
+.books-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+.book-card{background:var(--forest3);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:2.5rem 2rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:none;}
+.book-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 60%);opacity:0;transition:opacity .3s;border-radius:10px;}
+.book-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.28);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.book-card:hover::before{opacity:1;}
+.book-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;color:rgba(201,168,76,.12);line-height:1;margin-bottom:.8rem;}
+.book-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--cream);margin-bottom:.6rem;line-height:1.3;}
+.book-desc{font-size:.82rem;color:rgba(243,239,229,.58);line-height:1.7;}
+.book-label{display:inline-block;margin-top:1.2rem;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);border:1px solid rgba(201,168,76,.22);padding:.18rem .6rem;border-radius:3px;}
+
+/* CREDS */
+.creds{padding:6rem 4rem;background:var(--forest);border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08);}
+.creds-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.8rem;margin-top:3rem;}
+.cred-card{background:var(--forest3);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.8rem;text-align:center;transition:border-color .3s,transform .3s;cursor:none;}
+.cred-card:hover{border-color:rgba(201,168,76,.28);transform:translateY(-4px);}
+.cred-icon{font-size:1.7rem;margin-bottom:.75rem;}
+.cred-title{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--cream);margin-bottom:.3rem;}
+.cred-desc{font-size:.73rem;color:var(--muted);line-height:1.5;}
+
+/* TESTI */
+.testi{padding:8rem 4rem;background:linear-gradient(180deg,var(--forest2),var(--forest));}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:4rem;}
+.testi-card{background:var(--forest3);border:1px solid rgba(201,168,76,.1);border-radius:10px;padding:2rem 1.8rem;transition:border-color .3s,transform .3s;cursor:none;}
+.testi-card:hover{border-color:rgba(201,168,76,.26);transform:translateY(-4px);}
+.stars{display:flex;gap:.18rem;margin-bottom:.9rem;}
+.stars span{color:var(--gold);font-size:.88rem;}
+.testi-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.93rem;color:rgba(243,239,229,.78);line-height:1.7;margin-bottom:1.1rem;}
+.testi-auth{font-size:.73rem;color:var(--muted);}
+.testi-auth strong{color:var(--gold2);display:block;font-size:.78rem;margin-bottom:.1rem;}
+
+/* CTA */
+.cta-section{padding:8rem 4rem;background:linear-gradient(135deg,#0a180d,#060d08);text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:280px;background:radial-gradient(ellipse,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none;}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.6rem);font-weight:700;color:var(--cream);line-height:1.1;margin-bottom:1.2rem;position:relative;z-index:1;}
+.cta-title em{color:var(--gold);font-style:italic;}
+.cta-sub{font-size:.97rem;color:rgba(243,239,229,.6);margin-bottom:2.5rem;position:relative;z-index:1;max-width:560px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;position:relative;z-index:1;}
+
+footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);padding:2.8rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);}
+.footer-logo em{color:var(--gold);font-style:italic;}
+.footer-links{display:flex;gap:1.8rem;}
+.footer-links a{font-size:.76rem;color:var(--muted);text-decoration:none;transition:color .3s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:.7rem;color:rgba(110,130,114,.4);}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
+  .hero,.founder{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;}
+  .card-scene{width:300px;height:440px;}
+  .stats-bar{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
+  .svc-grid,.books-grid,.creds-grid,.testi-grid{grid-template-columns:1fr;}
+  .services,.books,.testi,.cta-section,.creds{padding:5rem 1.5rem;}
+  footer{padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <div class="nav-logo">The <em>Life Care</em> Experts</div>
+  <div class="nav-links">
+    <a href="#founder">About</a>
+    <a href="#services">Services</a>
+    <a href="#books">Books</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="tel:4062120620" class="nav-btn">Work With Jennifer</a>
+</nav>
+
+<section class="hero">
+  <canvas id="cvs"></canvas>
+
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span>Kalispell, Montana &nbsp;·&nbsp; RN · Author · Expert Witness</span>
+    </div>
+    <h1 class="hero-title">
+      31 Years<br><em>In the Business</em>
+      <span class="sub">of Aging &amp; Life Care.</span>
+    </h1>
+    <p class="hero-desc">
+      <strong>Jennifer Crowley RN</strong> is a Certified Life Care Planner, published author of three books, Certified Alzheimer's and Dementia Care Trainer, and co-developer of Montana's State Plan for Alzheimer's and Related Dementias. She has spent two decades building the frameworks families and professionals rely on.
+    </p>
+    <div class="hero-btns">
+      <a href="tel:4062120620" class="btn-primary">Schedule a Consultation</a>
+      <a href="#books" class="btn-ghost">View Publications</a>
+    </div>
+    <div class="chips">
+      <div class="chip">✓ Registered Nurse · RN</div>
+      <div class="chip">✓ Certified Life Care Planner</div>
+      <div class="chip">✓ 3 Published Books</div>
+      <div class="chip">✓ Expert Witness</div>
+      <div class="chip">✓ MT State Alzheimer's Plan</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-scene">
+      <div class="bf bf1"><div class="bd" style="background:var(--gold);"></div>RN · Certified Life Care Planner</div>
+      <div class="bf bf2"><div class="bd" style="background:var(--sage);"></div>MT Alzheimer's Plan Co-Developer</div>
+      <div class="bf bf3"><div class="bd" style="background:#e28a72;"></div>Expert Witness · Trial &amp; Deposition</div>
+
+      <div class="card-3d" id="heroCard">
+        <div class="card-shine" id="cardShine"></div>
+        <div class="card-header">
+          <div class="card-avatar">JC</div>
+          <div>
+            <div class="card-name">Jennifer Crowley</div>
+            <div class="card-role">Founder &amp; CEO · The Life Care Experts</div>
+            <div class="rn-badge">⚕ RN · Ohio State · 1993</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-stats-grid">
+          <div><div class="cs-num" data-target="31" data-suffix=" Yrs">0</div><div class="cs-lbl">Nursing Career</div></div>
+          <div><div class="cs-num" data-target="19" data-suffix=" Yrs">0</div><div class="cs-lbl">Life Care Practice</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-books">
+          <div class="book-row">
+            <div class="book-ico">📖</div>
+            <div class="book-n">Life Care Management Handbook</div>
+            <div class="book-t">Author</div>
+          </div>
+          <div class="book-row">
+            <div class="book-ico">📋</div>
+            <div class="book-n">7 Steps to LTC Planning</div>
+            <div class="book-t">Author</div>
+          </div>
+          <div class="book-row">
+            <div class="book-ico">📑</div>
+            <div class="book-n">Ultimate Care Plan Guide · 101 Templates</div>
+            <div class="book-t">Co-Author</div>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="foot-dot"></div>
+          <div class="foot-txt">Co-Developer · Montana State Alzheimer's Plan · BOLD Steering Committee</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>Life Care Planning</span><span>Dementia Specialist</span><span>Expert Witness</span><span>Published Author</span><span>RN · Ohio State</span><span>Certified Life Care Planner</span><span>Montana Alzheimer's Plan</span><span>Peace Corps · Papua New Guinea</span><span>LCM Institute</span><span>Logan Health ICU</span><span>Family Navigation</span><span>Insurance Consulting</span>
+    <span>Life Care Planning</span><span>Dementia Specialist</span><span>Expert Witness</span><span>Published Author</span><span>RN · Ohio State</span><span>Certified Life Care Planner</span><span>Montana Alzheimer's Plan</span><span>Peace Corps · Papua New Guinea</span><span>LCM Institute</span><span>Logan Health ICU</span><span>Family Navigation</span><span>Insurance Consulting</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item reveal"><div class="stat-num" data-target="31" data-suffix=" Yrs">0</div><div class="stat-label">Nursing Experience</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="19" data-suffix=" Yrs">0</div><div class="stat-label">Life Care Practice</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="3" data-suffix=" Books">0</div><div class="stat-label">Published Works</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="75" data-suffix="+">0</div><div class="stat-label">Caregivers Trained</div></div>
+</div>
+
+<section class="founder" id="founder">
+  <div class="reveal">
+    <div class="sec-label">The Authority</div>
+    <h2 class="sec-heading">A Nurse Who Built<br><em>the Field's Playbook.</em></h2>
+    <p class="body-text">Jennifer didn't stumble into life care management. She spent <strong>15 years as an ICU charge nurse at Logan Health</strong>, served as a U.S. Peace Corps volunteer in Papua New Guinea, and trained in critical care surgical nursing at Detroit Medical Center before founding The Life Care Experts in 2006.</p>
+    <div class="pull-quote">"I built frameworks that I've been using for 20 years — and made them available for anyone."</div>
+    <p class="body-text">She co-developed Montana's State Plan for Alzheimer's and Related Dementias, serves on the BOLD Steering Committee, has provided <strong>expert witness testimony in deposition and trial settings</strong>, and has trained hundreds of care professionals across Montana since 2019. The Life Care Management Institute now trains the next generation of practitioners using her methods.</p>
+    <a href="#contact" class="btn-primary" style="margin-top:1.5rem;display:inline-block;">Work With Jennifer</a>
+  </div>
+
+  <div class="device-wrap reveal">
+    <div class="db db1"><span class="gm">✓</span> Care Plan Filed</div>
+    <div class="db db2"><span class="gm">📋</span> Expert Report Submitted</div>
+    <div class="db db3"><span class="gm">⚕</span> RN Certified &amp; Active</div>
+
+    <div class="dash-device" id="dashDevice">
+      <div class="dash-header">
+        <div class="dash-dots"><span></span><span></span><span></span></div>
+        <div class="dash-title-bar">Life Care Experts · Practice Dashboard</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-row">
+          <div class="dash-stat"><div class="ds-num" data-target="31" data-suffix="">0</div><div class="ds-lbl">Years as RN</div></div>
+          <div class="dash-stat"><div class="ds-num" data-target="19" data-suffix="">0</div><div class="ds-lbl">Yrs in Practice</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-ico">📖</div>
+          <div><div class="dc-name">LCM Handbook</div><div class="dc-sub">Amazon · Published</div></div>
+          <div class="dc-status st-g">Live</div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-ico">⚖️</div>
+          <div><div class="dc-name">Expert Witness</div><div class="dc-sub">Trial &amp; Deposition</div></div>
+          <div class="dc-status st-g">Active</div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-ico">🏛️</div>
+          <div><div class="dc-name">MT State ADRD Plan</div><div class="dc-sub">Co-Developer</div></div>
+          <div class="dc-status st-b">Ongoing</div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-ico">🎓</div>
+          <div><div class="dc-name">LCM Institute</div><div class="dc-sub">Online Courses &amp; Training</div></div>
+          <div class="dc-status st-g">Enrolling</div>
+        </div>
+        <div class="dash-footer">Next Consultation · Available Now · (406) 212-0620</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="reveal">
+    <div class="sec-label">What We Offer</div>
+    <h2 class="sec-heading">Services Built<br><em>for What Families Actually Need</em></h2>
+    <p class="sec-sub">Every engagement backed by 31 years of clinical experience and 19 years building one of Montana's leading life care practices.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card feat reveal">
+      <div class="svc-icon">🗺️</div>
+      <div class="svc-name">Life Care Planning</div>
+      <div class="svc-desc">Comprehensive assessments identifying current and future care needs with associated costs — for catastrophic injury, complex health conditions, geriatrics, and long-term disability planning.</div>
+      <div class="svc-tag">Flagship Service</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🧠</div>
+      <div class="svc-name">Dementia Care Consulting</div>
+      <div class="svc-desc">Certified Alzheimer's and Dementia Care Trainer since 2019. Direct consulting for families and institutions navigating dementia from early stages through complex late-stage decisions.</div>
+      <div class="svc-tag">Certified Specialist</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">⚖️</div>
+      <div class="svc-name">Expert Witness Services</div>
+      <div class="svc-desc">Deposition and trial testimony experience for insurance companies, government entities, and legal teams requiring certified life care planning expertise in complex cases.</div>
+      <div class="svc-tag">Legal &amp; Insurance</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🏢</div>
+      <div class="svc-name">Complex Case Management</div>
+      <div class="svc-desc">Long-term care coordination for worker's compensation, catastrophic illness, and disability cases. Serving insurance companies, private clients, and government entities since 2006.</div>
+      <div class="svc-tag">Complex Cases</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🎓</div>
+      <div class="svc-name">LCM Institute · Education</div>
+      <div class="svc-desc">Training programs, online courses, and the Life Care Management Handbook — building the next generation of life care specialists through the Life Care Management Institute.</div>
+      <div class="svc-tag">Professional Training</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">👨‍👩‍👧</div>
+      <div class="svc-name">Family Care Navigation</div>
+      <div class="svc-desc">Guided aging and life care planning for families using the Seven-Step Framework — turning overwhelming decisions into manageable, confident steps forward at every stage.</div>
+      <div class="svc-tag">Family-Centered</div>
+    </div>
+  </div>
+</section>
+
+<section class="books" id="books">
+  <div class="reveal">
+    <div class="sec-label">Publications</div>
+    <h2 class="sec-heading">Three Books.<br><em>One Mission.</em></h2>
+  </div>
+  <div class="books-grid">
+    <div class="book-card reveal">
+      <div class="book-num">01</div>
+      <div class="book-title">The Life Care Management Handbook</div>
+      <div class="book-desc">The definitive textbook for starting, growing, and managing a health consulting business as a life care specialist. Used by professionals across the country to build sustainable practices.</div>
+      <div class="book-label">Available on Amazon</div>
+    </div>
+    <div class="book-card reveal">
+      <div class="book-num">02</div>
+      <div class="book-title">7 Steps to Long-Term Care Planning</div>
+      <div class="book-desc">A guidebook using the U-D-E-C-I-D-E framework helping individuals, families, and professionals design a clear roadmap for aging — reducing anxiety and enabling informed decisions.</div>
+      <div class="book-label">Available Now</div>
+    </div>
+    <div class="book-card reveal">
+      <div class="book-num">03</div>
+      <div class="book-title">Ultimate Care Plan Guide · 101 Templates</div>
+      <div class="book-desc">101 ready-to-use care plan templates co-created with Shanna Huber covering nutrition, medical status, safety, daily routines, and end-of-life planning for aging professionals.</div>
+      <div class="book-label">Co-Authored</div>
+    </div>
+  </div>
+</section>
+
+<section class="creds">
+  <div class="reveal">
+    <div class="sec-label">Credentials</div>
+    <h2 class="sec-heading">Built on Standards<br><em>That Define the Profession</em></h2>
+  </div>
+  <div class="creds-grid">
+    <div class="cred-card reveal"><div class="cred-icon">⚕️</div><div class="cred-title">Registered Nurse · RN</div><div class="cred-desc">Ohio State University BSN 1993. 31 years of nursing across ICU, critical care, and life care management settings.</div></div>
+    <div class="cred-card reveal"><div class="cred-icon">📜</div><div class="cred-title">Certified Life Care Planner</div><div class="cred-desc">Certified through the industry's leading credentialing body. Expert in long-term care assessment, cost analysis, and future needs planning.</div></div>
+    <div class="cred-card reveal"><div class="cred-icon">🧠</div><div class="cred-title">Certified Dementia Practitioner</div><div class="cred-desc">Certified Alzheimer's Disease and Dementia Care Trainer through the National Council of Certified Dementia Practitioners.</div></div>
+    <div class="cred-card reveal"><div class="cred-icon">🌏</div><div class="cred-title">Peace Corps · Papua New Guinea</div><div class="cred-desc">U.S. Peace Corps volunteer bringing healthcare knowledge and cultural competency built across international settings.</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="reveal">
+    <div class="sec-label">What They Say</div>
+    <h2 class="sec-heading">Trusted by Families<br><em>and Professionals Alike</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"Jennifer brought clarity to a situation that had felt impossible. Her frameworks gave our family a real path forward when we had no idea where to start."</div>
+      <div class="testi-auth"><strong>Margaret L.</strong>Family Client · Kalispell, MT</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"The Life Care Management Handbook is the definitive resource in our field. Jennifer's work has shaped how an entire generation of practitioners approaches this work."</div>
+      <div class="testi-auth"><strong>Dr. Patricia H.</strong>Life Care Professional · Montana</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"We engaged Jennifer for expert witness services on a complex long-term care case. Her depth of knowledge and testimony were simply unmatched."</div>
+      <div class="testi-auth"><strong>James R., Esq.</strong>Attorney · Insurance Litigation</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="eyebrow" style="margin:0 auto 1.5rem;display:inline-flex;"><span class="pulse-dot"></span><span style="font-size:.72rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-left:.55rem;">Available · Consultations · Insurance · Legal · Family</span></div>
+  <h2 class="cta-title">Ready to Work<br><em>With Jennifer?</em></h2>
+  <p class="cta-sub">Whether you are a family navigating aging, a professional building a practice, or a legal team needing expert testimony — Jennifer brings 31 years of clarity to your situation.</p>
+  <div class="cta-btns">
+    <a href="tel:4062120620" class="btn-primary">Call (406) 212-0620</a>
+    <a href="mailto:eagleviewwestltc1@gmail.com" class="btn-ghost">Email Jennifer</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">The <em>Life Care</em> Experts</div>
+  <div class="footer-links">
+    <a href="#founder">About</a>
+    <a href="#services">Services</a>
+    <a href="#books">Books</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 The Life Care Experts · Kalispell, Montana · Jennifer Crowley RN</div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(animR);})();
+document.querySelectorAll('a,button,.svc-card,.book-card,.testi-card,.cred-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{curRing.style.transform='translate(-50%,-50%) scale(1.6)';curRing.style.borderColor='rgba(201,168,76,.7)';});
+  el.addEventListener('mouseleave',()=>{curRing.style.transform='translate(-50%,-50%) scale(1)';curRing.style.borderColor='rgba(201,168,76,.45)';});
+});
+
+// PARTICLES
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H;
+function resize(){W=cvs.width=cvs.offsetWidth;H=cvs.height=cvs.offsetHeight;}
+resize();window.addEventListener('resize',resize);
+const pts=Array.from({length:75},()=>({
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.4+.3;this.vx=(Math.random()-.5)*.27;this.vy=(Math.random()-.5)*.27;this.a=Math.random()*.32+.07;this.life=0;this.max=190+Math.random()*210;},
+  update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.max||this.x<0||this.x>W||this.y<0||this.y>H)this.reset();},
+  draw(){const p=this.life/this.max,a=this.a*Math.sin(p*Math.PI);ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${a})`;ctx.fill();}
+}));
+pts.forEach(p=>p.reset());
+(function animP(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animP);})();
+
+// 3D HERO CARD TILT
+const heroCard=document.getElementById('heroCard'),cardShine=document.getElementById('cardShine'),scene=heroCard.parentElement;
+scene.addEventListener('mousemove',e=>{
+  const r=scene.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+  heroCard.style.transform=`rotateY(${x*18}deg) rotateX(${-y*18}deg)`;
+  cardShine.style.background=`radial-gradient(circle at ${(x+.5)*100}% ${(y+.5)*100}%,rgba(255,255,255,.09) 0%,transparent 60%)`;
+});
+scene.addEventListener('mouseleave',()=>{heroCard.style.transform='rotateY(0) rotateX(0)';cardShine.style.background='radial-gradient(circle at 30% 20%,rgba(255,255,255,.07) 0%,transparent 60%)';});
+
+// DASHBOARD TILT
+const dash=document.getElementById('dashDevice');
+if(dash){
+  dash.parentElement.addEventListener('mousemove',e=>{
+    const r=dash.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    dash.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg)`;
+  });
+  dash.parentElement.addEventListener('mouseleave',()=>{dash.style.transform='';});
+}
+
+// COUNT-UP
+function countUp(el){
+  const target=+el.dataset.target,suffix=el.dataset.suffix||'',dur=1800,start=performance.now();
+  (function frame(now){const p=Math.min((now-start)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target)+suffix;if(p<1)requestAnimationFrame(frame);})(start);
+}
+
+// SCROLL REVEAL + COUNT-UP
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('[data-target]').forEach(countUp);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.reveal,.stat-item').forEach(el=>io.observe(el));
+
+// HERO CARD COUNT-UP ON LOAD
+const hio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-target]').forEach(countUp);hio.unobserve(e.target);}});},{threshold:.3});
+hio.observe(heroCard);
+</script>
+</body>
+</html>
