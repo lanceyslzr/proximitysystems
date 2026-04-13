@@ -86,7 +86,7 @@ nav{
 
 /* 3D CARD */
 .hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;}
-.card-scene{width:360px;height:500px;perspective:900px;position:relative;}
+.card-scene{width:360px;height:500px;perspective:900px;position:relative;z-index:2;}
 .card-3d{
   width:100%;height:100%;
   background:linear-gradient(145deg,var(--navy3),#0c1a27);
@@ -121,7 +121,7 @@ nav{
 .gold-txt{font-size:.7rem;color:var(--gold);}
 
 /* FLOATING BADGES */
-.bf{position:absolute;background:var(--navy3);border:1px solid rgba(201,125,114,.3);border-radius:8px;padding:.48rem .85rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:.7rem;color:var(--cream);font-weight:500;white-space:nowrap;}
+.bf{position:absolute;background:var(--navy3);border:1px solid rgba(201,125,114,.3);border-radius:8px;padding:.48rem .85rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:.7rem;color:var(--cream);font-weight:500;white-space:nowrap;z-index:10;}
 .bf .bd{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .bf1{top:-16px;right:20px;animation:f1 4s ease-in-out infinite;}
 .bf2{bottom:50px;left:-35px;animation:f2 5s ease-in-out infinite;}
@@ -565,7 +565,7 @@ footer{background:var(--navy2);border-top:1px solid rgba(201,125,114,.1);padding
   <p class="cta-sub">Schedule a free care assessment and let Shawndra personally match your family with the right caregiver.</p>
   <div class="cta-btns">
     <a href="tel:4632189989" class="btn-primary">Call (463) 218-9989</a>
-    <a href="mailto:info@enchantedheartsllc.com" class="btn-ghost">Email Us</a>
+    <a href="/cdn-cgi/l/email-protection#a3cacdc5cce3c6cdc0cbc2cdd7c6c7cbc6c2d1d7d0cfcfc08dc0ccce" class="btn-ghost">Email Us</a>
   </div>
 </section>
 
@@ -580,7 +580,7 @@ footer{background:var(--navy2);border-top:1px solid rgba(201,125,114,.1);padding
   <div class="footer-copy">© 2025 Enchanted Hearts Home Care LLC · Indianapolis, Indiana</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // CURSOR
 const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -636,8 +636,4 @@ const io=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal,.stat-item').forEach(el=>io.observe(el));
 
 // HERO CARD COUNT-UP
-const hio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-target]').forEach(countUp);hio.unobserve(e.target);}});},{threshold:.3});
-hio.observe(heroCard);
-</script>
-</body>
-</html>
+const hio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting
