@@ -371,6 +371,10 @@
             </select>
           </div>
           <div class="form-group">
+            <label class="form-label">Your Email <span class="req">*</span></label>
+            <input class="form-input" type="email" id="psw-email" placeholder="Enter your work email" required>
+          </div>
+          <div class="form-group">
             <label class="form-label">Client Name <span class="req">*</span></label>
             <select class="form-select" id="psw-client">
               <option value="">Select client...</option>
@@ -543,12 +547,13 @@
 
   async function submitPSW() {
     const pswName = document.getElementById('psw-name').value;
+    const pswEmail = document.getElementById('psw-email').value.trim();
     const clientName = document.getElementById('psw-client').value;
     const visitDate = document.getElementById('psw-date').value;
     const notes = document.getElementById('psw-notes').value.trim();
 
-    if (!pswName || !clientName || !visitDate || !notes) {
-      alert('Please fill in PSW Name, Client Name, Date, and Visit Notes.');
+    if (!pswName || !pswEmail || !clientName || !visitDate || !notes) {
+      alert('Please fill in PSW Name, Email, Client Name, Date, and Visit Notes.');
       return;
     }
 
@@ -560,6 +565,7 @@
     const payload = {
       Timestamp: new Date().toISOString(),
       PSW_Name: pswName,
+      psw_email: pswEmail,
       Client_Name: clientName,
       Date_of_Visit: visitDate,
       Visit_Type: document.getElementById('psw-visit-type').value,
