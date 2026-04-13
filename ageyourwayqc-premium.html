@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Age Your Way Quad Cities — Deb Haussmann | Senior Home Coach</title>
+<meta name="description" content="Deb Haussmann is a Senior Home Coach providing compassionate support for seniors and their families through major life transitions in the Quad Cities area." />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #faf8f4;
+    --warm: #f5f0e8;
+    --sand: #ede6d8;
+    --ink: #1e1a14;
+    --mid: #5c5040;
+    --muted: #9c8e7e;
+    --terracotta: #c06040;
+    --terra2: #d87858;
+    --terra-pale: #fdf0eb;
+    --sage: #5a7860;
+    --sage2: #7aa080;
+    --sage3: #9cc0a0;
+    --sage-pale: #eaf2ec;
+    --sage-dark: #304838;
+    --gold: #c89830;
+    --gold2: #e0b848;
+    --gold-pale: #fdf5e0;
+    --border: #ddd5c5;
+    --border-s: #c0d5c5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off);
+    color: var(--ink);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed; width: 10px; height: 10px;
+    background: var(--terracotta); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed; width: 38px; height: 38px;
+    border: 1.5px solid rgba(192,96,64,0.3); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    padding: 20px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(250,248,244,0.97);
+    backdrop-filter: blur(16px);
+    padding: 14px 64px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+  .nav-leaf {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--sage);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(90,120,96,0.3); flex-shrink: 0;
+  }
+
+  .nav-leaf svg { width: 18px; height: 18px; fill: white; }
+
+  .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--white); display: block; line-height: 1;
+    transition: color 0.4s;
+  }
+
+  nav.scrolled .nav-name { color: var(--sage-dark); }
+
+  .nav-sub {
+    font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); display: block; margin-top: 2px;
+    transition: color 0.4s;
+  }
+
+  nav.scrolled .nav-sub { color: var(--muted); }
+
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s;
+  }
+
+  nav.scrolled .nav-links a { color: var(--mid); }
+  .nav-links a:hover { color: var(--white) !important; }
+  nav.scrolled .nav-links a:hover { color: var(--terracotta) !important; }
+
+  .nav-cta {
+    background: var(--terracotta) !important; color: white !important;
+    padding: 10px 22px; border-radius: 50px;
+    font-size: 11px !important; font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    box-shadow: 0 4px 14px rgba(192,96,64,0.3);
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--terra2) !important; transform: translateY(-1px); }
+
+  /* ─── HERO — SPLIT ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--sage-dark);
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+  }
+
+  #hero-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; opacity: 0.4;
+  }
+
+  .hero-blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none;
+  }
+
+  .blob-a { width: 500px; height: 500px; background: rgba(154,192,160,0.12); top: -80px; right: 10%; }
+  .blob-b { width: 300px; height: 300px; background: rgba(200,152,48,0.07); bottom: 10%; left: 15%; }
+
+  .hero-left {
+    position: relative; z-index: 2;
+    padding: 160px 60px 100px 80px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(154,192,160,0.15);
+    border: 1px solid rgba(154,192,160,0.25);
+    border-radius: 50px; padding: 7px 16px 7px 10px;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .badge-pulse {
+    width: 8px; height: 8px; background: var(--gold2); border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.75); } }
+
+  .badge-text { font-size: 11px; font-weight: 700; color: var(--sage3); letter-spacing: 0.06em; }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 78px);
+    font-weight: 700; line-height: 1.08;
+    letter-spacing: -0.01em; color: white;
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .hero-sub {
+    font-size: 15px; color: rgba(255,255,255,0.5);
+    max-width: 440px; margin-bottom: 40px; line-height: 1.85;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-terra {
+    background: var(--terracotta); color: white;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 14px 30px; text-decoration: none;
+    border-radius: 50px; display: inline-block;
+    transition: all 0.25s;
+    box-shadow: 0 6px 20px rgba(192,96,64,0.35);
+    position: relative; overflow: hidden;
+  }
+  .btn-terra::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--terra2); border-radius: 50px;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-terra:hover::before { transform: translateX(0); }
+  .btn-terra span { position: relative; z-index: 1; }
+  .btn-terra:hover { transform: translateY(-2px); }
+
+  .btn-ghost-hero {
+    color: rgba(255,255,255,0.6); font-size: 12px;
+    letter-spacing: 0.06em; padding: 14px 30px;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.18); border-radius: 50px;
+    display: inline-block; transition: all 0.25s;
+  }
+  .btn-ghost-hero:hover { border-color: var(--gold2); color: var(--gold2); transform: translateY(-2px); }
+
+  /* HERO RIGHT — 3D card + floating badges */
+  .hero-right {
+    position: relative; z-index: 2;
+    padding: 160px 60px 100px 20px;
+    display: flex; justify-content: center;
+    opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s forwards;
+  }
+
+  .hero-card-wrap { position: relative; }
+
+  .card-3d-wrap { perspective: 1000px; }
+
+  .hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 40px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative; overflow: hidden;
+    backdrop-filter: blur(10px); width: 300px;
+  }
+
+  .hero-card::before {
+    content: ''; position: absolute; top: 0; right: 0;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(200,152,48,0.12) 0%, transparent 70%);
+  }
+
+  .hc-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold2);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
+  }
+  .hc-label::before { content: ''; width: 5px; height: 5px; background: var(--gold2); border-radius: 50%; }
+
+  .hc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 22px; }
+
+  .hs-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px; font-weight: 700; color: white;
+    line-height: 1; display: block; margin-bottom: 4px;
+  }
+
+  .hs-label { font-size: 10px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+
+  .hc-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 18px 0; }
+
+  .hc-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-style: italic;
+    color: rgba(255,255,255,0.6); line-height: 1.6;
+  }
+  .hc-attr { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 10px; letter-spacing: 0.04em; }
+
+  /* Floating badges */
+  .float-badge {
+    position: absolute; background: white;
+    border-radius: 16px; padding: 12px 16px;
+    box-shadow: 0 14px 36px rgba(0,0,0,0.12);
+    border: 1px solid var(--border);
+  }
+
+  .fb-1 { top: 8%; left: -44px; animation: bob 4s ease-in-out infinite; }
+  .fb-2 { bottom: 22%; right: -32px; animation: bob 5.5s ease-in-out infinite 1s; }
+  .fb-3 { top: 46%; left: -52px; animation: bob 6s ease-in-out infinite 0.5s; }
+
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .fb-icon {
+    width: 26px; height: 26px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 5px;
+  }
+  .fb-icon svg { width: 12px; height: 12px; fill: white; }
+  .fbi-sage { background: var(--sage); }
+  .fbi-terra { background: var(--terracotta); }
+  .fbi-gold { background: var(--gold); }
+
+  .fb-val { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .fb-label { font-size: 9px; color: var(--muted); margin-top: 1px; }
+
+  /* BAND */
+  .band { background: var(--sage); padding: 14px 0; overflow: hidden; }
+  .band-track { display: flex; animation: marquee 26s linear infinite; width: max-content; }
+  .band-item {
+    display: flex; align-items: center; gap: 18px; padding: 0 36px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap;
+  }
+  .b-dot { width: 4px; height: 4px; background: var(--gold2); border-radius: 50%; opacity: 0.7; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 110px 0; }
+
+  .s-label {
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--terracotta); display: flex; align-items: center;
+    gap: 10px; margin-bottom: 14px; font-weight: 700;
+  }
+  .s-label::before { content: ''; width: 16px; height: 2px; background: var(--sage); border-radius: 2px; }
+
+  .s-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.8vw, 56px); font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 16px;
+  }
+  .s-h2 em { font-style: italic; color: var(--terracotta); font-weight: 400; }
+  .s-p { font-size: 14px; color: var(--mid); max-width: 480px; line-height: 1.9; }
+
+  /* WHY — with CSS home mockup */
+  .why-bg { background: var(--white); }
+
+  .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+
+  /* CSS journey card mockup */
+  .why-visual {
+    position: relative; display: flex;
+    align-items: center; justify-content: center; height: 500px;
+  }
+
+  .journey-card {
+    width: 240px;
+    background: var(--sage-dark);
+    border-radius: 28px; padding: 12px;
+    box-shadow:
+      0 40px 80px rgba(48,72,56,0.3),
+      0 0 0 1px rgba(255,255,255,0.06),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+    transform: perspective(800px) rotateY(-10deg) rotateX(5deg);
+    transition: transform 0.4s;
+    position: relative; z-index: 2;
+  }
+
+  .why-visual:hover .journey-card {
+    transform: perspective(800px) rotateY(-5deg) rotateX(2deg);
+  }
+
+  .jc-notch {
+    width: 55px; height: 5px; background: rgba(255,255,255,0.2);
+    border-radius: 3px; margin: 0 auto 12px;
+  }
+
+  .jc-screen {
+    background: var(--off); border-radius: 18px;
+    overflow: hidden; min-height: 390px;
+  }
+
+  .jc-header {
+    background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+    padding: 18px 16px 22px;
+  }
+
+  .jc-logo-row { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+
+  .jc-logo-leaf {
+    width: 20px; height: 20px; background: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .jc-logo-leaf svg { width: 10px; height: 10px; fill: var(--sage); }
+
+  .jc-logo-name { font-size: 11px; font-weight: 700; color: white; }
+
+  .jc-greeting { font-size: 9px; color: rgba(255,255,255,0.6); margin-bottom: 3px; }
+  .jc-title { font-size: 13px; font-weight: 700; color: white; }
+
+  .jc-body { padding: 12px; }
+
+  .jc-step {
+    background: white; border-radius: 12px;
+    padding: 11px 12px; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(90,120,96,0.06);
+  }
+
+  .jcs-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .jcs-icon svg { width: 14px; height: 14px; fill: white; }
+  .jcsi-s { background: var(--sage); }
+  .jcsi-t { background: var(--terracotta); }
+  .jcsi-g { background: var(--gold); }
+
+  .jcs-text {}
+  .jcs-title { font-size: 11px; font-weight: 700; color: var(--ink); display: block; }
+  .jcs-sub { font-size: 9px; color: var(--muted); }
+
+  /* Floating badges */
+  .jc-float {
+    position: absolute; background: white; border-radius: 14px;
+    padding: 12px 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1); border: 1px solid var(--border); z-index: 3;
+  }
+
+  .jcf-1 { top: 10%; left: -5px; animation: bob 4s ease-in-out infinite; }
+  .jcf-2 { bottom: 18%; right: -10px; animation: bob 5s ease-in-out infinite 1.2s; }
+
+  .jcf-icon { width: 24px; height: 24px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+  .jcf-icon svg { width: 12px; height: 12px; fill: white; }
+  .jcfi-s { background: var(--sage); }
+  .jcfi-t { background: var(--terracotta); }
+
+  .jcf-val { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .jcf-label { font-size: 9px; color: var(--muted); }
+
+  .why-points { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+
+  .wp-item {
+    display: flex; gap: 18px; padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s; cursor: default;
+  }
+  .wp-item:first-child { border-top: 1px solid var(--border); }
+  .wp-item:hover { padding-left: 8px; }
+
+  .wp-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    color: rgba(90,120,96,0.2); width: 30px;
+    flex-shrink: 0; line-height: 1.1; padding-top: 2px;
+    transition: color 0.25s;
+  }
+  .wp-item:hover .wp-num { color: var(--sage); }
+
+  .wp-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
+  .wp-body { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+  /* SERVICES — 3D icon cards */
+  .services-bg { background: var(--warm); }
+
+  .svc-top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 52px; }
+
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .svc-3d { perspective: 900px; }
+
+  .svc-card {
+    background: var(--white); border-radius: 20px;
+    padding: 34px 26px; border: 1.5px solid var(--border);
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease, box-shadow 0.3s;
+    cursor: default; position: relative; overflow: hidden;
+    box-shadow: 0 4px 18px rgba(90,120,96,0.05);
+  }
+
+  .svc-card::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(90deg, var(--sage), var(--sage3));
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .svc-card:hover { box-shadow: 0 20px 50px rgba(90,120,96,0.1); }
+  .svc-card:hover::after { opacity: 1; }
+
+  /* 3D icon with depth + shine */
+  .svc-icon-3d {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    box-shadow: 0 7px 0 rgba(0,0,0,0.1), 0 9px 18px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .svc-icon-3d::before {
+    content: ''; position: absolute; top: 5px; left: 8px;
+    width: 40%; height: 28%; background: rgba(255,255,255,0.22);
+    border-radius: 50%; filter: blur(3px);
+  }
+
+  .svc-card:hover .svc-icon-3d {
+    transform: translateY(-4px);
+    box-shadow: 0 11px 0 rgba(0,0,0,0.1), 0 15px 24px rgba(0,0,0,0.09);
+  }
+
+  .svc-icon-3d svg { width: 24px; height: 24px; fill: white; position: relative; z-index: 1; }
+
+  .icon-declutter { background: linear-gradient(135deg, #5a7860, #9cc0a0); }
+  .icon-placement { background: linear-gradient(135deg, #c06040, #d87858); }
+  .icon-aginplace { background: linear-gradient(135deg, #c89830, #e0b848); }
+  .icon-selling   { background: linear-gradient(135deg, #304838, #5a7860); }
+  .icon-dementia  { background: linear-gradient(135deg, #5a3070, #8a60a8); }
+  .icon-coaching  { background: linear-gradient(135deg, #c06040, #5a7860); }
+
+  .sv-num { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .sv-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--ink); line-height: 1.2; }
+  .sv-body { font-size: 12px; color: var(--mid); line-height: 1.8; }
+
+  /* MISSION — dark warm section */
+  .mission-bg { background: var(--sage-dark); color: white; padding: 110px 0; position: relative; overflow: hidden; }
+
+  .mission-bg::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 35% 50%, rgba(200,152,48,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .mission-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+
+  .mission-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold2); font-weight: 700; margin-bottom: 18px; }
+
+  .mission-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 58px); font-weight: 700;
+    line-height: 1.1; color: white; margin-bottom: 24px;
+  }
+  .mission-h2 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .mission-body { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.9; margin-bottom: 18px; }
+
+  .mission-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-style: italic; color: rgba(255,255,255,0.6);
+    line-height: 1.6; border-left: 3px solid var(--gold); padding-left: 20px; margin-top: 28px;
+  }
+
+  .mission-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .ms-block {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px; padding: 24px 20px;
+    transition: background 0.3s;
+  }
+  .ms-block:hover { background: rgba(255,255,255,0.1); }
+
+  .ms-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px; font-weight: 700; color: white;
+    line-height: 1; margin-bottom: 6px; display: block;
+  }
+  .ms-label { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  /* ABOUT */
+  .about-bg { background: var(--sand); }
+
+  .about-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 80px; align-items: center; }
+
+  .about-photo {
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--sage-pale);
+    border: 1.5px solid var(--border-s);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(90,120,96,0.1);
+  }
+
+  .about-photo::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(90,120,96,0.06) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 90px; font-weight: 700; font-style: italic;
+    color: rgba(90,120,96,0.1); position: relative; z-index: 1; letter-spacing: -0.03em;
+  }
+
+  .about-float {
+    position: absolute; bottom: 16px; right: 16px;
+    background: var(--sage); color: white;
+    padding: 16px 20px; border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(90,120,96,0.3);
+  }
+
+  .af-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 700; display: block;
+    margin-bottom: 3px; color: var(--gold2); line-height: 1;
+  }
+  .af-label { font-size: 9px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+
+  .about-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.8vw, 46px); font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 20px;
+  }
+  .about-h2 em { font-style: italic; color: var(--sage); font-weight: 400; }
+
+  .about-body { font-size: 14px; color: var(--mid); line-height: 1.95; margin-bottom: 16px; }
+  .about-body strong { color: var(--ink); font-weight: 700; }
+
+  .creds { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .cred { display: flex; gap: 14px; font-size: 12px; color: var(--muted); align-items: flex-start; }
+
+  .cred-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cred-icon svg { width: 12px; height: 12px; fill: white; }
+  .ci-sage { background: var(--sage); }
+  .ci-terra { background: var(--terracotta); }
+  .ci-gold { background: var(--gold); }
+
+  .cred-title { font-size: 13px; font-weight: 700; color: var(--ink); display: block; margin-bottom: 1px; }
+  .cred-sub { font-size: 11px; color: var(--muted); }
+
+  /* CTA */
+  .cta-section {
+    padding: 120px 64px; background: var(--terracotta);
+    text-align: center; position: relative; overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 65%);
+  }
+
+  .cta-bg-word {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(100px, 18vw, 220px);
+    font-weight: 700; font-style: italic;
+    color: rgba(255,255,255,0.05); pointer-events: none;
+    white-space: nowrap; letter-spacing: -0.04em;
+  }
+
+  .cta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 700; margin-bottom: 18px; display: block; position: relative; z-index: 1; }
+
+  .cta-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 72px); font-weight: 700;
+    line-height: 1.07; letter-spacing: -0.01em;
+    margin: 0 auto 18px; max-width: 680px;
+    color: white; position: relative; z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .cta-sub { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 420px; margin: 0 auto 44px; line-height: 1.85; position: relative; z-index: 1; }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-white {
+    background: white; color: var(--terracotta); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.06em; padding: 16px 36px;
+    text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.2s;
+  }
+  .btn-white:hover { background: var(--off); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+
+  .btn-outline-light {
+    background: transparent; color: rgba(255,255,255,0.7); font-size: 12px;
+    font-weight: 400; letter-spacing: 0.06em;
+    padding: 16px 36px; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.25); border-radius: 50px;
+    display: inline-block; transition: all 0.2s;
+  }
+  .btn-outline-light:hover { border-color: var(--gold2); color: var(--gold2); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); padding: 44px 64px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 20px;
+    border-top: 3px solid var(--sage);
+  }
+
+  .f-brand { display: flex; align-items: center; gap: 10px; }
+  .f-leaf { width: 28px; height: 28px; border-radius: 8px; background: var(--sage); display: flex; align-items: center; justify-content: center; }
+  .f-leaf svg { width: 14px; height: 14px; fill: white; }
+  .f-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7); }
+  .f-name em { font-style: italic; color: var(--gold2); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.22); text-decoration: none; transition: color 0.2s; }
+  .f-links a:hover { color: var(--gold2); }
+
+  .f-copy { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 120px 24px 50px; }
+    .hero-right { display: none; }
+    .container { padding: 0 24px; }
+    .svc-top, .why-layout, .mission-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .why-visual { display: none; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-leaf">
+      <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2S17 8 17 8z"/></svg>
+    </div>
+    <div>
+      <span class="nav-name">Age Your Way Quad Cities</span>
+      <span class="nav-sub">Deb Haussmann · Senior Home Coach</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#about">About Deb</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Consultation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-pulse"></div>
+      <span class="badge-text">Senior Home Coach · Quad Cities, Iowa · Certified Dementia Friend</span>
+    </div>
+    <h1 class="hero-h1">
+      Your family deserves<br>
+      a transition done<br>
+      <em>with compassion.</em>
+    </h1>
+    <p class="hero-sub">Deb Haussmann is a Senior Home Coach providing comprehensive support for seniors and their families through major life transitions — from aging in place to moving to the right supportive environment.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-terra"><span>Book a Consultation</span></a>
+      <a href="#services" class="btn-ghost-hero">Our Services</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card-wrap">
+      <div class="card-3d-wrap">
+        <div class="hero-card" id="heroCard">
+          <div class="hc-label">Age Your Way Quad Cities · Deb Haussmann</div>
+          <div class="hc-stats">
+            <div>
+              <span class="hs-num">4</span>
+              <p class="hs-label">Core services — move, assess, place, sell</p>
+            </div>
+            <div>
+              <span class="hs-num">QC</span>
+              <p class="hs-label">Serving Bettendorf, Davenport and the Quad Cities area</p>
+            </div>
+            <div>
+              <span class="hs-num">Yes</span>
+              <p class="hs-label">Certified Dementia Friend with lived caregiver experience</p>
+            </div>
+            <div>
+              <span class="hs-num">Free</span>
+              <p class="hs-label">Initial consultation — peace of mind starts here</p>
+            </div>
+          </div>
+          <div class="hc-divider"></div>
+          <p class="hc-quote">"Partnering with us brings peace of mind, alleviates stress, and guarantees attentive handling of every detail."</p>
+          <p class="hc-attr">Deb Haussmann · Senior Home Coach · Age Your Way Quad Cities</p>
+        </div>
+      </div>
+
+      <div class="float-badge fb-1">
+        <div class="fb-icon fbi-sage">
+          <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </div>
+        <p class="fb-val">Age in Place</p>
+        <p class="fb-label">Stay home your way</p>
+      </div>
+
+      <div class="float-badge fb-2">
+        <div class="fb-icon fbi-terra">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <p class="fb-val">Family Support</p>
+        <p class="fb-label">Every step with you</p>
+      </div>
+
+      <div class="float-badge fb-3">
+        <div class="fb-icon fbi-gold">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <p class="fb-val">Dementia Certified</p>
+        <p class="fb-label">Lived experience</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band">
+  <div class="band-track">
+    <div class="band-item">Senior Home Coach <span class="b-dot"></span></div>
+    <div class="band-item">Decluttering and Downsizing <span class="b-dot"></span></div>
+    <div class="band-item">Placement Assistance <span class="b-dot"></span></div>
+    <div class="band-item">Age in Place Assessments <span class="b-dot"></span></div>
+    <div class="band-item">Home Selling Expertise <span class="b-dot"></span></div>
+    <div class="band-item">Certified Dementia Friend <span class="b-dot"></span></div>
+    <div class="band-item">Quad Cities Iowa <span class="b-dot"></span></div>
+    <div class="band-item">Compassionate Transitions <span class="b-dot"></span></div>
+    <div class="band-item">Senior Home Coach <span class="b-dot"></span></div>
+    <div class="band-item">Decluttering and Downsizing <span class="b-dot"></span></div>
+    <div class="band-item">Placement Assistance <span class="b-dot"></span></div>
+    <div class="band-item">Age in Place Assessments <span class="b-dot"></span></div>
+    <div class="band-item">Home Selling Expertise <span class="b-dot"></span></div>
+    <div class="band-item">Certified Dementia Friend <span class="b-dot"></span></div>
+    <div class="band-item">Quad Cities Iowa <span class="b-dot"></span></div>
+    <div class="band-item">Compassionate Transitions <span class="b-dot"></span></div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="section why-bg" id="why">
+  <div class="container">
+    <div class="why-layout">
+      <div class="why-visual reveal">
+        <div class="journey-card">
+          <div class="jc-notch"></div>
+          <div class="jc-screen">
+            <div class="jc-header">
+              <div class="jc-logo-row">
+                <div class="jc-logo-leaf">
+                  <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2S17 8 17 8z"/></svg>
+                </div>
+                <span class="jc-logo-name">Age Your Way</span>
+              </div>
+              <p class="jc-greeting">Your Transition Journey</p>
+              <p class="jc-title">Tailored for your family</p>
+            </div>
+            <div class="jc-body">
+              <div class="jc-step">
+                <div class="jcs-icon jcsi-s">
+                  <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                </div>
+                <div class="jcs-text">
+                  <span class="jcs-title">Age in Place Assessment</span>
+                  <span class="jcs-sub">Stay home safely</span>
+                </div>
+              </div>
+              <div class="jc-step">
+                <div class="jcs-icon jcsi-t">
+                  <svg viewBox="0 0 24 24"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5s-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8z"/></svg>
+                </div>
+                <div class="jcs-text">
+                  <span class="jcs-title">Declutter and Downsize</span>
+                  <span class="jcs-sub">Compassionate process</span>
+                </div>
+              </div>
+              <div class="jc-step">
+                <div class="jcs-icon jcsi-g">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <div class="jcs-text">
+                  <span class="jcs-title">Placement Assistance</span>
+                  <span class="jcs-sub">Find the right home</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="jc-float jcf-1">
+          <div class="jcf-icon jcfi-s">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          </div>
+          <p class="jcf-val">Quad Cities</p>
+          <p class="jcf-label">Local expert</p>
+        </div>
+
+        <div class="jc-float jcf-2">
+          <div class="jcf-icon jcfi-t">
+            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <p class="jcf-val">Dementia Friend</p>
+          <p class="jcf-label">Certified specialist</p>
+        </div>
+      </div>
+
+      <div class="reveal d1">
+        <div class="s-label">The Approach</div>
+        <h2 class="s-h2">Transitions handled<br>with <em>care</em> and expertise.</h2>
+        <p class="s-p" style="margin-bottom:28px;">Whether a senior is staying home or moving to a supportive environment, Deb ensures the process is smooth, stress-free, and deeply respectful of the family's needs at every step.</p>
+        <div class="why-points">
+          <div class="wp-item">
+            <span class="wp-num">01</span>
+            <div>
+              <p class="wp-title">Comprehensive family support</p>
+              <p class="wp-body">Deb works with the whole family — not just the senior — to ensure everyone is informed, comfortable, and confident throughout the transition.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">02</span>
+            <div>
+              <p class="wp-title">Tailored to individual needs</p>
+              <p class="wp-body">No two transitions are the same. Every plan is personalised — whether the goal is aging in place with support or moving to a community that truly fits.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">03</span>
+            <div>
+              <p class="wp-title">Real estate expertise included</p>
+              <p class="wp-body">Deb's background in Quad Cities real estate means she understands the home selling side of the transition as deeply as the care side — a rare combination.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">04</span>
+            <div>
+              <p class="wp-title">Dementia-informed care</p>
+              <p class="wp-body">As a Certified Dementia Friend and caregiver to her own mother, Deb brings lived experience and deep empathy to every family navigating cognitive decline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="container">
+    <div class="svc-top">
+      <div class="reveal">
+        <div class="s-label">Services</div>
+        <h2 class="s-h2">Every detail.<br><em>Taken care of.</em></h2>
+      </div>
+      <p class="s-p reveal d1">From the first conversation to the final step of a transition — Deb manages every detail so families can focus on what matters most: each other.</p>
+    </div>
+    <div class="svc-grid reveal">
+
+      <div class="svc-3d" id="sc1">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-declutter">
+            <svg viewBox="0 0 24 24"><path d="M21 8H3V4h18v4zM4 10h16v2H4zm2 4h12v2H6z"/></svg>
+          </div>
+          <span class="sv-num">01</span>
+          <p class="sv-title">Decluttering and Downsizing</p>
+          <p class="sv-body">Compassionate support sorting through a lifetime of belongings — what to keep, donate, sell, or let go — at a pace that feels manageable and respectful.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc2">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-placement">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <span class="sv-num">02</span>
+          <p class="sv-title">Placement Assistance</p>
+          <p class="sv-body">Finding the right supportive community or care environment that truly fits the senior's needs, preferences, and personality — not just what's available.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc3">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-aginplace">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </div>
+          <span class="sv-num">03</span>
+          <p class="sv-title">Age in Place Assessments</p>
+          <p class="sv-body">A thorough assessment of what's needed to help a senior stay safely and comfortably in their own home — with a personalised care needs plan to match.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc4">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-selling">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <span class="sv-num">04</span>
+          <p class="sv-title">Home Selling Expertise</p>
+          <p class="sv-body">Full real estate support for seniors and families selling the family home — with deep Quad Cities market knowledge and sensitivity to the emotional weight of the process.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc5">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-dementia">
+            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <span class="sv-num">05</span>
+          <p class="sv-title">Dementia Support</p>
+          <p class="sv-body">Certified Dementia Friend with personal caregiver experience — bringing genuine understanding and empathy to families navigating the challenges of cognitive decline.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc6">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-coaching">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <span class="sv-num">06</span>
+          <p class="sv-title">Senior Home Coaching</p>
+          <p class="sv-body">One-on-one guidance for seniors and their families — helping navigate options, make confident decisions, and feel supported through every stage of the journey.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission-bg" id="mission">
+  <div class="container">
+    <div class="mission-layout">
+      <div class="reveal">
+        <p class="mission-label">Our Mission</p>
+        <h2 class="mission-h2">Seniors deserve<br>transitions done<br><em>with dignity.</em></h2>
+        <p class="mission-body">Whether a senior chooses to stay in their home or move to a supportive environment, Deb ensures smooth transitions, appropriate care, and peace of mind for every family she works with.</p>
+        <p class="mission-body">Partnering with Age Your Way Quad Cities means attentive handling of every detail — so you can focus on your loved one, not the logistics.</p>
+        <div class="mission-quote">
+          "I am also a Certified Dementia Friend. I was caregiver for my mother as she traveled the adventure of living with Dementia."
+        </div>
+      </div>
+      <div class="mission-stats reveal d1">
+        <div class="ms-block">
+          <span class="ms-num">4+</span>
+          <p class="ms-label">Core services covering every aspect of a senior's transition journey</p>
+        </div>
+        <div class="ms-block">
+          <span class="ms-num">QC</span>
+          <p class="ms-label">Locally rooted in Bettendorf and the Quad Cities area of Iowa</p>
+        </div>
+        <div class="ms-block">
+          <span class="ms-num">Yes</span>
+          <p class="ms-label">Certified Dementia Friend with lived personal caregiver experience</p>
+        </div>
+        <div class="ms-block">
+          <span class="ms-num">Free</span>
+          <p class="ms-label">Initial consultation — starts with a conversation, no obligation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-bg" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-photo">
+          <span class="about-initials">DH</span>
+          <div class="about-float">
+            <span class="af-num">QC</span>
+            <p class="af-label">Quad Cities local expert</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Deb</div>
+        <h2 class="about-h2">Helping families<br>through life's <em>biggest</em><br>transitions.</h2>
+        <p class="about-body">Deb Haussmann is a <strong>Senior Home Coach and Certified Dementia Friend</strong> based in Bettendorf, Iowa — providing comprehensive, compassionate support for seniors and their families through major life transitions across the Quad Cities.</p>
+        <p class="about-body">Her approach covers every dimension of a senior transition — from decluttering and placement to age-in-place care assessments and home selling. Her background in Quad Cities real estate at Keller Williams means she understands both the care side and the practical side of what families face.</p>
+        <p class="about-body">Having been the caregiver for her own mother through dementia, Deb brings lived experience and genuine empathy to every family she works with. She knows this journey firsthand — and she walks it with you.</p>
+        <div class="creds">
+          <div class="cred">
+            <div class="cred-icon ci-sage">
+              <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2S17 8 17 8z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Senior Home Coach · Age Your Way Quad Cities</span>
+              <span class="cred-sub">Bettendorf, Iowa · Quad Cities area</span>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-icon ci-terra">
+              <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Certified Dementia Friend</span>
+              <span class="cred-sub">Personal caregiver experience with dementia</span>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-icon ci-gold">
+              <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Real Estate Specialist · Keller Williams Greater Quad Cities</span>
+              <span class="cred-sub">Florida State University</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-word">Together</div>
+  <span class="cta-label">Book a Consultation</span>
+  <h2 class="cta-h2">Your family doesn't<br>have to navigate<br><em>this alone.</em></h2>
+  <p class="cta-sub">Every transition starts with a conversation. Deb is here to listen, guide, and walk alongside your family through whatever comes next.</p>
+  <div class="cta-actions">
+    <a href="tel:0000000000" class="btn-white">Call Deb Today</a>
+    <a href="#services" class="btn-outline-light">See All Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-leaf">
+      <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2S17 8 17 8z"/></svg>
+    </div>
+    <span class="f-name">Age Your Way <em>Quad Cities</em></span>
+  </div>
+  <ul class="f-links">
+    <li><a href="#why">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#about">About Deb</a></li>
+    <li><a href="#contact">Book</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Age Your Way Quad Cities · Deb Haussmann · Bettendorf, Iowa</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; ring.style.width = '52px'; ring.style.height = '52px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '38px'; ring.style.height = '38px'; });
+  });
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // 3D HERO CARD TILT
+  const heroCard = document.getElementById('heroCard');
+  const heroWrap = heroCard?.parentElement;
+  if (heroWrap) {
+    heroWrap.addEventListener('mousemove', e => {
+      const r = heroWrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      heroCard.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 9}deg) translateZ(10px)`;
+    });
+    heroWrap.addEventListener('mouseleave', () => { heroCard.style.transform = ''; });
+  }
+
+  // 3D SERVICE CARD TILT
+  ['sc1','sc2','sc3','sc4','sc5','sc6'].forEach(id => {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    const card = wrap.querySelector('.svc-card');
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 10}deg) translateZ(8px)`;
+    });
+    wrap.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  // CANVAS
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W; this.y = Math.random() * H;
+      this.size = Math.random() * 1.6 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.28; this.speedY = (Math.random() - 0.5) * 0.28;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.6 ? '#c8900a' : '#9cc0a0';
+    }
+    update() {
+      this.x += this.speedX; this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity; ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 75; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 100) {
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#9cc0a0';
+          ctx.globalAlpha = (1 - dist/100) * 0.08;
+          ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H); ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines(); requestAnimationFrame(animate);
+  }
+  animate();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
