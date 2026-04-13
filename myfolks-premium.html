@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Myfolks — Support for Those You Love the Most | Louise Thompson</title>
+<meta name="description" content="Myfolks sends support to those you love the most, at the press of a button. Companionship, household support, and care for elderly loved ones across the UK." />
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #faf8ff;
+    --warm: #f5f0ff;
+    --ink: #1a0f2e;
+    --ink2: #2d1f4a;
+    --mid: #5a4a78;
+    --muted: #9888b8;
+    --purple: #6b2fb0;
+    --purple2: #8b4fd0;
+    --purple3: #a870f0;
+    --purple-pale: #f0e8ff;
+    --purple-dark: #3d1470;
+    --lavender: #c8a8f8;
+    --rose: #e87890;
+    --rose-pale: #fde8ee;
+    --gold: #f0a830;
+    --teal: #18b8a8;
+    --border: #e8deff;
+    --border2: #ddd0f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--purple);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 38px; height: 38px;
+    border: 1.5px solid rgba(107,47,176,0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(250,248,255,0.97);
+    backdrop-filter: blur(16px);
+    padding: 14px 60px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+  .nav-heart {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(107,47,176,0.35);
+    flex-shrink: 0;
+  }
+
+  .nav-heart svg { width: 16px; height: 16px; fill: white; }
+
+  .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--purple);
+    letter-spacing: -0.01em;
+    transition: color 0.4s;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--purple); }
+
+  .nav-cta {
+    background: var(--purple) !important;
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 16px rgba(107,47,176,0.3);
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--purple2) !important; transform: translateY(-1px); }
+
+  /* ─── HERO — asymmetric with app mockup ─── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 50%, var(--purple2) 100%);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    padding: 0;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* Blob shapes */
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+  }
+
+  .blob-a { width: 500px; height: 500px; background: rgba(168,112,240,0.25); top: -100px; right: -100px; }
+  .blob-b { width: 350px; height: 350px; background: rgba(232,120,144,0.12); bottom: 0; left: 30%; }
+
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    padding: 160px 60px 100px 80px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 50px;
+    padding: 7px 16px 7px 10px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .badge-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse2 2s ease-in-out infinite; }
+  @keyframes pulse2 { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+  .badge-text { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.06em; }
+
+  .hero-h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(44px, 5.5vw, 72px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;
+  }
+
+  .hero-h1 em { font-style: italic; color: var(--lavender); }
+  .hero-h1 .gold { color: var(--gold); font-style: italic; }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    max-width: 440px;
+    margin-bottom: 40px;
+    line-height: 1.85;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.25s;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-white::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    border-radius: 50px;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-white:hover::before { transform: translateX(0); }
+  .btn-white span { position: relative; z-index: 1; }
+  .btn-white:hover { transform: translateY(-2px); }
+
+  .btn-outline-w {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 14px 28px;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-outline-w:hover { border-color: var(--lavender); color: var(--lavender); transform: translateY(-2px); }
+
+  /* HERO RIGHT — APP MOCKUP */
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    padding: 160px 60px 100px 20px;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s forwards;
+  }
+
+  /* CSS App Phone */
+  .app-phone {
+    width: 220px;
+    background: white;
+    border-radius: 36px;
+    padding: 12px;
+    box-shadow:
+      0 50px 100px rgba(0,0,0,0.3),
+      0 0 0 1px rgba(255,255,255,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: perspective(800px) rotateY(-8deg) rotateX(4deg);
+    transition: transform 0.4s;
+    position: relative;
+    z-index: 3;
+  }
+
+  .app-phone:hover {
+    transform: perspective(800px) rotateY(-4deg) rotateX(2deg);
+  }
+
+  .app-notch {
+    width: 70px; height: 6px;
+    background: var(--ink);
+    border-radius: 3px;
+    margin: 0 auto 14px;
+  }
+
+  .app-screen {
+    background: var(--off);
+    border-radius: 26px;
+    overflow: hidden;
+    min-height: 400px;
+  }
+
+  .app-header {
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    padding: 20px 16px 24px;
+  }
+
+  .app-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .app-logo-dot {
+    width: 20px; height: 20px;
+    background: white;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .app-logo-dot::after { content: ''; width: 8px; height: 8px; background: var(--purple); border-radius: 50%; }
+
+  .app-logo-name { font-size: 12px; font-weight: 700; color: white; }
+
+  .app-greeting { font-size: 10px; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+  .app-title { font-size: 14px; font-weight: 700; color: white; }
+
+  .app-body { padding: 14px 12px; }
+
+  .app-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(107,47,176,0.08);
+    border: 1px solid var(--border);
+  }
+
+  .ac-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .ac-label { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .ac-badge {
+    font-size: 8px;
+    font-weight: 700;
+    background: var(--purple-pale);
+    color: var(--purple);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .ac-title { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .ac-sub { font-size: 10px; color: var(--muted); }
+
+  .app-btn {
+    background: var(--purple);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 4px;
+  }
+
+  /* Floating elements */
+  .app-float {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    padding: 12px 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    z-index: 4;
+  }
+
+  .af-1 { top: 20%; right: -20px; animation: floatBob 4s ease-in-out infinite; }
+  .af-2 { bottom: 25%; left: -30px; animation: floatBob 5s ease-in-out infinite 1s; }
+
+  @keyframes floatBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .af-icon {
+    width: 24px; height: 24px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 5px;
+  }
+  .af-icon svg { width: 12px; height: 12px; fill: white; }
+  .af-icon-p { background: var(--purple); }
+  .af-icon-g { background: var(--gold); }
+
+  .af-val { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .af-label { font-size: 9px; color: var(--muted); }
+
+  /* ─── SERVICES — card grid with icons ─── */
+  .services-section {
+    padding: 110px 0;
+    background: var(--white);
+  }
+
+  .svc-container { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+
+  .svc-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+
+  .s-label {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .s-label::before { content: ''; width: 16px; height: 2px; background: var(--rose); border-radius: 2px; }
+
+  .s-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 4.5vw, 56px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .s-h2 em { font-style: italic; color: var(--purple); }
+  .s-p { font-size: 15px; color: var(--mid); max-width: 480px; line-height: 1.9; }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  /* 3D service cards */
+  .svc-3d { perspective: 900px; }
+
+  .svc-card {
+    background: var(--off);
+    border-radius: 22px;
+    padding: 34px 28px;
+    border: 1.5px solid var(--border);
+    transform-style: preserve-3d;
+    transition: transform 0.12s ease, box-shadow 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(107,47,176,0.05);
+  }
+
+  .svc-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--lavender));
+    border-radius: 0 0 22px 22px;
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .svc-card:hover { box-shadow: 0 20px 50px rgba(107,47,176,0.12); }
+  .svc-card:hover::after { transform: scaleX(1); }
+
+  /* 3D icon with shadow depth */
+  .svc-icon-3d {
+    width: 58px; height: 58px;
+    border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    box-shadow:
+      0 8px 0 rgba(0,0,0,0.1),
+      0 10px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .svc-card:hover .svc-icon-3d {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 rgba(0,0,0,0.1), 0 16px 24px rgba(0,0,0,0.1);
+  }
+
+  /* Shine effect on icons */
+  .svc-icon-3d::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 8px;
+    width: 40%; height: 30%;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    filter: blur(4px);
+  }
+
+  .svc-icon-3d svg { width: 26px; height: 26px; fill: white; position: relative; z-index: 1; }
+
+  .icon-companionship { background: linear-gradient(135deg, #6b2fb0, #a870f0); }
+  .icon-hospital { background: linear-gradient(135deg, #e87890, #f8a8b8); }
+  .icon-household { background: linear-gradient(135deg, #18b8a8, #40d8c8); }
+  .icon-tech { background: linear-gradient(135deg, #3d1470, #8b4fd0); }
+  .icon-sitting { background: linear-gradient(135deg, #f0a830, #f8c860); }
+  .icon-visits { background: linear-gradient(135deg, #6b2fb0, #18b8a8); }
+
+  .sv-num { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .sv-title { font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 8px; color: var(--ink); line-height: 1.2; }
+  .sv-body { font-size: 12px; color: var(--mid); line-height: 1.75; }
+
+  /* ─── MISSION — full width emotional section ─── */
+  .mission-section {
+    background: var(--ink);
+    color: white;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 60vh;
+  }
+
+  .mission-left {
+    padding: 80px 60px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mission-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(107,47,176,0.2) 0%, transparent 60%);
+  }
+
+  .mission-label {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--lavender);
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mission-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-style: italic;
+    line-height: 1.2;
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mission-attr { font-size: 13px; color: rgba(255,255,255,0.45); position: relative; z-index: 1; }
+
+  .mission-right {
+    background: var(--purple);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mission-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(200,168,248,0.15) 0%, transparent 60%);
+  }
+
+  .mission-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ms-block {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 24px 20px;
+    transition: background 0.3s;
+  }
+  .ms-block:hover { background: rgba(255,255,255,0.12); }
+
+  .ms-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: white;
+    line-height: 1;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .ms-label { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* ─── ABOUT — horizontal timeline feel ─── */
+  .about-section {
+    padding: 110px 0;
+    background: var(--warm);
+  }
+
+  .about-container { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-visual { position: relative; }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--purple-pale), var(--warm));
+    border-radius: 28px;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(107,47,176,0.1);
+  }
+
+  .about-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 30%, rgba(107,47,176,0.1) 0%, transparent 60%);
+  }
+
+  .about-initials {
+    font-family: 'DM Serif Display', serif;
+    font-size: 90px;
+    color: rgba(107,47,176,0.1);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: 16px; right: 16px;
+    background: var(--purple);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(107,47,176,0.3);
+  }
+
+  .ab-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    display: block;
+    margin-bottom: 3px;
+    color: var(--lavender);
+  }
+  .ab-label { font-size: 9px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; }
+
+  .about-content {}
+
+  .about-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    margin-bottom: 22px;
+    letter-spacing: -0.01em;
+  }
+  .about-h2 em { font-style: italic; color: var(--purple); }
+
+  .about-body { font-size: 15px; color: var(--mid); line-height: 1.95; margin-bottom: 18px; }
+  .about-body strong { color: var(--ink); font-weight: 600; }
+
+  /* Award/recognition chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--mid);
+    transition: all 0.2s;
+  }
+  .chip:hover { border-color: var(--purple); color: var(--purple); }
+
+  .chip-dot { width: 6px; height: 6px; background: var(--purple); border-radius: 50%; flex-shrink: 0; }
+
+  .about-creds { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .cred-row { display: flex; gap: 12px; font-size: 12px; color: var(--muted); align-items: flex-start; }
+  .cred-mark { width: 14px; height: 14px; background: var(--purple-pale); border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; }
+  .cred-mark::after { content: ''; width: 5px; height: 5px; background: var(--purple); border-radius: 50%; }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 120px 60px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(200,168,248,0.1) 0%, transparent 60%);
+  }
+
+  .cta-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--lavender); font-weight: 700; margin-bottom: 18px; display: block; position: relative; z-index: 1; }
+
+  .cta-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 5.5vw, 66px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 auto 18px;
+    max-width: 660px;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-h2 em { font-style: italic; color: var(--lavender); }
+
+  .cta-sub { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 420px; margin: 0 auto 44px; line-height: 1.85; position: relative; z-index: 1; }
+
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-purple {
+    background: white;
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 16px 36px;
+    text-decoration: none;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-purple:hover { background: var(--off); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+  .btn-outline-lav {
+    background: transparent;
+    color: var(--lavender);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 16px 36px;
+    text-decoration: none;
+    border: 1.5px solid rgba(200,168,248,0.35);
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline-lav:hover { border-color: var(--lavender); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 44px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .f-brand { display: flex; align-items: center; gap: 8px; }
+  .f-heart { width: 26px; height: 26px; border-radius: 8px; background: var(--purple); display: flex; align-items: center; justify-content: center; }
+  .f-heart svg { width: 12px; height: 12px; fill: white; }
+  .f-name { font-family: 'DM Serif Display', serif; font-size: 17px; color: rgba(255,255,255,0.7); }
+
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a { font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.22); text-decoration: none; transition: color 0.2s; }
+  .f-links a:hover { color: var(--lavender); }
+
+  .f-copy { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 120px 24px 50px; }
+    .hero-right { display: none; }
+    .svc-container, .about-container { padding: 0 24px; }
+    .svc-header { grid-template-columns: 1fr; gap: 24px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .mission-section { grid-template-columns: 1fr; }
+    .mission-left { padding: 60px 24px; }
+    .mission-right { padding: 60px 24px; }
+    .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-heart">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <span class="nav-name">Myfolks</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#mission">Our Mission</a></li>
+    <li><a href="#about">About Louise</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Myfolkser</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <span class="badge-text">Now serving UK coastline communities</span>
+    </div>
+    <h1 class="hero-h1">
+      Support for those<br>
+      you love the most,<br>
+      at the press of<br>
+      <em>a button.</em>
+    </h1>
+    <p class="hero-sub">Myfolks sends a vetted, compassionate Myfolkser to your elderly loved ones — for companionship, household help, hospital discharge support, and more.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-white"><span>Book a Myfolkser</span></a>
+      <a href="tel:03330045922" class="btn-outline-w">Call 0333 004 5922</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div style="position:relative;">
+      <div class="app-phone" id="appPhone">
+        <div class="app-notch"></div>
+        <div class="app-screen">
+          <div class="app-header">
+            <div class="app-logo-row">
+              <div class="app-logo-dot"></div>
+              <span class="app-logo-name">myfolks</span>
+            </div>
+            <p class="app-greeting">Good morning</p>
+            <p class="app-title">Who needs support today?</p>
+          </div>
+          <div class="app-body">
+            <div class="app-card">
+              <div class="ac-top">
+                <span class="ac-label">Available now</span>
+                <span class="ac-badge">Nearby</span>
+              </div>
+              <p class="ac-title">Companionship Visit</p>
+              <p class="ac-sub">1 hour · DBS checked</p>
+              <div class="app-btn">Book Now</div>
+            </div>
+            <div class="app-card">
+              <div class="ac-top">
+                <span class="ac-label">Popular</span>
+                <span class="ac-badge">Today</span>
+              </div>
+              <p class="ac-title">Household Support</p>
+              <p class="ac-sub">Shopping, errands, tasks</p>
+            </div>
+            <div class="app-card">
+              <div class="ac-top">
+                <span class="ac-label">8 minutes</span>
+              </div>
+              <p class="ac-title">Talk to Louise</p>
+              <p class="ac-sub">Personal advice from founder</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-float af-1">
+        <div class="af-icon af-icon-p">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <p class="af-val">UK-Wide</p>
+        <p class="af-label">Expanding fast</p>
+      </div>
+      <div class="app-float af-2">
+        <div class="af-icon af-icon-g">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <p class="af-val">DBS Checked</p>
+        <p class="af-label">All Myfolksers</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="svc-container">
+    <div class="svc-header reveal">
+      <div>
+        <div class="s-label">What We Offer</div>
+        <h2 class="s-h2">Everything your<br>loved ones <em>need.</em></h2>
+      </div>
+      <p class="s-p">Our Myfolksers are vetted, compassionate individuals who can help with a wide range of practical and emotional needs — booked easily through our app or by phone.</p>
+    </div>
+    <div class="svc-grid reveal d1">
+
+      <div class="svc-3d" id="sc1">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-companionship">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <span class="sv-num">01</span>
+          <p class="sv-title">Companionship</p>
+          <p class="sv-body">A friendly face, a good chat, a cuppa and connection. Combating the loneliness that is proven to be as harmful as smoking 15 cigarettes a day.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc2">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-hospital">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <span class="sv-num">02</span>
+          <p class="sv-title">Hospital Discharge</p>
+          <p class="sv-body">Support when your loved one comes home from hospital — settling in, reassurance, and ensuring the transition feels safe and comfortable.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc3">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-household">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </div>
+          <span class="sv-num">03</span>
+          <p class="sv-title">Household Support</p>
+          <p class="sv-body">Shopping, errands, helping with the TV, tidying up — the small everyday things that make an enormous difference to how someone feels at home.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc4">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-tech">
+            <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+          </div>
+          <span class="sv-num">04</span>
+          <p class="sv-title">Technology Support</p>
+          <p class="sv-body">Help with phones, tablets, the TV remote, and navigating technology — keeping your loved one connected to family, services, and the world.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc5">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-sitting">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          </div>
+          <span class="sv-num">05</span>
+          <p class="sv-title">Sitting Service</p>
+          <p class="sv-body">A Myfolkser stays with your loved one so you can take a break, attend an appointment, or simply rest — knowing they are in safe, caring hands.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc6">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-visits">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <span class="sv-num">06</span>
+          <p class="sv-title">External Visits</p>
+          <p class="sv-body">Accompanying your loved one to appointments, activities, and outings — maintaining their connection to the community and the world outside.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission-section" id="mission">
+  <div class="mission-left reveal">
+    <p class="mission-label">Our Mission</p>
+    <p class="mission-quote">"I needed a 'me' in the North East — someone I could send at the press of a button."</p>
+    <p class="mission-attr">Louise Thompson · Founder, Myfolks · Born from personal experience</p>
+  </div>
+  <div class="mission-right reveal d1">
+    <div class="mission-stats">
+      <div class="ms-block">
+        <span class="ms-num">2023</span>
+        <p class="ms-label">Year Myfolks launched after years of development</p>
+      </div>
+      <div class="ms-block">
+        <span class="ms-num">UK</span>
+        <p class="ms-label">Expanding nationally along UK coastline communities</p>
+      </div>
+      <div class="ms-block">
+        <span class="ms-num">DBS</span>
+        <p class="ms-label">Every Myfolkser is fully checked and vetted before placement</p>
+      </div>
+      <div class="ms-block">
+        <span class="ms-num">1hr</span>
+        <p class="ms-label">Visit slots — we never rush in and out of someone's home</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-visual">
+          <div class="about-photo">
+            <span class="about-initials">LT</span>
+          </div>
+          <div class="about-badge">
+            <span class="ab-num">25+</span>
+            <p class="ab-label">Years in commercial tech and innovation</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Louise</div>
+        <h2 class="about-h2">Built from<br>lived experience,<br><em>paid forward.</em></h2>
+        <p class="about-body">Louise Thompson created Myfolks from the most personal of places. <strong>Two elderly parents in Newcastle. Louise in Sussex. 325 miles apart.</strong> The help they needed was simple — someone to fix the TV, answer a confusing letter, take them to an appointment — but nothing like this existed.</p>
+        <p class="about-body">So she built it. A 25-year career in legal and commercial leadership at blue-chip tech companies (EDS, BT, SAP) gave her the tools. Her parents gave her the reason.</p>
+        <p class="about-body">Today, Myfolks is funded by Capita, backed by Innovate UK, and expanding rapidly across the UK — helping families like Louise's give their loved ones the support they deserve.</p>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot"></span>TEDx Speaker 2019</span>
+          <span class="chip"><span class="chip-dot"></span>NHS CEP Patient Entrepreneur</span>
+          <span class="chip"><span class="chip-dot"></span>Innovate UK Funded</span>
+          <span class="chip"><span class="chip-dot"></span>Windsor Leadership Trust</span>
+          <span class="chip"><span class="chip-dot"></span>Institute of Directors</span>
+        </div>
+        <div class="about-creds">
+          <div class="cred-row"><div class="cred-mark"></div>Founder and CEO · Myfolks · Newcastle Upon Tyne</div>
+          <div class="cred-row"><div class="cred-mark"></div>Co-Founder · Thrombowatch · The Blood Clot Briefing Podcast</div>
+          <div class="cred-row"><div class="cred-mark"></div>Commercial Director · Capita AIPO</div>
+          <div class="cred-row"><div class="cred-mark"></div>MSc Commercial Management · University of Manchester</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <span class="cta-label">Get Started</span>
+  <h2 class="cta-h2">Support your loved<br>ones from <em>wherever</em><br>you are.</h2>
+  <p class="cta-sub">Join Myfolks for free and book support for your elderly loved ones at the press of a button. We're expanding — if we're not in your area yet, we're coming soon.</p>
+  <div class="cta-actions">
+    <a href="https://www.myfolks.uk" class="btn-purple" target="_blank">Join Myfolks Free</a>
+    <a href="tel:03330045922" class="btn-outline-lav">Call 0333 004 5922</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-heart">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <span class="f-name">Myfolks</span>
+  </div>
+  <ul class="f-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#about">About Louise</a></li>
+    <li><a href="#contact">Get Started</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Myfolks Ltd · myfolks.uk · Newcastle Upon Tyne</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '38px'; ring.style.height = '38px';
+    });
+  });
+
+  // NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // 3D APP PHONE TILT
+  const appPhone = document.getElementById('appPhone');
+  if (appPhone) {
+    appPhone.addEventListener('mousemove', e => {
+      const r = appPhone.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      appPhone.style.transform = `perspective(800px) rotateY(${-8 + x * 10}deg) rotateX(${4 - y * 8}deg)`;
+    });
+    appPhone.addEventListener('mouseleave', () => {
+      appPhone.style.transform = 'perspective(800px) rotateY(-8deg) rotateX(4deg)';
+    });
+  }
+
+  // 3D SERVICE CARD TILT
+  ['sc1','sc2','sc3','sc4','sc5','sc6'].forEach(id => {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    const card = wrap.querySelector('.svc-card');
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 10}deg) translateZ(8px)`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  });
+
+  // CANVAS
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 2 + 0.4;
+      this.speedX = (Math.random() - 0.5) * 0.28;
+      this.speedY = (Math.random() - 0.5) * 0.28;
+      this.opacity = Math.random() * 0.2 + 0.04;
+      this.color = Math.random() > 0.5 ? '#c8a8f8' : '#ffffff';
+    }
+    update() {
+      this.x += this.speedX; this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#c8a8f8';
+          ctx.globalAlpha = (1 - dist/100) * 0.08;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
