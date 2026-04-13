@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Better People Care LLC — Jill Couch MS OT/L | DAWN Dementia Specialist · Fort Collins, CO</title>
+<meta name="description" content="Jill Couch MS OT/L brings DAWN Dementia Specialist Care, Occupational Therapy, and deep human connection to older folks and their families in Fort Collins, Colorado." />
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f7f5f0;
+    --warm: #f2ede4;
+    --sand: #ece6d8;
+    --ink: #1c1810;
+    --mid: #504838;
+    --muted: #9c8e7a;
+    --blue: #2a6080;
+    --blue2: #3a7898;
+    --blue3: #5aaac8;
+    --blue-pale: #e4f0f8;
+    --blue-dark: #183848;
+    --terra: #b85830;
+    --terra2: #d07040;
+    --terra-pale: #faeae0;
+    --sage: #587858;
+    --sage2: #70a070;
+    --gold: #c09020;
+    --gold2: #d8a830;
+    --border: #dcd5c8;
+    --border-b: #c0d8e8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor { position: fixed; width: 10px; height: 10px; background: var(--blue); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; mix-blend-mode: multiply; }
+  .cursor-ring { position: fixed; width: 38px; height: 38px; border: 1.5px solid rgba(42,96,128,0.3); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 20px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s; }
+  nav.scrolled { background: rgba(247,245,240,0.97); backdrop-filter: blur(16px); padding: 14px 64px; box-shadow: 0 1px 0 var(--border); }
+
+  .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-mark { width: 36px; height: 36px; border-radius: 10px; background: var(--blue); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(42,96,128,0.3); flex-shrink: 0; }
+  .nav-mark svg { width: 18px; height: 18px; fill: white; }
+  .nav-name { font-family: 'Libre Baskerville', serif; font-size: 17px; font-weight: 700; color: var(--white); display: block; line-height: 1; transition: color 0.4s; }
+  nav.scrolled .nav-name { color: var(--blue-dark); }
+  .nav-sub { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; transition: color 0.4s; }
+  nav.scrolled .nav-sub { color: var(--muted); }
+
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.06em; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  nav.scrolled .nav-links a { color: var(--mid); }
+  .nav-links a:hover { color: var(--white) !important; }
+  nav.scrolled .nav-links a:hover { color: var(--blue) !important; }
+  .nav-cta { background: var(--terra) !important; color: white !important; padding: 10px 22px; border-radius: 50px; font-size: 11px !important; font-weight: 600 !important; box-shadow: 0 4px 14px rgba(184,88,48,0.3); transition: all 0.2s !important; }
+  .nav-cta:hover { background: var(--terra2) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { min-height: 100vh; background: var(--blue-dark); position: relative; overflow: hidden; display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; }
+  #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.45; }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .blob-a { width: 500px; height: 500px; background: rgba(90,170,200,0.1); top: -80px; right: 8%; }
+  .blob-b { width: 300px; height: 300px; background: rgba(200,144,32,0.07); bottom: 10%; left: 15%; }
+
+  .hero-left { position: relative; z-index: 2; padding: 160px 60px 100px 80px; }
+
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(90,170,200,0.15); border: 1px solid rgba(90,170,200,0.25); border-radius: 50px; padding: 7px 16px 7px 10px; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s forwards; }
+  .badge-pulse { width: 8px; height: 8px; background: var(--gold2); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(0.75); } }
+  .badge-text { font-size: 11px; font-weight: 600; color: var(--blue3); letter-spacing: 0.06em; }
+
+  .hero-h1 { font-family: 'Libre Baskerville', serif; font-size: clamp(44px,5.5vw,72px); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; color: white; margin-bottom: 24px; opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards; }
+  .hero-h1 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 440px; margin-bottom: 40px; line-height: 1.85; opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
+
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards; }
+
+  .btn-terra { background: var(--terra); color: white; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; padding: 14px 30px; text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.25s; box-shadow: 0 6px 20px rgba(184,88,48,0.35); position: relative; overflow: hidden; }
+  .btn-terra::before { content: ''; position: absolute; inset: 0; background: var(--terra2); border-radius: 50px; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+  .btn-terra:hover::before { transform: translateX(0); }
+  .btn-terra span { position: relative; z-index: 1; }
+  .btn-terra:hover { transform: translateY(-2px); }
+
+  .btn-ghost-hero { color: rgba(255,255,255,0.6); font-size: 12px; letter-spacing: 0.06em; padding: 14px 30px; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.18); border-radius: 50px; display: inline-block; transition: all 0.25s; }
+  .btn-ghost-hero:hover { border-color: var(--gold2); color: var(--gold2); transform: translateY(-2px); }
+
+  /* HERO RIGHT */
+  .hero-right { position: relative; z-index: 2; padding: 160px 60px 100px 20px; display: flex; justify-content: center; opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s forwards; }
+  .hero-card-wrap { position: relative; }
+  .card-3d-wrap { perspective: 1000px; }
+
+  .hero-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px; transform-style: preserve-3d; transition: transform 0.1s ease; position: relative; overflow: hidden; backdrop-filter: blur(10px); width: 320px; }
+  .hero-card::before { content: ''; position: absolute; top: 0; right: 0; width: 160px; height: 160px; background: radial-gradient(circle, rgba(216,168,48,0.12) 0%, transparent 70%); }
+
+  .hc-label { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold2); display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .hc-label::before { content: ''; width: 5px; height: 5px; background: var(--gold2); border-radius: 50%; }
+
+  .hc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 22px; }
+  .hs-num { font-family: 'Libre Baskerville', serif; font-size: 32px; font-weight: 700; color: white; line-height: 1; display: block; margin-bottom: 5px; }
+  .hs-label { font-size: 11px; color: rgba(255,255,255,0.38); line-height: 1.45; }
+
+  .hc-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 18px 0; }
+  .hc-quote { font-family: 'Libre Baskerville', serif; font-size: 14px; font-style: italic; color: rgba(255,255,255,0.6); line-height: 1.65; }
+  .hc-attr { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 10px; letter-spacing: 0.04em; }
+
+  .float-badge { position: absolute; background: white; border-radius: 16px; padding: 12px 16px; box-shadow: 0 14px 36px rgba(0,0,0,0.12); border: 1px solid var(--border); }
+  .fb-1 { top: 8%; left: -44px; animation: bob 4s ease-in-out infinite; }
+  .fb-2 { bottom: 22%; right: -32px; animation: bob 5.5s ease-in-out infinite 1s; }
+  .fb-3 { top: 46%; left: -52px; animation: bob 6s ease-in-out infinite 0.5s; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  .fb-icon { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+  .fb-icon svg { width: 12px; height: 12px; fill: white; }
+  .fbi-b { background: var(--blue); }
+  .fbi-t { background: var(--terra); }
+  .fbi-s { background: var(--sage); }
+  .fb-val { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .fb-label { font-size: 9px; color: var(--muted); margin-top: 1px; }
+
+  /* BAND */
+  .band { background: var(--blue); padding: 14px 0; overflow: hidden; }
+  .band-track { display: flex; animation: marquee 28s linear infinite; width: max-content; }
+  .band-item { display: flex; align-items: center; gap: 18px; padding: 0 36px; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap; }
+  .b-dot { width: 4px; height: 4px; background: var(--gold2); border-radius: 50%; opacity: 0.7; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 110px 0; }
+
+  .s-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-weight: 600; }
+  .s-label::before { content: ''; width: 16px; height: 2px; background: var(--terra); border-radius: 2px; }
+  .s-h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(36px,4.8vw,56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .s-h2 em { font-style: italic; color: var(--blue); font-weight: 400; }
+  .s-p { font-size: 14px; color: var(--mid); max-width: 480px; line-height: 1.9; }
+
+  /* WHY — visual left, points right */
+  .why-bg { background: var(--white); }
+  .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+
+  /* CSS care visual mockup */
+  .why-visual { position: relative; display: flex; align-items: center; justify-content: center; height: 500px; }
+
+  .care-card { width: 250px; background: var(--blue-dark); border-radius: 26px; padding: 12px; box-shadow: 0 40px 80px rgba(24,56,72,0.3), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08); transform: perspective(800px) rotateY(-10deg) rotateX(5deg); transition: transform 0.4s; position: relative; z-index: 2; }
+  .why-visual:hover .care-card { transform: perspective(800px) rotateY(-5deg) rotateX(2deg); }
+
+  .cc-notch { width: 55px; height: 5px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 auto 12px; }
+  .cc-screen { background: var(--off); border-radius: 16px; overflow: hidden; min-height: 390px; }
+  .cc-header { background: linear-gradient(135deg, var(--blue-dark), var(--blue)); padding: 18px 16px 20px; }
+  .cc-logo-row { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+  .cc-logo-dot { width: 18px; height: 18px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .cc-logo-dot::after { content: ''; width: 7px; height: 7px; background: var(--blue); border-radius: 50%; }
+  .cc-logo-name { font-size: 10px; font-weight: 700; color: white; }
+  .cc-greeting { font-size: 9px; color: rgba(255,255,255,0.6); margin-bottom: 3px; }
+  .cc-title { font-size: 12px; font-weight: 700; color: white; }
+  .cc-body { padding: 10px; }
+
+  .cc-row { background: white; border-radius: 10px; padding: 10px 12px; margin-bottom: 7px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); }
+  .ccr-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ccr-icon svg { width: 13px; height: 13px; fill: white; }
+  .ccri-b { background: var(--blue); }
+  .ccri-t { background: var(--terra); }
+  .ccri-s { background: var(--sage); }
+  .ccri-g { background: var(--gold); }
+  .ccr-title { font-size: 10px; font-weight: 700; color: var(--ink); display: block; }
+  .ccr-sub { font-size: 8px; color: var(--muted); }
+  .ccr-badge { margin-left: auto; font-size: 8px; font-weight: 700; padding: 3px 8px; border-radius: 10px; }
+  .s-active { background: var(--blue-pale); color: var(--blue); }
+  .s-done { background: #f0f0ec; color: #888; }
+
+  .cc-float { position: absolute; background: white; border-radius: 14px; padding: 12px 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); border: 1px solid var(--border); z-index: 3; }
+  .ccf-1 { top: 8%; left: -5px; animation: bob 4.5s ease-in-out infinite; }
+  .ccf-2 { bottom: 18%; right: -10px; animation: bob 5.5s ease-in-out infinite 1.2s; }
+  .ccf-icon { width: 24px; height: 24px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+  .ccf-icon svg { width: 12px; height: 12px; fill: white; }
+  .ccfi-b { background: var(--blue); }
+  .ccfi-t { background: var(--terra); }
+  .ccf-val { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .ccf-label { font-size: 9px; color: var(--muted); }
+
+  .why-points { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+  .wp-item { display: flex; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.25s; cursor: default; }
+  .wp-item:first-child { border-top: 1px solid var(--border); }
+  .wp-item:hover { padding-left: 8px; }
+  .wp-num { font-family: 'Libre Baskerville', serif; font-size: 22px; font-weight: 700; color: rgba(42,96,128,0.2); width: 30px; flex-shrink: 0; line-height: 1.1; padding-top: 2px; transition: color 0.25s; }
+  .wp-item:hover .wp-num { color: var(--blue); }
+  .wp-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+  .wp-body { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+  /* SERVICES — 3D ICON CARDS */
+  .services-bg { background: var(--warm); }
+  .svc-top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 52px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc-3d { perspective: 900px; }
+
+  .svc-card { background: var(--white); border-radius: 20px; padding: 34px 26px; border: 1.5px solid var(--border); transform-style: preserve-3d; transition: transform 0.12s ease, box-shadow 0.3s; cursor: default; position: relative; overflow: hidden; box-shadow: 0 4px 18px rgba(42,96,128,0.05); }
+  .svc-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 20px 20px 0 0; background: linear-gradient(90deg, var(--blue), var(--blue3)); opacity: 0; transition: opacity 0.3s; }
+  .svc-card:hover { box-shadow: 0 20px 50px rgba(42,96,128,0.1); }
+  .svc-card:hover::after { opacity: 1; }
+
+  .svc-icon-3d { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; box-shadow: 0 7px 0 rgba(0,0,0,0.1), 0 9px 18px rgba(0,0,0,0.07); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+  .svc-icon-3d::before { content: ''; position: absolute; top: 5px; left: 8px; width: 40%; height: 28%; background: rgba(255,255,255,0.22); border-radius: 50%; filter: blur(3px); }
+  .svc-card:hover .svc-icon-3d { transform: translateY(-4px); box-shadow: 0 11px 0 rgba(0,0,0,0.1), 0 15px 24px rgba(0,0,0,0.09); }
+  .svc-icon-3d svg { width: 24px; height: 24px; fill: white; position: relative; z-index: 1; }
+
+  .icon-dawn    { background: linear-gradient(135deg, #2a6080, #5aaac8); }
+  .icon-ot      { background: linear-gradient(135deg, #b85830, #d07040); }
+  .icon-home    { background: linear-gradient(135deg, #587858, #70a070); }
+  .icon-family  { background: linear-gradient(135deg, #c09020, #d8a830); }
+  .icon-driver  { background: linear-gradient(135deg, #183848, #2a6080); }
+  .icon-train   { background: linear-gradient(135deg, #b85830, #587858); }
+
+  .sv-num { font-size: 9px; font-weight: 600; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .sv-title { font-family: 'Libre Baskerville', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--ink); line-height: 1.2; }
+  .sv-body { font-size: 12px; color: var(--mid); line-height: 1.8; }
+
+  /* DAWN SECTION — dark */
+  .dawn-bg { background: var(--blue-dark); color: white; padding: 110px 0; position: relative; overflow: hidden; }
+  .dawn-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 35% 50%, rgba(216,168,48,0.07) 0%, transparent 60%); pointer-events: none; }
+  .dawn-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+  .dawn-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold2); font-weight: 600; margin-bottom: 18px; }
+  .dawn-h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(38px,5vw,58px); font-weight: 700; line-height: 1.1; color: white; margin-bottom: 22px; }
+  .dawn-h2 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+  .dawn-body { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.9; margin-bottom: 18px; }
+  .dawn-quote { font-family: 'Libre Baskerville', serif; font-size: 18px; font-style: italic; color: rgba(255,255,255,0.55); line-height: 1.6; border-left: 3px solid var(--gold); padding-left: 20px; margin-top: 28px; }
+
+  .dawn-steps { display: flex; flex-direction: column; gap: 0; }
+  .ds-item { display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.07); cursor: default; transition: padding-left 0.25s; }
+  .ds-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+  .ds-item:hover { padding-left: 8px; }
+  .ds-num { font-family: 'Libre Baskerville', serif; font-size: 28px; font-weight: 700; color: rgba(216,168,48,0.3); width: 36px; flex-shrink: 0; line-height: 1; padding-top: 3px; transition: color 0.25s; }
+  .ds-item:hover .ds-num { color: var(--gold2); }
+  .ds-title { font-family: 'Libre Baskerville', serif; font-size: 17px; font-weight: 700; margin-bottom: 5px; color: white; }
+  .ds-body { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+  /* ABOUT */
+  .about-bg { background: var(--sand); }
+  .about-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 80px; align-items: center; }
+
+  .about-photo { width: 100%; aspect-ratio: 3/4; background: var(--blue-pale); border: 1.5px solid var(--border-b); border-radius: 24px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: 0 24px 60px rgba(42,96,128,0.1); }
+  .about-photo::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(42,96,128,0.06) 0%, transparent 60%); }
+  .about-initials { font-family: 'Libre Baskerville', serif; font-size: 90px; font-weight: 700; font-style: italic; color: rgba(42,96,128,0.1); position: relative; z-index: 1; letter-spacing: -0.03em; }
+
+  .about-float { position: absolute; bottom: 16px; right: 16px; background: var(--blue); color: white; padding: 16px 20px; border-radius: 18px; box-shadow: 0 10px 28px rgba(42,96,128,0.3); }
+  .af-num { font-family: 'Libre Baskerville', serif; font-size: 28px; font-weight: 700; display: block; margin-bottom: 3px; color: var(--gold2); line-height: 1; }
+  .af-label { font-size: 9px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+
+  .about-h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(30px,3.8vw,46px); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 20px; }
+  .about-h2 em { font-style: italic; color: var(--blue); font-weight: 400; }
+  .about-body { font-size: 14px; color: var(--mid); line-height: 1.95; margin-bottom: 16px; }
+  .about-body strong { color: var(--ink); font-weight: 600; }
+
+  /* Achievement chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--border); border-radius: 50px; padding: 6px 14px; font-size: 11px; font-weight: 500; color: var(--mid); transition: all 0.2s; }
+  .chip:hover { border-color: var(--blue); color: var(--blue); }
+  .chip-dot { width: 5px; height: 5px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+
+  .creds { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .cred { display: flex; gap: 14px; font-size: 12px; color: var(--muted); align-items: flex-start; }
+  .cred-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cred-icon svg { width: 12px; height: 12px; fill: white; }
+  .ci-b { background: var(--blue); }
+  .ci-t { background: var(--terra); }
+  .ci-s { background: var(--sage); }
+  .cred-title { font-size: 13px; font-weight: 600; color: var(--ink); display: block; margin-bottom: 1px; }
+  .cred-sub { font-size: 11px; color: var(--muted); }
+
+  /* CTA */
+  .cta-section { padding: 120px 64px; background: var(--blue-dark); text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(90,170,200,0.1) 0%, transparent 65%); }
+  .cta-bg-word { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Libre Baskerville', serif; font-size: clamp(100px,18vw,220px); font-weight: 700; font-style: italic; color: rgba(255,255,255,0.03); pointer-events: none; white-space: nowrap; letter-spacing: -0.04em; }
+  .cta-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue3); font-weight: 600; margin-bottom: 18px; display: block; position: relative; z-index: 1; }
+  .cta-h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(42px,6vw,70px); font-weight: 700; line-height: 1.07; letter-spacing: -0.01em; margin: 0 auto 18px; max-width: 660px; color: white; position: relative; z-index: 1; }
+  .cta-h2 em { font-style: italic; color: var(--gold2); font-weight: 400; }
+  .cta-sub { font-size: 15px; color: rgba(255,255,255,0.45); max-width: 420px; margin: 0 auto 44px; line-height: 1.85; position: relative; z-index: 1; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  .btn-white { background: white; color: var(--blue-dark); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; padding: 16px 36px; text-decoration: none; border-radius: 50px; display: inline-block; transition: all 0.2s; }
+  .btn-white:hover { background: var(--off); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+  .btn-outline-light { background: transparent; color: rgba(255,255,255,0.6); font-size: 12px; letter-spacing: 0.06em; padding: 16px 36px; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 50px; display: inline-block; transition: all 0.2s; }
+  .btn-outline-light:hover { border-color: var(--gold2); color: var(--gold2); transform: translateY(-2px); }
+
+  footer { background: var(--ink); padding: 44px 64px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border-top: 3px solid var(--blue); }
+  .f-brand { display: flex; align-items: center; gap: 10px; }
+  .f-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; }
+  .f-mark svg { width: 14px; height: 14px; fill: white; }
+  .f-name { font-family: 'Libre Baskerville', serif; font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.7); }
+  .f-name em { font-style: italic; color: var(--gold2); }
+  .f-links { display: flex; gap: 28px; list-style: none; }
+  .f-links a { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.22); text-decoration: none; transition: color 0.2s; }
+  .f-links a:hover { color: var(--gold2); }
+  .f-copy { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 120px 24px 50px; }
+    .hero-right { display: none; }
+    .container { padding: 0 24px; }
+    .svc-top, .why-layout, .dawn-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .why-visual { display: none; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <div>
+      <span class="nav-name">Better People Care LLC</span>
+      <span class="nav-sub">Jill Couch MS OT/L · Fort Collins, Colorado</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#dawn">DAWN Method</a></li>
+    <li><a href="#about">About Jill</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-pulse"></div>
+      <span class="badge-text">MS OT/L · DAWN Dementia Specialist · Fort Collins, Colorado</span>
+    </div>
+    <h1 class="hero-h1">
+      Helping older folks<br>
+      live <em>fully</em><br>
+      at home.
+    </h1>
+    <p class="hero-sub">Jill Couch MS OT/L brings DAWN Dementia Specialist Care, Occupational Therapy, and genuine human connection to older folks and their families in the Fort Collins area — so they can stay safe, engaged, and truly at home.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-terra"><span>Get in Touch</span></a>
+      <a href="#services" class="btn-ghost-hero">Our Services</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card-wrap">
+      <div class="card-3d-wrap">
+        <div class="hero-card" id="heroCard">
+          <div class="hc-label">Better People Care LLC · Jill Couch</div>
+          <div class="hc-stats">
+            <div>
+              <span class="hs-num count-up" data-target="8">0</span>
+              <p class="hs-label">Years running Better People Care LLC</p>
+            </div>
+            <div>
+              <span class="hs-num">MS</span>
+              <p class="hs-label">OT/L · Colorado State University</p>
+            </div>
+            <div>
+              <span class="hs-num">DAWN</span>
+              <p class="hs-label">Certified Dementia Specialist and Trainer</p>
+            </div>
+            <div>
+              <span class="hs-num">OT</span>
+              <p class="hs-label">Licensed Occupational Therapist since 1994</p>
+            </div>
+          </div>
+          <div class="hc-divider"></div>
+          <p class="hc-quote">"We find tremendous meaning in helping families manage care for their loved ones experiencing dementia."</p>
+          <p class="hc-attr">Jill Couch MS OT/L · Founder, Better People Care LLC</p>
+        </div>
+      </div>
+
+      <div class="float-badge fb-1">
+        <div class="fb-icon fbi-b">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V15s0 3 7 3 7-3 7-3v-3.82L23 9 12 3z"/></svg>
+        </div>
+        <p class="fb-val">MS OT/L</p>
+        <p class="fb-label">Licensed OT</p>
+      </div>
+
+      <div class="float-badge fb-2">
+        <div class="fb-icon fbi-t">
+          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <p class="fb-val">Fort Collins</p>
+        <p class="fb-label">Northern Colorado</p>
+      </div>
+
+      <div class="float-badge fb-3">
+        <div class="fb-icon fbi-s">
+          <svg viewBox="0 0 24 24"><path d="M1 3L3 1l18 18-2 2-3.72-3.72c-.49.29-1.04.52-1.64.66L13 20h-2l-.64-2.06A7.93 7.93 0 017 13.37V12H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2V3.63L1 3zm16 9c0 1.06-.28 2.06-.75 2.93L18 16.68V12h-1zm-8 0v1.37c.24 1.33.97 2.47 2 3.25V12H9zm7-9H8v2h8V3z"/></svg>
+        </div>
+        <p class="fb-val">DAWN Trained</p>
+        <p class="fb-label">Dementia specialist</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-track">
+    <div class="band-item">DAWN Dementia Specialist <span class="b-dot"></span></div>
+    <div class="band-item">Occupational Therapy <span class="b-dot"></span></div>
+    <div class="band-item">Home Care <span class="b-dot"></span></div>
+    <div class="band-item">Family Consulting <span class="b-dot"></span></div>
+    <div class="band-item">Senior Driving Rehab <span class="b-dot"></span></div>
+    <div class="band-item">DAWN Trainer <span class="b-dot"></span></div>
+    <div class="band-item">Fort Collins Colorado <span class="b-dot"></span></div>
+    <div class="band-item">BBB Accredited <span class="b-dot"></span></div>
+    <div class="band-item">DAWN Dementia Specialist <span class="b-dot"></span></div>
+    <div class="band-item">Occupational Therapy <span class="b-dot"></span></div>
+    <div class="band-item">Home Care <span class="b-dot"></span></div>
+    <div class="band-item">Family Consulting <span class="b-dot"></span></div>
+    <div class="band-item">Senior Driving Rehab <span class="b-dot"></span></div>
+    <div class="band-item">DAWN Trainer <span class="b-dot"></span></div>
+    <div class="band-item">Fort Collins Colorado <span class="b-dot"></span></div>
+    <div class="band-item">BBB Accredited <span class="b-dot"></span></div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="section why-bg" id="why">
+  <div class="container">
+    <div class="why-layout">
+      <div class="why-visual reveal">
+        <div class="care-card">
+          <div class="cc-notch"></div>
+          <div class="cc-screen">
+            <div class="cc-header">
+              <div class="cc-logo-row">
+                <div class="cc-logo-dot"></div>
+                <span class="cc-logo-name">Better People Care</span>
+              </div>
+              <p class="cc-greeting">Today's Care Plan</p>
+              <p class="cc-title">Tailored for your family</p>
+            </div>
+            <div class="cc-body">
+              <div class="cc-row">
+                <div class="ccr-icon ccri-b">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <div>
+                  <span class="ccr-title">DAWN Home Care Visit</span>
+                  <span class="ccr-sub">Fort Collins · 9am</span>
+                </div>
+                <span class="ccr-badge s-active">Today</span>
+              </div>
+              <div class="cc-row">
+                <div class="ccr-icon ccri-t">
+                  <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+                <div>
+                  <span class="ccr-title">Family Consult Call</span>
+                  <span class="ccr-sub">Online · 2pm</span>
+                </div>
+                <span class="ccr-badge s-done">Set</span>
+              </div>
+              <div class="cc-row">
+                <div class="ccr-icon ccri-s">
+                  <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V15s0 3 7 3 7-3 7-3v-3.82L23 9 12 3z"/></svg>
+                </div>
+                <div>
+                  <span class="ccr-title">OT Safety Assessment</span>
+                  <span class="ccr-sub">In-home · Thursday</span>
+                </div>
+                <span class="ccr-badge s-active">Sched.</span>
+              </div>
+              <div class="cc-row">
+                <div class="ccr-icon ccri-g">
+                  <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
+                </div>
+                <div>
+                  <span class="ccr-title">Senior Driver Eval</span>
+                  <span class="ccr-sub">Pro31 · Friday</span>
+                </div>
+                <span class="ccr-badge s-done">Booked</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc-float ccf-1">
+          <div class="ccf-icon ccfi-b">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          </div>
+          <p class="ccf-val">Fort Collins</p>
+          <p class="ccf-label">Northern Colorado</p>
+        </div>
+
+        <div class="cc-float ccf-2">
+          <div class="ccf-icon ccfi-t">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          </div>
+          <p class="ccf-val">BBB Accredited</p>
+          <p class="ccf-label">Since 2022</p>
+        </div>
+      </div>
+
+      <div class="reveal d1">
+        <div class="s-label">The Approach</div>
+        <h2 class="s-h2">Big picture care.<br><em>Real</em> solutions.</h2>
+        <p class="s-p" style="margin-bottom:28px;">Jill's work is grounded in the belief that older folks deserve care that enhances safety, independence, and wellbeing — not just assistance, but genuine quality of life in the homes they love.</p>
+        <div class="why-points">
+          <div class="wp-item">
+            <span class="wp-num">01</span>
+            <div>
+              <p class="wp-title">Clinically grounded care</p>
+              <p class="wp-body">30 years as a licensed Occupational Therapist means Jill brings clinical depth and diagnostic precision to every care situation — seeing what others miss.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">02</span>
+            <div>
+              <p class="wp-title">DAWN-certified dementia specialist</p>
+              <p class="wp-body">Jill is both a DAWN Dementia Care Specialist and a certified DAWN Trainer — bringing the most evidence-based, person-centred approach to dementia care available.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">03</span>
+            <div>
+              <p class="wp-title">Families stay informed and supported</p>
+              <p class="wp-body">Jill helps families navigate the healthcare system, make confident decisions, and understand what their loved one is experiencing — not just manage symptoms.</p>
+            </div>
+          </div>
+          <div class="wp-item">
+            <span class="wp-num">04</span>
+            <div>
+              <p class="wp-title">Compassion above everything</p>
+              <p class="wp-body">This work is personal to Jill. Every engagement is approached with the same care and attention she would bring to her own family — because people deserve nothing less.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="container">
+    <div class="svc-top">
+      <div class="reveal">
+        <div class="s-label">Services</div>
+        <h2 class="s-h2">Care that covers<br>the <em>whole person.</em></h2>
+      </div>
+      <p class="s-p reveal d1">From direct home care to family consulting and senior driving rehabilitation — Better People Care brings a uniquely comprehensive approach to supporting older folks in Northern Colorado.</p>
+    </div>
+    <div class="svc-grid reveal">
+
+      <div class="svc-3d" id="sc1">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-dawn">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <span class="sv-num">01</span>
+          <p class="sv-title">DAWN Dementia Care</p>
+          <p class="sv-body">Specialist in-home dementia care using the DAWN Method — the most research-based, person-centred approach to supporting people living with dementia and their families.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc2">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-ot">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <span class="sv-num">02</span>
+          <p class="sv-title">Occupational Therapy</p>
+          <p class="sv-body">Licensed OT services for older adults — home safety assessments, adaptive equipment, functional independence, and rehabilitation to support aging in place with dignity.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc3">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-home">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </div>
+          <span class="sv-num">03</span>
+          <p class="sv-title">In-Home Care</p>
+          <p class="sv-body">Compassionate, highly trained caregivers providing meaningful in-home support — designed to improve engagement, safety, and quality of life for older folks and their families.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc4">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-family">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <span class="sv-num">04</span>
+          <p class="sv-title">Family Consulting</p>
+          <p class="sv-body">Guiding families through the complexity of caring for a loved one with dementia — navigating the healthcare system, making informed decisions, and reducing caregiver burden.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc5">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-driver">
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
+          </div>
+          <span class="sv-num">05</span>
+          <p class="sv-title">Senior Driving Rehab</p>
+          <p class="sv-body">Through Pro31 Safe Senior Driver LLC — objective in-home driving self-assessments performed by certified Physical and Occupational Therapists to help families make confident decisions.</p>
+        </div>
+      </div>
+
+      <div class="svc-3d" id="sc6">
+        <div class="svc-card">
+          <div class="svc-icon-3d icon-train">
+            <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V15s0 3 7 3 7-3 7-3v-3.82L23 9 12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99S15.5 17 12 17s-5-1-5-1v-2.73l5 2.73 5-2.73v2.72z"/></svg>
+          </div>
+          <span class="sv-num">06</span>
+          <p class="sv-title">DAWN Training</p>
+          <p class="sv-body">Certified DAWN Trainer delivering education and coaching to families, communities, and professionals — transforming how caregivers understand and support people with dementia.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DAWN METHOD -->
+<section class="dawn-bg" id="dawn">
+  <div class="container">
+    <div class="dawn-layout">
+      <div class="reveal">
+        <p class="dawn-label">The DAWN Method</p>
+        <h2 class="dawn-h2">Dementia care<br>built on <em>dignity.</em></h2>
+        <p class="dawn-body">The DAWN Method is the most research-based, person-centred approach to dementia care available — and Jill is one of the few practitioners in Colorado who is both a certified DAWN Specialist and a certified DAWN Trainer.</p>
+        <p class="dawn-body">DAWN care recognises that people living with dementia are still full human beings with preferences, emotions, and a deep need for connection. It changes how caregivers engage — and how families understand what their loved ones are experiencing.</p>
+        <div class="dawn-quote">
+          "We find tremendous meaning in helping families manage care for their loved ones experiencing dementia and make good decisions with their loved one's quality of life as the central focus."
+        </div>
+      </div>
+      <div class="dawn-steps reveal d1">
+        <div class="ds-item">
+          <span class="ds-num">1</span>
+          <div>
+            <p class="ds-title">See the whole person</p>
+            <p class="ds-body">DAWN starts with who someone is — their history, preferences, values, and personality — not just their diagnosis or symptoms.</p>
+          </div>
+        </div>
+        <div class="ds-item">
+          <span class="ds-num">2</span>
+          <div>
+            <p class="ds-title">Understand the experience</p>
+            <p class="ds-body">Supporting families to genuinely understand what dementia feels like from the inside — changing how they communicate, respond, and connect.</p>
+          </div>
+        </div>
+        <div class="ds-item">
+          <span class="ds-num">3</span>
+          <div>
+            <p class="ds-title">Engage with meaning</p>
+            <p class="ds-body">Creating moments of real connection, comfort, and purpose — because quality of life isn't lost with a diagnosis, it just needs to be approached differently.</p>
+          </div>
+        </div>
+        <div class="ds-item">
+          <span class="ds-num">4</span>
+          <div>
+            <p class="ds-title">Support the whole family</p>
+            <p class="ds-body">Jill works with everyone involved — not just the person with dementia — because caring for a loved one is a family experience that deserves expert guidance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-bg" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="reveal">
+        <div class="about-photo">
+          <span class="about-initials">JC</span>
+          <div class="about-float">
+            <span class="af-num">30+</span>
+            <p class="af-label">Years in occupational therapy and senior care</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <div class="s-label">About Jill</div>
+        <h2 class="about-h2">An OT who chose<br>to go <em>deeper.</em></h2>
+        <p class="about-body">Jill Couch MS OT/L has spent over 30 years as a licensed Occupational Therapist dedicated to older adults — working in senior living communities, home health, and building Better People Care LLC from the ground up in 2018.</p>
+        <p class="about-body">She is a certified <strong>DAWN Dementia Care Specialist and Trainer</strong>, a Beyond Driving with Dignity Certified Professional, and the founder of Pro31 Safe Senior Driver LLC — bringing a rare combination of clinical expertise and genuine compassion to everything she does.</p>
+        <p class="about-body">Jill graduated Cum Laude from Texas Woman's University, earned her MS from Colorado State University, completed Army ROTC as a Distinguished Military Graduate, and has taught OT at CSU and the University of North Dakota.</p>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot"></span>DAWN Dementia Specialist</span>
+          <span class="chip"><span class="chip-dot"></span>DAWN Certified Trainer</span>
+          <span class="chip"><span class="chip-dot"></span>MS OT/L · CSU</span>
+          <span class="chip"><span class="chip-dot"></span>Army ROTC Grad</span>
+          <span class="chip"><span class="chip-dot"></span>BBB Accredited</span>
+        </div>
+        <div class="creds">
+          <div class="cred">
+            <div class="cred-icon ci-b">
+              <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V15s0 3 7 3 7-3 7-3v-3.82L23 9 12 3z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Owner · Better People Care LLC · Fort Collins, CO</span>
+              <span class="cred-sub">DAWN Dementia Specialist and Trainer · Licensed OT since 1994</span>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-icon ci-t">
+              <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">Owner · Pro31 Safe Senior Driver LLC · Colorado</span>
+              <span class="cred-sub">Beyond Driving with Dignity Certified Professional</span>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-icon ci-s">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            </div>
+            <div>
+              <span class="cred-title">MS OT · Colorado State University · BS OT Cum Laude · TWU</span>
+              <span class="cred-sub">Army ROTC Distinguished Military Graduate · OT Faculty CSU and UND</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-word">People</div>
+  <span class="cta-label">Get in Touch</span>
+  <h2 class="cta-h2">Let's talk about<br>your loved <em>one.</em></h2>
+  <p class="cta-sub">Whether you're navigating a new dementia diagnosis, looking for in-home OT support, or just don't know where to start — Jill is here to help your family find the right path.</p>
+  <div class="cta-actions">
+    <a href="https://betterpeoplecare.com" class="btn-white" target="_blank">Visit Better People Care</a>
+    <a href="#services" class="btn-outline-light">See All Services</a>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">
+    <div class="f-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <span class="f-name">Better People <em>Care LLC</em></span>
+  </div>
+  <ul class="f-links">
+    <li><a href="#why">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#dawn">DAWN</a></li>
+    <li><a href="#about">About Jill</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Better People Care LLC · Jill Couch MS OT/L · Fort Collins, Colorado</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+
+  (function animRing(){
+    rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+    el.addEventListener('mouseleave',()=>{ cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='38px'; ring.style.height='38px'; });
+  });
+
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+
+  const heroCard=document.getElementById('heroCard');
+  const heroWrap=heroCard?.parentElement;
+  if(heroWrap){
+    heroWrap.addEventListener('mousemove',e=>{
+      const r=heroWrap.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-0.5;
+      const y=(e.clientY-r.top)/r.height-0.5;
+      heroCard.style.transform=`rotateY(${x*12}deg) rotateX(${-y*9}deg) translateZ(10px)`;
+    });
+    heroWrap.addEventListener('mouseleave',()=>{ heroCard.style.transform=''; });
+  }
+
+  ['sc1','sc2','sc3','sc4','sc5','sc6'].forEach(id=>{
+    const wrap=document.getElementById(id);
+    if(!wrap) return;
+    const card=wrap.querySelector('.svc-card');
+    wrap.addEventListener('mousemove',e=>{
+      const r=wrap.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-0.5;
+      const y=(e.clientY-r.top)/r.height-0.5;
+      card.style.transform=`rotateY(${x*12}deg) rotateX(${-y*10}deg) translateZ(8px)`;
+    });
+    wrap.addEventListener('mouseleave',()=>{ card.style.transform=''; });
+  });
+
+  function countUp(el){
+    const target=parseInt(el.dataset.target);
+    const start=performance.now();
+    function update(now){
+      const progress=Math.min((now-start)/1800,1);
+      const ease=1-Math.pow(1-progress,3);
+      el.textContent=Math.floor(ease*target);
+      if(progress<1) requestAnimationFrame(update);
+      else el.textContent=target;
+    }
+    requestAnimationFrame(update);
+  }
+  setTimeout(()=>{ document.querySelectorAll('.hero-card .count-up').forEach(countUp); },800);
+
+  const canvas=document.getElementById('hero-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[];
+
+  function resize(){ W=canvas.width=canvas.offsetWidth; H=canvas.height=canvas.offsetHeight; }
+  resize(); window.addEventListener('resize',resize);
+
+  class Particle{
+    constructor(){ this.reset(); }
+    reset(){
+      this.x=Math.random()*W; this.y=Math.random()*H;
+      this.size=Math.random()*1.6+0.3;
+      this.speedX=(Math.random()-0.5)*0.28; this.speedY=(Math.random()-0.5)*0.28;
+      this.opacity=Math.random()*0.2+0.04;
+      this.color=Math.random()>0.6?'#d8a830':'#5aaac8';
+    }
+    update(){ this.x+=this.speedX; this.y+=this.speedY; if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset(); }
+    draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle=this.color; ctx.globalAlpha=this.opacity; ctx.fill(); }
+  }
+
+  for(let i=0;i<75;i++) particles.push(new Particle());
+
+  function drawLines(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<100){
+          ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='#5aaac8'; ctx.globalAlpha=(1-dist/100)*0.08;
+          ctx.lineWidth=0.5; ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W,H); ctx.globalAlpha=1;
+    particles.forEach(p=>{ p.update(); p.draw(); });
+    drawLines(); requestAnimationFrame(animate);
+  }
+  animate();
+
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
