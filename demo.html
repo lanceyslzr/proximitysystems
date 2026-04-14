@@ -454,7 +454,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
 
     <!-- SIDEBAR -->
     <div class="sb">
-      <div class="sb-label">9 Systems · All Live</div>
+      <div class="sb-label">10 Systems · All Live</div>
       <div class="sb-list">
         <button class="sb-item on" onclick="go(0)"><span class="sb-num">—</span><span class="sb-name">Overview</span><span class="sb-dot"></span></button>
         <button class="sb-item" onclick="go(1)"><span class="sb-num">01</span><span class="sb-name">PSW Visit Log</span><span class="sb-dot"></span></button>
@@ -466,7 +466,8 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
         <button class="sb-item" onclick="go(7)"><span class="sb-num">07</span><span class="sb-name">Family Lead Form</span><span class="sb-dot"></span></button>
         <button class="sb-item" onclick="go(8)"><span class="sb-num">08</span><span class="sb-name">Care Summaries</span><span class="sb-dot"></span></button>
         <button class="sb-item" onclick="go(9)"><span class="sb-num">09</span><span class="sb-name">Website (Add-on)</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(10)"><span class="sb-num">—</span><span class="sb-name">Pricing & Next Steps</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(10)"><span class="sb-num">10</span><span class="sb-name">Client Portal</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(11)"><span class="sb-num">—</span><span class="sb-name">Pricing & Next Steps</span><span class="sb-dot"></span></button>
       </div>
       <div class="sb-foot">
         <div class="sb-stats">
@@ -487,7 +488,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
         <div class="slide on" id="s0">
           <div>
             <div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">Proximity Systems · Live Demo</div></div>
-            <h1 class="stitle">9 systems.<br><em>Zero admin.</em></h1>
+            <h1 class="stitle">10 systems.<br><em>Zero admin.</em></h1>
             <p class="ssub">Running live on a real home care agency in Mississauga right now. Real numbers. The actual thing.</p>
             <div class="wgrid">
               <div class="wcard"><h3>What is this?</h3><p>We build automation systems for home care agencies. You pay once to set it up. Everything runs by itself after that.</p></div>
@@ -510,7 +511,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
           </div>
           <div>
             <div class="globe-wrap">
-              <div class="globe-lbl">9 Systems · Live Network</div>
+              <div class="globe-lbl">10 Systems · Live Network</div>
               <canvas id="globe-c" height="230"></canvas>
             </div>
             <div class="hq-mini">
@@ -520,7 +521,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
                 <div class="hq-cell"><div class="hq-val">$376</div><div class="hq-lbl">Profit</div></div>
                 <div class="hq-cell"><div class="hq-val">22</div><div class="hq-lbl">Leads</div></div>
               </div>
-              <div class="hq-status">All 9 systems live · No errors</div>
+              <div class="hq-status">All 10 systems live · No errors</div>
             </div>
           </div>
         </div>
@@ -535,9 +536,10 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
         <div class="slide" id="s7"></div>
         <div class="slide" id="s8"></div>
         <div class="slide" id="s9"></div>
+        <div class="slide" id="s10"></div>
 
-        <!-- 10: PRICING -->
-        <div class="slide" id="s10">
+        <!-- 11: PRICING -->
+        <div class="slide" id="s11">
           <div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">Pricing & Next Steps</div></div>
           <h1 class="stitle">Simple pricing.<br><em>Real results.</em></h1>
           <p class="ssub">One setup fee. One monthly retainer. No tech work on your end. No long contracts. Everything built specifically for your agency.</p>
@@ -581,7 +583,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
     <div class="chat">
       <div class="chat-head">
         <div class="chat-av">P</div>
-        <div class="chat-info"><h4>Proximity Assistant</h4><p>Ask anything about the 9 systems</p></div>
+        <div class="chat-info"><h4>Proximity Assistant</h4><p>Ask anything about the 10 systems</p></div>
         <div class="chat-on"></div>
         <button class="mob-close" onclick="document.querySelector('.chat').classList.remove('mob-open')">✕</button>
       </div>
@@ -590,7 +592,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
         <button class="pro-x" onclick="document.getElementById('pro').classList.remove('show')">×</button>
       </div>
       <div class="msgs" id="msgs">
-        <div class="msg b"><div class="bub">Hi — ask me anything. I know all 9 systems, pricing, and how the install works. Everything is customized to your agency.</div><div class="msgt">Just now</div></div>
+        <div class="msg b"><div class="bub">Hi — ask me anything. I know all 10 systems, pricing, and how the install works. Everything is customized to your agency.</div><div class="msgt">Just now</div></div>
       </div>
       <div class="typing" id="typ"><div class="tyd"></div><div class="tyd"></div><div class="tyd"></div></div>
       <div class="chips" id="chips">
@@ -762,6 +764,27 @@ const SYSTEMS = [
     color:0x6a3a8a, sceneType:'website',
     isWebsite:true,
     termTag:'Built on Proximity Care Services · See it live'
+  },
+  {
+    num:'10',title:'Client <em>Portal</em>',
+    sub:'Your clients log in. They see everything.',
+    before:'Clients call asking for updates. PDFs emailed manually. Families confused about next steps. No central place for documents.',
+    after:'Clients log into their own portal. Care plan, summaries, documents, appointments, and messages — all in one place. Zero phone tag.',
+    pipe:['🔐|Client Login','📋|Care Plan','📊|Weekly Summaries','📁|Documents','💬|Messages','🔔|Jennifer Notified'],
+    stats:['100%|Questions answered','0|Phone calls needed','24/7|Client access'],
+    color:0x3a7a8a, sceneType:'website',
+    isWebsite:false,
+    termTitle:'CLIENT PORTAL · LIVE',
+    termTag:'Proximity Care · Client Portal Active',
+    termRows:[
+      {emoji:'🔐',icon:'tl',lbl:'Client Login',val:'Sarah M. logged in',badge:'live',bdgTxt:'Active'},
+      {emoji:'📋',icon:'tl',lbl:'Care Plan Viewed',val:'Daily Living Support · 20hrs/week',badge:'live',bdgTxt:'Current'},
+      {emoji:'📊',icon:'gn',lbl:'Weekly Summary',val:'Week of Apr 7 — delivered',badge:'sent',bdgTxt:'Sent'},
+      {emoji:'📁',icon:'tl',lbl:'Documents',val:'3 new files uploaded',badge:'new',bdgTxt:'New'},
+      {emoji:'💬',icon:'gn',lbl:'Message Sent',val:'"Thank you for the update on Mom"',badge:'sent',bdgTxt:'Read'},
+      {emoji:'🔔',icon:'gn',lbl:'Notification',val:'Jennifer notified of new message',badge:'auto',bdgTxt:'Auto'}
+    ],
+    termStats:['47|Active Logins','100%|Satisfaction','0|Support Tickets']
   },
 ];
 
@@ -1199,14 +1222,14 @@ function animStats(n){
 // ═══════════════════════════════════════════
 // SLIDE NAVIGATION
 // ═══════════════════════════════════════════
-let cur=0, tot=11, lastCtx='', ptimer=0, pFired=false;
+let cur=0, tot=12, lastCtx='', ptimer=0, pFired=false;
 const hist=[];
 
 function go(n){
   document.getElementById('s'+cur).classList.remove('on');
   document.querySelectorAll('.sb-item')[cur].classList.remove('on');
   cur=n;
-  if(cur>=1&&cur<=9) buildSlide(cur);
+  if(cur>=1&&cur<=10) buildSlide(cur);
   const slide=document.getElementById('s'+cur);
   slide.classList.add('on');
   document.querySelectorAll('.sb-item')[cur].classList.add('on');
@@ -1217,9 +1240,9 @@ function go(n){
   nb.textContent=cur===tot-1?'✓ Done':'Next →';
   document.getElementById('pgf').style.width=((cur+1)/tot*100)+'%';
   document.getElementById('slides').scrollTop=0;
-  if(cur>=1&&cur<=9){animPipe(cur);setTimeout(()=>animStats(cur),600);}
+  if(cur>=1&&cur<=10){animPipe(cur);setTimeout(()=>animStats(cur),600);}
 
-  const names=['','PSW Visit Log','Invoice Generator','Lead Capture','Family Comms Engine','Operator Chatbot','Family Chatbot','Family Lead Form','Care Summaries','Website',''];
+  const names=['','PSW Visit Log','Invoice Generator','Lead Capture','Family Comms Engine','Operator Chatbot','Family Chatbot','Family Lead Form','Care Summaries','Website','Client Portal',''];
   if(cur>0&&cur<tot-1&&names[cur]&&names[cur]!==lastCtx){
     lastCtx=names[cur];
     const d=document.createElement('div'); d.className='msg b';
@@ -1233,9 +1256,9 @@ function nav(d){const n=cur+d;if(n>=0&&n<tot)go(n);}
 // CHAT AI
 // ═══════════════════════════════════════════
 const W='https://young-meadow-e6fb.lancesalazar56.workers.dev', M='claude-haiku-4-5-20251001';
-const SYS=`You are the sales assistant for Proximity Systems. Plain English. Short sentences. No jargon. Help home care operators understand the 9 systems and decide if they want to book a call.
+const SYS=`You are the sales assistant for Proximity Systems. Plain English. Short sentences. No jargon. Help home care operators understand the 10 systems and decide if they want to book a call.
 
-9 SYSTEMS:
+10 SYSTEMS:
 1. PSW Visit Log — PSWs fill a quick form after each visit. Hours go to Google Sheets automatically. Saves 5.5hrs/month.
 2. Invoice Generator — Invoices calculate from logged hours. Email sent automatically last Friday every month. Saves 4hrs/month.
 3. Lead Capture — Family submits form → Gmail alert in under 60 seconds → row in leads sheet. Response time: 4.5hrs → under 1 min.
@@ -1245,6 +1268,7 @@ const SYS=`You are the sales assistant for Proximity Systems. Plain English. Sho
 7. Family Lead Form — Form submit → webhook → sheet → Gmail. Zero delay.
 8. Care Summaries — Every Monday, Claude AI writes a care summary per client from visit data. Auto-emailed.
 9. Website — Custom home care website. Chatbot and lead form built in. All systems connected. Free hosting forever on GitHub Pages.
+10. Client Portal — Clients log into their own portal. Care plan, summaries, documents, appointments, and messages — all in one place. Zero phone tag.
 
 EVERYTHING IS CUSTOMIZED to the operator's agency — their name, branding, PSW names, clients, pricing. Nothing is generic.
 
