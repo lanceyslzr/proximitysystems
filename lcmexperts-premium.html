@@ -258,14 +258,122 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.vis{opacity:1;transform:translateY(0);}
 
+/* PRODUCTS */
+.products{padding:8rem 4rem;background:var(--forest);}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:4rem;}
+.prod-card{background:var(--forest3);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:2.2rem 1.8rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s;cursor:none;display:flex;flex-direction:column;}
+.prod-card:hover{transform:translateY(-5px);border-color:rgba(201,168,76,.28);}
+.prod-card.featured{border-color:rgba(201,168,76,.28);background:linear-gradient(145deg,#142215,#0c1a0f);}
+.prod-card.featured::after{content:'BEST VALUE';position:absolute;top:.9rem;right:.9rem;font-size:.56rem;letter-spacing:.12em;background:var(--gold);color:var(--forest);padding:.18rem .48rem;border-radius:2px;font-weight:700;}
+.prod-icon{width:52px;height:52px;border-radius:10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.3rem;}
+.prod-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.prod-desc{font-size:.82rem;color:rgba(243,239,229,.58);line-height:1.7;flex:1;margin-bottom:1.2rem;}
+.prod-price{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);margin-bottom:1rem;}
+.prod-price span{font-size:.8rem;color:var(--muted);font-family:'Jost',sans-serif;font-weight:300;}
+.prod-btn{background:var(--gold);color:var(--forest);padding:.65rem 1.4rem;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;text-align:center;border-radius:2px;}
+.prod-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+.prod-btn.outline{background:transparent;border:1px solid var(--gold);color:var(--gold);}
+.prod-btn.outline:hover{background:var(--gold);color:var(--forest);}
+
+/* PORTAL */
+.portal-section{padding:8rem 4rem;background:var(--forest2);border-top:1px solid rgba(201,168,76,.08);}
+.portal-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem;}
+.portal-features{display:flex;flex-direction:column;gap:1rem;}
+.portal-feature{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem 1.4rem;background:var(--forest3);border:1px solid rgba(201,168,76,.1);border-radius:8px;transition:border-color .3s;}
+.portal-feature:hover{border-color:rgba(201,168,76,.26);}
+.pf-icon{width:40px;height:40px;border-radius:8px;background:rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.pf-title{font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;}
+.pf-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
+.portal-device{background:var(--forest3);border:1px solid rgba(201,168,76,.2);border-radius:12px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);}
+.pd-header{background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.12);padding:.75rem 1.2rem;display:flex;align-items:center;gap:.6rem;}
+.pd-dots{display:flex;gap:.35rem;}
+.pd-dots span{width:8px;height:8px;border-radius:50%;}
+.pd-dots span:nth-child(1){background:#ff6b6b;}
+.pd-dots span:nth-child(2){background:#ffd93d;}
+.pd-dots span:nth-child(3){background:#6bcb77;}
+.pd-title{font-size:.68rem;color:var(--muted);letter-spacing:.08em;margin-left:.3rem;}
+.pd-body{padding:1.4rem;}
+.pd-welcome{font-family:'Playfair Display',serif;font-size:1rem;color:var(--cream);margin-bottom:1rem;}
+.pd-welcome span{color:var(--gold);}
+.pd-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem;}
+.pd-stat{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.1);border-radius:6px;padding:.8rem;}
+.pds-num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);}
+.pds-lbl{font-size:.6rem;color:var(--muted);margin-top:.15rem;}
+.pd-item{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.09);border-radius:6px;padding:.65rem .9rem;display:flex;align-items:center;gap:.65rem;margin-bottom:.5rem;}
+.pdi-ico{font-size:.9rem;}
+.pdi-name{font-size:.7rem;color:var(--cream);}
+.pdi-sub{font-size:.6rem;color:var(--muted);}
+.pdi-status{margin-left:auto;font-size:.58rem;padding:.1rem .4rem;border-radius:6px;}
+.st-g{background:rgba(107,203,119,.1);color:#6bcb77;}
+.st-b{background:rgba(201,168,76,.1);color:var(--gold2);}
+
+/* CONTACT */
+.contact-section{padding:8rem 4rem;background:linear-gradient(135deg,#0a180d,#060d08);position:relative;overflow:hidden;}
+.contact-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:4rem;position:relative;z-index:1;}
+.contact-form{background:var(--forest3);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:2.5rem;}
+.cf-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:.4rem;}
+.cf-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;}
+.cf-group{margin-bottom:1.2rem;}
+.cf-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;display:block;}
+.cf-input,.cf-select,.cf-textarea{width:100%;background:var(--forest2);border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:.75rem 1rem;font-size:.85rem;color:var(--cream);font-family:'Jost',sans-serif;transition:border-color .2s;}
+.cf-input:focus,.cf-select:focus,.cf-textarea:focus{outline:none;border-color:var(--gold);background:var(--forest3);}
+.cf-input::placeholder,.cf-textarea::placeholder{color:var(--muted);opacity:.6;}
+.cf-textarea{resize:vertical;min-height:100px;line-height:1.6;}
+.cf-select option{background:var(--forest2);}
+.cf-submit{width:100%;background:var(--gold);color:var(--forest);padding:1rem;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;border-radius:2px;margin-top:.5rem;}
+.cf-submit:hover{background:var(--gold2);transform:translateY(-1px);}
+.cf-note{font-size:.72rem;color:var(--muted);margin-top:.75rem;text-align:center;line-height:1.6;}
+.contact-info{padding-top:1rem;}
+.ci-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.8rem;}
+.ci-icon{width:44px;height:44px;border-radius:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.ci-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;}
+.ci-value{font-size:.92rem;color:var(--cream);}
+.ci-value a{color:var(--gold);text-decoration:none;}
+.cf-success{display:none;text-align:center;padding:2rem;}
+.cf-success.show{display:block;}
+.cf-success h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:.5rem;}
+.cf-success p{font-size:.85rem;color:var(--muted);line-height:1.7;}
+
+/* CHATBOT WIDGET */
+#lcm-chat-btn{position:fixed;bottom:28px;right:28px;z-index:900;display:flex;align-items:center;gap:10px;background:var(--forest3);border:1px solid rgba(201,168,76,.25);border-radius:28px;padding:10px 18px 10px 14px;cursor:pointer;box-shadow:0 8px 32px rgba(0,0,0,.4);transition:all .3s;}
+#lcm-chat-btn:hover{border-color:var(--gold);transform:translateY(-2px);}
+.lcm-chat-ico{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.lcm-chat-lbl{font-size:.75rem;color:var(--cream);font-family:'Jost',sans-serif;letter-spacing:.04em;}
+#lcm-chat{display:none;position:fixed;bottom:80px;right:28px;width:340px;height:460px;background:var(--forest3);border:1px solid rgba(201,168,76,.2);border-radius:12px;z-index:901;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5);}
+#lcm-chat.open{display:flex;}
+.lc-head{padding:14px 18px;border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:10px;}
+.lc-av{width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:var(--gold);font-style:italic;}
+.lc-info{flex:1;}.lc-info h4{font-size:12px;color:var(--cream);font-weight:400;}.lc-info p{font-size:10px;color:var(--muted);}
+.lc-close{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;}
+.lc-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.lc-msg{max-width:86%;font-size:12px;line-height:1.5;padding:9px 12px;}
+.lc-msg.b{align-self:flex-start;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.12);border-radius:2px 10px 10px 10px;color:rgba(243,239,229,.75);}
+.lc-msg.u{align-self:flex-end;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.25);color:rgba(243,239,229,.88);border-radius:10px 2px 10px 10px;}
+.lc-chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px;}
+.lc-chip{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:rgba(243,239,229,.75);font-family:'Jost',sans-serif;font-size:11px;padding:6px 12px;border-radius:20px;cursor:pointer;transition:background .2s;}
+.lc-chip:hover{background:rgba(201,168,76,.18);}
+.lc-inp-row{padding:10px 14px;border-top:1px solid rgba(201,168,76,.1);display:flex;gap:8px;}
+.lc-inp{flex:1;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.12);padding:8px 12px;font-size:12px;font-family:'Jost',sans-serif;color:var(--cream);outline:none;resize:none;border-radius:4px;}
+.lc-inp::placeholder{color:var(--muted);}
+.lc-send{width:32px;height:32px;background:var(--gold);border:none;border-radius:50%;color:var(--forest);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:flex-end;transition:background .2s;}
+.lc-send:hover{background:var(--gold2);}
+.lc-typing{display:none;align-self:flex-start;padding:9px 12px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.12);border-radius:2px 10px 10px 10px;gap:4px;align-items:center;}
+.lc-typing.show{display:flex;}
+.lc-td{width:5px;height:5px;background:var(--muted);border-radius:50%;animation:tyb 1.2s infinite;}
+.lc-td:nth-child(2){animation-delay:.2s;}.lc-td:nth-child(3){animation-delay:.4s;}
+@keyframes tyb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+
 @media(max-width:900px){
   nav{padding:1rem 1.5rem;}.nav-links{display:none;}
   .hero,.founder{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;}
   .card-scene{width:300px;height:440px;}
   .stats-bar{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
-  .svc-grid,.books-grid,.creds-grid,.testi-grid{grid-template-columns:1fr;}
-  .services,.books,.testi,.cta-section,.creds{padding:5rem 1.5rem;}
+  .svc-grid,.books-grid,.creds-grid,.testi-grid,.products-grid,.portal-grid,.contact-grid{grid-template-columns:1fr;}
+  .services,.books,.testi,.cta-section,.creds,.products,.portal-section,.contact-section{padding:5rem 1.5rem;}
   footer{padding:2rem 1.5rem;}
+  #lcm-chat{width:calc(100vw - 2rem);right:1rem;bottom:70px;}
+  #lcm-chat-btn{bottom:16px;right:16px;}
 }
 </style>
 </head>
@@ -279,10 +387,12 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
   <div class="nav-links">
     <a href="#founder">About</a>
     <a href="#services">Services</a>
-    <a href="#books">Books</a>
+    <a href="#books">Publications</a>
+    <a href="#products">Products</a>
+    <a href="#portal">Member Portal</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="tel:4062120620" class="nav-btn">Work With Jennifer</a>
+  <a href="#contact" class="nav-btn">Work With Jennifer</a>
 </nav>
 
 <section class="hero">
@@ -499,6 +609,90 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
   </div>
 </section>
 
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="reveal">
+    <div class="sec-label">Resources & Training</div>
+    <h2 class="sec-heading">Tools Built From<br><em>Two Decades of Practice.</em></h2>
+  </div>
+  <div class="products-grid">
+    <div class="prod-card reveal">
+      <div class="prod-icon">📚</div>
+      <div class="prod-name">Life Care Management Handbook</div>
+      <div class="prod-desc">The comprehensive guide for anyone working or aspiring to work in life care management. Practical solutions, resources, and tools for managing complex situations.</div>
+      <div class="prod-price">$47</div>
+      <a href="#contact" class="prod-btn">Get the Handbook</a>
+    </div>
+    <div class="prod-card reveal">
+      <div class="prod-icon">📋</div>
+      <div class="prod-name">LCM Form Template Toolkit</div>
+      <div class="prod-desc">Ready-to-use professional forms and templates created after years of building a successful life care management practice.</div>
+      <div class="prod-price">$37</div>
+      <a href="#contact" class="prod-btn">Get the Templates</a>
+    </div>
+    <div class="prod-card featured reveal">
+      <div class="prod-icon">📦</div>
+      <div class="prod-name">Handbook + Templates Bundle</div>
+      <div class="prod-desc">Both best-selling resources bundled together at a discount. Everything you need to start, grow and maintain a successful LCM practice.</div>
+      <div class="prod-price">$74 <span>/ bundle</span></div>
+      <a href="#contact" class="prod-btn">Get the Bundle</a>
+    </div>
+    <div class="prod-card reveal">
+      <div class="prod-icon">🎓</div>
+      <div class="prod-name">Life Care Management A-Z</div>
+      <div class="prod-desc">7 courses and 19 lessons covering everything from comprehensive assessments to legal documents and funding mechanisms. The complete practitioner program.</div>
+      <div class="prod-price">$297 <span>/ full program</span></div>
+      <a href="#contact" class="prod-btn">Enroll Now</a>
+    </div>
+    <div class="prod-card reveal">
+      <div class="prod-icon">💼</div>
+      <div class="prod-name">Business Intensive Program</div>
+      <div class="prod-desc">Start, grow, and manage your LCM business. Covers planning, marketing, networking, leadership and culture — from practitioners who built successful practices.</div>
+      <div class="prod-price">$197 <span>/ program</span></div>
+      <a href="#contact" class="prod-btn outline">Enroll Now</a>
+    </div>
+    <div class="prod-card reveal">
+      <div class="prod-icon">🤝</div>
+      <div class="prod-name">1-on-1 Coaching</div>
+      <div class="prod-desc">Personalized privately focused guidance based on your needs and your path. Direct access to Jennifer's 31 years of experience.</div>
+      <div class="prod-price">Custom <span>/ engagement</span></div>
+      <a href="#contact" class="prod-btn outline">Book a Session</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<section class="portal-section" id="portal">
+  <div class="reveal">
+    <div class="sec-label">Member Access</div>
+    <h2 class="sec-heading">Your Practice Hub.<br><em>Everything in One Place.</em></h2>
+    <p class="sec-sub">Members get access to a unified portal — courses, resources, care plan templates, and direct access to Jennifer's frameworks. All organized. All searchable. Always available.</p>
+  </div>
+  <div class="portal-grid">
+    <div class="portal-features reveal">
+      <div class="portal-feature"><div class="pf-icon">🎓</div><div><div class="pf-title">Course Library</div><div class="pf-desc">All enrolled courses in one place. Resume where you left off. Track completion.</div></div></div>
+      <div class="portal-feature"><div class="pf-icon">📋</div><div><div class="pf-title">Template Library</div><div class="pf-desc">Every form and template you've purchased. Download anytime.</div></div></div>
+      <div class="portal-feature"><div class="pf-icon">📅</div><div><div class="pf-title">Session Booking</div><div class="pf-desc">Book coaching sessions directly from your dashboard.</div></div></div>
+      <div class="portal-feature"><div class="pf-icon">📬</div><div><div class="pf-title">Care Plan Updates</div><div class="pf-desc">Receive automated summaries and updates from Jennifer's team.</div></div></div>
+      <div class="portal-feature"><div class="pf-icon">🔔</div><div><div class="pf-title">New Content Alerts</div><div class="pf-desc">Be the first to know when new courses or resources are published.</div></div></div>
+    </div>
+    <div class="portal-device reveal">
+      <div class="pd-header"><div class="pd-dots"><span></span><span></span><span></span></div><div class="pd-title">LCMexpert.com / portal</div></div>
+      <div class="pd-body">
+        <div class="pd-welcome">Welcome back, <span>Sarah.</span></div>
+        <div class="pd-row">
+          <div class="pd-stat"><div class="pds-num">3</div><div class="pds-lbl">Courses / Enrolled</div></div>
+          <div class="pd-stat"><div class="pds-num">47</div><div class="pds-lbl">Templates / Downloaded</div></div>
+        </div>
+        <div class="pd-item"><div class="pdi-ico">📚</div><div><div class="pdi-name">LCM A-Z Program</div><div class="pdi-sub">Module 4 of 7</div></div><div class="pdi-status st-b">In Progress</div></div>
+        <div class="pd-item"><div class="pdi-ico">📋</div><div><div class="pdi-name">Template Toolkit</div><div class="pdi-sub">All 101 downloaded</div></div><div class="pdi-status st-g">Complete</div></div>
+        <div class="pd-item"><div class="pdi-ico">🤝</div><div><div class="pdi-name">Coaching Session</div><div class="pdi-sub">Thursday 2pm</div></div><div class="pdi-status st-b">Upcoming</div></div>
+        <div class="pd-item"><div class="pdi-ico">📖</div><div><div class="pdi-name">New Resource Added</div><div class="pdi-sub">Business Intensive Update</div></div><div class="pdi-status st-g">New</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="creds">
   <div class="reveal">
     <div class="sec-label">Credentials</div>
@@ -536,22 +730,70 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
   </div>
 </section>
 
-<section class="cta-section" id="contact">
-  <div class="eyebrow" style="margin:0 auto 1.5rem;display:inline-flex;"><span class="pulse-dot"></span><span style="font-size:.72rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-left:.55rem;">Available · Consultations · Insurance · Legal · Family</span></div>
-  <h2 class="cta-title">Ready to Work<br><em>With Jennifer?</em></h2>
-  <p class="cta-sub">Whether you are a family navigating aging, a professional building a practice, or a legal team needing expert testimony — Jennifer brings 31 years of clarity to your situation.</p>
-  <div class="cta-btns">
-    <a href="tel:4062120620" class="btn-primary">Call (406) 212-0620</a>
-    <a href="mailto:eagleviewwestltc1@gmail.com" class="btn-ghost">Email Jennifer</a>
+<section class="contact-section" id="contact">
+  <div class="reveal">
+    <div class="sec-label">Get In Touch</div>
+    <h2 class="sec-heading">Ready to Work<br><em>With Jennifer?</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-form reveal" id="contactForm">
+      <div class="cf-title">Send Your Inquiry</div>
+      <div class="cf-sub">Whether you are a family navigating aging, a professional building a practice, or a legal team needing expert testimony — Jennifer brings 31 years of clarity.</div>
+      <div id="cf-fields">
+        <div class="cf-group"><label class="cf-label">Full Name</label><input class="cf-input" id="cf-name" placeholder="Your full name" required></div>
+        <div class="cf-group"><label class="cf-label">Email Address</label><input class="cf-input" id="cf-email" type="email" placeholder="you@email.com" required></div>
+        <div class="cf-group"><label class="cf-label">Phone Number</label><input class="cf-input" id="cf-phone" type="tel" placeholder="(000) 000-0000"></div>
+        <div class="cf-group"><label class="cf-label">I am a...</label><select class="cf-select" id="cf-type"><option value="">Select one...</option><option>Family navigating a loved one's care</option><option>Life care professional</option><option>Insurance</option><option>Legal</option><option>Other</option></select></div>
+        <div class="cf-group"><label class="cf-label">How can Jennifer help?</label><textarea class="cf-textarea" id="cf-msg" placeholder="Tell us about your situation..."></textarea></div>
+        <button class="cf-submit" id="cf-btn" onclick="submitContact()">Send My Inquiry →</button>
+        <div class="cf-note">Jennifer personally reviews every inquiry and responds within 24 hours.</div>
+      </div>
+      <div class="cf-success" id="cf-success"><h3>Thank you.</h3><p id="cf-thankyou">Jennifer will be in touch within 24 hours.</p></div>
+    </div>
+    <div class="contact-info reveal">
+      <div class="ci-item"><div class="ci-icon">📧</div><div><div class="ci-label">Email</div><div class="ci-value"><a href="mailto:Jennifer@thelifecareexperts.com">Jennifer@thelifecareexperts.com</a></div></div></div>
+      <div class="ci-item"><div class="ci-icon">🌐</div><div><div class="ci-label">Website</div><div class="ci-value"><a href="https://lcmexpert.com" target="_blank">LCMexpert.com</a></div></div></div>
+      <div class="ci-item"><div class="ci-icon">📍</div><div><div class="ci-label">Location</div><div class="ci-value">Kalispell, Montana<br><span style="font-size:.78rem;color:var(--muted);">Serving clients nationally</span></div></div></div>
+      <div class="ci-item"><div class="ci-icon">📅</div><div><div class="ci-label">Availability</div><div class="ci-value">Wednesday & Thursday<br><span style="font-size:.78rem;color:var(--muted);">Midday preferred</span></div></div></div>
+    </div>
   </div>
 </section>
+
+<!-- CHATBOT -->
+<div id="lcm-chat-btn" onclick="document.getElementById('lcm-chat').classList.toggle('open')">
+  <div class="lcm-chat-ico">💬</div>
+  <div class="lcm-chat-lbl">Ask Jennifer's AI</div>
+</div>
+<div id="lcm-chat">
+  <div class="lc-head">
+    <div class="lc-av">J</div>
+    <div class="lc-info"><h4>Jennifer's Assistant</h4><p>Life Care Management Expert</p></div>
+    <button class="lc-close" onclick="document.getElementById('lcm-chat').classList.remove('open')">✕</button>
+  </div>
+  <div class="lc-msgs" id="lc-msgs">
+    <div class="lc-msg b">Hi — are you looking for care guidance for a loved one, or are you a professional looking to grow your practice?</div>
+  </div>
+  <div class="lc-typing" id="lc-typ"><div class="lc-td"></div><div class="lc-td"></div><div class="lc-td"></div></div>
+  <div class="lc-chips" id="lc-chips">
+    <div class="lc-chip" onclick="lcSendChip(this)">I need help for a loved one</div>
+    <div class="lc-chip" onclick="lcSendChip(this)">I'm a care professional</div>
+    <div class="lc-chip" onclick="lcSendChip(this)">Tell me about the books</div>
+    <div class="lc-chip" onclick="lcSendChip(this)">What does coaching include?</div>
+  </div>
+  <div class="lc-inp-row">
+    <textarea class="lc-inp" id="lc-inp" placeholder="Ask anything..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();lcSend();}"></textarea>
+    <button class="lc-send" onclick="lcSend()">→</button>
+  </div>
+</div>
 
 <footer>
   <div class="footer-logo">The <em>Life Care</em> Experts</div>
   <div class="footer-links">
     <a href="#founder">About</a>
     <a href="#services">Services</a>
-    <a href="#books">Books</a>
+    <a href="#books">Publications</a>
+    <a href="#products">Products</a>
+    <a href="#portal">Member Portal</a>
     <a href="#contact">Contact</a>
   </div>
   <div class="footer-copy">© 2025 The Life Care Experts · Kalispell, Montana · Jennifer Crowley RN</div>
@@ -621,6 +863,47 @@ document.querySelectorAll('.reveal,.stat-item').forEach(el=>io.observe(el));
 // HERO CARD COUNT-UP ON LOAD
 const hio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-target]').forEach(countUp);hio.unobserve(e.target);}});},{threshold:.3});
 hio.observe(heroCard);
+
+// CONTACT FORM
+function submitContact(){
+  var name=document.getElementById('cf-name').value.trim();
+  var email=document.getElementById('cf-email').value.trim();
+  if(!name||!email){alert('Please enter your name and email.');return;}
+  var btn=document.getElementById('cf-btn');
+  btn.textContent='Sending...';btn.disabled=true;
+  var payload={Full_Name:name,Email:email,Phone:document.getElementById('cf-phone').value.trim(),Care_Type:document.getElementById('cf-type').value,Notes:document.getElementById('cf-msg').value.trim(),Source:'LCM Experts Website',Status:'New Lead'};
+  fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).finally(function(){
+    document.getElementById('cf-fields').style.display='none';
+    var s=document.getElementById('cf-success');s.classList.add('show');
+    document.getElementById('cf-thankyou').textContent='Thank you '+name+'. Jennifer will be in touch within 24 hours.';
+  });
+}
+
+// CHATBOT
+var lcHist=[];
+var LC_SYS="You are Jennifer Crowley's AI assistant on The Life Care Experts website. Jennifer is a Registered Nurse with 31 years experience, Certified Life Care Planner, published author of 3 books, co-developer of Montana's State Alzheimer's Plan, and expert witness. She helps families navigate aging and life care transitions, and trains professionals through The Life Care Management Institute. Be warm, knowledgeable, and concise. Answer questions about her services, books, courses, and expertise. Always end with one question. When someone wants to book or inquire, direct them to the contact form on this page.";
+function lcAddMsg(type,text){
+  var d=document.createElement('div');d.className='lc-msg '+type;
+  d.textContent=text;document.getElementById('lc-msgs').appendChild(d);
+  var m=document.getElementById('lc-msgs');m.scrollTop=m.scrollHeight;
+}
+function lcSendChip(el){
+  document.getElementById('lc-chips').style.display='none';
+  document.getElementById('lc-inp').value=el.textContent;
+  lcSend();
+}
+async function lcSend(){
+  var inp=document.getElementById('lc-inp');
+  var msg=inp.value.trim();if(!msg)return;
+  inp.value='';lcAddMsg('u',msg);lcHist.push({role:'user',content:msg});
+  document.getElementById('lc-typ').classList.add('show');
+  try{
+    var r=await fetch('https://young-meadow-e6fb.lancesalazar56.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:200,system:LC_SYS,messages:lcHist})});
+    var d=await r.json();var rep=d.content&&d.content[0]?d.content[0].text:'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.';
+    lcHist.push({role:'assistant',content:rep});
+    document.getElementById('lc-typ').classList.remove('show');lcAddMsg('b',rep);
+  }catch(e){document.getElementById('lc-typ').classList.remove('show');lcAddMsg('b','Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.');}
+}
 </script>
 </body>
 </html>
