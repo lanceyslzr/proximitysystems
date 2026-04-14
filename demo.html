@@ -313,6 +313,111 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
 .chat-send{width:28px;height:28px;background:rgba(61,122,138,0.15);border:1px solid rgba(61,122,138,0.3);border-radius:50%;color:var(--teal2);font-size:12px;cursor:none;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;align-self:flex-end}
 .chat-send:hover{background:var(--teal);color:#fff}
 .chat-send:disabled{opacity:.3}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  body{cursor:auto!important}
+  #cur,#cur-r,.cur,.cur-ring{display:none!important}
+  #bg,#globe-c,.scene canvas,canvas[id^="sc"]{display:none!important}
+  .globe-wrap{display:none!important}
+  .scene{display:none!important}
+
+  /* Mobile nav bar */
+  .top{position:fixed!important;top:0;left:0;right:0;z-index:600;height:52px;padding:0 1rem;background:rgba(7,9,12,0.95);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between}
+  .top .brand{font-size:13px}
+  .live-badge{display:none}
+  .top-btn{padding:8px 16px;font-size:9px}
+
+  /* Hide sidebar and chat */
+  .sb{display:none!important}
+  .chat{display:none;position:fixed;inset:0;z-index:700;width:100%!important;background:var(--bg);flex-direction:column}
+  .chat.mob-open{display:flex!important}
+  .chat-head{padding:14px 1rem;position:relative}
+  .chat .mob-close{position:absolute;top:14px;right:1rem;background:none;border:1px solid var(--border);color:var(--text);width:32px;height:32px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .chips{display:grid!important;grid-template-columns:1fr 1fr;gap:6px;padding:8px 1rem}
+  .chip{text-align:center;font-size:11px;padding:10px 8px;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .chat-inp-row{padding:10px 1rem;position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border)}
+  .msgs{padding:1rem}
+
+  /* Progress bar */
+  .pgbar{position:fixed;top:52px;left:0;right:0;z-index:599}
+
+  /* App layout */
+  .app{display:flex!important;flex-direction:column;grid-template-columns:1fr!important;grid-template-rows:auto!important;min-height:100vh;padding-top:53px}
+  .ws{flex-direction:column!important;overflow:visible}
+  .main{width:100%!important;overflow:visible}
+  .slides{padding:0!important;overflow:visible!important;height:auto!important}
+
+  /* Slide layout */
+  .slide.on{display:block!important;padding:1.5rem!important;animation:none!important}
+  #s0{display:flex!important;flex-direction:column!important;grid-template-columns:1fr!important;gap:2rem}
+  #s0>div:nth-child(2){order:-1}
+
+  /* Overview */
+  .wgrid{grid-template-columns:1fr!important;gap:12px}
+  .wcard{padding:1rem}
+  .hq-mini{display:block!important;margin-bottom:1.5rem}
+  .hq-grid{grid-template-columns:1fr 1fr}
+  .hq-cell{padding:12px}
+  .roi-box{padding:1.2rem}
+  .roi-grid{grid-template-columns:1fr!important}
+  .roi-res{grid-template-columns:1fr!important;gap:8px}
+  .roi-rb{padding:12px}
+
+  /* Titles */
+  .stitle{font-size:clamp(1.6rem,7vw,2.2rem)!important;margin-bottom:1rem}
+  .ssub{font-size:0.85rem;margin-bottom:1.5rem}
+  .eyebrow{margin-bottom:12px}
+
+  /* System slides */
+  .sys-wrap{display:flex!important;flex-direction:column!important;gap:1.5rem}
+  .sys-left{width:100%!important}
+  .sys-right{width:100%!important;display:flex;flex-direction:column;gap:1rem}
+  .baf{grid-template-columns:1fr!important;gap:10px}
+  .baf-b,.baf-a{padding:1rem}
+  .pipe{flex-direction:row;flex-wrap:wrap;gap:6px;justify-content:center}
+  .pconn{width:20px!important;height:2px!important}
+  .pbeam{width:100%!important;height:100%!important}
+  .stats{grid-template-columns:1fr!important;gap:8px}
+  .stat{padding:12px}
+
+  /* Terminal */
+  .term{border-radius:6px;overflow:hidden}
+  .tbody{max-height:200px;overflow-y:auto}
+  .tgrid{grid-template-columns:1fr!important}
+
+  /* Website mockup */
+  .wmock{border-radius:6px;overflow:hidden}
+  .wmcards{grid-template-columns:1fr!important}
+  .wmhero{padding:12px}
+  .wmh1{font-size:12px}
+
+  /* Pricing */
+  #s10 .pgrid{grid-template-columns:1fr!important;gap:12px}
+  .pcard{padding:1.2rem}
+  .ctaw{padding:0 0 2rem}
+  .ctab{display:block;width:100%;text-align:center;padding:16px;font-size:11px}
+
+  /* Bottom nav */
+  .botnav{position:fixed;bottom:0;left:0;right:0;z-index:500;background:rgba(7,9,12,0.95);backdrop-filter:blur(12px);padding:10px 1rem;display:flex;align-items:center;justify-content:space-between}
+  .botbtn{min-height:44px;min-width:44px;padding:10px 20px;font-size:11px}
+  .botctr{font-size:11px}
+  .main{padding-bottom:64px}
+
+  /* Intro */
+  #intro{padding:2rem 1.5rem}
+  #intro-canvas{opacity:0.3}
+  .intro-logo{font-size:clamp(2rem,10vw,3.5rem)!important}
+  .intro-tagline{font-size:12px!important}
+  .intro-btn{width:100%;padding:16px;font-size:11px;min-height:48px}
+
+  /* Chat toggle button */
+  .mob-chat-btn{display:flex!important;position:fixed;bottom:74px;right:1rem;z-index:500;width:48px;height:48px;border-radius:50%;background:var(--teal);border:none;color:#fff;font-size:18px;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.3);cursor:pointer}
+}
+@media(min-width:769px){
+  .mob-chat-btn{display:none!important}
+  .mob-close{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -469,12 +574,16 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
       </div>
     </div><!-- main -->
 
+    <!-- MOBILE CHAT TOGGLE -->
+    <button class="mob-chat-btn" onclick="document.querySelector('.chat').classList.add('mob-open')">💬</button>
+
     <!-- CHAT -->
     <div class="chat">
       <div class="chat-head">
         <div class="chat-av">P</div>
         <div class="chat-info"><h4>Proximity Assistant</h4><p>Ask anything about the 9 systems</p></div>
         <div class="chat-on"></div>
+        <button class="mob-close" onclick="document.querySelector('.chat').classList.remove('mob-open')">✕</button>
       </div>
       <div class="pro" id="pro">
         <span class="pro-text">Been here a while — want me to find the right package?</span>
@@ -1025,16 +1134,18 @@ function enterDemo(){
 // ═══════════════════════════════════════════
 // CURSOR
 // ═══════════════════════════════════════════
-const CUR=document.getElementById('cur'), RING=document.getElementById('cur-r');
-let cmx=-100,cmy=-100,crx=-100,cry=-100;
-CUR.style.cssText+='left:-100px;top:-100px';
-RING.style.cssText+='left:-100px;top:-100px';
-document.addEventListener('mousemove',e=>{cmx=e.clientX;cmy=e.clientY;CUR.style.left=cmx+'px';CUR.style.top=cmy+'px';});
-(function animC(){crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;RING.style.left=crx+'px';RING.style.top=cry+'px';requestAnimationFrame(animC);})();
-document.querySelectorAll('button,a,.chip,.wcard,.stat,.pcard,.sb-item').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{CUR.style.width='14px';CUR.style.height='14px';RING.style.width='36px';RING.style.height='36px';});
-  el.addEventListener('mouseleave',()=>{CUR.style.width='8px';CUR.style.height='8px';RING.style.width='28px';RING.style.height='28px';});
-});
+if(window.matchMedia('(pointer: fine)').matches){
+  const CUR=document.getElementById('cur'), RING=document.getElementById('cur-r');
+  let cmx=-100,cmy=-100,crx=-100,cry=-100;
+  CUR.style.cssText+='left:-100px;top:-100px';
+  RING.style.cssText+='left:-100px;top:-100px';
+  document.addEventListener('mousemove',e=>{cmx=e.clientX;cmy=e.clientY;CUR.style.left=cmx+'px';CUR.style.top=cmy+'px';});
+  (function animC(){crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;RING.style.left=crx+'px';RING.style.top=cry+'px';requestAnimationFrame(animC);})();
+  document.querySelectorAll('button,a,.chip,.wcard,.stat,.pcard,.sb-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{CUR.style.width='14px';CUR.style.height='14px';RING.style.width='36px';RING.style.height='36px';});
+    el.addEventListener('mouseleave',()=>{CUR.style.width='8px';CUR.style.height='8px';RING.style.width='28px';RING.style.height='28px';});
+  });
+}
 
 // ═══════════════════════════════════════════
 // PIPELINE ANIMATION
