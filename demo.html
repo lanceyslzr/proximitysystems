@@ -770,8 +770,8 @@ const SYSTEMS = [
     sub:'Your clients log in. They see everything.',
     before:'Clients call asking for updates. PDFs emailed manually. Families confused about next steps. No central place for documents.',
     after:'Clients log into their own portal. Care plan, summaries, documents, appointments, and messages — all in one place. Zero phone tag.',
-    pipe:['🔐|Client Login','📋|Care Plan','📊|Weekly Summaries','📁|Documents','💬|Messages','🔔|Jennifer Notified'],
-    stats:['100%|Questions answered','0|Phone calls needed','24/7|Client access'],
+    pipe:['🔐|Client Login','📋|Care Plan','📊|Weekly Summaries','📁|Documents','💬|Messages','🔔|Lance Notified'],
+    stats:['100%|Questions Answered Before Asked','24/7|Phone Tag Eliminated','Zero|Support Tickets Needed'],
     color:0x3a7a8a, sceneType:'website',
     isWebsite:false,
     termTitle:'CLIENT PORTAL · LIVE',
@@ -1174,7 +1174,8 @@ if(window.matchMedia('(pointer: fine)').matches){
 // PIPELINE ANIMATION
 // ═══════════════════════════════════════════
 function animPipe(n){
-  const tot=4;
+  const d=SYSTEMS[n];
+  const tot=d?d.pipe.length:4;
   for(let i=0;i<tot;i++){
     const c=document.getElementById(`pc${n}-${i}`);
     const l=document.getElementById(`pl${n}-${i}`);
