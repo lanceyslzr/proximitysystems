@@ -881,7 +881,7 @@ function submitContact(){
 
 // CHATBOT
 var lcHist=[];
-var LC_SYS="You are Jennifer Crowley's AI assistant on The Life Care Experts website. Jennifer is a Registered Nurse with 31 years experience, Certified Life Care Planner, published author of 3 books, co-developer of Montana's State Alzheimer's Plan, and expert witness. She helps families navigate aging and life care transitions, and trains professionals through The Life Care Management Institute. Be warm, knowledgeable, and concise. Answer questions about her services, books, courses, and expertise. Always end with one question. When someone wants to book or inquire, direct them to the contact form on this page.";
+var LC_SYS="You are Jennifer Crowley's personal AI assistant on The Life Care Experts website. Jennifer is a Registered Nurse with 31 years experience, Certified Life Care Planner, published author, co-developer of Montana's State Alzheimer's Plan, and expert witness.\n\nRESPONSE RULES:\n- Maximum 2 sentences per reply\n- Never use bullet points\n- Give the direct answer first, nothing extra\n- End every reply with one short relevant question\n- Warm but efficient — like a knowledgeable friend\n- When someone wants to book or connect, direct them to the contact form on this page with a clickable link\n\nEXAMPLE of correct tone:\nUser: I need help for a loved one\nBot: Jennifer works with families navigating exactly this — whether it is aging, dementia, or a sudden health transition. What is going on with your loved one right now?";
 function lcAddMsg(type,text){
   var d=document.createElement('div');d.className='lc-msg '+type;
   d.textContent=text;document.getElementById('lc-msgs').appendChild(d);
@@ -898,7 +898,7 @@ async function lcSend(){
   inp.value='';lcAddMsg('u',msg);lcHist.push({role:'user',content:msg});
   document.getElementById('lc-typ').classList.add('show');
   try{
-    var r=await fetch('https://young-meadow-e6fb.lancesalazar56.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:200,system:LC_SYS,messages:lcHist})});
+    var r=await fetch('https://young-meadow-e6fb.lancesalazar56.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:120,system:LC_SYS,messages:lcHist})});
     var d=await r.json();var rep=d.content&&d.content[0]?d.content[0].text:'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.';
     lcHist.push({role:'assistant',content:rep});
     document.getElementById('lc-typ').classList.remove('show');lcAddMsg('b',rep);
