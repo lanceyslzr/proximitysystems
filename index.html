@@ -17,47 +17,19 @@
   .cursor { width: 8px; height: 8px; background: var(--teal-dark); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease; }
   .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--teal); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; opacity: 0.6; transition: transform 0.15s ease, opacity 0.15s ease; }
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; background: rgba(7,9,12,0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(61,122,138,0.15); transition: padding 0.4s ease; flex-wrap: nowrap; white-space: nowrap; }
-  nav.scrolled { background: rgba(7,9,12,0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(61,122,138,0.15); padding: 14px 48px; }
-  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 4px; color: #ddd9d0; text-decoration: none; text-transform: uppercase; flex-shrink: 0; }
-  .nav-brand em { color: var(--teal); font-style: italic; }
-  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; flex-wrap: nowrap; white-space: nowrap; }
-  .nav-links a { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(221,217,208,0.6); text-decoration: none; transition: color 0.2s; position: relative; white-space: nowrap; }
-  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--teal); transition: width 0.3s ease; }
-  .nav-links a:hover { color: #ddd9d0; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 24px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
+  nav.scrolled { background: rgba(246,243,238,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 64px; }
+  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 4px; color: var(--dark); text-decoration: none; text-transform: uppercase; }
+  .nav-brand em { color: var(--teal-dark); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--teal-dark); transition: width 0.3s ease; }
+  .nav-links a:hover { color: var(--dark); }
   .nav-links a:hover::after { width: 100%; }
-  .nav-cta { background: #3d7a8a !important; color: #fff !important; padding: 0.55rem 1.2rem; border-radius: 2px; font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid #3d7a8a; white-space: nowrap; }
+  .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; border-radius: 2px; font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
   .nav-cta::after { display: none !important; }
-  .nav-cta:hover { background: var(--teal) !important; border-color: var(--teal) !important; color: #fff !important; }
-  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 64px 5rem; position: relative; overflow: hidden; gap: 80px; }
-  .feed-container { height: 320px; overflow: hidden; position: relative; cursor: ns-resize; }
-  .feed-container::after { content:''; position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(transparent, #07090c); pointer-events:none; z-index:2; }
-  .feed-inner { display: flex; flex-direction: column; gap: .7rem; transition: transform 0.5s ease; }
-  .feed-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 12px; height: 98px; box-sizing: border-box; }
-  .feed-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
-  .feed-icon.teal{background:rgba(106,158,170,0.2);} .feed-icon.blue{background:rgba(100,130,200,0.2);} .feed-icon.green{background:rgba(90,138,106,0.22);} .feed-icon.orange{background:rgba(200,140,80,0.2);}
-  .feed-title { font-size: 11px; font-weight: 600; color: var(--teal-light); margin-bottom: 3px; }
-  .feed-text { font-size: 11px; color: rgba(221,217,208,0.7); line-height: 1.5; }
-  .feed-time { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 1px; white-space: nowrap; margin-left: 8px; }
-  .timeline-wrap { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-top: 56px; position: relative; }
-  .timeline-wrap::before { content:''; position:absolute; top:90px; left:6%; right:6%; height:0; border-top: 1px dashed rgba(106,158,170,0.35); z-index:0; }
-  .timeline-card { background: var(--dark2); border: 1px solid rgba(255,255,255,0.08); border-top: 3px solid var(--teal); border-radius: 8px; padding: 1.8rem; position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; }
-  .timeline-badge { display: inline-block; background: var(--teal); color: #fff; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 10px; border-radius: 3px; font-weight: 600; font-family: 'DM Mono', monospace; align-self: flex-start; }
-  .timeline-icon { width: 44px; height: 44px; border-radius: 8px; background: rgba(106,158,170,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-  .timeline-title { font-family: 'Cormorant Garamond', serif; color: var(--teal-light); font-size: 1.1rem; font-weight: 500; }
-  .timeline-body { font-size: 0.85rem; line-height: 1.7; color: rgba(221,217,208,0.6); }
-  .timeline-cta-wrap { text-align: center; margin-top: 48px; }
-  .timeline-cta { display: inline-block; background: var(--teal); color: #fff; padding: 14px 32px; border-radius: 3px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; text-decoration: none; transition: background 0.2s; }
-  .timeline-cta:hover { background: var(--teal-dark); }
-  @media (max-width: 900px) { .timeline-wrap { grid-template-columns: 1fr; } .timeline-wrap::before { display: none; } }
-  .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
-  .review-card { background: #111820; border: 1px solid rgba(61,122,138,0.2); border-radius: 6px; padding: 32px 28px; display: flex; flex-direction: column; gap: 16px; }
-  .review-stars { color: #c9a96e; font-size: 16px; letter-spacing: 2px; }
-  .review-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; line-height: 1.55; color: #ddd9d0; font-weight: 300; }
-  .review-author { margin-top: auto; padding-top: 8px; border-top: 1px solid rgba(61,122,138,0.2); }
-  .review-name { color: #6a9eaa; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; }
-  .review-role { font-size: 11px; color: rgba(221,217,208,0.6); margin-top: 4px; letter-spacing: 1px; }
-  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; }
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 64px; position: relative; overflow: hidden; gap: 80px; }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
   .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
@@ -455,6 +427,45 @@
     .flow-visual { overflow-x: auto; }
     .mobile-cta .btn-primary { font-size: 10px; }
   }
+
+  /* Timeline Section */
+  #timeline { background: #07090c; padding: 120px 64px; }
+  #timeline .inner { max-width: 1200px; margin: 0 auto; }
+  #timeline .tl-eyebrow { font-size: 10px; letter-spacing: 3px; color: #3d7a8a; text-transform: uppercase; font-variant: small-caps; margin-bottom: 24px; }
+  #timeline .tl-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #ddd9d0; margin-bottom: 20px; }
+  #timeline .tl-title em { font-style: italic; color: #6a9eaa; }
+  #timeline .tl-sub { font-size: 13px; line-height: 1.9; color: rgba(221,217,208,0.6); max-width: 600px; margin-bottom: 64px; }
+  .tl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 56px; }
+  .tl-card { background: #111820; border: 1px solid rgba(61,122,138,0.2); border-top: 3px solid #3d7a8a; padding: 32px 24px; border-radius: 4px; position: relative; }
+  .tl-badge { display: inline-block; background: #3d7a8a; color: #fff; font-size: 10px; letter-spacing: 2px; padding: 6px 12px; text-transform: uppercase; margin-bottom: 20px; border-radius: 2px; }
+  .tl-icon { width: 48px; height: 48px; background: rgba(61,122,138,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; border-radius: 4px; margin-bottom: 18px; }
+  .tl-card-title { font-family: 'Cormorant Garamond', serif; color: #ddd9d0; font-size: 1rem; font-weight: 500; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .tl-card-body { color: rgba(221,217,208,0.65); font-size: 0.88rem; line-height: 1.75; }
+  .tl-cta-wrap { text-align: center; }
+  .tl-cta { display: inline-block; background: #3d7a8a; color: #fff; padding: 16px 36px; text-decoration: none; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+  .tl-cta:hover { background: #2c5d6b; }
+
+  /* Reviews Section */
+  #reviews { background: #0d1117; padding: 120px 64px; }
+  #reviews .inner { max-width: 1200px; margin: 0 auto; }
+  #reviews .rv-eyebrow { font-size: 10px; letter-spacing: 3px; color: #3d7a8a; text-transform: uppercase; font-variant: small-caps; margin-bottom: 24px; }
+  #reviews .rv-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #ddd9d0; margin-bottom: 64px; }
+  #reviews .rv-title em { font-style: italic; color: #6a9eaa; }
+  .rv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .rv-card { background: #111820; border: 1px solid rgba(61,122,138,0.2); padding: 36px 32px; border-radius: 4px; display: flex; flex-direction: column; }
+  .rv-stars { color: #c9a96e; font-size: 16px; letter-spacing: 3px; margin-bottom: 24px; }
+  .rv-quote { color: #ddd9d0; font-size: 0.9rem; line-height: 1.8; margin-bottom: 32px; flex-grow: 1; }
+  .rv-author { color: #6a9eaa; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .rv-role { color: rgba(221,217,208,0.5); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+
+  @media (max-width: 900px) {
+    #timeline, #reviews { padding: 80px 24px; }
+    .tl-grid { grid-template-columns: 1fr 1fr; }
+    .rv-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .tl-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -500,9 +511,10 @@
         <div class="card-label">Live System Feed</div>
       </div>
       <div class="hero-card-body">
-        <div id="feedContainer" class="feed-container">
-          <div id="feedInner" class="feed-inner"></div>
-        </div>
+        <div class="notification"><div class="notif-icon green">📋</div><div><div class="notif-title">New Lead — Maria Santos — Mississauga</div><div class="notif-desc">Personal Care · Needs help within 48 hours</div><div class="notif-time">just now</div></div></div>
+        <div class="notification"><div class="notif-icon teal">📊</div><div><div class="notif-title">PSW Visit Logged — Jennifer C.</div><div class="notif-desc">8hrs auto-calculated · Timesheet updated</div><div class="notif-time">2 min ago</div></div></div>
+        <div class="notification"><div class="notif-icon orange">📧</div><div><div class="notif-title">Invoice Sent — Thompson Family</div><div class="notif-desc">$1,240 · April billing · Delivered automatically</div><div class="notif-time">1 hr ago</div></div></div>
+        <div class="notification"><div class="notif-icon blue">💬</div><div><div class="notif-title">WhatsApp — Auto-replied to 3 families</div><div class="notif-desc">Questions answered · No action needed</div><div class="notif-time">3 hrs ago</div></div></div>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Leads Captured</div></div>
@@ -612,41 +624,24 @@
         <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Care Summary · Sent</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Weekly Update — Margaret T.</div><div class="mockup-notif-body">Margaret had a great week. She completed all morning routines and enjoyed her daily walk. Appetite improved. PSW Sarah notes she seemed in high spirits.</div><div class="mockup-notif-time">Auto-written & sent · Sunday 8am</div></div></div></div>
       </div>
       <div class="sys-card">
-        <div class="sys-num">06</div><div class="sys-name">Family Chatbot</div>
-        <div class="sys-desc">A warm AI chatbot on your website that guides families through their options, answers questions, and books assessments automatically. One question at a time. Never salesy. Always available.</div>
-        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Family Chatbot · Live</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "What does care cost?"</div><div class="mockup-notif-body">Bot: "Our plans start at $800/month. What level of support does your loved one need?"</div></div><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "Daily help for my mom"</div><div class="mockup-notif-body">Bot: "Let me book a free assessment for you."</div><div class="mockup-notif-time">Assessment booked · 2:34am · You were asleep</div></div></div></div>
+        <div class="sys-num">06</div><div class="sys-name">24/7 WhatsApp Automation</div>
+        <div class="sys-desc">Client questions answered automatically around the clock. Even at midnight.</div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">WhatsApp · 11:47pm</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Family: "What are your rates?"</div><div class="mockup-notif-body">Bot: "Our plans start at $800/month for 20hrs. Would you like to book a free assessment?"</div><div class="mockup-notif-time">Replied in 3 seconds · You were asleep</div></div></div></div>
       </div>
       <div class="sys-card wide">
-        <div class="sys-num">07</div><div class="sys-name">Operator Chatbot</div>
-        <div class="sys-desc">An AI chatbot on your Proximity Systems page that answers operator questions, explains the systems, and books discovery calls automatically. Works 24/7 so you never miss an interested operator.</div>
-        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Operator Chatbot · Live</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Operator: "How long does setup take?"</div><div class="mockup-notif-body">Bot: "7 days from deposit to live. Everything built and handed to you running."</div></div><div class="mockup-notif"><div class="mockup-notif-title">Operator: "What's included?"</div><div class="mockup-notif-body">Bot: "10 systems. I'll send you the full breakdown."</div><div class="mockup-notif-time">Call booked · Lance notified · 11:47pm</div></div></div></div>
+        <div class="sys-num">07</div><div class="sys-name">Automated Intake Assistant</div>
+        <div class="sys-desc">Trained on your company — services, pricing, coverage area. Qualifies leads, answers questions, and books discovery calls while you sleep. The system never stops working — even when you do.</div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Website Chatbot · Live</div></div><div class="mockup-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "Do you serve Brampton?"</div><div class="mockup-notif-body">Bot: "Yes! We cover Brampton, Mississauga, and Caledon. What level of care does your loved one need?"</div></div><div class="mockup-notif"><div class="mockup-notif-title">Bot: "Great — I've booked a free assessment for you on Wednesday at 10am."</div><div class="mockup-notif-body">Calendly booking confirmed · Lead captured · Lance notified</div><div class="mockup-notif-time">2:34am · You were asleep</div></div></div></div>
       </div>
       <div class="sys-card full addon">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
           <div>
             <div class="sys-num" style="color:var(--teal-dark)">08 · Add-on</div>
-            <div class="sys-name">Custom Website · Add-on</div>
+            <div class="sys-name">Custom Conversion Website</div>
             <div class="sys-desc">A premium, done-for-you website built specifically for your home care business — connected to your lead capture system from day one. Warm, professional, built to convert families who are searching for care at midnight.<br><br>Live within 7 days. No templates. No DIY.<br><br><em style="color:var(--teal-dark)">We built one for our own agency first. See it live: proximitycares.com</em></div>
           </div>
           <div>
             <div class="website-mockup"><div class="wm-browser"><div class="wm-dots"><div class="wm-dot r"></div><div class="wm-dot y"></div><div class="wm-dot g"></div></div><div class="wm-url">proximitycares.com</div></div><div class="wm-body"><div class="wm-nav"><div class="wm-logo">Proximity Care Services</div><div class="wm-btn">Get Started</div></div><div class="wm-hero"><div class="wm-hero-title">Care Your Family Can Actually Trust.</div><div class="wm-hero-sub">In-home senior care in Mississauga, Brampton & Caledon. Same PSW every visit. First 6 hours free.</div><div class="wm-hero-cta">Book a Free Assessment</div></div><div class="wm-cards"><div class="wm-card"><div class="wm-card-title">Dementia Care</div><div class="wm-card-body">Consistent routines, patient PSWs</div></div><div class="wm-card"><div class="wm-card-title">Daily Support</div><div class="wm-card-body">Bathing, meals, medication</div></div><div class="wm-card"><div class="wm-card-title">From $800/mo</div><div class="wm-card-body">Flexible monthly plans</div></div></div></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="sys-card full">
-        <div class="sys-num">09</div><div class="sys-name">PSW Portal</div>
-        <div class="sys-desc">PSWs install it on their phone like an app. Log visits, view schedules, submit timesheets — all from one installable portal. No paper. No calls. Everything tracked automatically.</div>
-        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">PSW Portal · Live</div></div><div class="mockup-body"><div class="mockup-row active"><div class="mockup-text">Luz P. · Visit logged · 8hrs</div><div class="mockup-pill auto">Logged</div></div><div class="mockup-row active"><div class="mockup-text">Carolina H. · Shift confirmed · 6hrs</div><div class="mockup-pill auto">Confirmed</div></div><div class="mockup-row active"><div class="mockup-text">Dorine B. · Timesheet submitted</div><div class="mockup-pill auto">Submitted</div></div><div class="mockup-row active"><div class="mockup-text">Renay W. · Hours auto-calculated</div><div class="mockup-pill auto">Auto</div></div><div class="mockup-row"><div class="mockup-text">Installable on any phone · Zero training</div><div class="mockup-pill live">Live</div></div></div></div>
-      </div>
-      <div class="sys-card full addon">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
-          <div>
-            <div class="sys-num" style="color:var(--teal-dark)">10 · Add-on</div>
-            <div class="sys-name">Client Portal · Add-on</div>
-            <div class="sys-desc">Families log into their own secure portal. Care plan, weekly summaries, documents, appointments, and direct messaging with your team. Zero phone tag. Everything in one place.</div>
-          </div>
-          <div>
-            <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Client Portal · Live</div></div><div class="mockup-body"><div class="mockup-row active"><div class="mockup-text">Patricia O. · Care plan viewed</div><div class="mockup-pill auto">Viewed</div></div><div class="mockup-row active"><div class="mockup-text">Weekly summary · Apr 7 · Read</div><div class="mockup-pill auto">Read</div></div><div class="mockup-row active"><div class="mockup-text">Documents · 7 files · Downloaded</div><div class="mockup-pill auto">Downloaded</div></div><div class="mockup-row active"><div class="mockup-text">Next appointment · Apr 18 · Confirmed</div><div class="mockup-pill auto">Confirmed</div></div><div class="mockup-row"><div class="mockup-text">Messages · 1 unread · From your team</div><div class="mockup-pill live">Live</div></div></div></div>
           </div>
         </div>
       </div>
@@ -694,12 +689,12 @@
         <div class="offer-stack">
           <div class="offer-card">
             <div class="offer-head">
-              <div><div class="offer-name">Automation Only</div><div class="offer-tagline">10 systems built, installed, handed to you running.</div></div>
+              <div><div class="offer-name">Automation Only</div><div class="offer-tagline">7 systems built, installed, handed to you running.</div></div>
               <div class="offer-price"><div class="offer-price-num">$2,000–$2,500</div><div class="offer-price-retainer">setup · $500/mo retainer</div></div>
             </div>
             <div class="offer-body">
               <div class="offer-items">
-                <div class="offer-item">PSW timesheets</div><div class="offer-item">Auto billing</div><div class="offer-item">Lead notifications</div><div class="offer-item">Invoice automation</div><div class="offer-item">Care summaries</div><div class="offer-item">Family chatbot</div><div class="offer-item">Operator chatbot</div><div class="offer-item">Custom Website</div><div class="offer-item">PSW Portal</div><div class="offer-item">Client Portal</div>
+                <div class="offer-item">PSW timesheets</div><div class="offer-item">Auto billing</div><div class="offer-item">Lead notifications</div><div class="offer-item">Invoice automation</div><div class="offer-item">WhatsApp bot</div><div class="offer-item">AI chatbot</div><div class="offer-item">Care summaries</div>
               </div>
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta outline">Book a Call →</a>
             </div>
@@ -735,62 +730,65 @@
   </div>
 </div>
 
-<div id="timeline" class="section-wrap">
+<div id="timeline">
   <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">After You Sign Up</div></div>
-    <h2 class="s-title light reveal">Live in 7 days. <em>Running forever.</em></h2>
-    <p class="sec-sub-text reveal" style="font-size:13px;color:rgba(221,217,208,0.6);max-width:640px;margin-top:16px;line-height:1.8;">Here's exactly what happens from the moment you book a call to the day your agency runs itself.</p>
-    <div class="timeline-wrap reveal">
-      <div class="timeline-card">
-        <div class="timeline-badge">Day 1</div>
-        <div class="timeline-icon">📞</div>
-        <div class="timeline-title">Discovery Call</div>
-        <div class="timeline-body">We walk through your agency — your PSWs, clients, rates, and workflow. You tell us how you run. We map out exactly what gets built.</div>
+    <div class="tl-eyebrow reveal">The Process</div>
+    <h2 class="tl-title reveal">From Call to Live<br>in <em>7 Days.</em></h2>
+    <p class="tl-sub reveal">No drawn-out timelines. No endless revisions. We build fast because we've built this system for our own agency — we know exactly what works.</p>
+    <div class="tl-grid">
+      <div class="tl-card reveal">
+        <div class="tl-badge">Day 1</div>
+        <div class="tl-icon">📞</div>
+        <div class="tl-card-title">Discovery Call</div>
+        <div class="tl-card-body">We walk through your agency — PSWs, clients, rates, workflow. You tell us how you run. We map exactly what gets built.</div>
       </div>
-      <div class="timeline-card">
-        <div class="timeline-badge">Day 2–3</div>
-        <div class="timeline-icon">⚙️</div>
-        <div class="timeline-title">We Build</div>
-        <div class="timeline-body">All 10 systems built from scratch for your agency. Your branding, your PSW names, your clients. Nothing generic. Everything customized.</div>
+      <div class="tl-card reveal reveal-delay-2">
+        <div class="tl-badge">Day 2-3</div>
+        <div class="tl-icon">⚙️</div>
+        <div class="tl-card-title">We Build</div>
+        <div class="tl-card-body">All 10 systems built from scratch. Your branding, your PSW names, your clients. Nothing generic. Everything customized.</div>
       </div>
-      <div class="timeline-card">
-        <div class="timeline-badge">Day 5–6</div>
-        <div class="timeline-icon">👀</div>
-        <div class="timeline-title">You Review</div>
-        <div class="timeline-body">We hand you the full system to test. PSW portal, lead capture, chatbot, invoices. You approve everything before it goes live.</div>
+      <div class="tl-card reveal">
+        <div class="tl-badge">Day 5-6</div>
+        <div class="tl-icon">👀</div>
+        <div class="tl-card-title">You Review</div>
+        <div class="tl-card-body">We hand you the full system to test. PSW portal, lead capture, chatbot, invoices. You approve everything before it goes live.</div>
       </div>
-      <div class="timeline-card">
-        <div class="timeline-badge">Day 7</div>
-        <div class="timeline-icon">🚀</div>
-        <div class="timeline-title">You're Live</div>
-        <div class="timeline-body">Everything goes live. First lead comes in automatically. First PSW logs a visit from their phone. Your agency runs itself.</div>
+      <div class="tl-card reveal reveal-delay-2">
+        <div class="tl-badge">Day 7</div>
+        <div class="tl-icon">🚀</div>
+        <div class="tl-card-title">You're Live</div>
+        <div class="tl-card-body">Everything goes live. First lead comes in automatically. First PSW logs a visit. Your agency runs itself.</div>
       </div>
     </div>
-    <div class="timeline-cta-wrap reveal">
-      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="timeline-cta">Book Your Discovery Call →</a>
+    <div class="tl-cta-wrap reveal">
+      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="tl-cta">Book Your Discovery Call →</a>
     </div>
   </div>
 </div>
 
-<div id="testimonials" class="section-wrap">
+<div id="reviews">
   <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Real Operators</div></div>
-    <h2 class="s-title light reveal">What families say about <em>Proximity Care.</em></h2>
-    <div class="reviews-grid reveal">
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"Proximity Care has been a life saver. Meeting with Lance, he made my mom comfortable. He is dependable and goes above and beyond. He understands my needs and tailors it accordingly. When other agencies fall through, his PSWs are there. He has relieved my stress completely."</div>
-        <div class="review-author"><div class="review-name">Jennifer Nguyen</div><div class="review-role">Verified Client · Dementia Care · Mississauga</div></div>
+    <div class="rv-eyebrow reveal">Verified Clients</div>
+    <h2 class="rv-title reveal">Real Families. Real <em>Results.</em></h2>
+    <div class="rv-grid">
+      <div class="rv-card reveal">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-quote">"Proximity Care has been a life saver. Meeting with Lance, he made my mom comfortable. He is dependable and goes above and beyond. When other agencies fall through, his PSWs are there. He has relieved my stress completely."</div>
+        <div class="rv-author">Jennifer Nguyen</div>
+        <div class="rv-role">Dementia Care · Mississauga</div>
       </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"Lance has been a great help for my dad. He goes out of his way to help on what he needs. When my dad was in the hospital, he was the only PSW who stayed in touch. Always on time. A true professional."</div>
-        <div class="review-author"><div class="review-name">Harbinger Bhangu</div><div class="review-role">Verified Client · Brampton</div></div>
+      <div class="rv-card reveal reveal-delay-2">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-quote">"Lance has been a great help for my dad. He goes out of his way to help. When my dad was in the hospital, he was the only PSW who stayed in touch. Always on time. A true professional."</div>
+        <div class="rv-author">Harbinger Bhangu</div>
+        <div class="rv-role">Brampton</div>
       </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"Helpful PSWs at a reasonable price. Our experience was a good one for my dad. The consistency of having the same person every visit made a real difference to his comfort and routine."</div>
-        <div class="review-author"><div class="review-name">Rick Vardzel</div><div class="review-role">Verified Client · Mississauga</div></div>
+      <div class="rv-card reveal">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-quote">"Helpful PSWs at a reasonable price. The consistency of having the same person every visit made a real difference to his comfort and routine."</div>
+        <div class="rv-author">Rick Vardzel</div>
+        <div class="rv-role">Mississauga</div>
       </div>
     </div>
   </div>
@@ -913,56 +911,6 @@
   function closeMenu(){
     burger.classList.remove('open');
     mobileMenu.classList.remove('open');
-  }
-
-  const feedData = [
-    {icon:'📋',cls:'teal',title:'PSW Visit Log — System 01',text:'Luz P. logged 8hrs · Rosario M. · Hours auto-calculated',time:'just now'},
-    {icon:'💰',cls:'green',title:'Invoice Generator — System 02',text:'Invoice sent · Thompson Family · $1,720 · April billing',time:'2 min ago'},
-    {icon:'🔔',cls:'teal',title:'Lead Capture — System 03',text:'New lead · Sandra M. · Mississauga · Standard Care',time:'5 min ago'},
-    {icon:'📧',cls:'blue',title:'Family Comms Engine — System 04',text:'Day 3 follow-up sent · Chen Family · Auto-delivered',time:'12 min ago'},
-    {icon:'🤖',cls:'teal',title:'Operator Chatbot — System 05',text:'Discovery call booked · New operator · Thursday 2pm',time:'18 min ago'},
-    {icon:'💬',cls:'blue',title:'Family Chatbot — System 06',text:'Assessment booked · Nguyen Family · Wednesday 10am',time:'24 min ago'},
-    {icon:'📝',cls:'teal',title:'Family Lead Form — System 07',text:'New intake · Robert K. · Brampton · Dementia care',time:'31 min ago'},
-    {icon:'📄',cls:'green',title:'Care Summaries — System 08',text:'Weekly summary sent · Margaret T. · Auto-written by AI',time:'1 hr ago'},
-    {icon:'📱',cls:'blue',title:'PSW Portal — System 09',text:'Luz P. logged visit · 8hrs · Hours auto-calculated',time:'2 hrs ago'},
-    {icon:'🔐',cls:'teal',title:'Client Portal — System 10',text:'Patricia O. logged in · Care plan viewed · Docs downloaded',time:'3 hrs ago'},
-  ];
-  let currentIndex = 0;
-  let autoScrollInterval;
-  let isHovered = false;
-  function buildFeed(){
-    const inner = document.getElementById('feedInner');
-    if(!inner) return;
-    inner.innerHTML = '';
-    feedData.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'feed-card';
-      card.innerHTML = `<div class="feed-icon ${item.cls}">${item.icon}</div><div style="flex:1"><div class="feed-title">${item.title}</div><div class="feed-text">${item.text}</div></div><div class="feed-time">${item.time}</div>`;
-      inner.appendChild(card);
-    });
-  }
-  function scrollFeed(){
-    if(isHovered) return;
-    currentIndex++;
-    if(currentIndex > feedData.length - 3) currentIndex = 0;
-    const cardHeight = 110;
-    document.getElementById('feedInner').style.transform = `translateY(-${currentIndex * cardHeight}px)`;
-  }
-  function startAutoScroll(){ autoScrollInterval = setInterval(scrollFeed, 3000); }
-  function stopAutoScroll(){ clearInterval(autoScrollInterval); }
-  const feedContainerEl = document.getElementById('feedContainer');
-  if(feedContainerEl){
-    feedContainerEl.addEventListener('mouseenter', () => { isHovered = true; stopAutoScroll(); });
-    feedContainerEl.addEventListener('mouseleave', () => { isHovered = false; setTimeout(startAutoScroll, 2000); });
-    feedContainerEl.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      const cardHeight = 110;
-      if(e.deltaY > 0){ currentIndex = Math.min(currentIndex + 1, feedData.length - 3); }
-      else { currentIndex = Math.max(currentIndex - 1, 0); }
-      document.getElementById('feedInner').style.transform = `translateY(-${currentIndex * cardHeight}px)`;
-    }, {passive: false});
-    buildFeed();
-    startAutoScroll();
   }
 </script>
 </body>
