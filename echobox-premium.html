@@ -1034,7 +1034,22 @@ async function getBotReply(){
     setTimeout(()=>{
       renderMsg('assistant',reply);
       if(doBooking){openBookingWidget();}
-      else{setChips(['Tell me more','What does it cost?','Book a call','How do agencies sign up?']);}
+      else{
+        const lower=reply.toLowerCase();
+        let chips=['Tell me more','What does it cost?','Book a call','How do agencies sign up?'];
+        if(lower.includes('family')||lower.includes('loved one')){
+          chips=['It\'s for my parent','It\'s for my spouse','How do I get started?','What does it cost?'];
+        } else if(lower.includes('caregiver')||lower.includes('team')||lower.includes('caregivers')){
+          chips=['We have 5-10 caregivers','We have 10-20 caregivers','How does it work?','What does it cost?'];
+        } else if(lower.includes('cost')||lower.includes('price')||lower.includes('$30')){
+          chips=['That works for us','Tell me more','Book a call','How do agencies sign up?'];
+        } else if(lower.includes('book')||lower.includes('call')||lower.includes('walk you through')){
+          chips=['Yes, book me in','Not yet — tell me more','What does it cost?','How does it work?'];
+        } else if(lower.includes('download')||lower.includes('app')||lower.includes('ios')||lower.includes('android')){
+          chips=['I\'m on iOS','I\'m on Android','What does it cost?','Tell me more'];
+        }
+        setChips(chips);
+      }
     },1500);
   }catch(e){
     setTimeout(()=>{
