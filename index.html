@@ -946,7 +946,7 @@
   let feedIndex=0;
   let feedPaused=false;
   let feedTimer;
-  const CARD_H=118;
+  window.CARD_H=118;
 
   function buildFeedCards(){
     const inner=document.getElementById('feedInner');
@@ -958,13 +958,22 @@
       card.innerHTML=`<div style="width:36px;height:36px;border-radius:7px;background:rgba(61,122,138,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">${item.svg}</div><div style="flex:1;min-width:0;"><div style="font-size:.75rem;font-weight:600;color:#6a9eaa;margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.title}</div><div style="font-size:.72rem;color:rgba(221,217,208,0.65);line-height:1.45;">${item.text}</div></div><div style="font-size:.62rem;color:rgba(221,217,208,0.35);white-space:nowrap;flex-shrink:0;font-family:monospace;">${item.time}</div>`;
       inner.appendChild(card);
     });
+    // Measure real card height after render
+    setTimeout(()=>{
+      const firstCard = document.querySelector('#feedInner > div');
+      if(firstCard){
+        const style = window.getComputedStyle(firstCard);
+        const marginBottom = parseFloat(style.marginBottom)||0;
+        window.CARD_H = firstCard.offsetHeight + marginBottom + 11;
+      }
+    }, 100);
   }
 
   function scrollFeed(){
     if(feedPaused)return;
     feedIndex++;
     if(feedIndex > feedData.length - 4) feedIndex = 0;
-    document.getElementById('feedInner').style.transform=`translateY(-${feedIndex*CARD_H}px)`;
+    document.getElementById('feedInner').style.transform=`translateY(-${feedIndex*window.CARD_H}px)`;
   }
 
   function startFeed(){
@@ -979,7 +988,7 @@
       e.preventDefault();
       if(e.deltaY>0){feedIndex=Math.min(feedIndex+1,feedData.length-3);}
       else{feedIndex=Math.max(feedIndex-1,0);}
-      document.getElementById('feedInner').style.transform=`translateY(-${feedIndex*CARD_H}px)`;
+      document.getElementById('feedInner').style.transform=`translateY(-${feedIndex*window.CARD_H}px)`;
     },{passive:false});
     buildFeedCards();
     startFeed();
