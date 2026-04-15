@@ -38,6 +38,23 @@
   .feed-text { font-size: 11px; color: rgba(221,217,208,0.7); line-height: 1.5; }
   .feed-time { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 1px; white-space: nowrap; margin-left: 8px; }
   #feedWrap { max-height: 520px; overflow: hidden; }
+  .faq-wrap { max-width: 820px; margin: 48px auto 0; }
+  .faq-item { background: var(--dark2); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s; }
+  .faq-item.open { border-color: rgba(106,158,170,0.4); }
+  .faq-q { padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 15px; color: rgba(255,255,255,0.92); font-weight: 500; gap: 16px; }
+  .faq-arrow { font-size: 12px; color: var(--teal); transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--teal-light); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 320px; }
+  .faq-a-inner { padding: 0 28px 24px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+  .review-card { background: var(--dark2); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 32px 28px; display: flex; flex-direction: column; gap: 16px; }
+  .review-stars { color: #f0c040; font-size: 16px; letter-spacing: 2px; }
+  .review-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; line-height: 1.55; color: rgba(255,255,255,0.85); font-weight: 300; }
+  .review-author { margin-top: auto; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .review-name { color: var(--teal); font-size: 13px; font-weight: 500; letter-spacing: 0.5px; }
+  .review-role { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 4px; letter-spacing: 1px; }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
   .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
@@ -589,13 +606,13 @@
       </div>
       <div class="sys-card">
         <div class="sys-num">06</div><div class="sys-name">Family Chatbot</div>
-        <div class="sys-desc">A warm AI chatbot on your website that guides families through their options, answers questions about care, and books assessments automatically. One question at a time. Never salesy. Always available.</div>
-        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Family Chatbot · Live</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "What does care cost?"</div><div class="mockup-notif-body">Bot: "Our plans start at $800/month for 20hrs/week. What level of support does your loved one need?"</div></div><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "Daily help for my mom"</div><div class="mockup-notif-body">Bot: "I can help with that — want me to book a free assessment with Lance?"</div><div class="mockup-notif-time">Assessment booked · 2:34am · You were asleep</div></div></div></div>
+        <div class="sys-desc">A warm AI chatbot on your website that guides families through their options, answers questions, and books assessments automatically. One question at a time. Never salesy. Always available.</div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Family Chatbot · Live</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "What does care cost?"</div><div class="mockup-notif-body">Bot: "Our plans start at $800/month. What level of support does your loved one need?"</div></div><div class="mockup-notif"><div class="mockup-notif-title">Visitor: "Daily help for my mom"</div><div class="mockup-notif-body">Bot: "Let me book a free assessment for you."</div><div class="mockup-notif-time">Assessment booked · 2:34am · You were asleep</div></div></div></div>
       </div>
       <div class="sys-card wide">
-        <div class="sys-num">07</div><div class="sys-name">Family Lead Form</div>
-        <div class="sys-desc">A dedicated intake form that captures full family details, care needs, city, and urgency. Fires to Google Sheets and Gmail instantly. Every lead documented automatically.</div>
-        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">New Lead · Captured</div></div><div class="mockup-body"><div class="mockup-row active"><div class="mockup-text">Name: Sandra Mitchell</div><div class="mockup-pill auto">Captured</div></div><div class="mockup-row active"><div class="mockup-text">Phone: 647-291-4832</div><div class="mockup-pill auto">Captured</div></div><div class="mockup-row active"><div class="mockup-text">City: Mississauga</div><div class="mockup-pill auto">Captured</div></div><div class="mockup-row active"><div class="mockup-text">Care Type: Standard Care</div><div class="mockup-pill auto">Captured</div></div><div class="mockup-row active"><div class="mockup-text">Urgency: Within 48hrs</div><div class="mockup-pill auto">Captured</div></div><div class="mockup-row"><div class="mockup-text">Logged to Sheets · Gmail sent · Lance notified</div><div class="mockup-pill live">Live</div></div></div></div>
+        <div class="sys-num">07</div><div class="sys-name">Operator Chatbot</div>
+        <div class="sys-desc">An AI chatbot on your Proximity Systems page that answers operator questions, explains the systems, and books discovery calls automatically. Works 24/7 so you never miss an interested operator.</div>
+        <div class="mockup-window"><div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-title-label">Operator Chatbot · Live</div></div><div class="mockup-body"><div class="mockup-notif"><div class="mockup-notif-title">Operator: "How long does setup take?"</div><div class="mockup-notif-body">Bot: "7 days from deposit to live. Everything built and handed to you running."</div></div><div class="mockup-notif"><div class="mockup-notif-title">Operator: "What's included?"</div><div class="mockup-notif-body">Bot: "10 systems. I'll send you the full breakdown."</div><div class="mockup-notif-time">Call booked · Lance notified · 11:47pm</div></div></div></div>
       </div>
       <div class="sys-card full addon">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
@@ -675,7 +692,7 @@
             </div>
             <div class="offer-body">
               <div class="offer-items">
-                <div class="offer-item">PSW timesheets</div><div class="offer-item">Auto billing</div><div class="offer-item">Lead notifications</div><div class="offer-item">Invoice automation</div><div class="offer-item">Care summaries</div><div class="offer-item">WhatsApp bot</div><div class="offer-item">AI chatbot</div><div class="offer-item">Custom Website</div><div class="offer-item">PSW Portal</div><div class="offer-item">Client Portal</div>
+                <div class="offer-item">PSW timesheets</div><div class="offer-item">Auto billing</div><div class="offer-item">Lead notifications</div><div class="offer-item">Invoice automation</div><div class="offer-item">Care summaries</div><div class="offer-item">Family chatbot</div><div class="offer-item">Operator chatbot</div><div class="offer-item">Custom Website</div><div class="offer-item">PSW Portal</div><div class="offer-item">Client Portal</div>
               </div>
               <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="offer-cta outline">Book a Call →</a>
             </div>
@@ -706,6 +723,45 @@
           </div>
         </div>
         <div class="offer-note">Most operators recover the full setup cost within <strong style="color:rgba(255,255,255,0.4)">60 days</strong> from admin hours saved alone.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="faq" class="section-wrap">
+  <div class="inner">
+    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Common Questions</div></div>
+    <h2 class="s-title light reveal">Everything you need to know <em>before you book.</em></h2>
+    <div class="faq-wrap reveal">
+      <div class="faq-item"><div class="faq-q">How long does setup take?<span class="faq-arrow">▾</span></div><div class="faq-a"><div class="faq-a-inner">7 days from deposit to live. We build everything, wire it to your agency, and hand it back running. You don't touch a line of code.</div></div></div>
+      <div class="faq-item"><div class="faq-q">Do my PSWs need to be tech savvy?<span class="faq-arrow">▾</span></div><div class="faq-a"><div class="faq-a-inner">No. The PSW portal is installable on any phone like an app. If they can send a WhatsApp message they can use the portal. We also provide a one-page guide.</div></div></div>
+      <div class="faq-item"><div class="faq-q">Is everything customized for my agency?<span class="faq-arrow">▾</span></div><div class="faq-a"><div class="faq-a-inner">Everything. Your agency name, your PSW names, your clients, your rates, your branding. Nothing is generic. Built specifically for your operation.</div></div></div>
+      <div class="faq-item"><div class="faq-q">What does the $500/month cover?<span class="faq-arrow">▾</span></div><div class="faq-a"><div class="faq-a-inner">Everything running. Hosting, maintenance, updates, AI costs, and direct access to Lance. If something breaks we fix it. If you need a change we make it.</div></div></div>
+      <div class="faq-item"><div class="faq-q">Do I need to sign a long contract?<span class="faq-arrow">▾</span></div><div class="faq-a"><div class="faq-a-inner">No contracts. Month to month after setup. If it's not working for you, you can cancel. We're confident enough in the system that we don't need to lock you in.</div></div></div>
+      <div class="faq-item"><div class="faq-q">Can I see it working on a real agency first?<span class="faq-arrow">▾</span></div><div class="faq-a"><div class="faq-a-inner">Yes — proximitycares.ca is our own agency running all 10 systems live. Every system you see in the demo is running on real clients and real PSWs right now.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="reviews" class="section-wrap">
+  <div class="inner">
+    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Real Operators</div></div>
+    <h2 class="s-title light reveal">What families say about <em>Proximity Care.</em></h2>
+    <div class="reviews-grid reveal">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Proximity Care has been a life saver. Meeting with Lance, he made my mom comfortable. He is dependable and goes above and beyond. He understands my needs and tailors it accordingly. When other agencies fall through, his PSWs are there. He has relieved my stress completely."</div>
+        <div class="review-author"><div class="review-name">Jennifer Nguyen</div><div class="review-role">Verified Client · Dementia Care · Mississauga</div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Lance has been a great help for my dad. He goes out of his way to help on what he needs. When my dad was in the hospital, he was the only PSW who stayed in touch. Always on time. A true professional."</div>
+        <div class="review-author"><div class="review-name">Harbinger Bhangu</div><div class="review-role">Verified Client · Brampton</div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Helpful PSWs at a reasonable price. Our experience was a good one for my dad. The consistency of having the same person every visit made a real difference to his comfort and routine."</div>
+        <div class="review-author"><div class="review-name">Rick Vardzel</div><div class="review-role">Verified Client · Mississauga</div></div>
       </div>
     </div>
   </div>
@@ -836,12 +892,21 @@
     {icon:'🔔',cls:'teal',title:'Lead Capture — System 03',text:'New lead · Sandra M. · Mississauga · Standard Care · Starts ASAP',time:'5 min ago'},
     {icon:'📧',cls:'blue',title:'Family Comms Engine — System 04',text:'Day 3 follow-up sent · Chen Family · Auto-delivered',time:'12 min ago'},
     {icon:'🤖',cls:'teal',title:'Operator Chatbot — System 05',text:'Discovery call booked · New operator · Thursday 2pm',time:'18 min ago'},
-    {icon:'💬',cls:'blue',title:'Family Chatbot — System 06',text:'Assessment booked · Nguyen Family · Wednesday 10am',time:'24 min ago'},
-    {icon:'📝',cls:'teal',title:'Family Lead Form — System 07',text:'New intake · Robert K. · Brampton · Dementia care · Logged',time:'31 min ago'},
+    {icon:'💬',cls:'blue',title:'Family Chatbot — Assessment booked',text:'Nguyen Family · Wednesday 10am · Lance notified',time:'3 hrs ago'},
+    {icon:'🤖',cls:'teal',title:'Operator Chatbot — System 07',text:'Discovery call booked · New operator · 11:47pm',time:'31 min ago'},
     {icon:'📄',cls:'green',title:'Care Summaries — System 08',text:'Weekly summary sent · Margaret T. · Auto-written by AI · Sunday 8am',time:'1 hr ago'},
     {icon:'🌐',cls:'blue',title:'Website — System 09',text:'New visitor · Brampton · Chatbot engaged · Lead form submitted',time:'2 hrs ago'},
     {icon:'🔐',cls:'teal',title:'Client Portal — System 10',text:'Patricia O. logged in · Care plan viewed · Documents downloaded',time:'3 hrs ago'},
   ];
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item=q.parentElement;
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen)item.classList.add('open');
+    });
+  });
+
   const feedWrap = document.getElementById('feedWrap');
   if(feedWrap){
     feedItems.forEach((item,i)=>{
