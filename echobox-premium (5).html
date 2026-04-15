@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Echobox Memory Vault | Where Life Resonates</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #0a1628;
+  --sky2: #0d1f3c;
+  --sky3: #112548;
+  --sky4: #162d54;
+  --blue: #4a8fe8;
+  --blue2: #6aaaf0;
+  --blue3: #8dc4f8;
+  --teal: #2ab5a0;
+  --teal2: #3dd4bc;
+  --warm: #f5f0e8;
+  --warm2: #ede6d6;
+  --gold: #e8c47a;
+  --gold2: #f0d898;
+  --muted: #6a7a9a;
+  --white: #ffffff;
+  --border: rgba(74,143,232,0.15);
+  --border2: rgba(74,143,232,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--sky); color: var(--warm); overflow-x: hidden; cursor: none; line-height: 1.7; }
+
+/* CURSOR */
+.cur { position: fixed; width: 8px; height: 8px; background: var(--teal); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform .08s; }
+.cur-ring { position: fixed; width: 32px; height: 32px; border: 1.5px solid rgba(42,181,160,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all .2s ease; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 5rem;
+  background: rgba(10,22,40,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--warm); font-weight: 400; text-decoration: none; }
+.nav-logo em { color: var(--teal2); font-style: italic; }
+.nav-links { display: flex; gap: 2.4rem; list-style: none; }
+.nav-links a { font-size: .82rem; font-weight: 400; letter-spacing: .06em; color: rgba(245,240,232,.55); text-decoration: none; transition: color .3s; }
+.nav-links a:hover { color: var(--teal2); }
+.nav-cta { background: var(--teal); color: var(--sky); padding: .6rem 1.6rem; border-radius: 4px; font-size: .82rem; font-weight: 600; text-decoration: none; transition: all .3s; letter-spacing: .04em; }
+.nav-cta:hover { background: var(--teal2); transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr;
+  align-items: center; padding: 9rem 5rem 5rem;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--sky) 0%, var(--sky2) 60%, #0a1e3a 100%);
+}
+#heroCanvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.35; }
+.hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.blob-a { width: 500px; height: 500px; background: rgba(42,181,160,.08); top: -100px; right: -80px; }
+.blob-b { width: 350px; height: 350px; background: rgba(74,143,232,.06); bottom: -50px; left: 20%; }
+.hero-left { position: relative; z-index: 2; padding-right: 3rem; opacity: 0; animation: fadeUp .9s ease .1s forwards; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: rgba(42,181,160,.1); border: 1px solid rgba(42,181,160,.3);
+  padding: .4rem 1.1rem; border-radius: 3px; margin-bottom: 2rem;
+}
+.pulse-dot { width: 7px; height: 7px; background: var(--teal); border-radius: 50%; animation: pdot 2.5s ease-in-out infinite; }
+@keyframes pdot { 0%,100%{box-shadow:0 0 0 0 rgba(42,181,160,.5);}50%{box-shadow:0 0 0 7px rgba(42,181,160,0);} }
+.eyebrow-text { font-size: .72rem; color: var(--teal2); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; font-family: 'DM Mono', monospace; }
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1.06;
+  color: var(--warm); margin-bottom: 1.6rem;
+}
+.hero-title em { color: var(--teal2); font-style: italic; font-weight: 400; }
+.hero-title .sub { display: block; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; font-style: italic; color: rgba(245,240,232,.45); margin-top: .4rem; }
+
+.hero-desc { font-size: 1rem; font-weight: 300; line-height: 1.85; color: rgba(245,240,232,.68); max-width: 500px; margin-bottom: 2.4rem; }
+.hero-desc strong { color: var(--teal2); font-weight: 500; }
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.8rem; }
+.btn-primary { background: var(--teal); color: var(--sky); padding: .85rem 2.2rem; font-size: .88rem; font-weight: 600; letter-spacing: .06em; border: none; cursor: none; transition: all .3s; text-decoration: none; display: inline-block; border-radius: 4px; }
+.btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,181,160,.3); }
+.btn-ghost { background: transparent; color: var(--warm); padding: .85rem 2.2rem; font-size: .88rem; letter-spacing: .06em; border: 1px solid rgba(245,240,232,.25); cursor: none; transition: all .3s; text-decoration: none; display: inline-block; border-radius: 4px; }
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal2); }
+
+.media-badges { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.media-label { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; margin-right: .4rem; }
+.media-badge { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 4px; padding: .35rem .9rem; font-size: .72rem; font-weight: 600; color: rgba(245,240,232,.7); letter-spacing: .06em; }
+.media-badge.funded { background: rgba(232,196,122,.08); border-color: rgba(232,196,122,.2); color: var(--gold2); }
+
+/* HERO RIGHT — 3D CARD */
+.hero-right { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; opacity: 0; animation: fadeUp .9s ease .3s forwards; }
+.card-scene { width: 380px; height: 540px; perspective: 1000px; position: relative; }
+.card-3d {
+  width: 100%; height: 100%;
+  background: linear-gradient(145deg, var(--sky3), #0d1e38);
+  border: 1px solid var(--border2); border-radius: 16px; padding: 2.4rem 2rem;
+  position: relative; transition: transform .1s ease-out;
+  box-shadow: 0 40px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(74,143,232,.06), inset 0 1px 0 rgba(255,255,255,.04);
+  display: flex; flex-direction: column; gap: 1.3rem; overflow: hidden;
+}
+.card-3d::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(42,181,160,.06) 0%,transparent 50%); border-radius:16px; pointer-events:none; }
+
+.card-header { display: flex; align-items: center; gap: 1rem; }
+.card-avatar { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), #1a8a78); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: white; font-weight: 600; border: 2px solid rgba(42,181,160,.4); flex-shrink: 0; }
+.card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--warm); font-weight: 600; }
+.card-role { font-size: .72rem; color: var(--teal2); margin-top: .1rem; font-family: 'DM Mono', monospace; }
+
+.divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(74,143,232,.25), transparent); }
+
+.card-story { background: rgba(42,181,160,.06); border: 1px solid rgba(42,181,160,.12); border-radius: 8px; padding: .9rem 1rem; }
+.story-label { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: .5rem; font-family: 'DM Mono', monospace; }
+.story-text { font-family: 'Cormorant Garamond', serif; font-size: .92rem; font-style: italic; color: rgba(245,240,232,.75); line-height: 1.6; }
+
+.card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.cs-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--teal2); line-height: 1; }
+.cs-lbl { font-size: .62rem; color: var(--muted); letter-spacing: .06em; margin-top: .15rem; font-family: 'DM Mono', monospace; }
+
+.card-topics { display: flex; flex-direction: column; gap: .45rem; }
+.topic-row { display: flex; align-items: center; gap: .65rem; padding: .45rem .7rem; background: rgba(74,143,232,.06); border: 1px solid rgba(74,143,232,.1); border-radius: 5px; }
+.topic-ico { width: 24px; height: 24px; border-radius: 4px; background: rgba(42,181,160,.14); display: flex; align-items: center; justify-content: center; font-size: .75rem; flex-shrink: 0; }
+.topic-n { font-size: .72rem; color: var(--warm); }
+.topic-t { margin-left: auto; font-size: .6rem; background: rgba(42,181,160,.1); color: var(--teal2); padding: .1rem .4rem; border-radius: 6px; font-family: 'DM Mono', monospace; }
+
+.card-foot { background: rgba(232,196,122,.07); border: 1px solid rgba(232,196,122,.15); border-radius: 6px; padding: .6rem .85rem; display: flex; align-items: center; gap: .55rem; }
+.foot-dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; }
+.foot-txt { font-size: .7rem; color: var(--gold2); font-family: 'DM Mono', monospace; }
+
+/* FLOATING BADGES */
+.bf { position: absolute; background: var(--sky3); border: 1px solid var(--border2); border-radius: 8px; padding: .5rem .9rem; display: flex; align-items: center; gap: .5rem; box-shadow: 0 8px 24px rgba(0,0,0,.4); font-size: .7rem; color: var(--warm); font-weight: 500; white-space: nowrap; z-index: 20; }
+.bf .bd { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.bf1 { top: -18px; right: 20px; animation: f1 4s ease-in-out infinite; }
+.bf2 { bottom: 80px; left: -50px; animation: f2 5s ease-in-out infinite; }
+.bf3 { top: 120px; right: -55px; animation: f3 4.5s ease-in-out infinite; }
+@keyframes f1 { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
+@keyframes f2 { 0%,100%{transform:translateY(0);}50%{transform:translateY(7px);} }
+@keyframes f3 { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
+
+/* TICKER */
+.ticker-wrap { background: var(--teal); overflow: hidden; padding: .75rem 0; }
+.ticker-inner { display: flex; animation: tick 32s linear infinite; width: max-content; }
+.ticker-inner span { font-size: .74rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--sky); padding: 0 2.5rem; white-space: nowrap; font-family: 'DM Mono', monospace; }
+.ticker-inner span::before { content: "♥  "; }
+@keyframes tick { from{transform:translateX(0);}to{transform:translateX(-50%);} }
+
+/* STATS BAR */
+.stats-bar { background: var(--sky2); border-bottom: 1px solid var(--border); padding: 4rem 5rem; display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
+.stat-item { text-align: center; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 400; color: var(--teal2); line-height: 1; }
+.stat-label { font-size: .74rem; color: var(--muted); letter-spacing: .08em; margin-top: .4rem; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+
+/* HOW IT WORKS */
+.how { padding: 8rem 5rem; background: var(--sky); }
+.sec-label { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: .7rem; font-family: 'DM Mono', monospace; }
+.sec-label::before { content:''; display:block; width:28px; height:1px; background:var(--teal); }
+.sec-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.15; color: var(--warm); margin-bottom: 1.4rem; }
+.sec-heading em { color: var(--teal2); font-style: italic; }
+.sec-sub { font-size: .95rem; color: rgba(245,240,232,.6); max-width: 520px; line-height: 1.8; margin-bottom: 4rem; }
+
+.steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3rem; }
+.step-card { background: var(--sky3); border: 1px solid var(--border); border-radius: 10px; padding: 2.2rem 1.8rem; position: relative; overflow: hidden; transition: transform .3s, border-color .3s, box-shadow .3s; cursor: none; }
+.step-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(42,181,160,.07) 0%,transparent 60%); opacity:0; transition:opacity .3s; border-radius:10px; }
+.step-card:hover { transform: translateY(-5px); border-color: var(--border2); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
+.step-card:hover::before { opacity:1; }
+.step-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 400; color: rgba(42,181,160,.12); line-height: 1; margin-bottom: .8rem; }
+.step-icon { width: 50px; height: 50px; border-radius: 10px; background: rgba(42,181,160,.1); border: 1px solid rgba(42,181,160,.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; }
+.step-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--warm); margin-bottom: .6rem; }
+.step-desc { font-size: .83rem; color: rgba(245,240,232,.58); line-height: 1.75; }
+
+/* WHAT IS ECHOBOX */
+.what { padding: 8rem 5rem; background: var(--sky2); border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.what::before { content:''; position:absolute; } 
+.body-text { font-size: .96rem; line-height: 1.9; color: rgba(245,240,232,.7); margin-bottom: 1.3rem; }
+.body-text strong { color: var(--warm); }
+.pull-quote { border-left: 3px solid var(--teal); padding: 1rem 1.5rem; background: rgba(42,181,160,.07); border-radius: 0 6px 6px 0; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--teal2); line-height: 1.65; margin: 1.8rem 0; }
+
+/* DEVICE MOCKUP */
+.device-wrap { position: relative; display: flex; justify-content: center; align-items: center; }
+.phone { width: 260px; height: 520px; background: var(--sky3); border-radius: 38px; border: 2px solid var(--border2); padding: 2.8rem 1.2rem 1.5rem; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04); transition: transform .1s ease-out; }
+.phone-notch { position:absolute; top:12px; left:50%; transform:translateX(-50%); width:70px; height:12px; background:var(--sky); border-radius:10px; }
+.phone-body { display: flex; flex-direction: column; gap: .55rem; height: 100%; overflow: hidden; }
+.p-header { font-size: .6rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; padding-bottom: .4rem; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; }
+.p-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--warm); margin-bottom: .3rem; }
+.p-topic { background: rgba(42,181,160,.08); border: 1px solid rgba(42,181,160,.14); border-radius: 6px; padding: .5rem .7rem; margin-bottom: .4rem; }
+.p-topic-label { font-size: .58rem; color: var(--teal); letter-spacing: .08em; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+.p-topic-text { font-size: .64rem; color: var(--warm); line-height: 1.5; margin-top: .2rem; }
+.p-notify { background: rgba(74,143,232,.08); border: 1px solid rgba(74,143,232,.15); border-radius: 6px; padding: .5rem .7rem; display: flex; align-items: flex-start; gap: .4rem; }
+.p-notify-ico { font-size: .8rem; margin-top: .05rem; }
+.p-notify-txt { font-size: .6rem; color: rgba(245,240,232,.7); line-height: 1.45; }
+.p-notify-txt strong { color: var(--blue2); display: block; font-size: .62rem; margin-bottom: .1rem; }
+.p-footer { font-size: .56rem; color: var(--muted); text-align: center; padding: .35rem; background: rgba(255,255,255,.02); border-radius: 4px; font-family: 'DM Mono', monospace; }
+
+.db { position: absolute; background: var(--sky3); border: 1px solid var(--border2); border-radius: 7px; padding: .42rem .76rem; font-size: .66rem; color: var(--warm); box-shadow: 0 8px 20px rgba(0,0,0,.35); white-space: nowrap; z-index: 10; }
+.db .gm { color: var(--teal2); font-weight: 600; }
+.db1 { top: 20px; right: -60px; animation: f1 4.2s ease-in-out infinite; }
+.db2 { bottom: 80px; left: -65px; animation: f2 5.2s ease-in-out infinite; }
+.db3 { top: 200px; right: -70px; animation: f3 4.8s ease-in-out infinite; }
+
+/* IMPACT */
+.impact { padding: 8rem 5rem; background: var(--sky); }
+.impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.8rem; margin-top: 4rem; }
+.impact-card { background: var(--sky3); border: 1px solid var(--border); border-radius: 10px; padding: 2.2rem 1.8rem; transition: transform .3s, border-color .3s; cursor: none; }
+.impact-card:hover { transform: translateY(-5px); border-color: var(--border2); }
+.impact-icon { width: 50px; height: 50px; border-radius: 10px; background: rgba(42,181,160,.1); border: 1px solid rgba(42,181,160,.18); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.3rem; }
+.impact-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--warm); margin-bottom: .6rem; }
+.impact-desc { font-size: .83rem; color: rgba(245,240,232,.58); line-height: 1.75; }
+
+/* AGENCY SECTION */
+.agency { padding: 8rem 5rem; background: var(--sky2); border-top: 1px solid var(--border); }
+.agency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 4rem; }
+.agency-steps { display: flex; flex-direction: column; gap: .8rem; }
+.agency-step { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.4rem; background: var(--sky3); border: 1px solid var(--border); border-radius: 8px; transition: border-color .3s; cursor: none; }
+.agency-step:hover { border-color: var(--border2); }
+.step-badge { width: 32px; height: 32px; border-radius: 6px; background: rgba(42,181,160,.12); border: 1px solid rgba(42,181,160,.2); display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 600; color: var(--teal2); flex-shrink: 0; font-family: 'DM Mono', monospace; }
+.step-content-title { font-size: .88rem; font-weight: 500; color: var(--warm); margin-bottom: .2rem; }
+.step-content-desc { font-size: .78rem; color: var(--muted); line-height: 1.6; }
+
+.agency-card { background: var(--sky3); border: 1px solid var(--border2); border-radius: 12px; padding: 2rem; }
+.agency-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.agency-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--warm); }
+.live-pill { display: flex; align-items: center; gap: .4rem; font-size: .62rem; color: var(--teal2); font-family: 'DM Mono', monospace; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pdot 2s infinite; }
+.agency-row { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0; border-bottom: 1px solid rgba(74,143,232,.06); }
+.agency-row:last-child { border-bottom: none; }
+.agency-name { font-size: .82rem; color: var(--warm); font-weight: 500; }
+.agency-meta { font-size: .7rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+.status-pill { font-size: .6rem; padding: .18rem .55rem; border-radius: 100px; font-family: 'DM Mono', monospace; font-weight: 500; }
+.sp-green { background: rgba(42,181,160,.1); color: var(--teal2); border: 1px solid rgba(42,181,160,.25); }
+.sp-blue { background: rgba(74,143,232,.1); color: var(--blue2); border: 1px solid rgba(74,143,232,.25); }
+.sp-gold { background: rgba(232,196,122,.1); color: var(--gold2); border: 1px solid rgba(232,196,122,.25); }
+
+/* TESTIMONIALS */
+.testi { padding: 8rem 5rem; background: linear-gradient(180deg, var(--sky2), var(--sky)); }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.8rem; margin-top: 4rem; }
+.testi-card { background: var(--sky3); border: 1px solid var(--border); border-radius: 10px; padding: 2rem 1.8rem; transition: border-color .3s, transform .3s; cursor: none; }
+.testi-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+.stars { display: flex; gap: .2rem; margin-bottom: .9rem; }
+.stars span { color: var(--gold); font-size: .85rem; }
+.testi-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .95rem; color: rgba(245,240,232,.78); line-height: 1.72; margin-bottom: 1.1rem; }
+.testi-auth { font-size: .73rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+.testi-auth strong { color: var(--teal2); display: block; font-size: .78rem; margin-bottom: .12rem; }
+
+/* CTA */
+.cta-section { padding: 9rem 5rem; background: linear-gradient(135deg, #091422, #060e1c); text-align: center; position: relative; overflow: hidden; }
+.cta-section::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:300px; background:radial-gradient(ellipse,rgba(42,181,160,.08) 0%,transparent 70%); pointer-events:none; }
+.cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 400; color: var(--warm); line-height: 1.12; margin-bottom: 1.2rem; position: relative; z-index: 1; }
+.cta-title em { color: var(--teal2); font-style: italic; }
+.cta-sub { font-size: .97rem; color: rgba(245,240,232,.58); margin-bottom: 2.8rem; position: relative; z-index: 1; max-width: 560px; margin-left: auto; margin-right: auto; }
+.cta-btns { display: flex; gap: 1rem; justify-content: center; position: relative; z-index: 1; flex-wrap: wrap; }
+
+/* FOOTER */
+footer { background: var(--sky2); border-top: 1px solid var(--border); padding: 3rem 5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--warm); }
+.footer-logo em { color: var(--teal2); font-style: italic; }
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a { font-size: .76rem; color: var(--muted); text-decoration: none; transition: color .3s; }
+.footer-links a:hover { color: var(--teal2); }
+.footer-copy { font-size: .7rem; color: rgba(106,122,154,.4); font-family: 'DM Mono', monospace; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+
+/* CHATBOT */
+.chat-bubble { position: fixed; bottom: 28px; right: 28px; z-index: 500; }
+.chat-toggle { width: 58px; height: 58px; border-radius: 50%; background: var(--teal); border: none; cursor: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(42,181,160,.4); transition: all .3s; }
+.chat-toggle:hover { background: var(--teal2); transform: scale(1.08); }
+.chat-toggle svg { width: 22px; height: 22px; fill: white; }
+.chat-label { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); background: var(--sky3); border: 1px solid var(--border2); color: var(--warm); font-size: .78rem; padding: .45rem 1rem; border-radius: 20px; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+.chat-label .online-dot { display: inline-block; width: 7px; height: 7px; background: var(--teal); border-radius: 50%; margin-right: 6px; animation: pdot 1.5s ease-in-out infinite; }
+.chat-window { position: absolute; bottom: 72px; right: 0; width: 340px; background: var(--sky2); border: 1px solid var(--border2); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5); display: none; flex-direction: column; }
+.chat-window.open { display: flex; }
+.chat-head { background: var(--sky3); padding: 1rem 1.2rem; display: flex; align-items: center; gap: .8rem; border-bottom: 1px solid var(--border); }
+.chat-head-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; }
+.chat-head-name { font-size: .88rem; font-weight: 500; color: var(--warm); }
+.chat-head-status { font-size: .68rem; color: var(--teal2); font-family: 'DM Mono', monospace; }
+.chat-close { margin-left: auto; background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: none; }
+.chat-messages { padding: 1rem; display: flex; flex-direction: column; gap: .75rem; max-height: 260px; overflow-y: auto; }
+.chat-msg { max-width: 85%; }
+.chat-msg.bot { align-self: flex-start; }
+.chat-msg.user { align-self: flex-end; }
+.chat-bubble-inner { padding: .75rem 1rem; border-radius: 10px; font-size: .82rem; line-height: 1.6; }
+.chat-msg.bot .chat-bubble-inner { background: var(--sky3); border: 1px solid var(--border); color: var(--warm); border-radius: 3px 10px 10px 10px; }
+.chat-msg.user .chat-bubble-inner { background: rgba(42,181,160,.15); border: 1px solid rgba(42,181,160,.25); color: var(--warm); border-radius: 10px 3px 10px 10px; }
+.chat-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 1rem .8rem; }
+.chip { background: rgba(42,181,160,.08); border: 1px solid rgba(42,181,160,.2); color: var(--teal2); font-size: .72rem; padding: .28rem .75rem; border-radius: 20px; cursor: none; transition: all .2s; }
+.chip:hover { background: rgba(42,181,160,.18); }
+.chat-input-wrap { padding: .8rem 1rem; border-top: 1px solid var(--border); display: flex; gap: .6rem; }
+.chat-input { flex: 1; background: var(--sky3); border: 1px solid var(--border); border-radius: 6px; padding: .65rem .9rem; font-size: .82rem; color: var(--warm); font-family: 'DM Sans', sans-serif; }
+.chat-input:focus { outline: none; border-color: var(--teal); }
+.chat-input::placeholder { color: var(--muted); opacity: .6; }
+.chat-send { background: var(--teal); border: none; border-radius: 6px; padding: .65rem .9rem; cursor: none; color: white; font-size: .9rem; transition: background .2s; }
+.chat-send:hover { background: var(--teal2); }
+
+@media(max-width:900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+  .hero-right { display: none; }
+  .stats-bar { grid-template-columns: 1fr 1fr; padding: 3rem 1.5rem; }
+  .steps-grid, .impact-grid, .testi-grid { grid-template-columns: 1fr; }
+  .what, .agency-grid { grid-template-columns: 1fr; }
+  .how, .what, .impact, .agency, .testi, .cta-section { padding: 5rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  .chat-bubble { bottom: 16px; right: 16px; }
+  body { cursor: auto; }
+  .cur, .cur-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo"><em>Echobox</em> Memory Vault</a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#agencies">For Agencies</a></li>
+    <li><a href="#stories">Stories</a></li>
+  </ul>
+  <a href="https://calendly.com/lancesalazar56/discovery" class="nav-cta">Book a Call</a>
+</nav>
+
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span class="eyebrow-text">Calgary, Alberta &nbsp;·&nbsp; Global Platform</span>
+    </div>
+    <h1 class="hero-title">
+      Where <em>Life</em><br>Resonates.
+      <span class="sub">Every memory. Every preference. Every person.</span>
+    </h1>
+    <p class="hero-desc">
+      <strong>Echobox Memory Vault</strong> equips caregivers with the personal stories, preferences, and memories of those in their care — so every interaction feels familiar, dignified, and deeply human.
+    </p>
+    <div class="hero-btns">
+      <a href="https://calendly.com/lancesalazar56/discovery" class="btn-primary">Book a Free Call</a>
+      <a href="#how" class="btn-ghost">See How It Works</a>
+    </div>
+    <div class="media-badges">
+      <span class="media-label">As seen on</span>
+      <span class="media-badge">BBC News</span>
+      <span class="media-badge">CTV News</span>
+      <span class="media-badge">Teepa Snow</span>
+      <span class="media-badge funded">$100K Alberta Innovates</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-scene">
+      <div class="bf bf1"><div class="bd" style="background:var(--teal);"></div>Henry · Story added · Music</div>
+      <div class="bf bf2"><div class="bd" style="background:var(--gold);"></div>New agency · Sunrise Care · Active</div>
+      <div class="bf bf3"><div class="bd" style="background:var(--blue2);"></div>Caregiver matched · Dorothy</div>
+
+      <div class="card-3d" id="heroCard">
+        <div class="card-header">
+          <div class="card-avatar">🎵</div>
+          <div>
+            <div class="card-name">Henry Kowalski</div>
+            <div class="card-role">Storyteller · Sunrise Senior Living</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-story">
+          <div class="story-label">Favourite Memory</div>
+          <div class="story-text">"Dancing at the Palomar Ballroom in 1962 — big band, my wife in her blue dress. I still hum those tunes every morning."</div>
+        </div>
+        <div class="card-stats">
+          <div><div class="cs-num" data-target="47">0</div><div class="cs-lbl">Stories Captured</div></div>
+          <div><div class="cs-num" data-target="3">0</div><div class="cs-lbl">Caregivers Connected</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-topics">
+          <div class="topic-row">
+            <div class="topic-ico">🎵</div>
+            <div class="topic-n">Big Band & Jazz — Morning playlist</div>
+            <div class="topic-t">Favourite</div>
+          </div>
+          <div class="topic-row">
+            <div class="topic-ico">🌻</div>
+            <div class="topic-n">Sunflowers — reminds him of home</div>
+            <div class="topic-t">Comfort</div>
+          </div>
+          <div class="topic-row">
+            <div class="topic-ico">☕</div>
+            <div class="topic-n">Black coffee, no sugar — 7am always</div>
+            <div class="topic-t">Routine</div>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="foot-dot"></div>
+          <div class="foot-txt">Last updated by Sarah K. · 2 hrs ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>Memory Vault</span><span>Continuity of Care</span><span>Quality of Life</span><span>Caregiver Support</span><span>BBC News</span><span>CTV News</span><span>Alberta Innovates</span><span>Teepa Snow</span><span>Senior Living</span><span>Home Care</span><span>Where Life Resonates</span><span>Tim &amp; Tannis Roberts</span>
+    <span>Memory Vault</span><span>Continuity of Care</span><span>Quality of Life</span><span>Caregiver Support</span><span>BBC News</span><span>CTV News</span><span>Alberta Innovates</span><span>Teepa Snow</span><span>Senior Living</span><span>Home Care</span><span>Where Life Resonates</span><span>Tim &amp; Tannis Roberts</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item reveal"><div class="stat-num" data-target="100" data-suffix="+">0</div><div class="stat-label">Agencies Using Echobox</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="10000" data-suffix="+">0</div><div class="stat-label">Memories Captured</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="90" data-suffix="%">0</div><div class="stat-label">Caregiver Satisfaction</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="3">0</div><div class="stat-label">Countries · Growing</div></div>
+</div>
+
+<section class="how" id="how">
+  <div class="sec-label">How It Works</div>
+  <h2 class="sec-heading">Three steps to <em>transform care.</em></h2>
+  <p class="sec-sub">Echobox is simple by design. It takes minutes to set up and immediately changes how caregivers connect with those in their care.</p>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">👤</div>
+      <div class="step-name">Administrator Creates an Account</div>
+      <div class="step-desc">Click 'Join for FREE' at echobox.ca to become the Administrator. Add and invite Caregivers, list Storytellers — those in care. Free accounts include one Caregiver, one Storyteller, and one Story.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">📱</div>
+      <div class="step-name">Caregivers Download the App</div>
+      <div class="step-desc">Invited Caregivers receive a link by email and download the Echobox Memory Vault App on their smartphone or tablet. They sign in, add Storytellers to their dashboard, and begin browsing Topics to capture Stories.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">❤️</div>
+      <div class="step-name">Capture Stories That Matter</div>
+      <div class="step-desc">Choose a Topic your Storyteller loves and capture a Story. Each Story holds 1,000 words, 3 photos, a video, and an audio recording. Upgrade to unlock unlimited Caregivers and Stories at just $30/month per Storyteller.</div>
+    </div>
+  </div>
+</section>
+
+<section class="what" id="about">
+  <div class="reveal">
+    <div class="sec-label">The Story Behind Echobox</div>
+    <h2 class="sec-heading">Built by <em>Tim &amp; Tannis.</em></h2>
+    <p class="body-text">Tim and Tannis Roberts founded Echobox Memory Vault after witnessing something profound — a senior whose entire personality, history, and preferences were unknown to the caregivers serving them daily. The disconnect was heartbreaking. It didn't have to be that way.</p>
+    <div class="pull-quote">"The better we know someone, the better care we can provide."</div>
+    <p class="body-text">From Calgary, Alberta, Tim and Tannis have grown Echobox into a globally recognized platform — <strong>featured on BBC News, CTV News</strong>, showcased by dementia care expert <strong>Teepa Snow</strong>, and awarded <strong>$100K through Alberta Innovates</strong>. It launched globally in 2024 and continues to transform how care teams connect with the people they serve.</p>
+    <a href="https://calendly.com/lancesalazar56/discovery" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Book a Free Call</a>
+  </div>
+  <div class="device-wrap reveal">
+    <div class="db db1"><span class="gm">♥</span> Dorothy · 12 stories added</div>
+    <div class="db db2"><span class="gm">✓</span> Caregiver briefed</div>
+    <div class="db db3"><span class="gm">🎵</span> Playlist created</div>
+    <div class="phone" id="phoneDevice">
+      <div class="phone-notch"></div>
+      <div class="phone-body">
+        <div class="p-header">Echobox · Dorothy's Profile</div>
+        <div class="p-name" style="font-family:'Cormorant Garamond',serif;font-size:.95rem;">Dorothy Whitfield, 84</div>
+        <div class="p-topic">
+          <div class="p-topic-label">Favourite Music</div>
+          <div class="p-topic-text">Vera Lynn, wartime classics. Plays every morning — lifts her spirits instantly.</div>
+        </div>
+        <div class="p-topic">
+          <div class="p-topic-label">Morning Routine</div>
+          <div class="p-topic-text">Tea before anything else. Window seat. Watch the garden birds for 10 minutes.</div>
+        </div>
+        <div class="p-notify">
+          <div class="p-notify-ico">💬</div>
+          <div class="p-notify-txt"><strong>Note from family</strong>She loves talking about her garden in Surrey. Ask about the roses.</div>
+        </div>
+        <div class="p-topic">
+          <div class="p-topic-label">Comfort Items</div>
+          <div class="p-topic-text">Blue knitted blanket. Photo of her late husband on the side table. Always.</div>
+        </div>
+        <div class="p-footer">Echobox Memory Vault · Where Life Resonates</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact" id="impact">
+  <div class="sec-label">Why It Matters</div>
+  <h2 class="sec-heading">Care that <em>actually connects.</em></h2>
+  <p class="sec-sub">Echobox doesn't just store information. It changes the relationship between caregivers and those they serve.</p>
+  <div class="impact-grid">
+    <div class="impact-card reveal">
+      <div class="impact-icon">🔄</div>
+      <div class="impact-name">Continuity Through Transitions</div>
+      <div class="impact-desc">When staff rotate or a resident moves facilities, their full story travels with them. No reintroductions. No starting over. The relationship continues.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-icon">🧠</div>
+      <div class="impact-name">Dementia & Memory Care</div>
+      <div class="impact-desc">For those with memory conditions, familiar music, routines, and personal touchpoints can transform difficult moments into ones of calm and connection.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-icon">👨‍👩‍👧</div>
+      <div class="impact-name">Family Peace of Mind</div>
+      <div class="impact-desc">Families know their loved one's story is preserved and accessible. They can contribute from anywhere. They stay connected even when they can't be there.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-icon">💼</div>
+      <div class="impact-name">Caregiver Retention</div>
+      <div class="impact-desc">Caregivers who feel equipped and connected to the people they serve experience less burnout and stay longer. Echobox makes the work feel meaningful.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-icon">🌐</div>
+      <div class="impact-name">Works Across Any Setting</div>
+      <div class="impact-desc">Home care, assisted living, long-term care, hospice. Echobox works wherever caregivers work — on any device, online or offline.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-icon">🔒</div>
+      <div class="impact-name">Private &amp; Secure</div>
+      <div class="impact-desc">Ad-free. Private. Built with the dignity of seniors in mind. Memories stay where they belong — with the people who matter most.</div>
+    </div>
+  </div>
+</section>
+
+<section class="agency" id="agencies">
+  <div class="sec-label">For Care Agencies</div>
+  <h2 class="sec-heading">Built for teams. <em>Scaled for agencies.</em></h2>
+  <p class="sec-sub">Echobox integrates into your agency's workflow. Your caregivers get the context they need. Your families get peace of mind. Your agency gets a competitive edge.</p>
+  <div class="agency-grid">
+    <div>
+      <div class="agency-steps">
+        <div class="agency-step reveal">
+          <div class="step-badge">01</div>
+          <div>
+            <div class="step-content-title">Agency signs up for free trial</div>
+            <div class="step-content-desc">Administrator creates an account and sets up the agency profile in minutes.</div>
+          </div>
+        </div>
+        <div class="agency-step reveal">
+          <div class="step-badge">02</div>
+          <div>
+            <div class="step-content-title">Caregivers download the app</div>
+            <div class="step-content-desc">Invited via email. App available on iOS and Android. No training required.</div>
+          </div>
+        </div>
+        <div class="agency-step reveal">
+          <div class="step-badge">03</div>
+          <div>
+            <div class="step-content-title">Storyteller profiles created</div>
+            <div class="step-content-desc">Each client or resident gets their own profile. Family members can contribute remotely.</div>
+          </div>
+        </div>
+        <div class="agency-step reveal">
+          <div class="step-badge">04</div>
+          <div>
+            <div class="step-content-title">Care transforms immediately</div>
+            <div class="step-content-desc">Caregivers arrive knowing the person. Every shift starts with context, warmth, and connection.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="agency-card">
+        <div class="agency-card-header">
+          <div class="agency-card-title">Agency Dashboard · Live</div>
+          <div class="live-pill"><div class="live-dot"></div>Active</div>
+        </div>
+        <div class="agency-row">
+          <div><div class="agency-name">Sunrise Senior Living</div><div class="agency-meta">Ontario · 24 storytellers · 8 caregivers</div></div>
+          <span class="status-pill sp-green">Active</span>
+        </div>
+        <div class="agency-row">
+          <div><div class="agency-name">Harmony Home Care</div><div class="agency-meta">Alberta · 12 storytellers · 5 caregivers</div></div>
+          <span class="status-pill sp-green">Active</span>
+        </div>
+        <div class="agency-row">
+          <div><div class="agency-name">Meadowbrook Care</div><div class="agency-meta">BC · 18 storytellers · 7 caregivers</div></div>
+          <span class="status-pill sp-blue">Trial</span>
+        </div>
+        <div class="agency-row">
+          <div><div class="agency-name">Riverside Memory Care</div><div class="agency-meta">Manitoba · 9 storytellers · 4 caregivers</div></div>
+          <span class="status-pill sp-gold">Onboarding</span>
+        </div>
+        <div style="margin-top:1rem;padding:.75rem;background:rgba(42,181,160,.06);border:1px solid rgba(42,181,160,.15);border-radius:6px;font-size:.72rem;color:var(--teal2);font-family:'DM Mono',monospace;">
+          Free account: 1 caregiver · 1 storyteller · 1 story · Upgrade: $30/month per Storyteller · Unlimited caregivers · 90-day free trial
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi" id="stories">
+  <div class="sec-label">What People Say</div>
+  <h2 class="sec-heading">Real stories. <em>Real impact.</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"Echobox Memory Vault will be a welcome addition to the toolbox of those dedicated to providing the highest level of care possible."</div>
+      <div class="testi-auth"><strong>Teepa Snow</strong>MS, OTR/L, FAOTA · Founder & CEO, Positive Approach to Care · NC, USA</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"My mother has dementia. Knowing that every caregiver who walks through her door knows her favourite music, her history, what makes her smile — that gives me peace I can't put into words."</div>
+      <div class="testi-auth"><strong>Verified Family Member</strong>Home Care Client · Alberta</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"I've been a caregiver for 12 years. Echobox is the first tool that actually helps me do my job better. I feel connected to the people I care for from day one."</div>
+      <div class="testi-auth"><strong>Verified Caregiver</strong>Personal Support Worker · BC</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO ARE YOU SECTION -->
+<section style="padding:7rem 5rem;background:var(--sky2);border-top:1px solid var(--border);" id="getstarted">
+  <div style="text-align:center;margin-bottom:4rem;">
+    <div class="sec-label" style="justify-content:center;">Get Started</div>
+    <h2 class="sec-heading" style="text-align:center;">Echobox is for <em>everyone</em><br>in the care circle.</h2>
+    <p style="font-size:.95rem;color:rgba(245,240,232,.58);max-width:520px;margin:1rem auto 0;line-height:1.8;">Whether you run an agency, care for a loved one at home, or work as a caregiver — Echobox was built for you.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:900px;margin:0 auto;">
+    <div class="impact-card reveal" style="text-align:center;padding:2.5rem 2rem;">
+      <div class="impact-icon" style="margin:0 auto 1.2rem;">🏢</div>
+      <div class="impact-name">Care Agencies</div>
+      <div class="impact-desc" style="margin-bottom:1.5rem;">Deploy Echobox across your entire team. Every caregiver equipped. Every client known. $30/month per Storyteller, unlimited caregivers.</div>
+      <a href="#contact" class="btn-primary" style="font-size:.78rem;padding:.65rem 1.4rem;">Book a Discovery Call</a>
+    </div>
+    <div class="impact-card reveal" style="text-align:center;padding:2.5rem 2rem;border-color:var(--border2);">
+      <div class="impact-icon" style="margin:0 auto 1.2rem;background:rgba(232,196,122,.1);border-color:rgba(232,196,122,.2);">👨‍👩‍👧</div>
+      <div class="impact-name">Families</div>
+      <div class="impact-desc" style="margin-bottom:1.5rem;">Create a private account for your loved one. Capture their memories, preferences, and favourite things so every caregiver knows them from day one. Free to start.</div>
+      <a href="https://portal.echobox.ca" class="btn-primary" style="font-size:.78rem;padding:.65rem 1.4rem;background:var(--gold);color:var(--sky);">Join for FREE</a>
+    </div>
+    <div class="impact-card reveal" style="text-align:center;padding:2.5rem 2rem;">
+      <div class="impact-icon" style="margin:0 auto 1.2rem;background:rgba(74,143,232,.1);border-color:rgba(74,143,232,.2);">🤲</div>
+      <div class="impact-name">Caregivers</div>
+      <div class="impact-desc" style="margin-bottom:1.5rem;">Get invited by your agency or a family. Download the app, access each person's vault, and provide care that feels personal from the very first visit.</div>
+      <a href="https://portal.echobox.ca" class="btn-primary" style="font-size:.78rem;padding:.65rem 1.4rem;background:var(--blue);color:white;">Download the App</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / LEAD FORM -->
+<section style="padding:7rem 5rem;background:var(--sky);border-top:1px solid var(--border);" id="contact">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1000px;margin:0 auto;">
+    <div>
+      <div class="sec-label">Get In Touch</div>
+      <h2 class="sec-heading">Let's talk about <em>your situation.</em></h2>
+      <p style="font-size:.95rem;color:rgba(245,240,232,.6);line-height:1.85;margin-bottom:2rem;">Whether you're an agency ready to deploy Echobox, a family wanting to preserve your loved one's story, or a caregiver looking to get started — reach out and we'll help you find the right path.</p>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--sky3);border:1px solid var(--border);border-radius:8px;">
+          <span style="font-size:1.3rem;">📧</span>
+          <div><div style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:3px;">Email</div><div style="font-size:.9rem;color:var(--teal2);">feedback@echobox.ca</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--sky3);border:1px solid var(--border);border-radius:8px;">
+          <span style="font-size:1.3rem;">📅</span>
+          <div><div style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:3px;">Book a Call</div><div style="font-size:.9rem;color:var(--warm);">Free 30-min discovery call</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--sky3);border:1px solid var(--border);border-radius:8px;">
+          <span style="font-size:1.3rem;">📍</span>
+          <div><div style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:3px;">Based In</div><div style="font-size:.9rem;color:var(--warm);">Calgary, Alberta · Serving globally</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--sky3);border:1px solid var(--border);border-radius:8px;">
+          <span style="font-size:1.3rem;">🆓</span>
+          <div><div style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:3px;">Free Trial</div><div style="font-size:.9rem;color:var(--teal2);">90 days · No credit card needed</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--sky3);border:1px solid var(--border2);border-radius:12px;padding:2.5rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--warm);margin-bottom:.4rem;">Send us a message</div>
+      <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;">Tim and Tannis personally review every message and respond within 24 hours.</div>
+      <div style="margin-bottom:1.1rem;">
+        <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-family:'DM Mono',monospace;">Full Name</div>
+        <input id="cf-name" style="width:100%;background:var(--sky2);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-size:.88rem;color:var(--warm);font-family:'DM Sans',sans-serif;" placeholder="Your name">
+      </div>
+      <div style="margin-bottom:1.1rem;">
+        <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-family:'DM Mono',monospace;">Email</div>
+        <input id="cf-email" style="width:100%;background:var(--sky2);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-size:.88rem;color:var(--warm);font-family:'DM Sans',sans-serif;" placeholder="your@email.com" type="email">
+      </div>
+      <div style="margin-bottom:1.1rem;">
+        <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-family:'DM Mono',monospace;">I am a...</div>
+        <select id="cf-type" style="width:100%;background:var(--sky2);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-size:.88rem;color:var(--warm);font-family:'DM Sans',sans-serif;">
+          <option value="">Select...</option>
+          <option>Care Agency / Operator</option>
+          <option>Family Member</option>
+          <option>Caregiver / PSW</option>
+          <option>Healthcare Professional</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div style="margin-bottom:1.4rem;">
+        <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-family:'DM Mono',monospace;">Message</div>
+        <textarea id="cf-msg" style="width:100%;background:var(--sky2);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;font-size:.88rem;color:var(--warm);font-family:'DM Sans',sans-serif;resize:vertical;min-height:90px;line-height:1.6;" placeholder="Tell us about your situation or what you'd like to know..."></textarea>
+      </div>
+      <button onclick="submitForm()" style="width:100%;background:var(--teal);color:var(--sky);border:none;border-radius:4px;padding:1rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:none;transition:all .2s;">Send Message →</button>
+      <div id="cf-success" style="display:none;margin-top:1rem;padding:.9rem;background:rgba(42,181,160,.1);border:1px solid rgba(42,181,160,.25);border-radius:6px;font-size:.82rem;color:var(--teal2);text-align:center;">Thank you. Tim and Tannis will be in touch within 24 hours.</div>
+      <div style="font-size:.7rem;color:var(--muted);margin-top:.8rem;text-align:center;font-family:'DM Mono',monospace;">✓ Private · Ad-free · No spam ever</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-title">Ready to bring <em>Echobox</em><br>to your agency?</div>
+  <div class="cta-sub">Book a free call and we'll walk you through exactly how Echobox works for your team — no pressure, no obligation. Just clarity.</div>
+  <div class="cta-btns">
+    <a href="https://calendly.com/lancesalazar56/discovery" class="btn-primary">Book a Free Call</a>
+    <a href="https://portal.echobox.ca" class="btn-ghost">Join for FREE →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><em>Echobox</em> Memory Vault</div>
+  <div class="footer-links">
+    <a href="#how">How It Works</a>
+    <a href="#impact">Impact</a>
+    <a href="#agencies">For Agencies</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Echobox Memory Vault · Where Life Resonates · Calgary, Alberta</div>
+</footer>
+
+<!-- CHATBOT -->
+<div class="chat-bubble">
+  <div class="chat-label"><span class="online-dot"></span>We're online</div>
+  <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-head">
+      <div class="chat-head-avatar">🎵</div>
+      <div>
+        <div class="chat-head-name">Echobox Assistant</div>
+        <div class="chat-head-status">● We're online</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot"><div class="chat-bubble-inner">Hi — are you a care agency, a family member, or a caregiver looking to learn about Echobox?</div></div>
+    </div>
+    <div class="chat-chips" id="chatChips">
+      <span class="chip" onclick="sendChip(this)">I run a care agency</span>
+      <span class="chip" onclick="sendChip(this)">I'm a family member</span>
+      <span class="chip" onclick="sendChip(this)">I'm a caregiver</span>
+      <span class="chip" onclick="sendChip(this)">What does it cost?</span>
+    </div>
+
+    <!-- BOOKING WIDGET -->
+    <div id="bookingWidget" style="display:none;padding:1rem;border-top:1px solid var(--border);">
+      <div id="bStep1">
+        <div style="font-size:.82rem;color:var(--warm);margin-bottom:.8rem;font-weight:500;">Book a free discovery call</div>
+        <div style="margin-bottom:.7rem;">
+          <div style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;font-family:'DM Mono',monospace;">Your Name</div>
+          <input id="b-name" style="width:100%;background:var(--sky3);border:1px solid var(--border);border-radius:4px;padding:.6rem .8rem;font-size:.82rem;color:var(--warm);font-family:'DM Sans',sans-serif;" placeholder="Full name">
+        </div>
+        <div style="margin-bottom:.9rem;">
+          <div style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;font-family:'DM Mono',monospace;">Email</div>
+          <input id="b-email" style="width:100%;background:var(--sky3);border:1px solid var(--border);border-radius:4px;padding:.6rem .8rem;font-size:.82rem;color:var(--warm);font-family:'DM Sans',sans-serif;" placeholder="your@email.com" type="email">
+        </div>
+        <button onclick="bNext1()" style="width:100%;background:var(--teal);color:var(--sky);border:none;border-radius:4px;padding:.7rem;font-size:.82rem;font-weight:600;cursor:none;">Next →</button>
+      </div>
+      <div id="bStep2" style="display:none;">
+        <div style="font-size:.82rem;color:var(--warm);margin-bottom:.8rem;font-weight:500;">Pick a date</div>
+        <div id="bCalendar" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:.9rem;"></div>
+        <button onclick="bBack1()" style="background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:.5rem .9rem;font-size:.75rem;cursor:none;margin-right:.4rem;">← Back</button>
+      </div>
+      <div id="bStep3" style="display:none;">
+        <div style="font-size:.82rem;color:var(--warm);margin-bottom:.8rem;font-weight:500;">Pick a time</div>
+        <div id="bTimes" style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;"></div>
+        <button onclick="bBack2()" style="background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:.5rem .9rem;font-size:.75rem;cursor:none;">← Back</button>
+      </div>
+      <div id="bStep4" style="display:none;text-align:center;padding:1rem 0;">
+        <div style="font-size:1.8rem;margin-bottom:.6rem;">✅</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--warm);margin-bottom:.3rem;" id="bConfirmText">You're booked.</div>
+        <div style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace;" id="bConfirmSub">Tim and Tannis will call you at the scheduled time.</div>
+      </div>
+    </div>
+
+    <div class="chat-input-wrap">
+      <input class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" onclick="sendMsg()">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+if(window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
+    ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px';
+  });
+}
+
+// HERO CANVAS — particles
+const canvas = document.getElementById('heroCanvas');
+if(canvas) {
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+  const pts = Array.from({length:60},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5}));
+  function drawCanvas(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(42,181,160,0.5)';ctx.fill();});
+    requestAnimationFrame(drawCanvas);
+  }
+  drawCanvas();
+}
+
+// 3D CARD TILT
+const heroCard = document.getElementById('heroCard');
+if(heroCard) {
+  document.addEventListener('DOMContentLoaded',()=>{
+    const wrap = heroCard.parentElement;
+    wrap.addEventListener('mousemove',e=>{
+      const r = wrap.getBoundingClientRect();
+      const x = (e.clientX-r.left)/r.width-.5;
+      const y = (e.clientY-r.top)/r.height-.5;
+      heroCard.style.transition='transform .08s ease';
+      heroCard.style.transform=`perspective(900px) rotateY(${x*20}deg) rotateX(${-y*20}deg) scale(1.02)`;
+    });
+    wrap.addEventListener('mouseleave',()=>{
+      heroCard.style.transition='transform .6s ease';
+      heroCard.style.transform='perspective(900px) rotateY(0) rotateX(0) scale(1)';
+    });
+  });
+}
+
+// PHONE TILT
+const phone = document.getElementById('phoneDevice');
+if(phone) {
+  phone.parentElement.addEventListener('mousemove',e=>{
+    const r = phone.getBoundingClientRect();
+    const x = (e.clientX-r.left)/r.width-.5;
+    const y = (e.clientY-r.top)/r.height-.5;
+    phone.style.transform=`perspective(800px) rotateY(${x*14}deg) rotateX(${-y*14}deg)`;
+  });
+  phone.parentElement.addEventListener('mouseleave',()=>{
+    phone.style.transform='perspective(800px) rotateY(0) rotateX(0)';
+    phone.style.transition='transform .6s ease';
+  });
+}
+
+// STAT COUNTERS
+function countUp(el){
+  const target=parseInt(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  let count=0;
+  const step=Math.ceil(target/60);
+  const timer=setInterval(()=>{
+    count=Math.min(count+step,target);
+    el.textContent=(count>=1000?(count/1000).toFixed(1)+'k':count)+suffix;
+    if(count>=target)clearInterval(timer);
+  },24);
+}
+
+// REVEAL + COUNTERS
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('[data-target]').forEach(countUp);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('[data-target]').forEach(el=>{
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(el);obs.disconnect();}});},{threshold:.5});
+  obs.observe(el);
+});
+
+// CHATBOT
+const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
+const SYSTEM=`You are the Echobox Memory Vault assistant. Echobox equips caregivers with the personal stories, preferences, and memories of those in care — so every visit feels familiar and human. Founded by Tim and Tannis Roberts in Calgary. BBC News, CTV News, Teepa Snow, $100K Alberta Innovates. Free account: 1 caregiver + 1 storyteller + 1 story. Paid: $30/month per Storyteller, unlimited caregivers, 90-day free trial. iOS and Android at portal.echobox.ca.
+
+RESPONSE RULES:
+- Be warm and casual. Like a knowledgeable friend, not a sales rep.
+- Max 2 short sentences per reply.
+- End with one natural follow-up question.
+- Never use bullet points or lists.
+- Answer their question directly first, then ask something relevant.
+- Do NOT trigger booking until they clearly say they want to book, schedule, or get a call.
+
+AUDIENCE PATHS:
+- Care agency: talk about how it helps their team, continuity of care, agency pricing
+- Family member: talk about private accounts, preserving memories, free to start
+- Caregiver: talk about the app, how it helps them connect, download from portal.echobox.ca
+
+BOOKING TRIGGER — ONLY use <!--SHOW_BOOKING--> when the user explicitly says:
+"book", "schedule", "call", "yes book me", "let's do it", "sign me up for a call", "I want a call"
+Do NOT trigger it for general questions. Answer casually first. Only show booking when they are clearly ready.
+
+EXAMPLE of correct flow:
+User: I run a care agency
+Bot: Echobox gives every caregiver on your team instant access to each resident's personal story — their music, their routines, what makes them smile. How many caregivers are on your team right now?
+
+User: About 12
+Bot: That's a great size for Echobox — at $30/month per person in care, agencies your size usually see immediate impact on caregiver confidence and family satisfaction. Want me to set up a quick call so Tim and Tannis can walk you through it?
+
+User: Yes
+Bot: <!--SHOW_BOOKING-->`;
+
+let msgs=[{role:'assistant',content:'Hi — are you a care agency, a family member, or a caregiver looking to learn about Echobox?'}];
+let chatOpen=false;
+let bDate='',bTime='',bName='',bEmail='';
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
+}
+
+function renderMsg(role,text){
+  const div=document.createElement('div');
+  div.className=`chat-msg ${role==='assistant'?'bot':'user'}`;
+  div.innerHTML=`<div class="chat-bubble-inner">${text}</div>`;
+  document.getElementById('chatMessages').appendChild(div);
+  document.getElementById('chatMessages').scrollTop=9999;
+}
+
+function setChips(chips){
+  const c=document.getElementById('chatChips');
+  c.innerHTML='';
+  chips.forEach(t=>{const s=document.createElement('span');s.className='chip';s.textContent=t;s.onclick=()=>sendChip(s);c.appendChild(s);});
+}
+
+function openBookingWidget(){
+  document.getElementById('bookingWidget').style.display='block';
+  document.getElementById('chatChips').innerHTML='';
+  buildCalendar();
+}
+
+function buildCalendar(){
+  const cal=document.getElementById('bCalendar');
+  cal.innerHTML='';
+  const today=new Date();
+  for(let i=1;i<=14;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    if(d.getDay()===0)continue;
+    const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+    const btn=document.createElement('button');
+    btn.innerHTML=`<div style="font-size:.58rem;color:var(--teal);font-family:'DM Mono',monospace;">${mo}</div><div style="font-size:.85rem;color:var(--warm);font-weight:500;">${d.getDate()}</div>`;
+    btn.style.cssText='background:var(--sky2);border:1px solid var(--border);border-radius:5px;padding:.35rem .2rem;cursor:none;transition:all .2s;text-align:center;';
+    const dateStr=`${mo} ${d.getDate()} ${d.getFullYear()}`;
+    btn.onclick=()=>{
+      document.querySelectorAll('#bCalendar button').forEach(b=>{b.style.background='var(--sky2)';b.style.borderColor='var(--border)';});
+      btn.style.background='var(--teal)';btn.style.borderColor='var(--teal)';
+      bDate=dateStr;
+      setTimeout(()=>{document.getElementById('bStep2').style.display='none';document.getElementById('bStep3').style.display='block';buildTimes();},300);
+    };
+    cal.appendChild(btn);
+  }
+}
+
+function buildTimes(){
+  const wrap=document.getElementById('bTimes');
+  wrap.innerHTML='';
+  ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'].forEach(t=>{
+    const btn=document.createElement('button');
+    btn.textContent=t;
+    btn.style.cssText='background:var(--sky2);border:1px solid var(--border);border-radius:4px;padding:.4rem .7rem;font-size:.74rem;color:var(--warm);cursor:none;transition:all .2s;font-family:"DM Mono",monospace;';
+    btn.onclick=()=>{
+      document.querySelectorAll('#bTimes button').forEach(b=>{b.style.background='var(--sky2)';b.style.borderColor='var(--border)';b.style.color='var(--warm)';});
+      btn.style.background='var(--teal)';btn.style.borderColor='var(--teal)';btn.style.color='var(--sky)';
+      bTime=t;
+      setTimeout(()=>confirmBooking(),400);
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+async function confirmBooking(){
+  document.getElementById('bStep3').style.display='none';
+  document.getElementById('bStep4').style.display='block';
+  document.getElementById('bConfirmText').textContent=`You're booked — ${bDate} at ${bTime}.`;
+  document.getElementById('bConfirmSub').textContent='Tim and Tannis will reach out to confirm. See you then!';
+  try{
+    await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({Full_Name:bName,Email:bEmail,Source:'Echobox Chatbot Booking',Notes:`Preferred: ${bDate} at ${bTime}`,Status:'New Lead',Care_Type:'Echobox Inquiry'}),
+      mode:'no-cors'
+    });
+  }catch(e){}
+  setTimeout(()=>{
+    renderMsg('assistant',`You\'re all set. Tim and Tannis will reach out to confirm your call on ${bDate} at ${bTime}. Anything else you\'d like to know before then?`);
+    setChips(['What to expect','How does pricing work?','Nothing, thanks!']);
+  },1500);
+}
+
+function bNext1(){
+  bName=document.getElementById('b-name').value.trim();
+  bEmail=document.getElementById('b-email').value.trim();
+  if(!bName||!bEmail){alert('Please enter your name and email.');return;}
+  document.getElementById('bStep1').style.display='none';
+  document.getElementById('bStep2').style.display='block';
+}
+function bBack1(){document.getElementById('bStep2').style.display='none';document.getElementById('bStep1').style.display='block';}
+function bBack2(){document.getElementById('bStep3').style.display='none';document.getElementById('bStep2').style.display='block';}
+
+async function sendMsg(){
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  renderMsg('user',text);
+  msgs.push({role:'user',content:text});
+  document.getElementById('chatChips').innerHTML='';
+  await getBotReply();
+}
+
+async function sendChip(el){
+  const text=el.textContent;
+  renderMsg('user',text);
+  msgs.push({role:'user',content:text});
+  document.getElementById('chatChips').innerHTML='';
+  await getBotReply();
+}
+
+async function getBotReply(){
+  try{
+    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,system:SYSTEM,messages:msgs})});
+    const data=await res.json();
+    let reply=data.content[0].text;
+    const doBooking=reply.includes('<!--SHOW_BOOKING-->');
+    reply=reply.replace('<!--SHOW_BOOKING-->','').trim();
+    msgs.push({role:'assistant',content:reply});
+    setTimeout(()=>{
+      renderMsg('assistant',reply);
+      if(doBooking){openBookingWidget();}
+      else{setChips(['Tell me more','What does it cost?','Book a call','How do agencies sign up?']);}
+    },1500);
+  }catch(e){
+    setTimeout(()=>{
+      renderMsg('assistant','Happy to help — what would you like to know about Echobox?');
+      setChips(['I run a care agency','I\'m a family member','What does it cost?','Book a call']);
+    },1500);
+  }
+}
+
+// LEAD FORM SUBMIT
+async function submitForm(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const type=document.getElementById('cf-type').value;
+  const msg=document.getElementById('cf-msg').value.trim();
+  if(!name||!email||!msg){alert('Please fill in your name, email, and message.');return;}
+  try{
+    await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({Full_Name:name,Email:email,Care_Type:type,Notes:msg,Source:'Echobox Website Form',Status:'New Lead'}),
+      mode:'no-cors'
+    });
+  }catch(e){}
+  document.getElementById('cf-success').style.display='block';
+  document.getElementById('cf-name').value='';
+  document.getElementById('cf-email').value='';
+  document.getElementById('cf-msg').value='';
+}
+</script>
+</body>
+</html>
