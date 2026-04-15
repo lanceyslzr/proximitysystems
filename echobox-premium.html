@@ -879,34 +879,14 @@ document.querySelectorAll('[data-target]').forEach(el=>{
 
 // CHATBOT
 const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
-const SYSTEM=`You are the Echobox Memory Vault assistant. Echobox equips caregivers with the personal stories, preferences, and memories of those in care — so every visit feels familiar and human. Founded by Tim and Tannis Roberts in Calgary. BBC News, CTV News, Teepa Snow, $100K Alberta Innovates. Free account: 1 caregiver + 1 storyteller + 1 story. Paid: $30/month per Storyteller, unlimited caregivers, 90-day free trial. iOS and Android at portal.echobox.ca.
+const SYSTEM=`You are the Echobox Memory Vault assistant. Echobox preserves the personal stories, preferences and memories of seniors so caregivers always know who they're caring for. Founded by Tim and Tannis Roberts in Calgary. BBC News, CTV News, Teepa Snow, $100K Alberta Innovates. Free: 1 caregiver + 1 storyteller + 1 story. Paid: $30/month per Storyteller, unlimited caregivers, 90-day free trial. iOS and Android at portal.echobox.ca.
 
-RESPONSE RULES:
-- Be warm and casual. Like a knowledgeable friend, not a sales rep.
-- Max 2 short sentences per reply.
-- End with one natural follow-up question.
+STRICT RULES — no exceptions:
+- MAXIMUM 2 sentences. Never more. Cut ruthlessly.
+- End with ONE short question only.
 - Never use bullet points or lists.
-- Answer their question directly first, then ask something relevant.
-- Do NOT trigger booking until they clearly say they want to book, schedule, or get a call.
-
-AUDIENCE PATHS:
-- Care agency: talk about how it helps their team, continuity of care, agency pricing
-- Family member: talk about private accounts, preserving memories, free to start
-- Caregiver: talk about the app, how it helps them connect, download from portal.echobox.ca
-
-BOOKING TRIGGER — ONLY use <!--SHOW_BOOKING--> when the user explicitly says:
-"book", "schedule", "call", "yes book me", "let's do it", "sign me up for a call", "I want a call"
-Do NOT trigger it for general questions. Answer casually first. Only show booking when they are clearly ready.
-
-EXAMPLE of correct flow:
-User: I run a care agency
-Bot: Echobox gives every caregiver on your team instant access to each resident's personal story — their music, their routines, what makes them smile. How many caregivers are on your team right now?
-
-User: About 12
-Bot: That's a great size for Echobox — at $30/month per person in care, agencies your size usually see immediate impact on caregiver confidence and family satisfaction. Want me to set up a quick call so Tim and Tannis can walk you through it?
-
-User: Yes
-Bot: <!--SHOW_BOOKING-->`;
+- Casual and warm. Like a friend, not a brochure.
+- Only use <!--SHOW_BOOKING--> when user explicitly says book, call, yes, schedule, sign me up.`;
 
 let msgs=[{role:'assistant',content:'Hi — are you a care agency, a family member, or a caregiver looking to learn about Echobox?'}];
 let chatOpen=false;
@@ -1037,15 +1017,15 @@ async function getBotReply(){
       else{
         const lower=reply.toLowerCase();
         let chips=['Tell me more','What does it cost?','Book a call','How do agencies sign up?'];
-        if(lower.includes('family')||lower.includes('loved one')){
-          chips=['It\'s for my parent','It\'s for my spouse','How do I get started?','What does it cost?'];
-        } else if(lower.includes('caregiver')||lower.includes('team')||lower.includes('caregivers')){
-          chips=['We have 5-10 caregivers','We have 10-20 caregivers','How does it work?','What does it cost?'];
+        if(lower.includes('spouse')||lower.includes('parent')||lower.includes('free right now')||lower.includes('free to start')){
+          chips=['How do I sign up free?','What can I capture?','Book a call','What does it cost?'];
+        } else if(lower.includes('agency')||lower.includes('residents')||lower.includes('your team')){
+          chips=['We have 5-10 caregivers','We have 10-20 caregivers','Book a call','What does it cost?'];
         } else if(lower.includes('cost')||lower.includes('price')||lower.includes('$30')){
           chips=['That works for us','Tell me more','Book a call','How do agencies sign up?'];
-        } else if(lower.includes('book')||lower.includes('call')||lower.includes('walk you through')){
-          chips=['Yes, book me in','Not yet — tell me more','What does it cost?','How does it work?'];
-        } else if(lower.includes('download')||lower.includes('app')||lower.includes('ios')||lower.includes('android')){
+        } else if(lower.includes('book')||lower.includes('call')||lower.includes('tim and tannis')){
+          chips=['Yes, book me in','Not yet','What does it cost?','How does it work?'];
+        } else if(lower.includes('download')||lower.includes('app')||lower.includes('ios')){
           chips=['I\'m on iOS','I\'m on Android','What does it cost?','Tell me more'];
         }
         setChips(chips);
