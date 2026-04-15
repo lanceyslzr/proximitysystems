@@ -29,8 +29,15 @@
   .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; border-radius: 2px; font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
   .nav-cta::after { display: none !important; }
   .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; }
-  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 64px 4rem; position: relative; overflow: hidden; gap: 80px; }
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 64px 5rem; position: relative; overflow: hidden; gap: 80px; }
   .hero-card-body .notification:last-child { margin-bottom: 2rem; }
+  .feed-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 14px 18px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; opacity: 0; animation: slideIn 0.5s ease forwards; }
+  .feed-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .feed-icon.teal{background:rgba(106,158,170,0.2);} .feed-icon.blue{background:rgba(100,130,200,0.2);} .feed-icon.green{background:rgba(90,138,106,0.22);} .feed-icon.orange{background:rgba(200,140,80,0.2);}
+  .feed-title { font-size: 11px; font-weight: 600; color: var(--teal-light); margin-bottom: 3px; }
+  .feed-text { font-size: 11px; color: rgba(221,217,208,0.7); line-height: 1.5; }
+  .feed-time { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 1px; white-space: nowrap; margin-left: 8px; }
+  #feedWrap { max-height: 520px; overflow: hidden; }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
   .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
@@ -472,12 +479,7 @@
         <div class="card-dots"><div class="card-dot r"></div><div class="card-dot y"></div><div class="card-dot g"></div></div>
         <div class="card-label">Live System Feed</div>
       </div>
-      <div class="hero-card-body">
-        <div class="notification"><div class="notif-icon green">📋</div><div><div class="notif-title">New Lead — Maria Santos — Mississauga</div><div class="notif-desc">Personal Care · Needs help within 48 hours</div><div class="notif-time">just now</div></div></div>
-        <div class="notification"><div class="notif-icon teal">📊</div><div><div class="notif-title">PSW Visit Logged — Jennifer C.</div><div class="notif-desc">8hrs auto-calculated · Timesheet updated</div><div class="notif-time">2 min ago</div></div></div>
-        <div class="notification"><div class="notif-icon orange">📧</div><div><div class="notif-title">Invoice Sent — Thompson Family</div><div class="notif-desc">$1,240 · April billing · Delivered automatically</div><div class="notif-time">1 hr ago</div></div></div>
-        <div class="notification"><div class="notif-icon blue">💬</div><div><div class="notif-title">Family Chatbot — Booking confirmed</div><div class="notif-desc">Assessment booked · Wednesday 10am · Lead captured</div><div class="notif-time">3 hrs ago</div></div></div>
-      </div>
+      <div class="hero-card-body" id="feedWrap"></div>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Leads Captured</div></div>
         <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Invoices Sent</div></div>
@@ -826,6 +828,29 @@
   function closeMenu(){
     burger.classList.remove('open');
     mobileMenu.classList.remove('open');
+  }
+
+  const feedItems = [
+    {icon:'📋',cls:'teal',title:'PSW Visit Log — System 01',text:'Luz P. logged 8hrs · Rosario M. · Hours auto-calculated',time:'just now'},
+    {icon:'💰',cls:'green',title:'Invoice Generator — System 02',text:'Invoice sent · Thompson Family · $1,720 · April billing',time:'2 min ago'},
+    {icon:'🔔',cls:'teal',title:'Lead Capture — System 03',text:'New lead · Sandra M. · Mississauga · Standard Care · Starts ASAP',time:'5 min ago'},
+    {icon:'📧',cls:'blue',title:'Family Comms Engine — System 04',text:'Day 3 follow-up sent · Chen Family · Auto-delivered',time:'12 min ago'},
+    {icon:'🤖',cls:'teal',title:'Operator Chatbot — System 05',text:'Discovery call booked · New operator · Thursday 2pm',time:'18 min ago'},
+    {icon:'💬',cls:'blue',title:'Family Chatbot — System 06',text:'Assessment booked · Nguyen Family · Wednesday 10am',time:'24 min ago'},
+    {icon:'📝',cls:'teal',title:'Family Lead Form — System 07',text:'New intake · Robert K. · Brampton · Dementia care · Logged',time:'31 min ago'},
+    {icon:'📄',cls:'green',title:'Care Summaries — System 08',text:'Weekly summary sent · Margaret T. · Auto-written by AI · Sunday 8am',time:'1 hr ago'},
+    {icon:'🌐',cls:'blue',title:'Website — System 09',text:'New visitor · Brampton · Chatbot engaged · Lead form submitted',time:'2 hrs ago'},
+    {icon:'🔐',cls:'teal',title:'Client Portal — System 10',text:'Patricia O. logged in · Care plan viewed · Documents downloaded',time:'3 hrs ago'},
+  ];
+  const feedWrap = document.getElementById('feedWrap');
+  if(feedWrap){
+    feedItems.forEach((item,i)=>{
+      const card = document.createElement('div');
+      card.className = 'feed-card';
+      card.style.animationDelay = (1.2 + i*0.15) + 's';
+      card.innerHTML = `<div class="feed-icon ${item.cls}">${item.icon}</div><div style="flex:1"><div class="feed-title">${item.title}</div><div class="feed-text">${item.text}</div></div><div class="feed-time">${item.time}</div>`;
+      feedWrap.appendChild(card);
+    });
   }
 </script>
 </body>
