@@ -961,10 +961,20 @@ async function confirmBooking(){
   document.getElementById('bStep4').style.display='block';
   document.getElementById('bConfirmText').textContent=`You're booked — ${bDate} at ${bTime}.`;
   document.getElementById('bConfirmSub').textContent='Tim and Tannis will reach out to confirm. See you then!';
+  console.log('Booking payload:', bName, bEmail, bDate, bTime);
   try{
     await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({Full_Name:bName,Email:bEmail,Source:'Echobox Chatbot Booking',Notes:`Preferred: ${bDate} at ${bTime}`,Status:'New Lead',Care_Type:'Echobox Inquiry'}),
+      body:JSON.stringify({
+        Full_Name: bName,
+        Phone: '',
+        Source: 'Echobox Chatbot Booking',
+        Care_Type: 'Echobox Agency Inquiry',
+        Notes: 'Preferred date: ' + bDate + ' at ' + bTime,
+        Status: 'New Lead',
+        Who_Is_Care_For: 'Echobox Inquiry',
+        City: 'Calgary area'
+      }),
       mode:'no-cors'
     });
   }catch(e){}
