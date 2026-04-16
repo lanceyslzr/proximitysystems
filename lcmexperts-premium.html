@@ -365,15 +365,40 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
 @keyframes tyb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
 
 @media(max-width:900px){
-  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
-  .hero,.founder{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;}
-  .card-scene{width:300px;height:440px;}
-  .stats-bar{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .nav-btn{font-size:.75rem;padding:.5rem .9rem;}
+  .hero,.founder{grid-template-columns:1fr;padding:6rem 1.2rem 3rem;}
+  .hero-title{font-size:clamp(2rem,8vw,3.5rem);}
+  .hero-desc{font-size:.88rem;}
+  .hero-btns{flex-direction:column;gap:.8rem;}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;padding:.9rem 1rem;}
+  .card-scene{width:260px;height:380px;margin:2rem auto 0;}
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2.5rem 1.2rem;gap:1.5rem;}
+  .stat-num{font-size:2rem;}
   .svc-grid,.books-grid,.creds-grid,.testi-grid,.products-grid,.portal-grid,.contact-grid{grid-template-columns:1fr;}
-  .services,.books,.testi,.cta-section,.creds,.products,.portal-section,.contact-section{padding:5rem 1.5rem;}
-  footer{padding:2rem 1.5rem;}
-  #lcm-chat{width:calc(100vw - 2rem);right:1rem;bottom:70px;}
+  .services,.books,.testi,.cta-section,.creds,.products,.portal-section,.contact-section{padding:4rem 1.2rem;}
+  .section-title{font-size:clamp(1.8rem,6vw,2.8rem);}
+  .book-card,.svc-card,.testi-card,.cred-card,.product-card{padding:1.4rem;}
+  .portal-mockup{width:100%;overflow-x:auto;}
+  .contact-grid{gap:2rem;}
+  footer{padding:2rem 1.2rem;flex-direction:column;text-align:center;gap:1rem;}
+  #lcm-chat{width:calc(100vw - 2rem);right:1rem;bottom:70px;max-height:70vh;}
   #lcm-chat-btn{bottom:16px;right:16px;}
+  .chips{flex-wrap:wrap;gap:.5rem;}
+  .chip{font-size:.72rem;padding:.35rem .7rem;}
+  .cur,.cur-ring{display:none;}
+  body{cursor:auto;}
+  .hq-grid,.audit-grid{grid-template-columns:1fr;}
+  .timeline-grid{grid-template-columns:1fr;}
+  .founders-grid{grid-template-columns:1fr;}
+}
+
+@media(max-width:480px){
+  .hero-title{font-size:1.9rem;}
+  .stats-bar{grid-template-columns:1fr;}
+  .hero-btns{gap:.6rem;}
+  nav{padding:.8rem 1rem;}
 }
 </style>
 </head>
