@@ -311,13 +311,15 @@ footer { background: var(--sky2); border-top: 1px solid var(--border); padding: 
   .nav-links { display: none; }
   .nav-cta { font-size: .75rem; padding: .5rem .9rem; }
 
-  .hero { grid-template-columns: 1fr; padding: 6rem 1.2rem 3rem; gap: 2rem; }
+  .hero { grid-template-columns: 1fr; padding: 6rem 1.2rem 3rem; gap: 2rem; text-align: center; }
   .hero-right { display: none; }
-  .hero-title { font-size: clamp(1.9rem,7vw,3rem); }
-  .hero-desc { font-size: .88rem; max-width: 100%; }
-  .hero-btns { flex-direction: column; gap: .8rem; }
+  .hero-left { padding-right: 0; display: flex; flex-direction: column; align-items: center; }
+  .hero-title { font-size: clamp(1.9rem,7vw,3rem); text-align: center; }
+  .hero-desc { font-size: .88rem; max-width: 100%; text-align: center; }
+  .hero-btns { flex-direction: column; gap: .8rem; width: 100%; align-items: center; }
   .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: .9rem 1rem; }
-  .media-badges { flex-wrap: wrap; gap: .5rem; }
+  .eyebrow { display: inline-flex; justify-content: center; }
+  .media-badges { flex-wrap: wrap; gap: .5rem; justify-content: center; }
 
   .stats-bar { grid-template-columns: 1fr 1fr; padding: 2.5rem 1.2rem; gap: 1.5rem; }
   .stat-num { font-size: 2rem; }
