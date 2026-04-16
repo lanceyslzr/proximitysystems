@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTA Specialized Homecare | Expert Care, Right At Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0d1f2d;
+  --navy2:#132536;
+  --navy3:#1a3048;
+  --teal:#1a9b8c;
+  --teal2:#22c0af;
+  --teal3:#4dd9cb;
+  --gold:#e8b84b;
+  --gold2:#f0cc78;
+  --cream:#f7f3ee;
+  --cream2:#ede8e0;
+  --muted:#7a8fa0;
+  --border:rgba(26,155,140,0.15);
+  --border2:rgba(26,155,140,0.28);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden;cursor:none;line-height:1.7;}
+
+/* CURSOR */
+.cur{position:fixed;width:8px;height:8px;background:var(--teal2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s;}
+.cur-ring{position:fixed;width:32px;height:32px;border:1.5px solid rgba(26,155,140,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .2s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5rem;background:rgba(13,31,45,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Libre Baskerville',serif;font-size:1.1rem;color:var(--cream);font-weight:400;text-decoration:none;}
+.nav-logo em{color:var(--teal2);font-style:italic;}
+.nav-links{display:flex;gap:2.2rem;}
+.nav-links a{color:rgba(247,243,238,.55);text-decoration:none;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;transition:color .3s;font-weight:500;}
+.nav-links a:hover{color:var(--teal2);}
+.nav-cta{background:var(--teal);color:var(--cream);padding:.55rem 1.4rem;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:all .3s;}
+.nav-cta:hover{background:var(--teal2);transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;padding:8rem 5rem 5rem;position:relative;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 70%,#0a1e30 100%);overflow:hidden;}
+#heroCanvas{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.3;}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.blob-a{width:500px;height:500px;background:rgba(26,155,140,.07);top:-120px;right:-60px;}
+.blob-b{width:300px;height:300px;background:rgba(232,184,75,.04);bottom:-40px;left:15%;}
+.hero-left{position:relative;z-index:2;opacity:0;animation:fadeUp .9s ease .1s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;background:rgba(26,155,140,.1);border:1px solid rgba(26,155,140,.3);padding:.38rem 1rem;border-radius:3px;margin-bottom:1.8rem;}
+.pulse-dot{width:7px;height:7px;background:var(--teal2);border-radius:50%;animation:pdot 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(26,155,140,.5);}50%{box-shadow:0 0 0 7px rgba(26,155,140,0);}}
+.eyebrow-text{font-size:.7rem;color:var(--teal3);letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+.hero-title{font-family:'Libre Baskerville',serif;font-size:clamp(2.8rem,4.5vw,4.8rem);font-weight:700;line-height:1.06;color:var(--cream);margin-bottom:1.4rem;}
+.hero-title em{color:var(--teal2);font-style:italic;font-weight:400;}
+.hero-title .sub{display:block;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:400;font-style:italic;color:rgba(247,243,238,.45);margin-top:.4rem;font-family:'Libre Baskerville',serif;}
+.hero-desc{font-size:.97rem;font-weight:300;line-height:1.85;color:rgba(247,243,238,.68);max-width:500px;margin-bottom:2rem;}
+.hero-desc strong{color:var(--teal3);font-weight:500;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;}
+.btn-primary{background:var(--teal);color:var(--cream);padding:.8rem 2rem;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:3px;}
+.btn-primary:hover{background:var(--teal2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,155,140,.3);}
+.btn-ghost{background:transparent;color:var(--cream);padding:.8rem 2rem;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(247,243,238,.25);cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:3px;}
+.btn-ghost:hover{border-color:var(--teal2);color:var(--teal2);}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .75rem;border-radius:20px;font-size:.68rem;font-weight:500;letter-spacing:.05em;border:1px solid rgba(26,155,140,.28);color:var(--teal3);background:rgba(26,155,140,.07);}
+
+/* HERO RIGHT */
+.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;opacity:0;animation:fadeUp .9s ease .3s forwards;}
+.card-scene{width:360px;height:520px;perspective:900px;position:relative;}
+.card-3d{width:100%;height:100%;background:linear-gradient(145deg,var(--navy3),#0f2035);border:1px solid var(--border2);border-radius:16px;padding:2.2rem 1.8rem;position:relative;transition:transform .08s ease-out;box-shadow:0 40px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.04);display:flex;flex-direction:column;gap:1.2rem;overflow:hidden;}
+.card-3d::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,155,140,.07) 0%,transparent 50%);border-radius:16px;pointer-events:none;}
+.card-header{display:flex;align-items:center;gap:.9rem;}
+.card-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0f7a6e);display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-size:1.1rem;color:white;font-weight:700;border:2px solid rgba(26,155,140,.4);flex-shrink:0;}
+.card-name{font-family:'Libre Baskerville',serif;font-size:.95rem;font-weight:700;color:var(--cream);}
+.card-role{font-size:.68rem;color:var(--teal3);margin-top:.1rem;letter-spacing:.04em;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(26,155,140,.3),transparent);}
+.lead-alert{background:rgba(26,155,140,.08);border:1px solid rgba(26,155,140,.2);border-radius:8px;padding:.9rem 1rem;}
+.alert-label{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal2);margin-bottom:.5rem;font-weight:600;}
+.alert-text{font-size:.78rem;color:var(--cream);line-height:1.55;}
+.alert-meta{font-size:.62rem;color:var(--muted);margin-top:.4rem;display:flex;align-items:center;gap:.4rem;}
+.alert-dot{width:5px;height:5px;background:var(--teal2);border-radius:50%;animation:pdot 1.5s infinite;}
+.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.cs-num{font-family:'Libre Baskerville',serif;font-size:1.8rem;font-weight:700;color:var(--teal2);line-height:1;}
+.cs-lbl{font-size:.6rem;color:var(--muted);letter-spacing:.06em;margin-top:.15rem;text-transform:uppercase;}
+.card-services{display:flex;flex-direction:column;gap:.4rem;}
+.card-svc{display:flex;align-items:center;gap:.6rem;padding:.42rem .7rem;background:rgba(26,155,140,.05);border:1px solid rgba(26,155,140,.1);border-radius:5px;}
+.svc-ico{width:22px;height:22px;border-radius:4px;background:rgba(26,155,140,.14);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;}
+.svc-n{font-size:.7rem;color:var(--cream);}
+.svc-status{margin-left:auto;font-size:.57rem;background:rgba(26,155,140,.1);color:var(--teal3);padding:.08rem .4rem;border-radius:6px;white-space:nowrap;}
+.card-foot{background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.18);border-radius:6px;padding:.5rem .8rem;display:flex;align-items:center;gap:.5rem;}
+.foot-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;}
+.foot-txt{font-size:.65rem;color:var(--gold2);}
+
+/* FLOATING BADGES */
+.bf{position:absolute;background:var(--navy3);border:1px solid var(--border2);border-radius:8px;padding:.42rem .8rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:.67rem;color:var(--cream);font-weight:500;white-space:nowrap;z-index:20;}
+.bf .bd{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.bf1{top:-18px;right:30px;animation:f1 4s ease-in-out infinite;}
+.bf2{bottom:70px;left:-45px;animation:f2 5s ease-in-out infinite;}
+.bf3{top:110px;right:-50px;animation:f3 4.5s ease-in-out infinite;}
+@keyframes f1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes f2{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+@keyframes f3{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* TICKER */
+.ticker-wrap{background:var(--teal);overflow:hidden;padding:.7rem 0;}
+.ticker-inner{display:flex;animation:tick 28s linear infinite;width:max-content;}
+.ticker-inner span{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);padding:0 2.5rem;white-space:nowrap;}
+.ticker-inner span::before{content:"✦  ";}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* STATS BAR */
+.stats-bar{background:var(--navy2);border-bottom:1px solid var(--border);padding:3.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Libre Baskerville',serif;font-size:2.8rem;font-weight:700;color:var(--teal2);line-height:1;}
+.stat-label{font-size:.72rem;color:var(--muted);letter-spacing:.08em;margin-top:.4rem;text-transform:uppercase;}
+
+/* PROBLEM SECTION */
+.problem{padding:8rem 5rem;background:var(--navy);}
+.sec-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal2);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;}
+.sec-label::before{content:'';display:block;width:28px;height:1px;background:var(--teal2);}
+.sec-heading{font-family:'Libre Baskerville',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.15;color:var(--cream);margin-bottom:1.4rem;}
+.sec-heading em{color:var(--teal2);font-style:italic;}
+.sec-sub{font-size:.93rem;color:rgba(247,243,238,.6);max-width:520px;line-height:1.8;margin-bottom:3.5rem;}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+.problem-card{background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:2rem 1.8rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s;}
+.problem-card:hover{transform:translateY(-5px);border-color:var(--border2);}
+.problem-icon{font-size:1.6rem;margin-bottom:1rem;}
+.problem-title{font-family:'Libre Baskerville',serif;font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.problem-desc{font-size:.82rem;color:rgba(247,243,238,.58);line-height:1.75;}
+.problem-tag{display:inline-block;margin-top:.9rem;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:#e87070;border:1px solid rgba(232,112,112,.25);padding:.15rem .5rem;border-radius:3px;}
+
+/* SOLUTION */
+.solution{padding:8rem 5rem;background:var(--navy2);border-top:1px solid var(--border);}
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem;}
+.solution-list{display:flex;flex-direction:column;gap:1rem;}
+.solution-item{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem 1.4rem;background:var(--navy3);border:1px solid var(--border);border-radius:8px;transition:border-color .3s;}
+.solution-item:hover{border-color:var(--border2);}
+.sol-badge{width:34px;height:34px;border-radius:6px;background:rgba(26,155,140,.12);border:1px solid rgba(26,155,140,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.sol-title{font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;}
+.sol-desc{font-size:.76rem;color:var(--muted);line-height:1.6;}
+.solution-mockup{background:var(--navy3);border:1px solid var(--border2);border-radius:12px;padding:1.8rem;position:relative;}
+.mockup-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.mockup-title{font-family:'Libre Baskerville',serif;font-size:.95rem;color:var(--cream);}
+.live-pill{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--teal2);text-transform:uppercase;letter-spacing:.08em;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--teal2);animation:pdot 2s infinite;}
+.lead-row{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid rgba(26,155,140,.06);}
+.lead-row:last-child{border-bottom:none;}
+.lead-name{font-size:.82rem;color:var(--cream);font-weight:500;}
+.lead-meta{font-size:.68rem;color:var(--muted);}
+.lead-status{font-size:.58rem;padding:.15rem .5rem;border-radius:100px;font-weight:500;}
+.ls-new{background:rgba(26,155,140,.1);color:var(--teal2);border:1px solid rgba(26,155,140,.25);}
+.ls-booked{background:rgba(232,184,75,.1);color:var(--gold2);border:1px solid rgba(232,184,75,.25);}
+.ls-qualified{background:rgba(74,143,232,.1);color:#6aaaf0;border:1px solid rgba(74,143,232,.25);}
+
+/* SERVICES */
+.services{padding:8rem 5rem;background:var(--navy);}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem;}
+.svc-card{background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:2rem 1.8rem;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:none;position:relative;overflow:hidden;}
+.svc-card:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.svc-card.featured{border-color:var(--border2);background:linear-gradient(145deg,var(--navy3),#0f2035);}
+.svc-card.featured::after{content:'SPECIALIZED';position:absolute;top:.9rem;right:.9rem;font-size:.52rem;letter-spacing:.1em;background:var(--teal);color:var(--navy);padding:.18rem .48rem;border-radius:2px;font-weight:700;}
+.svc-icon{width:48px;height:48px;border-radius:10px;background:rgba(26,155,140,.1);border:1px solid rgba(26,155,140,.18);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem;}
+.svc-name{font-family:'Libre Baskerville',serif;font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.svc-desc{font-size:.82rem;color:rgba(247,243,238,.58);line-height:1.75;}
+.svc-tag{display:inline-block;margin-top:.9rem;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal3);border:1px solid rgba(26,155,140,.22);padding:.15rem .5rem;border-radius:3px;}
+
+/* HOW IT WORKS */
+.how{padding:8rem 5rem;background:var(--navy2);border-top:1px solid var(--border);}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem;}
+.step-card{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:1.8rem 1.6rem;position:relative;text-align:center;}
+.step-num{font-family:'Libre Baskerville',serif;font-size:3rem;font-weight:700;color:rgba(26,155,140,.12);line-height:1;margin-bottom:.6rem;}
+.step-icon{width:46px;height:46px;border-radius:10px;background:rgba(26,155,140,.1);border:1px solid rgba(26,155,140,.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin:0 auto 1rem;}
+.step-title{font-family:'Libre Baskerville',serif;font-size:.92rem;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.step-desc{font-size:.78rem;color:rgba(247,243,238,.55);line-height:1.7;}
+.step-connector{position:absolute;top:50%;right:-12px;transform:translateY(-50%);color:var(--teal);font-size:.8rem;z-index:10;}
+
+/* AUTOMATION STACK */
+.automation{padding:8rem 5rem;background:var(--navy);}
+.automation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:4rem;}
+.auto-card{background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:1.4rem 1.6rem;display:flex;align-items:flex-start;gap:1rem;transition:border-color .3s;}
+.auto-card:hover{border-color:var(--border2);}
+.auto-num{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-weight:700;color:rgba(26,155,140,.2);flex-shrink:0;line-height:1;min-width:28px;}
+.auto-title{font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.25rem;}
+.auto-desc{font-size:.76rem;color:var(--muted);line-height:1.6;}
+.auto-pill{display:inline-block;margin-top:.5rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal3);border:1px solid rgba(26,155,140,.2);padding:.12rem .45rem;border-radius:3px;}
+
+/* TESTI */
+.testi{padding:8rem 5rem;background:linear-gradient(180deg,var(--navy2),var(--navy));}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:4rem;}
+.testi-card{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:1.8rem 1.6rem;transition:border-color .3s,transform .3s;}
+.testi-card:hover{border-color:var(--border2);transform:translateY(-4px);}
+.stars{display:flex;gap:.2rem;margin-bottom:.85rem;}
+.stars span{color:var(--gold);font-size:.82rem;}
+.testi-text{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.9rem;color:rgba(247,243,238,.76);line-height:1.72;margin-bottom:1rem;}
+.testi-auth{font-size:.72rem;color:var(--muted);}
+.testi-auth strong{color:var(--teal3);display:block;font-size:.76rem;margin-bottom:.1rem;}
+
+/* ASSESSMENT SECTION */
+.assessment{padding:8rem 5rem;background:var(--navy2);border-top:1px solid var(--border);}
+.assessment-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1000px;margin:0 auto;}
+.contact-info{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.contact-row{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--navy3);border:1px solid var(--border);border-radius:8px;}
+.contact-icon{font-size:1.2rem;}
+.contact-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.contact-val{font-size:.88rem;color:var(--teal2);}
+.form-wrap{background:var(--navy3);border:1px solid var(--border2);border-radius:12px;padding:2.2rem;}
+.form-title{font-family:'Libre Baskerville',serif;font-size:1.2rem;color:var(--cream);margin-bottom:.4rem;}
+.form-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.6rem;line-height:1.6;}
+.field-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem;}
+.field-wrap{margin-bottom:1rem;}
+.field-input{width:100%;background:var(--navy2);border:1px solid var(--border);border-radius:4px;padding:.72rem 1rem;font-size:.86rem;color:var(--cream);font-family:'Outfit',sans-serif;transition:border-color .2s;}
+.field-input:focus{outline:none;border-color:var(--teal);}
+.field-input::placeholder{color:var(--muted);opacity:.6;}
+.field-select{width:100%;background:var(--navy2);border:1px solid var(--border);border-radius:4px;padding:.72rem 1rem;font-size:.86rem;color:var(--cream);font-family:'Outfit',sans-serif;}
+.submit-btn{width:100%;background:var(--teal);color:var(--cream);border:none;border-radius:4px;padding:1rem;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.06em;}
+.submit-btn:hover{background:var(--teal2);}
+.form-success{display:none;margin-top:1rem;padding:.9rem;background:rgba(26,155,140,.1);border:1px solid rgba(26,155,140,.25);border-radius:6px;font-size:.82rem;color:var(--teal2);text-align:center;}
+.form-note{font-size:.68rem;color:var(--muted);margin-top:.7rem;text-align:center;}
+
+/* CTA */
+.cta-section{padding:8rem 5rem;background:linear-gradient(135deg,#091422,#06111c);text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:300px;background:radial-gradient(ellipse,rgba(26,155,140,.07) 0%,transparent 70%);pointer-events:none;}
+.cta-title{font-family:'Libre Baskerville',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:700;color:var(--cream);line-height:1.12;margin-bottom:1.2rem;position:relative;z-index:1;}
+.cta-title em{color:var(--teal2);font-style:italic;}
+.cta-sub{font-size:.95rem;color:rgba(247,243,238,.58);margin-bottom:2.5rem;position:relative;z-index:1;max-width:520px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;position:relative;z-index:1;flex-wrap:wrap;}
+
+footer{background:var(--navy2);border-top:1px solid var(--border);padding:2.8rem 5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Libre Baskerville',serif;font-size:1rem;color:var(--cream);}
+.footer-logo em{color:var(--teal2);font-style:italic;}
+.footer-links{display:flex;gap:1.8rem;flex-wrap:wrap;}
+.footer-links a{font-size:.74rem;color:var(--muted);text-decoration:none;transition:color .3s;}
+.footer-links a:hover{color:var(--teal2);}
+.footer-copy{font-size:.68rem;color:rgba(122,143,160,.4);}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* CHATBOT */
+.chat-bubble{position:fixed;bottom:28px;right:28px;z-index:500;}
+.chat-toggle{width:58px;height:58px;border-radius:50%;background:var(--teal);border:none;cursor:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(26,155,140,.4);transition:all .3s;}
+.chat-toggle:hover{background:var(--teal2);transform:scale(1.08);}
+.chat-toggle svg{width:22px;height:22px;fill:white;}
+.chat-label{position:absolute;right:68px;top:50%;transform:translateY(-50%);background:var(--navy3);border:1px solid var(--border2);color:var(--cream);font-size:.76rem;padding:.42rem .95rem;border-radius:20px;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+.chat-label .online-dot{display:inline-block;width:6px;height:6px;background:var(--teal2);border-radius:50%;margin-right:5px;animation:pdot 1.5s infinite;}
+.chat-window{position:absolute;bottom:72px;right:0;width:340px;background:var(--navy2);border:1px solid var(--border2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;}
+.chat-window.open{display:flex;}
+.chat-head{background:var(--navy3);padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;border-bottom:1px solid var(--border);}
+.chat-head-avatar{width:34px;height:34px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.chat-head-name{font-size:.86rem;font-weight:600;color:var(--cream);}
+.chat-head-status{font-size:.66rem;color:var(--teal2);}
+.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:none;}
+.chat-messages{padding:1rem;display:flex;flex-direction:column;gap:.75rem;max-height:260px;overflow-y:auto;}
+.chat-msg{max-width:85%;}
+.chat-msg.bot{align-self:flex-start;}
+.chat-msg.user{align-self:flex-end;}
+.chat-bubble-inner{padding:.72rem 1rem;border-radius:10px;font-size:.8rem;line-height:1.6;}
+.chat-msg.bot .chat-bubble-inner{background:var(--navy3);border:1px solid var(--border);color:var(--cream);border-radius:3px 10px 10px 10px;}
+.chat-msg.user .chat-bubble-inner{background:rgba(26,155,140,.15);border:1px solid rgba(26,155,140,.25);color:var(--cream);border-radius:10px 3px 10px 10px;}
+.chat-chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:0 1rem .8rem;}
+.chip-btn{background:rgba(26,155,140,.08);border:1px solid rgba(26,155,140,.2);color:var(--teal3);font-size:.7rem;padding:.26rem .72rem;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;}
+.chip-btn:hover{background:rgba(26,155,140,.18);}
+.chat-input-wrap{padding:.8rem 1rem;border-top:1px solid var(--border);display:flex;gap:.6rem;}
+.chat-input{flex:1;background:var(--navy3);border:1px solid var(--border);border-radius:6px;padding:.62rem .9rem;font-size:.8rem;color:var(--cream);font-family:'Outfit',sans-serif;}
+.chat-input:focus{outline:none;border-color:var(--teal);}
+.chat-input::placeholder{color:var(--muted);opacity:.6;}
+.chat-send{background:var(--teal);border:none;border-radius:6px;padding:.62rem .9rem;cursor:pointer;color:white;font-size:.88rem;transition:background .2s;}
+.chat-send:hover{background:var(--teal2);}
+
+/* ============================================
+   MOBILE — ALL MEDIA QUERIES AT END
+   ============================================ */
+@media(max-width:900px){
+  nav{padding:1rem 1.2rem;}
+  .nav-links{display:none;}
+  .nav-cta{font-size:.72rem;padding:.48rem .9rem;}
+
+  .hero{grid-template-columns:1fr;padding:6rem 1.2rem 3rem;gap:2rem;text-align:center;}
+  .hero-right{display:none;}
+  .hero-left{display:flex;flex-direction:column;align-items:center;}
+  .hero-title{font-size:clamp(1.9rem,7vw,3rem);text-align:center;}
+  .hero-desc{font-size:.9rem;max-width:100%;text-align:center;}
+  .eyebrow{justify-content:center;}
+  .hero-btns{flex-direction:column;gap:.8rem;width:100%;align-items:center;}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;max-width:320px;}
+  .chips{justify-content:center;}
+
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2.5rem 1.2rem;gap:1.5rem;}
+  .stat-num{font-size:2.2rem;}
+
+  .problem{padding:4rem 1.2rem;}
+  .problem-grid{grid-template-columns:1fr;}
+
+  .solution{padding:4rem 1.2rem;}
+  .solution-grid{grid-template-columns:1fr;gap:2.5rem;}
+
+  .services{padding:4rem 1.2rem;}
+  .svc-grid{grid-template-columns:1fr;}
+
+  .how{padding:4rem 1.2rem;}
+  .steps-grid{grid-template-columns:1fr 1fr;}
+  .step-connector{display:none;}
+
+  .automation{padding:4rem 1.2rem;}
+  .automation-grid{grid-template-columns:1fr;}
+
+  .testi{padding:4rem 1.2rem;}
+  .testi-grid{grid-template-columns:1fr;}
+
+  .assessment{padding:4rem 1.2rem;}
+  .assessment-grid{grid-template-columns:1fr;gap:2rem;}
+
+  .cta-section{padding:4rem 1.2rem;}
+  .cta-btns{flex-direction:column;align-items:center;}
+
+  .sec-heading{font-size:clamp(1.7rem,6vw,2.4rem);}
+  .sec-sub{max-width:100%;}
+
+  footer{padding:2rem 1.2rem;flex-direction:column;text-align:center;gap:1rem;}
+  .footer-links{justify-content:center;}
+
+  .chat-label{display:none;}
+  .chat-bubble{bottom:16px;right:16px;}
+  .chat-window{width:calc(100vw - 2rem);right:0;bottom:70px;max-height:70vh;}
+
+  .cur,.cur-ring{display:none;}
+  body{cursor:auto;}
+}
+
+@media(max-width:480px){
+  .hero-title{font-size:1.8rem;}
+  .stats-bar{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr;}
+  nav{padding:.8rem 1rem;}
+  .sec-heading{font-size:1.7rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <div class="nav-logo"><em>GTA</em> Specialized Homecare</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How It Works</a>
+    <a href="#automation">Systems</a>
+    <a href="#assessment">Book Assessment</a>
+  </div>
+  <a href="tel:4379989163" class="nav-cta">Call Us</a>
+</nav>
+
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span class="eyebrow-text">Ontario · Non-Medical Care · Accepting New Clients</span>
+    </div>
+    <h1 class="hero-title">
+      Expert Care,<br><em>Right at Home.</em>
+      <span class="sub">Compassionate. Personalized. Reliable.</span>
+    </h1>
+    <p class="hero-desc">
+      <strong>GTA Specialized Homecare</strong> provides reliable, high-quality home care services to help individuals live safely and independently — in the comfort of their own home. Serving families across Ontario with dignity, respect, and compassion.
+    </p>
+    <div class="hero-btns">
+      <a href="#assessment" class="btn-primary">Schedule Free Assessment</a>
+      <a href="#services" class="btn-ghost">View Services</a>
+    </div>
+    <div class="chips">
+      <div class="chip">✓ Ontario Licensed</div>
+      <div class="chip">✓ Special Needs Support</div>
+      <div class="chip">✓ 24/7 Availability</div>
+      <div class="chip">✓ Personalized Care Plans</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-scene">
+      <div class="bf bf1"><div class="bd" style="background:var(--teal2);"></div>New Lead · Sandra M. · Just Now</div>
+      <div class="bf bf2"><div class="bd" style="background:var(--gold);"></div>Assessment Booked · Wed 10am</div>
+      <div class="bf bf3"><div class="bd" style="background:var(--teal3);"></div>Ontario Licensed · Active</div>
+      <div class="card-3d" id="heroCard">
+        <div class="card-header">
+          <div class="card-avatar">GH</div>
+          <div>
+            <div class="card-name">GTA Specialized Homecare</div>
+            <div class="card-role">Ontario · Non-Medical Home Care Agency</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="lead-alert">
+          <div class="alert-label">🔔 New Lead Alert</div>
+          <div class="alert-text">Sandra M. · Scarborough · Personal Care · Starts ASAP · Son is primary contact · 647-555-0192</div>
+          <div class="alert-meta"><span class="alert-dot"></span>Just now · Auto-captured · You've been notified</div>
+        </div>
+        <div class="card-stats">
+          <div><div class="cs-num" data-target="22">0</div><div class="cs-lbl">Leads This Month</div></div>
+          <div><div class="cs-num" data-target="8">0</div><div class="cs-lbl">Assessments Booked</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-services">
+          <div class="card-svc"><div class="svc-ico">🤝</div><div class="svc-n">Companionship Care</div><div class="svc-status">Active</div></div>
+          <div class="card-svc"><div class="svc-ico">🧠</div><div class="svc-n">Special Needs Support</div><div class="svc-status">Active</div></div>
+          <div class="card-svc"><div class="svc-ico">🏠</div><div class="svc-n">Daily Living Assistance</div><div class="svc-status">Active</div></div>
+        </div>
+        <div class="card-foot">
+          <div class="foot-dot"></div>
+          <div class="foot-txt">Registered · Ontario Ministry of Labour · Active</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>Personal Care</span><span>Special Needs Support</span><span>Companionship</span><span>Respite Care</span><span>Daily Living</span><span>Ontario Licensed</span><span>Non-Medical Care</span><span>GTA Specialized Homecare</span><span>Dementia Support</span><span>24/7 Availability</span><span>Personalized Plans</span>
+    <span>Personal Care</span><span>Special Needs Support</span><span>Companionship</span><span>Respite Care</span><span>Daily Living</span><span>Ontario Licensed</span><span>Non-Medical Care</span><span>GTA Specialized Homecare</span><span>Dementia Support</span><span>24/7 Availability</span><span>Personalized Plans</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item reveal"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Client Satisfaction</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="24" data-suffix="/7">0</div><div class="stat-label">Availability</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="6" data-suffix=" Services">0</div><div class="stat-label">Care Categories</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="60" data-suffix="s">0</div><div class="stat-label">Lead Response Time</div></div>
+</div>
+
+<section class="problem" id="problem">
+  <div class="sec-label">The Challenge</div>
+  <h2 class="sec-heading">Why Most Families <em>Struggle to Find Care</em></h2>
+  <p class="sec-sub">Families searching for home care are overwhelmed, emotional, and moving fast. The agency that responds first — and responds right — wins the client.</p>
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <div class="problem-icon">⏱️</div>
+      <div class="problem-title">Speed to Lead</div>
+      <div class="problem-desc">Families call 3 to 5 agencies at once and go with whoever responds first. Every missed inquiry is a missed client — and missed revenue.</div>
+      <div class="problem-tag">Critical Issue</div>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-icon">📋</div>
+      <div class="problem-title">Manual Admin Overload</div>
+      <div class="problem-desc">Timesheets, invoices, scheduling — all done manually. That is 15+ hours every month that could be spent growing the business.</div>
+      <div class="problem-tag">Time Drain</div>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-icon">🌙</div>
+      <div class="problem-title">After-Hours Inquiries</div>
+      <div class="problem-desc">Families often search for care at night, on weekends, when no one is available. Without automation, those leads disappear.</div>
+      <div class="problem-tag">Lost Revenue</div>
+    </div>
+  </div>
+</section>
+
+<section class="solution" id="solution">
+  <div class="sec-label">The Solution</div>
+  <h2 class="sec-heading">GTA Homecare Runs <em>On Autopilot.</em></h2>
+  <p class="sec-sub">Every inquiry captured. Every lead notified instantly. Every PSW timesheet calculated automatically. The system never stops working — even when you do.</p>
+  <div class="solution-grid">
+    <div class="solution-list reveal">
+      <div class="solution-item">
+        <div class="sol-badge">🔔</div>
+        <div><div class="sol-title">Instant Lead Alerts</div><div class="sol-desc">The second a family inquires, you get a full notification with their name, number, location, and care needs. Never miss a lead again.</div></div>
+      </div>
+      <div class="solution-item">
+        <div class="sol-badge">🤖</div>
+        <div><div class="sol-title">AI Chatbot — 24/7</div><div class="sol-desc">A chatbot on your site answers questions, qualifies families, and books assessments automatically. Even at 2am.</div></div>
+      </div>
+      <div class="solution-item">
+        <div class="sol-badge">📊</div>
+        <div><div class="sol-title">Auto-Calculating Timesheets</div><div class="sol-desc">PSWs log visits from their phone. Hours calculate automatically. No paper, no spreadsheets, no errors.</div></div>
+      </div>
+      <div class="solution-item">
+        <div class="sol-badge">💳</div>
+        <div><div class="sol-title">Automated Invoicing</div><div class="sol-desc">Invoices generated and sent to every client at end of month. Zero manual work. Always accurate.</div></div>
+      </div>
+    </div>
+    <div class="solution-mockup reveal">
+      <div class="mockup-header">
+        <div class="mockup-title">Lead Dashboard · Live</div>
+        <div class="live-pill"><div class="live-dot"></div>Active</div>
+      </div>
+      <div class="lead-row"><div><div class="lead-name">Sandra M.</div><div class="lead-meta">Scarborough · Personal Care · Starts ASAP</div></div><span class="lead-status ls-new">New</span></div>
+      <div class="lead-row"><div><div class="lead-name">Robert K.</div><div class="lead-meta">Brampton · Special Needs · Weekly</div></div><span class="lead-status ls-booked">Booked</span></div>
+      <div class="lead-row"><div><div class="lead-name">Maria T.</div><div class="lead-meta">Mississauga · Companion Care · ASAP</div></div><span class="lead-status ls-qualified">Qualified</span></div>
+      <div class="lead-row"><div><div class="lead-name">James O.</div><div class="lead-meta">Toronto · Respite Care · Weekends</div></div><span class="lead-status ls-booked">Booked</span></div>
+      <div class="lead-row"><div><div class="lead-name">Patricia W.</div><div class="lead-meta">Etobicoke · Daily Living · Ongoing</div></div><span class="lead-status ls-new">New</span></div>
+      <div style="margin-top:1rem;padding:.7rem;background:rgba(26,155,140,.06);border:1px solid rgba(26,155,140,.14);border-radius:6px;font-size:.7rem;color:var(--teal3);">All leads auto-captured · Instant notification sent · Zero manual entry</div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="sec-label">What We Offer</div>
+  <h2 class="sec-heading">Comprehensive Care <em>For Every Need</em></h2>
+  <p class="sec-sub">Every care plan is personalized to the individual — their lifestyle, preferences, cultural background, and level of support needed.</p>
+  <div class="svc-grid">
+    <div class="svc-card featured reveal">
+      <div class="svc-icon">🧠</div>
+      <div class="svc-name">Special Needs Support</div>
+      <div class="svc-desc">Specialized non-medical support for individuals with physical disabilities, learning disabilities, sensory impairments, and complex care needs. Person-centered and dignity-focused.</div>
+      <div class="svc-tag">Core Specialty</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🤝</div>
+      <div class="svc-name">Companionship Care</div>
+      <div class="svc-desc">Meaningful companionship, conversation, and engagement to combat isolation and support emotional wellbeing. Activities, outings, and daily connection.</div>
+      <div class="svc-tag">Social Wellbeing</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🏠</div>
+      <div class="svc-name">Daily Living Assistance</div>
+      <div class="svc-desc">Meal preparation, light housekeeping, medication reminders, and everyday support to maintain independence and comfort at home.</div>
+      <div class="svc-tag">Daily Support</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">💊</div>
+      <div class="svc-name">Personal Care</div>
+      <div class="svc-desc">Bathing, grooming, dressing, and mobility assistance delivered with dignity and respect by trained, compassionate caregivers.</div>
+      <div class="svc-tag">Personal Dignity</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🌿</div>
+      <div class="svc-name">Respite Care</div>
+      <div class="svc-desc">Temporary relief for family caregivers. Our trained staff steps in so families can rest, recharge, and attend to their own needs without worry.</div>
+      <div class="svc-tag">Family Relief</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon">🏡</div>
+      <div class="svc-name">Housekeeping</div>
+      <div class="svc-desc">Light housekeeping to keep the home clean, safe, and comfortable — supporting independence and reducing the risk of falls and hazards.</div>
+      <div class="svc-tag">Home Safety</div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="sec-label">Getting Started</div>
+  <h2 class="sec-heading">From First Call to <em>First Visit in Days</em></h2>
+  <p class="sec-sub">We make starting care as simple as possible. Four steps and your loved one is in good hands.</p>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">📞</div>
+      <div class="step-title">Schedule a Free Assessment</div>
+      <div class="step-desc">Call us or book online. We come to you — no obligation, no cost. We learn about your loved one's needs, routine, and preferences.</div>
+      <div class="step-connector">→</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">We Build Your Care Plan</div>
+      <div class="step-desc">A personalized care plan tailored to the individual — their cultural background, lifestyle, medical needs, and daily routine.</div>
+      <div class="step-connector">→</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">🤝</div>
+      <div class="step-title">Meet Your Caregiver</div>
+      <div class="step-desc">We match you with a trained caregiver who fits your loved one's personality and needs. Consistency matters — same caregiver, every visit.</div>
+      <div class="step-connector">→</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon">❤️</div>
+      <div class="step-title">Care Begins</div>
+      <div class="step-desc">Your loved one receives compassionate, dignified care at home. You receive updates after every visit. Peace of mind, guaranteed.</div>
+    </div>
+  </div>
+</section>
+
+<section class="automation" id="automation">
+  <div class="sec-label">Behind The Scenes</div>
+  <h2 class="sec-heading">10 Systems Running <em>While You Focus on Care</em></h2>
+  <p class="sec-sub">Every part of the operation is automated — so GTA Homecare can focus on clients, not admin.</p>
+  <div class="automation-grid">
+    <div class="auto-card reveal"><div class="auto-num">01</div><div><div class="auto-title">PSW Visit Log System</div><div class="auto-desc">PSWs log visits from their phone. Hours auto-calculate. No paper, no spreadsheets, no calls.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">02</div><div><div class="auto-title">Auto-Calculating Billing</div><div class="auto-desc">Hours matched to care plan rates automatically. Always accurate. Never manual.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">03</div><div><div class="auto-title">Instant Lead Capture</div><div class="auto-desc">Every inquiry captured and sent to your phone instantly with full family details.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">04</div><div><div class="auto-title">Monthly Invoice Generator</div><div class="auto-desc">Invoices generated and sent to every client automatically at end of month.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">05</div><div><div class="auto-title">AI-Written Care Summaries</div><div class="auto-desc">Weekly summaries automatically written and sent to families every Sunday.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">06</div><div><div class="auto-title">Family Chatbot — 24/7</div><div class="auto-desc">Warm AI chatbot qualifies leads and books assessments automatically — even at midnight.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">07</div><div><div class="auto-title">Family Lead Form</div><div class="auto-desc">Embedded intake form wired directly to your lead dashboard. Every submission logged instantly.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">08</div><div><div class="auto-title">Family Comms Engine</div><div class="auto-desc">Automated Day 1, 3, and 7 follow-ups after assessment. Families stay informed automatically.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">09</div><div><div class="auto-title">PSW Portal</div><div class="auto-desc">Installable PSW app for visit logging, scheduling, and timesheet submission from any phone.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">10</div><div><div class="auto-title">Client Family Portal</div><div class="auto-desc">Families log in to see care plans, summaries, documents, and message your team directly.</div><div class="auto-pill">Live</div></div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">What Families Say</div>
+  <h2 class="sec-heading">Trust Built <em>One Family at a Time</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"GTA Specialized Homecare has been a blessing for my family. Their caregivers genuinely care about my mother's well-being — providing comfort and companionship in her time of need."</div>
+      <div class="testi-auth"><strong>Michael Thompson</strong>Son · Toronto, Ontario</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"I cannot express enough gratitude for the assistance we've received. The staff have been incredibly supportive and attentive, helping us navigate daily challenges with warmth and professionalism."</div>
+      <div class="testi-auth"><strong>Abel Harrison</strong>Family Caregiver · Scarborough, Ontario</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"From the very first call they made us feel heard. The care plan they built for my father was exactly what he needed. I finally feel like someone actually understands what we are going through."</div>
+      <div class="testi-auth"><strong>Patricia O.</strong>Daughter · Brampton, Ontario</div>
+    </div>
+  </div>
+</section>
+
+<section class="assessment" id="assessment">
+  <div class="sec-label" style="justify-content:center;margin-bottom:1rem;">Schedule Your Assessment</div>
+  <h2 class="sec-heading" style="text-align:center;margin-bottom:.8rem;">Ready to Get <em>the Right Care?</em></h2>
+  <p style="text-align:center;font-size:.93rem;color:rgba(247,243,238,.58);max-width:480px;margin:0 auto 3rem;line-height:1.8;">Book a free, no-obligation home assessment. We come to you, learn about your loved one, and design a care plan that actually fits.</p>
+  <div class="assessment-grid">
+    <div>
+      <div class="sec-label">Get In Touch</div>
+      <h3 style="font-family:'Libre Baskerville',serif;font-size:1.4rem;color:var(--cream);margin-bottom:.5rem;">We'd love to <em style="color:var(--teal2);font-style:italic;">hear from you.</em></h3>
+      <p style="font-size:.88rem;color:rgba(247,243,238,.6);line-height:1.8;margin-bottom:1.5rem;">Whether you need care now or are just exploring options — reach out. We will help you find the right path forward.</p>
+      <div class="contact-info">
+        <div class="contact-row"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val">437-998-9163</div></div></div>
+        <div class="contact-row"><div class="contact-icon">🌐</div><div><div class="contact-label">Website</div><div class="contact-val">gtahomecare.com</div></div></div>
+        <div class="contact-row"><div class="contact-icon">📍</div><div><div class="contact-label">Serving</div><div class="contact-val" style="color:var(--cream);">Greater Toronto Area · Ontario</div></div></div>
+        <div class="contact-row"><div class="contact-icon">🆓</div><div><div class="contact-label">Assessment</div><div class="contact-val">Free · No Obligation · We Come To You</div></div></div>
+      </div>
+    </div>
+    <div class="form-wrap">
+      <div class="form-title">Book a Free Assessment</div>
+      <div class="form-sub">We respond within 60 seconds during business hours. After hours, our AI assistant will capture your details and we will call you first thing.</div>
+      <div class="field-wrap"><div class="field-label">Your Name</div><input id="f-name" class="field-input" placeholder="Full name"></div>
+      <div class="field-wrap"><div class="field-label">Phone Number</div><input id="f-phone" class="field-input" placeholder="647-xxx-xxxx" type="tel"></div>
+      <div class="field-wrap"><div class="field-label">Email Address</div><input id="f-email" class="field-input" placeholder="your@email.com" type="email"></div>
+      <div class="field-wrap"><div class="field-label">City / Area</div><input id="f-city" class="field-input" placeholder="e.g. Scarborough, Brampton, Mississauga"></div>
+      <div class="field-wrap"><div class="field-label">Type of Care Needed</div>
+        <select id="f-care" class="field-input field-select">
+          <option value="">Select...</option>
+          <option>Personal Care</option>
+          <option>Special Needs Support</option>
+          <option>Companionship Care</option>
+          <option>Daily Living Assistance</option>
+          <option>Respite Care</option>
+          <option>Housekeeping</option>
+          <option>Not Sure Yet</option>
+        </select>
+      </div>
+      <div class="field-wrap"><div class="field-label">When Do You Need Care?</div>
+        <select id="f-start" class="field-input field-select">
+          <option value="">Select...</option>
+          <option>As soon as possible</option>
+          <option>Within 1-2 weeks</option>
+          <option>Within a month</option>
+          <option>Just exploring options</option>
+        </select>
+      </div>
+      <button class="submit-btn" onclick="submitAssessment()">Book Free Assessment →</button>
+      <div id="f-success" class="form-success">Thank you! We will be in touch within 60 seconds during business hours. After hours we will call you first thing tomorrow.</div>
+      <div class="form-note">✓ Free · No obligation · We come to you</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-title">Start With a Free<br><em>Home Assessment.</em></div>
+  <p class="cta-sub">No pressure. No commitment. Just a conversation about what your loved one needs — and how we can help.</p>
+  <div class="cta-btns">
+    <a href="tel:4379989163" class="btn-primary">Call 437-998-9163</a>
+    <a href="#assessment" class="btn-ghost">Book Online →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><em>GTA</em> Specialized Homecare</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#how">How It Works</a>
+    <a href="#automation">Systems</a>
+    <a href="#assessment">Book Assessment</a>
+  </div>
+  <div class="footer-copy">© 2026 GTA Specialized Homecare · Ontario Licensed · Registered with Ontario Ministry of Labour</div>
+</footer>
+
+<!-- CHATBOT -->
+<div class="chat-bubble">
+  <div class="chat-label"><span class="online-dot"></span>We're available</div>
+  <button class="chat-toggle" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-head">
+      <div class="chat-head-avatar">🏠</div>
+      <div><div class="chat-head-name">GTA Homecare Assistant</div><div class="chat-head-status">● Available now</div></div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot"><div class="chat-bubble-inner">Hi! Are you looking for care for yourself or a loved one?</div></div>
+    </div>
+    <div class="chat-chips" id="chatChips">
+      <span class="chip-btn" onclick="sendChip(this)">For a loved one</span>
+      <span class="chip-btn" onclick="sendChip(this)">For myself</span>
+      <span class="chip-btn" onclick="sendChip(this)">What services do you offer?</span>
+      <span class="chip-btn" onclick="sendChip(this)">What does it cost?</span>
+    </div>
+    <div class="chat-input-wrap">
+      <input class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" onclick="sendMsg()">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+if(window.matchMedia('(pointer: fine)').matches){
+  document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curRing.style.left=e.clientX+'px';curRing.style.top=e.clientY+'px';});
+}
+
+// HERO CANVAS
+const canvas=document.getElementById('heroCanvas');
+if(canvas){
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;
+  const pts=Array.from({length:55},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.4+.4}));
+  function drawCanvas(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(26,155,140,0.45)';ctx.fill();});requestAnimationFrame(drawCanvas);}
+  drawCanvas();
+}
+
+// 3D CARD TILT
+const heroCard=document.getElementById('heroCard');
+if(heroCard){
+  const wrap=heroCard.parentElement;
+  wrap.addEventListener('mousemove',e=>{const r=wrap.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;heroCard.style.transition='transform .08s ease';heroCard.style.transform=`perspective(900px) rotateY(${x*18}deg) rotateX(${-y*18}deg) scale(1.02)`;});
+  wrap.addEventListener('mouseleave',()=>{heroCard.style.transition='transform .6s ease';heroCard.style.transform='perspective(900px) rotateY(0) rotateX(0) scale(1)';});
+}
+
+// COUNTERS
+function countUp(el){const target=parseInt(el.dataset.target);const suffix=el.dataset.suffix||'';let count=0;const step=Math.ceil(target/60);const timer=setInterval(()=>{count=Math.min(count+step,target);el.textContent=count+suffix;if(count>=target)clearInterval(timer);},24);}
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('[data-target]').forEach(countUp);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('[data-target]').forEach(el=>{const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(el);obs.disconnect();}});},{threshold:.5});obs.observe(el);});
+
+// CHATBOT
+const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
+const SYSTEM=`You are the GTA Specialized Homecare assistant. GTA Specialized Homecare is a non-medical home care agency in Ontario serving the Greater Toronto Area. Services include: special needs support, companionship care, daily living assistance, personal care, respite care, and housekeeping. Ontario licensed and registered with the Ontario Ministry of Labour. Phone: 437-998-9163. Website: gtahomecare.com. Free home assessment available — no obligation.
+
+STRICT RULES:
+- MAXIMUM 2 sentences. Never more.
+- End with ONE short question.
+- Never use bullet points or lists.
+- Warm and caring tone. Like a compassionate care coordinator.
+- Always encourage booking a free assessment.`;
+
+let msgs=[{role:'assistant',content:'Hi! Are you looking for care for yourself or a loved one?'}];
+let chatOpen=false;
+
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWindow').classList.toggle('open',chatOpen);}
+
+function renderMsg(role,text){const div=document.createElement('div');div.className=`chat-msg ${role==='assistant'?'bot':'user'}`;div.innerHTML=`<div class="chat-bubble-inner">${text}</div>`;document.getElementById('chatMessages').appendChild(div);document.getElementById('chatMessages').scrollTop=9999;}
+
+function setChips(chips){const c=document.getElementById('chatChips');c.innerHTML='';chips.forEach(t=>{const s=document.createElement('span');s.className='chip-btn';s.textContent=t;s.onclick=()=>sendChip(s);c.appendChild(s);});}
+
+async function sendMsg(){const input=document.getElementById('chatInput');const text=input.value.trim();if(!text)return;input.value='';renderMsg('user',text);msgs.push({role:'user',content:text});document.getElementById('chatChips').innerHTML='';await getBotReply();}
+
+async function sendChip(el){const text=el.textContent;renderMsg('user',text);msgs.push({role:'user',content:text});document.getElementById('chatChips').innerHTML='';await getBotReply();}
+
+async function getBotReply(){
+  try{
+    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,system:SYSTEM,messages:msgs})});
+    const data=await res.json();
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    setTimeout(()=>{
+      renderMsg('assistant',reply);
+      const lower=reply.toLowerCase();
+      let chips=['Tell me more','What does it cost?','Book a free assessment','What services do you offer?'];
+      if(lower.includes('assessment')||lower.includes('book'))chips=['Yes, book me in','Tell me more first','What does it cost?','What areas do you serve?'];
+      else if(lower.includes('cost')||lower.includes('price'))chips=['That works for us','Tell me more','Book a free assessment','What services do you offer?'];
+      else if(lower.includes('service')||lower.includes('care'))chips=['Personal care','Special needs support','Respite care','Book a free assessment'];
+      setChips(chips);
+    },1200);
+  }catch(e){
+    setTimeout(()=>{renderMsg('assistant','Happy to help — what type of care are you looking for?');setChips(['Personal care','Special needs support','Book a free assessment','Call us directly']);},1200);
+  }
+}
+
+// FORM SUBMIT
+async function submitAssessment(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const city=document.getElementById('f-city').value.trim();
+  const care=document.getElementById('f-care').value;
+  const start=document.getElementById('f-start').value;
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  try{
+    await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({Full_Name:name,Phone:phone,Email:email,City:city,Care_Type:care,Notes:'Start: '+start,Source:'GTA Homecare Demo Form',Status:'New Lead'}),
+      mode:'no-cors'
+    });
+  }catch(e){}
+  document.getElementById('f-success').style.display='block';
+  document.getElementById('f-name').value='';
+  document.getElementById('f-phone').value='';
+  document.getElementById('f-email').value='';
+  document.getElementById('f-city').value='';
+}
+</script>
+</body>
+</html>
