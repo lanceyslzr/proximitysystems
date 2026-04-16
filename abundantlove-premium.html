@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abundant Love Home Care Services | Rosalind C. Bland, CEO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --wine:#3d0c1a;
+  --wine2:#521222;
+  --wine3:#6b1a2e;
+  --burgundy:#8b2035;
+  --rose:#c4516a;
+  --rose2:#d4748a;
+  --cream:#faf5ee;
+  --cream2:#f2ebe0;
+  --gold:#c9a84c;
+  --gold2:#e0c070;
+  --muted:#9a8070;
+  --border:rgba(139,32,53,0.18);
+  --border2:rgba(139,32,53,0.32);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--wine);color:var(--cream);overflow-x:hidden;cursor:none;line-height:1.7;}
+
+/* CURSOR */
+.cur{position:fixed;width:7px;height:7px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur-ring{position:fixed;width:30px;height:30px;border:1.5px solid rgba(196,81,106,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5rem;background:rgba(61,12,26,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);font-weight:400;}
+.nav-logo em{color:var(--rose2);font-style:italic;}
+.nav-links{display:flex;gap:2.2rem;}
+.nav-links a{color:rgba(250,245,238,.55);text-decoration:none;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;transition:color .3s;font-weight:700;}
+.nav-links a:hover{color:var(--rose2);}
+.nav-btn{background:var(--burgundy);color:var(--cream);padding:.52rem 1.3rem;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none;border-radius:2px;}
+.nav-btn:hover{background:var(--rose);}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;padding:8rem 5rem 5rem;position:relative;background:linear-gradient(135deg,var(--wine) 0%,var(--wine2) 60%,#2a0811 100%);overflow:hidden;}
+#cvs{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.25;}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.blob-a{width:500px;height:500px;background:rgba(139,32,53,.08);top:-100px;right:-60px;}
+.blob-b{width:300px;height:300px;background:rgba(201,168,76,.04);bottom:-40px;left:15%;}
+.hero-left{position:relative;z-index:2;opacity:0;animation:fadeUp .9s ease .1s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;background:rgba(139,32,53,.12);border:1px solid rgba(139,32,53,.32);padding:.38rem 1rem;border-radius:2px;margin-bottom:1.8rem;}
+.pulse-dot{width:7px;height:7px;background:var(--rose);border-radius:50%;animation:pdot 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(196,81,106,.5);}50%{box-shadow:0 0 0 6px rgba(196,81,106,0);}}
+.eyebrow span{font-size:.7rem;color:var(--rose2);letter-spacing:.14em;text-transform:uppercase;font-weight:700;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,4.2vw,4.8rem);font-weight:700;line-height:1.06;color:var(--cream);margin-bottom:1.4rem;}
+.hero-title em{color:var(--rose2);font-style:italic;font-weight:400;}
+.hero-title .sub{display:block;font-size:clamp(1.1rem,2vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,245,238,.45);margin-top:.3rem;}
+.hero-desc{font-size:.96rem;font-weight:300;line-height:1.85;color:rgba(250,245,238,.7);max-width:480px;margin-bottom:2rem;}
+.hero-desc strong{color:var(--rose2);font-weight:700;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;}
+.btn-primary{background:var(--burgundy);color:var(--cream);padding:.78rem 2rem;font-family:'Lato',sans-serif;font-size:.84rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:2px;}
+.btn-primary:hover{background:var(--rose);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--cream);padding:.78rem 2rem;font-family:'Lato',sans-serif;font-size:.84rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(250,245,238,.28);cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:2px;}
+.btn-ghost:hover{border-color:var(--rose2);color:var(--rose2);}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .75rem;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.05em;border:1px solid rgba(139,32,53,.3);color:var(--rose2);background:rgba(139,32,53,.08);}
+
+/* HERO RIGHT */
+.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;opacity:0;animation:fadeUp .9s ease .3s forwards;}
+.card-scene{width:340px;height:520px;perspective:900px;position:relative;}
+.card-3d{width:100%;height:100%;background:linear-gradient(145deg,var(--wine3),#2a0a12);border:1px solid var(--border2);border-radius:14px;padding:2.2rem 2rem;position:relative;transition:transform .08s ease-out;box-shadow:0 40px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04);display:flex;flex-direction:column;gap:1.2rem;overflow:hidden;}
+.card-3d::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,32,53,.08) 0%,transparent 50%);border-radius:14px;pointer-events:none;}
+.card-header{display:flex;align-items:center;gap:.9rem;}
+.card-avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--burgundy),#4a0a1a);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:white;font-weight:700;border:2px solid rgba(139,32,53,.45);flex-shrink:0;}
+.card-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--cream);}
+.card-role{font-size:.67rem;color:var(--rose2);margin-top:.1rem;letter-spacing:.04em;}
+.card-since{font-size:.6rem;color:var(--muted);margin-top:.1rem;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(139,32,53,.35),transparent);}
+.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.cs-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--rose2);line-height:1;}
+.cs-lbl{font-size:.6rem;color:var(--muted);letter-spacing:.06em;margin-top:.15rem;text-transform:uppercase;}
+.card-svcs{display:flex;flex-direction:column;gap:.4rem;}
+.card-svc{display:flex;align-items:center;gap:.6rem;padding:.42rem .7rem;background:rgba(139,32,53,.06);border:1px solid rgba(139,32,53,.12);border-radius:5px;}
+.svc-ico{width:22px;height:22px;border-radius:4px;background:rgba(139,32,53,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;}
+.svc-n{font-size:.7rem;color:var(--cream);}
+.svc-t{margin-left:auto;font-size:.57rem;background:rgba(139,32,53,.12);color:var(--rose2);padding:.08rem .4rem;border-radius:6px;white-space:nowrap;}
+.card-foot{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:.5rem .8rem;display:flex;align-items:center;gap:.5rem;}
+.foot-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;}
+.foot-txt{font-size:.65rem;color:var(--gold2);}
+
+/* FLOATING BADGES */
+.bf{position:absolute;background:var(--wine3);border:1px solid var(--border2);border-radius:8px;padding:.42rem .8rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:.67rem;color:var(--cream);font-weight:700;white-space:nowrap;z-index:20;}
+.bf .bd{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.bf1{top:-16px;left:18px;animation:f1 4s ease-in-out infinite;}
+.bf2{bottom:60px;left:-40px;animation:f2 5s ease-in-out infinite;}
+.bf3{top:110px;right:-44px;animation:f3 4.5s ease-in-out infinite;}
+@keyframes f1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes f2{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+@keyframes f3{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* TICKER */
+.ticker-wrap{background:var(--burgundy);overflow:hidden;padding:.7rem 0;}
+.ticker-inner{display:flex;animation:tick 30s linear infinite;width:max-content;}
+.ticker-inner span{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);padding:0 2.5rem;white-space:nowrap;}
+.ticker-inner span::before{content:"❤  ";}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* STATS */
+.stats-bar{background:var(--wine2);border-bottom:1px solid var(--border);padding:3.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--rose2);line-height:1;}
+.stat-label{font-size:.72rem;color:var(--muted);letter-spacing:.08em;margin-top:.4rem;text-transform:uppercase;}
+
+/* STORY */
+.story{padding:7rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;background:linear-gradient(180deg,var(--wine2),var(--wine));position:relative;overflow:hidden;}
+.sec-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose2);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;}
+.sec-label::before{content:'';display:block;width:28px;height:1px;background:var(--rose2);}
+.sec-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.15;color:var(--cream);margin-bottom:1.4rem;}
+.sec-heading em{color:var(--rose2);font-style:italic;}
+.body-text{font-size:.94rem;line-height:1.88;color:rgba(250,245,238,.7);margin-bottom:1.2rem;}
+.body-text strong{color:var(--cream);}
+.pull-quote{border-left:3px solid var(--burgundy);padding:1rem 1.4rem;background:rgba(139,32,53,.08);border-radius:0 6px 6px 0;font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:var(--rose2);line-height:1.65;margin:1.6rem 0;}
+
+/* CREDS */
+.creds-stack{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.cred-row{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem 1.3rem;background:var(--wine3);border:1px solid var(--border);border-radius:8px;}
+.cred-icon{font-size:1.2rem;flex-shrink:0;}
+.cred-title{font-size:.86rem;font-weight:700;color:var(--cream);margin-bottom:.2rem;}
+.cred-desc{font-size:.76rem;color:rgba(250,245,238,.55);line-height:1.6;}
+
+/* SERVICES */
+.services{padding:7rem 5rem;background:var(--wine);}
+.sec-sub{font-size:.91rem;color:rgba(250,245,238,.55);max-width:520px;line-height:1.75;margin-bottom:3.5rem;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.svc-card{background:var(--wine2);border:1px solid var(--border);border-radius:10px;padding:1.8rem 1.6rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:none;}
+.svc-card:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.svc-card.feat{border-color:var(--border2);background:linear-gradient(145deg,var(--wine3),#250812);}
+.svc-icon{width:46px;height:46px;border-radius:10px;background:rgba(139,32,53,.12);border:1px solid rgba(139,32,53,.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.1rem;}
+.svc-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:.4rem;}
+.svc-desc{font-size:.8rem;color:rgba(250,245,238,.56);line-height:1.72;}
+.svc-tag{display:inline-block;margin-top:.8rem;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rose2);border:1px solid rgba(139,32,53,.24);padding:.14rem .5rem;border-radius:3px;}
+
+/* AUTOMATION */
+.automation{padding:7rem 5rem;background:var(--wine2);border-top:1px solid var(--border);}
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:3.5rem;}
+.auto-card{background:var(--wine3);border:1px solid var(--border);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;transition:border-color .3s;}
+.auto-card:hover{border-color:var(--border2);}
+.auto-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(139,32,53,.22);flex-shrink:0;line-height:1;min-width:26px;}
+.auto-title{font-size:.86rem;font-weight:700;color:var(--cream);margin-bottom:.2rem;}
+.auto-desc{font-size:.74rem;color:var(--muted);line-height:1.6;}
+.auto-pill{display:inline-block;margin-top:.4rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rose2);border:1px solid rgba(139,32,53,.22);padding:.1rem .42rem;border-radius:3px;}
+
+/* REACH */
+.reach{padding:7rem 5rem;background:var(--wine);}
+.reach-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4rem;align-items:start;}
+.reach-map{background:var(--wine3);border:1px solid var(--border2);border-radius:12px;padding:2rem;}
+.map-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.map-title{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--cream);}
+.live-pill{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--rose2);text-transform:uppercase;letter-spacing:.08em;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:pdot 2s infinite;}
+.county-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid rgba(139,32,53,.06);}
+.county-row:last-child{border-bottom:none;}
+.county-name{font-size:.82rem;color:var(--cream);font-weight:700;}
+.county-meta{font-size:.68rem;color:var(--muted);}
+.county-badge{font-size:.58rem;padding:.14rem .5rem;border-radius:100px;font-weight:700;background:rgba(139,32,53,.1);color:var(--rose2);border:1px solid rgba(139,32,53,.25);}
+.reach-stats{display:flex;flex-direction:column;gap:1rem;}
+.reach-stat{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem 1.4rem;background:var(--wine3);border:1px solid var(--border);border-radius:8px;}
+.rs-icon{width:34px;height:34px;border-radius:6px;background:rgba(139,32,53,.14);border:1px solid rgba(139,32,53,.22);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.rs-title{font-size:.87rem;font-weight:700;color:var(--cream);margin-bottom:.18rem;}
+.rs-desc{font-size:.75rem;color:var(--muted);line-height:1.6;}
+
+/* TESTI */
+.testi{padding:7rem 5rem;background:linear-gradient(180deg,var(--wine2),var(--wine));}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.testi-card{background:var(--wine3);border:1px solid var(--border);border-radius:10px;padding:1.8rem 1.6rem;transition:border-color .3s,transform .3s;}
+.testi-card:hover{border-color:var(--border2);transform:translateY(-4px);}
+.stars{display:flex;gap:.18rem;margin-bottom:.85rem;}
+.stars span{color:var(--gold);font-size:.82rem;}
+.testi-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;color:rgba(250,245,238,.76);line-height:1.72;margin-bottom:1rem;}
+.testi-auth{font-size:.72rem;color:var(--muted);}
+.testi-auth strong{color:var(--rose2);display:block;font-size:.76rem;margin-bottom:.1rem;}
+
+/* ASSESSMENT */
+.assessment{padding:7rem 5rem;background:var(--wine2);border-top:1px solid var(--border);}
+.assessment-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1000px;margin:0 auto;}
+.contact-info{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.contact-row{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--wine3);border:1px solid var(--border);border-radius:8px;}
+.contact-icon{font-size:1.2rem;}
+.contact-label{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.contact-val{font-size:.88rem;color:var(--rose2);}
+.form-wrap{background:var(--wine3);border:1px solid var(--border2);border-radius:12px;padding:2.2rem;}
+.form-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--cream);margin-bottom:.4rem;}
+.form-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.6rem;line-height:1.6;}
+.field-label{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.field-wrap{margin-bottom:1rem;}
+.field-input{width:100%;background:var(--wine2);border:1px solid var(--border);border-radius:4px;padding:.7rem 1rem;font-size:.86rem;color:var(--cream);font-family:'Lato',sans-serif;transition:border-color .2s;}
+.field-input:focus{outline:none;border-color:var(--burgundy);}
+.field-input::placeholder{color:var(--muted);opacity:.6;}
+.submit-btn{width:100%;background:var(--burgundy);color:var(--cream);border:none;border-radius:4px;padding:1rem;font-family:'Lato',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.06em;}
+.submit-btn:hover{background:var(--rose);}
+.form-success{display:none;margin-top:1rem;padding:.9rem;background:rgba(139,32,53,.1);border:1px solid rgba(139,32,53,.28);border-radius:6px;font-size:.82rem;color:var(--rose2);text-align:center;}
+
+/* CTA */
+.cta-section{padding:7rem 5rem;background:linear-gradient(135deg,#1e0508,#160306);text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:300px;background:radial-gradient(ellipse,rgba(139,32,53,.08) 0%,transparent 70%);pointer-events:none;}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:700;color:var(--cream);line-height:1.12;margin-bottom:1.2rem;position:relative;z-index:1;}
+.cta-title em{color:var(--rose2);font-style:italic;}
+.cta-sub{font-size:.95rem;color:rgba(250,245,238,.58);margin-bottom:2.5rem;position:relative;z-index:1;max-width:500px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;position:relative;z-index:1;flex-wrap:wrap;}
+
+footer{background:var(--wine2);border-top:1px solid var(--border);padding:2.8rem 5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--cream);}
+.footer-logo em{color:var(--rose2);font-style:italic;}
+.footer-links{display:flex;gap:1.8rem;flex-wrap:wrap;}
+.footer-links a{font-size:.74rem;color:var(--muted);text-decoration:none;transition:color .3s;}
+.footer-links a:hover{color:var(--rose2);}
+.footer-copy{font-size:.68rem;color:rgba(154,128,112,.4);}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* CHATBOT */
+.chat-bubble{position:fixed;bottom:28px;right:28px;z-index:500;}
+.chat-toggle{width:56px;height:56px;border-radius:50%;background:var(--burgundy);border:none;cursor:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(139,32,53,.4);transition:all .3s;}
+.chat-toggle:hover{background:var(--rose);transform:scale(1.08);}
+.chat-toggle svg{width:22px;height:22px;fill:white;}
+.chat-label{position:absolute;right:66px;top:50%;transform:translateY(-50%);background:var(--wine3);border:1px solid var(--border2);color:var(--cream);font-size:.76rem;padding:.4rem .9rem;border-radius:20px;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+.chat-label .online-dot{display:inline-block;width:6px;height:6px;background:var(--rose);border-radius:50%;margin-right:5px;animation:pdot 1.5s infinite;}
+.chat-window{position:absolute;bottom:70px;right:0;width:340px;background:var(--wine2);border:1px solid var(--border2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;}
+.chat-window.open{display:flex;}
+.chat-head{background:var(--wine3);padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;border-bottom:1px solid var(--border);}
+.chat-head-avatar{width:34px;height:34px;border-radius:50%;background:var(--burgundy);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.chat-head-name{font-size:.86rem;font-weight:700;color:var(--cream);}
+.chat-head-status{font-size:.66rem;color:var(--rose2);}
+.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:none;}
+.chat-messages{padding:1rem;display:flex;flex-direction:column;gap:.75rem;max-height:260px;overflow-y:auto;}
+.chat-msg{max-width:85%;}
+.chat-msg.bot{align-self:flex-start;}
+.chat-msg.user{align-self:flex-end;}
+.chat-bubble-inner{padding:.72rem 1rem;border-radius:10px;font-size:.8rem;line-height:1.6;}
+.chat-msg.bot .chat-bubble-inner{background:var(--wine3);border:1px solid var(--border);color:var(--cream);border-radius:3px 10px 10px 10px;}
+.chat-msg.user .chat-bubble-inner{background:rgba(139,32,53,.15);border:1px solid rgba(139,32,53,.28);color:var(--cream);border-radius:10px 3px 10px 10px;}
+.chat-chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:0 1rem .8rem;}
+.chip-btn{background:rgba(139,32,53,.08);border:1px solid rgba(139,32,53,.22);color:var(--rose2);font-size:.7rem;padding:.26rem .72rem;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Lato',sans-serif;font-weight:700;}
+.chip-btn:hover{background:rgba(139,32,53,.2);}
+.chat-input-wrap{padding:.8rem 1rem;border-top:1px solid var(--border);display:flex;gap:.6rem;}
+.chat-input{flex:1;background:var(--wine3);border:1px solid var(--border);border-radius:6px;padding:.62rem .9rem;font-size:.8rem;color:var(--cream);font-family:'Lato',sans-serif;}
+.chat-input:focus{outline:none;border-color:var(--burgundy);}
+.chat-input::placeholder{color:var(--muted);opacity:.6;}
+.chat-send{background:var(--burgundy);border:none;border-radius:6px;padding:.62rem .9rem;cursor:pointer;color:white;font-size:.88rem;transition:background .2s;}
+.chat-send:hover{background:var(--rose);}
+
+/* ============================================
+   MOBILE — ALL AT END
+   ============================================ */
+@media(max-width:900px){
+  nav{padding:1rem 1.2rem;}
+  .nav-links{display:none;}
+  .nav-btn{font-size:.72rem;padding:.48rem .9rem;}
+
+  .hero{grid-template-columns:1fr;padding:6rem 1.2rem 3rem;gap:2rem;text-align:center;}
+  .hero-right{display:none;}
+  .hero-left{display:flex;flex-direction:column;align-items:center;}
+  .hero-title{font-size:clamp(2rem,7vw,3.2rem);text-align:center;}
+  .hero-desc{font-size:.9rem;max-width:100%;text-align:center;}
+  .eyebrow{justify-content:center;}
+  .hero-btns{flex-direction:column;gap:.8rem;width:100%;align-items:center;}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;max-width:320px;}
+  .chips{justify-content:center;}
+
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2.5rem 1.2rem;gap:1.5rem;}
+  .stat-num{font-size:2.2rem;}
+
+  .story{grid-template-columns:1fr;padding:4rem 1.2rem;gap:3rem;}
+  .services{padding:4rem 1.2rem;}
+  .svc-grid{grid-template-columns:1fr;}
+  .sec-sub{max-width:100%;}
+
+  .automation{padding:4rem 1.2rem;}
+  .auto-grid{grid-template-columns:1fr;}
+
+  .reach{padding:4rem 1.2rem;}
+  .reach-grid{grid-template-columns:1fr;gap:2rem;}
+
+  .testi{padding:4rem 1.2rem;}
+  .testi-grid{grid-template-columns:1fr;}
+
+  .assessment{padding:4rem 1.2rem;}
+  .assessment-grid{grid-template-columns:1fr;gap:2rem;}
+
+  .cta-section{padding:4rem 1.2rem;}
+  .cta-btns{flex-direction:column;align-items:center;}
+
+  .sec-heading{font-size:clamp(1.7rem,6vw,2.4rem);}
+
+  footer{padding:2rem 1.2rem;flex-direction:column;text-align:center;gap:1rem;}
+  .footer-links{justify-content:center;}
+
+  .chat-label{display:none;}
+  .chat-bubble{bottom:16px;right:16px;}
+  .chat-window{width:calc(100vw - 2rem);right:0;bottom:70px;max-height:70vh;}
+
+  .cur,.cur-ring{display:none;}
+  body{cursor:auto;}
+}
+
+@media(max-width:480px){
+  .hero-title{font-size:1.9rem;}
+  .stats-bar{grid-template-columns:1fr;}
+  nav{padding:.8rem 1rem;}
+  .sec-heading{font-size:1.7rem;}
+  .chips{gap:.4rem;}
+  .chip{font-size:.62rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <div class="nav-logo"><em>Abundant Love</em> Home Care Services</div>
+  <div class="nav-links">
+    <a href="#story">Our Story</a>
+    <a href="#services">Services</a>
+    <a href="#reach">Our Reach</a>
+    <a href="#assessment">Book Assessment</a>
+  </div>
+  <a href="tel:9802164471" class="nav-btn">Call Us</a>
+</nav>
+
+<section class="hero">
+  <canvas id="cvs"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span>Charlotte & Hickory, NC · Est. 2013 · 9 Counties</span>
+    </div>
+    <h1 class="hero-title">
+      Care Born From<br><em>Abundant Love.</em>
+      <span class="sub">Founded by Rosalind C. Bland, CEO · Serving NC Since 2013</span>
+    </h1>
+    <p class="hero-desc">
+      <strong>Abundant Love Home Care Services LLC</strong> provides compassionate, personalized in-home care across nine counties in North Carolina — with clients from four continents and two locations in Charlotte and Hickory. Care is not just a career here. It is a calling.
+    </p>
+    <div class="hero-btns">
+      <a href="#assessment" class="btn-primary">Schedule a Free Assessment</a>
+      <a href="#story" class="btn-ghost">Our Story</a>
+    </div>
+    <div class="chips">
+      <div class="chip">✓ Est. 2013</div>
+      <div class="chip">✓ 9 NC Counties</div>
+      <div class="chip">✓ 4 Continents Served</div>
+      <div class="chip">✓ Charlotte & Hickory</div>
+      <div class="chip">✓ NC Licensed HC4659</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-scene">
+      <div class="bf bf1"><div class="bd" style="background:var(--rose2);"></div>New Lead · Mecklenburg · Just Now</div>
+      <div class="bf bf2"><div class="bd" style="background:var(--gold);"></div>Invoice Auto-Sent · April Billing</div>
+      <div class="bf bf3"><div class="bd" style="background:var(--rose);"></div>Aide Logged Visit · 8hrs</div>
+      <div class="card-3d" id="heroCard">
+        <div class="card-header">
+          <div class="card-avatar">RB</div>
+          <div>
+            <div class="card-name">Rosalind C. Bland</div>
+            <div class="card-role">CEO & Director · Abundant Love Home Care</div>
+            <div class="card-since">BS Accounting · Masters Psychology · Est. 2013</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-stats">
+          <div><div class="cs-num" data-target="9">0</div><div class="cs-lbl">NC Counties</div></div>
+          <div><div class="cs-num" data-target="11">0</div><div class="cs-lbl">Years Serving</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-svcs">
+          <div class="card-svc"><div class="svc-ico">🏠</div><div class="svc-n">Personal Care</div><div class="svc-t">Daily</div></div>
+          <div class="card-svc"><div class="svc-ico">🤝</div><div class="svc-n">Companion Care</div><div class="svc-t">Active</div></div>
+          <div class="card-svc"><div class="svc-ico">🌿</div><div class="svc-n">Respite Care</div><div class="svc-t">Flexible</div></div>
+        </div>
+        <div class="card-foot">
+          <div class="foot-dot"></div>
+          <div class="foot-txt">Charlotte · Hickory · 9 Counties · 4 Continents</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>Personal Care</span><span>Companion Care</span><span>Respite Care</span><span>Daily Living</span><span>Dementia Support</span><span>Charlotte NC</span><span>Hickory NC</span><span>9 Counties</span><span>4 Continents</span><span>Est. 2013</span><span>Rosalind C. Bland</span><span>A Calling Not A Career</span>
+    <span>Personal Care</span><span>Companion Care</span><span>Respite Care</span><span>Daily Living</span><span>Dementia Support</span><span>Charlotte NC</span><span>Hickory NC</span><span>9 Counties</span><span>4 Continents</span><span>Est. 2013</span><span>Rosalind C. Bland</span><span>A Calling Not A Career</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item reveal"><div class="stat-num" data-target="11" data-suffix="+ Yrs">0</div><div class="stat-label">Serving NC</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="9">0</div><div class="stat-label">Counties Covered</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="4">0</div><div class="stat-label">Continents Served</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="2">0</div><div class="stat-label">Office Locations</div></div>
+</div>
+
+<section class="story" id="story">
+  <div class="reveal">
+    <div class="sec-label">The Founder's Story</div>
+    <h2 class="sec-heading">She Left Corporate America.<br><em>Love Called Her Home.</em></h2>
+    <p class="body-text"><strong>Rosalind C. Bland</strong> spent over 15 years in corporate America — a BS in Accounting, a Masters in Psychology with a focus in Crisis Counseling, a career built on discipline and excellence. Then her mother passed away, leaving behind her father in the advanced stages of Alzheimer's.</p>
+    <div class="pull-quote">"Ask God to show you what you are called to do." — Rosalind's late mother</div>
+    <p class="body-text">Rosalind brought her father home. She hired caregivers. The experience left a lot to be desired. On October 31, 2013, her father passed. And out of that grief, she found her calling — to build the kind of care she wished her father had received.</p>
+    <p class="body-text">Abundant Love Home Care Services was born that year. Today it serves nine counties across North Carolina, operates out of two locations in Charlotte and Hickory, and has touched the lives of clients from four continents. This is not just a business. It is a labor of love.</p>
+    <a href="#assessment" class="btn-primary" style="margin-top:1.5rem;display:inline-block;">Schedule a Free Assessment</a>
+  </div>
+  <div class="reveal">
+    <div class="sec-label">Why Families Trust Abundant Love</div>
+    <div class="creds-stack">
+      <div class="cred-row"><div class="cred-icon">🎓</div><div><div class="cred-title">BS Accounting · Masters in Psychology</div><div class="cred-desc">Corporate precision meets compassionate leadership. Rosalind brings both to every aspect of the business.</div></div></div>
+      <div class="cred-row"><div class="cred-icon">❤️</div><div><div class="cred-title">Founded From Personal Experience</div><div class="cred-desc">Rosalind lived the caregiver experience firsthand when caring for her father with Alzheimer's. She built what she wished had existed.</div></div></div>
+      <div class="cred-row"><div class="cred-icon">🌍</div><div><div class="cred-title">Clients From Four Continents</div><div class="cred-desc">A testament to the diverse and inclusive culture at Abundant Love — serving families regardless of background or origin.</div></div></div>
+      <div class="cred-row"><div class="cred-icon">📋</div><div><div class="cred-title">NC Licensed · HC4659</div><div class="cred-desc">Fully licensed by the NC Department of Health and Human Services. Compliant, credentialed, and accountable.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="reveal">
+    <div class="sec-label">What We Offer</div>
+    <h2 class="sec-heading">Care Designed Around <em>the Individual</em></h2>
+    <p class="sec-sub">Every care plan is built around the unique needs, preferences, and dignity of each client — and the family members who love them.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card feat reveal"><div class="svc-icon">🏠</div><div class="svc-name">Personal Care</div><div class="svc-desc">Bathing, grooming, dressing, and mobility assistance delivered with dignity and compassion by trained, experienced aides.</div><div class="svc-tag">Core Service</div></div>
+    <div class="svc-card reveal"><div class="svc-icon">🤝</div><div class="svc-name">Companion Care</div><div class="svc-desc">Meaningful companionship, conversation, and social engagement that combats isolation and supports emotional wellbeing.</div><div class="svc-tag">Social Wellbeing</div></div>
+    <div class="svc-card reveal"><div class="svc-icon">📋</div><div class="svc-name">Daily Living Assistance</div><div class="svc-desc">Meal preparation, light housekeeping, medication reminders, and everyday support to maintain independence and comfort at home.</div><div class="svc-tag">Daily Support</div></div>
+    <div class="svc-card reveal"><div class="svc-icon">🧠</div><div class="svc-name">Dementia & Alzheimer's Support</div><div class="svc-desc">Specialized care for clients with memory conditions — patient, consistent, and built around the person Rosalind wishes her father had received.</div><div class="svc-tag">Memory Care</div></div>
+    <div class="svc-card reveal"><div class="svc-icon">🌿</div><div class="svc-name">Respite Care</div><div class="svc-desc">Relief for family caregivers who need to rest. Our trained aides step in so families can recharge without worry or guilt.</div><div class="svc-tag">Family Relief</div></div>
+    <div class="svc-card reveal"><div class="svc-icon">🌙</div><div class="svc-name">Overnight & Extended Care</div><div class="svc-desc">Around-the-clock care for clients who need continuous support — matched with aides who understand their routine and preferences.</div><div class="svc-tag">Full Coverage</div></div>
+  </div>
+</section>
+
+<section class="automation" id="automation">
+  <div class="reveal">
+    <div class="sec-label">Behind The Scenes</div>
+    <h2 class="sec-heading">10 Systems Running <em>So You Focus on Care</em></h2>
+    <p class="sec-sub" style="max-width:100%;">Everything Abundant Love does manually — aide logs, invoices, lead follow-ups — automated and running in the background. 15+ hours saved every month.</p>
+  </div>
+  <div class="auto-grid">
+    <div class="auto-card reveal"><div class="auto-num">01</div><div><div class="auto-title">Aide Visit Log System</div><div class="auto-desc">Aides log visits from their phone. Hours auto-calculate. No paper, no spreadsheets, no calls.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">02</div><div><div class="auto-title">Auto-Calculating Billing</div><div class="auto-desc">Hours matched to care plan rates automatically. Always accurate. Never manual.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">03</div><div><div class="auto-title">Instant Lead Capture</div><div class="auto-desc">Every family inquiry captured instantly — name, number, county, care needed — sent to your phone in seconds.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">04</div><div><div class="auto-title">Monthly Invoice Generator</div><div class="auto-desc">Invoices generated and sent to every client automatically at end of month. Zero manual work.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">05</div><div><div class="auto-title">AI-Written Care Summaries</div><div class="auto-desc">Weekly summaries automatically written and sent to families. Builds trust without any manual effort.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">06</div><div><div class="auto-title">Family Chatbot — 24/7</div><div class="auto-desc">A warm AI chatbot that answers questions, qualifies families, and books assessments — even at midnight.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">07</div><div><div class="auto-title">Family Lead Form</div><div class="auto-desc">Embedded intake form connected to your lead dashboard. Every submission logged and notified instantly.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">08</div><div><div class="auto-title">Family Comms Engine</div><div class="auto-desc">Automated Day 1, 3, and 7 follow-ups after every assessment. Families stay informed automatically.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">09</div><div><div class="auto-title">Aide Portal</div><div class="auto-desc">Installable app for aides — visit logging, scheduling, and timesheet submission from any phone.</div><div class="auto-pill">Live</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">10</div><div><div class="auto-title">Client Family Portal</div><div class="auto-desc">Families log in to see care plans, summaries, documents, and message your team directly. Zero phone tag.</div><div class="auto-pill">Live</div></div></div>
+  </div>
+</section>
+
+<section class="reach" id="reach">
+  <div class="reveal">
+    <div class="sec-label">Our Coverage</div>
+    <h2 class="sec-heading">Nine Counties. <em>Two Locations. One Standard of Care.</em></h2>
+    <p class="sec-sub" style="max-width:100%;">From Charlotte to Hickory — Abundant Love serves families across North Carolina with the same compassion and excellence in every county.</p>
+  </div>
+  <div class="reach-grid">
+    <div class="reach-map reveal">
+      <div class="map-header"><div class="map-title">Coverage · North Carolina</div><div class="live-pill"><div class="live-dot"></div>Active</div></div>
+      <div class="county-row"><div><div class="county-name">Mecklenburg County</div><div class="county-meta">Charlotte HQ · Primary Territory</div></div><span class="county-badge">HQ</span></div>
+      <div class="county-row"><div><div class="county-name">Catawba County</div><div class="county-meta">Hickory Office · Second Location</div></div><span class="county-badge">Location 2</span></div>
+      <div class="county-row"><div><div class="county-name">Gaston County</div><div class="county-meta">Greater Charlotte Metro</div></div><span class="county-badge">Active</span></div>
+      <div class="county-row"><div><div class="county-name">Union County</div><div class="county-meta">Southeast Charlotte Area</div></div><span class="county-badge">Active</span></div>
+      <div class="county-row"><div><div class="county-name">Cabarrus County</div><div class="county-meta">Concord & Kannapolis Area</div></div><span class="county-badge">Active</span></div>
+      <div class="county-row"><div><div class="county-name">+ 4 Additional Counties</div><div class="county-meta">Full 9-county coverage across NC</div></div><span class="county-badge">Active</span></div>
+      <div class="dash-note" style="margin-top:1rem;padding:.7rem;background:rgba(139,32,53,.06);border:1px solid rgba(139,32,53,.14);border-radius:6px;font-size:.7rem;color:var(--rose2);">Clients from four continents · Inclusive · Diverse · Culturally competent care</div>
+    </div>
+    <div class="reach-stats reveal">
+      <div class="reach-stat"><div class="rs-icon">🌍</div><div><div class="rs-title">Clients From Four Continents</div><div class="rs-desc">A testament to the diverse and inclusive culture Rosalind has built — families from around the world trust Abundant Love.</div></div></div>
+      <div class="reach-stat"><div class="rs-icon">📍</div><div><div class="rs-title">Two Office Locations</div><div class="rs-desc">Charlotte at 8401 Medical Plaza Dr and Hickory — positioned to serve families across the full nine-county footprint.</div></div></div>
+      <div class="reach-stat"><div class="rs-icon">📞</div><div><div class="rs-title">Always Reachable</div><div class="rs-desc">With the automation stack running, Abundant Love never misses an inquiry — even after hours, even on weekends.</div></div></div>
+      <div class="reach-stat"><div class="rs-icon">❤️</div><div><div class="rs-title">A Decade of Trust</div><div class="rs-desc">Over 11 years of consistent, compassionate care across North Carolina. The best is yet to come — Rosalind's words, not ours.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="reveal">
+    <div class="sec-label">What Families Say</div>
+    <h2 class="sec-heading">Love Is Patient. <em>Love Is Kind.</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"The heart of quality care lies in trust and personal connections. Abundant Love lives that every single day. My mother is in the best hands — and I finally feel at peace."</div>
+      <div class="testi-auth"><strong>Verified Family</strong>Mecklenburg County · NC</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"Rosalind genuinely cares. You feel it the moment you speak with her. She built this business from love and it shows in every aide she sends to our home."</div>
+      <div class="testi-auth"><strong>Verified Family</strong>Catawba County · NC</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"We moved here from overseas and finding Abundant Love was a blessing. They understood our culture, our needs, and treated my father like family from day one."</div>
+      <div class="testi-auth"><strong>Verified Family</strong>Charlotte · NC</div>
+    </div>
+  </div>
+</section>
+
+<section class="assessment" id="assessment">
+  <div class="sec-label" style="justify-content:center;margin-bottom:1rem;">Schedule Your Assessment</div>
+  <h2 class="sec-heading" style="text-align:center;margin-bottom:.8rem;">Ready to Experience <em>Abundant Love?</em></h2>
+  <p style="text-align:center;font-size:.92rem;color:rgba(250,245,238,.58);max-width:480px;margin:0 auto 3rem;line-height:1.8;">Free, no-obligation home assessment. We come to you, learn about your loved one, and design a care plan built around who they are.</p>
+  <div class="assessment-grid">
+    <div>
+      <div class="sec-label">Get In Touch</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:.5rem;">We are <em style="color:var(--rose2);font-style:italic;">here for you.</em></h3>
+      <p style="font-size:.88rem;color:rgba(250,245,238,.6);line-height:1.8;margin-bottom:1.5rem;">Whether you need care now or just want to explore options — Rosalind and her team will help you find the right path forward.</p>
+      <div class="contact-info">
+        <div class="contact-row"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val">980-216-4471</div></div></div>
+        <div class="contact-row"><div class="contact-icon">📍</div><div><div class="contact-label">Charlotte Office</div><div class="contact-val" style="color:var(--cream);">8401 Medical Plaza Dr, Suite 255</div></div></div>
+        <div class="contact-row"><div class="contact-icon">📍</div><div><div class="contact-label">Hickory Office</div><div class="contact-val" style="color:var(--cream);">Second Location · Catawba County</div></div></div>
+        <div class="contact-row"><div class="contact-icon">🗺️</div><div><div class="contact-label">Serving</div><div class="contact-val" style="color:var(--cream);">9 Counties Across North Carolina</div></div></div>
+      </div>
+    </div>
+    <div class="form-wrap">
+      <div class="form-title">Request a Free Assessment</div>
+      <div class="form-sub">Rosalind personally oversees every new client relationship. We respond within 60 seconds during business hours.</div>
+      <div class="field-wrap"><div class="field-label">Your Name</div><input id="f-name" class="field-input" placeholder="Full name"></div>
+      <div class="field-wrap"><div class="field-label">Phone Number</div><input id="f-phone" class="field-input" placeholder="(980) xxx-xxxx" type="tel"></div>
+      <div class="field-wrap"><div class="field-label">Email Address</div><input id="f-email" class="field-input" placeholder="your@email.com" type="email"></div>
+      <div class="field-wrap"><div class="field-label">County / City</div><input id="f-city" class="field-input" placeholder="e.g. Charlotte, Hickory, Concord"></div>
+      <div class="field-wrap"><div class="field-label">Type of Care Needed</div>
+        <select id="f-care" class="field-input">
+          <option value="">Select...</option>
+          <option>Personal Care</option>
+          <option>Companion Care</option>
+          <option>Daily Living Assistance</option>
+          <option>Dementia / Alzheimer's Support</option>
+          <option>Respite Care</option>
+          <option>Overnight / Extended Care</option>
+          <option>Not Sure Yet</option>
+        </select>
+      </div>
+      <div class="field-wrap"><div class="field-label">When Do You Need Care?</div>
+        <select id="f-start" class="field-input">
+          <option value="">Select...</option>
+          <option>As soon as possible</option>
+          <option>Within 1-2 weeks</option>
+          <option>Within a month</option>
+          <option>Just exploring options</option>
+        </select>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Schedule Free Assessment →</button>
+      <div id="f-success" class="form-success">Thank you. Rosalind and her team will be in touch shortly. Love is patient. Love is kind.</div>
+      <p style="font-size:.68rem;color:var(--muted);margin-top:.7rem;text-align:center;">✓ Free · No obligation · We come to you</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-title">Care Is Not Just a Career.<br><em>It Is a Calling.</em></div>
+  <p class="cta-sub">Schedule a free home assessment and let Rosalind and her team build a care plan born from genuine love and 11 years of experience.</p>
+  <div class="cta-btns">
+    <a href="tel:9802164471" class="btn-primary">Call 980-216-4471</a>
+    <a href="#assessment" class="btn-ghost">Book Online →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><em>Abundant Love</em> Home Care Services LLC</div>
+  <div class="footer-links">
+    <a href="#story">Our Story</a>
+    <a href="#services">Services</a>
+    <a href="#reach">Coverage</a>
+    <a href="#assessment">Book Assessment</a>
+  </div>
+  <div class="footer-copy">© 2026 Abundant Love Home Care Services LLC · Rosalind C. Bland, CEO · Charlotte & Hickory, NC · License HC4659</div>
+</footer>
+
+<!-- CHATBOT -->
+<div class="chat-bubble">
+  <div class="chat-label"><span class="online-dot"></span>We're available</div>
+  <button class="chat-toggle" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-head">
+      <div class="chat-head-avatar">❤️</div>
+      <div><div class="chat-head-name">Abundant Love Assistant</div><div class="chat-head-status">● Available now</div></div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot"><div class="chat-bubble-inner">Hi — are you looking for care for yourself or a loved one?</div></div>
+    </div>
+    <div class="chat-chips" id="chatChips">
+      <span class="chip-btn" onclick="sendChip(this)">For a loved one</span>
+      <span class="chip-btn" onclick="sendChip(this)">For myself</span>
+      <span class="chip-btn" onclick="sendChip(this)">What counties do you serve?</span>
+      <span class="chip-btn" onclick="sendChip(this)">Book a free assessment</span>
+    </div>
+    <div class="chat-input-wrap">
+      <input class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" onclick="sendMsg()">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(animR);})();
+
+// PARTICLES
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H;
+function resize(){W=cvs.width=cvs.offsetWidth;H=cvs.height=cvs.offsetHeight;}
+resize();window.addEventListener('resize',resize);
+const pts=Array.from({length:55},()=>({
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.3+.3;this.vx=(Math.random()-.5)*.24;this.vy=(Math.random()-.5)*.24;this.a=Math.random()*.22+.05;this.life=0;this.max=180+Math.random()*200;},
+  update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.max||this.x<0||this.x>W||this.y<0||this.y>H)this.reset();},
+  draw(){const p=this.life/this.max,a=this.a*Math.sin(p*Math.PI);ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(139,32,53,${a})`;ctx.fill();}
+}));
+pts.forEach(p=>p.reset());
+(function animP(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animP);})();
+
+// 3D CARD
+const heroCard=document.getElementById('heroCard');
+if(heroCard){
+  const scene=heroCard.parentElement;
+  scene.addEventListener('mousemove',e=>{const r=scene.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;heroCard.style.transform=`rotateY(${x*18}deg) rotateX(${-y*18}deg)`;});
+  scene.addEventListener('mouseleave',()=>{heroCard.style.transform='rotateY(0) rotateX(0)';heroCard.style.transition='transform .6s ease';});
+}
+
+// COUNTERS
+function countUp(el){const target=parseInt(el.dataset.target);const suffix=el.dataset.suffix||'';let count=0;const step=Math.ceil(target/60);const timer=setInterval(()=>{count=Math.min(count+step,target);el.textContent=count+suffix;if(count>=target)clearInterval(timer);},24);}
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('[data-target]').forEach(countUp);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('[data-target]').forEach(el=>{const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(el);obs.disconnect();}});},{threshold:.5});obs.observe(el);});
+
+// CHATBOT
+const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
+const SYSTEM=`You are the Abundant Love Home Care Services assistant. Abundant Love was founded in 2013 by Rosalind C. Bland, CEO, in Charlotte North Carolina. She left a 15-year corporate career after her father was diagnosed with Alzheimer's and passed away. She founded Abundant Love to provide the care she wished her father had received. Services include personal care, companion care, daily living assistance, dementia and Alzheimer's support, respite care, and overnight care. Serving 9 counties in North Carolina with two offices in Charlotte and Hickory. Clients from four continents. NC Licensed HC4659. Phone: 980-216-4471.
+
+STRICT RULES:
+- MAXIMUM 2 sentences. Never more.
+- End with ONE short question.
+- Warm and compassionate tone. Like Rosalind herself.
+- Never use bullet points.
+- Always encourage scheduling a free assessment.`;
+
+let msgs=[{role:'assistant',content:'Hi — are you looking for care for yourself or a loved one?'}];
+let chatOpen=false;
+
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWindow').classList.toggle('open',chatOpen);}
+function renderMsg(role,text){const div=document.createElement('div');div.className=`chat-msg ${role==='assistant'?'bot':'user'}`;div.innerHTML=`<div class="chat-bubble-inner">${text}</div>`;document.getElementById('chatMessages').appendChild(div);document.getElementById('chatMessages').scrollTop=9999;}
+function setChips(chips){const c=document.getElementById('chatChips');c.innerHTML='';chips.forEach(t=>{const s=document.createElement('span');s.className='chip-btn';s.textContent=t;s.onclick=()=>sendChip(s);c.appendChild(s);});}
+async function sendMsg(){const input=document.getElementById('chatInput');const text=input.value.trim();if(!text)return;input.value='';renderMsg('user',text);msgs.push({role:'user',content:text});document.getElementById('chatChips').innerHTML='';await getBotReply();}
+async function sendChip(el){const text=el.textContent;renderMsg('user',text);msgs.push({role:'user',content:text});document.getElementById('chatChips').innerHTML='';await getBotReply();}
+
+async function getBotReply(){
+  try{
+    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,system:SYSTEM,messages:msgs})});
+    const data=await res.json();
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    setTimeout(()=>{
+      renderMsg('assistant',reply);
+      const lower=reply.toLowerCase();
+      let chips=['Tell me more','What counties do you serve?','Schedule a free assessment','What does care cost?'];
+      if(lower.includes('assessment')||lower.includes('schedule'))chips=['Yes, schedule me in','Tell me more first','What counties do you serve?','What does it cost?'];
+      else if(lower.includes('county')||lower.includes('counties')||lower.includes('charlotte'))chips=['Tell me more','Schedule a free assessment','What services do you offer?','What does it cost?'];
+      setChips(chips);
+    },1200);
+  }catch(e){
+    setTimeout(()=>{renderMsg('assistant','Happy to help — what type of care are you looking for?');setChips(['Personal care','Companion care','Schedule a free assessment','What counties do you serve?']);},1200);
+  }
+}
+
+async function submitForm(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const city=document.getElementById('f-city').value.trim();
+  const care=document.getElementById('f-care').value;
+  const start=document.getElementById('f-start').value;
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  try{
+    await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({Full_Name:name,Phone:phone,Email:email,City:city,Care_Type:care,Notes:'Start: '+start,Source:'Abundant Love Demo Form',Status:'New Lead'}),
+      mode:'no-cors'
+    });
+  }catch(e){}
+  document.getElementById('f-success').style.display='block';
+  document.getElementById('f-name').value='';
+  document.getElementById('f-phone').value='';
+  document.getElementById('f-email').value='';
+  document.getElementById('f-city').value='';
+}
+</script>
+</body>
+</html>
