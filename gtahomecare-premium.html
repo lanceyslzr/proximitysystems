@@ -747,7 +747,7 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 document.querySelectorAll('[data-target]').forEach(el=>{const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(el);obs.disconnect();}});},{threshold:.5});obs.observe(el);});
 
 // CHATBOT
-const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
+const WORKER='https://proximity-agent-production.up.railway.app/chat';
 const SYSTEM=`You are the GTA Specialized Homecare assistant. GTA Specialized Homecare is a non-medical home care agency in Ontario serving the Greater Toronto Area. Services include: special needs support, companionship care, daily living assistance, personal care, respite care, and housekeeping. Ontario licensed and registered with the Ontario Ministry of Labour. Phone: 437-998-9163. Website: gtahomecare.com. Free home assessment available — no obligation.
 
 STRICT RULES:
@@ -800,7 +800,7 @@ async function submitAssessment(){
   const start=document.getElementById('f-start').value;
   if(!name||!phone){alert('Please enter your name and phone number.');return;}
   try{
-    await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{
+    await fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({Full_Name:name,Phone:phone,Email:email,City:city,Care_Type:care,Notes:'Start: '+start,Source:'GTA Homecare Demo Form',Status:'New Lead'}),
       mode:'no-cors'

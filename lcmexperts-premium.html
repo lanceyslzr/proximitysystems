@@ -897,7 +897,7 @@ function submitContact(){
   var btn=document.getElementById('cf-btn');
   btn.textContent='Sending...';btn.disabled=true;
   var payload={Full_Name:name,Email:email,Phone:document.getElementById('cf-phone').value.trim(),Care_Type:document.getElementById('cf-type').value,Notes:document.getElementById('cf-msg').value.trim(),Source:'LCM Experts Website',Status:'New Lead'};
-  fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).finally(function(){
+  fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).finally(function(){
     document.getElementById('cf-fields').style.display='none';
     var s=document.getElementById('cf-success');s.classList.add('show');
     document.getElementById('cf-thankyou').textContent='Thank you '+name+'. Jennifer will be in touch within 24 hours.';
@@ -923,7 +923,7 @@ async function lcSend(){
   inp.value='';lcAddMsg('u',msg);lcHist.push({role:'user',content:msg});
   document.getElementById('lc-typ').classList.add('show');
   try{
-    var r=await fetch('https://young-meadow-e6fb.lancesalazar56.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:120,system:LC_SYS,messages:lcHist})});
+    var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:120,system:LC_SYS,messages:lcHist})});
     var d=await r.json();var rep=d.content&&d.content[0]?d.content[0].text:'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.';
     lcHist.push({role:'assistant',content:rep});
     document.getElementById('lc-typ').classList.remove('show');lcAddMsg('b',rep);
