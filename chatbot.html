@@ -483,7 +483,6 @@
       </button>
     </div>
     <div class="chat-disclaimer">
-      This assistant provides general information. For medical emergencies, call 911.
     </div>
   </div>
 </div>
@@ -869,6 +868,7 @@ function getStageChips(){
     case 0:return['What does this do?','How much does it cost?','See a demo'];
     case 1:return['Lead capture','PSW visit logs','Family chatbot'];
     case 2:return['Home care agency','I run multiple locations','Just starting out'];
+    case 3:return['Missed leads','Too much admin','No family communication system'];
     default:return['__BOOK_DISCOVERY__'];
   }
 }
@@ -900,10 +900,11 @@ function handleBookingInput(text){
     bookingData.name=text;bookingStep++;
     setTimeout(function(){addMessage('assistant','Best phone number or email to confirm?');},600);
   }else if(bookingStep===3){
-    bookingData.contact=text;bookingActive=false;
+    bookingData.contact=text;
     var nm=bookingData.name.split(/\s+/);
     setTimeout(function(){
       addMessage('assistant','You\u2019re booked \u2014 '+bookingData.day+' '+bookingData.time+'. Lance will confirm within 1 hour at '+bookingData.contact+'.');
+      bookingActive=false;
       document.getElementById('stageChips').innerHTML='';
     },600);
     fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
