@@ -490,6 +490,7 @@
 var chatStage=0;
 var intake={role:'',painPoint:'',size:'',name:'',contact:'',day:'',time:''};
 var chatHistory=[];
+var openChat=false;
 
 var STAGE_EXPECTED=[
   ['Yes I do','I\'m looking into it','I work at one'],
@@ -585,11 +586,34 @@ function advanceStage(answer){
           preferred_time:intake.day+' '+intake.time
         })
       }).catch(function(e){console.error('Booking webhook error:',e);});
+      setTimeout(function(){
+        addMessage('assistant','In the meantime, feel free to ask me anything about how the system works or what the setup looks like.');
+        openChat=true;
+      },3000);
     },500);
   }
 }
 
 async function handleInput(text){
+  if(openChat){
+    addMessage('user',text);
+    chatHistory.push({role:'user',content:text});
+    chipsEl.innerHTML='';
+    try{
+      var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({operator_id:'proximity-systems',messages:[{role:'user',content:AI_SYSTEM+'\n\n'+text}].concat(chatHistory)})
+      });
+      var d=await r.json();
+      var reply=(d.response||'Reach Lance directly at 647-382-8047.').replace(/\*\*(.+?)\*\*/g,'$1');
+      chatHistory.push({role:'assistant',content:reply});
+      addMessage('assistant',reply);
+    }catch(e){
+      addMessage('assistant','Reach Lance directly at 647-382-8047.');
+    }
+    return;
+  }
+
   var isExpected=STAGE_EXPECTED[chatStage]===null||STAGE_EXPECTED[chatStage].includes(text);
   var isFreeform=text.includes('?')||text.length>40||!isExpected;
 
