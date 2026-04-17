@@ -653,6 +653,7 @@ inputEl.addEventListener('input', () => {
 // ─── SEND MESSAGE ───────────────────────────────────────────
 async function sendMessage(text) {
   if (!text.trim() || isProcessing) return;
+  if(bookingActive){handleBookingInput(text.trim());inputEl.value='';inputEl.style.height='auto';return;}
 
   // Clear quick replies
   quickRepliesEl.innerHTML = '';
@@ -871,15 +872,55 @@ function getStageChips(){
     default:return['__BOOK_DISCOVERY__'];
   }
 }
+var bookingActive=false,bookingStep=0,bookingData={day:'',time:'',name:'',contact:''};
+function startBooking(){
+  bookingActive=true;bookingStep=0;
+  addMessage('assistant','Perfect. Let me book that for you right now. What day works best this week?');
+  renderBookingChips(['Monday','Tuesday','Wednesday','Thursday','Friday']);
+}
+function renderBookingChips(options){
+  var wrap=document.getElementById('stageChips');
+  wrap.innerHTML='';
+  options.forEach(function(t){
+    var btn=document.createElement('button');
+    btn.className='stage-chip';btn.textContent=t;
+    btn.addEventListener('click',function(){wrap.innerHTML='';handleBookingInput(t);});
+    wrap.appendChild(btn);
+  });
+}
+function handleBookingInput(text){
+  addMessage('user',text);
+  if(bookingStep===0){
+    bookingData.day=text;bookingStep++;
+    setTimeout(function(){addMessage('assistant','What time works?');renderBookingChips(['Morning 9-12','Afternoon 12-4','Evening 4-7']);},600);
+  }else if(bookingStep===1){
+    bookingData.time=text;bookingStep++;
+    setTimeout(function(){addMessage('assistant','What name should we book under?');document.getElementById('stageChips').innerHTML='';},600);
+  }else if(bookingStep===2){
+    bookingData.name=text;bookingStep++;
+    setTimeout(function(){addMessage('assistant','Best phone number or email to confirm?');},600);
+  }else if(bookingStep===3){
+    bookingData.contact=text;bookingActive=false;
+    var nm=bookingData.name.split(/\s+/);
+    setTimeout(function(){
+      addMessage('assistant','You\u2019re booked \u2014 '+bookingData.day+' '+bookingData.time+'. Lance will confirm within 1 hour at '+bookingData.contact+'.');
+      document.getElementById('stageChips').innerHTML='';
+    },600);
+    fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({operator_id:'proximity-systems',first_name:nm.shift()||'',last_name:nm.join(' '),phone:bookingData.contact,email:bookingData.contact.includes('@')?bookingData.contact:'',source:'chatbot_booking',urgency:'asap',care_type_interest:'Discovery Call',care_needed_for:'Preferred: '+bookingData.day+' '+bookingData.time})
+    }).catch(function(e){console.error('Booking webhook error:',e);});
+  }
+}
 function renderStageChips(){
   var wrap=document.getElementById('stageChips');
   wrap.innerHTML='';
   getStageChips().forEach(function(c){
     if(c==='__BOOK_DISCOVERY__'){
-      var a=document.createElement('a');
-      a.className='stage-chip cta';a.textContent='Book a Discovery Call';
-      a.href='https://calendly.com/lancesalazar56/discovery';a.target='_blank';
-      wrap.appendChild(a);
+      var btn=document.createElement('button');
+      btn.className='stage-chip cta';btn.textContent='Book a Discovery Call';
+      btn.addEventListener('click',function(){wrap.innerHTML='';startBooking();});
+      wrap.appendChild(btn);
     }else{
       var btn=document.createElement('button');
       btn.className='stage-chip';btn.textContent=c;
