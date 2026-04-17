@@ -482,8 +482,6 @@
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <div class="chat-disclaimer">
-    </div>
   </div>
 </div>
 
@@ -550,11 +548,11 @@ Where:
 - Phone: their phone number
 - Pain_Point: their biggest admin pain point (e.g. "manual timesheets and billing")
 
-Then write a short confirmation: thank them, tell them Lance will be in touch, and let them know they can pick a time for their discovery call right below.
+Then write a short confirmation: thank them and tell them Lance will be in touch within 1 hour. Say "I can book a call for you right now" — never give a Calendly URL or any external booking link.
 
-CRITICAL: Do NOT output the JSON block until you have all four fields. The JSON block must be on its own line. Keep the whole conversation to 5-6 exchanges maximum.
+CRITICAL: Do NOT output the JSON block until you have all four fields. The JSON block must be on its own line. Keep the whole conversation to 5-6 exchanges maximum. Never include URLs in your responses.
 
-Format your responses in plain text. You may use **bold** for emphasis. Keep it conversational and direct.`;
+Format your responses in plain text. Do not use **bold** or any markdown. Keep it conversational and direct.`;
 
 // ─── STATE ──────────────────────────────────────────────────
 let conversationHistory = [];
@@ -579,10 +577,11 @@ function scrollToBottom() {
 }
 
 function formatMessage(text) {
-  // Convert markdown-style links: [text](url)
-  text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-  // Convert **bold**
-  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Strip markdown links and bare URLs
+  text = text.replace(/\[([^\]]+)\]\(https?:\/\/[^\s)]+\)/g, '$1');
+  text = text.replace(/https?:\/\/[^\s<)]+/g, '');
+  // Strip **bold** markers
+  text = text.replace(/\*\*(.+?)\*\*/g, '$1');
   // Convert line breaks to paragraphs
   const paragraphs = text.split(/\n\n+/).filter(p => p.trim());
   if (paragraphs.length > 1) {
@@ -838,7 +837,7 @@ async function sendMessage(text) {
       addMessage('assistant', reply);
       conversationHistory.push({ role: 'assistant', content: reply });
       chatStage++;
-      renderStageChips();
+      if(chatStage>=4){startBooking();}else{renderStageChips();}
     }
 
   } catch (err) {
@@ -868,7 +867,7 @@ function getStageChips(){
     case 0:return['What does this do?','How much does it cost?','See a demo'];
     case 1:return['Lead capture','PSW visit logs','Family chatbot'];
     case 2:return['Home care agency','I run multiple locations','Just starting out'];
-    case 3:return['Missed leads','Too much admin','No family communication system'];
+    case 3:return['Missed leads','Too much admin','No system in place'];
     default:return['__BOOK_DISCOVERY__'];
   }
 }
