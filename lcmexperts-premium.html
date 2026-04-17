@@ -364,41 +364,120 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
 .lc-td:nth-child(2){animation-delay:.2s;}.lc-td:nth-child(3){animation-delay:.4s;}
 @keyframes tyb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
 
+
+/* ═══════════════════════════════════════════════════════
+   HAMBURGER MENU
+═══════════════════════════════════════════════════════ */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--cream);transition:all .3s;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(7,16,10,.97);z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--cream);text-decoration:none;letter-spacing:.04em;}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--cream);font-size:1.5rem;cursor:pointer;}
+
+/* ═══════════════════════════════════════════════════════
+   TABLET (max 900px)
+═══════════════════════════════════════════════════════ */
 @media(max-width:900px){
+  /* NAV */
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none;}
-  .nav-btn{font-size:.75rem;padding:.5rem .9rem;}
-  .hero,.founder{grid-template-columns:1fr;padding:6rem 1.2rem 3rem;}
-  .hero-title{font-size:clamp(2rem,8vw,3.5rem);}
-  .hero-desc{font-size:.88rem;}
+  .hamburger{display:flex;}
+
+  /* HERO */
+  .hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:2.5rem;}
+  .hero-left{padding-right:0;}
+  .hero-title{font-size:clamp(2.2rem,7vw,3.2rem);}
+  .hero-desc{font-size:.9rem;max-width:100%;}
   .hero-btns{flex-direction:column;gap:.8rem;}
   .btn-primary,.btn-ghost{width:100%;text-align:center;padding:.9rem 1rem;}
-  .card-scene{width:260px;height:380px;margin:2rem auto 0;}
-  .stats-bar{grid-template-columns:1fr 1fr;padding:2.5rem 1.2rem;gap:1.5rem;}
-  .stat-num{font-size:2rem;}
-  .svc-grid,.books-grid,.creds-grid,.testi-grid,.products-grid,.portal-grid,.contact-grid{grid-template-columns:1fr;}
-  .services,.books,.testi,.cta-section,.creds,.products,.portal-section,.contact-section{padding:4rem 1.2rem;}
-  .section-title{font-size:clamp(1.8rem,6vw,2.8rem);}
-  .book-card,.svc-card,.testi-card,.cred-card,.product-card{padding:1.4rem;}
-  .portal-mockup{width:100%;overflow-x:auto;}
-  .contact-grid{gap:2rem;}
-  footer{padding:2rem 1.2rem;flex-direction:column;text-align:center;gap:1rem;}
+  .hero-right{display:flex;justify-content:center;}
+  .card-scene{width:min(320px,88vw);height:auto;min-height:440px;perspective:900px;}
+  .card-3d{padding:2rem 1.5rem;}
+  .bf{display:none;}
+
+  /* STATS */
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2.5rem 1.5rem;gap:1.5rem;}
+  .stat-num{font-size:2.4rem;}
+
+  /* FOUNDER */
+  .founder{grid-template-columns:1fr;padding:5rem 1.5rem;gap:2.5rem;}
+  .device-wrap{justify-content:center;}
+  .dash-device{max-width:360px;width:100%;}
+  .db{display:none;}
+
+  /* SERVICES */
+  .services{padding:4rem 1.5rem;}
+  .svc-grid{grid-template-columns:1fr;}
+  .svc-card{padding:1.8rem;}
+
+  /* BOOKS */
+  .books{padding:4rem 1.5rem;}
+  .books-grid{grid-template-columns:1fr;}
+  .book-card{padding:2rem 1.5rem;}
+
+  /* CREDS */
+  .creds{padding:4rem 1.5rem;}
+  .creds-grid{grid-template-columns:1fr 1fr;}
+  .cred-card{padding:1.5rem;}
+
+  /* TESTIMONIALS */
+  .testi{padding:4rem 1.5rem;}
+  .testi-grid{grid-template-columns:1fr;}
+
+  /* PRODUCTS */
+  .products{padding:4rem 1.5rem;}
+  .products-grid{grid-template-columns:1fr;}
+
+  /* PORTAL */
+  .portal-section{padding:4rem 1.5rem;}
+  .portal-grid{grid-template-columns:1fr;gap:2rem;}
+
+  /* CONTACT */
+  .contact-section{padding:4rem 1.5rem;}
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+
+  /* CTA */
+  .cta-section{padding:5rem 1.5rem;}
+  .cta-btns{flex-direction:column;align-items:center;gap:.8rem;}
+
+  /* FOOTER */
+  footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;gap:1rem;}
+  .footer-links{flex-wrap:wrap;justify-content:center;gap:1rem;}
+
+  /* CHATBOT */
   #lcm-chat{width:calc(100vw - 2rem);right:1rem;bottom:70px;max-height:70vh;}
   #lcm-chat-btn{bottom:16px;right:16px;}
-  .chips{flex-wrap:wrap;gap:.5rem;}
-  .chip{font-size:.72rem;padding:.35rem .7rem;}
+
+  /* CUSTOM CURSOR OFF */
   .cur,.cur-ring{display:none;}
   body{cursor:auto;}
-  .hq-grid,.audit-grid{grid-template-columns:1fr;}
-  .timeline-grid{grid-template-columns:1fr;}
-  .founders-grid{grid-template-columns:1fr;}
+
+  /* INLINE GRID SECTIONS - institute, courses, speaking, automation */
+  .inline-grid-2{grid-template-columns:1fr!important;}
+  .inline-grid-3{grid-template-columns:1fr!important;}
+  .inline-section{padding:4rem 1.5rem!important;}
 }
 
+/* ═══════════════════════════════════════════════════════
+   MOBILE (max 480px)
+═══════════════════════════════════════════════════════ */
 @media(max-width:480px){
-  .hero-title{font-size:1.9rem;}
-  .stats-bar{grid-template-columns:1fr;}
-  .hero-btns{gap:.6rem;}
-  nav{padding:.8rem 1rem;}
+  .hero-title{font-size:2rem;}
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2rem 1rem;}
+  .stat-num{font-size:2rem;}
+  .creds-grid{grid-template-columns:1fr;}
+  nav{padding:.9rem 1rem;}
+  .card-scene{width:min(300px,90vw);min-height:400px;}
+  .card-3d{gap:1rem;}
+  .cs-num{font-size:1.8rem;}
+}
+
+
+@media(min-width:901px){
+  #navDesktopBtn{display:inline-block!important;}
+  .hamburger{display:none!important;}
 }
 </style>
 </head>
@@ -417,8 +496,21 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
     <a href="#portal">Member Portal</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="#contact" class="nav-btn">Work With Jennifer</a>
+  <a href="#contact" class="nav-btn" style="display:none;" id="navDesktopBtn">Work With Jennifer</a>
+  <button class="hamburger" id="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#founder" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#services" onclick="document.getElementById('mobileMenu').classList.remove('open')">Services</a>
+  <a href="#books" onclick="document.getElementById('mobileMenu').classList.remove('open')">Publications</a>
+  <a href="#products" onclick="document.getElementById('mobileMenu').classList.remove('open')">Products</a>
+  <a href="#portal" onclick="document.getElementById('mobileMenu').classList.remove('open')">Member Portal</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+  <a href="#contact" class="btn-primary" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="margin-top:1rem;">Work With Jennifer</a>
+</div>
 
 <section class="hero">
   <canvas id="cvs"></canvas>
@@ -781,6 +873,151 @@ footer{background:var(--forest2);border-top:1px solid rgba(201,168,76,.1);paddin
       <div class="ci-item"><div class="ci-icon">📍</div><div><div class="ci-label">Location</div><div class="ci-value">Kalispell, Montana<br><span style="font-size:.78rem;color:var(--muted);">Serving clients nationally</span></div></div></div>
       <div class="ci-item"><div class="ci-icon">📅</div><div><div class="ci-label">Availability</div><div class="ci-value">Wednesday & Thursday<br><span style="font-size:.78rem;color:var(--muted);">Midday preferred</span></div></div></div>
     </div>
+  </div>
+</section>
+
+<!-- LCM INSTITUTE SECTION -->
+<section class="inline-section" style="padding:7rem 4rem;background:var(--forest2);position:relative;overflow:hidden;" id="institute">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);"></div>
+  <div class="sec-label">Two Brands. One Vision.</div>
+  <h2 class="sec-heading">The Life Care Experts<br><em>meets LCMexpert.com</em></h2>
+  <p style="font-size:.95rem;color:var(--muted);max-width:580px;line-height:1.85;margin-bottom:3.5rem;">Jennifer owns both — The Life Care Experts for families and individuals, and the Life Care Management Institute for professionals. Now under one roof, one brand, one name. Everything she has built for 31 years, unified.</p>
+  <div class="inline-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:2.2rem;position:relative;overflow:hidden;">
+      <div style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:var(--forest);padding:.28rem .65rem;border-radius:3px;display:inline-block;margin-bottom:1.2rem;font-weight:600;">For Families</div>
+      <div style="font-size:2rem;margin-bottom:.8rem;">🏠</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:.6rem;">The Life Care Experts</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.4rem;">Guiding families through the complexities of aging, long-term care planning, and late-life decisions. Patient advocacy, care coordination, and expert consultation — all under Jennifer's direct oversight.</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;">
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>Family care navigation</div>
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>Patient advocacy and advanced planning</div>
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>Expert witness and legal consultation</div>
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>Community selection guidance</div>
+      </div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:2.2rem;position:relative;overflow:hidden;">
+      <div style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--sage);color:var(--forest);padding:.28rem .65rem;border-radius:3px;display:inline-block;margin-bottom:1.2rem;font-weight:600;">For Professionals</div>
+      <div style="font-size:2rem;margin-bottom:.8rem;">🎓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:.6rem;">Life Care Management Institute</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.4rem;">Training and certifying the next generation of life care professionals. The LCM Intensive, online courses, and the handbook that has become the field's reference standard — all built by Jennifer from 31 years of practice.</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;">
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>LCM Intensive — professional certification course</div>
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>Online courses for care managers</div>
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>The Life Care Management Handbook</div>
+        <div style="display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span>Member portal and community access</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES SECTION -->
+<section class="inline-section" style="padding:7rem 4rem;background:var(--forest3);position:relative;overflow:hidden;" id="courses">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);"></div>
+  <div class="sec-label">Online Education</div>
+  <h2 class="sec-heading">Learn Directly From<br><em>The Expert Who Built It.</em></h2>
+  <p style="font-size:.95rem;color:var(--muted);max-width:580px;line-height:1.85;margin-bottom:3.5rem;">Jennifer's courses are not theory. They are 31 years of clinical practice distilled into frameworks families and professionals can apply immediately.</p>
+  <div class="inline-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;">
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:2rem 1.8rem;transition:border-color .3s,transform .3s;">
+      <div style="font-size:1.8rem;margin-bottom:1rem;">👨‍👩‍👧</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:.5rem;">Family Aging Life Care Planning</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">A complete online course for families navigating aging parents and late-life care decisions. Step-by-step frameworks built from Jennifer's direct client work.</div>
+      <div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.22);padding:.14rem .5rem;border-radius:3px;display:inline-block;">For Families</div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:2rem 1.8rem;transition:border-color .3s,transform .3s;">
+      <div style="font-size:1.8rem;margin-bottom:1rem;">🏛️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:.5rem;">The LCM Intensive</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">An advanced course for care professionals building or expanding a life care management practice. The curriculum Jennifer built the field on — now accessible online.</div>
+      <div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.22);padding:.14rem .5rem;border-radius:3px;display:inline-block;">For Professionals</div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:2rem 1.8rem;transition:border-color .3s,transform .3s;">
+      <div style="font-size:1.8rem;margin-bottom:1rem;">📋</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);margin-bottom:.5rem;">The Ultimate Care Plan Guide</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">A structured resource for professionals managing complex care cases — built to Jennifer's own clinical standards and used across her three decades of practice.</div>
+      <div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.22);padding:.14rem .5rem;border-radius:3px;display:inline-block;">Reference Guide</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKING SECTION -->
+<section class="inline-section" style="padding:7rem 4rem;background:var(--forest2);position:relative;overflow:hidden;" id="speaking">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);"></div>
+  <div class="sec-label">Speaking & Media</div>
+  <h2 class="sec-heading">The Voice That Shaped<br><em>Life Care Management.</em></h2>
+  <p style="font-size:.95rem;color:var(--muted);max-width:580px;line-height:1.85;margin-bottom:3.5rem;">Jennifer is not just a practitioner — she is the educator, speaker, and author who helped define what life care management looks like in practice. She brings that clarity to every stage, podcast, and panel she appears on.</p>
+  <div class="inline-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.4rem;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;">
+        <div style="width:36px;height:36px;border-radius:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">🎤</div>
+        <div><div style="font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Keynote Speaking</div><div style="font-size:.76rem;color:var(--muted);line-height:1.6;">Available for conferences, professional associations, and health system events on life care management, aging, and care planning.</div></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.4rem;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;">
+        <div style="width:36px;height:36px;border-radius:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">🎙️</div>
+        <div><div style="font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Podcast & Media Appearances</div><div style="font-size:.76rem;color:var(--muted);line-height:1.6;">Sharing expertise on aging, dementia, family care decisions, and the life care profession with audiences across North America.</div></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.4rem;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;">
+        <div style="width:36px;height:36px;border-radius:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">⚖️</div>
+        <div><div style="font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Expert Witness Testimony</div><div style="font-size:.76rem;color:var(--muted);line-height:1.6;">Retained by legal teams across the US for life care planning testimony, cost projections, and standards-of-care analysis in litigation.</div></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.4rem;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;">
+        <div style="width:36px;height:36px;border-radius:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">🏫</div>
+        <div><div style="font-size:.88rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Professional Training & Workshops</div><div style="font-size:.76rem;color:var(--muted);line-height:1.6;">In-person and virtual workshops for care teams, hospital discharge planners, and social workers building life care competency.</div></div>
+      </div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:2.4rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--cream);margin-bottom:1.4rem;font-weight:700;">Booking Inquiry</div>
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.8rem;">Jennifer is available for select speaking engagements, workshops, and media appearances. All inquiries are reviewed personally.</p>
+      <div style="display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.6rem;">
+        <div style="display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.08);border-radius:6px;">
+          <span style="font-size:1rem;">📧</span>
+          <div><div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Email</div><div style="font-size:.86rem;color:var(--gold);">Jennifer@thelifecareexperts.com</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.08);border-radius:6px;">
+          <span style="font-size:1rem;">📞</span>
+          <div><div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Phone</div><div style="font-size:.86rem;color:var(--gold);">(406) 212-0620</div></div>
+        </div>
+      </div>
+      <a href="#contact" style="display:block;text-align:center;background:var(--gold);color:var(--forest);padding:.9rem;font-family:'Jost',sans-serif;font-size:.84rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:3px;">Submit a Speaking Inquiry →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION STACK SECTION -->
+<section class="inline-section" style="padding:7rem 4rem;background:var(--forest3);position:relative;overflow:hidden;" id="automation">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);"></div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,.04) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="sec-label">Powered by Proximity Systems</div>
+  <h2 class="sec-heading">The Practice Runs.<br><em>You Just Show Up.</em></h2>
+  <p style="font-size:.95rem;color:var(--muted);max-width:580px;line-height:1.85;margin-bottom:3.5rem;">Behind every version of Jennifer's site is a full AI automation stack — lead capture, family chatbot, member portal, course access, and billing all connected. Built by Proximity Systems so Jennifer can focus on clients, not admin.</p>
+  <div class="inline-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:3rem;">
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(201,168,76,.2);flex-shrink:0;line-height:1;min-width:26px;">01</div>
+      <div><div style="font-size:.86rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Instant Lead Capture</div><div style="font-size:.74rem;color:var(--muted);line-height:1.6;">Every family or professional inquiry captured the moment it comes in — name, email, what they need — sent directly to Jennifer.</div></div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(201,168,76,.2);flex-shrink:0;line-height:1;min-width:26px;">02</div>
+      <div><div style="font-size:.86rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">AI Chatbot Running 24/7</div><div style="font-size:.74rem;color:var(--muted);line-height:1.6;">Answers questions, qualifies inquiries, and books consultations automatically — even when Jennifer is with a client or off the clock.</div></div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(201,168,76,.2);flex-shrink:0;line-height:1;min-width:26px;">03</div>
+      <div><div style="font-size:.86rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Member Portal — Fully Automated</div><div style="font-size:.74rem;color:var(--muted);line-height:1.6;">Course access, care plan documents, and member communications all managed automatically through the portal — no manual admin.</div></div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(201,168,76,.2);flex-shrink:0;line-height:1;min-width:26px;">04</div>
+      <div><div style="font-size:.86rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Automated Follow-Up Sequences</div><div style="font-size:.74rem;color:var(--muted);line-height:1.6;">Day 1, 3, and 7 follow-ups sent automatically after every inquiry. Families stay engaged. No lead goes cold without a touch.</div></div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(201,168,76,.2);flex-shrink:0;line-height:1;min-width:26px;">05</div>
+      <div><div style="font-size:.86rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Course & Product Delivery</div><div style="font-size:.74rem;color:var(--muted);line-height:1.6;">Books, courses, and guides delivered automatically on purchase. No manual fulfillment. Revenue runs while Jennifer works with clients.</div></div>
+    </div>
+    <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:rgba(201,168,76,.2);flex-shrink:0;line-height:1;min-width:26px;">06</div>
+      <div><div style="font-size:.86rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;">Unified Brand Dashboard</div><div style="font-size:.74rem;color:var(--muted);line-height:1.6;">Both sites — Life Care Experts and LCMexpert.com — feeding into one dashboard. Every lead, every inquiry, every member. One view.</div></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:2.5rem;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:12px;max-width:640px;margin:0 auto;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:.8rem;">Live in 7 Days. <em style="color:var(--gold);">Or You Don't Pay.</em></div>
+    <p style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.6rem;">Built and installed by Proximity Systems — Mississauga, Ontario. Lance Salazar built this stack on his own home care agency first. Jennifer gets the version that is already proven.</p>
+    <a href="#contact" style="display:inline-block;background:var(--gold);color:var(--forest);padding:.9rem 2.2rem;font-family:'Jost',sans-serif;font-size:.84rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:3px;">Book a Free 20-Minute Call →</a>
   </div>
 </section>
 
