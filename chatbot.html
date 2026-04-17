@@ -309,6 +309,13 @@
     line-height: 1.4;
   }
 
+  /* STAGE CHIPS */
+  .stage-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 12px;}
+  .stage-chip{font-size:13px;padding:8px 14px;background:var(--cream);border:1px solid var(--border);border-radius:20px;cursor:pointer;color:var(--text);transition:all .2s;line-height:1.3;text-decoration:none;}
+  .stage-chip:hover{background:var(--accent);color:var(--white);border-color:var(--accent);}
+  .stage-chip.cta{background:var(--accent);color:var(--white);border-color:var(--accent);}
+  .stage-chip.cta:hover{background:var(--accent-light);}
+
   /* BOOKING FORM */
   .booking-form {
     background: var(--cream);
@@ -462,6 +469,7 @@
 
   <!-- QUICK REPLIES -->
   <div class="quick-replies" id="quickReplies"></div>
+  <div class="stage-chips" id="stageChips"></div>
 
   <!-- ERROR -->
   <div class="error-banner" id="errorBanner"></div>
@@ -829,6 +837,8 @@ async function sendMessage(text) {
     } else {
       addMessage('assistant', reply);
       conversationHistory.push({ role: 'assistant', content: reply });
+      chatStage++;
+      renderStageChips();
     }
 
   } catch (err) {
@@ -851,19 +861,41 @@ inputEl.addEventListener('keydown', (e) => {
   }
 });
 
+// ─── STAGE CHIPS ────────────────────────────────────────────
+var chatStage=0;
+function getStageChips(){
+  switch(chatStage){
+    case 0:return['What does this do?','How much does it cost?','See a demo'];
+    case 1:return['Lead capture','PSW visit logs','Family chatbot'];
+    case 2:return['Home care agency','I run multiple locations','Just starting out'];
+    default:return['__BOOK_DISCOVERY__'];
+  }
+}
+function renderStageChips(){
+  var wrap=document.getElementById('stageChips');
+  wrap.innerHTML='';
+  getStageChips().forEach(function(c){
+    if(c==='__BOOK_DISCOVERY__'){
+      var a=document.createElement('a');
+      a.className='stage-chip cta';a.textContent='Book a Discovery Call';
+      a.href='https://calendly.com/lancesalazar56/discovery';a.target='_blank';
+      wrap.appendChild(a);
+    }else{
+      var btn=document.createElement('button');
+      btn.className='stage-chip';btn.textContent=c;
+      btn.addEventListener('click',function(){wrap.innerHTML='';sendMessage(c);});
+      wrap.appendChild(btn);
+    }
+  });
+}
+
 // ─── WELCOME MESSAGE ────────────────────────────────────────
 function init() {
   const greeting = "Hey there! Welcome to **Proximity Care Systems**. I help home care operators learn how our AI automation stack can streamline their business.\n\nWhat brings you here today?";
 
   addMessage('assistant', greeting);
   conversationHistory.push({ role: 'assistant', content: greeting });
-
-  showQuickReplies([
-    "I'm losing time on admin",
-    "What systems do you offer?",
-    "How much does it cost?",
-    "Book a discovery call"
-  ]);
+  renderStageChips();
 }
 
 init();

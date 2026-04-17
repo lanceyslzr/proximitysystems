@@ -595,12 +595,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
         <div class="msg b"><div class="bub">Hi — ask me anything. I know all 10 systems, pricing, and how the install works. Everything is customized to your agency.</div><div class="msgt">Just now</div></div>
       </div>
       <div class="typing" id="typ"><div class="tyd"></div><div class="tyd"></div><div class="tyd"></div></div>
-      <div class="chips" id="chips">
-        <div class="chip" onclick="sug(this)">How long does setup take?</div>
-        <div class="chip" onclick="sug(this)">What's in the $500/mo?</div>
-        <div class="chip" onclick="sug(this)">Do I need tech skills?</div>
-        <div class="chip" onclick="sug(this)">Is it customized for me?</div>
-      </div>
+      <div class="chips" id="chips"></div>
       <div class="chat-inp-row">
         <textarea class="chat-inp" id="chatinp" placeholder="Ask anything..." rows="1" onkeydown="hk(event)" oninput="rs(this)"></textarea>
         <button class="chat-send" id="sendbtn" onclick="send()">→</button>
@@ -1300,10 +1295,11 @@ async function send(){
     const rep=data.response||'Something went wrong — call Lance at 647-382-8047';
     hist.push({role:'assistant',content:rep});
     document.getElementById('typ').classList.remove('show');
-    am('b',rep);
+    am('b',rep);demoStage++;renderDemoChips();
   }catch(e){
     document.getElementById('typ').classList.remove('show');
     am('b','Connection issue — reach Lance at 647-382-8047 or book at calendly.com/lancesalazar56/discovery');
+    renderDemoChips();
   }
   document.getElementById('sendbtn').disabled=false; sc();
 }
@@ -1315,6 +1311,33 @@ function am(type,text){
 }
 function sc(){const m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;}
 function sug(el){document.getElementById('chatinp').value=el.textContent;send();}
+var demoStage=0;
+function getDemoChips(){
+  switch(demoStage){
+    case 0:return['What does this do?','How much does it cost?','See a demo'];
+    case 1:return['Lead capture','PSW visit logs','Family chatbot'];
+    case 2:return['Home care agency','I run multiple locations','Just starting out'];
+    default:return['__BOOK_DISCOVERY__'];
+  }
+}
+function renderDemoChips(){
+  var wrap=document.getElementById('chips');
+  wrap.innerHTML='';wrap.style.display='';
+  getDemoChips().forEach(function(c){
+    if(c==='__BOOK_DISCOVERY__'){
+      var a=document.createElement('a');a.className='chip';
+      a.textContent='Book a Discovery Call';
+      a.href='https://calendly.com/lancesalazar56/discovery';a.target='_blank';
+      a.style.cssText='text-decoration:none;background:rgba(61,122,138,0.2);color:var(--teal2);border-color:rgba(61,122,138,0.4);';
+      wrap.appendChild(a);
+    }else{
+      var d=document.createElement('div');d.className='chip';d.textContent=c;
+      d.onclick=function(){sug(d);};
+      wrap.appendChild(d);
+    }
+  });
+}
+renderDemoChips();
 function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function rs(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,56)+'px';}
 function calcRoi(){
