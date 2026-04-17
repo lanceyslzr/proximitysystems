@@ -486,460 +486,105 @@
 </div>
 
 <script>
-// ─── CONFIGURATION ──────────────────────────────────────────
-// Proxy URL — API key is handled server-side
-const API_URL = 'https://proximity-agent-production.up.railway.app/chat';
-const MODEL = 'claude-haiku-4-5-20251001';
-
-const WEBHOOK_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
-
-const SYSTEM_PROMPT = `You are the intake assistant for Proximity Care Systems, an AI automation agency that builds done-for-you automation systems for home care operators in Canada and the Philippines.
-
-Your role:
-- Qualify home care operators interested in automating their business
-- Keep the conversation short and focused — maximum 5-6 exchanges total
-- Answer questions about the 9-system stack when asked
-- Collect their info and get them to a discovery call as fast as possible
-
-The 9-System Automation Stack (share when asked):
-1. PSW Timesheet System — PSWs log visits from their phone. Hours auto-calculate.
-2. Auto-Billing Engine — Hours matched to care plan rates automatically.
-3. Invoice Automation — Generate and send branded invoices automatically.
-4. Lead Capture & Notification — Website leads trigger instant notifications.
-5. AI-Written Care Summaries — Shift notes transformed into family-ready summaries.
-6. WhatsApp Intake Bot — Handles inquiries on WhatsApp 24/7.
-7. AI Chatbot (Website) — Qualifies leads and books calls while you sleep.
-8. Scheduling & Coordination — Automated shift reminders and staff coordination.
-9. Custom Conversion Website — Premium website connected to lead capture.
-
-Pricing tiers (share only when asked):
-- Automation Only: $3,500 setup + $500/month retainer — all 9 systems
-- Automation + Website: $5,000 setup + $500/month retainer — all 9 systems + custom website
-
-Key facts:
-- Built and tested on a real home care agency (Proximity Care Services in Mississauga)
-- Works for operators in Canada and the Philippines
-- No tech skills needed — fully done-for-you
-- Systems go live within 7–14 days
-
-Conversation flow — follow this order:
-1. Greet and ask what their biggest admin pain point is
-2. Briefly acknowledge the pain point and mention how your systems solve it (1-2 sentences). Then ask for their agency name and city.
-3. Ask for their phone number so Lance can reach out
-4. Ask if they have any other questions before booking a discovery call
-5. Once all info is collected, output the JSON block and confirm
-
-Keep it to these steps. Do NOT ask about tech stack, number of caregivers, current software, or secondary pain points. Be concise — 2-3 sentences max per response.
-
-LEAD COLLECTION — IMPORTANT:
-Collect these four fields through the conversation flow above:
-1. Agency name
-2. City
-3. Phone number
-4. Biggest admin pain point
-
-Once you have ALL four pieces of information AND have asked if they have other questions, output a hidden JSON block in EXACTLY this format on its own line, followed by a confirmation message:
-
-<!--INTAKE_DATA:{"Agency_Name":"...","City":"...","Phone":"...","Pain_Point":"..."}-->
-
-Where:
-- Agency_Name: their home care agency name
-- City: their city
-- Phone: their phone number
-- Pain_Point: their biggest admin pain point (e.g. "manual timesheets and billing")
-
-Then write a short confirmation: thank them and tell them Lance will be in touch within 1 hour. Say "I can book a call for you right now" — never give a Calendly URL or any external booking link.
-
-CRITICAL: Do NOT output the JSON block until you have all four fields. The JSON block must be on its own line. Keep the whole conversation to 5-6 exchanges maximum. Never include URLs in your responses.
-
-Format your responses in plain text. Do not use **bold** or any markdown. Keep it conversational and direct.`;
-
-// ─── STATE ──────────────────────────────────────────────────
-let conversationHistory = [];
-let isProcessing = false;
-let lastIntakeData = null;
-
-// ─── DOM ELEMENTS ───────────────────────────────────────────
-const messagesEl = document.getElementById('chatMessages');
-const inputEl = document.getElementById('chatInput');
-const sendBtn = document.getElementById('chatSend');
-const quickRepliesEl = document.getElementById('quickReplies');
-const errorBanner = document.getElementById('errorBanner');
-
-// ─── AVATAR SVG ─────────────────────────────────────────────
-const botAvatarSVG = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>`;
-
-// ─── HELPERS ────────────────────────────────────────────────
-function scrollToBottom() {
-  requestAnimationFrame(() => {
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  });
-}
-
-function formatMessage(text) {
-  // Strip markdown links and bare URLs
-  text = text.replace(/\[([^\]]+)\]\(https?:\/\/[^\s)]+\)/g, '$1');
-  text = text.replace(/https?:\/\/[^\s<)]+/g, '');
-  // Strip **bold** markers
-  text = text.replace(/\*\*(.+?)\*\*/g, '$1');
-  // Convert line breaks to paragraphs
-  const paragraphs = text.split(/\n\n+/).filter(p => p.trim());
-  if (paragraphs.length > 1) {
-    return paragraphs.map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-  }
-  return text.replace(/\n/g, '<br>');
-}
-
-function addMessage(role, text) {
-  const div = document.createElement('div');
-  div.className = `msg ${role}`;
-
-  if (role === 'assistant') {
-    div.innerHTML = `
-      <div class="msg-avatar">${botAvatarSVG}</div>
-      <div class="msg-bubble">${formatMessage(text)}</div>`;
-  } else {
-    div.innerHTML = `<div class="msg-bubble">${formatMessage(text)}</div>`;
-  }
-
-  messagesEl.appendChild(div);
-  scrollToBottom();
-}
-
-function showTyping() {
-  const div = document.createElement('div');
-  div.className = 'typing';
-  div.id = 'typingIndicator';
-  div.innerHTML = `
-    <div class="msg-avatar">${botAvatarSVG}</div>
-    <div class="typing-dots"><span></span><span></span><span></span></div>`;
-  messagesEl.appendChild(div);
-  scrollToBottom();
-}
-
-function hideTyping() {
-  const el = document.getElementById('typingIndicator');
-  if (el) el.remove();
-}
-
-function showQuickReplies(replies) {
-  quickRepliesEl.innerHTML = '';
-  replies.forEach(text => {
-    const btn = document.createElement('button');
-    btn.className = 'quick-reply';
-    btn.textContent = text;
-    btn.addEventListener('click', () => {
-      quickRepliesEl.innerHTML = '';
-      sendMessage(text);
-    });
-    quickRepliesEl.appendChild(btn);
-  });
-}
-
-function showError(msg) {
-  errorBanner.textContent = msg;
-  errorBanner.classList.add('visible');
-  setTimeout(() => errorBanner.classList.remove('visible'), 8000);
-}
-
-// ─── AUTO-RESIZE INPUT ──────────────────────────────────────
-inputEl.addEventListener('input', () => {
-  inputEl.style.height = 'auto';
-  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
-});
-
-// ─── SEND MESSAGE ───────────────────────────────────────────
-async function sendMessage(text) {
-  if (!text.trim() || isProcessing) return;
-  if(bookingActive){handleBookingInput(text.trim());inputEl.value='';inputEl.style.height='auto';return;}
-
-  // Clear quick replies
-  quickRepliesEl.innerHTML = '';
-  errorBanner.classList.remove('visible');
-
-  // Show user message
-  addMessage('user', text);
-  conversationHistory.push({ role: 'user', content: text });
-
-  // Clear input
-  inputEl.value = '';
-  inputEl.style.height = 'auto';
-  inputEl.focus();
-
-  isProcessing = true;
-  sendBtn.disabled = true;
-  showTyping();
-
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        operator_id: 'proximity-systems',
-        messages: conversationHistory
-      })
-    });
-
-    console.log('Proxy response status:', response.status);
-    console.log('Proxy response headers:', Object.fromEntries(response.headers.entries()));
-
-    const data = await response.json();
-    console.log('Proxy response body:', JSON.stringify(data, null, 2));
-
-    if (!response.ok) {
-      throw new Error(data.error?.message || `API error (${response.status})`);
-    }
-
-    const rawReply = data.response || "I'm sorry, I had trouble responding. Please try again.";
-
-    // Check for intake data JSON block and send to webhook
-    // Use dotAll-style match to handle whitespace/newlines around the block
-    const intakeMatch = rawReply.match(/<!--\s*INTAKE_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
-    console.log('Intake match result:', intakeMatch ? 'FOUND' : 'NOT FOUND');
-    if (intakeMatch) {
-      console.log('Raw intake JSON:', intakeMatch[1]);
-    }
-
-    let intakeSuccess = false;
-    if (intakeMatch) {
-      try {
-        const raw = JSON.parse(intakeMatch[1]);
-        const intakeData = {
-          agency_name: raw.Agency_Name || raw.agency_name || '',
-          city: raw.City || raw.city || '',
-          phone: raw.Phone || raw.phone || '',
-          pain_point: raw.Pain_Point || raw.pain_point || '',
-          Status: 'New',
-          Source: 'AI Chatbot Operator',
-          Timestamp: new Date().toISOString()
-        };
-        console.log('Intake data collected:', intakeData);
-        await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(intakeData)
-        });
-        console.log('Intake data sent to webhook successfully');
-        lastIntakeData = intakeData;
-        intakeSuccess = true;
-      } catch (webhookErr) {
-        console.error('Webhook error:', webhookErr);
-      }
-    }
-
-    // Strip the hidden JSON block before displaying
-    let reply = rawReply.replace(/<!--\s*INTAKE_DATA\s*:\s*\{[\s\S]*?\}\s*-->\n?/, '').trim();
-
-    hideTyping();
-
-    // If intake was successful, show our own confirmation + Calendly embed
-    if (intakeSuccess) {
-      reply = "Perfect — you're all set. Pick a time below to book your free discovery call with Lance:";
-      addMessage('assistant', reply);
-      conversationHistory.push({ role: 'assistant', content: reply });
-
-      // Build booking form with next 7 weekdays
-      const dates = [];
-      const now = new Date();
-      let d = new Date(now);
-      d.setDate(d.getDate() + 1); // start tomorrow
-      while (dates.length < 7) {
-        const day = d.getDay();
-        if (day >= 1 && day <= 5) { // Mon-Fri
-          dates.push(new Date(d));
-        }
-        d.setDate(d.getDate() + 1);
-      }
-
-      const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-      const dateButtons = dates.map(dt => {
-        const iso = dt.toISOString().split('T')[0];
-        return `<button class="booking-date" data-date="${iso}"><span class="day-name">${dayNames[dt.getDay()]}</span><span class="day-num">${monthNames[dt.getMonth()]} ${dt.getDate()}</span></button>`;
-      }).join('');
-
-      const formDiv = document.createElement('div');
-      formDiv.className = 'booking-form';
-      formDiv.innerHTML = `
-        <div class="booking-form-title">Book a Discovery Call</div>
-        <label class="booking-label">Select a day</label>
-        <div class="booking-dates">${dateButtons}</div>
-        <label class="booking-label">Select a time</label>
-        <div class="booking-times">
-          <button class="booking-time" data-time="Morning (9–11 AM)">Morning (9–11 AM)</button>
-          <button class="booking-time" data-time="Afternoon (12–2 PM)">Afternoon (12–2 PM)</button>
-          <button class="booking-time" data-time="Evening (3–5 PM)">Evening (3–5 PM)</button>
-        </div>
-        <button class="booking-confirm" disabled>Confirm Booking</button>
-        <div class="booking-confirmed">Booked! We'll see you then.</div>
-      `;
-      messagesEl.appendChild(formDiv);
-      scrollToBottom();
-
-      // Booking form interactivity
-      let selectedDate = null;
-      let selectedTime = null;
-      const confirmBtn = formDiv.querySelector('.booking-confirm');
-      const confirmedMsg = formDiv.querySelector('.booking-confirmed');
-
-      formDiv.querySelectorAll('.booking-date').forEach(btn => {
-        btn.addEventListener('click', () => {
-          formDiv.querySelectorAll('.booking-date').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedDate = btn.dataset.date;
-          confirmBtn.disabled = !(selectedDate && selectedTime);
-        });
-      });
-
-      formDiv.querySelectorAll('.booking-time').forEach(btn => {
-        btn.addEventListener('click', () => {
-          formDiv.querySelectorAll('.booking-time').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedTime = btn.dataset.time;
-          confirmBtn.disabled = !(selectedDate && selectedTime);
-        });
-      });
-
-      confirmBtn.addEventListener('click', async () => {
-        confirmBtn.disabled = true;
-        confirmBtn.textContent = 'Booking...';
-        try {
-          const bookingData = {
-            ...lastIntakeData,
-            preferred_time: `${selectedDate} — ${selectedTime}`
-          };
-          console.log('Booking data:', bookingData);
-          await fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookingData)
-          });
-          confirmBtn.style.display = 'none';
-          confirmedMsg.style.display = 'block';
-          addMessage('assistant', "You're all booked! Lance will reach out to confirm. Talk soon!");
-          scrollToBottom();
-        } catch (err) {
-          console.error('Booking webhook error:', err);
-          confirmBtn.textContent = 'Confirm Booking';
-          confirmBtn.disabled = false;
-          showError('Something went wrong. Please try again.');
-        }
-      });
-
-      // Disable input after intake is complete
-      inputEl.disabled = true;
-      inputEl.placeholder = 'Pick a time above to book your call!';
-      sendBtn.disabled = true;
-    } else {
-      addMessage('assistant', reply);
-      conversationHistory.push({ role: 'assistant', content: reply });
-      chatStage++;
-      if(chatStage>=4){startBooking();}else{renderStageChips();}
-    }
-
-  } catch (err) {
-    hideTyping();
-    console.error('Chat error:', err);
-    showError('Something went wrong. Please try again.');
-  } finally {
-    isProcessing = false;
-    sendBtn.disabled = false;
-  }
-}
-
-// ─── EVENT LISTENERS ────────────────────────────────────────
-sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
-
-inputEl.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage(inputEl.value);
-  }
-});
-
-// ─── STAGE CHIPS ────────────────────────────────────────────
+// ── CHATBOT — PURE INTAKE STATE MACHINE ──
 var chatStage=0;
-function getStageChips(){
-  switch(chatStage){
-    case 0:return['What does this do?','How much does it cost?','See a demo'];
-    case 1:return['Lead capture','PSW visit logs','Family chatbot'];
-    case 2:return['Home care agency','I run multiple locations','Just starting out'];
-    case 3:return['Missed leads','Too much admin','No system in place'];
-    default:return['__BOOK_DISCOVERY__'];
+var intake={role:'',painPoint:'',size:'',name:'',contact:'',day:'',time:''};
+
+var STAGE_PROMPTS=[
+  {q:'What is the biggest thing eating your time right now?',chips:['Missed leads','Too much admin','No family communication','Billing and invoicing']},
+  {q:'How many clients are you currently serving?',chips:['Under 10','10 to 30','30 to 100','100+']},
+  {q:'What is your name?',chips:null},
+  {q:'Best email or phone to reach you?',chips:null},
+  {q:'What day works best for a quick discovery call?',chips:['Monday','Tuesday','Wednesday','Thursday','Friday']},
+  {q:'What time works?',chips:['Morning 9-12','Afternoon 12-4','Evening 4-7']}
+];
+
+var messagesEl=document.getElementById('chatMessages');
+var inputEl=document.getElementById('chatInput');
+var sendBtn=document.getElementById('chatSend');
+var chipsEl=document.getElementById('stageChips');
+
+var botAvatarSVG='<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
+
+function scrollToBottom(){requestAnimationFrame(function(){messagesEl.scrollTop=messagesEl.scrollHeight;});}
+
+function addMessage(role,text){
+  text=text.replace(/\*\*(.+?)\*\*/g,'$1');
+  var div=document.createElement('div');div.className='msg '+role;
+  if(role==='assistant'){
+    div.innerHTML='<div class="msg-avatar">'+botAvatarSVG+'</div><div class="msg-bubble">'+text.replace(/\n/g,'<br>')+'</div>';
+  }else{
+    div.innerHTML='<div class="msg-bubble">'+text.replace(/\n/g,'<br>')+'</div>';
   }
+  messagesEl.appendChild(div);scrollToBottom();
 }
-var bookingActive=false,bookingStep=0,bookingData={day:'',time:'',name:'',contact:''};
-function startBooking(){
-  bookingActive=true;bookingStep=0;
-  addMessage('assistant','Perfect. Let me book that for you right now. What day works best this week?');
-  renderBookingChips(['Monday','Tuesday','Wednesday','Thursday','Friday']);
-}
-function renderBookingChips(options){
-  var wrap=document.getElementById('stageChips');
-  wrap.innerHTML='';
-  options.forEach(function(t){
+
+function renderChips(chips){
+  chipsEl.innerHTML='';
+  if(!chips||!chips.length)return;
+  chips.forEach(function(c){
     var btn=document.createElement('button');
-    btn.className='stage-chip';btn.textContent=t;
-    btn.addEventListener('click',function(){wrap.innerHTML='';handleBookingInput(t);});
-    wrap.appendChild(btn);
+    btn.className='stage-chip';btn.textContent=c;
+    btn.addEventListener('click',function(){handleInput(c);});
+    chipsEl.appendChild(btn);
   });
 }
-function handleBookingInput(text){
-  addMessage('user',text);
-  if(bookingStep===0){
-    bookingData.day=text;bookingStep++;
-    setTimeout(function(){addMessage('assistant','What time works?');renderBookingChips(['Morning 9-12','Afternoon 12-4','Evening 4-7']);},600);
-  }else if(bookingStep===1){
-    bookingData.time=text;bookingStep++;
-    setTimeout(function(){addMessage('assistant','What name should we book under?');document.getElementById('stageChips').innerHTML='';},600);
-  }else if(bookingStep===2){
-    bookingData.name=text;bookingStep++;
-    setTimeout(function(){addMessage('assistant','Best phone number or email to confirm?');},600);
-  }else if(bookingStep===3){
-    bookingData.contact=text;
-    var nm=bookingData.name.split(/\s+/);
+
+function advanceStage(answer){
+  if(chatStage===0) intake.role=answer;
+  else if(chatStage===1) intake.painPoint=answer;
+  else if(chatStage===2) intake.size=answer;
+  else if(chatStage===3) intake.name=answer;
+  else if(chatStage===4) intake.contact=answer;
+  else if(chatStage===5) intake.day=answer;
+  else if(chatStage===6) intake.time=answer;
+
+  chatStage++;
+
+  if(chatStage<=6){
+    var s=STAGE_PROMPTS[chatStage-1];
+    setTimeout(function(){addMessage('assistant',s.q);renderChips(s.chips);scrollToBottom();},500);
+  }else{
     setTimeout(function(){
-      addMessage('assistant','You\u2019re booked \u2014 '+bookingData.day+' '+bookingData.time+'. Lance will confirm within 1 hour at '+bookingData.contact+'.');
-      bookingActive=false;
-      document.getElementById('stageChips').innerHTML='';
-    },600);
-    fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({operator_id:'proximity-systems',first_name:nm.shift()||'',last_name:nm.join(' '),phone:bookingData.contact,email:bookingData.contact.includes('@')?bookingData.contact:'',source:'chatbot_booking',urgency:'asap',care_type_interest:'Discovery Call',care_needed_for:'Preferred: '+bookingData.day+' '+bookingData.time})
-    }).catch(function(e){console.error('Booking webhook error:',e);});
+      addMessage('assistant','Perfect '+intake.name+'. You are booked for '+intake.day+' '+intake.time+'. Lance will call you at '+intake.contact+' to walk you through exactly what this looks like for your agency.');
+      renderChips(null);
+      var nm=intake.name.split(/\s+/);
+      fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          operator_id:'proximity-systems',
+          first_name:nm.shift()||'',
+          last_name:nm.join(' '),
+          phone:intake.contact,
+          email:intake.contact.includes('@')?intake.contact:'',
+          care_type_interest:intake.painPoint,
+          care_needed_for:intake.role+' — '+intake.size+' clients',
+          urgency:'asap',
+          source:'chatbot_booking',
+          preferred_time:intake.day+' '+intake.time
+        })
+      }).catch(function(e){console.error('Booking webhook error:',e);});
+    },500);
   }
 }
-function renderStageChips(){
-  var wrap=document.getElementById('stageChips');
-  wrap.innerHTML='';
-  getStageChips().forEach(function(c){
-    if(c==='__BOOK_DISCOVERY__'){
-      var btn=document.createElement('button');
-      btn.className='stage-chip cta';btn.textContent='Book a Discovery Call';
-      btn.addEventListener('click',function(){wrap.innerHTML='';startBooking();});
-      wrap.appendChild(btn);
-    }else{
-      var btn=document.createElement('button');
-      btn.className='stage-chip';btn.textContent=c;
-      btn.addEventListener('click',function(){wrap.innerHTML='';sendMessage(c);});
-      wrap.appendChild(btn);
-    }
-  });
+
+function handleInput(text){
+  addMessage('user',text);
+  advanceStage(text);
 }
 
-// ─── WELCOME MESSAGE ────────────────────────────────────────
-function init() {
-  const greeting = "Hey there! Welcome to **Proximity Care Systems**. I help home care operators learn how our AI automation stack can streamline their business.\n\nWhat brings you here today?";
-
-  addMessage('assistant', greeting);
-  conversationHistory.push({ role: 'assistant', content: greeting });
-  renderStageChips();
+function sendMessage(){
+  var msg=inputEl.value.trim();if(!msg)return;
+  inputEl.value='';inputEl.style.height='auto';
+  handleInput(msg);
 }
 
-init();
+sendBtn.addEventListener('click',sendMessage);
+inputEl.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
+inputEl.addEventListener('input',function(){inputEl.style.height='auto';inputEl.style.height=Math.min(inputEl.scrollHeight,120)+'px';});
+
+addMessage('assistant','Hey — do you run a home care agency?');
+renderChips(['Yes I do','I\'m looking into it','I work at one']);
 </script>
 </body>
 </html>
