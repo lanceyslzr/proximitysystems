@@ -1160,8 +1160,8 @@ async function lcSend(){
   inp.value='';lcAddMsg('u',msg);lcHist.push({role:'user',content:msg});
   document.getElementById('lc-typ').classList.add('show');
   try{
-    var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:120,system:LC_SYS,messages:lcHist})});
-    var d=await r.json();var rep=d.content&&d.content[0]?d.content[0].text:'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.';
+    var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',messages:lcHist})});
+    var d=await r.json();var rep=d.response||'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.';
     lcHist.push({role:'assistant',content:rep});
     document.getElementById('lc-typ').classList.remove('show');lcAddMsg('b',rep);
   }catch(e){document.getElementById('lc-typ').classList.remove('show');lcAddMsg('b','Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com.');}

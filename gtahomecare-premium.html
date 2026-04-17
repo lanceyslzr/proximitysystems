@@ -772,9 +772,9 @@ async function sendChip(el){const text=el.textContent;renderMsg('user',text);msg
 
 async function getBotReply(){
   try{
-    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,system:SYSTEM,messages:msgs})});
+    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',messages:msgs})});
     const data=await res.json();
-    const reply=data.content[0].text;
+    const reply=data.response;
     msgs.push({role:'assistant',content:reply});
     setTimeout(()=>{
       renderMsg('assistant',reply);

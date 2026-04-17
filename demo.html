@@ -1295,9 +1295,9 @@ async function send(){
   am('u',msg); hist.push({role:'user',content:msg});
   document.getElementById('typ').classList.add('show'); sc();
   try{
-    const r=await fetch(W,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:M,max_tokens:280,system:SYS,messages:hist})});
+    const r=await fetch(W,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',messages:hist})});
     const data=await r.json();
-    const rep=data.content?.[0]?.text||'Something went wrong — call Lance at 647-382-8047';
+    const rep=data.response||'Something went wrong — call Lance at 647-382-8047';
     hist.push({role:'assistant',content:rep});
     document.getElementById('typ').classList.remove('show');
     am('b',rep);

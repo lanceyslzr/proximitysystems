@@ -670,9 +670,7 @@ async function sendMessage(text) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 512,
-        system: SYSTEM_PROMPT,
+        operator_id: 'proximity-systems',
         messages: conversationHistory
       })
     });
@@ -687,7 +685,7 @@ async function sendMessage(text) {
       throw new Error(data.error?.message || `API error (${response.status})`);
     }
 
-    const rawReply = data.content?.[0]?.text || "I'm sorry, I had trouble responding. Please try again.";
+    const rawReply = data.response || "I'm sorry, I had trouble responding. Please try again.";
 
     // Check for intake data JSON block and send to webhook
     // Use dotAll-style match to handle whitespace/newlines around the block
