@@ -564,7 +564,7 @@ footer{background:var(--navy2);padding:2.8rem 5rem;display:flex;align-items:cent
         <select id="f-care" class="field-input">
           <option value="">Select...</option>
           <option>Ottawa location</option>
-          <option>Mississauga location</option>
+          <option>Mississauga location</option><option>Markham location</option><option>Edmonton location</option>
           <option>Full franchise network</option>
         </select>
       </div>
@@ -668,7 +668,7 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 document.querySelectorAll('[data-target]').forEach(el=>{const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(el);obs.disconnect();}});},{threshold:.5});obs.observe(el);});
 
 // CHATBOT
-const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
+const WORKER='https://proximity-agent-production.up.railway.app/chat';
 const SYSTEM=`You are the Proximity Systems assistant speaking directly to Nancy Dahdah, CEO and Founder of Ideal Caregivers 4U — a 100% Canadian home care franchise founded in Ottawa in 1998, specializing in dementia, Alzheimer's, and Parkinson's care, serving Ottawa, Mississauga, Markham, and Edmonton. Proximity Systems is founded by Lance Salazar in Mississauga and builds AI automation stacks for care operators. The stack includes: visit logging, auto-billing, instant lead capture, family chatbot, monthly invoice generator, care summaries, intake forms, family comms engine, caregiver portal, and franchise HQ dashboard. Cost: $2500 setup plus $500 per month per location. Live in 7 days or you do not pay. Lance's number is 647-382-8047.
 
 STRICT RULES:
@@ -689,9 +689,9 @@ async function sendChip(el){const text=el.textContent;renderMsg('user',text);msg
 
 async function getBotReply(){
   try{
-    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,system:SYSTEM,messages:msgs})});
+    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',system_override:SYSTEM,messages:msgs})});
     const data=await res.json();
-    const reply=data.content[0].text;
+    const reply=data.response;
     msgs.push({role:'assistant',content:reply});
     setTimeout(()=>{
       renderMsg('assistant',reply);
@@ -714,10 +714,9 @@ async function submitForm(){
   const start=document.getElementById('f-start').value;
   if(!name||!phone){alert('Please enter your name and phone number.');return;}
   try{
-    await fetch('https://hook.us2.make.com/gkus4m2lusfv3anug85pfjfedqpn9pju',{
+    await fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({Full_Name:name,Phone:phone,Email:email,City:'Ottawa',Care_Type:'Home Care Franchise',Notes:'Challenge: '+start,Source:'Nancy Dahdah Ideal Caregivers 4U Demo',Status:'New Lead'}),
-      mode:'no-cors'
+      body:JSON.stringify({first_name:name.split(' ')[0],last_name:name.split(' ').slice(1).join(' '),phone:phone,email:email,city:'Ottawa',operator_id:'proximity-systems',care_type_interest:'Home Care Franchise',care_needed_for:start,source:'Nancy Dahdah Demo',urgency:'asap'})
     });
   }catch(e){}
   document.getElementById('f-success').style.display='block';
