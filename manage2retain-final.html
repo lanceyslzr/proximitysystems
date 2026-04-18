@@ -622,16 +622,100 @@
   .reveal-d2 { transition-delay: 0.2s; }
   .reveal-d3 { transition-delay: 0.3s; }
 
-  @media (max-width: 960px) {
-    nav { padding: 0 24px; }
-    .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 120px 24px 70px; gap: 50px; }
-    .container { padding: 0 24px; }
-    .trust-bar { padding: 22px 24px; gap: 22px; }
-    .why-layout, .approach-grid, .process-layout,
-    .results-layout, .about-layout { grid-template-columns: 1fr; gap: 50px; }
-    .big-stats { grid-template-columns: 1fr 1fr; }
-    footer { padding: 34px 24px; flex-direction: column; align-items: flex-start; }
+  /* HAMBURGER + MOBILE NAV */
+  .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:1px;transition:all 0.2s;}
+  .mob-nav{display:none;position:fixed;inset:0;background:var(--ivory);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+  .mob-nav.open{display:flex;}
+  .mob-nav a{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--ink);text-decoration:none;}
+  .mob-nav a.cta{color:var(--sage);font-weight:500;}
+  .mob-nav-close{position:absolute;top:24px;right:24px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);}
+
+  /* CHATBOT */
+  .chat-btn{position:fixed;bottom:24px;right:24px;z-index:300;width:56px;height:56px;border-radius:50%;background:var(--sage);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(92,122,107,0.4);transition:all 0.2s;}
+  .chat-btn:hover{background:#4e6b5e;transform:scale(1.05);}
+  .chat-btn svg{width:24px;height:24px;fill:white;}
+  .chat-window{position:fixed;bottom:96px;right:24px;z-index:300;width:360px;max-height:520px;background:var(--ivory);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 8px 40px rgba(28,26,23,0.15);}
+  .chat-window.open{display:flex;}
+  .chat-header{background:var(--ink);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .chat-header-left{display:flex;align-items:center;gap:10px;}
+  .chat-avatar{width:32px;height:32px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:14px;color:white;font-weight:600;}
+  .chat-hname{font-size:13px;font-weight:500;color:var(--ivory);}
+  .chat-hsub{font-size:11px;color:rgba(250,248,244,0.4);}
+  .chat-close{background:none;border:none;color:rgba(250,248,244,0.4);cursor:pointer;font-size:18px;line-height:1;padding:0;}
+  .chat-close:hover{color:var(--ivory);}
+  .chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--warm);}
+  .chat-msgs::-webkit-scrollbar{width:3px;}
+  .chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .msg{max-width:82%;padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.55;}
+  .msg.bot{background:var(--ivory);color:var(--ink);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:3px;}
+  .msg.user{background:var(--sage);color:white;align-self:flex-end;border-bottom-right-radius:3px;}
+  .chat-typing{display:flex;gap:4px;padding:10px 14px;background:var(--ivory);border:1px solid var(--border);border-radius:10px;border-bottom-left-radius:3px;align-self:flex-start;}
+  .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:typing 1.2s infinite;}
+  .chat-typing span:nth-child(2){animation-delay:0.2s;}
+  .chat-typing span:nth-child(3){animation-delay:0.4s;}
+  @keyframes typing{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+  .chat-iw{padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--ivory);}
+  .chat-in{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;font-family:'Figtree',sans-serif;outline:none;background:var(--warm);color:var(--ink);}
+  .chat-in:focus{border-color:var(--sage);}
+  .chat-snd{background:var(--sage);border:none;border-radius:8px;padding:8px 14px;color:white;cursor:pointer;font-size:13px;font-family:'Figtree',sans-serif;}
+  .chat-snd:hover{background:#4e6b5e;}
+
+  /* SYSTEMS SECTION */
+  .sys-section{background:#0f1a15;padding:110px 0;}
+  .sys-section .section-label{color:rgba(168,196,181,0.5);}
+  .sys-section .section-label::before{background:rgba(168,196,181,0.3);}
+  .sys-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:70px;}
+  .sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .sys-card{background:rgba(250,248,244,0.03);border:1px solid rgba(168,196,181,0.1);padding:32px 28px;transition:all 0.25s;}
+  .sys-card:hover{background:rgba(168,196,181,0.06);border-color:rgba(168,196,181,0.2);}
+  .sys-num{font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(168,196,181,0.35);letter-spacing:0.15em;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .sys-num::after{content:'';flex:1;height:1px;background:rgba(168,196,181,0.1);}
+  .sys-icon{font-size:20px;margin-bottom:14px;opacity:0.6;}
+  .sys-title{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--ivory);margin-bottom:10px;line-height:1.2;}
+  .sys-body{font-size:12px;color:rgba(250,248,244,0.4);line-height:1.75;}
+  .sys-tag{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(168,196,181,0.5);border:1px solid rgba(168,196,181,0.15);padding:3px 10px;border-radius:100px;}
+  .sys-bottom{margin-top:56px;padding:36px 40px;background:rgba(168,196,181,0.05);border:1px solid rgba(168,196,181,0.12);display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+  .sys-bottom-txt{font-size:14px;color:rgba(250,248,244,0.45);line-height:1.7;}
+  .sys-bottom-txt strong{color:rgba(250,248,244,0.85);font-weight:500;}
+  .btn-sage{background:var(--sage);color:var(--ivory);font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:14px 28px;text-decoration:none;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+  .btn-sage:hover{background:#4e6b5e;}
+
+  @media(max-width:1024px){
+    nav{padding:0 24px;}
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+    .hero{grid-template-columns:1fr;padding:120px 24px 70px;gap:50px;}
+    .container{padding:0 24px;}
+    .trust-bar{padding:22px 24px;gap:20px;flex-wrap:wrap;}
+    .why-layout,.process-layout,.results-layout,.about-layout{grid-template-columns:1fr;gap:50px;}
+    .approach-grid{grid-template-columns:1fr 1fr;gap:2px;}
+    .sys-intro{grid-template-columns:1fr;gap:40px;}
+    .sys-grid{grid-template-columns:1fr 1fr;gap:2px;}
+    .sys-bottom{grid-template-columns:1fr;gap:20px;}
+    .big-stats{grid-template-columns:1fr 1fr;}
+    footer{padding:34px 24px;flex-direction:column;align-items:flex-start;gap:1rem;}
+    .process-sticky{position:relative;top:auto;}
+    .chat-window{width:calc(100vw - 2rem);right:1rem;}
+  }
+  @media(max-width:768px){
+    .approach-grid,.sys-grid{grid-template-columns:1fr;}
+    .hero-card{padding:28px;}
+    .hero-actions{flex-direction:column;align-items:flex-start;}
+    .btn-dark,.btn-outline{width:100%;text-align:center;}
+    .cta-actions{flex-direction:column;align-items:center;}
+    .trust-bar{flex-direction:column;align-items:flex-start;gap:12px;}
+    footer{text-align:left;}
+    .footer-links{flex-wrap:wrap;gap:14px;}
+  }
+  @media(max-width:480px){
+    .big-stats{grid-template-columns:1fr;}
+    .hero{padding:110px 20px 60px;}
+    .hero-h1{font-size:2.1rem;}
+    .section-h2{font-size:1.9rem;}
+    .cta-h2{font-size:2rem;}
+    footer{align-items:center;text-align:center;}
+    .footer-links{justify-content:center;}
   }
 </style>
 </head>
@@ -644,13 +728,27 @@
     <li><a href="#why">Why Retention</a></li>
     <li><a href="#approach">Our Approach</a></li>
     <li><a href="#process">Process</a></li>
+    <li><a href="#systems">Your System</a></li>
     <li><a href="#about">About Douglas</a></li>
     <li><a href="#contact" class="nav-cta">Free Diagnostic</a></li>
   </ul>
+  <button class="hamburger" onclick="document.getElementById('mobNav').classList.add('open')" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <button class="mob-nav-close" onclick="document.getElementById('mobNav').classList.remove('open')">&#x2715;</button>
+  <a href="#why" onclick="document.getElementById('mobNav').classList.remove('open')">Why Retention</a>
+  <a href="#approach" onclick="document.getElementById('mobNav').classList.remove('open')">Our Approach</a>
+  <a href="#process" onclick="document.getElementById('mobNav').classList.remove('open')">Process</a>
+  <a href="#systems" onclick="document.getElementById('mobNav').classList.remove('open')">Your System</a>
+  <a href="#about" onclick="document.getElementById('mobNav').classList.remove('open')">About Douglas</a>
+  <a href="#contact" class="cta" onclick="document.getElementById('mobNav').classList.remove('open')">Free Diagnostic</a>
+</div>
 
 <!-- HERO -->
-<div style="max-width:1280px;margin:0 auto;padding:0 60px;">
+<div style="max-width:1280px;margin:0 auto;padding:0 60px;" class="hero-wrap">
   <section class="hero" style="padding-left:0;padding-right:0;">
     <div>
       <div class="hero-tag">Employee Retention Consulting</div>
@@ -828,6 +926,73 @@
   </div>
 </section>
 
+
+<!-- SYSTEMS SECTION -->
+<section class="sys-section" id="systems">
+  <div class="container">
+    <div class="sys-intro reveal">
+      <div>
+        <div class="section-label" style="color:rgba(168,196,181,0.5);">What We Are Building Together</div>
+        <h2 class="section-h2" style="color:#faf8f4;">An automated system that<br>captures leads while you<br><em style="color:#a8c4b5;">deliver results.</em></h2>
+      </div>
+      <div>
+        <p class="section-p" style="color:rgba(250,248,244,0.45);margin-bottom:1.25rem;">Right now every lead that finds you on LinkedIn, every executive who visits your site at 10pm, every HR director who watches your video — most of them disappear. No follow-up. No capture. No pipeline.</p>
+        <p class="section-p" style="color:rgba(250,248,244,0.45);">This is the infrastructure that changes that. Built specifically for how Manage2Retain operates as a solo consulting practice with a 9,400-strong LinkedIn audience and zero automated capture.</p>
+      </div>
+    </div>
+    <div class="sys-grid">
+      <div class="sys-card reveal">
+        <div class="sys-num">01</div>
+        <div class="sys-icon">&#x1F916;</div>
+        <p class="sys-title">AI Chatbot — 24/7 Lead Qualifier</p>
+        <p class="sys-body">Answers HR directors and executives at any hour. Asks about organization size, industry, current turnover rates, and urgency. Qualifies and captures contact info automatically. You wake up to pre-qualified leads already in your dashboard.</p>
+        <span class="sys-tag">Live on your site</span>
+      </div>
+      <div class="sys-card reveal reveal-d1">
+        <div class="sys-num">02</div>
+        <div class="sys-icon">&#x1F4E5;</div>
+        <p class="sys-title">Lead Capture Pipeline</p>
+        <p class="sys-body">Every chatbot conversation, contact form, and diagnostic request hits your HQ dashboard instantly. No more checking email to find out if someone reached out. Every inquiry captured, tagged, and organized in real time.</p>
+        <span class="sys-tag">Never miss an inquiry</span>
+      </div>
+      <div class="sys-card reveal reveal-d2">
+        <div class="sys-num">03</div>
+        <div class="sys-icon">&#x1F4E7;</div>
+        <p class="sys-title">Automated Follow-Up Sequences</p>
+        <p class="sys-body">Day 1: thank you and what to expect. Day 3: a piece of your content matched to their specific pain point. Day 7: direct ask for the diagnostic call. No lead goes cold while you are busy delivering to existing clients.</p>
+        <span class="sys-tag">Day 1, 3, and 7</span>
+      </div>
+      <div class="sys-card reveal">
+        <div class="sys-num">04</div>
+        <div class="sys-icon">&#x1F4CA;</div>
+        <p class="sys-title">HQ Dashboard</p>
+        <p class="sys-body">Every lead, diagnostic request, speaking inquiry, and active engagement in one place. See your full pipeline at a glance. Know who reached out, when, and where they are in your process. Stop managing from your inbox.</p>
+        <span class="sys-tag">One screen, everything</span>
+      </div>
+      <div class="sys-card reveal reveal-d1">
+        <div class="sys-num">05</div>
+        <div class="sys-icon">&#x1F52C;</div>
+        <p class="sys-title">Online Retention Risk Diagnostic</p>
+        <p class="sys-body">Your proprietary three-factor assessment becomes a self-serve web tool. Executives fill it in, get a score, receive a personalized summary, and enter your follow-up sequence automatically. Your diagnostic works around the clock without you.</p>
+        <span class="sys-tag">Your lead magnet, automated</span>
+      </div>
+      <div class="sys-card reveal reveal-d2">
+        <div class="sys-num">06</div>
+        <div class="sys-icon">&#x1F3E5;</div>
+        <p class="sys-title">Healthcare-Specific Landing Page</p>
+        <p class="sys-body">A dedicated funnel for your fastest-growing vertical. Hospitals, senior homes, and home care providers get a tailored page with a chatbot tuned specifically for healthcare HR directors — completely separate from your general SMB audience.</p>
+        <span class="sys-tag">Separate funnel</span>
+      </div>
+    </div>
+    <div class="sys-bottom reveal">
+      <div class="sys-bottom-txt">
+        <strong>One consulting engagement closed from an automated lead covers your entire setup cost.</strong> Everything after that is margin. You currently have 9,400 LinkedIn followers and no system to capture them off-platform. That changes on day one.
+      </div>
+      <a href="#contact" class="btn-sage">See it in action</a>
+    </div>
+  </div>
+</section>
+
 <!-- RESULTS -->
 <section class="results-section" id="results">
   <div class="container">
@@ -892,11 +1057,12 @@
         <p class="about-body">Working across healthcare, manufacturing, technology, and professional services, Douglas identified three elements that must be present before any retention strategy will succeed and built Manage2Retain around them.</p>
         <p class="about-body">Today Douglas works with executive leaders and their management teams across Canada to reduce the cost of turnover and build organizations where people genuinely want to stay.</p>
         <div class="credentials">
-          <div class="cred-item"><span class="cred-dot">◆</span>Founder, Manage2Retain · Wellesley, Ontario</div>
-          <div class="cred-item"><span class="cred-dot">◆</span>University of Guelph</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>Founder, Manage2Retain · Waterloo, Ontario</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>University of Guelph — Bachelor of Science</div>
           <div class="cred-item"><span class="cred-dot">◆</span>9,400+ LinkedIn connections in retention and HR</div>
-          <div class="cred-item"><span class="cred-dot">◆</span>Available remote or in-person across Greater Kitchener-Cambridge-Waterloo</div>
-          <div class="cred-item"><span class="cred-dot">◆</span>Business Consulting · HR Consulting · Healthcare Consulting · Training</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>SHRM and HRCI Accredited Training Programs</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>ProNexus Advisory Partner — Healthcare Consulting Network</div>
+          <div class="cred-item"><span class="cred-dot">◆</span>Available remote or in-person across Greater Kitchener-Waterloo</div>
         </div>
       </div>
     </div>
@@ -923,11 +1089,35 @@
     <li><a href="#why">Why Retention</a></li>
     <li><a href="#approach">Approach</a></li>
     <li><a href="#process">Process</a></li>
+    <li><a href="#systems">Your System</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <span class="footer-copy">© 2025 Manage2Retain · Kitchener-Waterloo, Ontario</span>
+  <span class="footer-copy">© 2026 Manage2Retain · Kitchener-Waterloo, Ontario</span>
 </footer>
+
+<!-- CHATBOT BUTTON -->
+<button class="chat-btn" onclick="toggleChat()" aria-label="Chat with us">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+</button>
+<!-- CHATBOT WINDOW -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar">M2</div>
+      <div>
+        <div class="chat-hname">Manage2Retain</div>
+        <div class="chat-hsub">Ask about retention challenges</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">&#x2715;</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-iw">
+    <input class="chat-in" id="chatInput" type="text" placeholder="Describe your retention challenge..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+    <button class="chat-snd" onclick="sendMsg()">Send</button>
+  </div>
+</div>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
@@ -936,6 +1126,70 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const RAILWAY = 'https://proximity-agent-production.up.railway.app';
+  let chatMsgs = [];
+  let chatOpen = false;
+
+  function toggleChat(){
+    chatOpen = !chatOpen;
+    document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+    if(chatOpen && chatMsgs.length === 0) initChat();
+  }
+
+  function initChat(){
+    addMsg('bot', "Hi there. I am here to help with any questions about employee retention, turnover, or how Douglas works with organizations. What is your biggest workforce challenge right now?");
+  }
+
+  function addMsg(role, text){
+    const el = document.getElementById('chatMsgs');
+    const div = document.createElement('div');
+    div.className = 'msg ' + role;
+    div.textContent = text;
+    el.appendChild(div);
+    el.scrollTop = el.scrollHeight;
+    chatMsgs.push({role: role === 'bot' ? 'assistant' : 'user', content: text});
+  }
+
+  function showTyping(){
+    const el = document.getElementById('chatMsgs');
+    const t = document.createElement('div');
+    t.className = 'chat-typing'; t.id = 'typing';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    el.appendChild(t);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function hideTyping(){
+    const t = document.getElementById('typing');
+    if(t) t.remove();
+  }
+
+  async function sendMsg(){
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+    addMsg('user', text);
+    showTyping();
+    try{
+      const res = await fetch(RAILWAY + '/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          operator_id: 'manage2retain',
+          messages: chatMsgs,
+          system_override: 'You are the AI assistant for Manage2Retain, Douglas Brown employee retention consulting practice based in Waterloo Ontario. Douglas has 15 plus years helping SMBs and healthcare organizations reduce turnover and absenteeism. His services include a complimentary retention risk diagnostic, manager coaching and training at 499 per manager, customized retention strategy engagements, workshops, and speaking. He works across healthcare, manufacturing, professional services, and non-profit sectors. Key results: 36 percent average turnover reduction, 45 percent absenteeism reduction, 17.5 percent engagement increase. Never quote specific consulting engagement prices. Always encourage booking the free 30 minute diagnostic call. Keep responses short, warm, and practical. Never use dashes in responses. Never use bullet points.'
+        })
+      });
+      const data = await res.json();
+      hideTyping();
+      addMsg('bot', data.response || "Thanks for sharing that. Douglas would love to discuss this further in a free diagnostic call. Would you like to book one?");
+    } catch(e){
+      hideTyping();
+      addMsg('bot', "Thanks for reaching out. Please email Douglas directly at dbrown@manage2retain.com or book through LinkedIn.");
+    }
+  }
 </script>
 </body>
 </html>
