@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideal Caregivers 4U | Automation Stack | Nancy Dahdah</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --white:#ffffff;
+  --cream:#faf8f5;
+  --cream2:#f2ede4;
+  --navy:#1b3a5c;
+  --navy2:#24507e;
+  --teal:#7a9e7e;
+  --teal2:#5b8f60;
+  --teal3:#8cbf91;
+  --gold:#c8922a;
+  --gold2:#dba83a;
+  --muted:#7a8c96;
+  --text:#2a3540;
+  --border:rgba(27,58,92,0.10);
+  --border2:rgba(27,58,92,0.22);
+  --shadow:rgba(27,58,92,0.08);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;cursor:none;line-height:1.7;}
+
+/* CURSOR */
+.cur{position:fixed;width:7px;height:7px;background:var(--navy);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur-ring{position:fixed;width:30px;height:30px;border:1.5px solid rgba(42,157,143,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5rem;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(42,157,143,.12);box-shadow:0 2px 20px var(--shadow);}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);font-weight:600;}
+.nav-logo em{color:var(--teal);font-style:italic;}
+.nav-links{display:flex;gap:2.2rem;}
+.nav-links a{color:rgba(42,53,69,.55);text-decoration:none;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;transition:color .3s;font-weight:500;}
+.nav-links a:hover{color:var(--teal);}
+.nav-btn{background:var(--teal);color:white;padding:.52rem 1.3rem;font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none;border-radius:3px;}
+.nav-btn:hover{background:var(--teal2);transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;padding:8rem 5rem 5rem;position:relative;background:linear-gradient(135deg,var(--white) 0%,var(--cream) 50%,#ede8df 100%);overflow:hidden;}
+#cvs{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.15;}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.blob-a{width:500px;height:500px;background:rgba(42,157,143,.07);top:-100px;right:-60px;}
+.blob-b{width:300px;height:300px;background:rgba(201,149,42,.05);bottom:-40px;left:10%;}
+.hero-left{position:relative;z-index:2;opacity:0;animation:fadeUp .9s ease .1s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;background:rgba(42,157,143,.08);border:1px solid rgba(42,157,143,.22);padding:.38rem 1rem;border-radius:3px;margin-bottom:1.8rem;}
+.pulse-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pdot 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(42,157,143,.5);}50%{box-shadow:0 0 0 6px rgba(42,157,143,0);}}
+.eyebrow span{font-size:.7rem;color:var(--teal);letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(2.6rem,4.2vw,4.8rem);font-weight:600;line-height:1.06;color:var(--navy);margin-bottom:1.4rem;}
+.hero-title em{color:var(--teal);font-style:italic;font-weight:400;}
+.hero-title .sub{display:block;font-size:clamp(1.1rem,2vw,1.8rem);font-weight:300;font-style:italic;color:rgba(26,45,74,.45);margin-top:.3rem;}
+.hero-desc{font-size:.96rem;font-weight:300;line-height:1.85;color:rgba(42,53,69,.7);max-width:480px;margin-bottom:2rem;}
+.hero-desc strong{color:var(--teal);font-weight:600;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;}
+.btn-primary{background:var(--teal);color:white;padding:.78rem 2rem;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:3px;}
+.btn-primary:hover{background:var(--teal2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,157,143,.25);}
+.btn-ghost{background:transparent;color:var(--navy);padding:.78rem 2rem;font-family:'DM Sans',sans-serif;font-size:.84rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(26,45,74,.22);cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:3px;}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal);}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .75rem;border-radius:20px;font-size:.68rem;font-weight:500;letter-spacing:.05em;border:1px solid rgba(42,157,143,.22);color:var(--teal);background:rgba(42,157,143,.06);}
+
+/* HERO RIGHT */
+.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;opacity:0;animation:fadeUp .9s ease .3s forwards;}
+.card-scene{width:340px;height:520px;perspective:900px;position:relative;}
+.card-3d{width:100%;height:100%;background:linear-gradient(145deg,var(--navy),var(--navy2));border:1px solid rgba(42,157,143,.2);border-radius:16px;padding:2.2rem 2rem;position:relative;transition:transform .08s ease-out;box-shadow:0 40px 80px rgba(26,45,74,.2),inset 0 1px 0 rgba(255,255,255,.06);display:flex;flex-direction:column;gap:1.2rem;overflow:hidden;}
+.card-3d::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(42,157,143,.08) 0%,transparent 50%);border-radius:16px;pointer-events:none;}
+.card-header{display:flex;align-items:center;gap:.9rem;}
+.card-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#1a7a6e);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.1rem;color:white;font-weight:600;border:2px solid rgba(42,157,143,.4);flex-shrink:0;}
+.card-name{font-family:'DM Serif Display',serif;font-size:.95rem;font-weight:600;color:white;}
+.card-role{font-size:.67rem;color:var(--teal3);margin-top:.1rem;letter-spacing:.04em;}
+.card-since{font-size:.6rem;color:rgba(255,255,255,.4);margin-top:.1rem;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(42,157,143,.3),transparent);}
+.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.cs-num{font-family:'DM Serif Display',serif;font-size:1.8rem;font-weight:600;color:var(--teal3);line-height:1;}
+.cs-lbl{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.06em;margin-top:.15rem;text-transform:uppercase;}
+.card-svcs{display:flex;flex-direction:column;gap:.4rem;}
+.card-svc{display:flex;align-items:center;gap:.6rem;padding:.42rem .7rem;background:rgba(42,157,143,.06);border:1px solid rgba(42,157,143,.12);border-radius:5px;}
+.svc-ico{width:22px;height:22px;border-radius:4px;background:rgba(42,157,143,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;}
+.svc-n{font-size:.7rem;color:white;}
+.svc-t{margin-left:auto;font-size:.57rem;background:rgba(42,157,143,.12);color:var(--teal3);padding:.08rem .4rem;border-radius:6px;white-space:nowrap;}
+.card-foot{background:rgba(201,149,42,.1);border:1px solid rgba(201,149,42,.22);border-radius:6px;padding:.5rem .8rem;display:flex;align-items:center;gap:.5rem;}
+.foot-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;}
+.foot-txt{font-size:.65rem;color:var(--gold2);}
+
+/* FLOATING BADGES */
+.bf{position:absolute;background:white;border:1px solid rgba(42,157,143,.2);border-radius:8px;padding:.42rem .8rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 24px rgba(26,45,74,.12);font-size:.67rem;color:var(--navy);font-weight:500;white-space:nowrap;z-index:20;}
+.bf .bd{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.bf1{top:-16px;left:18px;animation:f1 4s ease-in-out infinite;}
+.bf2{bottom:60px;left:-40px;animation:f2 5s ease-in-out infinite;}
+.bf3{top:110px;right:-44px;animation:f3 4.5s ease-in-out infinite;}
+@keyframes f1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes f2{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+@keyframes f3{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* TICKER */
+.ticker-wrap{background:var(--teal);overflow:hidden;padding:.7rem 0;}
+.ticker-inner{display:flex;animation:tick 30s linear infinite;width:max-content;}
+.ticker-inner span{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:white;padding:0 2.5rem;white-space:nowrap;}
+.ticker-inner span::before{content:"✦  ";}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* STATS */
+.stats-bar{background:var(--navy);padding:3.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2.8rem;font-weight:600;color:var(--teal3);line-height:1;}
+.stat-label{font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-top:.4rem;text-transform:uppercase;}
+
+/* PROBLEM */
+.problem{padding:7rem 5rem;background:var(--white);}
+.sec-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;}
+.sec-label::before{content:'';display:block;width:28px;height:1px;background:var(--teal);}
+.sec-heading{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:600;line-height:1.15;color:var(--navy);margin-bottom:1.4rem;}
+.sec-heading em{color:var(--teal);font-style:italic;}
+.sec-sub{font-size:.92rem;color:rgba(42,53,69,.6);max-width:520px;line-height:1.8;margin-bottom:3.5rem;}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+.problem-card{background:var(--cream);border:1px solid rgba(42,157,143,.1);border-radius:10px;padding:2rem 1.8rem;transition:transform .3s,border-color .3s,box-shadow .3s;}
+.problem-card:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:0 20px 40px var(--shadow);}
+.problem-icon{font-size:1.6rem;margin-bottom:1rem;}
+.problem-title{font-family:'DM Serif Display',serif;font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;}
+.problem-desc{font-size:.82rem;color:rgba(42,53,69,.58);line-height:1.75;}
+.problem-tag{display:inline-block;margin-top:.9rem;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:#d44;border:1px solid rgba(220,68,68,.22);padding:.14rem .5rem;border-radius:3px;}
+
+/* TWO VERTICALS */
+.verticals{padding:7rem 5rem;background:var(--cream);}
+.vert-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:4rem;}
+.vert-card{background:var(--white);border:1px solid rgba(42,157,143,.12);border-radius:12px;padding:2.4rem 2.2rem;position:relative;overflow:hidden;box-shadow:0 4px 24px var(--shadow);}
+.vert-card.featured{border-color:var(--border2);box-shadow:0 8px 40px rgba(42,157,143,.1);}
+.vert-badge{display:inline-block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--teal);color:white;padding:.28rem .65rem;border-radius:3px;margin-bottom:1.2rem;font-weight:600;}
+.vert-badge.gold{background:var(--gold);}
+.vert-icon{font-size:2.2rem;margin-bottom:1rem;}
+.vert-name{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;}
+.vert-desc{font-size:.88rem;color:rgba(42,53,69,.65);line-height:1.8;margin-bottom:1.5rem;}
+.vert-list{display:flex;flex-direction:column;gap:.6rem;}
+.vert-item{display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:rgba(42,53,69,.7);}
+.vert-item::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;}
+
+/* AUTOMATION */
+.automation{padding:7rem 5rem;background:var(--white);}
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:3.5rem;}
+.auto-card{background:var(--cream);border:1px solid rgba(42,157,143,.1);border-radius:8px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:.9rem;transition:border-color .3s,box-shadow .3s;}
+.auto-card:hover{border-color:var(--border2);box-shadow:0 4px 20px var(--shadow);}
+.auto-num{font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:600;color:rgba(42,157,143,.2);flex-shrink:0;line-height:1;min-width:26px;}
+.auto-title{font-size:.86rem;font-weight:600;color:var(--navy);margin-bottom:.2rem;}
+.auto-desc{font-size:.74rem;color:var(--muted);line-height:1.6;}
+.auto-pill{display:inline-block;margin-top:.4rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(42,157,143,.22);padding:.1rem .42rem;border-radius:3px;}
+
+/* DASHBOARD */
+.dashboard{padding:7rem 5rem;background:var(--cream);}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:4rem;align-items:start;}
+.dash-mockup{background:var(--white);border:1px solid rgba(42,157,143,.15);border-radius:12px;padding:1.8rem;box-shadow:0 4px 24px var(--shadow);}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.3rem;padding-bottom:1rem;border-bottom:1px solid rgba(42,157,143,.08);}
+.dash-title{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--navy);font-weight:600;}
+.live-pill{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pdot 2s infinite;}
+.lead-row{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid rgba(42,157,143,.05);}
+.lead-row:last-child{border-bottom:none;}
+.lead-name{font-size:.82rem;color:var(--navy);font-weight:500;}
+.lead-meta{font-size:.68rem;color:var(--muted);}
+.lead-badge{font-size:.58rem;padding:.14rem .5rem;border-radius:100px;font-weight:600;}
+.lb-new{background:rgba(42,157,143,.08);color:var(--teal);border:1px solid rgba(42,157,143,.2);}
+.lb-tour{background:rgba(201,149,42,.08);color:var(--gold);border:1px solid rgba(201,149,42,.2);}
+.lb-active{background:rgba(26,45,74,.06);color:var(--navy);border:1px solid rgba(26,45,74,.15);}
+.dash-note{margin-top:1rem;padding:.7rem;background:rgba(42,157,143,.05);border:1px solid rgba(42,157,143,.12);border-radius:6px;font-size:.7rem;color:var(--teal);}
+.dash-benefits{display:flex;flex-direction:column;gap:1rem;}
+.benefit-item{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem 1.4rem;background:var(--white);border:1px solid rgba(42,157,143,.1);border-radius:8px;box-shadow:0 2px 12px var(--shadow);transition:border-color .3s;}
+.benefit-item:hover{border-color:var(--border2);}
+.ben-icon{width:34px;height:34px;border-radius:6px;background:rgba(42,157,143,.08);border:1px solid rgba(42,157,143,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.ben-title{font-size:.87rem;font-weight:600;color:var(--navy);margin-bottom:.18rem;}
+.ben-desc{font-size:.75rem;color:var(--muted);line-height:1.6;}
+
+/* TESTI */
+.testi{padding:7rem 5rem;background:var(--white);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.testi-card{background:var(--cream);border:1px solid rgba(42,157,143,.1);border-radius:10px;padding:1.8rem 1.6rem;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.testi-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 32px var(--shadow);}
+.stars{display:flex;gap:.18rem;margin-bottom:.85rem;}
+.stars span{color:var(--gold);font-size:.82rem;}
+.testi-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:.92rem;color:rgba(42,53,69,.76);line-height:1.72;margin-bottom:1rem;}
+.testi-auth{font-size:.72rem;color:var(--muted);}
+.testi-auth strong{color:var(--teal);display:block;font-size:.76rem;margin-bottom:.1rem;}
+
+/* CONTACT */
+.contact-section{padding:7rem 5rem;background:var(--cream);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1000px;margin:0 auto;}
+.contact-info{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.contact-row{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:var(--white);border:1px solid rgba(42,157,143,.1);border-radius:8px;box-shadow:0 2px 10px var(--shadow);}
+.contact-icon{font-size:1.2rem;}
+.contact-label{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.contact-val{font-size:.88rem;color:var(--teal);}
+.form-wrap{background:var(--white);border:1px solid rgba(42,157,143,.12);border-radius:12px;padding:2.2rem;box-shadow:0 4px 24px var(--shadow);}
+.form-title{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:.4rem;font-weight:600;}
+.form-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.6rem;line-height:1.6;}
+.field-label{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.field-wrap{margin-bottom:1rem;}
+.field-input{width:100%;background:var(--cream);border:1px solid rgba(42,157,143,.15);border-radius:4px;padding:.7rem 1rem;font-size:.86rem;color:var(--text);font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.field-input:focus{outline:none;border-color:var(--teal);}
+.field-input::placeholder{color:var(--muted);opacity:.7;}
+.submit-btn{width:100%;background:var(--teal);color:white;border:none;border-radius:4px;padding:1rem;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.06em;}
+.submit-btn:hover{background:var(--teal2);}
+.form-success{display:none;margin-top:1rem;padding:.9rem;background:rgba(42,157,143,.06);border:1px solid rgba(42,157,143,.2);border-radius:6px;font-size:.82rem;color:var(--teal);text-align:center;}
+
+/* CTA */
+.cta-section{padding:7rem 5rem;background:var(--navy);text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:300px;background:radial-gradient(ellipse,rgba(42,157,143,.1) 0%,transparent 70%);pointer-events:none;}
+.cta-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:600;color:white;line-height:1.12;margin-bottom:1.2rem;position:relative;z-index:1;}
+.cta-title em{color:var(--teal3);font-style:italic;}
+.cta-sub{font-size:.95rem;color:rgba(255,255,255,.6);margin-bottom:2.5rem;position:relative;z-index:1;max-width:500px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;position:relative;z-index:1;flex-wrap:wrap;}
+.btn-white{background:white;color:var(--navy);padding:.78rem 2rem;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;border-radius:3px;}
+.btn-white:hover{background:var(--cream);transform:translateY(-2px);}
+
+footer{background:var(--navy2);padding:2.8rem 5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:white;font-weight:600;}
+.footer-logo em{color:var(--teal3);font-style:italic;}
+.footer-links{display:flex;gap:1.8rem;flex-wrap:wrap;}
+.footer-links a{font-size:.74rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s;}
+.footer-links a:hover{color:var(--teal3);}
+.footer-copy{font-size:.68rem;color:rgba(255,255,255,.25);}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* CHATBOT */
+.chat-bubble{position:fixed;bottom:28px;right:28px;z-index:500;}
+.chat-toggle{width:56px;height:56px;border-radius:50%;background:var(--teal);border:none;cursor:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(42,157,143,.35);transition:all .3s;}
+.chat-toggle:hover{background:var(--teal2);transform:scale(1.08);}
+.chat-toggle svg{width:22px;height:22px;fill:white;}
+.chat-label{position:absolute;right:66px;top:50%;transform:translateY(-50%);background:white;border:1px solid rgba(42,157,143,.2);color:var(--navy);font-size:.76rem;padding:.4rem .9rem;border-radius:20px;white-space:nowrap;box-shadow:0 4px 16px var(--shadow);}
+.chat-label .online-dot{display:inline-block;width:6px;height:6px;background:var(--teal);border-radius:50%;margin-right:5px;animation:pdot 1.5s infinite;}
+.chat-window{position:absolute;bottom:70px;right:0;width:340px;background:white;border:1px solid rgba(42,157,143,.15);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(26,45,74,.15);display:none;flex-direction:column;}
+.chat-window.open{display:flex;}
+.chat-head{background:var(--teal);padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;}
+.chat-head-avatar{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.chat-head-name{font-size:.86rem;font-weight:600;color:white;}
+.chat-head-status{font-size:.66rem;color:rgba(255,255,255,.75);}
+.chat-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:none;}
+.chat-messages{padding:1rem;display:flex;flex-direction:column;gap:.75rem;max-height:260px;overflow-y:auto;background:var(--cream);}
+.chat-msg{max-width:85%;}
+.chat-msg.bot{align-self:flex-start;}
+.chat-msg.user{align-self:flex-end;}
+.chat-bubble-inner{padding:.72rem 1rem;border-radius:10px;font-size:.8rem;line-height:1.6;}
+.chat-msg.bot .chat-bubble-inner{background:white;border:1px solid rgba(42,157,143,.12);color:var(--text);border-radius:3px 10px 10px 10px;box-shadow:0 2px 8px var(--shadow);}
+.chat-msg.user .chat-bubble-inner{background:var(--teal);color:white;border-radius:10px 3px 10px 10px;}
+.chat-chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:0 1rem .8rem;background:var(--cream);}
+.chip-btn{background:white;border:1px solid rgba(42,157,143,.2);color:var(--teal);font-size:.7rem;padding:.26rem .72rem;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;font-weight:500;box-shadow:0 1px 4px var(--shadow);}
+.chip-btn:hover{background:var(--teal);color:white;}
+.chat-input-wrap{padding:.8rem 1rem;border-top:1px solid rgba(42,157,143,.1);display:flex;gap:.6rem;background:white;}
+.chat-input{flex:1;background:var(--cream);border:1px solid rgba(42,157,143,.15);border-radius:6px;padding:.62rem .9rem;font-size:.8rem;color:var(--text);font-family:'DM Sans',sans-serif;}
+.chat-input:focus{outline:none;border-color:var(--teal);}
+.chat-input::placeholder{color:var(--muted);opacity:.7;}
+.chat-send{background:var(--teal);border:none;border-radius:6px;padding:.62rem .9rem;cursor:pointer;color:white;font-size:.88rem;transition:background .2s;}
+.chat-send:hover{background:var(--teal2);}
+
+/* ============================================
+   MOBILE — ALL AT END
+   ============================================ */
+@media(max-width:900px){
+  nav{padding:1rem 1.2rem;}
+  .nav-links{display:none;}
+  .nav-btn{font-size:.72rem;padding:.48rem .9rem;}
+
+  .hero{grid-template-columns:1fr;padding:6rem 1.2rem 3rem;gap:2rem;text-align:center;}
+  .hero-right{display:none;}
+  .hero-left{display:flex;flex-direction:column;align-items:center;}
+  .hero-title{font-size:clamp(2rem,7vw,3.2rem);text-align:center;}
+  .hero-desc{font-size:.9rem;max-width:100%;text-align:center;}
+  .eyebrow{justify-content:center;}
+  .hero-btns{flex-direction:column;gap:.8rem;width:100%;align-items:center;}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;max-width:320px;}
+  .chips{justify-content:center;}
+
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2.5rem 1.2rem;gap:1.5rem;}
+  .stat-num{font-size:2.2rem;}
+
+  .problem{padding:4rem 1.2rem;}
+  .problem-grid{grid-template-columns:1fr;}
+
+  .verticals{padding:4rem 1.2rem;}
+  .vert-grid{grid-template-columns:1fr;}
+
+  .automation{padding:4rem 1.2rem;}
+  .auto-grid{grid-template-columns:1fr;}
+
+  .dashboard{padding:4rem 1.2rem;}
+  .dash-grid{grid-template-columns:1fr;gap:2rem;}
+
+  .testi{padding:4rem 1.2rem;}
+  .testi-grid{grid-template-columns:1fr;}
+
+  .contact-section{padding:4rem 1.2rem;}
+  .contact-grid{grid-template-columns:1fr;gap:2rem;}
+
+  .cta-section{padding:4rem 1.2rem;}
+  .cta-btns{flex-direction:column;align-items:center;}
+
+  .sec-heading{font-size:clamp(1.7rem,6vw,2.4rem);}
+  .sec-sub{max-width:100%;}
+
+  footer{padding:2rem 1.2rem;flex-direction:column;text-align:center;gap:1rem;}
+  .footer-links{justify-content:center;}
+
+  .chat-label{display:none;}
+  .chat-bubble{bottom:16px;right:16px;}
+  .chat-window{width:calc(100vw - 2rem);right:0;bottom:70px;max-height:70vh;}
+
+  .cur,.cur-ring{display:none;}
+  body{cursor:auto;}
+}
+
+@media(max-width:480px){
+  .hero-title{font-size:1.9rem;}
+  .stats-bar{grid-template-columns:1fr;}
+  nav{padding:.8rem 1rem;}
+  .sec-heading{font-size:1.7rem;}
+  .chips{gap:.4rem;}
+  .chip{font-size:.62rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <div class="nav-logo"><em>Ideal Caregivers 4U</em> · Automation Stack</div>
+  <div class="nav-links">
+    <a href="#services">Our Services</a>
+    <a href="#automation">10 Systems</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#contact">Book a Call</a>
+  </div>
+  <a href="tel:18777226378" class="nav-btn">Call Us</a>
+</nav>
+
+<section class="hero">
+  <canvas id="cvs"></canvas>
+  <div class="hero-blob blob-a"></div>
+  <div class="hero-blob blob-b"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span>Ottawa, Ontario · Canadian Franchise · Since 1998</span>
+    </div>
+    <h1 class="hero-title">
+      Compassionate Care.<br><em>Automated Beautifully.</em>
+      <span class="sub">Built for Nancy Dahdah, CEO · Ideal Caregivers 4U</span>
+    </h1>
+    <p class="hero-desc">
+      35 years of healthcare experience. A franchise built on <strong>peace of mind for families</strong> across Ottawa, Mississauga, Markham, and Edmonton. Dementia, Alzheimer's, and Parkinson's care specialists. This is what Ideal Caregivers 4U looks like when the entire operation runs connected — intake, communications, visit logs, and billing all automated.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book a Free Call</a>
+      <a href="#automation" class="btn-ghost">See the Systems</a>
+    </div>
+    <div class="chips">
+      <div class="chip">✓ Canadian Franchise</div>
+      <div class="chip">✓ Ottawa Since 1998</div>
+      <div class="chip">✓ Dementia Specialist</div>
+      <div class="chip">✓ Live in 7 Days</div>
+      <div class="chip">✓ Zero Tech Skills Needed</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-scene">
+      <div class="bf bf1"><div class="bd" style="background:var(--teal);"></div>Family Inquiry · Ottawa · Just Captured</div>
+      <div class="bf bf2"><div class="bd" style="background:var(--gold);"></div>Invoice Auto-Sent · All Clients</div>
+      <div class="bf bf3"><div class="bd" style="background:var(--teal2);"></div>Caregiver Visit Logged · 8hrs</div>
+      <div class="card-3d" id="heroCard">
+        <div class="card-header">
+          <div class="card-avatar">ND</div>
+          <div>
+            <div class="card-name">Nancy Dahdah</div>
+            <div class="card-role">CEO & Founder · Ideal Caregivers 4U</div>
+            <div class="card-since">Ottawa · Mississauga · Markham · Edmonton</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-stats">
+          <div><div class="cs-num" data-target="35">0</div><div class="cs-lbl">Years Healthcare</div></div>
+          <div><div class="cs-num" data-target="10">0</div><div class="cs-lbl">Systems Live</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-svcs">
+          <div class="card-svc"><div class="svc-ico">🧠</div><div class="svc-n">Dementia & Alzheimer's Care</div><div class="svc-t">Specialist</div></div>
+          <div class="card-svc"><div class="svc-ico">🍁</div><div class="svc-n">Canadian Franchise Network</div><div class="svc-t">Expanding</div></div>
+          <div class="card-svc"><div class="svc-ico">⚡</div><div class="svc-n">Full Automation Stack</div><div class="svc-t">Live</div></div>
+        </div>
+        <div class="card-foot">
+          <div class="foot-dot"></div>
+          <div class="foot-txt">Ottawa · Ontario · Franchise Network Running</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>Ideal Caregivers 4U</span><span>Dementia Care</span><span>Alzheimer's Care</span><span>Parkinson's Care</span><span>Respite Care</span><span>Ottawa</span><span>Canadian Franchise</span><span>Since 1998</span><span>Family Chatbot</span><span>Visit Logging</span><span>Auto Billing</span><span>Peace of Mind</span>
+    <span>Ideal Caregivers 4U</span><span>Dementia Care</span><span>Alzheimer's Care</span><span>Parkinson's Care</span><span>Respite Care</span><span>Ottawa</span><span>Canadian Franchise</span><span>Since 1998</span><span>Family Chatbot</span><span>Visit Logging</span><span>Auto Billing</span><span>Peace of Mind</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item reveal"><div class="stat-num" data-target="35">0</div><div class="stat-label">Years in Healthcare</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="4">0</div><div class="stat-label">Cities Served</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="20" data-suffix="+ Hrs">0</div><div class="stat-label">Saved Per Month</div></div>
+  <div class="stat-item reveal"><div class="stat-num" data-target="7" data-suffix=" Days">0</div><div class="stat-label">To Go Live</div></div>
+</div>
+
+<section class="problem" id="problem">
+  <div class="sec-label" id="services">What You Offer. What We Automate.</div>
+  <h2 class="sec-heading">Ideal Caregivers 4U's Services — <em>Running on Autopilot.</em></h2>
+  <p class="sec-sub">Every service Nancy's team provides — from dementia care to short-notice hourly — can now be captured, communicated, and billed automatically across every location.</p>
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <div class="problem-icon">🧠</div>
+      <div class="problem-title">Dementia & Alzheimer's Care</div>
+      <div class="problem-desc">Trained, certified PSWs matched to each client's stage and personality. The chatbot answers family questions about dementia care 24/7 and books assessments automatically — even at 2am when families are most anxious.</div>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-icon">🌿</div>
+      <div class="problem-title">Parkinson's & Personal Care</div>
+      <div class="problem-desc">Mobility assistance, medication reminders, personal hygiene care, and daily living support — all logged by caregivers from their phone. Hours auto-calculate and invoices go out automatically at month end.</div>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-icon">🤝</div>
+      <div class="problem-title">Companion, Respite & 24-Hour Care</div>
+      <div class="problem-desc">Short-notice requests, respite care for family caregivers, and around-the-clock support — all captured the moment they come in. Every inquiry routed to the right location manager instantly.</div>
+    </div>
+  </div>
+</section>
+
+<section class="verticals" id="verticals">
+  <div class="sec-label">Nancy's Story</div>
+  <h2 class="sec-heading">A Legacy Built on <em>Caring for Families.</em></h2>
+  <p class="sec-sub">35 years in healthcare. A franchise born from a friend's request to continue her legacy. Today serving Ottawa, Mississauga, Markham, and Edmonton — and growing.</p>
+  <div class="vert-grid">
+    <div class="vert-card featured reveal">
+      <div class="vert-badge">The Origin</div>
+      <div class="vert-icon">🍁</div>
+      <div class="vert-name">Built from a Legacy of Love</div>
+      <div class="vert-desc">Ideal Caregivers 4U was founded in Ottawa in 1998. Nancy Dahdah joined in 2012 as HR Business Manager and took over in 2014 when founder Carol Margerum passed away — asking Nancy to continue her mission of helping the elderly. Nancy has done exactly that, growing it into a national Canadian franchise.</div>
+      <div class="vert-list">
+        <div class="vert-item">Ottawa, Mississauga, Markham, Edmonton — four cities</div>
+        <div class="vert-item">Dementia and Alzheimer's specialist since 1998</div>
+        <div class="vert-item">Trained, certified, bonded, and insured PSWs</div>
+        <div class="vert-item">One-on-one caregiver matching for every client</div>
+        <div class="vert-item">100% Canadian franchise — no American parent company</div>
+      </div>
+    </div>
+    <div class="vert-card reveal">
+      <div class="vert-badge gold">What Makes Ideal Different</div>
+      <div class="vert-icon">❤️</div>
+      <div class="vert-name">Continuity of Care. Peace of Mind.</div>
+      <div class="vert-desc">At Ideal Caregivers 4U, families are not passed between caregivers. Each client gets a matched companion who visits on a set schedule — building the consistency and trust that dementia and Alzheimer's care especially requires.</div>
+      <div class="vert-list">
+        <div class="vert-item">Personality-matched caregiver for every client</div>
+        <div class="vert-item">Consistent caregivers — same face, every visit</div>
+        <div class="vert-item">Short-notice service available — families never left without support</div>
+        <div class="vert-item">Live daily care call services for remote family peace of mind</div>
+        <div class="vert-item">Social events and outings — not just in-home care</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="automation" id="automation">
+  <div class="sec-label">The Full Stack</div>
+  <h2 class="sec-heading">10 Systems. <em>Every Location. One Build.</em></h2>
+  <p class="sec-sub" style="max-width:100%;">Every system built, installed, and handed to Nancy running. Nothing to learn. Nothing to manage. Live in 7 days per location.</p>
+  <div class="auto-grid">
+    <div class="auto-card reveal"><div class="auto-num">01</div><div><div class="auto-title">Caregiver Visit Log</div><div class="auto-desc">All caregivers log visits from their phone across Ottawa, Mississauga, Markham, and Edmonton. Hours auto-calculate per client. No paper timesheets, no chasing.</div><div class="auto-pill">All Locations</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">02</div><div><div class="auto-title">Auto-Calculating Billing</div><div class="auto-desc">Hours matched to care rates automatically across every location. Client invoices accurate, generated, and sent at month end. Zero manual work.</div><div class="auto-pill">All Locations</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">03</div><div><div class="auto-title">Instant Lead Capture</div><div class="auto-desc">Every family inquiry — dementia care, respite, short-notice — captured instantly and sent to the right location manager with full details on who is calling and what they need.</div><div class="auto-pill">All Inquiries</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">04</div><div><div class="auto-title">Monthly Invoice Generator</div><div class="auto-desc">Invoices generated and sent to every family at month end across all four cities. Accurate, on time, zero manual work for Nancy or her managers.</div><div class="auto-pill">Billing</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">05</div><div><div class="auto-title">AI-Written Care Summaries</div><div class="auto-desc">Weekly care updates written and sent to families every Sunday — the consistent communication that Ideal Caregivers 4U is known for, now running automatically.</div><div class="auto-pill">Family Comms</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">06</div><div><div class="auto-title">Family Chatbot</div><div class="auto-desc">AI chatbot trained on Ideal Caregivers 4U's dementia and Alzheimer's care approach — answers family questions and books assessments 24/7, including short-notice requests.</div><div class="auto-pill">24/7 Capture</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">07</div><div><div class="auto-title">Client Intake Forms</div><div class="auto-desc">Embedded intake forms on every location's site — wired to the dashboard. Every submission logged and notified to the right manager instantly.</div><div class="auto-pill">Intake</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">08</div><div><div class="auto-title">Family Comms Engine</div><div class="auto-desc">Automated Day 1, 3, and 7 follow-ups after every inquiry across every location. No lead goes cold without a touch from Ideal Caregivers 4U.</div><div class="auto-pill">Follow-Up</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">09</div><div><div class="auto-title">Caregiver Portal</div><div class="auto-desc">Installable app for all caregivers — shift logging, scheduling, and timesheet submission from any phone across all four cities.</div><div class="auto-pill">Staff</div></div></div>
+    <div class="auto-card reveal"><div class="auto-num">10</div><div><div class="auto-title">Franchise HQ Dashboard</div><div class="auto-desc">Nancy sees every location at a glance — leads, visits, invoices, caregiver activity — all in one dashboard from Ottawa HQ.</div><div class="auto-pill">HQ View</div></div></div>
+  </div>
+</section>
+
+<section class="dashboard" id="dashboard">
+  <div class="sec-label">Live Operations</div>
+  <h2 class="sec-heading">Every Location. <em>One Dashboard.</em></h2>
+  <p class="sec-sub" style="max-width:100%;">Nancy sees leads, caregiver visits, family communications, and invoices across Ottawa, Mississauga, Markham, and Edmonton — from one place.</p>
+  <div class="dash-grid">
+    <div class="dash-mockup reveal">
+      <div class="dash-header"><div class="dash-title">Ideal Caregivers 4U · HQ Dashboard</div><div class="live-pill"><div class="live-dot"></div>Live</div></div>
+      <div class="lead-row"><div><div class="lead-name">Margaret F. — Daughter</div><div class="lead-meta">Ottawa · Dementia Care · Mother 84 · Needs ASAP</div></div><span class="lead-badge lb-new">New</span></div>
+      <div class="lead-row"><div><div class="lead-name">Caregiver Visit · Ottawa</div><div class="lead-meta">Alzheimer's Care · 6hrs · Auto-Logged</div></div><span class="lead-badge lb-active">Logged</span></div>
+      <div class="lead-row"><div><div class="lead-name">Robert H. — Son</div><div class="lead-meta">Mississauga · Parkinson's Care · Assessment Booked</div></div><span class="lead-badge lb-tour">Booked</span></div>
+      <div class="lead-row"><div><div class="lead-name">Monthly Invoices · All Clients</div><div class="lead-meta">Ottawa + Mississauga · Auto-Generated · Sent</div></div><span class="lead-badge lb-active">Sent</span></div>
+      <div class="lead-row"><div><div class="lead-name">Susan M. — Family</div><div class="lead-meta">Edmonton · Companion Care · Short-Notice Request</div></div><span class="lead-badge lb-new">New</span></div>
+      <div class="dash-note">All locations connected · Instant notification to each manager · Nancy sees everything from Ottawa HQ</div>
+    </div>
+    <div class="dash-benefits reveal">
+      <div class="benefit-item"><div class="ben-icon">⚡</div><div><div class="ben-title">No Short-Notice Request Missed</div><div class="ben-desc">Every family inquiry — including urgent short-notice requests — captured instantly and sent to the right location manager. The speed Ideal Caregivers 4U is known for, now fully automated.</div></div></div>
+      <div class="benefit-item"><div class="ben-icon">🧠</div><div><div class="ben-title">Chatbot Trained on Dementia Care</div><div class="ben-desc">The chatbot knows Ideal Caregivers 4U's approach to dementia, Alzheimer's, and Parkinson's care. It answers family questions at 2am the way Nancy's team would — and books assessments automatically.</div></div></div>
+      <div class="benefit-item"><div class="ben-icon">📊</div><div><div class="ben-title">Caregiver Logs Across All Cities</div><div class="ben-desc">All caregivers across Ottawa, Mississauga, Markham, and Edmonton log from their phone. Hours calculate per client rate. No timesheet chasing, no billing errors.</div></div></div>
+      <div class="benefit-item"><div class="ben-icon">🍁</div><div><div class="ben-title">Built for Canadian Operators</div><div class="ben-desc">PSW-based care, Canadian billing standards, Ontario market. Built by a Mississauga home care operator who knows exactly what running Ideal Caregivers 4U actually looks like day to day.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">What Operators Say</div>
+  <h2 class="sec-heading">Built on a Real <em>Home Care Agency First</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"Nancy, Lisa and the wonderful home companions provided great comfort and support through the difficult journey that Dad had to go through in the last six months before his passing."</div>
+      <div class="testi-auth"><strong>Family Client</strong>Ottawa · Ideal Caregivers 4U</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"I contacted Ideal Caregivers the day before I was leaving on vacation because my mother suddenly lost the ability to feed herself. They were so kind and able to put care in place starting the next day."</div>
+      <div class="testi-auth"><strong>Family Client</strong>Ottawa · Ideal Caregivers 4U</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testi-text">"Their team's dedication and the insightful daily reports they provide have been invaluable. We highly recommend their services for reliable, high-quality support and peace of mind."</div>
+      <div class="testi-auth"><strong>Paul V.</strong>Ottawa · Ideal Caregivers 4U</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="sec-label" style="justify-content:center;margin-bottom:1rem;">Book a Call</div>
+  <h2 class="sec-heading" style="text-align:center;margin-bottom:.8rem;">20 Minutes. <em>We Show You Everything.</em></h2>
+  <p style="text-align:center;font-size:.92rem;color:rgba(42,53,69,.58);max-width:480px;margin:0 auto 3rem;line-height:1.8;">No pitch. No pressure. We show you exactly what the stack looks like running behind every Ideal Caregivers 4U location — customized to match how Nancy runs the network.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="sec-label">Get In Touch</div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:.5rem;font-weight:600;">We are <em style="color:var(--teal);font-style:italic;">local to you.</em></h3>
+      <p style="font-size:.88rem;color:rgba(42,53,69,.6);line-height:1.8;margin-bottom:1.5rem;">Lance Salazar, Proximity Systems — Mississauga, Ontario. Built this stack on his own home care agency before selling it to anyone else. Same province, same market, same clients as Ideal Caregivers 4U.</p>
+      <div class="contact-info">
+        <div class="contact-row"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val">647-382-8047</div></div></div>
+        <div class="contact-row"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-val" style="color:var(--text);">Ottawa · Mississauga · Markham · Edmonton</div></div></div>
+        <div class="contact-row"><div class="contact-icon">🗓️</div><div><div class="contact-label">Discovery Call</div><div class="contact-val">Free · 20 minutes · No obligation</div></div></div>
+        <div class="contact-row"><div class="contact-icon">⚡</div><div><div class="contact-label">Go Live</div><div class="contact-val">7 days from deposit or you do not pay</div></div></div>
+      </div>
+    </div>
+    <div class="form-wrap">
+      <div class="form-title">Book a Discovery Call</div>
+      <div class="form-sub">Lance reviews every inquiry personally. We respond within 60 seconds during business hours.</div>
+      <div class="field-wrap"><div class="field-label">Your Name</div><input id="f-name" class="field-input" placeholder="Full name"></div>
+      <div class="field-wrap"><div class="field-label">Phone Number</div><input id="f-phone" class="field-input" placeholder="647-xxx-xxxx" type="tel"></div>
+      <div class="field-wrap"><div class="field-label">Email Address</div><input id="f-email" class="field-input" placeholder="your@email.com" type="email"></div>
+      <div class="field-wrap"><div class="field-label">Which Location(s)?</div>
+        <select id="f-care" class="field-input">
+          <option value="">Select...</option>
+          <option>Ottawa location</option>
+          <option>Mississauga location</option>
+          <option>Full franchise network</option>
+        </select>
+      </div>
+      <div class="field-wrap"><div class="field-label">Biggest Challenge Right Now</div>
+        <select id="f-start" class="field-input">
+          <option value="">Select...</option>
+          <option>Missing leads / slow follow-up</option>
+          <option>Manual timesheets and billing</option>
+          <option>Family communication overload</option>
+          <option>Admin eating too much time</option>
+          <option>All of the above</option>
+        </select>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Book Free Discovery Call →</button>
+      <div id="f-success" class="form-success">Got it. Lance will be in touch within 60 seconds. Live in 7 days.</div>
+      <p style="font-size:.68rem;color:var(--muted);margin-top:.7rem;text-align:center;">✓ Free · No obligation · Canadian operator to operator</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-title">Every Location.<br><em>Live in 7 Days.</em></div>
+  <p class="cta-sub">We build it, install it, and hand it back running. If it is not live in 7 days, you do not pay.</p>
+  <div class="cta-btns">
+    <a href="tel:6473828047" class="btn-white">Call 647-382-8047</a>
+    <a href="#contact" class="btn-ghost" style="color:white;border-color:rgba(255,255,255,.3);">Book Online →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><em>Ideal Caregivers 4U</em> · Automation Stack by Proximity Systems</div>
+  <div class="footer-links">
+    <a href="#services">Our Services</a>
+    <a href="#automation">10 Systems</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#contact">Book a Call</a>
+  </div>
+  <div class="footer-copy">© 2026 Proximity Systems · Built for Nancy Dahdah, CEO · Ideal Caregivers 4U · Ottawa, Ontario</div>
+</footer>
+
+<!-- CHATBOT -->
+<div class="chat-bubble">
+  <div class="chat-label"><span class="online-dot"></span>We're available</div>
+  <button class="chat-toggle" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-head">
+      <div class="chat-head-avatar">⚡</div>
+      <div><div class="chat-head-name">Proximity Systems</div><div class="chat-head-status">● Available now · Mississauga</div></div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot"><div class="chat-bubble-inner">Hi Nancy — are you looking to automate one location, or the full Ideal Caregivers 4U network?</div></div>
+    </div>
+    <div class="chat-chips" id="chatChips">
+      <span class="chip-btn" onclick="sendChip(this)">One location</span>
+      <span class="chip-btn" onclick="sendChip(this)">Full network</span>
+      <span class="chip-btn" onclick="sendChip(this)">What does it cost?</span>
+      <span class="chip-btn" onclick="sendChip(this)">How long to go live?</span>
+    </div>
+    <div class="chat-input-wrap">
+      <input class="chat-input" id="chatInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" onclick="sendMsg()">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(animR);})();
+
+// PARTICLES
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H;
+function resize(){W=cvs.width=cvs.offsetWidth;H=cvs.height=cvs.offsetHeight;}
+resize();window.addEventListener('resize',resize);
+const pts=Array.from({length:50},()=>({
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.2+.3;this.vx=(Math.random()-.5)*.22;this.vy=(Math.random()-.5)*.22;this.a=Math.random()*.18+.04;this.life=0;this.max=200+Math.random()*200;},
+  update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.max||this.x<0||this.x>W||this.y<0||this.y>H)this.reset();},
+  draw(){const p=this.life/this.max,a=this.a*Math.sin(p*Math.PI);ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(27,58,92,${a})`;ctx.fill();}
+}));
+pts.forEach(p=>p.reset());
+(function animP(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animP);})();
+
+// 3D CARD
+const heroCard=document.getElementById('heroCard');
+if(heroCard){
+  const scene=heroCard.parentElement;
+  scene.addEventListener('mousemove',e=>{const r=scene.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;heroCard.style.transform=`rotateY(${x*18}deg) rotateX(${-y*18}deg)`;});
+  scene.addEventListener('mouseleave',()=>{heroCard.style.transform='rotateY(0) rotateX(0)';heroCard.style.transition='transform .6s ease';});
+}
+
+// COUNTERS
+function countUp(el){const target=parseInt(el.dataset.target);const suffix=el.dataset.suffix||'';let count=0;const step=Math.ceil(target/60);const timer=setInterval(()=>{count=Math.min(count+step,target);el.textContent=count+suffix;if(count>=target)clearInterval(timer);},24);}
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('[data-target]').forEach(countUp);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('[data-target]').forEach(el=>{const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){countUp(el);obs.disconnect();}});},{threshold:.5});obs.observe(el);});
+
+// CHATBOT
+const WORKER='https://young-meadow-e6fb.lancesalazar56.workers.dev';
+const SYSTEM=`You are the Proximity Systems assistant speaking directly to Nancy Dahdah, CEO and Founder of Ideal Caregivers 4U — a 100% Canadian home care franchise founded in Ottawa in 1998, specializing in dementia, Alzheimer's, and Parkinson's care, serving Ottawa, Mississauga, Markham, and Edmonton. Proximity Systems is founded by Lance Salazar in Mississauga and builds AI automation stacks for care operators. The stack includes: visit logging, auto-billing, instant lead capture, family chatbot, monthly invoice generator, care summaries, intake forms, family comms engine, caregiver portal, and franchise HQ dashboard. Cost: $2500 setup plus $500 per month per location. Live in 7 days or you do not pay. Lance's number is 647-382-8047.
+
+STRICT RULES:
+- MAXIMUM 2 sentences. Never more.
+- End with ONE short question.
+- Operator to operator tone. Direct and clear.
+- Never use bullet points.
+- Always encourage booking a free 20-minute call.`;
+
+let msgs=[{role:'assistant',content:'Hi Nancy — are you looking to automate one location, or the full Ideal Caregivers 4U network?'}];
+let chatOpen=false;
+
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWindow').classList.toggle('open',chatOpen);}
+function renderMsg(role,text){const div=document.createElement('div');div.className=`chat-msg ${role==='assistant'?'bot':'user'}`;div.innerHTML=`<div class="chat-bubble-inner">${text}</div>`;document.getElementById('chatMessages').appendChild(div);document.getElementById('chatMessages').scrollTop=9999;}
+function setChips(chips){const c=document.getElementById('chatChips');c.innerHTML='';chips.forEach(t=>{const s=document.createElement('span');s.className='chip-btn';s.textContent=t;s.onclick=()=>sendChip(s);c.appendChild(s);});}
+async function sendMsg(){const input=document.getElementById('chatInput');const text=input.value.trim();if(!text)return;input.value='';renderMsg('user',text);msgs.push({role:'user',content:text});document.getElementById('chatChips').innerHTML='';await getBotReply();}
+async function sendChip(el){const text=el.textContent;renderMsg('user',text);msgs.push({role:'user',content:text});document.getElementById('chatChips').innerHTML='';await getBotReply();}
+
+async function getBotReply(){
+  try{
+    const res=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,system:SYSTEM,messages:msgs})});
+    const data=await res.json();
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    setTimeout(()=>{
+      renderMsg('assistant',reply);
+      const lower=reply.toLowerCase();
+      let chips=['Tell me more','What does it cost?','Book a free call','How long to go live?'];
+      if(lower.includes('cost')||lower.includes('price')||lower.includes('2500'))chips=['That works','Tell me more','Book a free call','What is included?'];
+      else if(lower.includes('call')||lower.includes('book'))chips=['Yes, book me in','Not yet','What does it cost?','How long to go live?'];
+      setChips(chips);
+    },1200);
+  }catch(e){
+    setTimeout(()=>{renderMsg('assistant','Happy to help — would you like to start with one location or set up the full network from the start?');setChips(['One location','Full network','What does it cost?','How long to go live?']);},1200);
+  }
+}
+
+async function submitForm(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const care=document.getElementById('f-care').value;
+  const start=document.getElementById('f-start').value;
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  try{
+    await fetch('https://hook.us2.make.com/gkus4m2lusfv3anug85pfjfedqpn9pju',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({Full_Name:name,Phone:phone,Email:email,City:'Ottawa',Care_Type:'Home Care Franchise',Notes:'Challenge: '+start,Source:'Nancy Dahdah Ideal Caregivers 4U Demo',Status:'New Lead'}),
+      mode:'no-cors'
+    });
+  }catch(e){}
+  document.getElementById('f-success').style.display='block';
+  document.getElementById('f-name').value='';
+  document.getElementById('f-phone').value='';
+  document.getElementById('f-email').value='';
+}
+</script>
+</body>
+</html>
