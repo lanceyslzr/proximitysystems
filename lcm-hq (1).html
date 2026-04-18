@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Life Care Experts — Operations HQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #07100a;
+  --forest2: #0c1a0f;
+  --forest3: #111e14;
+  --forest4: #162219;
+  --gold: #c9a84c;
+  --gold2: #e4c87a;
+  --gold-pale: rgba(201,168,76,0.1);
+  --gold-border: rgba(201,168,76,0.18);
+  --sage: #82ab8a;
+  --cream: #f3efe5;
+  --muted: #6e8272;
+  --green: #6bcb77;
+  --green-pale: rgba(107,203,119,0.1);
+  --red: #f85149;
+  --red-pale: rgba(248,81,73,0.1);
+  --blue: #7eb8d4;
+  --blue-pale: rgba(126,184,212,0.1);
+  --border: rgba(201,168,76,0.1);
+  --white: #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--forest); color: var(--cream); font-size: 13px; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+/* CURSOR */
+.cur { position: fixed; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform .08s; }
+.cur-ring { position: fixed; width: 28px; height: 28px; border: 1.5px solid rgba(201,168,76,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all .18s ease; }
+
+/* TOPBAR */
+.topbar {
+  background: rgba(12,26,15,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.topbar-brand { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 400; letter-spacing: 2px; color: var(--cream); }
+.topbar-brand em { color: var(--gold); font-style: italic; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.demo-badge { background: var(--gold-pale); border: 1px solid var(--gold-border); color: var(--gold2); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; font-family: 'DM Mono', monospace; }
+.live-badge { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--green); letter-spacing: 1px; font-family: 'DM Mono', monospace; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;}50%{opacity:0.3;} }
+.topbar-btn { background: var(--gold); color: var(--forest); border: none; padding: 8px 18px; border-radius: 3px; font-size: 11px; font-weight: 600; cursor: none; font-family: 'Jost', sans-serif; letter-spacing: 0.5px; transition: all 0.2s; }
+.topbar-btn:hover { background: var(--gold2); }
+
+/* LAYOUT */
+.layout { display: grid; grid-template-columns: 230px 1fr; min-height: calc(100vh - 58px); }
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--forest2);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 58px;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+}
+.sidebar-section { padding: 0 14px; margin-bottom: 24px; }
+.sidebar-label { font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); padding: 0 8px; margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 5px; cursor: none; transition: all 0.15s; margin-bottom: 2px; border: none; background: none; width: 100%; text-align: left; color: var(--muted); font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; }
+.nav-item:hover { background: var(--gold-pale); color: var(--cream); }
+.nav-item.active { background: var(--gold-pale); color: var(--gold2); border: 1px solid var(--gold-border); }
+.nav-item-icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-badge { margin-left: auto; background: var(--gold); color: var(--forest); font-size: 9px; padding: 1px 7px; border-radius: 100px; font-weight: 600; }
+.nav-badge.red { background: var(--red); color: white; }
+.nav-badge.sage { background: var(--sage); color: var(--forest); }
+
+/* MAIN */
+.main { overflow-y: auto; background: var(--forest); }
+.page { display: none; padding: 32px; }
+.page.active { display: block; }
+.page-header { margin-bottom: 28px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--cream); margin-bottom: 4px; }
+.page-title em { color: var(--gold); font-style: italic; }
+.page-sub { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.action-btn { background: var(--gold); color: var(--forest); border: none; padding: 10px 20px; border-radius: 3px; font-size: 11px; font-weight: 600; cursor: none; font-family: 'Jost', sans-serif; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.action-btn:hover { background: var(--gold2); }
+.action-btn.outline { background: transparent; border: 1px solid var(--gold-border); color: var(--muted); }
+.action-btn.outline:hover { border-color: var(--gold); color: var(--gold2); background: var(--gold-pale); }
+
+/* STATS ROW */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 28px; }
+.stat-card { background: var(--forest2); border: 1px solid var(--border); border-radius: 8px; padding: 20px 22px; transition: border-color 0.2s; }
+.stat-card:hover { border-color: var(--gold-border); }
+.stat-label { font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; font-family: 'DM Mono', monospace; }
+.stat-val { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+.stat-val em { color: var(--gold); }
+.stat-trend { font-size: 10px; display: flex; align-items: center; gap: 4px; }
+.stat-trend.up { color: var(--green); }
+.stat-trend.neutral { color: var(--muted); }
+
+/* CARDS */
+.card { background: var(--forest2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 18px; transition: border-color 0.2s; }
+.card:hover { border-color: var(--gold-border); }
+.card-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-size: 12px; font-weight: 500; color: var(--cream); display: flex; align-items: center; gap: 8px; font-family: 'Jost', sans-serif; }
+.card-body { padding: 18px 20px; }
+
+/* BADGE */
+.badge { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; padding: 2px 8px; border-radius: 100px; letter-spacing: 0.5px; font-weight: 500; white-space: nowrap; font-family: 'DM Mono', monospace; }
+.badge.green { background: var(--green-pale); color: var(--green); border: 1px solid rgba(107,203,119,0.25); }
+.badge.gold { background: var(--gold-pale); color: var(--gold2); border: 1px solid var(--gold-border); }
+.badge.red { background: var(--red-pale); color: var(--red); border: 1px solid rgba(248,81,73,0.25); }
+.badge.blue { background: var(--blue-pale); color: var(--blue); border: 1px solid rgba(126,184,212,0.25); }
+.badge.muted { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+.badge.sage { background: rgba(130,171,138,0.1); color: var(--sage); border: 1px solid rgba(130,171,138,0.25); }
+
+/* TABLE */
+.table { width: 100%; border-collapse: collapse; }
+.table th { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 0 14px 12px; text-align: left; font-weight: 500; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; }
+.table th:first-child { padding-left: 0; }
+.table td { padding: 13px 14px; border-bottom: 1px solid rgba(201,168,76,0.05); font-size: 12px; color: var(--cream); vertical-align: middle; }
+.table td:first-child { padding-left: 0; }
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: rgba(201,168,76,0.03); }
+
+/* LEAD CARDS */
+.lead-card { background: var(--forest3); border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; margin-bottom: 10px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; transition: border-color 0.2s; cursor: none; }
+.lead-card:hover { border-color: var(--gold-border); }
+.lead-card.hot { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
+.lead-name { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 5px; font-family: 'Playfair Display', serif; }
+.lead-meta { font-size: 11px; color: var(--muted); line-height: 1.7; }
+.lead-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+.lead-time { font-size: 9px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+/* ACTIVITY */
+.activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(201,168,76,0.05); }
+.activity-item:last-child { border-bottom: none; }
+.activity-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.activity-icon.green { background: var(--green-pale); }
+.activity-icon.gold { background: var(--gold-pale); }
+.activity-icon.blue { background: var(--blue-pale); }
+.activity-icon.sage { background: rgba(130,171,138,0.1); }
+.activity-text { flex: 1; font-size: 11px; color: var(--cream); line-height: 1.65; }
+.activity-text strong { color: var(--cream); font-weight: 500; }
+.activity-time { font-size: 9px; color: var(--muted); white-space: nowrap; font-family: 'DM Mono', monospace; }
+
+/* SUMMARY CARDS */
+.summary-card { background: var(--forest3); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; transition: border-color 0.2s; }
+.summary-card:hover { border-color: var(--gold-border); }
+.summary-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.summary-name { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--cream); }
+.summary-body { font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+/* MESSAGE ROWS */
+.msg-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(201,168,76,0.05); }
+.msg-row:last-child { border-bottom: none; }
+.msg-name { font-size: 12px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+.msg-desc { font-size: 11px; color: var(--muted); }
+.msg-trigger { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; text-align: right; margin-right: 16px; }
+
+/* FORM */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-group.full { grid-column: span 2; }
+.form-label { font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; font-family: 'DM Mono', monospace; }
+.form-input, .form-select, .form-textarea { background: var(--forest3); border: 1px solid var(--border); border-radius: 4px; padding: 11px 14px; font-size: 12px; color: var(--cream); font-family: 'Jost', sans-serif; width: 100%; transition: border-color 0.2s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--gold); background: var(--forest4); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--muted); opacity: 0.6; }
+.form-textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.form-select option { background: var(--forest2); }
+.form-submit { background: var(--gold); color: var(--forest); border: none; border-radius: 4px; padding: 12px 28px; font-size: 12px; font-weight: 600; cursor: none; font-family: 'Jost', sans-serif; letter-spacing: 0.5px; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.form-submit:hover { background: var(--gold2); transform: translateY(-1px); }
+.form-note { font-size: 10px; color: var(--muted); margin-top: 8px; line-height: 1.6; font-family: 'DM Mono', monospace; }
+
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* PORTAL STATS */
+.portal-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 24px; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--forest2); border: 1px solid var(--green); border-radius: 8px; padding: 14px 20px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--cream); box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 1000; transform: translateY(100px); opacity: 0; transition: all 0.4s ease; }
+.toast.show { transform: translateY(0); opacity: 1; }
+
+@media(max-width:900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .stats-row, .portal-stats { grid-template-columns: 1fr 1fr; }
+  .form-grid, .two-col, .three-col { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: span 1; }
+  .page { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<div class="toast" id="toast">
+  <span>✅</span>
+  <span id="toast-msg">Submitted successfully</span>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">The <em>Life Care Experts</em> · Operations HQ</div>
+  <div class="topbar-right">
+    <div class="demo-badge">DEMO MODE</div>
+    <div class="live-badge"><div class="live-dot"></div>All Systems Live</div>
+    <button class="topbar-btn" onclick="showPage('inquiry-form')">+ New Inquiry</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Overview</div>
+    <button class="nav-item active" onclick="showPage('dashboard')">
+      <div class="nav-item-icon">⚡</div>Dashboard
+    </button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System 03 — Lead Capture</div>
+    <button class="nav-item" onclick="showPage('inquiries')">
+      <div class="nav-item-icon">🔔</div>Inquiry Feed
+      <span class="nav-badge red">3</span>
+    </button>
+    <button class="nav-item" onclick="showPage('inquiry-form')">
+      <div class="nav-item-icon">➕</div>New Inquiry
+    </button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System 05 — Summaries</div>
+    <button class="nav-item" onclick="showPage('summaries')">
+      <div class="nav-item-icon">📝</div>Care Summaries
+      <span class="nav-badge sage">1</span>
+    </button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System 06 — Communications</div>
+    <button class="nav-item" onclick="showPage('comms')">
+      <div class="nav-item-icon">💬</div>Automated Messages
+    </button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System 07 — Member Portal</div>
+    <button class="nav-item" onclick="showPage('members')">
+      <div class="nav-item-icon">👥</div>Portal Members
+    </button>
+    <button class="nav-item" onclick="showPage('courses')">
+      <div class="nav-item-icon">🎓</div>Course Enrollment
+    </button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System 08 — AI Chatbot</div>
+    <button class="nav-item" onclick="showPage('chatbot')">
+      <div class="nav-item-icon">🤖</div>Chatbot Activity
+    </button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Good morning, <em>Jennifer.</em></div>
+        <div class="page-sub">Thursday April 16 · 6 systems running · Last updated 1 min ago</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">New Inquiries This Week</div><div class="stat-val">9</div><div class="stat-trend up">↑ 4 from last week</div></div>
+      <div class="stat-card"><div class="stat-label">Active Consulting Clients</div><div class="stat-val">14</div><div class="stat-trend up">2 new this week</div></div>
+      <div class="stat-card"><div class="stat-label">Course Members</div><div class="stat-val">312</div><div class="stat-trend up">↑ 18 this month</div></div>
+      <div class="stat-card"><div class="stat-label">Hours Saved on Admin</div><div class="stat-val">23</div><div class="stat-trend neutral">✓ This week · Auto-calculated</div></div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🔔 Recent Inquiries</div>
+            <button class="action-btn outline" onclick="showPage('inquiries')" style="font-size:10px;padding:6px 12px;">View All</button>
+          </div>
+          <div class="card-body">
+            <div class="lead-card hot">
+              <div>
+                <div class="lead-name">🔥 Patricia Osei</div>
+                <div class="lead-meta">Family Navigation · Kalispell MT<br>📞 406-291-4832 · "My father has dementia and we don't know where to start"</div>
+              </div>
+              <div class="lead-actions">
+                <div class="lead-time">6 min ago</div>
+                <span class="badge gold">New</span>
+              </div>
+            </div>
+            <div class="lead-card hot">
+              <div>
+                <div class="lead-name">Dr. Karen Mitchell</div>
+                <div class="lead-meta">LCM Professional · Missoula MT<br>📧 karen@mitchellcare.com · "Looking to start my own life care practice"</div>
+              </div>
+              <div class="lead-actions">
+                <div class="lead-time">34 min ago</div>
+                <span class="badge gold">New</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📝 Summaries Pending Review</div></div>
+          <div class="card-body">
+            <div class="summary-card">
+              <div class="summary-top">
+                <div class="summary-name">Thornton Legal</div>
+                <span class="badge sage">Pending Review</span>
+              </div>
+              <div class="summary-body">Deposition preparation completed. Life care cost projections finalized. Documentation package sent to legal team. Trial date confirmed for May 12.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">⚡ Live Activity Feed</div></div>
+          <div class="card-body">
+            <div class="activity-item">
+              <div class="activity-icon gold">📋</div>
+              <div><div class="activity-text"><strong>Patricia Osei</strong> submitted inquiry form</div><div class="activity-time">6 min ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon green">📅</div>
+              <div><div class="activity-text"><strong>Discovery call booked</strong> — Thursday 2pm via AI chatbot</div><div class="activity-time">28 min ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon sage">📧</div>
+              <div><div class="activity-text"><strong>Automated welcome email</strong> sent to 3 new course members</div><div class="activity-time">1 hr ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon green">📝</div>
+              <div><div class="activity-text"><strong>Care summary sent</strong> to Hansen family</div><div class="activity-time">This morning</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon gold">⭐</div>
+              <div><div class="activity-text"><strong>New course review</strong> submitted — 5 stars</div><div class="activity-time">2 hrs ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon blue">🤖</div>
+              <div><div class="activity-text"><strong>6 chatbot inquiries</strong> answered overnight automatically</div><div class="activity-time">Last night</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INQUIRIES PAGE -->
+  <div class="page" id="page-inquiries">
+    <div class="page-header">
+      <div><div class="page-title">Inquiry <em>Feed</em></div><div class="page-sub">System 03 · All inquiries captured automatically</div></div>
+      <button class="action-btn" onclick="showPage('inquiry-form')">+ Add Manually</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">🔥 Hot Inquiries</div><span class="badge red">3 uncontacted</span></div>
+      <div class="card-body">
+        <div class="lead-card hot">
+          <div>
+            <div class="lead-name">Patricia Osei</div>
+            <div class="lead-meta">📍 Kalispell, MT · Family Navigation · Needs help within 48hrs<br>📞 406-291-4832 · Daughter (Andrea) is primary contact<br>💬 "My father has dementia and we don't know where to start"</div>
+          </div>
+          <div class="lead-actions"><div class="lead-time">6 min ago</div><span class="badge gold">New</span><button class="action-btn" style="font-size:10px;padding:6px 12px;margin-top:4px;">Contact Now</button></div>
+        </div>
+        <div class="lead-card hot">
+          <div>
+            <div class="lead-name">Dr. Karen Mitchell</div>
+            <div class="lead-meta">📍 Missoula, MT · LCM Professional · Starting practice<br>📧 karen@mitchellcare.com<br>💬 "Looking to start my own life care practice — need guidance"</div>
+          </div>
+          <div class="lead-actions"><div class="lead-time">34 min ago</div><span class="badge gold">New</span><button class="action-btn" style="font-size:10px;padding:6px 12px;margin-top:4px;">Contact Now</button></div>
+        </div>
+        <div class="lead-card hot">
+          <div>
+            <div class="lead-name">James Thornton</div>
+            <div class="lead-meta">📍 Billings, MT · Expert Witness · Legal case<br>📞 406-558-2291 · Attorney Robert Yee is contact<br>💬 "Need life care plan for catastrophic injury case — trial in May"</div>
+          </div>
+          <div class="lead-actions"><div class="lead-time">2 hrs ago</div><span class="badge gold">New</span><button class="action-btn" style="font-size:10px;padding:6px 12px;margin-top:4px;">Contact Now</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">All Inquiries</div></div>
+      <div class="card-body">
+        <table class="table">
+          <tr><th>Name</th><th>Type</th><th>Source</th><th>Date</th><th>Status</th></tr>
+          <tr><td><strong>Patricia Osei</strong></td><td>Family Navigation</td><td>AI Chatbot</td><td>Today</td><td><span class="badge gold">New</span></td></tr>
+          <tr><td><strong>Dr. Karen Mitchell</strong></td><td>LCM Professional</td><td>Website Form</td><td>Today</td><td><span class="badge gold">New</span></td></tr>
+          <tr><td><strong>James Thornton</strong></td><td>Expert Witness</td><td>Referral</td><td>Today</td><td><span class="badge gold">New</span></td></tr>
+          <tr><td>Sandra Whitfield</td><td>Insurance Consulting</td><td>Website Form</td><td>Apr 14</td><td><span class="badge blue">Warm</span></td></tr>
+          <tr><td>Priya Sharma</td><td>Coaching Request</td><td>AI Chatbot</td><td>Apr 12</td><td><span class="badge muted">Follow Up</span></td></tr>
+          <tr><td>Hansen Family</td><td>Family Navigation</td><td>Referral</td><td>Apr 8</td><td><span class="badge green">Converted</span></td></tr>
+          <tr><td>Morrison Consulting</td><td>Insurance</td><td>Website Form</td><td>Apr 5</td><td><span class="badge green">Converted</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- INQUIRY FORM -->
+  <div class="page" id="page-inquiry-form">
+    <div class="page-header">
+      <div><div class="page-title">New <em>Inquiry</em></div><div class="page-sub">System 03 · Submits to Google Sheets → Gmail notification to Jennifer</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Client Inquiry Form</div><span class="badge green">Connected to Make.com</span></div>
+      <div class="card-body">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-family:'DM Mono',monospace;">Contact Information</div>
+        <div class="form-grid">
+          <div class="form-group"><div class="form-label">Full Name *</div><input class="form-input" id="inq-name" placeholder="e.g. Patricia Osei" type="text"></div>
+          <div class="form-group"><div class="form-label">Email Address *</div><input class="form-input" id="inq-email" placeholder="email@example.com" type="email"></div>
+          <div class="form-group"><div class="form-label">Phone Number</div><input class="form-input" id="inq-phone" placeholder="406-XXX-XXXX" type="tel"></div>
+          <div class="form-group"><div class="form-label">Inquiry Type *</div>
+            <select class="form-select" id="inq-type">
+              <option value="">Select type...</option>
+              <option>Family Navigation</option>
+              <option>Life Care Professional</option>
+              <option>Insurance Consulting</option>
+              <option>Legal / Expert Witness</option>
+              <option>1-on-1 Coaching</option>
+              <option>Course Enrollment</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full"><div class="form-label">How can Jennifer help? *</div><textarea class="form-textarea" id="inq-notes" placeholder="Describe the situation or what you're looking for..."></textarea></div>
+          <div class="form-group"><div class="form-label">Priority</div>
+            <select class="form-select" id="inq-priority">
+              <option>🔥 Hot — needs help immediately</option>
+              <option>📞 Warm — follow up today</option>
+              <option>📅 Cool — follow up this week</option>
+            </select>
+          </div>
+        </div>
+        <button class="form-submit" onclick="submitInquiry()"><span>Submit Inquiry</span><span>→</span></button>
+        <div class="form-note">✓ Auto-saved to Google Sheets · ✓ Gmail notification sent to Jennifer · ✓ Logged in dashboard</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARIES PAGE -->
+  <div class="page" id="page-summaries">
+    <div class="page-header">
+      <div><div class="page-title">Care <em>Summaries</em></div><div class="page-sub">System 05 · Auto-generated weekly · Jennifer reviews and approves</div></div>
+    </div>
+    <div class="stats-row" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat-card"><div class="stat-label">Active Clients</div><div class="stat-val">14</div><div class="stat-trend neutral">All receiving summaries</div></div>
+      <div class="stat-card"><div class="stat-label">Sent This Month</div><div class="stat-val">52</div><div class="stat-trend up">Every Monday 8am</div></div>
+      <div class="stat-card"><div class="stat-label">Pending Review</div><div class="stat-val">1</div><div class="stat-trend neutral">Awaiting Jennifer</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">📝 Weekly Summaries — Week of Apr 7</div></div>
+      <div class="card-body">
+        <div class="summary-card">
+          <div class="summary-top">
+            <div class="summary-name">Hansen Family</div>
+            <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;">Sent Mon Apr 7 · 8:00am</span><span class="badge green">Sent</span></div>
+          </div>
+          <div class="summary-body">Care coordination progressing well. Robert's medication schedule confirmed with primary physician. Family meeting scheduled for April 18. Transportation arrangements confirmed for two specialist appointments. Next steps documented in care plan. Family reported feeling significantly more confident in managing Robert's daily routine.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-top">
+            <div class="summary-name">Morrison Consulting · Insurance Case</div>
+            <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;">Sent Mon Apr 7 · 8:00am</span><span class="badge green">Sent</span></div>
+          </div>
+          <div class="summary-body">Life care plan updated following specialist consultation. Insurance documentation submitted on April 5. Expert witness report draft reviewed and approved. Cost projections finalized for long-term care needs. Follow up call scheduled for April 21 with insurance adjuster.</div>
+        </div>
+        <div class="summary-card" style="border-color:rgba(201,168,76,0.3);">
+          <div class="summary-top">
+            <div class="summary-name">Thornton Legal · Expert Witness</div>
+            <div style="display:flex;gap:8px;align-items:center;"><span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;">Generated Apr 14</span><span class="badge sage">Pending Review</span></div>
+          </div>
+          <div class="summary-body">Deposition preparation completed April 12. Life care cost projections finalized — 30-year projection submitted. Documentation package sent to legal team April 13. Trial date confirmed for May 12 in Billings. Jennifer's expert report filed and accepted by court.</div>
+          <div style="margin-top:12px;display:flex;gap:10px;">
+            <button class="action-btn" style="font-size:10px;padding:7px 14px;" onclick="showToast('Summary approved and sent.')">✓ Approve & Send</button>
+            <button class="action-btn outline" style="font-size:10px;padding:7px 14px;">Edit Summary</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNICATIONS PAGE -->
+  <div class="page" id="page-comms">
+    <div class="page-header">
+      <div><div class="page-title">Automated <em>Messages</em></div><div class="page-sub">System 06 · All messages fire automatically · Zero manual effort</div></div>
+    </div>
+    <div class="stats-row" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat-card"><div class="stat-label">Sent This Month</div><div class="stat-val">284</div><div class="stat-trend up">All automated</div></div>
+      <div class="stat-card"><div class="stat-label">Open Rate</div><div class="stat-val">71<em>%</em></div><div class="stat-trend up">Above industry avg</div></div>
+      <div class="stat-card"><div class="stat-label">Manual Emails Saved</div><div class="stat-val">284</div><div class="stat-trend up">This month alone</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">💬 Active Automations</div><span class="badge green">6 Running</span></div>
+      <div class="card-body">
+        <div class="msg-row">
+          <div><div class="msg-name">Welcome Email</div><div class="msg-desc">New inquiry confirmation with Jennifer's bio and next steps</div></div>
+          <div class="msg-trigger">Fires instantly on inquiry</div>
+          <span class="badge green">Active</span>
+        </div>
+        <div class="msg-row">
+          <div><div class="msg-name">24hr Follow Up</div><div class="msg-desc">Check in message after first contact — keeps Jennifer top of mind</div></div>
+          <div class="msg-trigger">24hrs after inquiry</div>
+          <span class="badge green">Active</span>
+        </div>
+        <div class="msg-row">
+          <div><div class="msg-name">Weekly Care Summary</div><div class="msg-desc">Auto-generated client update — Jennifer reviews before sending</div></div>
+          <div class="msg-trigger">Every Monday · 8:00am</div>
+          <span class="badge green">Active</span>
+        </div>
+        <div class="msg-row">
+          <div><div class="msg-name">Course Welcome</div><div class="msg-desc">New member onboarding sequence — access instructions and quick start guide</div></div>
+          <div class="msg-trigger">On enrollment</div>
+          <span class="badge green">Active</span>
+        </div>
+        <div class="msg-row">
+          <div><div class="msg-name">Coaching Session Reminder</div><div class="msg-desc">Session confirmation with Zoom link and preparation notes</div></div>
+          <div class="msg-trigger">24hrs before session</div>
+          <span class="badge green">Active</span>
+        </div>
+        <div class="msg-row">
+          <div><div class="msg-name">Monthly Newsletter</div><div class="msg-desc">New content, course updates, and Jennifer's latest insights</div></div>
+          <div class="msg-trigger">1st of every month</div>
+          <span class="badge blue">Scheduled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEMBERS PAGE -->
+  <div class="page" id="page-members">
+    <div class="page-header">
+      <div><div class="page-title">Portal <em>Members</em></div><div class="page-sub">System 07 · Member access and course management</div></div>
+    </div>
+    <div class="portal-stats">
+      <div class="stat-card"><div class="stat-label">Total Members</div><div class="stat-val">312</div><div class="stat-trend up">↑ 18 this month</div></div>
+      <div class="stat-card"><div class="stat-label">Active This Month</div><div class="stat-val">247</div><div class="stat-trend up">79% engagement</div></div>
+      <div class="stat-card"><div class="stat-label">Courses Completed</div><div class="stat-val">891</div><div class="stat-trend up">All time</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue This Month</div><div class="stat-val">$8,400</div><div class="stat-trend up">↑ 12%</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">👥 Recent Members</div></div>
+      <div class="card-body">
+        <table class="table">
+          <tr><th>Name</th><th>Program</th><th>Joined</th><th>Status</th></tr>
+          <tr><td><strong>Sandra Mitchell</strong></td><td>Business Intensive</td><td>Apr 12</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td><strong>Dr. Karen Yee</strong></td><td>LCM A-Z Program</td><td>Apr 10</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td><strong>Rachel Okonkwo</strong></td><td>Handbook Bundle</td><td>Apr 8</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td><strong>James Whitfield</strong></td><td>1-on-1 Coaching</td><td>Apr 5</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td><strong>Priya Sharma</strong></td><td>Business Intensive</td><td>Apr 1</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td>Dr. Michael Torres</td><td>LCM A-Z Program</td><td>Mar 28</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td>Lisa Nakamura</td><td>À La Carte Courses</td><td>Mar 25</td><td><span class="badge muted">Inactive</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSES PAGE -->
+  <div class="page" id="page-courses">
+    <div class="page-header">
+      <div><div class="page-title">Course <em>Enrollment</em></div><div class="page-sub">System 07 · All courses tracked automatically</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">🎓 Course Performance</div></div>
+      <div class="card-body">
+        <table class="table">
+          <tr><th>Course</th><th>Enrolled</th><th>Completed</th><th>Completion Rate</th><th>Revenue</th></tr>
+          <tr><td><strong>LCM A-Z Program</strong></td><td>89</td><td>67</td><td><span class="badge green">75%</span></td><td style="color:var(--gold);font-family:'Playfair Display',serif;font-size:14px;">$4,450</td></tr>
+          <tr><td><strong>Business Intensive</strong></td><td>64</td><td>51</td><td><span class="badge green">80%</span></td><td style="color:var(--gold);font-family:'Playfair Display',serif;font-size:14px;">$3,200</td></tr>
+          <tr><td><strong>Handbook Bundle</strong></td><td>94</td><td>88</td><td><span class="badge green">94%</span></td><td style="color:var(--gold);font-family:'Playfair Display',serif;font-size:14px;">$940</td></tr>
+          <tr><td><strong>1-on-1 Coaching</strong></td><td>12</td><td>—</td><td><span class="badge blue">Ongoing</span></td><td style="color:var(--gold);font-family:'Playfair Display',serif;font-size:14px;">$1,800</td></tr>
+          <tr><td><strong>À La Carte Courses</strong></td><td>53</td><td>41</td><td><span class="badge green">77%</span></td><td style="color:var(--gold);font-family:'Playfair Display',serif;font-size:14px;">$530</td></tr>
+        </table>
+        <div style="margin-top:20px;padding:16px;background:var(--gold-pale);border:1px solid var(--gold-border);border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:12px;color:var(--cream);">Total Course Revenue This Month</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:var(--gold);">$10,920</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHATBOT PAGE -->
+  <div class="page" id="page-chatbot">
+    <div class="page-header">
+      <div><div class="page-title">AI <em>Chatbot</em></div><div class="page-sub">System 08 · Answering inquiries 24/7 · Zero manual responses needed</div></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">Inquiries This Week</div><div class="stat-val">34</div><div class="stat-trend up">↑ 12 from last week</div></div>
+      <div class="stat-card"><div class="stat-label">Avg Response Time</div><div class="stat-val">1.2<em>s</em></div><div class="stat-trend up">Instant · 24/7</div></div>
+      <div class="stat-card"><div class="stat-label">Calls Booked via Chat</div><div class="stat-val">6</div><div class="stat-trend up">This week</div></div>
+      <div class="stat-card"><div class="stat-label">After Hours Handled</div><div class="stat-val">18</div><div class="stat-trend neutral">Zero missed</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">🤖 Recent Conversations</div><span class="badge green">AI Handling All</span></div>
+      <div class="card-body">
+        <table class="table">
+          <tr><th>Visitor</th><th>Inquiry Type</th><th>Time</th><th>Outcome</th></tr>
+          <tr><td><strong>Patricia Osei</strong></td><td>Family Navigation</td><td>Today 2:06am</td><td><span class="badge green">Booked call</span></td></tr>
+          <tr><td>Anonymous</td><td>Course Inquiry</td><td>Today 1:44am</td><td><span class="badge blue">Sent to products</span></td></tr>
+          <tr><td><strong>Dr. James Reed</strong></td><td>LCM Professional</td><td>Yesterday 11:32pm</td><td><span class="badge green">Booked call</span></td></tr>
+          <tr><td>Sandra K.</td><td>Insurance Consulting</td><td>Yesterday 9:15pm</td><td><span class="badge gold">Sent inquiry form</span></td></tr>
+          <tr><td>Anonymous</td><td>General Question</td><td>Yesterday 8:44pm</td><td><span class="badge muted">Answered & closed</span></td></tr>
+          <tr><td>Michael Torres</td><td>Expert Witness</td><td>Yesterday 7:12pm</td><td><span class="badge green">Booked call</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+});
+
+// PAGE NAVIGATION
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  event.currentTarget && event.currentTarget.classList.add('active');
+}
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// SUBMIT INQUIRY
+async function submitInquiry() {
+  const name = document.getElementById('inq-name').value;
+  const email = document.getElementById('inq-email').value;
+  const phone = document.getElementById('inq-phone').value;
+  const type = document.getElementById('inq-type').value;
+  const notes = document.getElementById('inq-notes').value;
+  const priority = document.getElementById('inq-priority').value;
+  if (!name || !email || !type || !notes) {
+    showToast('Please fill in all required fields.');
+    return;
+  }
+  try {
+    await fetch('https://hook.us2.make.com/puxwuxhi69h2hevxgfw28vcowsr9caak', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ Full_Name: name, Email: email, Phone: phone, Care_Type: type, Notes: notes, Status: priority, Source: 'LCM HQ Dashboard' }),
+      mode: 'no-cors'
+    });
+  } catch(e) {}
+  showToast('Inquiry submitted. Jennifer has been notified.');
+  document.getElementById('inq-name').value = '';
+  document.getElementById('inq-email').value = '';
+  document.getElementById('inq-phone').value = '';
+  document.getElementById('inq-notes').value = '';
+}
+
+// NAV ACTIVE STATE
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
