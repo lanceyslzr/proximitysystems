@@ -315,6 +315,11 @@
   .stage-chip:hover{background:var(--accent);color:var(--white);border-color:var(--accent);}
   .stage-chip.cta{background:var(--accent);color:var(--white);border-color:var(--accent);}
   .stage-chip.cta:hover{background:var(--accent-light);}
+  .typing-indicator{display:flex;gap:5px;align-items:center;padding:12px 16px;align-self:flex-start;}
+  .typing-indicator span{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:typBounce 1.2s infinite;}
+  .typing-indicator span:nth-child(2){animation-delay:.2s;}
+  .typing-indicator span:nth-child(3){animation-delay:.4s;}
+  @keyframes typBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
 
   /* BOOKING FORM */
   .booking-form {
@@ -489,17 +494,17 @@
 // ── CHATBOT — PURE INTAKE STATE MACHINE ──
 var chatStage=0;
 var intake={role:'',painPoint:'',size:'',name:'',contact:'',day:'',time:''};
-var chatHistory=[];
+var chatHistory=[{role:'assistant',content:'Hey \u2014 do you run a home care agency?'}];
 var openChat=false;
 
 var STAGE_EXPECTED=[
-  ['Yes I do','I\'m looking into it','I work at one'],
-  ['Missed leads','Too much admin','No family communication','Billing and invoicing'],
-  ['Under 10','10 to 30','30 to 100','100+'],
+  ['yes i do','i\'m looking into it','i work at one'],
+  ['missed leads','too much admin','no family communication','billing and invoicing'],
+  ['under 10','10 to 30','30 to 100','100+'],
   null,
   null,
-  ['Monday','Tuesday','Wednesday','Thursday','Friday'],
-  ['Morning 9-12','Afternoon 12-4','Evening 4-7']
+  ['monday','tuesday','wednesday','thursday','friday'],
+  ['morning 9-12','afternoon 12-4','evening 4-7']
 ];
 
 var STAGE_CHIPS=[
@@ -544,6 +549,13 @@ function renderChips(chips){
   });
 }
 
+function showTyping(){
+  var el=document.createElement('div');el.className='typing-indicator';el.id='typing';
+  el.innerHTML='<span></span><span></span><span></span>';
+  messagesEl.appendChild(el);scrollToBottom();
+}
+function hideTyping(){var el=document.getElementById('typing');if(el)el.remove();}
+
 function advanceStage(answer){
   if(chatStage===0) intake.role=answer;
   else if(chatStage===1) intake.painPoint=answer;
@@ -564,11 +576,21 @@ function advanceStage(answer){
   else if(chatStage===6) msg='And what time works best?';
 
   if(chatStage<=6){
-    setTimeout(function(){addMessage('assistant',msg);chatHistory.push({role:'assistant',content:msg});renderChips(STAGE_CHIPS[chatStage-1]);scrollToBottom();},500);
+    chatHistory.push({role:'user',content:answer});
+    setTimeout(function(){
+      addMessage('assistant',msg);
+      chatHistory.push({role:'assistant',content:msg});
+      renderChips(STAGE_CHIPS[chatStage-1]);scrollToBottom();
+    },500);
   }else{
+    chatHistory.push({role:'user',content:answer});
+    var isEmail=intake.contact.includes('@');
+    var phone=isEmail?'':intake.contact;
+    var email=isEmail?intake.contact:'';
     var confirm='You\u2019re all set, '+intake.name+'. We\u2019ll call you '+intake.day+' '+intake.time+' at '+intake.contact+'. Looking forward to walking you through what this looks like for your agency.';
     setTimeout(function(){
       addMessage('assistant',confirm);
+      chatHistory.push({role:'assistant',content:confirm});
       renderChips(null);
       var nm=intake.name.split(/\s+/);
       fetch('https://proximity-agent-production.up.railway.app/webhook/lead',{
@@ -577,8 +599,8 @@ function advanceStage(answer){
           operator_id:'proximity-systems',
           first_name:nm.shift()||'',
           last_name:nm.join(' '),
-          phone:intake.contact,
-          email:intake.contact.includes('@')?intake.contact:'',
+          phone:phone,
+          email:email,
           care_type_interest:intake.painPoint,
           care_needed_for:intake.role+' \u2014 '+intake.size+' clients',
           urgency:'asap',
@@ -587,7 +609,9 @@ function advanceStage(answer){
         })
       }).catch(function(e){console.error('Booking webhook error:',e);});
       setTimeout(function(){
-        addMessage('assistant','In the meantime, feel free to ask me anything about how the system works or what the setup looks like.');
+        var followUp='In the meantime, feel free to ask me anything about how the system works or what the setup looks like.';
+        addMessage('assistant',followUp);
+        chatHistory.push({role:'assistant',content:followUp});
         openChat=true;
       },3000);
     },500);
@@ -599,46 +623,54 @@ async function handleInput(text){
     addMessage('user',text);
     chatHistory.push({role:'user',content:text});
     chipsEl.innerHTML='';
+    showTyping();
     try{
       var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({operator_id:'proximity-systems',messages:[{role:'user',content:AI_SYSTEM+'\n\n'+text}].concat(chatHistory)})
+        body:JSON.stringify({operator_id:'proximity-systems',messages:chatHistory,system_override:AI_SYSTEM})
       });
+      hideTyping();
       var d=await r.json();
-      var reply=(d.response||'Reach Lance directly at 647-382-8047.').replace(/\*\*(.+?)\*\*/g,'$1');
+      var reply=(d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
+      if(!reply) throw new Error('empty');
       chatHistory.push({role:'assistant',content:reply});
       addMessage('assistant',reply);
     }catch(e){
-      addMessage('assistant','Reach Lance directly at 647-382-8047.');
+      hideTyping();
+      addMessage('assistant','Sorry, I had trouble connecting. Lance will reach out at your confirmed time.');
     }
     return;
   }
 
-  var isExpected=STAGE_EXPECTED[chatStage]===null||STAGE_EXPECTED[chatStage].includes(text);
-  var isFreeform=text.includes('?')||text.length>40||!isExpected;
+  var expected=STAGE_EXPECTED[chatStage];
+  var isExpected=expected===null||expected.includes(text.toLowerCase().trim());
+  var isFreeform=!isExpected&&(text.includes('?')||text.split(' ').length>5);
 
   if(isFreeform){
     addMessage('user',text);
     chatHistory.push({role:'user',content:text});
     chipsEl.innerHTML='';
+    showTyping();
     try{
       var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({operator_id:'proximity-systems',messages:[{role:'user',content:AI_SYSTEM+'\n\n'+text}].concat(chatHistory)})
+        body:JSON.stringify({operator_id:'proximity-systems',messages:chatHistory,system_override:AI_SYSTEM})
       });
+      hideTyping();
       var d=await r.json();
-      var reply=(d.response||'Reach Lance directly at 647-382-8047.').replace(/\*\*(.+?)\*\*/g,'$1');
+      var reply=(d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
+      if(!reply) throw new Error('empty');
       chatHistory.push({role:'assistant',content:reply});
       addMessage('assistant',reply);
     }catch(e){
-      addMessage('assistant','Reach Lance directly at 647-382-8047.');
+      hideTyping();
+      addMessage('assistant','Sorry, I had trouble connecting. Lance will reach out at your confirmed time.');
     }
-    renderChips(STAGE_EXPECTED[chatStage]||null);
+    renderChips(STAGE_EXPECTED[chatStage]?STAGE_CHIPS[chatStage>0?chatStage-1:0]:null);
     return;
   }
 
   addMessage('user',text);
-  chatHistory.push({role:'user',content:text});
   advanceStage(text);
 }
 
@@ -652,7 +684,7 @@ sendBtn.addEventListener('click',sendMessage);
 inputEl.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
 inputEl.addEventListener('input',function(){inputEl.style.height='auto';inputEl.style.height=Math.min(inputEl.scrollHeight,120)+'px';});
 
-addMessage('assistant','Hey — do you run a home care agency?');
+addMessage('assistant','Hey \u2014 do you run a home care agency?');
 renderChips(['Yes I do','I\'m looking into it','I work at one']);
 </script>
 </body>
