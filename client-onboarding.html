@@ -8,691 +8,1204 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#07090c;--surface:#0d1117;--surface2:#131920;--surface3:#0a1520;
-  --border:rgba(61,122,138,0.18);--border-h:rgba(61,122,138,0.4);--border-f:rgba(61,122,138,0.7);
-  --acc:#3d7a8a;--accl:#5a9aaa;--acc-bg:rgba(61,122,138,0.08);--acc-glow:rgba(61,122,138,0.15);
-  --ok:#2a9d6a;--ok-bg:rgba(42,157,106,0.1);--ok-b:rgba(42,157,106,0.4);
-  --danger:#e05a6a;--gold:#c9a84c;
-  --text:#ddd9d0;--muted:rgba(221,217,208,0.5);--hint:rgba(221,217,208,0.3);
+  --bg:#07090c;--sur:#0d1117;--sur2:#131920;--sur3:#0a1520;
+  --b:rgba(61,122,138,0.18);--bh:rgba(61,122,138,0.4);--bf:rgba(61,122,138,0.7);
+  --a:#3d7a8a;--al:#5a9aaa;--ab:rgba(61,122,138,0.08);--ag:rgba(61,122,138,0.15);
+  --ok:#2a9d6a;--okb:rgba(42,157,106,0.1);--okd:rgba(42,157,106,0.4);
+  --ng:#e05a6a;--gold:#c9a84c;
+  --t:#ddd9d0;--m:rgba(221,217,208,0.5);--h:rgba(221,217,208,0.28);
   --r:10px;--rl:14px;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;-webkit-font-smoothing:antialiased;}
-.cf-wrap{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
-.cf{position:absolute;animation:cfFall linear forwards;}
-@keyframes cfFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}85%{opacity:1;}100%{transform:translateY(110vh) rotate(800deg);opacity:0;}}
-.top{position:sticky;top:0;z-index:100;background:rgba(7,9,12,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0;}
-.top-inner{max-width:1200px;margin:0 auto;padding:0.85rem 2rem 0;}
-.top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.7rem;}
-.top-brand{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--accl);letter-spacing:0.02em;}
-.top-brand span{color:var(--muted);font-style:italic;}
-.top-right{display:flex;align-items:center;gap:1rem;}
-.top-step{font-size:0.72rem;color:var(--muted);}
-.top-step strong{color:var(--text);font-weight:500;}
-.top-save{font-size:0.7rem;color:var(--ok);opacity:0;transition:opacity 0.3s;}
+body{background:var(--bg);color:var(--t);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* CONFETTI */
+.cfw{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
+.cf{position:absolute;animation:cff linear forwards;}
+@keyframes cff{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}85%{opacity:1;}100%{transform:translateY(110vh) rotate(800deg);opacity:0;}}
+
+/* TOP BAR */
+.top{position:sticky;top:0;z-index:100;background:rgba(7,9,12,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);}
+.top-i{max-width:1200px;margin:0 auto;padding:0.8rem 2rem 0;}
+.top-r{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.65rem;}
+.top-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--al);}
+.top-brand span{color:var(--m);font-style:italic;}
+.top-meta{display:flex;align-items:center;gap:1.25rem;}
+.top-time{font-size:0.68rem;color:var(--h);}
+.top-time span{color:var(--al);}
+.top-save{font-size:0.68rem;color:var(--ok);opacity:0;transition:opacity 0.3s;}
 .top-save.show{opacity:1;}
-.pbar{height:2px;background:rgba(61,122,138,0.1);}
-.pbar-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--accl));transition:width 0.6s cubic-bezier(0.4,0,0.2,1);width:0%;}
-.layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:0;min-height:calc(100vh - 58px);}
-.left{padding:2.5rem 3rem 6rem;border-right:1px solid var(--border);}
-.right{position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;padding:2rem 1.5rem;background:var(--surface);}
+.top-step{font-size:0.7rem;color:var(--m);}
+.top-step strong{color:var(--t);font-weight:500;}
+.pb{height:2px;background:rgba(61,122,138,0.1);}
+.pb-f{height:100%;background:linear-gradient(90deg,var(--a),var(--al));transition:width 0.6s cubic-bezier(0.4,0,0.2,1);width:0%;}
+
+/* LAYOUT */
+.wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;min-height:calc(100vh - 56px);}
+.left{padding:0 3rem 6rem;border-right:1px solid var(--b);}
+.right{position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;padding:1.75rem 1.5rem;background:var(--sur);}
 .right::-webkit-scrollbar{width:3px;}
-.right::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.preview-title{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--acc);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;}
-.preview-title::after{content:'';flex:1;height:1px;background:var(--border);}
-.preview-pulse{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.prev-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:0.75rem;transition:all 0.3s;}
-.prev-card.empty{opacity:0.4;}
-.prev-card-label{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--acc);margin-bottom:0.6rem;}
-.prev-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--text);line-height:1.2;margin-bottom:0.2rem;}
-.prev-biz{font-size:0.82rem;color:var(--accl);margin-bottom:0.5rem;}
-.prev-tagline{font-size:0.78rem;color:var(--muted);font-style:italic;line-height:1.5;}
-.prev-creds{display:flex;flex-wrap:wrap;gap:4px;margin-top:0.6rem;}
-.prev-cred{font-size:0.65rem;padding:3px 8px;border-radius:100px;border:1px solid var(--border-h);color:var(--accl);}
-.prev-products{display:flex;flex-direction:column;gap:6px;}
-.prev-product{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--surface);border-radius:7px;border:1px solid var(--border);}
-.prev-product-name{font-size:0.8rem;color:var(--text);}
-.prev-product-price{font-size:0.78rem;color:var(--ok);}
-.prev-product-type{font-size:0.65rem;color:var(--muted);}
-.prev-stat{display:flex;align-items:center;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.78rem;}
-.prev-stat:last-child{border:none;}
-.prev-stat-label{color:var(--muted);}
-.prev-stat-val{color:var(--text);font-weight:500;text-align:right;max-width:58%;}
-.prev-empty{font-size:0.75rem;color:var(--hint);font-style:italic;text-align:center;padding:1rem 0;}
-.get-box{background:var(--surface3);border:1px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:0.75rem;}
-.get-box-title{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
-.get-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:0.5rem;font-size:0.76rem;color:var(--muted);line-height:1.4;}
-.get-item::before{content:'✓';color:var(--ok);flex-shrink:0;font-size:0.7rem;margin-top:1px;}
-.sec{display:none;}
-.sec.active{display:block;animation:secIn 0.35s ease;}
-@keyframes secIn{from{opacity:0;transform:translateX(12px);}to{opacity:1;transform:translateX(0);}}
-.snav{display:flex;align-items:center;gap:0;margin-bottom:2.5rem;}
-.sdot{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--muted);background:var(--bg);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);flex-shrink:0;cursor:pointer;}
-.sdot:hover:not(.act):not(.done){border-color:var(--border-h);color:var(--text);}
-.sdot.act{border-color:var(--accl);color:var(--accl);background:var(--acc-bg);box-shadow:0 0 0 3px var(--acc-glow);}
-.sdot.done{border-color:var(--ok);color:var(--ok);background:var(--ok-bg);font-size:12px;}
-.sdot.done span{display:none;}
-.scon{height:1px;flex:1;background:var(--border);transition:background 0.4s;}
+.right::-webkit-scrollbar-thumb{background:var(--b);border-radius:2px;}
+
+/* WELCOME SCREEN */
+.welcome{padding:3rem 0 2rem;display:block;}
+.welcome.hide{display:none;}
+.wlc-eyebrow{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--a);margin-bottom:0.5rem;}
+.wlc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:400;line-height:1.15;margin-bottom:1rem;}
+.wlc-title em{font-style:italic;color:var(--al);}
+.wlc-msg{font-size:0.9rem;color:var(--m);line-height:1.75;max-width:480px;margin-bottom:2rem;}
+.wlc-msg strong{color:var(--t);font-weight:500;}
+.wlc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:2.5rem;max-width:420px;}
+.wlc-stat{background:var(--sur);border:1px solid var(--b);border-radius:var(--rl);padding:0.9rem 1rem;}
+.wlc-stat-n{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--al);line-height:1;}
+.wlc-stat-l{font-size:0.68rem;color:var(--m);margin-top:0.2rem;line-height:1.4;}
+.wlc-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--a);color:#fff;border:none;border-radius:8px;padding:0.85rem 2rem;font-size:0.9rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;letter-spacing:0.02em;}
+.wlc-btn:hover{background:var(--al);}
+.wlc-btn::after{content:'→';font-size:1rem;}
+
+/* SECTION NAV */
+.snav{display:flex;align-items:flex-start;gap:0;padding:2rem 0 2.5rem;}
+.sdot-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.sdot{width:28px;height:28px;border-radius:50%;border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--m);background:var(--bg);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);flex-shrink:0;}
+.sdot-wrap:hover .sdot:not(.act):not(.done){border-color:var(--bh);color:var(--t);}
+.sdot.act{border-color:var(--al);color:var(--al);background:var(--ab);box-shadow:0 0 0 3px var(--ag);}
+.sdot.done{border-color:var(--ok);color:var(--ok);background:var(--okb);}
+.sdot-lbl{font-size:0.58rem;color:var(--h);text-align:center;white-space:nowrap;letter-spacing:0.04em;transition:color 0.2s;}
+.sdot-wrap:hover .sdot-lbl{color:var(--m);}
+.sdot.act~.sdot-lbl,.sdot-wrap.current .sdot-lbl{color:var(--al)!important;}
+.sdot.done~.sdot-lbl{color:var(--ok)!important;}
+.scon{height:1px;flex:1;background:var(--b);margin-top:14px;transition:background 0.4s;}
 .scon.done{background:var(--ok);}
-.sec-tag{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc);margin-bottom:0.35rem;}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,3vw,2.2rem);font-weight:400;line-height:1.15;margin-bottom:0.35rem;}
-.sec-title em{font-style:italic;color:var(--accl);}
-.sec-sub{font-size:0.87rem;color:var(--muted);margin-bottom:2rem;line-height:1.65;max-width:520px;}
-.f{margin-bottom:1.15rem;opacity:0;transform:translateY(12px);transition:opacity 0.35s ease,transform 0.35s ease;}
+
+/* SECTIONS */
+.sec{display:none;}
+.sec.active{display:block;animation:sIn 0.3s ease;}
+@keyframes sIn{from{opacity:0;transform:translateX(10px);}to{opacity:1;transform:translateX(0);}}
+
+/* SECTION HEADER */
+.s-tag{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--a);margin-bottom:0.3rem;}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.65rem,3vw,2.1rem);font-weight:400;line-height:1.15;margin-bottom:0.3rem;}
+.s-title em{font-style:italic;color:var(--al);}
+.s-sub{font-size:0.85rem;color:var(--m);margin-bottom:0.4rem;line-height:1.6;max-width:500px;}
+.s-time{font-size:0.68rem;color:var(--h);margin-bottom:1.75rem;display:flex;align-items:center;gap:5px;}
+.s-time::before{content:'⏱';font-size:0.7rem;}
+
+/* SECTION COMPLETE TOAST */
+.sec-toast{
+  position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-10px);
+  background:var(--sur);border:1px solid var(--okd);border-radius:100px;
+  padding:0.5rem 1.2rem;font-size:0.78rem;color:var(--ok);
+  opacity:0;transition:all 0.3s;pointer-events:none;z-index:200;white-space:nowrap;
+}
+.sec-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* FIELDS */
+.f{margin-bottom:1.1rem;opacity:0;transform:translateY(10px);transition:opacity 0.35s ease,transform 0.35s ease;}
 .f.vis{opacity:1;transform:translateY(0);}
-.f-label{display:block;font-size:0.78rem;font-weight:500;color:var(--text);margin-bottom:0.28rem;letter-spacing:0.025em;}
-.f-opt{font-size:0.65rem;color:var(--hint);font-weight:300;margin-left:4px;font-style:italic;}
-.f-hint{font-size:0.72rem;color:var(--hint);margin-bottom:0.32rem;line-height:1.5;}
-.f-tip{font-size:0.7rem;color:var(--acc);background:var(--acc-bg);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.75rem;margin-bottom:0.4rem;line-height:1.5;}
+.f-label{display:block;font-size:0.77rem;font-weight:500;color:var(--t);margin-bottom:0.25rem;letter-spacing:0.02em;}
+.f-opt{font-size:0.64rem;color:var(--h);font-weight:300;margin-left:4px;font-style:italic;}
+.f-hint{font-size:0.7rem;color:var(--h);margin-bottom:0.3rem;line-height:1.5;}
+.f-tip{font-size:0.69rem;color:var(--a);background:var(--ab);border:1px solid var(--b);border-radius:6px;padding:0.45rem 0.7rem;margin-bottom:0.35rem;line-height:1.5;}
 .f-wrap{position:relative;}
-.f-check{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--ok);font-size:12px;opacity:0;transition:opacity 0.2s;pointer-events:none;}
-.f-check.show{opacity:1;}
-textarea~.f-check{top:12px;transform:none;}
-input.fi,textarea.fi,select.fi{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:300;padding:0.68rem 2.2rem 0.68rem 0.88rem;outline:none;appearance:none;-webkit-appearance:none;transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;line-height:1.5;}
-input.fi:hover,textarea.fi:hover,select.fi:hover{border-color:var(--border-h);}
-input.fi:focus,textarea.fi:focus,select.fi:focus{border-color:var(--border-f);background:var(--surface2);box-shadow:0 0 0 3px var(--acc-glow);}
-input.fi.ok,textarea.fi.ok,select.fi.ok{border-color:var(--ok-b);}
-input.fi::placeholder,textarea.fi::placeholder{color:var(--hint);}
-textarea.fi{resize:vertical;min-height:78px;padding-right:0.88rem;}
-select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='rgba(221,217,208,0.3)' d='M5 7L1 3h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;}
-select.fi option{background:var(--surface2);color:var(--text);}
-.gr2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
-.gr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;}
-.choices{display:grid;gap:8px;margin-top:4px;}
+.f-ck{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--ok);font-size:11px;opacity:0;transition:opacity 0.2s;pointer-events:none;}
+.f-ck.show{opacity:1;}
+textarea~.f-ck{top:11px;transform:none;}
+
+input.fi,textarea.fi,select.fi{
+  width:100%;background:var(--sur);border:1px solid var(--b);border-radius:var(--r);
+  color:var(--t);font-family:'DM Sans',sans-serif;font-size:0.87rem;font-weight:300;
+  padding:0.65rem 2rem 0.65rem 0.85rem;outline:none;appearance:none;-webkit-appearance:none;
+  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;line-height:1.5;
+}
+input.fi:hover,textarea.fi:hover,select.fi:hover{border-color:var(--bh);}
+input.fi:focus,textarea.fi:focus,select.fi:focus{border-color:var(--bf);background:var(--sur2);box-shadow:0 0 0 3px var(--ag);}
+input.fi.ok,textarea.fi.ok,select.fi.ok{border-color:var(--okd);}
+input.fi::placeholder,textarea.fi::placeholder{color:var(--h);}
+textarea.fi{resize:vertical;min-height:76px;padding-right:0.85rem;}
+select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='rgba(221,217,208,0.28)' d='M5 7L1 3h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;}
+select.fi option{background:var(--sur2);color:var(--t);}
+
+.gr2{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.gr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;}
+
+/* CHOICE CARDS */
+.choices{display:grid;gap:7px;margin-top:4px;}
 .c2{grid-template-columns:1fr 1fr;}
 .c3{grid-template-columns:1fr 1fr 1fr;}
 .c4{grid-template-columns:1fr 1fr 1fr 1fr;}
-.choice{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:0.9rem 0.75rem;cursor:pointer;transition:all 0.2s;text-align:center;}
-.choice:hover{border-color:var(--border-h);}
-.choice.on{border-color:var(--accl);background:var(--acc-bg);}
-.choice-icon{font-size:1.3rem;margin-bottom:0.3rem;}
-.choice-label{font-size:0.8rem;font-weight:500;color:var(--text);margin-bottom:0.12rem;}
-.choice-sub{font-size:0.68rem;color:var(--muted);line-height:1.35;}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-.chip{padding:5px 13px;border-radius:100px;border:1px solid var(--border);font-size:0.76rem;color:var(--muted);cursor:pointer;user-select:none;transition:all 0.18s;background:var(--bg);}
-.chip:hover{border-color:var(--acc);color:var(--text);}
-.chip.on{border-color:var(--accl);color:var(--accl);background:var(--acc-bg);}
-.prod-list{display:flex;flex-direction:column;gap:8px;}
-.prod-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;cursor:grab;transition:all 0.2s;animation:prodIn 0.28s ease;}
+.choice{background:var(--sur);border:1px solid var(--b);border-radius:var(--rl);padding:0.85rem 0.7rem;cursor:pointer;transition:all 0.18s;text-align:center;user-select:none;}
+.choice:hover{border-color:var(--bh);}
+.choice.on{border-color:var(--al);background:var(--ab);}
+.choice-icon{font-size:1.25rem;margin-bottom:0.28rem;}
+.choice-label{font-size:0.78rem;font-weight:500;color:var(--t);margin-bottom:0.1rem;}
+.choice-sub{font-size:0.66rem;color:var(--m);line-height:1.3;}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+.chip{padding:4px 12px;border-radius:100px;border:1px solid var(--b);font-size:0.74rem;color:var(--m);cursor:pointer;user-select:none;transition:all 0.18s;background:var(--bg);}
+.chip:hover{border-color:var(--a);color:var(--t);}
+.chip.on{border-color:var(--al);color:var(--al);background:var(--ab);}
+
+/* SUGGESTION CHIPS */
+.sugg-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:0.4rem;}
+.sugg{padding:4px 11px;border-radius:100px;border:1px solid var(--b);font-size:0.72rem;color:var(--m);cursor:pointer;user-select:none;transition:all 0.18s;background:var(--bg);}
+.sugg:hover{border-color:var(--a);color:var(--t);}
+.sugg.used{border-color:var(--okd);color:var(--ok);background:var(--okb);}
+
+/* TOOL CHIPS */
+.tool-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:0.4rem;}
+.tool-chip{padding:4px 11px;border-radius:100px;border:1px solid var(--b);font-size:0.72rem;color:var(--m);cursor:pointer;user-select:none;transition:all 0.18s;background:var(--bg);}
+.tool-chip:hover{border-color:var(--a);color:var(--t);}
+.tool-chip.on{border-color:var(--al);color:var(--al);background:var(--ab);}
+
+/* INTAKE BUILDER */
+.intake-builder{margin-top:4px;margin-bottom:0.5rem;}
+.intake-steps{display:flex;flex-direction:column;gap:5px;margin-bottom:6px;}
+.intake-step{display:flex;align-items:center;gap:8px;padding:0.6rem 0.75rem;background:var(--sur);border:1px solid var(--b);border-radius:8px;animation:prodIn 0.25s ease;}
+@keyframes prodIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.intake-num{width:20px;height:20px;border-radius:50%;background:var(--ab);border:1px solid var(--bh);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--al);flex-shrink:0;}
+.intake-step input{flex:1;background:none;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--t);font-weight:300;}
+.intake-step input::placeholder{color:var(--h);}
+.intake-rm{background:none;border:none;color:var(--h);cursor:pointer;font-size:0.9rem;padding:0 3px;transition:color 0.15s;flex-shrink:0;}
+.intake-rm:hover{color:var(--ng);}
+.intake-presets{display:flex;flex-wrap:wrap;gap:5px;}
+.intake-preset{padding:4px 11px;border-radius:100px;border:1px dashed var(--b);font-size:0.7rem;color:var(--h);cursor:pointer;transition:all 0.18s;}
+.intake-preset:hover{border-color:var(--a);color:var(--al);}
+
+/* PRODUCT CARDS */
+.prod-list{display:flex;flex-direction:column;gap:7px;}
+.prod-card{background:var(--sur);border:1px solid var(--b);border-radius:var(--rl);padding:0.9rem;cursor:grab;transition:all 0.2s;animation:prodIn 0.25s ease;}
 .prod-card:active{cursor:grabbing;}
 .prod-card.dragging{opacity:0.35;transform:scale(0.97);}
-.prod-card.drag-over{border-color:var(--accl);box-shadow:0 0 0 3px var(--acc-glow);}
-@keyframes prodIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.prod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;}
-.prod-lbl{display:flex;align-items:center;gap:5px;font-size:0.67rem;font-weight:500;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
-.prod-grip{color:var(--hint);letter-spacing:2px;cursor:grab;padding:1px 3px;user-select:none;}
-.prod-rm{background:none;border:none;color:var(--hint);cursor:pointer;font-size:0.75rem;padding:2px 7px;border-radius:4px;font-family:'DM Sans',sans-serif;transition:color 0.15s;}
-.prod-rm:hover{color:var(--danger);}
+.prod-card.drag-over{border-color:var(--al);box-shadow:0 0 0 3px var(--ag);}
+.prod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.7rem;}
+.prod-lbl{display:flex;align-items:center;gap:5px;font-size:0.65rem;font-weight:500;color:var(--m);letter-spacing:0.1em;text-transform:uppercase;}
+.prod-grip{color:var(--h);letter-spacing:2px;cursor:grab;padding:1px 3px;user-select:none;}
+.prod-rm{background:none;border:none;color:var(--h);cursor:pointer;font-size:0.73rem;padding:2px 6px;border-radius:4px;font-family:'DM Sans',sans-serif;transition:color 0.15s;}
+.prod-rm:hover{color:var(--ng);}
+
+/* LINK ROWS */
 .link-rows{display:flex;flex-direction:column;gap:5px;}
 .link-row{display:flex;gap:5px;align-items:center;}
 .link-row input{flex:1;}
-.link-x{background:none;border:none;color:var(--hint);cursor:pointer;font-size:1rem;padding:0 4px;transition:color 0.15s;flex-shrink:0;}
-.link-x:hover{color:var(--danger);}
-.add-btn{width:100%;padding:0.55rem;margin-top:5px;border:1px dashed var(--border-h);border-radius:var(--r);background:none;font-size:0.8rem;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.add-btn:hover{border-color:var(--accl);color:var(--accl);background:var(--acc-bg);}
-.radios{display:flex;flex-direction:column;gap:7px;}
-.radio{display:flex;align-items:flex-start;gap:10px;padding:0.75rem 0.9rem;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all 0.2s;background:var(--surface);}
-.radio:hover{border-color:var(--border-h);}
-.radio.on{border-color:var(--accl);background:var(--acc-bg);}
-.rdot{width:15px;height:15px;border-radius:50%;border:1px solid var(--border);flex-shrink:0;margin-top:3px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
-.radio.on .rdot{border-color:var(--accl);background:var(--accl);}
-.radio.on .rdot::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--bg);}
-.radio-txt strong{display:block;font-size:0.85rem;font-weight:500;color:var(--text);}
-.radio-txt span{font-size:0.74rem;color:var(--muted);}
-.div{height:1px;background:var(--border);margin:1.5rem 0;}
-.nav{display:flex;align-items:center;justify-content:space-between;margin-top:2rem;padding-top:1.25rem;border-top:1px solid var(--border);}
-.btn-back{background:none;border:1px solid var(--border-h);color:var(--muted);font-size:0.82rem;padding:0.6rem 1.1rem;border-radius:7px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.btn-back:hover{border-color:var(--acc);color:var(--text);}
-.btn-next{background:var(--acc);border:none;color:#fff;font-size:0.84rem;font-weight:500;padding:0.62rem 1.8rem;border-radius:7px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;letter-spacing:0.02em;}
-.btn-next:hover{background:var(--accl);}
+.link-x{background:none;border:none;color:var(--h);cursor:pointer;font-size:0.95rem;padding:0 4px;transition:color 0.15s;flex-shrink:0;}
+.link-x:hover{color:var(--ng);}
+
+/* CONTENT TABS */
+.ctabs{display:flex;gap:0;margin-bottom:0.75rem;border-bottom:1px solid var(--b);}
+.ctab{padding:0.5rem 1rem;font-size:0.78rem;color:var(--m);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.ctab:hover{color:var(--t);}
+.ctab.on{color:var(--al);border-bottom-color:var(--al);}
+.ctab-panel{display:none;}
+.ctab-panel.on{display:block;}
+
+/* RADIOS */
+.radios{display:flex;flex-direction:column;gap:6px;}
+.radio{display:flex;align-items:flex-start;gap:9px;padding:0.7rem 0.85rem;border:1px solid var(--b);border-radius:var(--r);cursor:pointer;transition:all 0.2s;background:var(--sur);}
+.radio:hover{border-color:var(--bh);}
+.radio.on{border-color:var(--al);background:var(--ab);}
+.rdot{width:14px;height:14px;border-radius:50%;border:1px solid var(--b);flex-shrink:0;margin-top:3px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.radio.on .rdot{border-color:var(--al);background:var(--al);}
+.radio.on .rdot::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--bg);}
+.radio-txt strong{display:block;font-size:0.83rem;font-weight:500;color:var(--t);}
+.radio-txt span{font-size:0.72rem;color:var(--m);}
+
+/* ADD + DIV */
+.add-btn{width:100%;padding:0.52rem;margin-top:5px;border:1px dashed var(--bh);border-radius:var(--r);background:none;font-size:0.78rem;color:var(--m);cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.add-btn:hover{border-color:var(--al);color:var(--al);background:var(--ab);}
+.div{height:1px;background:var(--b);margin:1.25rem 0;}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.75rem;padding-top:1.1rem;border-top:1px solid var(--b);}
+.btn-back{background:none;border:1px solid var(--bh);color:var(--m);font-size:0.8rem;padding:0.58rem 1.1rem;border-radius:7px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-back:hover{border-color:var(--a);color:var(--t);}
+.btn-next{background:var(--a);border:none;color:#fff;font-size:0.82rem;font-weight:500;padding:0.6rem 1.75rem;border-radius:7px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-next:hover{background:var(--al);}
 .btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RIGHT PANEL */
+.prev-title{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--a);margin-bottom:1.1rem;display:flex;align-items:center;gap:7px;}
+.prev-title::after{content:'';flex:1;height:1px;background:var(--b);}
+.prev-pulse{width:5px;height:5px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.prev-card{background:var(--sur2);border:1px solid var(--b);border-radius:var(--rl);padding:1.1rem;margin-bottom:0.65rem;transition:all 0.3s;}
+.prev-card.empty{opacity:0.35;}
+.prev-lbl{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--a);margin-bottom:0.5rem;}
+.prev-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--t);line-height:1.2;margin-bottom:0.15rem;}
+.prev-biz{font-size:0.78rem;color:var(--al);margin-bottom:0.4rem;}
+.prev-tag{font-size:0.74rem;color:var(--m);font-style:italic;line-height:1.5;}
+.prev-creds{display:flex;flex-wrap:wrap;gap:3px;margin-top:0.5rem;}
+.prev-cred{font-size:0.62rem;padding:2px 7px;border-radius:100px;border:1px solid var(--bh);color:var(--al);}
+.prev-products{display:flex;flex-direction:column;gap:5px;}
+.prev-prod{display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0.7rem;background:var(--sur);border-radius:6px;border:1px solid var(--b);animation:prodIn 0.25s ease;}
+.prev-prod-name{font-size:0.76rem;color:var(--t);}
+.prev-prod-price{font-size:0.74rem;color:var(--ok);}
+.prev-prod-type{font-size:0.62rem;color:var(--m);}
+.prev-stat{display:flex;align-items:center;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid var(--b);font-size:0.74rem;}
+.prev-stat:last-child{border:none;}
+.prev-stat-l{color:var(--m);}
+.prev-stat-v{color:var(--t);font-weight:500;text-align:right;max-width:58%;}
+.prev-empty{font-size:0.72rem;color:var(--h);font-style:italic;text-align:center;padding:0.75rem 0;}
+.get-box{background:var(--sur3);border:1px solid var(--b);border-radius:var(--rl);padding:1.1rem;margin-bottom:0.65rem;}
+.get-title{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
+.get-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:0.42rem;font-size:0.73rem;color:var(--m);line-height:1.4;}
+.get-item::before{content:'✓';color:var(--ok);flex-shrink:0;font-size:0.66rem;margin-top:1px;}
+
+/* MOBILE PROGRESS STRIP */
+.mob-strip{display:none;background:var(--sur);border-top:1px solid var(--b);padding:0.75rem 1.25rem;position:fixed;bottom:0;left:0;right:0;z-index:90;}
+.mob-strip-inner{display:flex;align-items:center;justify-content:space-between;font-size:0.75rem;}
+.mob-strip-label{color:var(--m);}
+.mob-strip-label strong{color:var(--al);}
+.mob-strip-dots{display:flex;gap:4px;}
+.mob-dot{width:6px;height:6px;border-radius:50%;background:var(--b);}
+.mob-dot.done{background:var(--ok);}
+.mob-dot.act{background:var(--al);}
+
+/* SUCCESS */
 .success{display:none;max-width:700px;margin:0 auto;padding:5rem 2rem;text-align:center;}
-.success.show{display:block;animation:secIn 0.5s ease;}
-.s-icon{width:64px;height:64px;border-radius:50%;background:var(--ok-bg);border:1px solid var(--ok);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.6rem;animation:popIn 0.4s 0.1s both cubic-bezier(0.34,1.56,0.64,1);}
+.success.show{display:block;animation:sIn 0.5s ease;}
+.s-icon{width:64px;height:64px;border-radius:50%;background:var(--okb);border:1px solid var(--ok);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.6rem;animation:popIn 0.4s 0.1s both cubic-bezier(0.34,1.56,0.64,1);}
 @keyframes popIn{from{transform:scale(0);}to{transform:scale(1);}}
-.success h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:400;margin-bottom:0.75rem;}
-.success p{font-size:0.92rem;color:var(--muted);line-height:1.75;max-width:440px;margin:0 auto;}
-.success strong{color:var(--text);}
-.success-next{display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-top:2rem;}
-.snext-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1rem 1.25rem;text-align:left;max-width:200px;}
-.snext-num{font-size:1.1rem;color:var(--accl);font-family:'Cormorant Garamond',serif;margin-bottom:0.25rem;}
-.snext-txt{font-size:0.78rem;color:var(--muted);line-height:1.4;}
-@media(max-width:960px){.layout{grid-template-columns:1fr;}.right{display:none;}.left{padding:2rem 1.25rem 6rem;border-right:none;}}
-@media(max-width:640px){.gr2,.gr3{grid-template-columns:1fr;}.c3{grid-template-columns:1fr 1fr;}.c4{grid-template-columns:1fr 1fr;}.nav{flex-direction:column-reverse;gap:0.6rem;}.btn-back,.btn-next{width:100%;text-align:center;}.scon{min-width:6px;}}
+.success h2{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:400;margin-bottom:0.75rem;}
+.success p{font-size:0.9rem;color:var(--m);line-height:1.75;max-width:420px;margin:0 auto 2rem;}
+.success strong{color:var(--t);}
+.s-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:600px;margin:0 auto;}
+.s-day{background:var(--sur);border:1px solid var(--b);border-radius:10px;padding:0.75rem;text-align:center;}
+.s-day.now{border-color:var(--okd);background:var(--okb);}
+.s-day-n{font-size:0.65rem;color:var(--m);margin-bottom:0.2rem;}
+.s-day-t{font-size:0.72rem;color:var(--t);font-weight:500;line-height:1.3;}
+.s-day.now .s-day-t{color:var(--ok);}
+.s-badge{display:inline-block;background:var(--okb);border:1px solid var(--okd);color:var(--ok);font-size:0.68rem;border-radius:100px;padding:3px 10px;margin-bottom:1rem;}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .wrap{grid-template-columns:1fr;}
+  .right{display:none;}
+  .left{padding:0 1.25rem 5rem;}
+  .mob-strip{display:block;}
+}
+@media(max-width:640px){
+  .gr2,.gr3{grid-template-columns:1fr;}
+  .c3{grid-template-columns:1fr 1fr;}
+  .c4{grid-template-columns:1fr 1fr;}
+  .nav{flex-direction:column-reverse;gap:0.6rem;}
+  .btn-back,.btn-next{width:100%;text-align:center;}
+  .s-timeline{grid-template-columns:1fr 1fr;}.s-day:last-child{grid-column:span 2;}
+  .wlc-stats{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
-<div class="cf-wrap" id="cfWrap"></div>
+
+<div class="cfw" id="cfw"></div>
+<div class="sec-toast" id="toast"></div>
+
+<!-- TOP -->
 <div class="top">
-  <div class="top-inner">
-    <div class="top-row">
+  <div class="top-i">
+    <div class="top-r">
       <div class="top-brand">Proximity Systems <span>· Building your system</span></div>
-      <div class="top-right">
-        <div class="top-save" id="topSave">✓ Progress saved</div>
-        <div class="top-step">Section <strong id="stepLbl">1</strong> of 6</div>
+      <div class="top-meta">
+        <div class="top-time" id="topTime" style="display:none">About <span id="timeLeft">15</span> min left</div>
+        <div class="top-save" id="topSave">✓ Saved</div>
+        <div class="top-step" id="topStep" style="display:none">Section <strong id="stepLbl">1</strong> of 6</div>
       </div>
     </div>
-    <div class="pbar"><div class="pbar-fill" id="pbar"></div></div>
+    <div class="pb"><div class="pb-f" id="pbar"></div></div>
   </div>
 </div>
+
 <div id="mainWrap">
-<div class="layout">
+<div class="wrap">
+
+<!-- LEFT -->
 <div class="left">
-  <div class="snav" id="snav">
-    <div class="sdot act" id="d1" onclick="tryGoTo(1)" title="Your Brand"><span>1</span></div><div class="scon" id="c1"></div>
-    <div class="sdot" id="d2" onclick="tryGoTo(2)" title="Your Products"><span>2</span></div><div class="scon" id="c2"></div>
-    <div class="sdot" id="d3" onclick="tryGoTo(3)" title="Your Clients"><span>3</span></div><div class="scon" id="c3"></div>
-    <div class="sdot" id="d4" onclick="tryGoTo(4)" title="Your Content"><span>4</span></div><div class="scon" id="c4"></div>
-    <div class="sdot" id="d5" onclick="tryGoTo(5)" title="Your Chatbot"><span>5</span></div><div class="scon" id="c5"></div>
-    <div class="sdot" id="d6" onclick="tryGoTo(6)" title="Technical Setup"><span>6</span></div>
+
+  <!-- WELCOME -->
+  <div class="welcome" id="welcome">
+    <div class="wlc-eyebrow">Welcome to Proximity Systems</div>
+    <div class="wlc-title">Let's build your <em>system, <span id="wlcName">Jennifer</span>.</em></div>
+    <div class="wlc-msg">
+      I've already reviewed your current setup. This form gives me everything I need to build your unified system — site, chatbot, lead capture, member portal, and HQ dashboard — in <strong>7 days</strong>.<br><br>
+      Six short sections. Most answers are a tap, not an essay. Start when you're ready.
+    </div>
+    <div class="wlc-stats">
+      <div class="wlc-stat"><div class="wlc-stat-n">7</div><div class="wlc-stat-l">Days to go live</div></div>
+      <div class="wlc-stat"><div class="wlc-stat-n">~15</div><div class="wlc-stat-l">Minutes to complete</div></div>
+      <div class="wlc-stat"><div class="wlc-stat-n">6</div><div class="wlc-stat-l">Short sections</div></div>
+    </div>
+    <button class="wlc-btn" onclick="startForm()">Build my system</button>
+  </div>
+
+  <!-- SECTION NAV -->
+  <div class="snav" id="snav" style="display:none">
+    <div class="sdot-wrap" onclick="tryGoTo(1)" id="dw1">
+      <div class="sdot act" id="d1"><span>1</span></div>
+      <div class="sdot-lbl">Identity</div>
+    </div>
+    <div class="scon" id="c1"></div>
+    <div class="sdot-wrap" onclick="tryGoTo(2)" id="dw2">
+      <div class="sdot" id="d2"><span>2</span></div>
+      <div class="sdot-lbl">Products</div>
+    </div>
+    <div class="scon" id="c2"></div>
+    <div class="sdot-wrap" onclick="tryGoTo(3)" id="dw3">
+      <div class="sdot" id="d3"><span>3</span></div>
+      <div class="sdot-lbl">Clients</div>
+    </div>
+    <div class="scon" id="c3"></div>
+    <div class="sdot-wrap" onclick="tryGoTo(4)" id="dw4">
+      <div class="sdot" id="d4"><span>4</span></div>
+      <div class="sdot-lbl">Content</div>
+    </div>
+    <div class="scon" id="c4"></div>
+    <div class="sdot-wrap" onclick="tryGoTo(5)" id="dw5">
+      <div class="sdot" id="d5"><span>5</span></div>
+      <div class="sdot-lbl">Chatbot</div>
+    </div>
+    <div class="scon" id="c5"></div>
+    <div class="sdot-wrap" onclick="tryGoTo(6)" id="dw6">
+      <div class="sdot" id="d6"><span>6</span></div>
+      <div class="sdot-lbl">Setup</div>
+    </div>
   </div>
 
   <!-- SEC 1 -->
-  <div class="sec active" id="sec1">
-    <div class="sec-tag">Section 1 of 6 — Your Identity</div>
-    <div class="sec-title">Let's start with <em>who you are.</em></div>
-    <div class="sec-sub">This becomes your hero headline, about section, and how your chatbot introduces you to attorneys and families.</div>
-    <div class="f"><label class="f-label">Your full professional name</label><div class="f-hint">Exactly as it appears on your publications and certifications.</div><div class="f-wrap"><input class="fi" type="text" id="f_name" placeholder="e.g. Jennifer Crowley RN, CLCP" oninput="upd()"/><span class="f-check">✓</span></div></div>
-    <div class="f"><label class="f-label">Business name</label><div class="f-wrap"><input class="fi" type="text" id="f_biz" placeholder="e.g. Life Care Management Institute" oninput="upd()"/><span class="f-check">✓</span></div></div>
-    <div class="f"><label class="f-label">Your one-line positioning statement</label><div class="f-hint">Who you serve + what outcome you deliver. This goes on your homepage hero.</div><div class="f-wrap"><input class="fi" type="text" id="f_tagline" placeholder="e.g. Helping attorneys and families navigate catastrophic care needs with clarity and certainty" oninput="upd()"/><span class="f-check">✓</span></div></div>
+  <div class="sec" id="sec1">
+    <div class="s-tag">Section 1 of 6 — Your Identity</div>
+    <div class="s-title">Let's start with <em>who you are.</em></div>
+    <div class="s-sub">This becomes your hero headline, about section, and how your chatbot introduces you to every attorney and family who lands on your site.</div>
+    <div class="s-time">About 3 minutes</div>
+
+    <div class="f"><label class="f-label">Your full professional name</label>
+      <div class="f-hint">Exactly as it appears on your publications and certifications.</div>
+      <div class="f-wrap"><input class="fi" type="text" id="f_name" placeholder="e.g. Jennifer Crowley RN, CLCP" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+    <div class="f"><label class="f-label">Business name</label>
+      <div class="f-wrap"><input class="fi" type="text" id="f_biz" placeholder="e.g. Life Care Management Institute" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+    <div class="f"><label class="f-label">Your one-line positioning statement</label>
+      <div class="f-hint">Who you serve + what outcome you deliver. This goes on your homepage hero.</div>
+      <div class="f-wrap"><input class="fi" type="text" id="f_tagline" placeholder="e.g. Helping attorneys and families navigate catastrophic care needs with clarity" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
     <div class="gr2">
-      <div class="f"><label class="f-label">Years in practice</label><div class="f-wrap"><input class="fi" type="text" id="f_years" placeholder="e.g. 31 years" oninput="upd()"/><span class="f-check">✓</span></div></div>
-      <div class="f"><label class="f-label">Primary location</label><div class="f-wrap"><input class="fi" type="text" id="f_location" placeholder="e.g. Kalispell, Montana" oninput="upd()"/><span class="f-check">✓</span></div></div>
+      <div class="f"><label class="f-label">Years in practice</label>
+        <div class="f-wrap"><input class="fi" type="text" id="f_years" placeholder="e.g. 31 years" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+      <div class="f"><label class="f-label">Primary location</label>
+        <div class="f-wrap"><input class="fi" type="text" id="f_location" placeholder="e.g. Kalispell, Montana" oninput="upd()"/><span class="f-ck">✓</span></div></div>
     </div>
-    <div class="f"><label class="f-label">Do you work remotely, in-person, or both?</label>
+
+    <div class="f"><label class="f-label">How do you work?</label>
       <div class="choices c3" id="workMode">
-        <div class="choice" onclick="pickChoice(this,'workMode')"><div class="choice-icon">🌐</div><div class="choice-label">Remote only</div><div class="choice-sub">Nationwide via video and records</div></div>
-        <div class="choice" onclick="pickChoice(this,'workMode')"><div class="choice-icon">📍</div><div class="choice-label">In-person only</div><div class="choice-sub">Local and regional cases</div></div>
-        <div class="choice" onclick="pickChoice(this,'workMode')"><div class="choice-icon">✈️</div><div class="choice-label">Both</div><div class="choice-sub">Travel and remote nationally</div></div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">Your credentials — select all that apply</label>
+        <div class="choice" onclick="pick(this,'workMode')"><div class="choice-icon">🌐</div><div class="choice-label">Remote only</div><div class="choice-sub">Nationwide via video and records</div></div>
+        <div class="choice" onclick="pick(this,'workMode')"><div class="choice-icon">📍</div><div class="choice-label">In-person only</div><div class="choice-sub">Local and regional</div></div>
+        <div class="choice" onclick="pick(this,'workMode')"><div class="choice-icon">✈️</div><div class="choice-label">Both</div><div class="choice-sub">Travel and remote nationally</div></div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Your credentials — tap all that apply</label>
       <div class="chips" id="credChips">
-        <div class="chip" data-v="RN">RN</div><div class="chip" data-v="CLCP">CLCP</div><div class="chip" data-v="CDCP">CDCP</div><div class="chip" data-v="CCM">CCM</div><div class="chip" data-v="BSN">BSN</div><div class="chip" data-v="Author">Published Author</div><div class="chip" data-v="ExpertWitness">Expert Witness</div><div class="chip" data-v="Speaker">Professional Speaker</div><div class="chip" data-v="StateContributor">State Plan Contributor</div><div class="chip" data-v="BOLD">BOLD Committee</div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">Notable accomplishments <span class="f-opt">optional but powerful</span></label><div class="f-hint">Books, state plan contributions, committees, media, landmark cases. This becomes your trust section.</div><div class="f-wrap"><textarea class="fi" id="f_notable" placeholder="e.g. Published author of 3 books on LCP, co-developer of Montana State Alzheimer's Plan, BOLD Steering Committee, expert witness in 40+ trials..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
+        <div class="chip" data-v="RN">RN</div><div class="chip" data-v="CLCP">CLCP</div><div class="chip" data-v="CDCP">CDCP</div><div class="chip" data-v="CCM">CCM</div><div class="chip" data-v="BSN">BSN</div><div class="chip" data-v="Author">Published Author</div><div class="chip" data-v="ExpertWitness">Expert Witness</div><div class="chip" data-v="Speaker">Speaker</div><div class="chip" data-v="StateContributor">State Plan Contributor</div><div class="chip" data-v="BOLD">BOLD Committee</div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Notable accomplishments <span class="f-opt">optional but powerful</span></label>
+      <div class="f-hint">Books, state plans, committees, media, landmark cases — this becomes your trust section.</div>
+      <div class="f-wrap"><textarea class="fi" id="f_notable" placeholder="e.g. Published author of 3 books on LCP, co-developed Montana State Alzheimer's Plan, BOLD Steering Committee, expert witness in 40+ trials..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+
     <div class="gr2">
-      <div class="f"><label class="f-label">Headshot link <span class="f-opt">optional</span></label><div class="f-tip">Google Drive: right-click photo → Share → Anyone with link → Copy link</div><div class="f-wrap"><input class="fi" type="url" id="f_headshot" placeholder="https://drive.google.com/..." oninput="upd()"/><span class="f-check">✓</span></div></div>
-      <div class="f"><label class="f-label">Logo link <span class="f-opt">optional</span></label><div class="f-tip">Same process — share your logo PNG from Google Drive</div><div class="f-wrap"><input class="fi" type="url" id="f_logo" placeholder="https://drive.google.com/..." oninput="upd()"/><span class="f-check">✓</span></div></div>
+      <div class="f"><label class="f-label">Headshot <span class="f-opt">optional</span></label>
+        <div class="f-tip">Google Drive → right-click photo → Share → Anyone with link → Copy link</div>
+        <div class="f-wrap"><input class="fi" type="url" id="f_headshot" placeholder="https://drive.google.com/..." oninput="upd()"/><span class="f-ck">✓</span></div></div>
+      <div class="f"><label class="f-label">Logo <span class="f-opt">optional</span></label>
+        <div class="f-tip">Same process — share your logo PNG from Google Drive</div>
+        <div class="f-wrap"><input class="fi" type="url" id="f_logo" placeholder="https://drive.google.com/..." oninput="upd()"/><span class="f-ck">✓</span></div></div>
     </div>
-    <div class="f"><label class="f-label">Brand color <span class="f-opt">optional</span></label><div class="f-hint">Describe it or paste a hex — e.g. "deep navy" or #1a3a5c</div><div class="f-wrap"><input class="fi" type="text" id="f_color" placeholder="e.g. Navy blue or #1a3a5c" oninput="upd()"/><span class="f-check">✓</span></div></div>
-    <div class="f"><label class="f-label">Your two existing site URLs</label><div class="f-hint">I'll pull content from these myself so you don't have to copy anything.</div>
+
+    <div class="f"><label class="f-label">Brand color <span class="f-opt">optional</span></label>
+      <div class="f-hint">Describe it or paste a hex — e.g. "deep navy" or #1a3a5c</div>
+      <div class="f-wrap"><input class="fi" type="text" id="f_color" placeholder="e.g. Navy blue or #1a3a5c" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+    <div class="f"><label class="f-label">Your two existing site URLs</label>
+      <div class="f-hint">I'll pull content from these myself — you don't have to copy anything.</div>
       <div class="gr2">
-        <div class="f-wrap"><input class="fi" type="url" id="f_site1" placeholder="https://lcmexpert.com" oninput="upd()"/><span class="f-check">✓</span></div>
-        <div class="f-wrap"><input class="fi" type="url" id="f_site2" placeholder="https://thelifecareexperts.com" oninput="upd()"/><span class="f-check">✓</span></div>
-      </div>
-    </div>
+        <div class="f-wrap"><input class="fi" type="url" id="f_site1" placeholder="https://lcmexpert.com" oninput="upd()"/><span class="f-ck">✓</span></div>
+        <div class="f-wrap"><input class="fi" type="url" id="f_site2" placeholder="https://thelifecareexperts.com" oninput="upd()"/><span class="f-ck">✓</span></div>
+      </div></div>
+
     <div class="nav"><div></div><button class="btn-next" onclick="goTo(2)">Your products →</button></div>
   </div>
 
   <!-- SEC 2 -->
   <div class="sec" id="sec2">
-    <div class="sec-tag">Section 2 of 6 — Your Products</div>
-    <div class="sec-title">Everything you <em>sell.</em></div>
-    <div class="sec-sub">Each product gets its own page and URL. Drag to reorder — the first one becomes your featured product on the homepage.</div>
-    <div class="prod-list" id="prodList"></div>
-    <button class="add-btn" onclick="addProd()">+ Add another product</button>
-    <div class="div"></div>
+    <div class="s-tag">Section 2 of 6 — Your Products</div>
+    <div class="s-title">Everything you <em>sell.</em></div>
+    <div class="s-sub">Each product gets its own page and URL. Drag to reorder — the first one becomes your featured product on the homepage.</div>
+    <div class="s-time">About 3 minutes</div>
+
     <div class="f"><label class="f-label">Where does your course content currently live?</label>
       <div class="choices c2" id="courseStorage">
-        <div class="choice" onclick="pickChoice(this,'courseStorage')"><div class="choice-icon">☁️</div><div class="choice-label">Kajabi / Teachable / Thinkific</div><div class="choice-sub">Already on a course platform</div></div>
-        <div class="choice" onclick="pickChoice(this,'courseStorage')"><div class="choice-icon">📁</div><div class="choice-label">Google Drive / Dropbox</div><div class="choice-sub">Videos and PDFs in cloud storage</div></div>
-        <div class="choice" onclick="pickChoice(this,'courseStorage')"><div class="choice-icon">💻</div><div class="choice-label">My computer</div><div class="choice-sub">Local files to be uploaded</div></div>
-        <div class="choice" onclick="pickChoice(this,'courseStorage')"><div class="choice-icon">🎥</div><div class="choice-label">YouTube / Vimeo</div><div class="choice-sub">Videos already published online</div></div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">Do you want to accept payments at launch or collect inquiries first?</label>
+        <div class="choice" onclick="pick(this,'courseStorage')"><div class="choice-icon">☁️</div><div class="choice-label">Kajabi / Teachable / Thinkific</div><div class="choice-sub">Already on a course platform</div></div>
+        <div class="choice" onclick="pick(this,'courseStorage')"><div class="choice-icon">📁</div><div class="choice-label">Google Drive / Dropbox</div><div class="choice-sub">Videos and PDFs in cloud storage</div></div>
+        <div class="choice" onclick="pick(this,'courseStorage')"><div class="choice-icon">💻</div><div class="choice-label">My computer</div><div class="choice-sub">Local files to upload</div></div>
+        <div class="choice" onclick="pick(this,'courseStorage')"><div class="choice-icon">🎥</div><div class="choice-label">YouTube / Vimeo</div><div class="choice-sub">Already published online</div></div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Payments at launch or collect inquiries first?</label>
       <div class="choices c2" id="paymentMode">
-        <div class="choice" onclick="pickChoice(this,'paymentMode')"><div class="choice-icon">💳</div><div class="choice-label">Take payments now</div><div class="choice-sub">Stripe checkout on every product page at launch</div></div>
-        <div class="choice" onclick="pickChoice(this,'paymentMode')"><div class="choice-icon">📋</div><div class="choice-label">Inquiries first</div><div class="choice-sub">Collect leads, close manually, Stripe added in week 2</div></div>
-      </div>
-    </div>
+        <div class="choice" onclick="pick(this,'paymentMode')"><div class="choice-icon">💳</div><div class="choice-label">Take payments now</div><div class="choice-sub">Stripe checkout on every product page at launch</div></div>
+        <div class="choice" onclick="pick(this,'paymentMode')"><div class="choice-icon">📋</div><div class="choice-label">Inquiries first</div><div class="choice-sub">Close manually, Stripe in week 2</div></div>
+      </div></div>
+
     <div class="f"><label class="f-label">Do you have a Stripe account?</label>
       <div class="choices c2" id="hasStripe">
-        <div class="choice" onclick="pickChoice(this,'hasStripe')"><div class="choice-icon">✅</div><div class="choice-label">Yes, I have Stripe</div></div>
-        <div class="choice" onclick="pickChoice(this,'hasStripe')"><div class="choice-icon">🆕</div><div class="choice-label">No, need one set up</div><div class="choice-sub">Lance will walk me through it</div></div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">Free offer or lead magnet <span class="f-opt">optional</span></label><div class="f-hint">Something free in exchange for an email — checklist, guide, free chapter, free consultation.</div><div class="f-wrap"><input class="fi" type="text" id="f_magnet" placeholder="e.g. Free LCP checklist PDF, 20-minute strategy call..." oninput="upd()"/><span class="f-check">✓</span></div></div>
+        <div class="choice" onclick="pick(this,'hasStripe')"><div class="choice-icon">✅</div><div class="choice-label">Yes, I have Stripe</div></div>
+        <div class="choice" onclick="pick(this,'hasStripe')"><div class="choice-icon">🆕</div><div class="choice-label">No, need one</div><div class="choice-sub">Lance walks you through it</div></div>
+      </div></div>
+
+    <div class="div"></div>
+
+    <div class="f"><label class="f-label">Add your products</label>
+      <div class="f-hint">First one becomes featured. Drag to reorder.</div>
+      <div class="prod-list" id="prodList"></div>
+      <button class="add-btn" onclick="addProd()">+ Add a product</button></div>
+
+    <div class="f"><label class="f-label">Free offer or lead magnet <span class="f-opt">optional</span></label>
+      <div class="f-hint">Something free in exchange for an email — checklist, guide, free chapter.</div>
+      <div class="f-wrap"><input class="fi" type="text" id="f_magnet" placeholder="e.g. Free LCP checklist PDF, 20-minute strategy call..." oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
     <div class="nav"><button class="btn-back" onclick="goTo(1)">← Back</button><button class="btn-next" onclick="goTo(3)">Your clients →</button></div>
   </div>
 
   <!-- SEC 3 -->
   <div class="sec" id="sec3">
-    <div class="sec-tag">Section 3 of 6 — Your Clients</div>
-    <div class="sec-title">Who you serve and <em>how you work.</em></div>
-    <div class="sec-sub">This trains your chatbot to qualify the right people and helps write copy that speaks directly to referral attorneys and families.</div>
-    <div class="f"><label class="f-label">Who are your primary clients? Select all that apply.</label>
+    <div class="s-tag">Section 3 of 6 — Your Clients</div>
+    <div class="s-title">Who you serve and <em>how you work.</em></div>
+    <div class="s-sub">This trains your chatbot to qualify the right people and shapes the copy that speaks directly to referral attorneys and families.</div>
+    <div class="s-time">About 3 minutes</div>
+
+    <div class="f"><label class="f-label">Who are your primary clients?</label>
       <div class="choices c2" id="clientTypes">
-        <div class="choice" onclick="toggleChoice(this,'clientTypes')"><div class="choice-icon">⚖️</div><div class="choice-label">Referral attorneys</div><div class="choice-sub">Plaintiff, defense, or both</div></div>
-        <div class="choice" onclick="toggleChoice(this,'clientTypes')"><div class="choice-icon">🏥</div><div class="choice-label">Insurance companies</div><div class="choice-sub">Case managers and adjusters</div></div>
-        <div class="choice" onclick="toggleChoice(this,'clientTypes')"><div class="choice-icon">👨‍👩‍👧</div><div class="choice-label">Families directly</div><div class="choice-sub">Private pay care planning</div></div>
-        <div class="choice" onclick="toggleChoice(this,'clientTypes')"><div class="choice-icon">🏛️</div><div class="choice-label">Government / VA</div><div class="choice-sub">Veterans, disability cases</div></div>
-      </div>
-    </div>
+        <div class="choice" onclick="tog(this,'clientTypes')"><div class="choice-icon">⚖️</div><div class="choice-label">Referral attorneys</div><div class="choice-sub">Plaintiff, defense, or both</div></div>
+        <div class="choice" onclick="tog(this,'clientTypes')"><div class="choice-icon">🏥</div><div class="choice-label">Insurance companies</div><div class="choice-sub">Case managers and adjusters</div></div>
+        <div class="choice" onclick="tog(this,'clientTypes')"><div class="choice-icon">👨‍👩‍👧</div><div class="choice-label">Families directly</div><div class="choice-sub">Private pay care planning</div></div>
+        <div class="choice" onclick="tog(this,'clientTypes')"><div class="choice-icon">🏛️</div><div class="choice-label">Government / VA</div><div class="choice-sub">Veterans, disability cases</div></div>
+      </div></div>
+
     <div class="f"><label class="f-label">Case types you specialize in</label>
       <div class="chips" id="caseChips">
-        <div class="chip" data-v="TBI">Traumatic Brain Injury</div><div class="chip" data-v="SCI">Spinal Cord Injury</div><div class="chip" data-v="Catastrophic">Catastrophic Injury</div><div class="chip" data-v="Dementia">Dementia / Alzheimer's</div><div class="chip" data-v="WorkersComp">Workers' Compensation</div><div class="chip" data-v="MedMal">Medical Malpractice</div><div class="chip" data-v="Pediatric">Pediatric Cases</div><div class="chip" data-v="Geriatric">Geriatric Care</div><div class="chip" data-v="Burn">Burn Injury</div><div class="chip" data-v="Amputation">Amputation</div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">Your geographic coverage</label>
+        <div class="chip" data-v="TBI">Traumatic Brain Injury</div><div class="chip" data-v="SCI">Spinal Cord Injury</div><div class="chip" data-v="Catastrophic">Catastrophic Injury</div><div class="chip" data-v="Dementia">Dementia / Alzheimer's</div><div class="chip" data-v="WorkersComp">Workers' Comp</div><div class="chip" data-v="MedMal">Medical Malpractice</div><div class="chip" data-v="Pediatric">Pediatric</div><div class="chip" data-v="Geriatric">Geriatric Care</div><div class="chip" data-v="Burn">Burn Injury</div><div class="chip" data-v="Amputation">Amputation</div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Geographic coverage</label>
       <div class="choices c3" id="coverage">
-        <div class="choice" onclick="pickChoice(this,'coverage')"><div class="choice-icon">🗺️</div><div class="choice-label">Nationwide</div><div class="choice-sub">All 50 states</div></div>
-        <div class="choice" onclick="pickChoice(this,'coverage')"><div class="choice-icon">📍</div><div class="choice-label">Multi-state</div><div class="choice-sub">Specific states only</div></div>
-        <div class="choice" onclick="pickChoice(this,'coverage')"><div class="choice-icon">🏘️</div><div class="choice-label">Regional</div><div class="choice-sub">One state or region</div></div>
+        <div class="choice" onclick="pick(this,'coverage')"><div class="choice-icon">🗺️</div><div class="choice-label">Nationwide</div><div class="choice-sub">All 50 states</div></div>
+        <div class="choice" onclick="pick(this,'coverage')"><div class="choice-icon">📍</div><div class="choice-label">Multi-state</div><div class="choice-sub">Specific states only</div></div>
+        <div class="choice" onclick="pick(this,'coverage')"><div class="choice-icon">🏘️</div><div class="choice-label">Regional</div><div class="choice-sub">One state or region</div></div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Which states or region? <span class="f-opt">if not nationwide</span></label>
+      <div class="f-wrap"><input class="fi" type="text" id="f_states" placeholder="e.g. Montana, Idaho, Wyoming, Colorado" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+    <div class="f"><label class="f-label">How does a new case start? Build your intake flow.</label>
+      <div class="f-hint">Click a step to add it, or type your own. Your chatbot explains this to every attorney who asks.</div>
+      <div class="intake-builder">
+        <div class="intake-steps" id="intakeSteps"></div>
+        <div class="intake-presets" id="intakePresets">
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">Attorney calls or emails</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">I send a case intake form</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">I review medical records</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">I provide a fee quote</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">Signed retainer agreement</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">I begin the life care plan</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">Draft delivered for review</div>
+          <div class="intake-preset" onclick="addIntakeStep(this.textContent)">Final report delivered</div>
+        </div>
       </div>
-    </div>
-    <div class="f"><label class="f-label">Which states or region? <span class="f-opt">if not nationwide</span></label><div class="f-wrap"><input class="fi" type="text" id="f_states" placeholder="e.g. Montana, Idaho, Wyoming, Colorado" oninput="upd()"/><span class="f-check">✓</span></div></div>
-    <div class="f"><label class="f-label">Your intake process — how does a new case start?</label><div class="f-hint">Walk me through it step by step. Your chatbot will explain this to every attorney who asks.</div><div class="f-wrap"><textarea class="fi" id="f_intake" placeholder="e.g. Attorney contacts me by email or phone → I send a case intake form → review records → fee quote → signed agreement → begin..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
+      <input type="hidden" id="f_intake"/></div>
+
     <div class="gr2">
-      <div class="f"><label class="f-label">Typical turnaround time</label><div class="f-wrap"><input class="fi" type="text" id="f_turnaround" placeholder="e.g. 4–6 weeks from signed agreement" oninput="upd()"/><span class="f-check">✓</span></div></div>
-      <div class="f"><label class="f-label">Typical fee range <span class="f-opt">optional</span></label><div class="f-hint">Even a range. Attorneys will ask.</div><div class="f-wrap"><input class="fi" type="text" id="f_fee" placeholder="e.g. $3,500–$8,000 depending on complexity" oninput="upd()"/><span class="f-check">✓</span></div></div>
+      <div class="f"><label class="f-label">Typical turnaround time</label>
+        <div class="f-wrap"><input class="fi" type="text" id="f_turnaround" placeholder="e.g. 4–6 weeks" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+      <div class="f"><label class="f-label">Typical fee range <span class="f-opt">optional</span></label>
+        <div class="f-hint">Attorneys will ask. Even a range helps.</div>
+        <div class="f-wrap"><input class="fi" type="text" id="f_fee" placeholder="e.g. $3,500–$8,000" oninput="upd()"/><span class="f-ck">✓</span></div></div>
     </div>
+
     <div class="f"><label class="f-label">How quickly do you respond to new inquiries?</label>
       <div class="choices c3" id="responseTime">
-        <div class="choice" onclick="pickChoice(this,'responseTime')"><div class="choice-icon">⚡</div><div class="choice-label">Same day</div></div>
-        <div class="choice" onclick="pickChoice(this,'responseTime')"><div class="choice-icon">📅</div><div class="choice-label">Within 24 hours</div></div>
-        <div class="choice" onclick="pickChoice(this,'responseTime')"><div class="choice-icon">📬</div><div class="choice-label">Within 48 hours</div></div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">Are you solo or do you have a team?</label>
+        <div class="choice" onclick="pick(this,'responseTime')"><div class="choice-icon">⚡</div><div class="choice-label">Same day</div></div>
+        <div class="choice" onclick="pick(this,'responseTime')"><div class="choice-icon">📅</div><div class="choice-label">Within 24 hours</div></div>
+        <div class="choice" onclick="pick(this,'responseTime')"><div class="choice-icon">📬</div><div class="choice-label">Within 48 hours</div></div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Solo or team?</label>
       <div class="choices c2" id="teamSize">
-        <div class="choice" onclick="pickChoice(this,'teamSize')"><div class="choice-icon">👤</div><div class="choice-label">Solo practitioner</div><div class="choice-sub">Just me</div></div>
-        <div class="choice" onclick="pickChoice(this,'teamSize')"><div class="choice-icon">👥</div><div class="choice-label">I have a team</div><div class="choice-sub">Associates, admin, or contractors</div></div>
-      </div>
-    </div>
+        <div class="choice" onclick="pick(this,'teamSize')"><div class="choice-icon">👤</div><div class="choice-label">Solo practitioner</div><div class="choice-sub">Just me</div></div>
+        <div class="choice" onclick="pick(this,'teamSize')"><div class="choice-icon">👥</div><div class="choice-label">I have a team</div><div class="choice-sub">Associates, admin, or contractors</div></div>
+      </div></div>
+
     <div class="nav"><button class="btn-back" onclick="goTo(2)">← Back</button><button class="btn-next" onclick="goTo(4)">Your content →</button></div>
   </div>
 
   <!-- SEC 4 -->
   <div class="sec" id="sec4">
-    <div class="sec-tag">Section 4 of 6 — Your Content</div>
-    <div class="sec-title">Articles, webinars <em>and resources.</em></div>
-    <div class="sec-sub">Paste links to everything you've already created. I'll pull it across and organize it so attorneys and students can find what they need fast.</div>
-    <div class="f"><label class="f-label">Articles or blog posts <span class="f-opt">up to 8</span></label><div class="f-hint">Links from your current sites. I'll pull the content myself — you don't have to copy anything.</div>
-      <div class="link-rows" id="articleLinks">
-        <div class="link-row"><input class="fi" type="url" placeholder="https://lcmexpert.com/..."/></div>
-        <div class="link-row"><input class="fi" type="url" placeholder="https://lcmexpert.com/..."/></div>
-      </div>
-      <button class="add-btn" onclick="addLink('articleLinks','https://lcmexpert.com/...',8)">+ Add another article</button>
+    <div class="s-tag">Section 4 of 6 — Your Content</div>
+    <div class="s-title">Articles, webinars <em>and resources.</em></div>
+    <div class="s-sub">Paste links to everything you've already created. I'll pull it across and organize it so attorneys and students can find what they need fast.</div>
+    <div class="s-time">About 2 minutes</div>
+
+    <div class="ctabs">
+      <div class="ctab on" onclick="switchTab(this,'tab-articles')">Articles</div>
+      <div class="ctab" onclick="switchTab(this,'tab-webinars')">Webinars</div>
+      <div class="ctab" onclick="switchTab(this,'tab-books')">Books</div>
+      <div class="ctab" onclick="switchTab(this,'tab-other')">Other</div>
     </div>
-    <div class="f"><label class="f-label">Webinar recordings <span class="f-opt">up to 8</span></label><div class="f-hint">YouTube, Vimeo, or Google Drive links. These go behind your member portal.</div>
-      <div class="link-rows" id="webinarLinks">
-        <div class="link-row"><input class="fi" type="url" placeholder="https://youtube.com/watch?v=..."/></div>
-      </div>
-      <button class="add-btn" onclick="addLink('webinarLinks','https://youtube.com/watch?v=...',8)">+ Add another webinar</button>
+
+    <div class="ctab-panel on" id="tab-articles">
+      <div class="f"><div class="f-hint">Links from your current sites — up to 8. I pull the content myself.</div>
+        <div class="link-rows" id="articleLinks">
+          <div class="link-row"><input class="fi" type="url" placeholder="https://lcmexpert.com/..."/></div>
+          <div class="link-row"><input class="fi" type="url" placeholder="https://lcmexpert.com/..."/></div>
+        </div>
+        <button class="add-btn" onclick="addLink('articleLinks','https://lcmexpert.com/...',8)">+ Add another article</button></div>
     </div>
-    <div class="f"><label class="f-label">Book titles and purchase links <span class="f-opt">up to 5</span></label><div class="f-hint">Each book gets its own page. Paste the Amazon or direct purchase link.</div>
-      <div class="link-rows" id="bookLinks">
-        <div class="link-row"><input class="fi" type="url" placeholder="https://amazon.com/dp/..."/></div>
-      </div>
-      <button class="add-btn" onclick="addLink('bookLinks','https://amazon.com/dp/...',5)">+ Add another book</button>
+
+    <div class="ctab-panel" id="tab-webinars">
+      <div class="f"><div class="f-hint">YouTube, Vimeo, or Google Drive links — up to 8. These go behind your member portal.</div>
+        <div class="link-rows" id="webinarLinks">
+          <div class="link-row"><input class="fi" type="url" placeholder="https://youtube.com/watch?v=..."/></div>
+        </div>
+        <button class="add-btn" onclick="addLink('webinarLinks','https://youtube.com/watch?v=...',8)">+ Add another webinar</button></div>
     </div>
-    <div class="f"><label class="f-label">Anything else — speaking reels, media appearances, case studies <span class="f-opt">optional</span></label><div class="f-wrap"><textarea class="fi" id="f_extras" placeholder="e.g. PBS interview link, Journal of LCP article, expert witness case study..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
+
+    <div class="ctab-panel" id="tab-books">
+      <div class="f"><div class="f-hint">Each book gets its own page. Paste the Amazon or direct purchase link — up to 5.</div>
+        <div class="link-rows" id="bookLinks">
+          <div class="link-row"><input class="fi" type="url" placeholder="https://amazon.com/dp/..."/></div>
+        </div>
+        <button class="add-btn" onclick="addLink('bookLinks','https://amazon.com/dp/...',5)">+ Add another book</button></div>
+    </div>
+
+    <div class="ctab-panel" id="tab-other">
+      <div class="f"><div class="f-hint">Speaking reels, media appearances, case studies, journal articles — anything else worth featuring.</div>
+        <div class="f-wrap"><textarea class="fi" id="f_extras" placeholder="e.g. PBS interview link, Journal of LCP article, expert witness case study..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+    </div>
+
     <div class="nav"><button class="btn-back" onclick="goTo(3)">← Back</button><button class="btn-next" onclick="goTo(5)">Your chatbot →</button></div>
   </div>
 
   <!-- SEC 5 -->
   <div class="sec" id="sec5">
-    <div class="sec-tag">Section 5 of 6 — Your AI Chatbot</div>
-    <div class="sec-title">Training your <em>24/7 team member.</em></div>
-    <div class="sec-sub">Your chatbot answers attorneys at midnight, qualifies leads while you sleep, and books consultations without you lifting a finger. The more you give it, the better it performs.</div>
-    <div class="f"><label class="f-label">Describe your ideal referral attorney in one sentence</label><div class="f-hint">The chatbot uses this to qualify who it's talking to and prioritize follow-up.</div><div class="f-wrap"><textarea class="fi" id="f_ideal" style="min-height:60px;" placeholder="e.g. Plaintiff attorneys handling catastrophic injury, TBI, or SCI cases who need a nationally recognized CLCP for cost projections and expert witness testimony..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
-    <div class="f"><label class="f-label">Top 3 to 5 questions attorneys ask you most</label><div class="f-hint">Your chatbot will answer these instantly, exactly the way you would.</div><div class="f-wrap"><textarea class="fi" id="f_attq" placeholder="e.g. What is your turnaround time? Are you available as an expert witness? What states do you work in? What is your fee structure? Do you work with both plaintiff and defense?" oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
-    <div class="f"><label class="f-label">Top 3 to 5 questions families ask <span class="f-opt">optional</span></label><div class="f-wrap"><textarea class="fi" id="f_famq" placeholder="e.g. How do I know if my family member needs a life care plan? What does the process look like? How much does it cost?" oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
-    <div class="f"><label class="f-label">How do you prefer new inquiries to reach you?</label>
-      <div class="choices c3" id="contactPref">
-        <div class="choice" onclick="pickChoice(this,'contactPref')"><div class="choice-icon">📧</div><div class="choice-label">Email first</div><div class="choice-sub">Chatbot collects email, you follow up</div></div>
-        <div class="choice" onclick="pickChoice(this,'contactPref')"><div class="choice-icon">📞</div><div class="choice-label">Phone call</div><div class="choice-sub">Chatbot books a call directly</div></div>
-        <div class="choice" onclick="pickChoice(this,'contactPref')"><div class="choice-icon">📋</div><div class="choice-label">Intake form</div><div class="choice-sub">Fill out case details first</div></div>
+    <div class="s-tag">Section 5 of 6 — Your AI Chatbot</div>
+    <div class="s-title">Train your <em>24/7 team member.</em></div>
+    <div class="s-sub">Tap a suggestion to pre-fill it, then edit if you want. Most people just tap and move on. Takes 2 minutes.</div>
+    <div class="s-time">About 2 minutes</div>
+
+    <div class="f"><label class="f-label">Who is your ideal referral attorney?</label>
+      <div class="sugg-row">
+        <div class="sugg" onclick="sugg('f_ideal',this)">Plaintiff attorneys — TBI and SCI cases</div>
+        <div class="sugg" onclick="sugg('f_ideal',this)">Defense attorneys needing independent cost projections</div>
+        <div class="sugg" onclick="sugg('f_ideal',this)">Attorneys handling catastrophic injury or wrongful death</div>
+        <div class="sugg" onclick="sugg('f_ideal',this)">Workers' comp attorneys needing certified LCP reports</div>
       </div>
-    </div>
-    <div class="f"><label class="f-label">Do you have a Calendly or booking link? <span class="f-opt">optional</span></label><div class="f-wrap"><input class="fi" type="url" id="f_calendly" placeholder="https://calendly.com/..." oninput="upd()"/><span class="f-check">✓</span></div></div>
-    <div class="f"><label class="f-label">Anything the chatbot should never say or do</label><div class="f-hint">Topics to avoid, promises not to make, language that feels off-brand.</div><div class="f-wrap"><textarea class="fi" id="f_avoid" placeholder="e.g. Never quote a specific price. Never comment on case merits. Always refer to me as Jennifer Crowley RN CLCP, never just Jennifer..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
+      <div class="f-wrap"><textarea class="fi" id="f_ideal" style="min-height:52px;" placeholder="Tap a suggestion above, or describe your ideal client..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+
+    <div class="f"><label class="f-label">What do attorneys ask you most?</label>
+      <div class="f-hint">Tap to add. Your chatbot answers these instantly.</div>
+      <div class="sugg-row">
+        <div class="sugg" onclick="sugg('f_attq',this)">What is your turnaround time?</div>
+        <div class="sugg" onclick="sugg('f_attq',this)">Are you available as an expert witness?</div>
+        <div class="sugg" onclick="sugg('f_attq',this)">What states do you work in?</div>
+        <div class="sugg" onclick="sugg('f_attq',this)">What is your fee structure?</div>
+        <div class="sugg" onclick="sugg('f_attq',this)">Do you work plaintiff and defense?</div>
+        <div class="sugg" onclick="sugg('f_attq',this)">What case types do you specialize in?</div>
+      </div>
+      <div class="f-wrap"><textarea class="fi" id="f_attq" style="min-height:52px;" placeholder="Tap questions above to add them..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+
+    <div class="f"><label class="f-label">What do families ask? <span class="f-opt">optional</span></label>
+      <div class="sugg-row">
+        <div class="sugg" onclick="sugg('f_famq',this)">How do I know if we need a life care plan?</div>
+        <div class="sugg" onclick="sugg('f_famq',this)">What does the process look like?</div>
+        <div class="sugg" onclick="sugg('f_famq',this)">How much does it cost?</div>
+        <div class="sugg" onclick="sugg('f_famq',this)">How long does it take?</div>
+      </div>
+      <div class="f-wrap"><textarea class="fi" id="f_famq" style="min-height:52px;" placeholder="Tap questions above to add them..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+
+    <div class="f"><label class="f-label">How should new inquiries reach you?</label>
+      <div class="choices c3" id="contactPref">
+        <div class="choice" onclick="pick(this,'contactPref')"><div class="choice-icon">📧</div><div class="choice-label">Email first</div><div class="choice-sub">Chatbot collects email, you follow up</div></div>
+        <div class="choice" onclick="pick(this,'contactPref')"><div class="choice-icon">📞</div><div class="choice-label">Book a call</div><div class="choice-sub">Chatbot schedules directly</div></div>
+        <div class="choice" onclick="pick(this,'contactPref')"><div class="choice-icon">📋</div><div class="choice-label">Intake form</div><div class="choice-sub">Case details collected first</div></div>
+      </div></div>
+
+    <div class="f"><label class="f-label">Calendly or booking link <span class="f-opt">optional</span></label>
+      <div class="f-wrap"><input class="fi" type="url" id="f_calendly" placeholder="https://calendly.com/..." oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+    <div class="f"><label class="f-label">What should the chatbot never say? <span class="f-opt">optional</span></label>
+      <div class="sugg-row">
+        <div class="sugg" onclick="sugg('f_avoid',this)">Never quote a specific price</div>
+        <div class="sugg" onclick="sugg('f_avoid',this)">Never comment on case merits</div>
+        <div class="sugg" onclick="sugg('f_avoid',this)">Never promise availability</div>
+        <div class="sugg" onclick="sugg('f_avoid',this)">Always use my full name and credentials</div>
+      </div>
+      <div class="f-wrap"><textarea class="fi" id="f_avoid" style="min-height:52px;" placeholder="Anything off-limits or off-brand..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+
     <div class="nav"><button class="btn-back" onclick="goTo(4)">← Back</button><button class="btn-next" onclick="goTo(6)">Technical setup →</button></div>
   </div>
 
   <!-- SEC 6 -->
   <div class="sec" id="sec6">
-    <div class="sec-tag">Section 6 of 6 — Technical Setup</div>
-    <div class="sec-title">The last few <em>details.</em></div>
-    <div class="sec-sub">Everything I need on the technical side so I can get your site live without coming back to you with questions.</div>
-    <div class="f"><label class="f-label">Your current tools and what you pay per month</label><div class="f-hint">This is how we figure out which subscriptions get canceled. Even a rough estimate works.</div><div class="f-wrap"><textarea class="fi" id="f_tools" placeholder="e.g. GoDaddy $25/mo, Kajabi $150/mo, Mailchimp $45/mo, ThriveCart $95/mo, LCP software $X/mo..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
-    <div class="f"><label class="f-label">The email address on your GoDaddy account</label><div class="f-hint">Just the email — never your password. This tells me which account to look for when we do the domain handoff.</div><div class="f-wrap"><input class="fi" type="email" id="f_godaddyEmail" placeholder="e.g. jennifer@thelifecareexperts.com" oninput="upd()"/><span class="f-check">✓</span></div></div>
+    <div class="s-tag">Section 6 of 6 — Technical Setup</div>
+    <div class="s-title">The last few <em>details.</em></div>
+    <div class="s-sub">Everything I need on the technical side so I can get your site live without coming back to you with questions.</div>
+    <div class="s-time">About 2 minutes</div>
+
+    <div class="f"><label class="f-label">Your current tools — tap all that apply</label>
+      <div class="f-hint">This is how we figure out which subscriptions get canceled.</div>
+      <div class="tool-row" id="toolChips">
+        <div class="tool-chip" onclick="togTool(this)" data-v="GoDaddy">GoDaddy</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Kajabi">Kajabi</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Teachable">Teachable</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Thinkific">Thinkific</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="ThriveCart">ThriveCart</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Thrive Themes">Thrive Themes</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Mailchimp">Mailchimp</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="ConvertKit">ConvertKit</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="ActiveCampaign">ActiveCampaign</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Zoom">Zoom</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Calendly">Calendly</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="Squarespace">Squarespace</div>
+        <div class="tool-chip" onclick="togTool(this)" data-v="WordPress">WordPress</div>
+      </div>
+      <div class="f" style="margin-top:0.5rem;margin-bottom:0;"><input class="fi" type="text" id="f_tools_extra" placeholder="Anything else + rough cost (e.g. Juno $150/mo)" oninput="upd()"/></div></div>
+
+    <div class="f"><label class="f-label">Email on your GoDaddy account</label>
+      <div class="f-hint">Just the email — never your password. This tells me which account to look for.</div>
+      <div class="f-wrap"><input class="fi" type="email" id="f_godaddyEmail" placeholder="e.g. jennifer@thelifecareexperts.com" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
     <div class="f"><label class="f-label">How would you like to handle the domain transfer?</label>
       <div class="radios" id="domainGrp">
-        <div class="radio" onclick="pickRadio(this,'domainGrp')"><div class="rdot"></div><div class="radio-txt"><strong>I'll update the DNS settings myself</strong><span>You send me a step-by-step guide — usually takes 5 minutes</span></div></div>
-        <div class="radio" onclick="pickRadio(this,'domainGrp')"><div class="rdot"></div><div class="radio-txt"><strong>I'll share my GoDaddy login temporarily</strong><span>You handle everything, I change the password immediately after</span></div></div>
-        <div class="radio" onclick="pickRadio(this,'domainGrp')"><div class="rdot"></div><div class="radio-txt"><strong>Someone else manages my domain</strong><span>I'll connect you with them directly</span></div></div>
-      </div>
-    </div>
-    <div class="f"><label class="f-label">What format is your course content in? Select all that apply.</label>
+        <div class="radio" onclick="pickR(this,'domainGrp')"><div class="rdot"></div><div class="radio-txt"><strong>I'll update the DNS settings myself</strong><span>You send me a step-by-step guide — usually 5 minutes</span></div></div>
+        <div class="radio" onclick="pickR(this,'domainGrp')"><div class="rdot"></div><div class="radio-txt"><strong>I'll share my GoDaddy login temporarily</strong><span>You handle it, I change the password right after</span></div></div>
+        <div class="radio" onclick="pickR(this,'domainGrp')"><div class="rdot"></div><div class="radio-txt"><strong>Someone else manages my domain</strong><span>I'll connect you with them directly</span></div></div>
+      </div></div>
+
+    <div class="f"><label class="f-label">What format is your course content in?</label>
       <div class="choices c4" id="contentFormat">
-        <div class="choice" onclick="toggleChoice(this,'contentFormat')"><div class="choice-icon">🎥</div><div class="choice-label">Video</div></div>
-        <div class="choice" onclick="toggleChoice(this,'contentFormat')"><div class="choice-icon">📄</div><div class="choice-label">PDF / Slides</div></div>
-        <div class="choice" onclick="toggleChoice(this,'contentFormat')"><div class="choice-icon">📝</div><div class="choice-label">Written modules</div></div>
-        <div class="choice" onclick="toggleChoice(this,'contentFormat')"><div class="choice-icon">🎙️</div><div class="choice-label">Audio</div></div>
-      </div>
-    </div>
+        <div class="choice" onclick="tog(this,'contentFormat')"><div class="choice-icon">🎥</div><div class="choice-label">Video</div></div>
+        <div class="choice" onclick="tog(this,'contentFormat')"><div class="choice-icon">📄</div><div class="choice-label">PDF / Slides</div></div>
+        <div class="choice" onclick="tog(this,'contentFormat')"><div class="choice-icon">📝</div><div class="choice-label">Written</div></div>
+        <div class="choice" onclick="tog(this,'contentFormat')"><div class="choice-icon">🎙️</div><div class="choice-label">Audio</div></div>
+      </div></div>
+
     <div class="gr2">
-      <div class="f"><label class="f-label">Best email during the build</label><div class="f-wrap"><input class="fi" type="email" id="f_email" placeholder="jennifer@thelifecareexperts.com" oninput="upd()"/><span class="f-check">✓</span></div></div>
-      <div class="f"><label class="f-label">Best phone <span class="f-opt">optional</span></label><div class="f-wrap"><input class="fi" type="tel" id="f_phone" placeholder="(406) 212-0620" oninput="upd()"/><span class="f-check">✓</span></div></div>
+      <div class="f"><label class="f-label">Best email during the build</label>
+        <div class="f-wrap"><input class="fi" type="email" id="f_email" placeholder="jennifer@thelifecareexperts.com" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+      <div class="f"><label class="f-label">Best phone <span class="f-opt">optional</span></label>
+        <div class="f-wrap"><input class="fi" type="tel" id="f_phone" placeholder="(406) 212-0620" oninput="upd()"/><span class="f-ck">✓</span></div></div>
     </div>
-    <div class="f"><label class="f-label">Anything else I should know before I start building? <span class="f-opt">optional</span></label><div class="f-hint">Anything about your brand, clients, workflow, or preferences that hasn't come up yet.</div><div class="f-wrap"><textarea class="fi" id="f_notes" placeholder="e.g. Available for questions Tuesday through Thursday. Busiest months are September to November. Currently rebranding so logo may change..." oninput="upd()"></textarea><span class="f-check" style="top:12px;transform:none;">✓</span></div></div>
-    <div class="nav"><button class="btn-back" onclick="goTo(5)">← Back</button><button class="btn-next" id="subBtn" onclick="submitForm()">Submit — start the build ✓</button></div>
+
+    <div class="f"><label class="f-label">Anything else before I start? <span class="f-opt">optional</span></label>
+      <div class="f-hint">Availability, brand notes, rebranding plans, preferences — anything that helps.</div>
+      <div class="f-wrap"><textarea class="fi" id="f_notes" placeholder="e.g. Available Tuesday to Thursday. Busiest months: September to November. Logo may change slightly..." oninput="upd()"></textarea><span class="f-ck" style="top:11px;transform:none;">✓</span></div></div>
+
+    <div class="nav"><button class="btn-back" onclick="goTo(5)">← Back</button><button class="btn-next" id="subBtn" onclick="submitForm()">Send to Lance — start the build →</button></div>
   </div>
 
 </div><!-- /left -->
 
 <!-- RIGHT PANEL -->
-<div class="right" id="rightPanel">
-  <div class="preview-title"><div class="preview-pulse"></div>Your system — live preview</div>
+<div class="right">
+  <div class="prev-title"><div class="prev-pulse"></div>Your system — building live</div>
   <div class="prev-card" id="prevIdentity">
-    <div class="prev-card-label">Identity</div>
+    <div class="prev-lbl">Identity</div>
     <div class="prev-name" id="pName">Your name goes here</div>
     <div class="prev-biz" id="pBiz">Business name</div>
-    <div class="prev-tagline" id="pTagline">Your positioning statement will appear here as you type.</div>
+    <div class="prev-tag" id="pTag">Your positioning statement will appear here as you type.</div>
     <div class="prev-creds" id="pCreds"></div>
   </div>
   <div class="prev-card empty" id="prevCoverage">
-    <div class="prev-card-label">Practice</div>
-    <div id="pCoverageContent"><div class="prev-empty">Fill in section 3 to see your practice details</div></div>
+    <div class="prev-lbl">Practice</div>
+    <div id="pCovContent"><div class="prev-empty">Fill in section 3 to see your practice details</div></div>
   </div>
-  <div class="prev-card empty" id="prevProducts">
-    <div class="prev-card-label">Products</div>
-    <div class="prev-products" id="pProducts"><div class="prev-empty">Add your products in section 2</div></div>
+  <div class="prev-card empty" id="prevProds">
+    <div class="prev-lbl">Products</div>
+    <div class="prev-products" id="pProds"><div class="prev-empty">Add your products in section 2</div></div>
   </div>
   <div class="get-box">
-    <div class="get-box-title">What gets built for you</div>
+    <div class="get-title">What gets built for you</div>
     <div class="get-item">Unified LCMexpert.com replacing both GoDaddy sites</div>
     <div class="get-item">AI chatbot qualifying attorneys and families 24/7</div>
     <div class="get-item">Individual product pages with your own URLs</div>
     <div class="get-item">Lead capture on every page — no inquiry ever missed</div>
-    <div class="get-item">Member portal for course students — login, access, progress</div>
-    <div class="get-item">HQ dashboard — every lead and case in one place</div>
+    <div class="get-item">Member portal for course students</div>
+    <div class="get-item">HQ dashboard — every lead in one place</div>
     <div class="get-item">Day 1, 3, and 7 automated follow-up sequences</div>
-    <div class="get-item">Article hub and webinar library organized and searchable</div>
-    <div class="get-item">Live within 7 days or you don't pay the setup fee</div>
+    <div class="get-item">Article hub and webinar library organized</div>
+    <div class="get-item">Live in 7 days or you don't pay the setup fee</div>
   </div>
   <div class="prev-card">
-    <div class="prev-card-label">Your 7-day build timeline</div>
-    <div class="prev-stat"><span class="prev-stat-label">Day 1</span><span class="prev-stat-val">Assets + domain, build starts</span></div>
-    <div class="prev-stat"><span class="prev-stat-label">Days 2–3</span><span class="prev-stat-val">Site, chatbot, lead capture live</span></div>
-    <div class="prev-stat"><span class="prev-stat-label">Day 4</span><span class="prev-stat-val">HQ dashboard wired to live data</span></div>
-    <div class="prev-stat"><span class="prev-stat-label">Day 5</span><span class="prev-stat-val">Member portal + DNS cutover</span></div>
-    <div class="prev-stat"><span class="prev-stat-label">Days 6–7</span><span class="prev-stat-val">Your review + QA + go live</span></div>
+    <div class="prev-lbl">7-day build timeline</div>
+    <div class="prev-stat"><span class="prev-stat-l">Day 1</span><span class="prev-stat-v">Assets + domain, build starts</span></div>
+    <div class="prev-stat"><span class="prev-stat-l">Days 2–3</span><span class="prev-stat-v">Site, chatbot, lead capture live</span></div>
+    <div class="prev-stat"><span class="prev-stat-l">Day 4</span><span class="prev-stat-v">HQ dashboard wired to live data</span></div>
+    <div class="prev-stat"><span class="prev-stat-l">Day 5</span><span class="prev-stat-v">Member portal + DNS cutover</span></div>
+    <div class="prev-stat"><span class="prev-stat-l">Days 6–7</span><span class="prev-stat-v">Your review + QA + go live</span></div>
   </div>
 </div>
-</div><!-- /layout -->
+
+</div><!-- /wrap -->
 </div><!-- /mainWrap -->
 
+<!-- MOBILE STRIP -->
+<div class="mob-strip" id="mobStrip" style="display:none">
+  <div class="mob-strip-inner">
+    <div class="mob-strip-label">Section <strong id="mobStep">1</strong> of 6 — <strong id="mobName">Identity</strong></div>
+    <div class="mob-strip-dots" id="mobDots"></div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
 <div class="success" id="successBox">
+  <div class="s-badge">Submitted successfully</div>
   <div class="s-icon">✓</div>
   <h2>You're all set, <span id="successName">Jennifer</span>.</h2>
-  <p>I have everything I need. Your system will be live within 7 days.<br><br>I'll confirm your start date within a few hours.<br>Reach me anytime at <strong>647-382-8047</strong>.</p>
-  <div class="success-next">
-    <div class="snext-item"><div class="snext-num">Next 1</div><div class="snext-txt">Lance reviews your submission and confirms the build plan</div></div>
-    <div class="snext-item"><div class="snext-num">Next 2</div><div class="snext-txt">Day 1 kickoff — Lance starts building immediately</div></div>
-    <div class="snext-item"><div class="snext-num">Next 3</div><div class="snext-txt">You review before anything goes live — nothing launches without your approval</div></div>
+  <p>I have everything I need. Your system will be live within 7 days.<br>I'll confirm your start date within a few hours.<br><br>Reach me anytime at <strong>647-382-8047</strong>.</p>
+  <div class="s-timeline">
+    <div class="s-day now">
+      <div class="s-day-n">Today</div>
+      <div class="s-day-t">Lance starts building</div>
+    </div>
+    <div class="s-day">
+      <div class="s-day-n">Days 2–3</div>
+      <div class="s-day-t">Site + chatbot live</div>
+    </div>
+    <div class="s-day">
+      <div class="s-day-n">Day 4</div>
+      <div class="s-day-t">HQ dashboard live</div>
+    </div>
+    <div class="s-day">
+      <div class="s-day-n">Day 5</div>
+      <div class="s-day-t">Portal + domain</div>
+    </div>
+    <div class="s-day">
+      <div class="s-day-n">Days 6–7</div>
+      <div class="s-day-t">Your review + go live</div>
+    </div>
   </div>
 </div>
 
 <script>
-const CLIENTS={jennifer:{name:'Jennifer',business:'Life Care Management Institute',email:'Jennifer@thelifecareexperts.com',phone:'(406) 212-0620',operator_id:'lcm-experts',site1:'https://lcmexpert.com',site2:'https://thelifecareexperts.com'}};
-const RAILWAY='https://proximity-agent-production.up.railway.app';
-const NOTIFY='healthcareproximity@gmail.com';
-const CFCOLORS=['#3d7a8a','#2a9d6a','#c9a84c','#e05a6a','#7c6aaa','#5a9aaa','#f4a261'];
-let cur=1,creds=[],cases=[];
-let choiceState={},radioState={};
-let prods=[],prodCount=0,dragSrc=null;
+// ── CONFIG ──
+const CLIENTS = {
+  jennifer: { name:'Jennifer', business:'Life Care Management Institute', email:'Jennifer@thelifecareexperts.com', phone:'(406) 212-0620', operator_id:'lcm-experts', site1:'https://lcmexpert.com', site2:'https://thelifecareexperts.com', message:'I\'ve already reviewed your current setup.' }
+};
+const RAILWAY = 'https://proximity-agent-production.up.railway.app';
+const NOTIFY  = 'healthcareproximity@gmail.com';
+const CFCOLORS = ['#3d7a8a','#2a9d6a','#c9a84c','#e05a6a','#7c6aaa','#5a9aaa','#f4a261'];
+const SEC_NAMES = ['','Identity','Products','Clients','Content','Chatbot','Setup'];
+const SEC_TIMES = ['','3','3','3','2','2','2'];
 
+// ── STATE ──
+let cur=0, creds=[], cases=[], tools=[];
+let CS={}, RS={};
+let prods=[], prodCount=0, dragSrc=null;
+let intakeSteps=[];
+
+// ── INIT ──
 (function init(){
-  const p=new URLSearchParams(window.location.search);
-  const k=p.get('client')||'jennifer';
-  const c=CLIENTS[k]||CLIENTS.jennifer;
-  document.getElementById('successName').textContent=c.name;
-  if(c.business)document.getElementById('f_biz').value=c.business;
-  if(c.email)document.getElementById('f_email').value=c.email;
-  if(c.phone)document.getElementById('f_phone').value=c.phone;
-  if(c.site1)document.getElementById('f_site1').value=c.site1;
-  if(c.site2)document.getElementById('f_site2').value=c.site2;
+  const p = new URLSearchParams(window.location.search);
+  const k = p.get('client') || 'jennifer';
+  const c = CLIENTS[k] || CLIENTS.jennifer;
+  document.getElementById('wlcName').textContent = c.name;
+  document.getElementById('successName').textContent = c.name;
+  if(c.business) document.getElementById('f_biz').value = c.business;
+  if(c.email)    document.getElementById('f_email').value = c.email;
+  if(c.phone)    document.getElementById('f_phone').value = c.phone;
+  if(c.site1)    document.getElementById('f_site1').value = c.site1;
+  if(c.site2)    document.getElementById('f_site2').value = c.site2;
   document.querySelectorAll('.fi').forEach(setupInput);
-  setupChips('credChips',creds);
-  setupChips('caseChips',cases);
-  addProd();
-  animateFields(1);
+  setupChips('credChips', creds);
+  setupChips('caseChips', cases);
+  buildMobDots();
   upd();
 })();
 
-function setupInput(el){
-  function chk(){const f=el.value.trim().length>0;el.classList.toggle('ok',f);const c=el.parentElement&&el.parentElement.querySelector('.f-check');if(c)c.classList.toggle('show',f);}
-  el.addEventListener('input',chk);el.addEventListener('change',chk);chk();
+function startForm(){
+  document.getElementById('welcome').classList.add('hide');
+  document.getElementById('snav').style.display = 'flex';
+  document.getElementById('topStep').style.display = 'block';
+  document.getElementById('topTime').style.display = 'block';
+  document.getElementById('mobStrip').style.display = 'block';
+  addProd();
+  goTo(1);
 }
 
-function setupChips(id,store){
-  document.querySelectorAll('#'+id+' .chip').forEach(ch=>{
-    ch.addEventListener('click',()=>{
-      const v=ch.dataset.v;ch.classList.toggle('on');
-      if(ch.classList.contains('on'))store.push(v);
-      else store.splice(store.indexOf(v),1);
+// ── INPUT SETUP ──
+function setupInput(el){
+  function chk(){
+    const f = el.value.trim().length > 0;
+    el.classList.toggle('ok', f);
+    const c = el.parentElement && el.parentElement.querySelector('.f-ck');
+    if(c) c.classList.toggle('show', f);
+  }
+  el.addEventListener('input', chk);
+  el.addEventListener('change', chk);
+  chk();
+}
+
+function setupChips(id, store){
+  document.querySelectorAll('#'+id+' .chip').forEach(ch => {
+    ch.addEventListener('click', () => {
+      const v = ch.dataset.v;
+      ch.classList.toggle('on');
+      if(ch.classList.contains('on')) store.push(v);
+      else store.splice(store.indexOf(v), 1);
       upd();
     });
   });
 }
 
+// ── NAVIGATION ──
 function goTo(n){
-  if(n===2&&!document.getElementById('f_name').value.trim()){
-    const el=document.getElementById('f_name');
-    el.style.borderColor='var(--danger)';el.style.boxShadow='0 0 0 3px rgba(224,90,106,0.15)';el.focus();
-    setTimeout(()=>{el.style.borderColor='';el.style.boxShadow='';},2200);return;
+  if(n === 2 && !document.getElementById('f_name').value.trim()){
+    const el = document.getElementById('f_name');
+    el.style.borderColor = 'var(--ng)';
+    el.style.boxShadow = '0 0 0 3px rgba(224,90,106,0.15)';
+    el.focus();
+    setTimeout(() => { el.style.borderColor=''; el.style.boxShadow=''; }, 2200);
+    return;
   }
-  document.getElementById('sec'+cur).classList.remove('active');
-  cur=n;
+  if(cur > 0){
+    document.getElementById('sec'+cur).classList.remove('active');
+    showToast('Section '+cur+' complete ✓');
+  }
+  cur = n;
   document.getElementById('sec'+cur).classList.add('active');
   updateProgress();
-  setTimeout(()=>animateFields(n),300);
-  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(() => animateFields(n), 280);
+  window.scrollTo({ top:0, behavior:'smooth' });
   showSave();
 }
 
-function tryGoTo(n){if(n<=cur+1)goTo(n);}
-
-function showSave(){const el=document.getElementById('topSave');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
+function tryGoTo(n){ if(n <= cur+1 && cur > 0) goTo(n); }
 
 function updateProgress(){
-  const pct=[0,17,33,50,67,83,100];
-  document.getElementById('pbar').style.width=pct[cur]+'%';
-  document.getElementById('stepLbl').textContent=cur;
+  const pct = [0,0,17,33,50,67,83,100];
+  document.getElementById('pbar').style.width = pct[cur]+'%';
+  document.getElementById('stepLbl').textContent = cur;
+  document.getElementById('topTime').style.display = cur > 0 ? 'block' : 'none';
+  const remaining = SEC_TIMES.slice(cur).reduce((a,b)=>a+parseInt(b||0),0);
+  document.getElementById('timeLeft').textContent = remaining;
+  document.getElementById('mobStep').textContent = cur;
+  document.getElementById('mobName').textContent = SEC_NAMES[cur]||'';
   for(let i=1;i<=6;i++){
-    const d=document.getElementById('d'+i);
-    if(i<cur){d.className='sdot done';d.innerHTML='✓';}
-    else if(i===cur){d.className='sdot act';d.innerHTML=`<span>${i}</span>`;}
-    else{d.className='sdot';d.innerHTML=`<span>${i}</span>`;}
-    if(i<6)document.getElementById('c'+i).className='scon'+(i<cur?' done':'');
+    const d = document.getElementById('d'+i);
+    if(i < cur){ d.className='sdot done'; d.innerHTML='✓'; }
+    else if(i === cur){ d.className='sdot act'; d.innerHTML='<span>'+i+'</span>'; }
+    else{ d.className='sdot'; d.innerHTML='<span>'+i+'</span>'; }
+    if(i < 6) document.getElementById('c'+i).className = 'scon'+(i < cur ? ' done' : '');
+    const el = document.getElementById('d'+i);
+    if(el) el.classList.toggle('done', i < cur);
+  }
+  const dots = document.querySelectorAll('.mob-dot');
+  dots.forEach((d,i) => {
+    d.className = 'mob-dot';
+    if(i+1 < cur) d.classList.add('done');
+    else if(i+1 === cur) d.classList.add('act');
+  });
+}
+
+function buildMobDots(){
+  const c = document.getElementById('mobDots');
+  for(let i=0;i<6;i++){
+    const d = document.createElement('div');
+    d.className = 'mob-dot';
+    c.appendChild(d);
   }
 }
 
 function animateFields(sn){
-  document.querySelectorAll(`#sec${sn} .f`).forEach((f,i)=>{
-    f.style.opacity='0';f.style.transform='translateY(12px)';
-    setTimeout(()=>{f.style.opacity='1';f.style.transform='translateY(0)';},i*70);
+  document.querySelectorAll('#sec'+sn+' .f').forEach((f,i) => {
+    f.style.opacity = '0'; f.style.transform = 'translateY(10px)';
+    setTimeout(() => { f.style.opacity='1'; f.style.transform='translateY(0)'; }, i*65);
   });
 }
 
-function pickChoice(el,group){
-  document.querySelectorAll('#'+group+' .choice').forEach(c=>c.classList.remove('on'));
+function showSave(){
+  const el = document.getElementById('topSave');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// ── CHOICES ──
+function pick(el, group){
+  document.querySelectorAll('#'+group+' .choice').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
-  choiceState[group]=el.querySelector('.choice-label').textContent;
+  CS[group] = el.querySelector('.choice-label').textContent;
   upd();
 }
 
-function toggleChoice(el,group){
+function tog(el, group){
   el.classList.toggle('on');
-  choiceState[group]=[...document.querySelectorAll('#'+group+' .choice.on')].map(c=>c.querySelector('.choice-label').textContent).join(', ');
+  CS[group] = [...document.querySelectorAll('#'+group+' .choice.on')].map(c => c.querySelector('.choice-label').textContent).join(', ');
   upd();
 }
 
-function pickRadio(el,group){
-  document.querySelectorAll('#'+group+' .radio').forEach(r=>r.classList.remove('on'));
+function pickR(el, group){
+  document.querySelectorAll('#'+group+' .radio').forEach(r => r.classList.remove('on'));
   el.classList.add('on');
-  radioState[group]=el.querySelector('strong').textContent;
+  RS[group] = el.querySelector('strong').textContent;
   upd();
 }
 
+// ── CONTENT TABS ──
+function switchTab(tab, panelId){
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.ctab-panel').forEach(p => p.classList.remove('on'));
+  tab.classList.add('on');
+  document.getElementById(panelId).classList.add('on');
+}
+
+// ── TOOL CHIPS ──
+function togTool(el){
+  el.classList.toggle('on');
+  tools = [...document.querySelectorAll('#toolChips .tool-chip.on')].map(c => c.dataset.v);
+  upd();
+}
+
+// ── SUGGESTION CHIPS ──
+function sugg(fieldId, chip){
+  const ta = document.getElementById(fieldId);
+  const txt = chip.textContent.trim();
+  if(ta.value && !ta.value.endsWith('\n')) ta.value += '\n';
+  ta.value += txt;
+  chip.classList.add('used');
+  ta.classList.add('ok');
+  const ck = ta.parentElement && ta.parentElement.querySelector('.f-ck');
+  if(ck) ck.classList.add('show');
+  upd();
+}
+
+// ── INTAKE BUILDER ──
+function addIntakeStep(text){
+  const idx = intakeSteps.length;
+  intakeSteps.push(text || '');
+  const row = document.createElement('div');
+  row.className = 'intake-step';
+  row.id = 'is'+idx;
+  row.innerHTML = `
+    <div class="intake-num">${idx+1}</div>
+    <input type="text" value="${text||''}" placeholder="Describe this step..." oninput="intakeSteps[${idx}]=this.value;syncIntake()"/>
+    <button class="intake-rm" onclick="rmIntake(${idx})">×</button>`;
+  document.getElementById('intakeSteps').appendChild(row);
+  syncIntake();
+}
+
+function rmIntake(idx){
+  intakeSteps.splice(idx, 1);
+  const el = document.getElementById('is'+idx);
+  if(el) el.remove();
+  syncIntake();
+  // renumber
+  document.querySelectorAll('.intake-step').forEach((s,i) => {
+    const num = s.querySelector('.intake-num');
+    if(num) num.textContent = i+1;
+  });
+}
+
+function syncIntake(){
+  document.getElementById('f_intake').value = intakeSteps.filter(Boolean).join(' → ');
+}
+
+// ── PRODUCTS ──
 function addProd(){
-  const idx=prodCount++;
-  prods[idx]={name:'',type:'',price:'',slug:'',desc:'',status:'ready'};
-  const d=document.createElement('div');d.className='prod-card';d.id='pc'+idx;d.draggable=true;
-  d.innerHTML=`
+  const idx = prodCount++;
+  prods[idx] = { name:'', type:'', price:'', slug:'', desc:'', status:'ready' };
+  const d = document.createElement('div');
+  d.className = 'prod-card'; d.id = 'pc'+idx; d.draggable = true;
+  d.innerHTML = `
     <div class="prod-top">
       <div class="prod-lbl"><span class="prod-grip">⠿⠿</span>Product ${idx+1}</div>
       ${idx>0?`<button class="prod-rm" onclick="rmProd(${idx})">Remove</button>`:''}
     </div>
-    <div class="gr2" style="margin-bottom:0.6rem;">
-      <div><label class="f-label" style="font-size:0.72rem;">Product name</label><input class="fi" type="text" placeholder="e.g. LCM A-Z Course" oninput="prods[${idx}].name=this.value;tChk(this);upd()"/></div>
-      <div><label class="f-label" style="font-size:0.72rem;">Type</label>
-        <select class="fi" onchange="prods[${idx}].type=this.value;tChk(this);upd()">
+    <div class="gr2" style="margin-bottom:0.55rem;">
+      <div><label class="f-label" style="font-size:0.7rem;">Product name</label>
+        <input class="fi" type="text" placeholder="e.g. LCM A-Z Course" oninput="prods[${idx}].name=this.value;tck(this);upd()"/></div>
+      <div><label class="f-label" style="font-size:0.7rem;">Type</label>
+        <select class="fi" onchange="prods[${idx}].type=this.value;tck(this);upd()">
           <option value="">Select type</option><option>Course</option><option>Template / Download</option><option>Coaching / Consulting</option><option>Book</option><option>Webinar / Workshop</option><option>Membership</option>
         </select></div>
     </div>
-    <div class="gr3" style="margin-bottom:0.6rem;">
-      <div><label class="f-label" style="font-size:0.72rem;">Price</label><input class="fi" type="text" placeholder="e.g. $497" oninput="prods[${idx}].price=this.value;tChk(this);upd()"/></div>
-      <div><label class="f-label" style="font-size:0.72rem;">URL slug</label><input class="fi" type="text" placeholder="/lcm-intensive" oninput="prods[${idx}].slug=this.value;tChk(this);upd()"/></div>
-      <div><label class="f-label" style="font-size:0.72rem;">Status</label>
+    <div class="gr3" style="margin-bottom:0.55rem;">
+      <div><label class="f-label" style="font-size:0.7rem;">Price</label>
+        <input class="fi" type="text" placeholder="e.g. $497" oninput="prods[${idx}].price=this.value;tck(this);upd()"/></div>
+      <div><label class="f-label" style="font-size:0.7rem;">URL slug</label>
+        <input class="fi" type="text" placeholder="/lcm-intensive" oninput="prods[${idx}].slug=this.value;tck(this);upd()"/></div>
+      <div><label class="f-label" style="font-size:0.7rem;">Status</label>
         <select class="fi" onchange="prods[${idx}].status=this.value;upd()">
           <option value="ready">Ready now</option><option value="soon">Coming soon</option><option value="waitlist">Waitlist only</option>
         </select></div>
     </div>
-    <div><label class="f-label" style="font-size:0.72rem;">Short description <span class="f-opt">optional</span></label><textarea class="fi" style="min-height:50px;" placeholder="One or two sentences..." oninput="prods[${idx}].desc=this.value;upd()"></textarea></div>`;
+    <div><label class="f-label" style="font-size:0.7rem;">Short description <span class="f-opt">optional</span></label>
+      <textarea class="fi" style="min-height:46px;" placeholder="One or two sentences..." oninput="prods[${idx}].desc=this.value;upd()"></textarea></div>`;
   setupDrag(d);
   document.getElementById('prodList').appendChild(d);
 }
 
-function tChk(el){el.classList.toggle('ok',el.value&&el.value.trim().length>0);}
-function rmProd(idx){const el=document.getElementById('pc'+idx);if(el){el.style.opacity='0';el.style.transition='opacity 0.2s';setTimeout(()=>el.remove(),200);}prods[idx]=null;upd();}
-
+function tck(el){ el.classList.toggle('ok', el.value && el.value.trim().length > 0); }
+function rmProd(idx){
+  const el = document.getElementById('pc'+idx);
+  if(el){ el.style.opacity='0'; el.style.transition='opacity 0.2s'; setTimeout(()=>el.remove(),200); }
+  prods[idx]=null; upd();
+}
 function setupDrag(card){
-  card.addEventListener('dragstart',e=>{dragSrc=card;card.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
-  card.addEventListener('dragend',()=>{card.classList.remove('dragging');document.querySelectorAll('.prod-card').forEach(c=>c.classList.remove('drag-over'));});
-  card.addEventListener('dragover',e=>{e.preventDefault();if(card!==dragSrc)card.classList.add('drag-over');});
-  card.addEventListener('dragleave',()=>card.classList.remove('drag-over'));
-  card.addEventListener('drop',e=>{e.preventDefault();if(dragSrc&&dragSrc!==card){const l=document.getElementById('prodList');const cs=[...l.querySelectorAll('.prod-card')];if(cs.indexOf(dragSrc)<cs.indexOf(card))l.insertBefore(dragSrc,card.nextSibling);else l.insertBefore(dragSrc,card);}card.classList.remove('drag-over');});
+  card.addEventListener('dragstart', e => { dragSrc=card; card.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; });
+  card.addEventListener('dragend', () => { card.classList.remove('dragging'); document.querySelectorAll('.prod-card').forEach(c=>c.classList.remove('drag-over')); });
+  card.addEventListener('dragover', e => { e.preventDefault(); if(card!==dragSrc) card.classList.add('drag-over'); });
+  card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+  card.addEventListener('drop', e => {
+    e.preventDefault();
+    if(dragSrc && dragSrc !== card){
+      const l = document.getElementById('prodList');
+      const cs = [...l.querySelectorAll('.prod-card')];
+      if(cs.indexOf(dragSrc) < cs.indexOf(card)) l.insertBefore(dragSrc, card.nextSibling);
+      else l.insertBefore(dragSrc, card);
+    }
+    card.classList.remove('drag-over');
+  });
 }
 
-function addLink(id,ph,max){
-  const c=document.getElementById(id);if(c.querySelectorAll('.link-row').length>=max)return;
-  const r=document.createElement('div');r.className='link-row';
-  r.innerHTML=`<input class="fi" type="url" placeholder="${ph}"/><button class="link-x" onclick="this.parentElement.remove()">×</button>`;
-  c.appendChild(r);r.querySelector('input').focus();
+// ── LINK ROWS ──
+function addLink(id, ph, max){
+  const c = document.getElementById(id);
+  if(c.querySelectorAll('.link-row').length >= max) return;
+  const r = document.createElement('div'); r.className='link-row';
+  r.innerHTML = `<input class="fi" type="url" placeholder="${ph}"/><button class="link-x" onclick="this.parentElement.remove()">×</button>`;
+  c.appendChild(r); r.querySelector('input').focus();
 }
-function getLinks(id){return[...document.querySelectorAll('#'+id+' input')].map(i=>i.value.trim()).filter(Boolean);}
+function getLinks(id){ return [...document.querySelectorAll('#'+id+' input')].map(i=>i.value.trim()).filter(Boolean); }
 
+// ── LIVE PREVIEW ──
 function upd(){
-  const name=document.getElementById('f_name').value||'Your name goes here';
-  const biz=document.getElementById('f_biz').value||'Business name';
-  const tag=document.getElementById('f_tagline').value||'Your positioning statement will appear here as you type.';
-  document.getElementById('pName').textContent=name;
-  document.getElementById('pBiz').textContent=biz;
-  document.getElementById('pTagline').textContent=tag;
-  const pc=document.getElementById('pCreds');pc.innerHTML='';
-  creds.forEach(c=>{const el=document.createElement('div');el.className='prev-cred';el.textContent=c;pc.appendChild(el);});
-  const cov=document.getElementById('prevCoverage');
-  const turnaround=document.getElementById('f_turnaround').value;
-  const fee=document.getElementById('f_fee').value;
-  const states=document.getElementById('f_states').value;
-  if(choiceState.coverage||turnaround||fee){
+  const name = document.getElementById('f_name').value || 'Your name goes here';
+  const biz  = document.getElementById('f_biz').value  || 'Business name';
+  const tag  = document.getElementById('f_tagline').value || 'Your positioning statement will appear here as you type.';
+  document.getElementById('pName').textContent = name;
+  document.getElementById('pBiz').textContent  = biz;
+  document.getElementById('pTag').textContent  = tag;
+  const pc = document.getElementById('pCreds'); pc.innerHTML = '';
+  creds.forEach(c => { const el=document.createElement('div'); el.className='prev-cred'; el.textContent=c; pc.appendChild(el); });
+  const cov = document.getElementById('prevCoverage');
+  const turnaround = document.getElementById('f_turnaround').value;
+  const fee = document.getElementById('f_fee').value;
+  const states = document.getElementById('f_states').value;
+  if(CS.coverage || turnaround || fee){
     cov.classList.remove('empty');
-    document.getElementById('pCoverageContent').innerHTML=
-      (choiceState.coverage?`<div class="prev-stat"><span class="prev-stat-label">Coverage</span><span class="prev-stat-val">${choiceState.coverage}${states?' — '+states:''}</span></div>`:'')+
-      (turnaround?`<div class="prev-stat"><span class="prev-stat-label">Turnaround</span><span class="prev-stat-val">${turnaround}</span></div>`:'')+
-      (fee?`<div class="prev-stat"><span class="prev-stat-label">Fee range</span><span class="prev-stat-val">${fee}</span></div>`:'')+
-      (choiceState.responseTime?`<div class="prev-stat"><span class="prev-stat-label">Response</span><span class="prev-stat-val">${choiceState.responseTime}</span></div>`:'');
+    document.getElementById('pCovContent').innerHTML =
+      (CS.coverage?`<div class="prev-stat"><span class="prev-stat-l">Coverage</span><span class="prev-stat-v">${CS.coverage}${states?' — '+states:''}</span></div>`:'')+
+      (turnaround?`<div class="prev-stat"><span class="prev-stat-l">Turnaround</span><span class="prev-stat-v">${turnaround}</span></div>`:'')+
+      (fee?`<div class="prev-stat"><span class="prev-stat-l">Fee range</span><span class="prev-stat-v">${fee}</span></div>`:'')+
+      (CS.responseTime?`<div class="prev-stat"><span class="prev-stat-l">Response</span><span class="prev-stat-v">${CS.responseTime}</span></div>`:'');
   }
-  const pp=document.getElementById('prevProducts');
-  const liveProd=prods.filter(Boolean).filter(p=>p.name);
-  if(liveProd.length>0){
+  const pp = document.getElementById('prevProds');
+  const live = prods.filter(Boolean).filter(p=>p.name);
+  if(live.length > 0){
     pp.classList.remove('empty');
-    document.getElementById('pProducts').innerHTML=liveProd.map(p=>`<div class="prev-product"><div><div class="prev-product-name">${p.name}</div><div class="prev-product-type">${p.type||'—'}${p.status==='soon'?' · Soon':p.status==='waitlist'?' · Waitlist':''}</div></div><div class="prev-product-price">${p.price||'—'}</div></div>`).join('');
+    document.getElementById('pProds').innerHTML = live.map(p=>`
+      <div class="prev-prod">
+        <div><div class="prev-prod-name">${p.name}</div><div class="prev-prod-type">${p.type||'—'}${p.status==='soon'?' · Soon':p.status==='waitlist'?' · Waitlist':''}</div></div>
+        <div class="prev-prod-price">${p.price||'—'}</div>
+      </div>`).join('');
   }
 }
 
+// ── CONFETTI ──
 function confetti(){
-  const w=document.getElementById('cfWrap');w.innerHTML='';
+  const w = document.getElementById('cfw'); w.innerHTML='';
   for(let i=0;i<90;i++){
-    const c=document.createElement('div');c.className='cf';const s=Math.random()*9+4;
+    const c = document.createElement('div'); c.className='cf';
+    const s = Math.random()*9+4;
     c.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${CFCOLORS[Math.floor(Math.random()*CFCOLORS.length)]};animation-duration:${Math.random()*2.5+1.5}s;animation-delay:${Math.random()*0.6}s;border-radius:${Math.random()>0.5?'50%':'2px'};`;
     w.appendChild(c);
   }
   setTimeout(()=>w.innerHTML='',5000);
 }
 
+// ── SUBMIT ──
 async function submitForm(){
-  const btn=document.getElementById('subBtn');
-  btn.disabled=true;btn.textContent='Submitting...';
-  const p=new URLSearchParams(window.location.search);
-  const k=p.get('client')||'jennifer';
-  const cl=CLIENTS[k]||CLIENTS.jennifer;
-  const payload={
-    operator_id:cl.operator_id,
-    client_name:document.getElementById('f_name').value.trim(),
-    business_name:document.getElementById('f_biz').value.trim(),
-    tagline:document.getElementById('f_tagline').value.trim(),
-    years_practice:document.getElementById('f_years').value.trim(),
-    location:document.getElementById('f_location').value.trim(),
-    work_mode:choiceState.workMode||'',
-    headshot_url:document.getElementById('f_headshot').value.trim(),
-    logo_url:document.getElementById('f_logo').value.trim(),
-    brand_color:document.getElementById('f_color').value.trim(),
-    site1:document.getElementById('f_site1').value.trim(),
-    site2:document.getElementById('f_site2').value.trim(),
-    credentials:creds,
-    notable:document.getElementById('f_notable').value.trim(),
-    products:prods.filter(Boolean).filter(p=>p.name),
-    course_storage:choiceState.courseStorage||'',
-    payment_mode:choiceState.paymentMode||'',
-    has_stripe:choiceState.hasStripe||'',
-    lead_magnet:document.getElementById('f_magnet').value.trim(),
-    client_types:choiceState.clientTypes||'',
-    case_types:cases,
-    coverage:choiceState.coverage||'',
-    states:document.getElementById('f_states').value.trim(),
-    intake_process:document.getElementById('f_intake').value.trim(),
-    turnaround:document.getElementById('f_turnaround').value.trim(),
-    fee_range:document.getElementById('f_fee').value.trim(),
-    response_time:choiceState.responseTime||'',
-    team_size:choiceState.teamSize||'',
-    articles:getLinks('articleLinks'),
-    webinars:getLinks('webinarLinks'),
-    books:getLinks('bookLinks'),
-    extras:document.getElementById('f_extras').value.trim(),
-    ideal_client:document.getElementById('f_ideal').value.trim(),
-    attorney_questions:document.getElementById('f_attq').value.trim(),
-    family_questions:document.getElementById('f_famq').value.trim(),
-    contact_pref:choiceState.contactPref||'',
-    calendly:document.getElementById('f_calendly').value.trim(),
-    chatbot_avoid:document.getElementById('f_avoid').value.trim(),
-    current_tools:document.getElementById('f_tools').value.trim(),
-    godaddy_email:document.getElementById('f_godaddyEmail').value.trim(),
-    domain_access:radioState.domainGrp||'',
-    content_format:choiceState.contentFormat||'',
-    contact_email:document.getElementById('f_email').value.trim(),
-    contact_phone:document.getElementById('f_phone').value.trim(),
-    notes:document.getElementById('f_notes').value.trim(),
-    notify_email:NOTIFY
+  const btn = document.getElementById('subBtn');
+  btn.disabled = true; btn.textContent = 'Sending to Lance...';
+  const p = new URLSearchParams(window.location.search);
+  const k = p.get('client') || 'jennifer';
+  const cl = CLIENTS[k] || CLIENTS.jennifer;
+  const toolsList = [...tools, document.getElementById('f_tools_extra').value.trim()].filter(Boolean).join(', ');
+  const payload = {
+    operator_id: cl.operator_id,
+    client_name: document.getElementById('f_name').value.trim(),
+    business_name: document.getElementById('f_biz').value.trim(),
+    tagline: document.getElementById('f_tagline').value.trim(),
+    years_practice: document.getElementById('f_years').value.trim(),
+    location: document.getElementById('f_location').value.trim(),
+    work_mode: CS.workMode||'',
+    headshot_url: document.getElementById('f_headshot').value.trim(),
+    logo_url: document.getElementById('f_logo').value.trim(),
+    brand_color: document.getElementById('f_color').value.trim(),
+    site1: document.getElementById('f_site1').value.trim(),
+    site2: document.getElementById('f_site2').value.trim(),
+    credentials: creds,
+    notable: document.getElementById('f_notable').value.trim(),
+    products: prods.filter(Boolean).filter(p=>p.name),
+    course_storage: CS.courseStorage||'',
+    payment_mode: CS.paymentMode||'',
+    has_stripe: CS.hasStripe||'',
+    lead_magnet: document.getElementById('f_magnet').value.trim(),
+    client_types: CS.clientTypes||'',
+    case_types: cases,
+    coverage: CS.coverage||'',
+    states: document.getElementById('f_states').value.trim(),
+    intake_process: document.getElementById('f_intake').value.trim(),
+    turnaround: document.getElementById('f_turnaround').value.trim(),
+    fee_range: document.getElementById('f_fee').value.trim(),
+    response_time: CS.responseTime||'',
+    team_size: CS.teamSize||'',
+    articles: getLinks('articleLinks'),
+    webinars: getLinks('webinarLinks'),
+    books: getLinks('bookLinks'),
+    extras: document.getElementById('f_extras') ? document.getElementById('f_extras').value.trim() : '',
+    ideal_client: document.getElementById('f_ideal').value.trim(),
+    attorney_questions: document.getElementById('f_attq').value.trim(),
+    family_questions: document.getElementById('f_famq').value.trim(),
+    contact_pref: CS.contactPref||'',
+    calendly: document.getElementById('f_calendly').value.trim(),
+    chatbot_avoid: document.getElementById('f_avoid').value.trim(),
+    current_tools: toolsList,
+    godaddy_email: document.getElementById('f_godaddyEmail').value.trim(),
+    domain_access: RS.domainGrp||'',
+    content_format: CS.contentFormat||'',
+    contact_email: document.getElementById('f_email').value.trim(),
+    contact_phone: document.getElementById('f_phone').value.trim(),
+    notes: document.getElementById('f_notes').value.trim(),
+    notify_email: NOTIFY
   };
   try{
-    const r=await fetch(`${RAILWAY}/webhook/onboarding`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(!r.ok)throw new Error();
+    const r = await fetch(`${RAILWAY}/webhook/onboarding`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    if(!r.ok) throw new Error();
     document.getElementById('mainWrap').style.display='none';
+    document.getElementById('mobStrip').style.display='none';
     document.getElementById('pbar').style.width='100%';
     document.getElementById('stepLbl').textContent='✓';
     document.getElementById('successBox').classList.add('show');
     confetti();
     window.scrollTo({top:0,behavior:'smooth'});
-  }catch(e){
-    btn.disabled=false;btn.textContent='Submit — start the build ✓';
+  } catch(e){
+    btn.disabled=false; btn.textContent='Send to Lance — start the build →';
     alert('Something went wrong. Please email Lance at healthcareproximity@gmail.com or call 647-382-8047.');
   }
 }
