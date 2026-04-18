@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Care Portal — The Life Care Experts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #07100a;
+  --forest2: #0c1a0f;
+  --forest3: #111e14;
+  --forest4: #162219;
+  --gold: #c9a84c;
+  --gold2: #e4c87a;
+  --gold-pale: rgba(201,168,76,0.1);
+  --gold-border: rgba(201,168,76,0.18);
+  --sage: #82ab8a;
+  --cream: #f3efe5;
+  --muted: #6e8272;
+  --green: #6bcb77;
+  --green-pale: rgba(107,203,119,0.1);
+  --red: #f85149;
+  --blue: #7eb8d4;
+  --blue-pale: rgba(126,184,212,0.1);
+  --border: rgba(201,168,76,0.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--forest); color: var(--cream); min-height: 100vh; overflow-x: hidden; cursor: none; }
+
+/* CURSOR */
+.cur { position: fixed; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform .08s; }
+.cur-ring { position: fixed; width: 28px; height: 28px; border: 1.5px solid rgba(201,168,76,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all .18s ease; }
+
+/* LOGIN SCREEN */
+.login-screen {
+  position: fixed; inset: 0; background: var(--forest);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 500; transition: opacity 0.6s ease;
+}
+.login-screen.hidden { opacity: 0; pointer-events: none; }
+.login-wrap {
+  width: 100%; max-width: 420px; padding: 0 24px;
+  opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.login-logo { text-align: center; margin-bottom: 40px; }
+.login-logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); font-weight: 400; }
+.login-logo-text em { color: var(--gold); font-style: italic; }
+.login-logo-sub { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 6px; font-family: 'DM Mono', monospace; }
+.login-card {
+  background: var(--forest2); border: 1px solid var(--gold-border);
+  border-radius: 12px; padding: 40px 36px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+.login-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 6px; }
+.login-sub { font-size: 12px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+.login-group { margin-bottom: 18px; }
+.login-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; display: block; font-family: 'DM Mono', monospace; }
+.login-input {
+  width: 100%; background: var(--forest3); border: 1px solid var(--border);
+  border-radius: 5px; padding: 12px 16px; font-size: 13px; color: var(--cream);
+  font-family: 'Jost', sans-serif; transition: border-color 0.2s;
+}
+.login-input:focus { outline: none; border-color: var(--gold); background: var(--forest4); }
+.login-input::placeholder { color: var(--muted); opacity: 0.6; }
+.login-btn {
+  width: 100%; background: var(--gold); color: var(--forest);
+  border: none; border-radius: 5px; padding: 14px;
+  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.5px; cursor: none; transition: all 0.2s;
+  margin-top: 8px;
+}
+.login-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+.login-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 16px; font-family: 'DM Mono', monospace; }
+.demo-hint { margin-top: 20px; padding: 12px 16px; background: var(--gold-pale); border: 1px solid var(--gold-border); border-radius: 6px; font-size: 11px; color: var(--gold2); text-align: center; font-family: 'DM Mono', monospace; }
+
+/* PORTAL LAYOUT */
+.portal { display: none; }
+.portal.active { display: block; }
+
+/* TOPBAR */
+.topbar {
+  background: rgba(12,26,15,0.97); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px; height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 200;
+}
+.topbar-brand { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--cream); font-weight: 400; }
+.topbar-brand em { color: var(--gold); font-style: italic; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.topbar-user { display: flex; align-items: center; gap: 10px; }
+.user-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #7a5a1a); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 13px; color: var(--forest); font-weight: 700; border: 1px solid var(--gold-border); }
+.user-name { font-size: 12px; color: var(--cream); font-weight: 500; }
+.user-role { font-size: 9px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.logout-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; border-radius: 4px; font-size: 11px; cursor: none; font-family: 'Jost', sans-serif; transition: all 0.2s; }
+.logout-btn:hover { border-color: var(--gold-border); color: var(--gold2); }
+
+/* LAYOUT */
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 58px); }
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--forest2); border-right: 1px solid var(--border);
+  padding: 20px 0; position: sticky; top: 58px;
+  height: calc(100vh - 58px); overflow-y: auto;
+}
+.sidebar-greeting { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.greeting-text { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--cream); margin-bottom: 3px; }
+.greeting-text em { color: var(--gold); font-style: italic; }
+.greeting-sub { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.sidebar-section { padding: 0 12px; margin-bottom: 20px; }
+.sidebar-label { font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); padding: 0 8px; margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 5px; cursor: none; transition: all 0.15s; margin-bottom: 2px; border: none; background: none; width: 100%; text-align: left; color: var(--muted); font-family: 'Jost', sans-serif; font-size: 12px; }
+.nav-item:hover { background: var(--gold-pale); color: var(--cream); }
+.nav-item.active { background: var(--gold-pale); color: var(--gold2); border: 1px solid var(--gold-border); }
+.nav-item-icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-badge { margin-left: auto; background: var(--gold); color: var(--forest); font-size: 9px; padding: 1px 7px; border-radius: 100px; font-weight: 600; }
+
+/* MAIN */
+.main { overflow-y: auto; background: var(--forest); }
+.page { display: none; padding: 32px; }
+.page.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.page-header { margin-bottom: 28px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; color: var(--cream); margin-bottom: 4px; }
+.page-title em { color: var(--gold); font-style: italic; }
+.page-sub { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+/* CARDS */
+.card { background: var(--forest2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 18px; transition: border-color 0.2s; }
+.card:hover { border-color: var(--gold-border); }
+.card-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-size: 12px; font-weight: 500; color: var(--cream); display: flex; align-items: center; gap: 8px; }
+.card-body { padding: 20px; }
+
+/* BADGE */
+.badge { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; padding: 2px 8px; border-radius: 100px; letter-spacing: 0.5px; font-weight: 500; white-space: nowrap; font-family: 'DM Mono', monospace; }
+.badge.green { background: var(--green-pale); color: var(--green); border: 1px solid rgba(107,203,119,0.25); }
+.badge.gold { background: var(--gold-pale); color: var(--gold2); border: 1px solid var(--gold-border); }
+.badge.blue { background: var(--blue-pale); color: var(--blue); border: 1px solid rgba(126,184,212,0.25); }
+.badge.muted { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+.badge.sage { background: rgba(130,171,138,0.1); color: var(--sage); border: 1px solid rgba(130,171,138,0.25); }
+
+/* STATS */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 28px; }
+.stat-card { background: var(--forest2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; transition: border-color 0.2s; }
+.stat-card:hover { border-color: var(--gold-border); }
+.stat-label { font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; font-family: 'DM Mono', monospace; }
+.stat-val { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--cream); line-height: 1; margin-bottom: 6px; }
+.stat-val em { color: var(--gold); }
+.stat-sub { font-size: 10px; color: var(--muted); }
+
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+/* CARE PLAN */
+.plan-section { margin-bottom: 24px; }
+.plan-section-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; }
+.plan-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(201,168,76,0.05); }
+.plan-item:last-child { border-bottom: none; }
+.plan-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--gold-pale); border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.plan-name { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+.plan-detail { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* SUMMARY ITEMS */
+.summary-item { background: var(--forest3); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; transition: border-color 0.2s; cursor: none; }
+.summary-item:hover { border-color: var(--gold-border); }
+.summary-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.summary-date { font-size: 9px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.summary-title { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--cream); margin-bottom: 8px; }
+.summary-body { font-size: 12px; color: var(--muted); line-height: 1.8; }
+.summary-read { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 11px; color: var(--gold); font-weight: 500; cursor: none; }
+
+/* DOCUMENTS */
+.doc-item { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(201,168,76,0.05); transition: background 0.2s; cursor: none; }
+.doc-item:last-child { border-bottom: none; }
+.doc-item:hover { background: rgba(201,168,76,0.03); margin: 0 -20px; padding: 14px 20px; border-radius: 6px; }
+.doc-icon { width: 40px; height: 40px; border-radius: 8px; background: var(--gold-pale); border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.doc-name { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+.doc-meta { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.doc-download { margin-left: auto; background: var(--gold-pale); border: 1px solid var(--gold-border); color: var(--gold2); padding: 6px 14px; border-radius: 4px; font-size: 10px; cursor: none; font-family: 'Jost', sans-serif; transition: all 0.2s; flex-shrink: 0; }
+.doc-download:hover { background: var(--gold); color: var(--forest); }
+
+/* APPOINTMENTS */
+.appt-item { background: var(--forest3); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; transition: border-color 0.2s; }
+.appt-item:hover { border-color: var(--gold-border); }
+.appt-item.upcoming { border-left: 3px solid var(--gold); }
+.appt-date-block { text-align: center; min-width: 56px; }
+.appt-month { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-family: 'DM Mono', monospace; }
+.appt-day { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--cream); line-height: 1; }
+.appt-divider { width: 1px; height: 48px; background: var(--border); flex-shrink: 0; }
+.appt-type { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+.appt-detail { font-size: 11px; color: var(--muted); }
+.appt-actions { margin-left: auto; display: flex; gap: 8px; flex-shrink: 0; }
+.appt-btn { padding: 7px 14px; border-radius: 4px; font-size: 11px; cursor: none; font-family: 'Jost', sans-serif; transition: all 0.2s; border: 1px solid var(--gold-border); color: var(--gold2); background: var(--gold-pale); }
+.appt-btn:hover { background: var(--gold); color: var(--forest); }
+.appt-btn.outline { background: transparent; color: var(--muted); border-color: var(--border); }
+.appt-btn.outline:hover { border-color: var(--gold-border); color: var(--gold2); }
+
+/* MESSAGE FORM */
+.msg-form { display: flex; flex-direction: column; gap: 14px; }
+.msg-textarea { width: 100%; background: var(--forest3); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; font-size: 13px; color: var(--cream); font-family: 'Jost', sans-serif; resize: vertical; min-height: 120px; line-height: 1.7; transition: border-color 0.2s; }
+.msg-textarea:focus { outline: none; border-color: var(--gold); }
+.msg-textarea::placeholder { color: var(--muted); opacity: 0.6; }
+.msg-send { background: var(--gold); color: var(--forest); border: none; border-radius: 5px; padding: 12px 24px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; cursor: none; transition: all 0.2s; display: flex; align-items: center; gap: 8px; align-self: flex-end; }
+.msg-send:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* PREVIOUS MESSAGES */
+.msg-thread { display: flex; flex-direction: column; gap: 14px; }
+.msg-bubble { max-width: 80%; }
+.msg-bubble.from-jennifer { align-self: flex-start; }
+.msg-bubble.from-client { align-self: flex-end; }
+.msg-bubble-inner { padding: 12px 16px; border-radius: 10px; font-size: 12px; line-height: 1.7; }
+.msg-bubble.from-jennifer .msg-bubble-inner { background: var(--forest3); border: 1px solid var(--border); color: var(--cream); border-radius: 3px 10px 10px 10px; }
+.msg-bubble.from-client .msg-bubble-inner { background: var(--gold-pale); border: 1px solid var(--gold-border); color: var(--cream); border-radius: 10px 3px 10px 10px; }
+.msg-meta { font-size: 9px; color: var(--muted); margin-top: 5px; font-family: 'DM Mono', monospace; }
+.msg-bubble.from-client .msg-meta { text-align: right; }
+
+/* PROGRESS BAR */
+.progress-wrap { margin-top: 8px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+.progress-bar { height: 4px; background: var(--forest3); border-radius: 100px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 100px; transition: width 1s ease; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--forest2); border: 1px solid var(--green); border-radius: 8px; padding: 14px 20px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--cream); box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 1000; transform: translateY(100px); opacity: 0; transition: all 0.4s ease; }
+.toast.show { transform: translateY(0); opacity: 1; }
+
+@media(max-width:900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .page { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<div class="toast" id="toast"><span>✅</span><span id="toast-msg">Done</span></div>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="login-logo-text">The <em>Life Care Experts</em></div>
+      <div class="login-logo-sub">Client Portal · Secure Access</div>
+    </div>
+    <div class="login-card">
+      <div class="login-title">Welcome back.</div>
+      <div class="login-sub">Sign in to access your care plan, summaries, documents, and messages from Jennifer's team.</div>
+      <div class="login-group">
+        <label class="login-label">Email Address</label>
+        <input class="login-input" id="login-email" type="email" placeholder="your@email.com" value="patricia@osei.com">
+      </div>
+      <div class="login-group">
+        <label class="login-label">Password</label>
+        <input class="login-input" id="login-pass" type="password" placeholder="••••••••" value="••••••••">
+      </div>
+      <button class="login-btn" onclick="doLogin()">Access My Portal →</button>
+      <div class="login-note">Secure · Private · HIPAA Compliant</div>
+    </div>
+    <div class="demo-hint">Demo: click "Access My Portal" to enter as Patricia Osei</div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div class="portal" id="portal">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-brand">The <em>Life Care Experts</em> · My Portal</div>
+    <div class="topbar-right">
+      <div class="topbar-user">
+        <div class="user-avatar">PO</div>
+        <div>
+          <div class="user-name">Patricia Osei</div>
+          <div class="user-role">Life Care Client · Active</div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-greeting">
+        <div class="greeting-text">Welcome back, <em>Patricia.</em></div>
+        <div class="greeting-sub">Thursday, April 16 · 2026</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">My Care</div>
+        <button class="nav-item active" onclick="showPage('overview')">
+          <div class="nav-item-icon">🏠</div>Overview
+        </button>
+        <button class="nav-item" onclick="showPage('careplan')">
+          <div class="nav-item-icon">📋</div>My Care Plan
+        </button>
+        <button class="nav-item" onclick="showPage('summaries')">
+          <div class="nav-item-icon">📝</div>Weekly Summaries
+          <span class="nav-badge">2</span>
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Resources</div>
+        <button class="nav-item" onclick="showPage('documents')">
+          <div class="nav-item-icon">📁</div>My Documents
+        </button>
+        <button class="nav-item" onclick="showPage('appointments')">
+          <div class="nav-item-icon">📅</div>Appointments
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Communication</div>
+        <button class="nav-item" onclick="showPage('messages')">
+          <div class="nav-item-icon">💬</div>Messages
+          <span class="nav-badge">1</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PAGES -->
+    <div class="main">
+
+      <!-- OVERVIEW -->
+      <div class="page active" id="page-overview">
+        <div class="page-header">
+          <div class="page-title">Your Care <em>Overview</em></div>
+          <div class="page-sub">Everything in one place · Last updated today</div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-label">Care Plan Status</div><div class="stat-val" style="font-size:22px;color:var(--green);">Active</div><div class="stat-sub">Updated Apr 14</div></div>
+          <div class="stat-card"><div class="stat-label">Next Appointment</div><div class="stat-val" style="font-size:20px;">Apr <em>18</em></div><div class="stat-sub">Friday · 10:00am MST</div></div>
+          <div class="stat-card"><div class="stat-label">Unread Summaries</div><div class="stat-val">2</div><div class="stat-sub">New this week</div></div>
+          <div class="stat-card"><div class="stat-label">Documents</div><div class="stat-val">7</div><div class="stat-sub">All accessible below</div></div>
+        </div>
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">📋 Care Plan Snapshot</div><span class="badge green">Active</span></div>
+              <div class="card-body">
+                <div class="plan-section">
+                  <div class="plan-section-title">Primary Goals</div>
+                  <div class="plan-item">
+                    <div class="plan-icon">🧠</div>
+                    <div><div class="plan-name">Dementia Support</div><div class="plan-detail">Daily routine management, memory engagement, behavioral guidance for family caregivers</div></div>
+                  </div>
+                  <div class="plan-item">
+                    <div class="plan-icon">🏠</div>
+                    <div><div class="plan-name">Home Safety Assessment</div><div class="plan-detail">Fall prevention, environmental modifications, emergency protocol in place</div></div>
+                  </div>
+                  <div class="plan-item">
+                    <div class="plan-icon">💊</div>
+                    <div><div class="plan-name">Medication Management</div><div class="plan-detail">Confirmed with Dr. Richards · April 12 · Next review June 1</div></div>
+                  </div>
+                </div>
+                <button class="doc-download" style="width:100%;justify-content:center;" onclick="showPage('careplan')">View Full Care Plan →</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">📅 Upcoming Appointments</div></div>
+              <div class="card-body">
+                <div class="appt-item upcoming">
+                  <div class="appt-date-block">
+                    <div class="appt-month">APR</div>
+                    <div class="appt-day">18</div>
+                  </div>
+                  <div class="appt-divider"></div>
+                  <div>
+                    <div class="appt-type">Care Plan Review</div>
+                    <div class="appt-detail">10:00am MST · Zoom · With Jennifer</div>
+                  </div>
+                  <div class="appt-actions">
+                    <button class="appt-btn" onclick="showToast('Zoom link sent to your email.')">Join Zoom</button>
+                  </div>
+                </div>
+                <div class="appt-item">
+                  <div class="appt-date-block">
+                    <div class="appt-month">MAY</div>
+                    <div class="appt-day">6</div>
+                  </div>
+                  <div class="appt-divider"></div>
+                  <div>
+                    <div class="appt-type">Family Consultation</div>
+                    <div class="appt-detail">2:00pm MST · Phone · With Jennifer's team</div>
+                  </div>
+                  <div class="appt-actions">
+                    <button class="appt-btn outline">View Details</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">💬 Latest Message</div><span class="badge gold">1 Unread</span></div>
+              <div class="card-body">
+                <div style="background:var(--forest3);border:1px solid var(--gold-border);border-radius:8px;padding:14px 16px;">
+                  <div style="font-size:10px;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:6px;">Jennifer Crowley · Apr 14 · 9:22am</div>
+                  <div style="font-size:12px;color:var(--cream);line-height:1.7;">Hi Patricia — I've updated your father's care plan following Tuesday's call. The new morning routine protocol is attached. Please review before Friday's appointment.</div>
+                </div>
+                <button class="doc-download" style="width:100%;justify-content:center;margin-top:12px;" onclick="showPage('messages')">View All Messages →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARE PLAN -->
+      <div class="page" id="page-careplan">
+        <div class="page-header">
+          <div class="page-title">My <em>Care Plan</em></div>
+          <div class="page-sub">Last updated April 14, 2026 · Jennifer Crowley RN</div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">👤 Client Profile</div><span class="badge green">Active Plan</span></div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;">
+              <div><div style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace;">Client Name</div><div style="font-size:13px;color:var(--cream);">Robert Osei</div></div>
+              <div><div style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace;">Age</div><div style="font-size:13px;color:var(--cream);">78 years</div></div>
+              <div><div style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace;">Primary Contact</div><div style="font-size:13px;color:var(--cream);">Patricia Osei (Daughter)</div></div>
+              <div><div style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace;">Diagnosis</div><div style="font-size:13px;color:var(--cream);">Alzheimer's Disease · Stage 2</div></div>
+              <div><div style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace;">Primary Physician</div><div style="font-size:13px;color:var(--cream);">Dr. Sarah Richards · Logan Health</div></div>
+              <div><div style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace;">Plan Start Date</div><div style="font-size:13px;color:var(--cream);">March 18, 2026</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">🎯 Care Goals</div></div>
+              <div class="card-body">
+                <div class="plan-section">
+                  <div class="plan-item">
+                    <div class="plan-icon">🧠</div>
+                    <div>
+                      <div class="plan-name">Cognitive Engagement</div>
+                      <div class="plan-detail">Daily memory activities, music therapy 3x/week, familiar routine maintenance</div>
+                      <div class="progress-wrap"><div class="progress-label"><span>Progress</span><span>68%</span></div><div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div></div>
+                    </div>
+                  </div>
+                  <div class="plan-item">
+                    <div class="plan-icon">🏠</div>
+                    <div>
+                      <div class="plan-name">Home Safety</div>
+                      <div class="plan-detail">Grab bars installed, fall mat placed, night lighting updated, emergency button active</div>
+                      <div class="progress-wrap"><div class="progress-label"><span>Completed</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+                    </div>
+                  </div>
+                  <div class="plan-item">
+                    <div class="plan-icon">👨‍👩‍👧</div>
+                    <div>
+                      <div class="plan-name">Family Caregiver Support</div>
+                      <div class="plan-detail">Weekly check-in calls, respite planning, caregiver burnout prevention resources</div>
+                      <div class="progress-wrap"><div class="progress-label"><span>Ongoing</span><span>Active</span></div><div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">💊 Medications & Schedule</div></div>
+              <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="background:var(--forest3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;">
+                    <div><div style="font-size:12px;font-weight:500;color:var(--cream);">Donepezil (Aricept)</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">10mg · Bedtime daily</div></div>
+                    <span class="badge green">Active</span>
+                  </div>
+                  <div style="background:var(--forest3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;">
+                    <div><div style="font-size:12px;font-weight:500;color:var(--cream);">Memantine (Namenda)</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">5mg · Morning daily</div></div>
+                    <span class="badge green">Active</span>
+                  </div>
+                  <div style="background:var(--forest3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;">
+                    <div><div style="font-size:12px;font-weight:500;color:var(--cream);">Lisinopril</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">5mg · Morning · Blood pressure</div></div>
+                    <span class="badge green">Active</span>
+                  </div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace;">Last reviewed: April 12 · Dr. Sarah Richards</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">📌 Action Items</div></div>
+              <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--forest3);border:1px solid rgba(107,203,119,0.2);border-radius:6px;">
+                    <span style="font-size:14px;">✅</span>
+                    <div style="font-size:12px;color:var(--muted);text-decoration:line-through;">Schedule April care plan review</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--forest3);border:1px solid var(--gold-border);border-radius:6px;">
+                    <span style="font-size:14px;">⏳</span>
+                    <div style="font-size:12px;color:var(--cream);">Review updated morning routine protocol</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--forest3);border:1px solid var(--gold-border);border-radius:6px;">
+                    <span style="font-size:14px;">⏳</span>
+                    <div style="font-size:12px;color:var(--cream);">Confirm transportation for May 6 consultation</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--forest3);border:1px solid var(--border);border-radius:6px;">
+                    <span style="font-size:14px;">📅</span>
+                    <div style="font-size:12px;color:var(--cream);">Next medication review — June 1</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARIES -->
+      <div class="page" id="page-summaries">
+        <div class="page-header">
+          <div class="page-title">Weekly <em>Summaries</em></div>
+          <div class="page-sub">Auto-generated by Jennifer's team · Sent every Monday</div>
+        </div>
+        <div class="summary-item" style="border-color:rgba(201,168,76,0.3);">
+          <div class="summary-top">
+            <div><div class="summary-title">Week of April 7, 2026</div><span class="badge gold">New</span></div>
+            <div class="summary-date">Sent Mon Apr 7 · 8:00am</div>
+          </div>
+          <div class="summary-body">Care coordination progressing well this week. Robert completed his morning routine independently three out of five days — a meaningful improvement from last month. Appetite remains strong and sleep quality has stabilized. The memory engagement exercises introduced on March 30 are showing early positive results. Family caregiver check-in completed April 9 — Patricia reported feeling more confident managing daily transitions. Next steps: medication review scheduled with Dr. Richards on April 12, and home safety walk-through confirmed for April 15.</div>
+          <div class="summary-read">Read full summary →</div>
+        </div>
+        <div class="summary-item" style="border-color:rgba(201,168,76,0.3);">
+          <div class="summary-top">
+            <div><div class="summary-title">Week of March 31, 2026</div><span class="badge gold">New</span></div>
+            <div class="summary-date">Sent Mon Mar 31 · 8:00am</div>
+          </div>
+          <div class="summary-body">First full week of care plan implementation. Robert transitioned well to the new morning routine structure. Two episodes of mild confusion noted on March 28 and 29 — documented and shared with Dr. Richards. Music therapy session introduced Saturday March 29 — Robert responded positively to 1960s jazz selections as noted in his preference profile. Patricia attended the family caregiver orientation call on March 30. Emergency contact protocol reviewed and confirmed with all household members.</div>
+          <div class="summary-read">Read full summary →</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-top">
+            <div><div class="summary-title">Week of March 24, 2026</div></div>
+            <div class="summary-date">Sent Mon Mar 24 · 8:00am</div>
+          </div>
+          <div class="summary-body">Intake week completed. Comprehensive assessment finalized March 19. Initial care plan drafted and reviewed with Patricia on March 21. Home safety assessment completed March 22 — three modifications recommended and actioned. Physician coordination initiated with Dr. Richards' office. Care plan formally activated March 24.</div>
+          <div class="summary-read">Read full summary →</div>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS -->
+      <div class="page" id="page-documents">
+        <div class="page-header">
+          <div class="page-title">My <em>Documents</em></div>
+          <div class="page-sub">All files shared by Jennifer's team · Secure download</div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📁 Care Plan Documents</div></div>
+          <div class="card-body">
+            <div class="doc-item">
+              <div class="doc-icon">📋</div>
+              <div><div class="doc-name">Life Care Plan — Robert Osei</div><div class="doc-meta">Updated Apr 14, 2026 · PDF · 12 pages</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Life Care Plan...')">Download</button>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon">🏠</div>
+              <div><div class="doc-name">Home Safety Assessment Report</div><div class="doc-meta">Apr 15, 2026 · PDF · 6 pages</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Safety Report...')">Download</button>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon">🌅</div>
+              <div><div class="doc-name">Morning Routine Protocol — Updated</div><div class="doc-meta">Apr 14, 2026 · PDF · 3 pages</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Morning Protocol...')">Download</button>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon">💊</div>
+              <div><div class="doc-name">Medication Summary — April 2026</div><div class="doc-meta">Apr 12, 2026 · PDF · 2 pages</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Medication Summary...')">Download</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📚 Resources & Guides</div></div>
+          <div class="card-body">
+            <div class="doc-item">
+              <div class="doc-icon">🧠</div>
+              <div><div class="doc-name">Dementia Caregiver Guide — Jennifer Crowley RN</div><div class="doc-meta">Shared Mar 20, 2026 · PDF · 24 pages</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Caregiver Guide...')">Download</button>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon">👨‍👩‍👧</div>
+              <div><div class="doc-name">Family Communication Toolkit</div><div class="doc-meta">Shared Mar 20, 2026 · PDF · 8 pages</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Communication Toolkit...')">Download</button>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon">🚨</div>
+              <div><div class="doc-name">Emergency Protocol & Contact Sheet</div><div class="doc-meta">Shared Mar 18, 2026 · PDF · 1 page</div></div>
+              <button class="doc-download" onclick="showToast('Downloading Emergency Protocol...')">Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPOINTMENTS -->
+      <div class="page" id="page-appointments">
+        <div class="page-header">
+          <div class="page-title">My <em>Appointments</em></div>
+          <div class="page-sub">All scheduled sessions with Jennifer's team</div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📅 Upcoming</div></div>
+          <div class="card-body">
+            <div class="appt-item upcoming">
+              <div class="appt-date-block"><div class="appt-month">APR</div><div class="appt-day">18</div></div>
+              <div class="appt-divider"></div>
+              <div><div class="appt-type">Care Plan Review</div><div class="appt-detail">10:00am MST · 60 min · Zoom · Jennifer Crowley</div></div>
+              <div class="appt-actions">
+                <button class="appt-btn" onclick="showToast('Zoom link sent to your email.')">Join Zoom</button>
+                <button class="appt-btn outline" onclick="showToast('Appointment added to calendar.')">Add to Calendar</button>
+              </div>
+            </div>
+            <div class="appt-item upcoming">
+              <div class="appt-date-block"><div class="appt-month">MAY</div><div class="appt-day">6</div></div>
+              <div class="appt-divider"></div>
+              <div><div class="appt-type">Family Consultation</div><div class="appt-detail">2:00pm MST · 45 min · Phone · Jennifer's team</div></div>
+              <div class="appt-actions">
+                <button class="appt-btn outline" onclick="showToast('Appointment added to calendar.')">Add to Calendar</button>
+              </div>
+            </div>
+            <div class="appt-item">
+              <div class="appt-date-block"><div class="appt-month">JUN</div><div class="appt-day">1</div></div>
+              <div class="appt-divider"></div>
+              <div><div class="appt-type">Quarterly Review</div><div class="appt-detail">10:00am MST · 90 min · Zoom · Jennifer Crowley</div></div>
+              <div class="appt-actions">
+                <button class="appt-btn outline">View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">✅ Past Appointments</div></div>
+          <div class="card-body">
+            <div class="appt-item" style="opacity:0.6;">
+              <div class="appt-date-block"><div class="appt-month">APR</div><div class="appt-day">9</div></div>
+              <div class="appt-divider"></div>
+              <div><div class="appt-type">Caregiver Check-In</div><div class="appt-detail">11:00am MST · Phone · Completed</div></div>
+              <div class="appt-actions"><span class="badge green">Completed</span></div>
+            </div>
+            <div class="appt-item" style="opacity:0.6;">
+              <div class="appt-date-block"><div class="appt-month">MAR</div><div class="appt-day">21</div></div>
+              <div class="appt-divider"></div>
+              <div><div class="appt-type">Care Plan Review</div><div class="appt-detail">2:00pm MST · Zoom · Completed</div></div>
+              <div class="appt-actions"><span class="badge green">Completed</span></div>
+            </div>
+            <div class="appt-item" style="opacity:0.6;">
+              <div class="appt-date-block"><div class="appt-month">MAR</div><div class="appt-day">18</div></div>
+              <div class="appt-divider"></div>
+              <div><div class="appt-type">Initial Consultation</div><div class="appt-detail">10:00am MST · Zoom · Jennifer Crowley</div></div>
+              <div class="appt-actions"><span class="badge green">Completed</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="page" id="page-messages">
+        <div class="page-header">
+          <div class="page-title">My <em>Messages</em></div>
+          <div class="page-sub">Direct communication with Jennifer's team</div>
+        </div>
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">💬 Conversation Thread</div></div>
+              <div class="card-body">
+                <div class="msg-thread">
+                  <div class="msg-bubble from-jennifer">
+                    <div class="msg-bubble-inner">Hi Patricia — welcome to your care portal. I've completed Robert's initial assessment and your care plan is now active. Please review the documents tab when you have a moment.</div>
+                    <div class="msg-meta">Jennifer Crowley · Mar 18 · 4:30pm</div>
+                  </div>
+                  <div class="msg-bubble from-client">
+                    <div class="msg-bubble-inner">Thank you Jennifer. I've reviewed the care plan. The home safety recommendations are very helpful. Should we discuss the morning routine in more detail?</div>
+                    <div class="msg-meta">Patricia Osei · Mar 19 · 9:14am</div>
+                  </div>
+                  <div class="msg-bubble from-jennifer">
+                    <div class="msg-bubble-inner">Absolutely — I've scheduled a follow-up call for March 21 to walk through the routine together. I'll also send an updated protocol document this week with more detail on the transition strategies.</div>
+                    <div class="msg-meta">Jennifer Crowley · Mar 19 · 11:02am</div>
+                  </div>
+                  <div class="msg-bubble from-jennifer" style="border-color:var(--gold-border);">
+                    <div class="msg-bubble-inner" style="border-color:var(--gold-border);background:rgba(201,168,76,0.07);">Hi Patricia — I've updated Robert's care plan following Tuesday's call. The new morning routine protocol is attached in your documents. Please review before Friday's appointment.</div>
+                    <div class="msg-meta">Jennifer Crowley · Apr 14 · 9:22am · <span style="color:var(--gold);">Unread</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">✉️ Send a Message</div></div>
+              <div class="card-body">
+                <div class="msg-form">
+                  <textarea class="msg-textarea" id="msg-text" placeholder="Type your message to Jennifer's team..."></textarea>
+                  <button class="msg-send" onclick="sendMessage()"><span>Send Message</span><span>→</span></button>
+                </div>
+                <div style="margin-top:16px;padding:12px 14px;background:var(--forest3);border:1px solid var(--border);border-radius:6px;">
+                  <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:4px;">Response Time</div>
+                  <div style="font-size:12px;color:var(--cream);">Jennifer's team responds within 24 hours on business days.</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">📞 Direct Contact</div></div>
+              <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--forest3);border:1px solid var(--border);border-radius:6px;">
+                    <span style="font-size:18px;">📧</span>
+                    <div><div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:2px;">Email</div><div style="font-size:12px;color:var(--gold2);">Jennifer@thelifecareexperts.com</div></div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--forest3);border:1px solid var(--border);border-radius:6px;">
+                    <span style="font-size:18px;">📅</span>
+                    <div><div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:2px;">Book Additional Session</div><div style="font-size:12px;color:var(--cream);">Available Wed & Thu · Midday preferred</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+});
+
+// LOGIN
+function doLogin() {
+  document.getElementById('loginScreen').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('portal').classList.add('active');
+  }, 600);
+}
+
+function doLogout() {
+  document.getElementById('portal').classList.remove('active');
+  document.getElementById('loginScreen').style.display = 'flex';
+  setTimeout(() => document.getElementById('loginScreen').classList.remove('hidden'), 10);
+}
+
+// PAGE NAV
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+}
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// SEND MESSAGE
+function sendMessage() {
+  const msg = document.getElementById('msg-text').value.trim();
+  if (!msg) return;
+  showToast('Message sent. Jennifer\'s team will respond within 24 hours.');
+  document.getElementById('msg-text').value = '';
+}
+
+// PROGRESS BARS ANIMATE ON LOAD
+setTimeout(() => {
+  document.querySelectorAll('.progress-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0%';
+    setTimeout(() => bar.style.width = w, 100);
+  });
+}, 800);
+
+// NAV CLICK ACTIVE
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
