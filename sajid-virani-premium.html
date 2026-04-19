@@ -4,225 +4,195 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" content="#06080b"/>
 <title>Proximity Systems — Built for Nurse Next Door Operators</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+*{-webkit-tap-highlight-color:transparent;}
 :root{
   --bg:#06080b;--s1:#090c10;--s2:#0d1117;--s3:#111620;
-  --acc:#c8a96e;--acc2:#a8894e;--acc-g:rgba(200,169,110,0.08);--acc-glow:rgba(200,169,110,0.15);
+  --acc:#c8a96e;--acc2:#a8894e;--acc-g:rgba(200,169,110,0.08);
   --teal:#3d8a7a;--teal-l:rgba(61,138,122,0.1);--teal-b:rgba(61,138,122,0.3);
   --border:rgba(200,169,110,0.12);--border-h:rgba(200,169,110,0.3);
   --text:#eae6df;--muted:rgba(234,230,223,0.5);--hint:rgba(234,230,223,0.22);
   --serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
   --r:10px;--rl:16px;
 }
-html{scroll-behavior:smooth;cursor:none;}
+html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;}
 
-/* CURSOR */
+/* CURSOR — desktop only */
 .cur{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--acc);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.08s;mix-blend-mode:difference;}
 .cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(200,169,110,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.2s ease;}
-@media(hover:none){.cur,.cur-ring{display:none;}}
+@media(hover:none){.cur,.cur-ring{display:none;}body{cursor:auto;}}
 
 /* CANVAS */
 #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5;}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 clamp(1.5rem,5vw,3rem);height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,11,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 clamp(1.25rem,5vw,3rem);height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,11,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:var(--serif);font-size:1rem;color:var(--text);letter-spacing:0.04em;}
 .nav-logo span{color:var(--acc);}
-.nav-badge{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--acc);border:1px solid var(--border);border-radius:100px;padding:3px 10px;display:none;}
-@media(min-width:600px){.nav-badge{display:block;}}
-.nav-cta{background:var(--acc);border:none;border-radius:8px;padding:0.55rem 1.2rem;color:var(--bg);font-family:var(--sans);font-size:0.75rem;font-weight:500;cursor:none;transition:all 0.2s;letter-spacing:0.04em;text-decoration:none;white-space:nowrap;}
+.nav-badge{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--acc);border:1px solid var(--border);border-radius:100px;padding:3px 10px;}
+@media(max-width:480px){.nav-badge{display:none;}}
+.nav-cta{background:var(--acc);border:none;border-radius:8px;padding:0.6rem 1.1rem;color:var(--bg);font-family:var(--sans);font-size:0.75rem;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.04em;text-decoration:none;min-height:40px;display:inline-flex;align-items:center;}
 .nav-cta:hover{background:var(--acc2);}
 
 /* HERO */
-.hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:80px clamp(1.5rem,6vw,4rem) clamp(3rem,6vw,5rem);}
-.hero-inner{max-width:900px;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--acc);border:1px solid var(--border);border-radius:100px;padding:5px 14px;margin-bottom:2rem;background:var(--acc-g);}
-.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);animation:pulse 2s infinite;}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:80px clamp(1.25rem,6vw,4rem) clamp(3rem,6vw,5rem);}
+.hero-inner{max-width:860px;width:100%;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--border);border-radius:100px;padding:5px 14px;margin-bottom:1.75rem;background:var(--acc-g);}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);animation:pulse 2s infinite;flex-shrink:0;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.hero-title{font-family:var(--serif);font-size:clamp(2.4rem,6vw,5rem);font-weight:400;line-height:1.08;margin-bottom:1.5rem;letter-spacing:-0.01em;}
+.hero-title{font-family:var(--serif);font-size:clamp(2.2rem,5.5vw,4.8rem);font-weight:400;line-height:1.1;margin-bottom:1.4rem;letter-spacing:-0.01em;}
 .hero-title em{font-style:italic;color:var(--acc);}
-.hero-title .line2{color:var(--muted);}
-.hero-body{font-size:clamp(0.9rem,2vw,1.05rem);color:var(--muted);line-height:1.8;max-width:580px;margin-bottom:2.5rem;}
+.hero-title .dim{color:var(--muted);}
+.hero-body{font-size:clamp(0.88rem,2vw,1rem);color:var(--muted);line-height:1.85;max-width:560px;margin-bottom:2rem;}
 .hero-body strong{color:var(--text);font-weight:400;}
-.hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
-.btn-primary{background:var(--acc);border:none;border-radius:10px;padding:0.9rem 2rem;color:var(--bg);font-family:var(--sans);font-size:0.85rem;font-weight:500;cursor:none;transition:all 0.2s;letter-spacing:0.04em;text-decoration:none;display:inline-block;}
+.hero-actions{display:flex;align-items:center;gap:0.85rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.btn-primary{background:var(--acc);border:none;border-radius:10px;padding:0.88rem 1.8rem;color:var(--bg);font-family:var(--sans);font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.04em;text-decoration:none;display:inline-flex;align-items:center;min-height:48px;}
 .btn-primary:hover{background:var(--acc2);transform:translateY(-1px);}
-.btn-ghost{background:none;border:1px solid var(--border);border-radius:10px;padding:0.9rem 1.8rem;color:var(--muted);font-family:var(--sans);font-size:0.85rem;cursor:none;transition:all 0.2s;letter-spacing:0.03em;text-decoration:none;display:inline-block;}
+.btn-ghost{background:none;border:1px solid var(--border);border-radius:10px;padding:0.88rem 1.6rem;color:var(--muted);font-family:var(--sans);font-size:0.82rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.03em;text-decoration:none;display:inline-flex;align-items:center;min-height:48px;}
 .btn-ghost:hover{border-color:var(--border-h);color:var(--text);}
-.hero-scroll{margin-top:4rem;display:flex;align-items:center;gap:10px;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--hint);}
-.scroll-line{width:40px;height:1px;background:var(--border);}
 
-/* PERSONAL SECTION */
-.personal{position:relative;z-index:1;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,4rem);border-top:1px solid var(--border);}
-.personal-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
-@media(max-width:768px){.personal-inner{grid-template-columns:1fr;gap:2rem;}}
-.personal-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--acc);margin-bottom:1rem;}
-.personal-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.2;margin-bottom:1.5rem;}
-.personal-title em{font-style:italic;color:var(--acc);}
-.personal-body{font-size:0.88rem;color:var(--muted);line-height:1.9;margin-bottom:1rem;}
-.personal-body strong{color:var(--text);font-weight:400;}
-.personal-quote{background:var(--s2);border-left:2px solid var(--acc);border-radius:0 8px 8px 0;padding:1.2rem 1.4rem;font-family:var(--serif);font-size:0.95rem;font-style:italic;color:var(--muted);line-height:1.7;}
-.personal-stats{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
-.pstat{background:var(--s2);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem 1.1rem;}
-.pstat-val{font-family:var(--serif);font-size:1.8rem;color:var(--acc);margin-bottom:0.2rem;}
-.pstat-lbl{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
-.pstat-sub{font-size:0.7rem;color:var(--hint);margin-top:0.15rem;}
+/* HQ CARD IN HERO */
+.hero-hq{background:var(--s1);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem 1.4rem;max-width:500px;position:relative;overflow:hidden;}
+.hero-hq::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--acc),transparent);}
+.hq-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.hq-label{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--acc);}
+.hq-live{display:flex;align-items:center;gap:4px;font-size:0.58rem;color:var(--teal);}
+.hq-live-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+.hq-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;margin-bottom:0.85rem;}
+.hq-stat{text-align:center;}
+.hq-stat-val{font-family:var(--mono);font-size:1.1rem;font-weight:500;margin-bottom:0.15rem;}
+.hq-stat-val.acc{color:var(--acc);}
+.hq-stat-val.teal{color:var(--teal);}
+.hq-stat-lbl{font-size:0.57rem;color:var(--hint);letter-spacing:0.03em;line-height:1.3;}
+.hq-note{font-size:0.63rem;color:var(--hint);border-top:1px solid var(--border);padding-top:0.7rem;line-height:1.5;}
+@media(max-width:480px){.hq-stats{grid-template-columns:repeat(2,1fr);gap:0.75rem;}.hero-hq{max-width:100%;}}
 
-/* GAP SECTION */
-.gap{position:relative;z-index:1;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,4rem);background:var(--s1);border-top:1px solid var(--border);}
-.gap-inner{max-width:900px;margin:0 auto;}
-.sec-eyebrow{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--acc);margin-bottom:0.5rem;}
+/* SECTIONS */
+.section{position:relative;z-index:1;padding:clamp(3rem,8vw,5.5rem) clamp(1.25rem,6vw,4rem);border-top:1px solid var(--border);}
+.section.alt{background:var(--s1);}
+.sec-inner{max-width:860px;margin:0 auto;}
+.sec-eye{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--acc);margin-bottom:0.5rem;}
 .sec-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.15;margin-bottom:0.5rem;}
 .sec-title em{font-style:italic;color:var(--acc);}
-.sec-sub{font-size:0.88rem;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:2.5rem;}
+.sec-sub{font-size:0.86rem;color:var(--muted);line-height:1.85;max-width:580px;margin-bottom:2.5rem;}
+
+/* PERSONAL */
+.personal-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+@media(max-width:768px){.personal-grid{grid-template-columns:1fr;gap:2rem;}}
+.personal-body{font-size:0.86rem;color:var(--muted);line-height:1.9;margin-bottom:1rem;}
+.personal-body strong{color:var(--text);font-weight:400;}
+.personal-quote{background:var(--s2);border-left:2px solid var(--acc);border-radius:0 8px 8px 0;padding:1.1rem 1.3rem;font-family:var(--serif);font-size:0.92rem;font-style:italic;color:var(--muted);line-height:1.7;margin-top:1.2rem;}
+.pstats{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.pstat{background:var(--s2);border:1px solid var(--border);border-radius:var(--rl);padding:1.1rem;}
+.pstat-val{font-family:var(--serif);font-size:1.7rem;color:var(--acc);margin-bottom:0.18rem;}
+.pstat-lbl{font-size:0.63rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);}
+.pstat-sub{font-size:0.66rem;color:var(--hint);margin-top:0.12rem;line-height:1.4;}
+
+/* GAP */
 .gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;}
-@media(max-width:600px){.gap-grid{grid-template-columns:1fr;}}
+@media(max-width:580px){.gap-grid{grid-template-columns:1fr;}}
 .gap-cell{background:var(--s2);padding:1.4rem 1.5rem;}
-.gap-cell.nnd{border-bottom:2px solid var(--teal);}
-.gap-cell.prox{border-bottom:2px solid var(--acc);}
-.gap-head{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:6px;}
+.gap-head{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:6px;}
 .gap-head.nnd{color:var(--teal);}
 .gap-head.prox{color:var(--acc);}
-.gap-item{display:flex;align-items:center;gap:8px;margin-bottom:0.6rem;font-size:0.78rem;color:var(--muted);}
-.gap-item::before{content:'✓';font-size:0.7rem;flex-shrink:0;}
-.gap-item.nnd::before{color:var(--teal);}
-.gap-item.prox::before{color:var(--acc);}
-.gap-item.miss{color:var(--hint);}.gap-item.miss::before{content:'—';color:var(--hint);}
+.gap-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:0.55rem;font-size:0.77rem;color:var(--muted);line-height:1.4;}
+.gap-item-dot{flex-shrink:0;margin-top:2px;font-size:0.65rem;}
+.gap-item.nnd .gap-item-dot{color:var(--teal);}
+.gap-item.prox .gap-item-dot{color:var(--acc);}
+.gap-item.miss{color:var(--hint);}
+.gap-item.miss .gap-item-dot{color:var(--hint);}
 
-/* ROI SECTION */
-.roi{position:relative;z-index:1;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,4rem);border-top:1px solid var(--border);}
-.roi-inner{max-width:900px;margin:0 auto;}
+/* ROI */
 .roi-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;}
-.roi-top{padding:1.8rem 2rem;border-bottom:1px solid var(--border);}
-.roi-title{font-family:var(--serif);font-size:1.3rem;margin-bottom:0.3rem;}
-.roi-sub{font-size:0.78rem;color:var(--muted);}
-.roi-body{padding:1.5rem 2rem;}
-.roi-row{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid rgba(200,169,110,0.06);font-size:0.82rem;}
+.roi-head{padding:1.6rem 1.8rem;border-bottom:1px solid var(--border);}
+.roi-head-title{font-family:var(--serif);font-size:1.2rem;margin-bottom:0.25rem;}
+.roi-head-sub{font-size:0.76rem;color:var(--muted);}
+.roi-body{padding:1.2rem 1.8rem;}
+.roi-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.7rem 0;border-bottom:1px solid rgba(200,169,110,0.06);font-size:0.8rem;}
 .roi-row:last-child{border:none;}
-.roi-label{color:var(--muted);}
-.roi-val{font-family:var(--mono);color:var(--text);font-size:0.78rem;}
+.roi-lbl{color:var(--muted);flex:1;}
+.roi-val{font-family:var(--mono);font-size:0.76rem;white-space:nowrap;}
 .roi-val.acc{color:var(--acc);}
 .roi-val.red{color:#e05a6a;}
-.roi-total{background:var(--acc-g);border-top:1px solid var(--border);padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;}
-.roi-total-label{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);}
-.roi-total-val{font-family:var(--serif);font-size:1.8rem;color:var(--acc);}
-.roi-note{font-size:0.68rem;color:var(--hint);margin-top:1rem;line-height:1.6;font-style:italic;}
+.roi-foot{background:var(--acc-g);border-top:1px solid var(--border);padding:1.1rem 1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
+.roi-foot-lbl{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);}
+.roi-foot-sub{font-size:0.62rem;color:var(--hint);margin-top:2px;}
+.roi-foot-val{font-family:var(--serif);font-size:1.7rem;color:var(--acc);}
+.roi-note{font-size:0.66rem;color:var(--hint);margin-top:1rem;line-height:1.6;font-style:italic;}
+@media(max-width:480px){.roi-row{flex-direction:column;align-items:flex-start;gap:3px;}.roi-val{font-size:0.82rem;}}
 
 /* SYSTEMS */
-.systems{position:relative;z-index:1;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,4rem);background:var(--s1);border-top:1px solid var(--border);}
-.systems-inner{max-width:900px;margin:0 auto;}
-.sys-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-top:2.5rem;}
-@media(max-width:640px){.sys-grid{grid-template-columns:1fr;}}
-.sys-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;transition:all 0.22s;position:relative;overflow:hidden;}
-.sys-card:hover{border-color:var(--border-h);transform:translateY(-2px);}
+.sys-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.85rem;margin-top:2rem;}
+@media(max-width:599px){.sys-grid{grid-template-columns:1fr;}}
+.sys-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;display:flex;flex-direction:column;transition:border-color 0.22s,transform 0.22s;position:relative;overflow:hidden;}
 .sys-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent);opacity:0;transition:opacity 0.22s;}
+.sys-card:hover{border-color:var(--border-h);transform:translateY(-2px);}
 .sys-card:hover::before{opacity:1;}
-.sys-num{font-family:var(--mono);font-size:0.62rem;color:var(--hint);margin-bottom:0.6rem;letter-spacing:0.1em;}
-.sys-icon{font-size:1.5rem;margin-bottom:0.6rem;line-height:1;}
-.sys-name{font-size:0.88rem;font-weight:500;color:var(--text);margin-bottom:0.4rem;}
-.sys-desc{font-size:0.72rem;color:var(--muted);line-height:1.6;}
-.sys-tag{display:inline-block;margin-top:0.6rem;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;background:var(--acc-g);color:var(--acc);border:1px solid var(--border);}
+.sys-num{font-family:var(--mono);font-size:0.6rem;color:var(--hint);margin-bottom:0.55rem;letter-spacing:0.1em;}
+.sys-icon{font-size:1.5rem;margin-bottom:0.55rem;line-height:1;}
+.sys-name{font-size:0.88rem;font-weight:500;color:var(--text);margin-bottom:0.38rem;}
+.sys-desc{font-size:0.77rem;color:var(--muted);line-height:1.65;flex:1;}
+.sys-tag{display:inline-block;margin-top:0.75rem;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:var(--acc-g);color:var(--acc);border:1px solid var(--border);}
+@media(max-width:480px){.sys-card{padding:1.2rem;}.sys-name{font-size:0.85rem;}.sys-desc{font-size:0.78rem;}}
 
 /* CHATBOT */
-.chatbot-section{position:relative;z-index:1;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,4rem);border-top:1px solid var(--border);}
-.chatbot-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
-@media(max-width:768px){.chatbot-inner{grid-template-columns:1fr;}}
+.chat-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+@media(max-width:768px){.chat-grid{grid-template-columns:1fr;}}
 .chat-window{background:var(--s1);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;}
-.chat-top{padding:0.9rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.chat-avatar{width:28px;height:28px;border-radius:50%;background:var(--acc-g);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--acc);font-weight:500;}
-.chat-name{font-size:0.75rem;font-weight:500;}
-.chat-status{font-size:0.58rem;color:var(--teal);display:flex;align-items:center;gap:4px;}
-.chat-status::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--teal);}
-.chat-msgs{padding:1rem;display:flex;flex-direction:column;gap:0.6rem;min-height:220px;}
-.cmsg{max-width:85%;padding:0.65rem 0.85rem;border-radius:10px;font-size:0.75rem;line-height:1.6;}
+.chat-bar{padding:0.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.chat-av{width:28px;height:28px;border-radius:50%;background:var(--acc-g);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:var(--acc);font-weight:500;flex-shrink:0;}
+.chat-name-wrap .chat-nm{font-size:0.74rem;font-weight:500;}
+.chat-name-wrap .chat-st{font-size:0.58rem;color:var(--teal);display:flex;align-items:center;gap:3px;}
+.chat-name-wrap .chat-st::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--teal);}
+.chat-msgs{padding:1rem;min-height:200px;max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:0.55rem;}
+.chat-msgs::-webkit-scrollbar{width:3px;}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);}
+.cmsg{max-width:86%;padding:0.6rem 0.82rem;border-radius:10px;font-size:0.74rem;line-height:1.62;}
 .cmsg.bot{background:var(--s2);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:3px;}
 .cmsg.user{background:var(--acc-g);border:1px solid var(--border);align-self:flex-end;border-bottom-right-radius:3px;}
-.chat-input-wrap{padding:0.75rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
-.chat-in{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.8rem;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s;}
+.chat-foot{padding:0.7rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+.chat-in{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:0.58rem 0.8rem;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s;}
 .chat-in:focus{border-color:var(--acc);}
 .chat-in::placeholder{color:var(--hint);}
-.chat-send{background:var(--acc);border:none;border-radius:8px;padding:0.55rem 1rem;color:var(--bg);font-size:0.72rem;font-weight:500;cursor:none;transition:all 0.2s;font-family:var(--sans);}
+.chat-send{background:var(--acc);border:none;border-radius:8px;padding:0.58rem 1rem;color:var(--bg);font-size:0.72rem;font-weight:500;cursor:pointer;font-family:var(--sans);min-height:40px;transition:background 0.2s;}
 .chat-send:hover{background:var(--acc2);}
-.dots{display:flex;gap:3px;align-items:center;padding:0.1rem 0;}
-.dots span{width:4px;height:4px;border-radius:50%;background:var(--muted);animation:d 1.2s infinite;}
+.dots{display:flex;gap:3px;align-items:center;}
+.dots span{width:4px;height:4px;border-radius:50%;background:var(--muted);animation:dot 1.2s infinite;}
 .dots span:nth-child(2){animation-delay:0.2s;}
 .dots span:nth-child(3){animation-delay:0.4s;}
-@keyframes d{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+@keyframes dot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
 
 /* CTA */
-.cta-section{position:relative;z-index:1;padding:clamp(4rem,10vw,8rem) clamp(1.5rem,6vw,4rem);border-top:1px solid var(--border);text-align:center;}
-.cta-inner{max-width:640px;margin:0 auto;}
-.cta-pre{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--acc);margin-bottom:1.2rem;}
-.cta-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);font-weight:400;line-height:1.15;margin-bottom:1rem;}
+.cta-wrap{text-align:center;}
+.cta-pre{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--acc);margin-bottom:1.1rem;}
+.cta-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);font-weight:400;line-height:1.15;margin-bottom:0.9rem;}
 .cta-title em{font-style:italic;color:var(--acc);}
-.cta-body{font-size:0.88rem;color:var(--muted);line-height:1.8;margin-bottom:2rem;}
-.cta-actions{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
-.cta-meta{font-size:0.68rem;color:var(--hint);margin-top:1rem;letter-spacing:0.04em;}
+.cta-body{font-size:0.86rem;color:var(--muted);line-height:1.85;margin-bottom:2rem;max-width:520px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:0.85rem;flex-wrap:wrap;}
+.cta-meta{font-size:0.66rem;color:var(--hint);margin-top:1rem;letter-spacing:0.04em;}
+@media(max-width:480px){.cta-btns{flex-direction:column;width:100%;}.cta-btns .btn-primary,.cta-btns .btn-ghost{width:100%;justify-content:center;}}
 
 /* FOOTER */
-.footer{position:relative;z-index:1;padding:1.5rem clamp(1.5rem,6vw,4rem);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
-.footer-brand{font-family:var(--serif);font-size:0.85rem;color:var(--muted);}
+.footer{position:relative;z-index:1;padding:1.4rem clamp(1.25rem,6vw,4rem);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.6rem;}
+.footer-brand{font-family:var(--serif);font-size:0.82rem;color:var(--muted);}
 .footer-brand span{color:var(--acc);}
-.footer-note{font-size:0.65rem;color:var(--hint);}
+.footer-note{font-size:0.62rem;color:var(--hint);}
 
-/* REVEAL ANIMATIONS */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s ease,transform 0.7s ease;}
-.reveal.in{opacity:1;transform:none;}
-.reveal-d1{transition-delay:0.1s;}
-.reveal-d2{transition-delay:0.2s;}
-.reveal-d3{transition-delay:0.3s;}
+/* REVEAL */
+.rv{opacity:0;transform:translateY(16px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.rv.in{opacity:1;transform:none;}
+.rv.d1{transition-delay:0.1s;}.rv.d2{transition-delay:0.2s;}.rv.d3{transition-delay:0.3s;}
 
-/* MOBILE BREAKPOINTS */
-@media(max-width:1024px){
-  .sys-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:768px){
-  .hero{padding-top:88px;}
-  .personal-inner,.chatbot-inner{grid-template-columns:1fr;}
-  .gap-grid{grid-template-columns:1fr;}
-}
-
-/* HERO HQ CARD */
-.hq-scroll{display:none;}
-.hero-hq{margin-top:2.5rem;background:var(--s1);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem 1.4rem;max-width:520px;position:relative;overflow:hidden;}
-.hero-hq::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--acc),transparent);}
-.hq-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
-.hq-hdr-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);}
-.hq-live-badge{display:flex;align-items:center;gap:4px;font-size:0.58rem;color:#3d8a7a;}
-.hq-live-dot{width:5px;height:5px;border-radius:50%;background:#3d8a7a;animation:pulse 2s infinite;}
-.hq-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:0.9rem;}
-@media(max-width:480px){.hq-stats{grid-template-columns:repeat(2,1fr);}}
-.hq-stat{text-align:center;}
-.hq-stat-val{font-family:var(--mono);font-size:1.15rem;font-weight:500;margin-bottom:0.18rem;}
-.hq-stat-val.acc{color:var(--acc);}
-.hq-stat-val.teal{color:#3d8a7a;}
-.hq-stat-lbl{font-size:0.58rem;color:var(--hint);letter-spacing:0.04em;}
-.hq-note{font-size:0.65rem;color:var(--hint);border-top:1px solid var(--border);padding-top:0.75rem;line-height:1.5;}
+/* MOBILE HERO ACTIONS */
 @media(max-width:480px){
-  .sys-grid{grid-template-columns:1fr;}
-  .hero-actions{flex-direction:column;align-items:flex-start;width:100%;}
-  .btn-primary,.btn-ghost{width:100%;text-align:center;justify-content:center;}
-  .roi-row{flex-direction:column;align-items:flex-start;gap:4px;}
-  .cta-actions{flex-direction:column;width:100%;}
-  .cta-actions .btn-primary,.cta-actions .btn-ghost{width:100%;text-align:center;justify-content:center;}
-  .nav-badge{display:none;}
-  .hq-stats{grid-template-columns:repeat(2,1fr);}
-  .gap-grid{grid-template-columns:1fr;}
-  .personal-stats{grid-template-columns:1fr 1fr;}
-  .roi-card{border-radius:10px;}
-  .chatbot-inner{grid-template-columns:1fr;}
+  .hero-actions{flex-direction:column;width:100%;}
+  .hero-actions .btn-primary,.hero-actions .btn-ghost{width:100%;justify-content:center;}
 }
-
-/* MOBILE TAP FIXES */
-*{-webkit-tap-highlight-color:transparent;}
-a,button,.sys-card,.nav-cta,.btn-primary,.btn-ghost{min-height:44px;display:inline-flex;align-items:center;justify-content:center;}
-.nav-cta,.btn-primary,.btn-ghost{display:inline-block;line-height:1;}
-.chat-send{min-height:44px;}
-.pin-btn{min-height:44px;}
 </style>
 </head>
 <body>
@@ -235,39 +205,38 @@ a,button,.sys-card,.nav-cta,.btn-primary,.btn-ghost{min-height:44px;display:inli
 <nav class="nav">
   <div class="nav-logo">Proximity <span>Systems</span></div>
   <div class="nav-badge">Built for NND Operators</div>
-  <a href="mailto:lancesalazar56@gmail.com?subject=Let's talk — Proximity Systems" class="nav-cta">Book a Call</a>
+  <a href="mailto:lancesalazar56@gmail.com?subject=Let's connect — Sajid Virani NND Richmond South" class="nav-cta">Book a Call</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow"><span class="hero-dot"></span>Personal demo for Sajid Virani · Richmond South</div>
+    <div class="hero-eyebrow"><span class="hero-dot"></span>Personal demo · Sajid Virani · NND Richmond South</div>
     <h1 class="hero-title">
       You didn't leave Intact<br>
       <em>to shuffle papers.</em><br>
-      <span class="line2">We close the gap NND left open.</span>
+      <span class="dim">We close the gap NND left open.</span>
     </h1>
     <p class="hero-body">
       NND gave you the brand, the call center, and the training.<br>
-      <strong>Nobody gave you the operations layer.</strong><br>
-      PSW documentation. Family portals. Monthly invoices. Care summaries.<br>
+      <strong>Nobody gave you what comes after a client signs.</strong><br>
+      PSW visit logs. Family portals. Monthly invoices. Care summaries.<br>
       Automated follow-up. HQ dashboard. All of it — still manual.
     </p>
     <div class="hero-actions">
-      <a href="mailto:lancesalazar56@gmail.com?subject=Let's talk — Proximity Systems" class="btn-primary">Book 20 Minutes with Lance →</a>
+      <a href="mailto:lancesalazar56@gmail.com?subject=Let's connect — Sajid Virani NND Richmond South" class="btn-primary">Book 20 Minutes with Lance →</a>
       <a href="#systems" class="btn-ghost">See the Systems</a>
     </div>
-    <div class="hq-scroll"><div class="scroll-line"></div>Built for operators like you</div>
     <div class="hero-hq">
-      <div class="hq-hdr">
-        <span class="hq-hdr-label">📊 HQ Dashboard</span>
-        <span class="hq-live-badge"><span class="hq-live-dot"></span>Live</span>
+      <div class="hq-top">
+        <div class="hq-label">📊 HQ Dashboard</div>
+        <div class="hq-live"><div class="hq-live-dot"></div>Live</div>
       </div>
       <div class="hq-stats">
-        <div class="hq-stat"><div class="hq-stat-val acc" id="hqClients">0</div><div class="hq-stat-lbl">Active clients</div></div>
-        <div class="hq-stat"><div class="hq-stat-val" id="hqVisits">0</div><div class="hq-stat-lbl">Visits this month</div></div>
-        <div class="hq-stat"><div class="hq-stat-val teal" id="hqRevenue">$0</div><div class="hq-stat-lbl">Revenue MTD</div></div>
-        <div class="hq-stat"><div class="hq-stat-val" id="hqLeads">0</div><div class="hq-stat-lbl">Leads in pipeline</div></div>
+        <div class="hq-stat"><div class="hq-stat-val acc" id="hqC">0</div><div class="hq-stat-lbl">Active clients</div></div>
+        <div class="hq-stat"><div class="hq-stat-val" id="hqV">0</div><div class="hq-stat-lbl">Visits this month</div></div>
+        <div class="hq-stat"><div class="hq-stat-val teal" id="hqR">$0</div><div class="hq-stat-lbl">Revenue MTD</div></div>
+        <div class="hq-stat"><div class="hq-stat-val" id="hqL">0</div><div class="hq-stat-lbl">Leads in pipeline</div></div>
       </div>
       <div class="hq-note">Your numbers. Real time. Every client, every visit, every dollar.</div>
     </div>
@@ -275,152 +244,151 @@ a,button,.sys-card,.nav-cta,.btn-primary,.btn-ghost{min-height:44px;display:inli
 </section>
 
 <!-- PERSONAL -->
-<section class="personal">
-  <div class="personal-inner">
-    <div class="reveal">
-      <div class="personal-label">We did our homework, Sajid.</div>
-      <h2 class="personal-title">University of Waterloo.<br>Intact Financial.<br><em>Then Richmond.</em></h2>
-      <p class="personal-body">You didn't get into this because it was easy. You left a Data Science Manager role at Intact — where you modeled risk and probability for a living — to build something that mattered to you personally.</p>
-      <p class="personal-body">You watched your parents carry the weight of caring for your grandfather through brain cancer. Managing work, raising kids, being full-time caregivers at the same time. <strong>You know what that looks like from the inside.</strong> That's why Richmond.</p>
-      <div class="personal-quote">"Getting older is inevitable. But if we can make it an enjoyable and happier part of one's life, it would make life more fulfilling."</div>
-    </div>
-    <div class="reveal reveal-d2">
-      <div class="personal-stats">
-        <div class="pstat"><div class="pstat-val">400+</div><div class="pstat-lbl">NND locations globally</div><div class="pstat-sub">None have this operations layer yet</div></div>
-        <div class="pstat"><div class="pstat-val">10+</div><div class="pstat-lbl">Years in Richmond</div><div class="pstat-sub">Community you chose to serve</div></div>
-        <div class="pstat"><div class="pstat-val">FCAS</div><div class="pstat-lbl">Fellow — Casualty Actuarial</div><div class="pstat-sub">You run the numbers before deciding</div></div>
-        <div class="pstat"><div class="pstat-val">0</div><div class="pstat-lbl">Systems for post-signup ops</div><div class="pstat-sub">That's the gap. We fill it.</div></div>
+<section class="section">
+  <div class="sec-inner">
+    <div class="personal-grid">
+      <div class="rv">
+        <div class="sec-eye">We did our homework, Sajid.</div>
+        <h2 class="sec-title">University of Waterloo.<br>Intact Financial.<br><em>Then Richmond.</em></h2>
+        <p class="personal-body">You didn't get into this because it was easy. You left a Data Science Manager role at Intact — where you spent years modeling risk and probability — to build something that actually mattered.</p>
+        <p class="personal-body">You grew up watching your parents care for your grandfather through brain cancer — managing work, raising kids, and being full-time caregivers all at once. You know firsthand what families go through. <strong>That's what brought you to this work.</strong></p>
+        <div class="personal-quote">"Getting older is inevitable. But if we can make it an enjoyable and happier part of one's life, it would make life more fulfilling."</div>
+      </div>
+      <div class="rv d2">
+        <div class="pstats">
+          <div class="pstat"><div class="pstat-val">FCAS</div><div class="pstat-lbl">Fellow — Casualty Actuarial</div><div class="pstat-sub">You run the numbers before deciding</div></div>
+          <div class="pstat"><div class="pstat-val">10+</div><div class="pstat-lbl">Years in Richmond</div><div class="pstat-sub">The community you chose to serve</div></div>
+          <div class="pstat"><div class="pstat-val">400+</div><div class="pstat-lbl">NND locations globally</div><div class="pstat-sub">None have this operations layer yet</div></div>
+          <div class="pstat"><div class="pstat-val">0</div><div class="pstat-lbl">Post-signup systems</div><div class="pstat-sub">That's the gap. We fill it.</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GAP -->
-<section class="gap">
-  <div class="gap-inner">
-    <div class="reveal">
-      <div class="sec-eyebrow">The Gap</div>
+<section class="section alt">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-eye">The Gap</div>
       <h2 class="sec-title">NND covers the front door.<br><em>We cover everything after.</em></h2>
       <p class="sec-sub">Their Care Services Center handles inbound calls and scheduling. That's where their system ends. Every operator is on their own after a client signs.</p>
     </div>
-    <div class="gap-grid reveal reveal-d1">
-      <div class="gap-cell nnd">
+    <div class="gap-grid rv d1">
+      <div class="gap-cell">
         <div class="gap-head nnd">✦ What NND gives you</div>
-        <div class="gap-item nnd">24/7 intake call center</div>
-        <div class="gap-item nnd">Scheduling support</div>
-        <div class="gap-item nnd">Brand and training</div>
-        <div class="gap-item nnd">Business coaching</div>
-        <div class="gap-item nnd">Marketing materials</div>
-        <div class="gap-item miss">PSW visit documentation</div>
-        <div class="gap-item miss">Family communication portal</div>
-        <div class="gap-item miss">Automated monthly invoicing</div>
-        <div class="gap-item miss">AI care summaries</div>
-        <div class="gap-item miss">Caregiver performance tracking</div>
-        <div class="gap-item miss">Your own HQ dashboard</div>
+        <div class="gap-item nnd"><span class="gap-item-dot">✓</span>24/7 intake call center</div>
+        <div class="gap-item nnd"><span class="gap-item-dot">✓</span>Scheduling support</div>
+        <div class="gap-item nnd"><span class="gap-item-dot">✓</span>Brand and training</div>
+        <div class="gap-item nnd"><span class="gap-item-dot">✓</span>Business coaching</div>
+        <div class="gap-item nnd"><span class="gap-item-dot">✓</span>Marketing materials</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>PSW visit documentation</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Family communication portal</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Automated monthly invoicing</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>AI care summaries</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Caregiver performance tracking</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Your own HQ dashboard</div>
       </div>
-      <div class="gap-cell prox">
+      <div class="gap-cell">
         <div class="gap-head prox">✦ What Proximity Systems adds</div>
-        <div class="gap-item miss">Not our lane — NND owns this</div>
-        <div class="gap-item miss">Not our lane — NND owns this</div>
-        <div class="gap-item miss">Not our lane — NND owns this</div>
-        <div class="gap-item miss">Not our lane — NND owns this</div>
-        <div class="gap-item miss">Not our lane — NND owns this</div>
-        <div class="gap-item prox">PSW digital visit logs — daily</div>
-        <div class="gap-item prox">Family portal with live visit feed</div>
-        <div class="gap-item prox">One-click invoice + pay summary</div>
-        <div class="gap-item prox">Claude AI monthly care narrative</div>
-        <div class="gap-item prox">Performance tracker per caregiver</div>
-        <div class="gap-item prox">Real-time HQ dashboard</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Not our lane — NND owns this</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Not our lane — NND owns this</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Not our lane — NND owns this</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Not our lane — NND owns this</div>
+        <div class="gap-item miss"><span class="gap-item-dot">—</span>Not our lane — NND owns this</div>
+        <div class="gap-item prox"><span class="gap-item-dot">✓</span>PSW digital visit logs — daily</div>
+        <div class="gap-item prox"><span class="gap-item-dot">✓</span>Family portal with live visit feed</div>
+        <div class="gap-item prox"><span class="gap-item-dot">✓</span>One-click invoice + pay summary</div>
+        <div class="gap-item prox"><span class="gap-item-dot">✓</span>Claude AI monthly care narrative</div>
+        <div class="gap-item prox"><span class="gap-item-dot">✓</span>Performance tracker per caregiver</div>
+        <div class="gap-item prox"><span class="gap-item-dot">✓</span>Real-time HQ dashboard</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ROI -->
-<section class="roi">
-  <div class="roi-inner">
-    <div class="reveal">
-      <div class="sec-eyebrow">The Math — For an Actuary</div>
+<section class="section">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-eye">The Math — For an Actuary</div>
       <h2 class="sec-title">You ran the numbers<br><em>before buying the franchise.</em></h2>
       <p class="sec-sub">Run them again. Based on a 15-client NND operation in Richmond South.</p>
     </div>
-    <div class="roi-card reveal reveal-d1">
-      <div class="roi-top">
-        <div class="roi-title">Monthly Admin Cost Without Proximity Systems</div>
-        <div class="roi-sub">15 clients · Richmond South · Conservative estimate</div>
+    <div class="roi-card rv d1">
+      <div class="roi-head">
+        <div class="roi-head-title">Monthly Admin Cost Without Proximity Systems</div>
+        <div class="roi-head-sub">15 clients · Richmond South · Conservative estimate</div>
       </div>
       <div class="roi-body">
-        <div class="roi-row"><span class="roi-label">PSW visit documentation and follow-up</span><span class="roi-val red">8 hrs/mo</span></div>
-        <div class="roi-row"><span class="roi-label">Family communication and updates</span><span class="roi-val red">6 hrs/mo</span></div>
-        <div class="roi-row"><span class="roi-label">Monthly invoice generation per client</span><span class="roi-val red">5 hrs/mo</span></div>
-        <div class="roi-row"><span class="roi-label">Caregiver pay summaries</span><span class="roi-val red">3 hrs/mo</span></div>
-        <div class="roi-row"><span class="roi-label">Lead follow-up after intake calls</span><span class="roi-val red">4 hrs/mo</span></div>
-        <div class="roi-row"><span class="roi-label">Total hours lost to admin per month</span><span class="roi-val red">26 hrs</span></div>
-        <div class="roi-row"><span class="roi-label">Your operator time value (conservative)</span><span class="roi-val">$75 / hr</span></div>
-        <div class="roi-row"><span class="roi-label">Monthly cost of doing this manually</span><span class="roi-val red">$1,950 / mo</span></div>
-        <div class="roi-row"><span class="roi-label">Proximity Systems monthly cost</span><span class="roi-val acc">$500 / mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">PSW visit documentation and follow-up</span><span class="roi-val red">8 hrs/mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">Family communication and updates</span><span class="roi-val red">6 hrs/mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">Monthly invoice generation per client</span><span class="roi-val red">5 hrs/mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">Caregiver pay summaries</span><span class="roi-val red">3 hrs/mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">Lead follow-up after intake calls</span><span class="roi-val red">4 hrs/mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">Total hours lost to admin per month</span><span class="roi-val red">26 hrs</span></div>
+        <div class="roi-row"><span class="roi-lbl">Your operator time value</span><span class="roi-val">$75/hr</span></div>
+        <div class="roi-row"><span class="roi-lbl">Monthly cost of doing this manually</span><span class="roi-val red">$1,950/mo</span></div>
+        <div class="roi-row"><span class="roi-lbl">Proximity Systems monthly cost</span><span class="roi-val acc">$500/mo</span></div>
       </div>
-      <div class="roi-total">
-        <div>
-          <div class="roi-total-label">Net monthly recovery</div>
-          <div style="font-size:0.68rem;color:var(--hint);margin-top:2px;">You're ahead from month one</div>
-        </div>
-        <div class="roi-total-val">$1,450 / mo</div>
+      <div class="roi-foot">
+        <div><div class="roi-foot-lbl">Net monthly recovery</div><div class="roi-foot-sub">You're ahead from month one</div></div>
+        <div class="roi-foot-val">$1,450/mo</div>
       </div>
     </div>
-    <p class="roi-note reveal">* At 15 clients. Scale to 30 clients and the gap widens significantly — admin time compounds, Proximity Systems cost stays flat. This is the hedge an actuary buys.</p>
+    <p class="roi-note rv">* At 15 clients. Scale to 30 and the gap widens — admin compounds, Proximity Systems cost stays flat. This is the hedge an actuary buys.</p>
   </div>
 </section>
 
 <!-- SYSTEMS -->
-<section class="systems" id="systems">
-  <div class="systems-inner">
-    <div class="reveal">
-      <div class="sec-eyebrow">The Stack — Built for NND Operators</div>
+<section class="section alt" id="systems">
+  <div class="sec-inner">
+    <div class="rv">
+      <div class="sec-eye">The Stack — Built for NND Operators</div>
       <h2 class="sec-title">Six systems.<br><em>Zero admin hours.</em></h2>
       <p class="sec-sub">Everything NND left you to figure out on your own — automated, branded, and running in 7 days.</p>
     </div>
     <div class="sys-grid">
-      <div class="sys-card reveal reveal-d1">
+      <div class="sys-card rv d1">
         <div class="sys-num">System 01</div>
         <div class="sys-icon">📋</div>
         <div class="sys-name">PSW Visit Logging</div>
         <div class="sys-desc">Caregivers log visits from their phone. Time in, time out, tasks completed, client mood, incidents. Auto-saves to your dashboard. No paper. No spreadsheets.</div>
         <div class="sys-tag">Replaces paper logs</div>
       </div>
-      <div class="sys-card reveal reveal-d2">
+      <div class="sys-card rv d2">
         <div class="sys-num">System 02</div>
         <div class="sys-icon">💳</div>
         <div class="sys-name">Invoice + Pay Summary</div>
         <div class="sys-desc">One click at end of month. Branded invoice fires to the family. Caregiver pay summary fires automatically. Both include a full visit breakdown. Automated. Accurate. Done in seconds.</div>
         <div class="sys-tag">Replaces manual billing</div>
       </div>
-      <div class="sys-card reveal reveal-d1">
+      <div class="sys-card rv d1">
         <div class="sys-num">System 03</div>
         <div class="sys-icon">🤖</div>
         <div class="sys-name">AI Lead Follow-Up</div>
         <div class="sys-desc">NND intake handles the first call. We handle what comes after. Day 3 and Day 7 branded emails fire automatically to every lead that didn't convert. Never lose a warm prospect to silence.</div>
         <div class="sys-tag">Layers on top of NND intake</div>
       </div>
-      <div class="sys-card reveal reveal-d2">
+      <div class="sys-card rv d2">
         <div class="sys-num">System 04</div>
         <div class="sys-icon">🏠</div>
         <div class="sys-name">Family Portal</div>
-        <div class="sys-desc">Every family gets a private portal. PIN access. They see who is coming today, every past visit, the care plan, caregiver credentials, invoice history. They stop calling you to ask if mom is okay.</div>
+        <div class="sys-desc">Every family gets a private portal. PIN access. They see who is coming today, every past visit, the care plan, caregiver credentials, and invoice history. They stop calling you to ask if mom is okay.</div>
         <div class="sys-tag">Reduces inbound calls</div>
       </div>
-      <div class="sys-card reveal reveal-d1">
+      <div class="sys-card rv d1">
         <div class="sys-num">System 05</div>
         <div class="sys-icon">🧠</div>
         <div class="sys-name">AI Monthly Care Summary</div>
-        <div class="sys-desc">Claude reads every visit note from the month. Writes a warm, plain-English summary of how the client is doing. Lands in the family invoice email. They feel informed. You typed nothing.</div>
+        <div class="sys-desc">Claude reads every visit note from the month. Writes a warm plain-English summary of how the client is doing. Lands in the family invoice email. They feel informed. You typed nothing.</div>
         <div class="sys-tag">Powered by Claude AI</div>
       </div>
-      <div class="sys-card reveal reveal-d2">
+      <div class="sys-card rv d2">
         <div class="sys-num">System 06</div>
         <div class="sys-icon">📊</div>
         <div class="sys-name">HQ Dashboard</div>
-        <div class="sys-desc">Every lead, visit, invoice, and caregiver in one view. Real-time from Supabase. See revenue by client, hours by caregiver, incidents flagged. Built for an operator who thinks in data.</div>
+        <div class="sys-desc">Every lead, visit, invoice, and caregiver in one view. Real-time data. Revenue by client, hours by caregiver, incidents flagged automatically. Built for an operator who thinks in data.</div>
         <div class="sys-tag">Built for data-first operators</div>
       </div>
     </div>
@@ -428,45 +396,47 @@ a,button,.sys-card,.nav-cta,.btn-primary,.btn-ghost{min-height:44px;display:inli
 </section>
 
 <!-- CHATBOT -->
-<section class="chatbot-section">
-  <div class="chatbot-inner">
-    <div class="reveal">
-      <div class="sec-eyebrow">Live Demo</div>
-      <h2 class="sec-title">Ask it anything about<br><em>your operation.</em></h2>
-      <p class="sec-sub" style="margin-bottom:1.2rem;">This is the AI chatbot your families and caregivers interact with. Trained on your operation. Answers questions 24/7. Captures leads when NND's call center isn't the right fit.</p>
-      <p class="sec-sub">Ask it about services, rates, what Nurse Next Door is, how care works — anything a Richmond South family would ask.</p>
-    </div>
-    <div class="chat-window reveal reveal-d2">
-      <div class="chat-top">
-        <div class="chat-avatar">NP</div>
-        <div>
-          <div class="chat-name">Nurse Next Door Richmond South</div>
-          <div class="chat-status">Online now</div>
+<section class="section">
+  <div class="sec-inner">
+    <div class="chat-grid">
+      <div class="rv">
+        <div class="sec-eye">Live Demo</div>
+        <h2 class="sec-title">Ask it anything about<br><em>your operation.</em></h2>
+        <p class="sec-sub">This is the AI chatbot your families interact with. Trained on your operation. Answers questions 24/7. Captures leads when NND's call center isn't the right fit.</p>
+        <p class="sec-sub" style="margin-bottom:0;">Ask about services, rates, how care works — anything a Richmond South family would ask.</p>
+      </div>
+      <div class="chat-window rv d2">
+        <div class="chat-bar">
+          <div class="chat-av">NP</div>
+          <div class="chat-name-wrap">
+            <div class="chat-nm">Nurse Next Door Richmond South</div>
+            <div class="chat-st">Online now</div>
+          </div>
         </div>
-      </div>
-      <div class="chat-msgs" id="chatMsgs">
-        <div class="cmsg bot">Hi there. I'm the virtual assistant for Nurse Next Door Richmond South. How can I help you today?</div>
-      </div>
-      <div class="chat-input-wrap">
-        <input class="chat-in" type="text" id="chatIn" placeholder="Ask about care services..." onkeydown="if(event.key==='Enter')sendChat()"/>
-        <button class="chat-send" onclick="sendChat()">Send</button>
+        <div class="chat-msgs" id="chatMsgs">
+          <div class="cmsg bot">Hi there. I'm the virtual assistant for Nurse Next Door Richmond South. How can I help you today?</div>
+        </div>
+        <div class="chat-foot">
+          <input class="chat-in" type="text" id="chatIn" placeholder="Ask about care services..." onkeydown="if(event.key==='Enter')sendChat()"/>
+          <button class="chat-send" onclick="sendChat()">Send</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
-  <div class="cta-inner">
-    <div class="reveal">
+<section class="section alt">
+  <div class="sec-inner">
+    <div class="cta-wrap rv">
       <div class="cta-pre">One conversation. No commitment.</div>
       <h2 class="cta-title">You left Intact to build<br><em>something real.</em><br>Let's make it run like one.</h2>
-      <p class="cta-body">20 minutes. Lance walks you through the full stack running on a real home care operation — built on the same model as your Richmond South franchise. No slides. No pitch deck. Just the system live.</p>
-      <div class="cta-actions">
-        <a href="mailto:lancesalazar56@gmail.com?subject=Let's connect — Sajid Virani, NND Richmond South" class="btn-primary">Book 20 Minutes →</a>
-        <a href="https://proximitysystems.ca" class="btn-ghost">See Proximity Systems</a>
+      <p class="cta-body">20 minutes. Lance walks you through the full stack running on a real home care operation. No slides. No pitch deck. Just the system live.</p>
+      <div class="cta-btns">
+        <a href="mailto:lancesalazar56@gmail.com?subject=Let's connect — Sajid Virani NND Richmond South" class="btn-primary">Book 20 Minutes →</a>
+        <a href="https://proximitysystems.ca" class="btn-ghost" target="_blank">See Proximity Systems</a>
       </div>
-      <div class="cta-meta">Everything is fully customizable. We get on a call, make it yours, and have it running for you.</div>
+      <div class="cta-meta">Everything is fully customizable. We get on a call, make it yours, and have it running in 7 days.</div>
     </div>
   </div>
 </section>
@@ -474,10 +444,32 @@ a,button,.sys-card,.nav-cta,.btn-primary,.btn-ghost{min-height:44px;display:inli
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-brand">Proximity <span>Systems</span> · Built for regulated service businesses</div>
-  <div class="footer-note">Personal demo prepared for Sajid Virani · Nurse Next Door Richmond South · April 2026</div>
+  <div class="footer-note">Personal demo · Sajid Virani · NND Richmond South · April 2026</div>
 </footer>
 
 <script>
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+setInterval(()=>{rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';},16);
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(200,169,110,0.6)';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(200,169,110,0.4)';});
+});
+
+// CANVAS
+const canvas=document.getElementById('bgCanvas');const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+for(let i=0;i<80;i++)pts.push({x:Math.random()*1920,y:Math.random()*1080,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*.8+.3,a:Math.random()*.12+.04,c:Math.random()>.6?'200,169,110':'61,138,122'});
+function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},${p.a})`;ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<90){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(200,169,110,${.025*(1-d/90)})`;ctx.lineWidth=.4;ctx.stroke();}}requestAnimationFrame(draw);}
+draw();
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
 // HQ COUNT UP
 function countUp(id,target,prefix,duration){
@@ -488,63 +480,37 @@ function countUp(id,target,prefix,duration){
   if(start>=target)clearInterval(t);},duration/60);
 }
 setTimeout(()=>{
-  countUp('hqClients',15,'',1200);
-  countUp('hqVisits',47,'',1400);
-  countUp('hqRevenue',8460,'$',1600);
-  countUp('hqLeads',12,'',1000);
-},800);
-// CURSOR
-const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-setInterval(()=>{rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';},16);
-document.querySelectorAll('a,button,.sys-card').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(200,169,110,0.6)';});el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(200,169,110,0.4)';});});
-
-// CANVAS
-const canvas=document.getElementById('bgCanvas');const ctx=canvas.getContext('2d');
-let W,H,pts=[];
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
-resize();window.addEventListener('resize',resize);
-for(let i=0;i<80;i++)pts.push({x:Math.random()*1920,y:Math.random()*1080,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*.8+.3,a:Math.random()*.15+.04,c:Math.random()>.6?'200,169,110':'61,138,122'});
-function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},${p.a})`;ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<90){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(200,169,110,${.03*(1-d/90)})`;ctx.lineWidth=.4;ctx.stroke();}}requestAnimationFrame(draw);}
-draw();
-
-// REVEAL
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  countUp('hqC',15,'',1000);
+  countUp('hqV',47,'',1200);
+  countUp('hqR',8460,'$',1400);
+  countUp('hqL',12,'',900);
+},600);
 
 // CHATBOT
-const RAILWAY='https://proximity-agent-production.up.railway.app';
-const msgs=[{role:'assistant',content:'Hi there. I\'m the virtual assistant for Nurse Next Door Richmond South. How can I help you today?'}];
-
+const R='https://proximity-agent-production.up.railway.app';
+const msgs=[{role:'assistant',content:"Hi there. I'm the virtual assistant for Nurse Next Door Richmond South. How can I help you today?"}];
 async function sendChat(){
   const inp=document.getElementById('chatIn');const txt=inp.value.trim();
   if(!txt)return;inp.value='';
   const el=document.getElementById('chatMsgs');
   const um=document.createElement('div');um.className='cmsg user';um.textContent=txt;el.appendChild(um);
   msgs.push({role:'user',content:txt});
-  const t=document.createElement('div');t.className='cmsg bot';t.id='ctyping';
+  const t=document.createElement('div');t.className='cmsg bot';t.id='ctyp';
   t.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
   el.appendChild(t);el.scrollTop=el.scrollHeight;
   try{
-    const r=await fetch(`${RAILWAY}/chatbot`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      messages:msgs,
-      operator:{name:'Nurse Next Door Richmond South',owner:'Sajid Virani',location:'Richmond, BC',services:'Non-medical home care and skilled nursing for seniors',phone:'Contact us through this chat',rate:'Competitive rates — contact for details'},
-      system:`You are the AI assistant for Nurse Next Door Richmond South, owned by Sajid and Naureen Virani. You help seniors and their families learn about home care services in Richmond, BC. You are warm, helpful, and knowledgeable about senior care. Answer questions about services, how care works, what to expect, and how to get started. Keep answers brief and conversational. Never discuss specific pricing without directing them to speak with Sajid directly. Always end with an offer to help them take the next step.`
-    })});
+    const r=await fetch(`${R}/chatbot`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs,system:`You are the AI assistant for Nurse Next Door Richmond South, owned by Sajid and Naureen Virani in Richmond, BC. Help seniors and families learn about home care services. Be warm, brief, and helpful. Never discuss specific pricing — direct them to speak with Sajid directly. Always end with an offer to help them take the next step.`})});
     const d=await r.json();
-    document.getElementById('ctyping')?.remove();
-    const bm=document.createElement('div');bm.className='cmsg bot';bm.textContent=d.response||d.message||'Thanks for your message. Sajid will be in touch shortly.';
+    document.getElementById('ctyp')?.remove();
+    const bm=document.createElement('div');bm.className='cmsg bot';bm.textContent=d.response||d.message||'Thanks for reaching out. One of our care coordinators will be in touch shortly.';
     el.appendChild(bm);msgs.push({role:'assistant',content:bm.textContent});
     el.scrollTop=el.scrollHeight;
   }catch(e){
-    document.getElementById('ctyping')?.remove();
+    document.getElementById('ctyp')?.remove();
     const bm=document.createElement('div');bm.className='cmsg bot';bm.textContent='Thanks for reaching out. One of our care coordinators will be in touch shortly.';
     el.appendChild(bm);el.scrollTop=el.scrollHeight;
   }
 }
 </script>
-
-
 </body>
 </html>
