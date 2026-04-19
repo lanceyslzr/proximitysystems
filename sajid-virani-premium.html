@@ -499,7 +499,7 @@ async function sendChat(){
   t.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
   el.appendChild(t);el.scrollTop=el.scrollHeight;
   try{
-    const r=await fetch(`${R}/chatbot`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs,system:`You are the care assistant for Nurse Next Door Richmond South. Sajid and Naureen Virani own and run this location. They have been part of the Richmond community for over a decade and started this because they know firsthand how hard it is for families to find reliable, consistent care for a loved one.
+    const r=await fetch(`${R}/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs,system_override:`You are the care assistant for Nurse Next Door Richmond South. Sajid and Naureen Virani own and run this location. They have been part of the Richmond community for over a decade and started this because they know firsthand how hard it is for families to find reliable, consistent care for a loved one.
 
 You talk like a real person — warm, clear, no corporate language. Short sentences. Plain English. You never make families feel like they are talking to a bot.
 
