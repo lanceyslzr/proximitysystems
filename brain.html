@@ -839,12 +839,32 @@ async function sendCrystal(){
   t.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
   el.appendChild(t); el.scrollTop=el.scrollHeight;
   try{
-    const r=await fetch(`${R}/crystal/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:cMsgs,session_id:cSessionId})});
-    const d=await r.json();
+    const res=await fetch(`${R}/crystal/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:cMsgs,session_id:cSessionId})});
     document.getElementById('ctyping')?.remove();
-    addCMsg('bot',d.response||'No response.'); cMsgs.push({role:'assistant',content:d.response});
+    const msgEl=document.createElement('div'); msgEl.className='cmsg bot'; msgEl.textContent='';
+    el.appendChild(msgEl);
+    const reader=res.body.getReader(); const decoder=new TextDecoder();
+    let fullReply=''; let buffer='';
+    while(true){
+      const {done,value}=await reader.read(); if(done) break;
+      buffer+=decoder.decode(value,{stream:true});
+      const lines=buffer.split('\n'); buffer=lines.pop();
+      for(const line of lines){
+        if(!line.startsWith('data:')) continue;
+        const data=line.slice(5).trim();
+        if(data==='[DONE]') break;
+        try{
+          const parsed=JSON.parse(data);
+          if(parsed.text){ fullReply+=parsed.text; msgEl.textContent=fullReply; el.scrollTop=el.scrollHeight; }
+        } catch(e){}
+      }
+    }
+    cMsgs.push({role:'assistant',content:fullReply});
     document.getElementById('csInfo').textContent=`${Math.floor(cMsgs.length/2)} exchange${Math.floor(cMsgs.length/2)!==1?'s':''} this session`;
-  } catch(e){ document.getElementById('ctyping')?.remove(); addCMsg('bot','Connection failed. Check Railway is running.'); }
+  } catch(e){
+    document.getElementById('ctyping')?.remove();
+    addCMsg('bot','Connection failed. Check Railway is running.');
+  }
 }
 
 function addCMsg(role,txt){ const el=document.getElementById('crystalMsgs'); const d=document.createElement('div'); d.className=`cmsg ${role}`; d.textContent=txt; el.appendChild(d); el.scrollTop=el.scrollHeight; }
