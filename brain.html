@@ -616,9 +616,10 @@ function renderList(){
     :list.map(n=>`<div class="ni ${curNote?.id===n.id?'on':''}" onclick="openById('${n.id}')"><div class="ni-title">${n.pinned?'📌 ':''}${x(n.title)}</div><div class="ni-meta">${n.folder} · ${ago(n.updated_at)}</div></div>`).join('');
 }
 
-async function openById(id){
-  try{ const r=await fetch(`${R}/brain/note/${id}`); const d=await r.json(); curNote=d.note; renderEditor(); renderList(); }
-  catch(e){ toast('Failed to load','err'); }
+function openById(id){
+  const note = notes.find(n => n.id === id);
+  if(note){ curNote=note; renderEditor(); renderList(); }
+  else { toast('Note not found','err'); }
 }
 
 function renderEditor(){
