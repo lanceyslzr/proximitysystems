@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <title>Proximity Systems — Built for Nurse Next Door Operators</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -18,7 +18,7 @@
   --r:10px;--rl:16px;
 }
 html{scroll-behavior:smooth;cursor:none;}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;}
 
 /* CURSOR */
 .cur{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--acc);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.08s;mix-blend-mode:difference;}
@@ -142,7 +142,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
 .cmsg.bot{background:var(--s2);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:3px;}
 .cmsg.user{background:var(--acc-g);border:1px solid var(--border);align-self:flex-end;border-bottom-right-radius:3px;}
 .chat-input-wrap{padding:0.75rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
-.chat-in{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.8rem;color:var(--text);font-family:var(--sans);font-size:0.75rem;outline:none;transition:border-color 0.2s;}
+.chat-in{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.8rem;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s;}
 .chat-in:focus{border-color:var(--acc);}
 .chat-in::placeholder{color:var(--hint);}
 .chat-send{background:var(--acc);border:none;border-radius:8px;padding:0.55rem 1rem;color:var(--bg);font-size:0.72rem;font-weight:500;cursor:none;transition:all 0.2s;font-family:var(--sans);}
@@ -185,14 +185,44 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
   .personal-inner,.chatbot-inner{grid-template-columns:1fr;}
   .gap-grid{grid-template-columns:1fr;}
 }
+
+/* HERO HQ CARD */
+.hq-scroll{display:none;}
+.hero-hq{margin-top:2.5rem;background:var(--s1);border:1px solid var(--border);border-radius:var(--rl);padding:1.2rem 1.4rem;max-width:520px;position:relative;overflow:hidden;}
+.hero-hq::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--acc),transparent);}
+.hq-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.hq-hdr-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);}
+.hq-live-badge{display:flex;align-items:center;gap:4px;font-size:0.58rem;color:#3d8a7a;}
+.hq-live-dot{width:5px;height:5px;border-radius:50%;background:#3d8a7a;animation:pulse 2s infinite;}
+.hq-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:0.9rem;}
+@media(max-width:480px){.hq-stats{grid-template-columns:repeat(2,1fr);}}
+.hq-stat{text-align:center;}
+.hq-stat-val{font-family:var(--mono);font-size:1.15rem;font-weight:500;margin-bottom:0.18rem;}
+.hq-stat-val.acc{color:var(--acc);}
+.hq-stat-val.teal{color:#3d8a7a;}
+.hq-stat-lbl{font-size:0.58rem;color:var(--hint);letter-spacing:0.04em;}
+.hq-note{font-size:0.65rem;color:var(--hint);border-top:1px solid var(--border);padding-top:0.75rem;line-height:1.5;}
 @media(max-width:480px){
   .sys-grid{grid-template-columns:1fr;}
-  .hero-actions{flex-direction:column;align-items:flex-start;}
-  .btn-primary,.btn-ghost{width:100%;text-align:center;}
+  .hero-actions{flex-direction:column;align-items:flex-start;width:100%;}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;justify-content:center;}
   .roi-row{flex-direction:column;align-items:flex-start;gap:4px;}
-  .cta-actions{flex-direction:column;}
-  .cta-actions .btn-primary,.cta-actions .btn-ghost{width:100%;text-align:center;}
+  .cta-actions{flex-direction:column;width:100%;}
+  .cta-actions .btn-primary,.cta-actions .btn-ghost{width:100%;text-align:center;justify-content:center;}
+  .nav-badge{display:none;}
+  .hq-stats{grid-template-columns:repeat(2,1fr);}
+  .gap-grid{grid-template-columns:1fr;}
+  .personal-stats{grid-template-columns:1fr 1fr;}
+  .roi-card{border-radius:10px;}
+  .chatbot-inner{grid-template-columns:1fr;}
 }
+
+/* MOBILE TAP FIXES */
+*{-webkit-tap-highlight-color:transparent;}
+a,button,.sys-card,.nav-cta,.btn-primary,.btn-ghost{min-height:44px;display:inline-flex;align-items:center;justify-content:center;}
+.nav-cta,.btn-primary,.btn-ghost{display:inline-block;line-height:1;}
+.chat-send{min-height:44px;}
+.pin-btn{min-height:44px;}
 </style>
 </head>
 <body>
@@ -227,7 +257,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
       <a href="mailto:lancesalazar56@gmail.com?subject=Let's talk — Proximity Systems" class="btn-primary">Book 20 Minutes with Lance →</a>
       <a href="#systems" class="btn-ghost">See the Systems</a>
     </div>
-    <div class="hero-scroll"><div class="scroll-line"></div>Built for operators like you</div>
+    <div class="hq-scroll"><div class="scroll-line"></div>Built for operators like you</div>
+    <div class="hero-hq">
+      <div class="hq-hdr">
+        <span class="hq-hdr-label">📊 HQ Dashboard</span>
+        <span class="hq-live-badge"><span class="hq-live-dot"></span>Live</span>
+      </div>
+      <div class="hq-stats">
+        <div class="hq-stat"><div class="hq-stat-val acc" id="hqClients">0</div><div class="hq-stat-lbl">Active clients</div></div>
+        <div class="hq-stat"><div class="hq-stat-val" id="hqVisits">0</div><div class="hq-stat-lbl">Visits this month</div></div>
+        <div class="hq-stat"><div class="hq-stat-val teal" id="hqRevenue">$0</div><div class="hq-stat-lbl">Revenue MTD</div></div>
+        <div class="hq-stat"><div class="hq-stat-val" id="hqLeads">0</div><div class="hq-stat-lbl">Leads in pipeline</div></div>
+      </div>
+      <div class="hq-note">Your numbers. Real time. Every client, every visit, every dollar.</div>
+    </div>
   </div>
 </section>
 
@@ -435,6 +478,21 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
 </footer>
 
 <script>
+
+// HQ COUNT UP
+function countUp(id,target,prefix,duration){
+  const el=document.getElementById(id);if(!el)return;
+  let start=0;const step=target/60;
+  const t=setInterval(()=>{start=Math.min(start+step,target);
+  el.textContent=(prefix||'')+Math.floor(start).toLocaleString();
+  if(start>=target)clearInterval(t);},duration/60);
+}
+setTimeout(()=>{
+  countUp('hqClients',15,'',1200);
+  countUp('hqVisits',47,'',1400);
+  countUp('hqRevenue',8460,'$',1600);
+  countUp('hqLeads',12,'',1000);
+},800);
 // CURSOR
 const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -486,5 +544,7 @@ async function sendChat(){
   }
 }
 </script>
+
+
 </body>
 </html>
