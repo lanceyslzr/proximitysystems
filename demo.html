@@ -2,485 +2,384 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Proximity Systems — Interactive Demo</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Poppins:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#07090c;--bg2:#0c1018;--teal:#3d7a8a;--teal2:#5a9aaa;--teal3:#c8dde2;
-  --green:#4a8a5a;--amber:#c8a96e;--red:#8a4a4a;
-  --text:#ddd9d0;--muted:#555550;--border:rgba(255,255,255,0.06);
-  --sw:198px;--cw:264px;
+  --bg:#07090c;--bg2:#0d1117;--bg3:#111820;
+  --teal:#3d7a8a;--teal2:#6ab4c8;--teal3:rgba(61,122,138,0.15);
+  --green:#3fb950;--amber:#e0b96a;--red:#f85149;
+  --text:#f0ece4;--text2:#c8c4bc;--muted:#7a8a98;--faint:#3a4a58;
+  --border:rgba(106,180,200,0.12);--border2:rgba(106,180,200,0.22);
+  --serif:'Cormorant Garamond',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --sw:200px;--cw:280px;
 }
-html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);cursor:none}
-
-/* ── CURSOR ── */
-#cur{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--teal2);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(90,154,170,0.3);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s}
-
-/* ── INTRO ── */
+html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
+#cur{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--teal2);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .06s}
+#cur-r{position:fixed;width:26px;height:26px;border-radius:50%;border:1px solid rgba(106,180,200,0.35);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease}
+@media(hover:none){#cur,#cur-r{display:none}body{cursor:auto}}
 #intro{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--bg)}
 #intro-canvas{position:absolute;inset:0;pointer-events:none}
-.intro-inner{position:relative;z-index:2;text-align:center}
-.intro-logo{font-family:'Lora',serif;font-size:clamp(32px,5vw,64px);letter-spacing:8px;text-transform:uppercase;color:var(--text);opacity:0;transform:translateY(24px)}
+.intro-inner{position:relative;z-index:2;text-align:center;padding:0 24px}
+.intro-logo{font-family:var(--serif);font-size:clamp(36px,6vw,72px);letter-spacing:6px;text-transform:uppercase;color:var(--text);opacity:0;transform:translateY(24px)}
 .intro-logo em{color:var(--teal2);font-style:italic}
-.intro-rule{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--teal2),transparent);margin:20px auto}
-.intro-tagline{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);opacity:0;margin-bottom:40px}
-.intro-btn{opacity:0;background:transparent;border:1px solid rgba(61,122,138,0.4);color:var(--teal2);font-family:'Poppins',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:12px 32px;cursor:none;transition:all .3s;position:relative;overflow:hidden}
-.intro-btn::before{content:'';position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:-1}
-.intro-btn:hover::before{transform:scaleX(1)}
-.intro-btn:hover{color:#fff;border-color:var(--teal)}
-
-/* ── BG CANVAS ── */
+.intro-rule{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--teal2),transparent);margin:18px auto}
+.intro-tagline{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);opacity:0;margin-bottom:36px}
+.intro-btn{opacity:0;background:transparent;border:1px solid rgba(106,180,200,0.4);color:var(--teal2);font-family:var(--sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:14px 36px;cursor:pointer;transition:all .3s;min-height:48px}
+.intro-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
 #bg{position:fixed;inset:0;pointer-events:none;z-index:0}
-
-/* ── APP ── */
-.app{position:relative;z-index:1;display:grid;grid-template-rows:44px 1px 1fr;height:100vh;overflow:hidden;opacity:0;transition:opacity .7s}
+.app{position:relative;z-index:1;display:grid;grid-template-rows:48px 2px 1fr;height:100vh;overflow:hidden;opacity:0;transition:opacity .7s}
 .app.show{opacity:1}
-
-/* ── TOPBAR ── */
-.top{background:rgba(7,9,12,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 18px}
-.brand{font-family:'Lora',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--text)}
+.top{background:rgba(7,9,12,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.brand{font-family:var(--serif);font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--text)}
 .brand em{color:var(--teal2);font-style:italic}
-.top-r{display:flex;align-items:center;gap:14px}
-.live-badge{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:glow 2s infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 6px var(--green)}50%{box-shadow:0 0 12px var(--green)}}
-.top-btn{background:transparent;border:1px solid rgba(61,122,138,0.35);color:var(--teal2);font-family:'Poppins',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;cursor:none;text-decoration:none;transition:all .3s;position:relative;overflow:hidden}
-.top-btn::before{content:'';position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:-1}
-.top-btn:hover::before{transform:scaleX(1)}
-.top-btn:hover{color:#fff;border-color:var(--teal)}
-
-/* ── PROGRESS ── */
-.pgbar{background:rgba(255,255,255,0.04)}
-.pgfill{height:1px;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .5s ease;box-shadow:0 0 8px var(--teal)}
-
-/* ── WORKSPACE ── */
+.top-r{display:flex;align-items:center;gap:12px}
+.live-badge{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:glow 2s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 6px var(--green)}50%{box-shadow:0 0 14px var(--green)}}
+.top-btn{background:var(--teal3);border:1px solid var(--border2);color:var(--teal2);font-family:var(--sans);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;cursor:pointer;text-decoration:none;transition:all .2s;min-height:32px;display:flex;align-items:center}
+.top-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.pgbar{background:rgba(106,180,200,0.06)}
+.pgfill{height:2px;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .5s ease;box-shadow:0 0 8px var(--teal)}
 .ws{display:flex;overflow:hidden;height:100%}
-
-/* ── SIDEBAR ── */
-.sb{width:var(--sw);background:rgba(7,9,12,0.8);backdrop-filter:blur(20px);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
-.sb-label{padding:14px 14px 8px;font-size:7px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.sb{width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.sb-label{padding:14px 16px 8px;font-size:8px;letter-spacing:3px;color:var(--faint);text-transform:uppercase;font-family:var(--mono)}
 .sb-list{flex:1;overflow-y:auto}
 .sb-list::-webkit-scrollbar{width:0}
-.sb-item{width:100%;background:none;border:none;padding:7px 14px;display:flex;align-items:center;gap:7px;cursor:none;border-left:1px solid transparent;transition:all .15s;text-align:left;font-family:'Poppins',sans-serif}
-.sb-item:hover{background:rgba(61,122,138,0.04)}
-.sb-item.on{border-left-color:var(--teal2);background:rgba(61,122,138,0.07)}
-.sb-num{font-size:7px;color:var(--muted);width:13px;font-family:'DM Mono',monospace;flex-shrink:0}
+.sb-item{width:100%;background:none;border:none;padding:9px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-align:left;font-family:var(--sans)}
+.sb-item:hover{background:var(--teal3)}
+.sb-item.on{border-left-color:var(--teal2);background:rgba(106,180,200,0.08)}
+.sb-num{font-size:8px;color:var(--faint);width:14px;font-family:var(--mono);flex-shrink:0}
 .sb-item.on .sb-num{color:var(--teal2)}
-.sb-name{font-size:10px;color:rgba(255,255,255,0.3);flex:1}
-.sb-item.on .sb-name,.sb-item:hover .sb-name{color:rgba(255,255,255,0.85)}
-.sb-dot{width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green);flex-shrink:0}
-.sb-foot{padding:11px 12px;border-top:1px solid var(--border)}
-.sb-stats{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:2px;padding:9px;margin-bottom:9px}
-.sb-slbl{font-size:7px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
-.sb-srow{display:flex;justify-content:space-between;margin-bottom:2px}
-.sb-sk{font-size:9px;color:rgba(255,255,255,0.2)}
-.sb-sv{font-size:9px;color:var(--teal2);font-weight:500}
-.sb-cta{display:block;text-align:center;border:1px solid rgba(61,122,138,0.35);color:var(--teal2);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:7px;text-decoration:none;font-family:'Poppins',sans-serif;transition:all .3s;position:relative;overflow:hidden}
-.sb-cta::before{content:'';position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:-1}
-.sb-cta:hover::before{transform:scaleX(1)}
-.sb-cta:hover{color:#fff}
-
-/* ── MAIN ── */
+.sb-name{font-size:11px;color:var(--muted);flex:1;font-weight:400}
+.sb-item.on .sb-name,.sb-item:hover .sb-name{color:var(--text)}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);flex-shrink:0}
+.sb-foot{padding:12px 14px;border-top:1px solid var(--border)}
+.sb-stats{background:var(--bg3);border:1px solid var(--border);padding:10px 12px;margin-bottom:10px}
+.sb-slbl{font-size:8px;letter-spacing:2px;color:var(--faint);text-transform:uppercase;margin-bottom:7px;font-family:var(--mono)}
+.sb-srow{display:flex;justify-content:space-between;margin-bottom:3px;align-items:center}
+.sb-sk{font-size:10px;color:var(--muted)}
+.sb-sv{font-size:10px;color:var(--teal2);font-weight:500;font-family:var(--mono)}
+.sb-cta{display:block;text-align:center;background:var(--teal3);border:1px solid var(--border2);color:var(--teal2);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px;text-decoration:none;font-family:var(--sans);transition:all .2s}
+.sb-cta:hover{background:var(--teal);color:#fff}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.slides{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column}
+.slides{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column}
 .slides::-webkit-scrollbar{width:3px}
 .slides::-webkit-scrollbar-thumb{background:var(--border)}
-
-/* ── SLIDES ── */
 .slide{display:none}
-.slide.on{display:block;animation:fin .4s ease forwards;flex-shrink:0}
-@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* Overview uses 2-col */
-#s0.on{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:20px;align-items:start;flex-shrink:0}
-
-/* System slides: left content full width, visual below */
-.sys-wrap{display:flex;gap:18px;align-items:flex-start}
+.slide.on{display:block;animation:fin .35s ease forwards;flex-shrink:0}
+@keyframes fin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#s0.on{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px;align-items:start;flex-shrink:0}
+.sys-wrap{display:flex;gap:20px;align-items:flex-start}
 .sys-left{flex:1;min-width:0}
-.sys-right{width:232px;flex-shrink:0}
-
-/* ── TYPOGRAPHY ── */
-.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.ey-line{width:18px;height:1px;background:var(--teal2);box-shadow:0 0 4px var(--teal)}
-.ey-tag{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--teal2)}
-.stitle{font-family:'Lora',serif;font-size:clamp(24px,3vw,40px);font-weight:400;line-height:1.05;color:var(--text);margin-bottom:8px}
+.sys-right{width:240px;flex-shrink:0}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ey-line{width:20px;height:1px;background:var(--teal2)}
+.ey-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal2);font-family:var(--mono)}
+.stitle{font-family:var(--serif);font-size:clamp(26px,3vw,44px);font-weight:300;line-height:1.05;color:var(--text);margin-bottom:10px}
 .stitle em{font-style:italic;color:var(--teal2)}
-.ssub{font-size:11px;line-height:1.8;color:var(--muted);margin-bottom:16px}
-
-/* ── BEFORE / AFTER ── */
-.baf{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:14px}
-.baf-b{background:rgba(255,255,255,0.025);border:1px solid var(--border);padding:12px 14px;border-radius:2px}
-.baf-a{background:rgba(61,122,138,0.08);border:1px solid rgba(61,122,138,0.2);padding:12px 14px;border-radius:2px}
-.baf-lbl{font-size:7px;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace}
-.baf-b .baf-lbl{color:var(--muted)}
+.ssub{font-size:13px;line-height:1.8;color:var(--text2);margin-bottom:18px}
+.baf{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:16px}
+.baf-b{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:14px 16px}
+.baf-a{background:rgba(106,180,200,0.07);border:1px solid var(--border2);padding:14px 16px}
+.baf-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-family:var(--mono)}
+.baf-b .baf-lbl{color:var(--faint)}
 .baf-a .baf-lbl{color:var(--teal2)}
-.baf-txt{font-size:10.5px;line-height:1.6;color:rgba(255,255,255,0.5)}
-.baf-a .baf-txt{color:rgba(255,255,255,0.85)}
-
-/* ── PIPELINE ── */
-.pipe{display:flex;align-items:center;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.baf-txt{font-size:12px;line-height:1.65;color:var(--text2)}
+.baf-a .baf-txt{color:var(--text)}
+.pipe{display:flex;align-items:center;gap:4px;margin-bottom:16px;flex-wrap:wrap}
 .pnode{display:flex;flex-direction:column;align-items:center;gap:4px}
-.pcirc{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .4s;position:relative}
-.pcirc.lit{border-color:var(--teal2);background:rgba(61,122,138,0.15);box-shadow:0 0 16px rgba(61,122,138,0.3)}
-.pcirc.lit::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(90,154,170,0.25);animation:pr 1.5s infinite}
+.pcirc{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .4s;position:relative}
+.pcirc.lit{border-color:var(--teal2);background:var(--teal3);box-shadow:0 0 18px rgba(106,180,200,0.25)}
+.pcirc.lit::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(106,180,200,0.2);animation:pr 1.5s infinite}
 @keyframes pr{0%{transform:scale(1);opacity:.4}100%{transform:scale(1.6);opacity:0}}
-.plbl{font-size:7.5px;color:var(--muted);text-align:center;max-width:52px;line-height:1.3;transition:color .3s}
+.plbl{font-size:8px;color:var(--muted);text-align:center;max-width:54px;line-height:1.3;transition:color .3s}
 .plbl.lit{color:var(--teal2)}
-.pconn{flex:1;height:1px;background:var(--border);position:relative;max-width:32px;margin:0 3px 18px}
-.pbeam{position:absolute;top:-0.5px;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .5s ease;box-shadow:0 0 6px var(--teal)}
-
-/* ── STATS ── */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:14px}
-.stat{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:11px 12px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(61,122,138,0.08),transparent);opacity:0;transition:opacity .3s}
-.stat:hover::before{opacity:1}
-.stat:hover{border-color:rgba(61,122,138,0.25)}
-.sv{font-family:'Lora',serif;font-size:22px;color:var(--teal2);margin-bottom:2px}
-.sl{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-
-/* ── 3D SCENE ── */
-.scene{background:rgba(7,9,12,0.7);border:1px solid var(--border);border-radius:6px;overflow:hidden;position:relative;margin-bottom:12px}
+.pconn{flex:1;height:1px;background:var(--border);position:relative;max-width:32px;margin:0 2px 18px}
+.pbeam{position:absolute;top:-1px;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .5s ease;box-shadow:0 0 6px var(--teal)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:16px}
+.stat{background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--teal3);padding:12px;text-align:center;transition:all .3s}
+.stat:hover{border-top-color:var(--teal2);background:rgba(106,180,200,0.05)}
+.sv{font-family:var(--serif);font-size:24px;color:var(--teal2);margin-bottom:3px;font-weight:300}
+.sl{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.scene{background:var(--bg2);border:1px solid var(--border);overflow:hidden;position:relative;margin-bottom:12px}
 .scene canvas{width:100%!important;display:block;cursor:grab}
 .scene canvas:active{cursor:grabbing}
-.scene-lbl{position:absolute;top:7px;left:9px;font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:2px;display:flex;align-items:center;gap:4px}
-.scene-lbl::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}
-.scene-hint{position:absolute;bottom:6px;right:9px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,0.12);letter-spacing:1px}
-
-/* ── TERMINAL ── */
-.term{background:rgba(5,8,11,0.95);border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.tbar{background:rgba(255,255,255,0.03);padding:8px 11px;display:flex;align-items:center;gap:5px;border-bottom:1px solid var(--border)}
-.tdot{width:8px;height:8px;border-radius:50%}
+.scene-lbl{position:absolute;top:8px;left:10px;font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:2px;display:flex;align-items:center;gap:5px}
+.scene-lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.scene-hint{position:absolute;bottom:7px;right:10px;font-family:var(--mono);font-size:7px;color:var(--faint);letter-spacing:1px}
+.term{background:rgba(4,6,10,0.98);border:1px solid var(--border);overflow:hidden}
+.tbar{background:rgba(255,255,255,0.03);padding:9px 12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border)}
+.tdot{width:9px;height:9px;border-radius:50%}
 .tdot.r{background:#ff5f57}.tdot.y{background:#febc2e}.tdot.g{background:#28c840}
-.ttitle{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-left:4px}
-.tbody{padding:9px}
-.trow{display:flex;align-items:flex-start;gap:7px;padding:7px 9px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:3px;margin-bottom:4px;transition:background .2s}
-.trow:hover{background:rgba(61,122,138,0.05)}
-.ticon{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-.ticon.tl{background:rgba(61,122,138,0.2)}
-.ticon.gn{background:rgba(74,138,90,0.2)}
-.ticon.am{background:rgba(200,169,110,0.15)}
+.ttitle{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:1px;margin-left:4px}
+.tbody{padding:10px}
+.trow{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.025);border:1px solid var(--border);margin-bottom:4px;transition:background .2s}
+.trow:hover{background:rgba(106,180,200,0.06)}
+.ticon{width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ticon.tl{background:rgba(61,122,138,0.25)}
+.ticon.gn{background:rgba(63,185,80,0.2)}
+.ticon.am{background:rgba(224,185,106,0.18)}
 .tcont{flex:1;min-width:0}
-.tlbl{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;text-transform:uppercase}
-.tval{font-size:9px;color:rgba(255,255,255,0.65);line-height:1.35;overflow-wrap:break-word}
-.tbadge{display:inline-block;font-family:'DM Mono',monospace;font-size:7px;padding:1px 5px;border-radius:20px;margin-top:2px;letter-spacing:1px}
-.tbadge.live{background:rgba(74,138,90,0.15);color:#6aaa7a;border:1px solid rgba(74,138,90,0.25)}
-.tbadge.sent{background:rgba(61,122,138,0.15);color:#6aaabb;border:1px solid rgba(61,122,138,0.25)}
-.tbadge.new{background:rgba(200,169,110,0.12);color:var(--amber);border:1px solid rgba(200,169,110,0.22)}
-.tbadge.auto{background:rgba(120,80,160,0.15);color:#aa88dd;border:1px solid rgba(120,80,160,0.22)}
-.tdiv{height:1px;background:var(--border);margin:6px 0}
-.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:6px}
-.tstat{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:7px;text-align:center;border-radius:2px}
-.tsv{font-family:'DM Mono',monospace;font-size:12px;color:var(--teal2);margin-bottom:1px}
-.tsl{font-size:7px;color:var(--muted);letter-spacing:1px}
-.tchat{padding:6px 8px;border-radius:2px;margin-bottom:3px;font-size:9px;line-height:1.4}
-.tchat.b{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);border:1px solid var(--border);border-radius:2px 6px 6px 6px}
-.tchat.u{background:rgba(61,122,138,0.18);color:rgba(255,255,255,0.8);border:1px solid rgba(61,122,138,0.25);border-radius:6px 2px 6px 6px;text-align:right}
-.tclbl{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);margin-bottom:2px;letter-spacing:1px}
-.ttag{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);padding:6px 10px;border-top:1px solid var(--border);display:flex;align-items:center;gap:4px}
-.ttag::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green);flex-shrink:0}
-
-/* ── OVERVIEW WIDGETS ── */
-.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:14px}
-.wcard{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-top:1px solid rgba(61,122,138,0.35);padding:13px 15px;transition:all .3s;position:relative;overflow:hidden}
-.wcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(61,122,138,0.06),transparent);opacity:0;transition:opacity .3s}
-.wcard:hover::before{opacity:1}
-.wcard:hover{transform:translateY(-1px)}
-.wcard h3{font-family:'Lora',serif;font-size:13px;font-weight:400;margin-bottom:5px;color:var(--text)}
-.wcard p{font-size:10.5px;line-height:1.6;color:var(--muted)}
-.roi-box{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:2px;padding:16px 18px;margin-bottom:14px}
-.roi-title{font-family:'Lora',serif;font-size:14px;margin-bottom:12px;color:var(--text)}
-.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
-.roi-field label{display:block;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.roi-field input[type=range]{width:100%;accent-color:var(--teal2);cursor:pointer}
-.roi-v{font-size:10px;font-weight:500;color:var(--teal2)}
-.roi-res{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:2px;overflow:hidden}
-.roi-rb{padding:12px;text-align:center}
-.roi-rv{font-family:'Lora',serif;font-size:20px;color:var(--teal2);margin-bottom:2px}
-.roi-rl{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-
-/* ── GLOBE ── */
-.globe-wrap{background:rgba(5,8,11,0.8);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:10px;position:relative}
-.globe-lbl{position:absolute;top:7px;left:9px;font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:2px;display:flex;align-items:center;gap:4px;z-index:2}
-.globe-lbl::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green)}
+.tlbl{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:3px;text-transform:uppercase}
+.tval{font-size:11px;color:var(--text2);line-height:1.4;overflow-wrap:break-word}
+.tbadge{display:inline-block;font-family:var(--mono);font-size:8px;padding:2px 7px;border-radius:20px;margin-top:3px;letter-spacing:1px}
+.tbadge.live{background:rgba(63,185,80,0.15);color:#6adb8a;border:1px solid rgba(63,185,80,0.25)}
+.tbadge.sent{background:rgba(106,180,200,0.15);color:var(--teal2);border:1px solid rgba(106,180,200,0.25)}
+.tbadge.new{background:rgba(224,185,106,0.15);color:var(--amber);border:1px solid rgba(224,185,106,0.25)}
+.tbadge.auto{background:rgba(160,120,220,0.15);color:#bb99ee;border:1px solid rgba(160,120,220,0.22)}
+.tdiv{height:1px;background:var(--border);margin:7px 0}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:7px}
+.tstat{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px;text-align:center}
+.tsv{font-family:var(--mono);font-size:13px;color:var(--teal2);margin-bottom:2px}
+.tsl{font-size:8px;color:var(--muted);letter-spacing:1px}
+.tchat{padding:7px 10px;margin-bottom:4px;font-size:10px;line-height:1.45}
+.tchat.b{background:rgba(255,255,255,0.04);color:var(--text2);border:1px solid var(--border);border-radius:2px 8px 8px 8px}
+.tchat.u{background:rgba(106,180,200,0.18);color:var(--text);border:1px solid rgba(106,180,200,0.25);border-radius:8px 2px 8px 8px;text-align:right}
+.tclbl{font-family:var(--mono);font-size:8px;color:var(--muted);margin-bottom:3px;letter-spacing:1px}
+.ttag{font-family:var(--mono);font-size:8px;color:var(--muted);padding:7px 12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:5px}
+.ttag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);flex-shrink:0}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:16px}
+.wcard{background:var(--bg3);border:1px solid var(--border);border-top:2px solid rgba(106,180,200,0.3);padding:16px;transition:all .25s}
+.wcard:hover{border-top-color:var(--teal2);background:rgba(106,180,200,0.05)}
+.wcard h3{font-family:var(--serif);font-size:15px;font-weight:400;margin-bottom:6px;color:var(--text)}
+.wcard p{font-size:12px;line-height:1.65;color:var(--text2)}
+.roi-box{background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--teal);padding:18px 20px;margin-bottom:16px}
+.roi-title{font-family:var(--serif);font-size:16px;font-weight:300;margin-bottom:4px;color:var(--text)}
+.roi-desc{font-size:11px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.roi-field label{display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-family:var(--mono)}
+.roi-v{color:var(--teal2);font-weight:500;font-size:10px}
+.roi-field input[type=range]{width:100%;accent-color:var(--teal2);cursor:pointer;height:3px}
+.roi-res{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;overflow:hidden}
+.roi-rb{background:var(--bg2);border:1px solid var(--border);padding:14px 10px;text-align:center}
+.roi-rv{font-family:var(--serif);font-size:22px;color:var(--teal2);margin-bottom:3px;font-weight:300}
+.roi-rl{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.roi-msg{margin-top:10px;font-size:11px;color:var(--teal2);text-align:center;min-height:18px;line-height:1.5}
+.hq-mini{background:var(--bg2);border:1px solid var(--border);padding:12px}
+.hq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:8px}
+.hq-cell{background:var(--bg3);border:1px solid var(--border);padding:10px;text-align:center}
+.hq-val{font-family:var(--mono);font-size:14px;color:var(--teal2);margin-bottom:2px}
+.hq-lbl{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.hq-status{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:8px;color:var(--green);padding:5px 7px}
+.hq-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.globe-wrap{background:var(--bg2);border:1px solid var(--border);overflow:hidden;margin-bottom:10px;position:relative}
+.globe-lbl{position:absolute;top:8px;left:10px;font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:2px;display:flex;align-items:center;gap:5px;z-index:2}
+.globe-lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
 #globe-c{width:100%;display:block;cursor:grab}
 #globe-c:active{cursor:grabbing}
-.hq-mini{background:rgba(5,8,11,0.9);border:1px solid var(--border);border-radius:4px;padding:10px}
-.hq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-bottom:6px}
-.hq-cell{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:8px;text-align:center;border-radius:2px}
-.hq-val{font-family:'DM Mono',monospace;font-size:13px;color:var(--teal2)}
-.hq-lbl{font-size:7px;color:var(--muted);letter-spacing:1px}
-.hq-status{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7px;color:var(--green);padding:4px 6px}
-
-/* ── WEBSITE MOCKUP ── */
-.wmock{background:rgba(5,8,11,0.9);border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.wmbar{background:rgba(255,255,255,0.03);padding:7px 10px;display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--border)}
-.wmdot{width:7px;height:7px;border-radius:50%}
-.wmurl{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);margin-left:4px;letter-spacing:1px}
+.wmock{background:rgba(4,6,10,0.95);border:1px solid var(--border);overflow:hidden}
+.wmbar{background:rgba(255,255,255,0.04);padding:8px 11px;display:flex;align-items:center;gap:5px;border-bottom:1px solid var(--border)}
+.wmdot{width:8px;height:8px;border-radius:50%}
+.wmurl{font-family:var(--mono);font-size:8px;color:var(--muted);margin-left:5px;letter-spacing:1px}
 .wmsite{background:#f8f6f2}
-.wmnav{background:#0d1b2a;padding:6px 10px;display:flex;align-items:center;justify-content:space-between}
-.wmlogo{font-family:'Lora',serif;font-size:8px;color:#fff;letter-spacing:2px;text-transform:uppercase}
-.wmlogo em{color:#5a9aaa;font-style:italic}
-.wmbtn{background:#1d5fa8;color:#fff;font-size:7px;padding:3px 7px;letter-spacing:1px;text-transform:uppercase;font-family:'Poppins',sans-serif;border-radius:1px}
-.wmhero{background:#1d5fa8;padding:12px 10px}
-.wmh1{font-family:'Lora',serif;font-size:11px;color:#fff;line-height:1.2;margin-bottom:4px}
+.wmnav{background:#0d1b2a;padding:7px 10px;display:flex;align-items:center;justify-content:space-between}
+.wmlogo{font-family:var(--serif);font-size:9px;color:#fff;letter-spacing:2px;text-transform:uppercase}
+.wmlogo em{color:#6ab4c8;font-style:italic}
+.wmbtn{background:#1d5fa8;color:#fff;font-size:7px;padding:3px 8px;letter-spacing:1px;text-transform:uppercase;font-family:var(--sans)}
+.wmhero{background:#1d5fa8;padding:13px 10px}
+.wmh1{font-family:var(--serif);font-size:12px;color:#fff;line-height:1.2;margin-bottom:5px}
 .wmh1 em{font-style:italic;color:#c8dde2}
-.wmhsub{font-size:7px;color:rgba(255,255,255,0.6);margin-bottom:7px;line-height:1.4}
-.wmhbtn{background:#fff;color:#1d5fa8;font-size:7px;padding:3px 9px;display:inline-block;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-family:'Poppins',sans-serif;border-radius:1px}
+.wmhsub{font-size:8px;color:rgba(255,255,255,0.65);margin-bottom:8px;line-height:1.4}
+.wmhbtn{background:#fff;color:#1d5fa8;font-size:7px;padding:4px 10px;display:inline-block;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-family:var(--sans)}
 .wmcards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e2ddd4}
-.wmcard{background:#f8f6f2;padding:7px 6px}
-.wmcico{font-size:11px;margin-bottom:2px}
+.wmcard{background:#f8f6f2;padding:7px}
+.wmcico{font-size:12px;margin-bottom:2px}
 .wmcn{font-size:7px;font-weight:600;color:#0d1b2a;margin-bottom:1px}
-.wmcp{font-size:6.5px;color:#7a7a72;line-height:1.3}
-.wmchat{margin:6px 8px;background:#0d1b2a;border-radius:4px;padding:6px 8px}
-.wmclbl{font-size:7px;color:rgba(255,255,255,0.3);margin-bottom:3px;font-family:'DM Mono',monospace;letter-spacing:1px;display:flex;align-items:center;gap:3px}
-.wmcdot{width:4px;height:4px;border-radius:50%;background:var(--green)}
-.wmcmsg{font-size:7px;color:rgba(255,255,255,0.65);line-height:1.35;margin-bottom:3px}
-.wmcrep{font-size:7px;color:#6aaabb}
-.wmfoot{background:#0d1b2a;padding:6px 10px;text-align:center}
-.wmfp{font-size:6.5px;color:rgba(255,255,255,0.18);letter-spacing:1px}
-
-/* ── PRICING ── */
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:16px}
-.pcard{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:18px 14px;transition:all .3s;position:relative;overflow:hidden}
-.pcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(61,122,138,0.06),transparent);opacity:0;transition:opacity .3s}
-.pcard:hover::before,.pcard.ft::before{opacity:1}
-.pcard:hover{transform:translateY(-2px)}
-.pcard.ft{border-color:rgba(61,122,138,0.3)}
-.ptier{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:6px}
-.pname{font-family:'Lora',serif;font-size:15px;color:var(--text);margin-bottom:4px}
-.pprice{font-size:10px;color:var(--muted);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.pprice strong{font-family:'Lora',serif;font-size:18px;color:var(--text);display:block;margin-bottom:1px}
-.pfeat{font-size:9.5px;color:rgba(255,255,255,0.4);padding:3px 0;display:flex;align-items:center;gap:5px}
-.pfeat::before{content:'✓';color:var(--teal2);font-size:8px;flex-shrink:0}
-.fbadge{display:inline-block;background:rgba(61,122,138,0.15);color:var(--teal2);font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-bottom:7px;border:1px solid rgba(61,122,138,0.25)}
-.ctaw{text-align:center;padding:4px 0 24px}
-.ctab{display:inline-block;background:transparent;color:var(--teal2);padding:11px 36px;font-size:9px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(61,122,138,0.4);font-family:'Poppins',sans-serif;transition:all .3s;position:relative;overflow:hidden}
-.ctab::before{content:'';position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:-1}
-.ctab:hover::before{transform:scaleX(1)}
-.ctab:hover{color:#fff;border-color:var(--teal)}
-.ctas{margin-top:7px;font-size:10px;color:var(--muted)}
-
-/* ── BOTTOM NAV ── */
-.botnav{padding:9px 28px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:rgba(7,9,12,0.85);backdrop-filter:blur(10px);flex-shrink:0}
-.botctr{font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.botbtns{display:flex;gap:4px}
-.botbtn{padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:rgba(255,255,255,0.3);cursor:none;font-family:'Poppins',sans-serif;transition:all .2s;position:relative;overflow:hidden}
-.botbtn:hover:not(:disabled){color:var(--text);border-color:rgba(255,255,255,0.2)}
-.botbtn.pri{border-color:rgba(61,122,138,0.4);color:var(--teal2)}
-.botbtn.pri::before{content:'';position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:-1}
-.botbtn.pri:hover::before{transform:scaleX(1)}
-.botbtn.pri:hover{color:#fff;border-color:var(--teal)}
-.botbtn:disabled{opacity:.15;cursor:not-allowed}
-
-/* ── CHAT ── */
-.chat{width:var(--cw);background:rgba(7,9,12,0.75);backdrop-filter:blur(20px);border-left:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
-.chat-head{padding:10px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;flex-shrink:0}
-.chat-av{width:26px;height:26px;background:rgba(61,122,138,0.15);border:1px solid rgba(61,122,138,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-style:italic;font-size:11px;color:var(--teal2);flex-shrink:0}
-.chat-info h4{font-size:11px;color:var(--text);font-weight:400}
-.chat-info p{font-size:8px;color:var(--muted)}
-.chat-on{width:5px;height:5px;background:var(--green);border-radius:50%;margin-left:auto;box-shadow:0 0 5px var(--green)}
-.pro{display:none;background:rgba(61,122,138,0.1);border-bottom:1px solid rgba(61,122,138,0.15);padding:6px 11px;font-size:10px;color:var(--teal2);align-items:center;gap:6px;flex-shrink:0}
+.wmcp{font-size:6px;color:#7a7a72;line-height:1.3}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:18px}
+.pcard{background:var(--bg3);border:1px solid var(--border);padding:20px 16px;transition:all .3s;position:relative}
+.pcard:hover{transform:translateY(-2px);border-color:var(--border2)}
+.pcard.ft{border-color:rgba(106,180,200,0.3);background:rgba(106,180,200,0.04)}
+.ptier{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:7px;font-family:var(--mono)}
+.pname{font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:5px;font-weight:300}
+.pprice{font-size:11px;color:var(--muted);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.pprice strong{font-family:var(--serif);font-size:20px;color:var(--text);display:block;margin-bottom:2px;font-weight:300}
+.pfeat{font-size:11px;color:var(--text2);padding:4px 0;display:flex;align-items:center;gap:6px}
+.pfeat::before{content:'✓';color:var(--teal2);font-size:9px;flex-shrink:0}
+.fbadge{display:inline-block;background:var(--teal3);color:var(--teal2);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:8px;border:1px solid var(--border2)}
+.ctaw{text-align:center;padding:6px 0 28px}
+.ctab{display:inline-block;background:var(--teal3);color:var(--teal2);padding:13px 40px;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:1px solid var(--border2);font-family:var(--sans);transition:all .25s}
+.ctab:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.ctas{margin-top:8px;font-size:11px;color:var(--muted)}
+.botnav{padding:10px 28px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:rgba(7,9,12,0.9);backdrop-filter:blur(10px);flex-shrink:0}
+.botctr{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:var(--mono)}
+.botbtns{display:flex;gap:5px}
+.botbtn{padding:7px 18px;font-size:9px;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .2s}
+.botbtn:hover:not(:disabled){color:var(--text);border-color:var(--border2)}
+.botbtn.pri{border-color:var(--border2);color:var(--teal2);background:var(--teal3)}
+.botbtn.pri:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.botbtn:disabled{opacity:.2;cursor:not-allowed}
+.chat{width:var(--cw);background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.chat-head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.chat-av{width:28px;height:28px;background:var(--teal3);border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-size:12px;color:var(--teal2);flex-shrink:0}
+.chat-info h4{font-size:12px;color:var(--text);font-weight:400}
+.chat-info p{font-size:9px;color:var(--muted)}
+.chat-on{width:6px;height:6px;background:var(--green);border-radius:50%;margin-left:auto;box-shadow:0 0 6px var(--green)}
+.pro{display:none;background:rgba(106,180,200,0.08);border-bottom:1px solid rgba(106,180,200,0.15);padding:7px 12px;font-size:11px;color:var(--teal2);align-items:center;gap:7px;flex-shrink:0}
 .pro.show{display:flex}
-.pro-x{background:none;border:none;color:var(--muted);cursor:none;font-size:13px}
-.msgs{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px}
+.pro-x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;margin-left:auto}
+.msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:7px}
 .msgs::-webkit-scrollbar{width:2px}
 .msgs::-webkit-scrollbar-thumb{background:var(--border)}
-.msg{display:flex;flex-direction:column;max-width:90%}
+.msg{display:flex;flex-direction:column;max-width:92%}
 .msg.b{align-self:flex-start}
 .msg.u{align-self:flex-end}
-.bub{padding:7px 10px;font-size:10.5px;line-height:1.5}
-.msg.b .bub{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:2px 8px 8px 8px;color:rgba(255,255,255,0.7)}
-.msg.u .bub{background:rgba(61,122,138,0.18);border:1px solid rgba(61,122,138,0.25);color:rgba(255,255,255,0.85);border-radius:8px 2px 8px 8px}
-.msgt{font-size:8px;color:var(--muted);margin-top:2px;padding:0 2px}
+.bub{padding:9px 12px;font-size:12px;line-height:1.55}
+.msg.b .bub{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:2px 10px 10px 10px;color:var(--text2)}
+.msg.u .bub{background:rgba(106,180,200,0.18);border:1px solid rgba(106,180,200,0.25);color:var(--text);border-radius:10px 2px 10px 10px}
+.msgt{font-size:9px;color:var(--faint);margin-top:3px;padding:0 3px}
 .msg.u .msgt{text-align:right}
-.typing{display:none;align-self:flex-start;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:7px 10px;border-radius:2px 8px 8px 8px}
-.typing.show{display:flex;gap:3px;align-items:center}
-.tyd{width:4px;height:4px;background:var(--muted);border-radius:50%;animation:tyb 1.2s infinite}
+.typing{display:none;align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:9px 12px;border-radius:2px 10px 10px 10px}
+.typing.show{display:flex;gap:4px;align-items:center}
+.tyd{width:5px;height:5px;background:var(--muted);border-radius:50%;animation:tyb 1.2s infinite}
 .tyd:nth-child(2){animation-delay:.2s}.tyd:nth-child(3){animation-delay:.4s}
-@keyframes tyb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
-.chips{padding:6px 9px;display:flex;flex-wrap:wrap;gap:3px;border-top:1px solid var(--border);flex-shrink:0}
-.chip{font-size:9px;padding:3px 8px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:20px;cursor:none;color:rgba(255,255,255,0.35);font-family:'Poppins',sans-serif;transition:all .2s}
-.chip:hover{background:rgba(61,122,138,0.1);color:var(--teal2);border-color:rgba(61,122,138,0.3)}
-.chat-inp-row{padding:7px 9px;border-top:1px solid var(--border);display:flex;gap:5px;flex-shrink:0}
-.chat-inp{flex:1;border:1px solid var(--border);border-radius:13px;padding:6px 11px;font-size:10.5px;font-family:'Poppins',sans-serif;outline:none;background:rgba(255,255,255,0.02);color:var(--text);resize:none;max-height:56px;transition:border-color .2s}
-.chat-inp:focus{border-color:rgba(61,122,138,0.4)}
-.chat-inp::placeholder{color:var(--muted)}
-.chat-send{width:28px;height:28px;background:rgba(61,122,138,0.15);border:1px solid rgba(61,122,138,0.3);border-radius:50%;color:var(--teal2);font-size:12px;cursor:none;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;align-self:flex-end}
+@keyframes tyb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.chips{padding:7px 10px;display:flex;flex-wrap:wrap;gap:4px;border-top:1px solid var(--border);flex-shrink:0}
+.chip{font-size:10px;padding:5px 10px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:20px;cursor:pointer;color:var(--muted);font-family:var(--sans);transition:all .2s;min-height:32px;display:flex;align-items:center}
+.chip:hover{background:var(--teal3);color:var(--teal2);border-color:var(--border2)}
+.chat-inp-row{padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:6px;flex-shrink:0}
+.chat-inp{flex:1;border:1px solid var(--border);border-radius:14px;padding:8px 13px;font-size:16px;font-family:var(--sans);outline:none;background:rgba(255,255,255,0.03);color:var(--text);resize:none;max-height:56px;transition:border-color .2s}
+.chat-inp:focus{border-color:var(--border2)}
+.chat-inp::placeholder{color:var(--faint)}
+.chat-send{width:32px;height:32px;background:var(--teal3);border:1px solid var(--border2);border-radius:50%;color:var(--teal2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;align-self:flex-end;min-height:32px}
 .chat-send:hover{background:var(--teal);color:#fff}
 .chat-send:disabled{opacity:.3}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  body{cursor:auto!important}
-  #cur,#cur-r,.cur,.cur-ring{display:none!important}
+  html,body{overflow:auto}
+  body{cursor:auto}
+  #cur,#cur-r{display:none!important}
   #bg,#globe-c,.scene canvas,canvas[id^="sc"]{display:none!important}
   .globe-wrap{display:none!important}
   .scene{display:none!important}
-
-  /* Mobile nav bar */
-  .top{position:fixed!important;top:0;left:0;right:0;z-index:600;height:52px;padding:0 1rem;background:rgba(7,9,12,0.95);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between}
-  .top .brand{font-size:13px}
+  .top{position:fixed!important;top:0;left:0;right:0;z-index:600;height:52px;padding:0 16px;background:rgba(7,9,12,0.98)}
+  .top .brand{font-size:14px}
   .live-badge{display:none}
-  .top-btn{padding:8px 16px;font-size:9px}
-
-  /* Hide sidebar and chat */
+  .top-btn{padding:9px 16px;font-size:10px;min-height:36px}
+  .pgbar{position:fixed;top:52px;left:0;right:0;z-index:599}
   .sb{display:none!important}
   .chat{display:none;position:fixed;inset:0;z-index:700;width:100%!important;background:var(--bg);flex-direction:column}
   .chat.mob-open{display:flex!important}
-  .chat-head{padding:14px 1rem;position:relative}
-  .chat .mob-close{position:absolute;top:14px;right:1rem;background:none;border:1px solid var(--border);color:var(--text);width:32px;height:32px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-  .chips{display:grid!important;grid-template-columns:1fr 1fr;gap:6px;padding:8px 1rem}
-  .chip{text-align:center;font-size:11px;padding:10px 8px;min-height:44px;display:flex;align-items:center;justify-content:center}
-  .chat-inp-row{padding:10px 1rem;position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border)}
-  .msgs{padding:1rem}
-
-  /* Progress bar */
-  .pgbar{position:fixed;top:52px;left:0;right:0;z-index:599}
-
-  /* App layout */
-  .app{display:flex!important;flex-direction:column;grid-template-columns:1fr!important;grid-template-rows:auto!important;min-height:100vh;padding-top:53px}
-  .ws{flex-direction:column!important;overflow:visible}
-  .main{width:100%!important;overflow:visible}
-  .slides{padding:0!important;overflow:visible!important;height:auto!important}
-
-  /* Slide layout */
-  .slide.on{display:block!important;padding:1.5rem!important;animation:none!important}
-  #s0{display:flex!important;flex-direction:column!important;grid-template-columns:1fr!important;gap:2rem}
-  #s0>div:nth-child(2){order:-1}
-
-  /* Overview */
-  .wgrid{grid-template-columns:1fr!important;gap:12px}
-  .wcard{padding:1rem}
-  .hq-mini{display:block!important;margin-bottom:1.5rem}
+  .chat-head{padding:16px;position:relative}
+  .chat .mob-close{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .chips{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;padding:10px 16px}
+  .chip{text-align:center;font-size:12px;padding:12px 8px;min-height:44px;justify-content:center}
+  .chat-inp-row{padding:12px 16px;position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border)}
+  .msgs{padding:16px}
+  .app{display:block!important;grid-template-rows:none!important;min-height:100vh;padding-top:56px}
+  .ws{display:block!important;overflow:visible}
+  .main{width:100%!important;overflow:visible;display:block}
+  .slides{padding:0!important;overflow:visible!important;height:auto!important;display:block}
+  .slide.on{display:block!important;padding:20px 16px!important;animation:none!important;padding-bottom:80px!important}
+  #s0{display:flex!important;flex-direction:column!important;gap:0!important}
+  #s0>div:nth-child(2){order:-1;margin-bottom:4px}
+  .wgrid{grid-template-columns:1fr!important;gap:8px}
+  .wcard{padding:14px}
+  .hq-mini{display:block!important;margin-bottom:16px}
   .hq-grid{grid-template-columns:1fr 1fr}
   .hq-cell{padding:12px}
-  .roi-box{padding:1.2rem}
-  .roi-grid{grid-template-columns:1fr!important}
-  .roi-res{grid-template-columns:1fr!important;gap:8px}
+  .roi-box{padding:14px}
+  .roi-grid{grid-template-columns:1fr!important;gap:10px}
+  .roi-res{grid-template-columns:1fr!important;gap:6px}
   .roi-rb{padding:12px}
-
-  /* Titles */
-  .stitle{font-size:clamp(1.6rem,7vw,2.2rem)!important;margin-bottom:1rem}
-  .ssub{font-size:0.85rem;margin-bottom:1.5rem}
-  .eyebrow{margin-bottom:12px}
-
-  /* System slides */
-  .sys-wrap{display:flex!important;flex-direction:column!important;gap:1.5rem}
+  .stitle{font-size:clamp(1.7rem,7vw,2.4rem)!important;margin-bottom:12px}
+  .ssub{font-size:0.9rem;margin-bottom:16px}
+  .sys-wrap{display:flex!important;flex-direction:column!important;gap:16px}
   .sys-left{width:100%!important}
-  .sys-right{width:100%!important;display:flex;flex-direction:column;gap:1rem}
-  .baf{grid-template-columns:1fr!important;gap:10px}
-  .baf-b,.baf-a{padding:1rem}
+  .sys-right{width:100%!important}
+  .baf{grid-template-columns:1fr!important;gap:8px}
+  .baf-b,.baf-a{padding:12px}
+  .baf-txt{font-size:13px}
   .pipe{flex-direction:row;flex-wrap:wrap;gap:6px;justify-content:center}
-  .pconn{width:20px!important;height:2px!important}
+  .pconn{width:18px!important;height:2px!important}
   .pbeam{width:100%!important;height:100%!important}
-  .stats{grid-template-columns:1fr!important;gap:8px}
+  .stats{grid-template-columns:1fr 1fr!important;gap:6px}
   .stat{padding:12px}
-
-  /* Terminal */
-  .term{border-radius:6px;overflow:hidden}
-  .tbody{max-height:200px;overflow-y:auto}
-  .tgrid{grid-template-columns:1fr!important}
-
-  /* Website mockup */
-  .wmock{border-radius:6px;overflow:hidden}
-  .wmcards{grid-template-columns:1fr!important}
-  .wmhero{padding:12px}
-  .wmh1{font-size:12px}
-
-  /* Pricing */
-  #s10 .pgrid{grid-template-columns:1fr!important;gap:12px}
-  .pcard{padding:1.2rem}
-  .ctaw{padding:0 0 2rem}
-  .ctab{display:block;width:100%;text-align:center;padding:16px;font-size:11px}
-
-  /* Bottom nav */
-  .botnav{position:fixed;bottom:0;left:0;right:0;z-index:500;background:rgba(7,9,12,0.95);backdrop-filter:blur(12px);padding:10px 1rem;display:flex;align-items:center;justify-content:space-between}
-  .botbtn{min-height:44px;min-width:44px;padding:10px 20px;font-size:11px}
-  .botctr{font-size:11px}
-  .main{padding-bottom:64px}
-
-  /* Intro */
-  #intro{padding:2rem 1.5rem}
-  #intro-canvas{opacity:0.3}
-  .intro-logo{font-size:clamp(2rem,10vw,3.5rem)!important}
-  .intro-tagline{font-size:12px!important}
-  .intro-btn{width:100%;padding:16px;font-size:11px;min-height:48px}
-
-  /* Chat toggle button */
-  .mob-chat-btn{display:flex!important;position:fixed;bottom:74px;right:1rem;z-index:500;width:48px;height:48px;border-radius:50%;background:var(--teal);border:none;color:#fff;font-size:18px;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.3);cursor:pointer}
+  .sv{font-size:20px}
+  .tbody{max-height:none;overflow-y:visible}
+  .tval{font-size:12px}
+  .tgrid{grid-template-columns:1fr 1fr!important}
+  .pgrid{grid-template-columns:1fr!important;gap:10px}
+  .pcard{padding:16px}
+  .ctaw{padding:0 0 24px}
+  .ctab{display:block;width:100%;text-align:center;padding:16px;font-size:12px}
+  .botnav{position:fixed!important;bottom:0;left:0;right:0;z-index:500;background:rgba(7,9,12,0.98);backdrop-filter:blur(12px);padding:10px 16px 16px;display:flex!important;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+  .botbtn{min-height:44px;padding:10px 20px;font-size:12px;cursor:pointer;background:var(--teal3);border:1px solid var(--border2);color:var(--teal2)}
+  .botbtn:disabled{opacity:0.25}
+  .botctr{font-size:11px;color:var(--text2);font-family:var(--mono);text-align:center;flex:1;padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:0}
+  .botbtns{display:none}
+  #intro{padding:24px 20px}
+  .intro-logo{font-size:clamp(2rem,11vw,3rem)!important;letter-spacing:4px}
+  .intro-tagline{font-size:11px!important}
+  .intro-btn{width:100%;padding:18px;font-size:12px;min-height:52px}
+  .mob-chat-btn{display:flex!important;position:fixed;bottom:72px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--teal);border:none;color:#fff;font-size:20px;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(61,122,138,0.45);cursor:pointer}
 }
 @media(min-width:769px){
   .mob-chat-btn{display:none!important}
   .mob-close{display:none!important}
+  .botnav{display:flex}
 }
 </style>
 </head>
 <body>
-
-<!-- CURSOR -->
 <div id="cur"></div>
 <div id="cur-r"></div>
 
-<!-- INTRO -->
 <div id="intro">
   <canvas id="intro-canvas"></canvas>
   <div class="intro-inner">
     <div class="intro-logo" id="ilogo">Proximity <em>Systems</em></div>
     <div class="intro-rule" id="irule"></div>
-    <div class="intro-tagline" id="itagline">Home Care · Automated · Live</div>
+    <div class="intro-tagline" id="itagline">Home Care · Automated · Running Live</div>
     <button class="intro-btn" id="ibtn" onclick="enterDemo()">Enter Demo →</button>
   </div>
 </div>
 
-<!-- BG PARTICLES -->
 <canvas id="bg"></canvas>
 
-<!-- APP -->
 <div class="app" id="app">
   <div class="top">
     <div class="brand">Proximity <em>Systems</em></div>
     <div class="top-r">
-      <div class="live-badge"><div class="live-dot"></div>Live Agency · Mississauga ON</div>
-      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="top-btn">Book Free Call</a>
+      <div class="live-badge"><div class="live-dot"></div>Live · Mississauga ON</div>
+      <a href="https://proximitysystems.ca" target="_blank" class="top-btn">Get Started</a>
     </div>
   </div>
   <div class="pgbar"><div class="pgfill" id="pgf" style="width:9.09%"></div></div>
   <div class="ws">
 
-    <!-- SIDEBAR -->
     <div class="sb">
       <div class="sb-label">10 Systems · All Live</div>
       <div class="sb-list">
         <button class="sb-item on" onclick="go(0)"><span class="sb-num">—</span><span class="sb-name">Overview</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(1)"><span class="sb-num">01</span><span class="sb-name">PSW Visit Log</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(2)"><span class="sb-num">02</span><span class="sb-name">Invoice Generator</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(1)"><span class="sb-num">01</span><span class="sb-name">Visit Logging</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(2)"><span class="sb-num">02</span><span class="sb-name">Billing & Invoices</span><span class="sb-dot"></span></button>
         <button class="sb-item" onclick="go(3)"><span class="sb-num">03</span><span class="sb-name">Lead Capture</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(4)"><span class="sb-num">04</span><span class="sb-name">Family Comms Engine</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(5)"><span class="sb-num">05</span><span class="sb-name">Operator Chatbot</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(6)"><span class="sb-num">06</span><span class="sb-name">Family Chatbot</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(7)"><span class="sb-num">07</span><span class="sb-name">Family Lead Form</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(8)"><span class="sb-num">08</span><span class="sb-name">Care Summaries</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(9)"><span class="sb-num">09</span><span class="sb-name">Website (Add-on)</span><span class="sb-dot"></span></button>
-        <button class="sb-item" onclick="go(10)"><span class="sb-num">10</span><span class="sb-name">Client Portal</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(4)"><span class="sb-num">04</span><span class="sb-name">Follow-Up Engine</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(5)"><span class="sb-num">05</span><span class="sb-name">PSW Management</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(6)"><span class="sb-num">06</span><span class="sb-name">AI Chatbot</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(7)"><span class="sb-num">07</span><span class="sb-name">Client Onboarding</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(8)"><span class="sb-num">08</span><span class="sb-name">Family Portal</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(9)"><span class="sb-num">09</span><span class="sb-name">HQ Dashboard</span><span class="sb-dot"></span></button>
+        <button class="sb-item" onclick="go(10)"><span class="sb-num">10</span><span class="sb-name">Shift Scheduling</span><span class="sb-dot"></span></button>
         <button class="sb-item" onclick="go(11)"><span class="sb-num">—</span><span class="sb-name">Pricing & Next Steps</span><span class="sb-dot"></span></button>
       </div>
       <div class="sb-foot">
         <div class="sb-stats">
           <div class="sb-slbl">Live Agency Numbers</div>
-          <div class="sb-srow"><span class="sb-sk">Hours saved</span><span class="sb-sv">15 / month</span></div>
+          <div class="sb-srow"><span class="sb-sk">PSWs active</span><span class="sb-sv">12</span></div>
           <div class="sb-srow"><span class="sb-sk">Lead response</span><span class="sb-sv">&lt; 1 min</span></div>
-          <div class="sb-srow"><span class="sb-sk">Invoiced live</span><span class="sb-sv">$2,761</span></div>
+          <div class="sb-srow"><span class="sb-sk">Systems live</span><span class="sb-sv">10 of 10</span></div>
         </div>
-        <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="sb-cta">Book Free Discovery Call</a>
+        <a href="https://proximitysystems.ca" target="_blank" class="sb-cta">Get Started Today</a>
       </div>
     </div>
 
-    <!-- SLIDES -->
     <div class="main">
       <div class="slides" id="slides">
 
@@ -491,28 +390,46 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
             <h1 class="stitle">10 systems.<br><em>Zero admin.</em></h1>
             <p class="ssub">Running live on a real home care agency in Mississauga right now. Real numbers. The actual thing.</p>
             <div class="wgrid">
-              <div class="wcard"><h3>What is this?</h3><p>We build automation systems for home care agencies. You pay once to set it up. Everything runs by itself after that.</p></div>
-              <div class="wcard"><h3>What do you get?</h3><p>15 hours back every month. Every lead in under 60 seconds. Invoices that go out on their own. No more chasing PSWs.</p></div>
-              <div class="wcard"><h3>Who built it?</h3><p>Lance Salazar — runs Proximity Care in Mississauga. Built it for his own agency first, then started installing it for other operators.</p></div>
-              <div class="wcard"><h3>Is it customized?</h3><p>Everything. Your agency name, branding, PSW names, clients. Nothing is generic. Built specifically for your operation.</p></div>
+              <div class="wcard">
+                <h3>What is this?</h3>
+                <p>We build the full back office for home care agencies. One system handles visits, billing, leads, follow-ups, staff management, family portal, and everything in between.</p>
+              </div>
+              <div class="wcard">
+                <h3>Is it customized?</h3>
+                <p>Everything. Your agency name, branding, PSW names, clients, chatbot persona. Nothing generic. Built specifically for how your operation runs.</p>
+              </div>
+              <div class="wcard" style="border-top-color:var(--teal2)">
+                <h3 style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-family:var(--mono)">Visits logged · Live</h3>
+                <div style="font-family:var(--serif);font-size:40px;color:var(--teal2);line-height:1;font-weight:300" id="cntVisits">0</div>
+                <p style="margin-top:6px">Real shifts from PSW forms in Mississauga. Not demo data.</p>
+              </div>
+              <div class="wcard" style="border-top-color:var(--amber)">
+                <h3 style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-family:var(--mono)">Leads captured · Month</h3>
+                <div style="font-family:var(--serif);font-size:40px;color:var(--amber);line-height:1;font-weight:300" id="cntLeads">0</div>
+                <p style="margin-top:6px">Families who reached out this month. All auto-captured, all followed up.</p>
+              </div>
             </div>
             <div class="roi-box">
-              <div class="roi-title">How much could you save?</div>
+              <div class="roi-title">What are you currently paying?</div>
+              <p class="roi-desc">Enter your current tool costs and see exactly what you save by switching to one system.</p>
               <div class="roi-grid">
-                <div class="roi-field"><label>Admin hours per week <span class="roi-v" id="rH">10 hrs</span></label><input type="range" min="2" max="30" value="10" step="1" oninput="calcRoi()" id="rHi"></div>
-                <div class="roi-field"><label>Your hourly value <span class="roi-v" id="rR">$40/hr</span></label><input type="range" min="20" max="120" value="40" step="5" oninput="calcRoi()" id="rRi"></div>
+                <div class="roi-field"><label>Keap / CRM <span class="roi-v" id="rKeap">$249/mo</span></label><input type="range" min="0" max="500" value="249" step="1" oninput="calcRoi()" id="rKeapI"></div>
+                <div class="roi-field"><label>Memberium / Portal <span class="roi-v" id="rMem">$77/mo</span></label><input type="range" min="0" max="200" value="77" step="1" oninput="calcRoi()" id="rMemI"></div>
+                <div class="roi-field"><label>Hosting / WordPress <span class="roi-v" id="rHost">$30/mo</span></label><input type="range" min="0" max="100" value="30" step="1" oninput="calcRoi()" id="rHostI"></div>
+                <div class="roi-field"><label>Other tools <span class="roi-v" id="rOther">$0/mo</span></label><input type="range" min="0" max="300" value="0" step="1" oninput="calcRoi()" id="rOtherI"></div>
               </div>
               <div class="roi-res">
-                <div class="roi-rb"><div class="roi-rv" id="roiH">40</div><div class="roi-rl">Hours saved / mo</div></div>
-                <div class="roi-rb"><div class="roi-rv" id="roiV">$1,600</div><div class="roi-rl">Money recovered / mo</div></div>
-                <div class="roi-rb"><div class="roi-rv" id="roiP">2mo</div><div class="roi-rl">Pays for itself in</div></div>
+                <div class="roi-rb"><div class="roi-rv" id="roiCurrent" style="color:#f87a7a">$356</div><div class="roi-rl">You pay now / mo</div></div>
+                <div class="roi-rb"><div class="roi-rv" id="roiNew" style="color:var(--teal2)">$500</div><div class="roi-rl">Proximity Systems</div></div>
+                <div class="roi-rb"><div class="roi-rv" id="roiSave">$856</div><div class="roi-rl">Saved year one</div></div>
               </div>
+              <div class="roi-msg" id="roiMsg">You save $856 in year one and get 4 systems you never had. Month 2 you are cash flow positive.</div>
             </div>
           </div>
           <div>
             <div class="globe-wrap">
               <div class="globe-lbl">10 Systems · Live Network</div>
-              <canvas id="globe-c" height="230"></canvas>
+              <canvas id="globe-c" height="220"></canvas>
             </div>
             <div class="hq-mini">
               <div class="hq-grid">
@@ -526,7 +443,6 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
           </div>
         </div>
 
-        <!-- SYSTEM SLIDES 1-9: built by JS -->
         <div class="slide" id="s1"></div>
         <div class="slide" id="s2"></div>
         <div class="slide" id="s3"></div>
@@ -545,41 +461,58 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
           <p class="ssub">One setup fee. One monthly retainer. No tech work on your end. No long contracts. Everything built specifically for your agency.</p>
           <div class="pgrid">
             <div class="pcard">
-              <div class="ptier">Automation Only</div><div class="pname">Core Systems</div>
+              <div class="ptier">Automation Only</div>
+              <div class="pname">Core Systems</div>
               <div class="pprice"><strong>$2,000–2,500</strong>setup + $500/mo</div>
-              <div class="pfeat">PSW Visit Log</div><div class="pfeat">Invoice Generator</div><div class="pfeat">Lead Capture System</div><div class="pfeat">Family Communications Engine</div><div class="pfeat">Family Lead Form</div><div class="pfeat">Care Summaries</div>
+              <div class="pfeat">Visit logging and PSW management</div>
+              <div class="pfeat">Billing and invoice generator</div>
+              <div class="pfeat">Lead capture and chatbot</div>
+              <div class="pfeat">Follow-up engine Day 1, 3, 7</div>
+              <div class="pfeat">Client onboarding sequence</div>
+              <div class="pfeat">Family portal with PIN entry</div>
             </div>
             <div class="pcard ft">
-              <div class="fbadge">Most Popular</div><div class="ptier">Automation + Website</div><div class="pname">Full Stack</div>
+              <div class="fbadge">Most Popular</div>
+              <div class="ptier">Automation + Website</div>
+              <div class="pname">Full Stack</div>
               <div class="pprice"><strong>$2,800–3,200</strong>setup + $500/mo</div>
-              <div class="pfeat">Everything in Core</div><div class="pfeat">Custom agency website</div><div class="pfeat">Family chatbot built in</div><div class="pfeat">Operator chatbot</div><div class="pfeat">All systems connected</div><div class="pfeat">$0/mo hosting forever</div>
+              <div class="pfeat">Everything in Core Systems</div>
+              <div class="pfeat">Custom agency website built for you</div>
+              <div class="pfeat">Family chatbot wired in</div>
+              <div class="pfeat">Operator chatbot on your site</div>
+              <div class="pfeat">HQ dashboard for your whole operation</div>
+              <div class="pfeat">$0/mo hosting forever on GitHub Pages</div>
             </div>
             <div class="pcard">
-              <div class="ptier">Growth Package</div><div class="pname">Scale</div>
+              <div class="ptier">Growth Package</div>
+              <div class="pname">Scale</div>
               <div class="pprice"><strong>$3,500+</strong>setup + $750/mo</div>
-              <div class="pfeat">Everything in Full Stack</div><div class="pfeat">Priority support</div><div class="pfeat">Monthly strategy call</div><div class="pfeat">Custom additions</div><div class="pfeat">Philippines-ready setup</div><div class="pfeat">Ongoing optimization</div>
+              <div class="pfeat">Everything in Full Stack</div>
+              <div class="pfeat">Priority support and response</div>
+              <div class="pfeat">Monthly strategy call with Lance</div>
+              <div class="pfeat">Custom feature additions each month</div>
+              <div class="pfeat">Multi-location franchise setup</div>
+              <div class="pfeat">Philippines-ready configuration</div>
             </div>
           </div>
           <div class="ctaw">
-            <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="ctab">Book Your Free 30-Minute Call →</a>
+            <a href="https://proximitysystems.ca" target="_blank" class="ctab">Get Started at proximitysystems.ca →</a>
             <p class="ctas">No pitch. No pressure. We walk through your setup and show you exactly what this looks like for your agency.</p>
           </div>
         </div>
 
-      </div><!-- slides -->
+      </div>
       <div class="botnav">
-        <div class="botctr" id="ctr">1 of 11</div>
+        <div class="botctr" id="ctr">Overview</div>
         <div class="botbtns">
           <button class="botbtn" id="prevbtn" onclick="nav(-1)" disabled>← Prev</button>
           <button class="botbtn pri" id="nextbtn" onclick="nav(1)">Next →</button>
         </div>
       </div>
-    </div><!-- main -->
+    </div>
 
-    <!-- MOBILE CHAT TOGGLE -->
     <button class="mob-chat-btn" onclick="document.querySelector('.chat').classList.add('mob-open')">💬</button>
 
-    <!-- CHAT -->
     <div class="chat">
       <div class="chat-head">
         <div class="chat-av">P</div>
@@ -588,7 +521,7 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
         <button class="mob-close" onclick="document.querySelector('.chat').classList.remove('mob-open')">✕</button>
       </div>
       <div class="pro" id="pro">
-        <span class="pro-text">Been here a while — want me to find the right package?</span>
+        <span>Been here a while — want me to find the right package?</span>
         <button class="pro-x" onclick="document.getElementById('pro').classList.remove('show')">×</button>
       </div>
       <div class="msgs" id="msgs">
@@ -602,518 +535,123 @@ html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;backgroun
       </div>
     </div>
 
-  </div><!-- ws -->
-</div><!-- app -->
+  </div>
+</div>
 
 <script>
-// ═══════════════════════════════════════════
-// SYSTEM DATA
-// ═══════════════════════════════════════════
-const SYSTEMS = [
-  null, // 0 = overview
-  {
-    num:'01',title:'PSW <em>Visit Log</em>',
-    sub:'PSWs fill a quick form on their phone after each visit. Hours go into your sheet automatically. Nobody texts you anything ever again.',
-    before:'PSWs text you hours. You type them into a spreadsheet. You make mistakes. You chase people every week. Hours of work that should take zero minutes.',
-    after:'PSW fills the form. Hits submit. Done. Hours are in your sheet in seconds. You get a confirmation email. Nobody does anything manually.',
-    pipe:['📱|PSW fills form','⚡|Webhook fires','📊|Sheet updated','📧|You notified'],
-    stats:['5.5hrs|Saved monthly','0|Manual entries','Live|Running now'],
-    color:0x4a8a6a, sceneType:'form',
-    termTitle:'PSW VISIT LOG · LIVE',
-    termRows:[
-      {icon:'gn',emoji:'📋',lbl:'New Visit Logged',val:'Jennifer Nguyen · Dementia Care\n8hrs · Full Day · Apr 11 2026',badge:'live',bdgTxt:'AUTO-LOGGED'},
-      {icon:'tl',emoji:'📊',lbl:'Sheet Updated',val:'PSW Timesheets Tab · Row 47\nHours, Rate, Invoice Total',badge:'sent',bdgTxt:'WRITTEN'},
-      {icon:'am',emoji:'📧',lbl:'You Got Notified',val:'healthcareproximity@gmail.com\n8hrs · $176.00 · Confirmed',badge:'sent',bdgTxt:'DELIVERED'},
-    ],
-    termStats:['16|Visits','125h|Logged','4|PSWs'],
-    termTag:'Running on Proximity Care · Mississauga'
-  },
-  {
-    num:'02',title:'Invoice <em>Generator</em>',
-    sub:'Invoices go out to your clients automatically on the last Friday of every month. Math done for you. You never build one by hand again.',
-    before:'3 to 5 hours every month. Copy hours. Check math. Send. Chase payment. Same thing every month forever.',
-    after:'Hours from your PSW log go straight into the invoice. It calculates everything. Sends itself last Friday of every month. You don\'t touch it.',
-    pipe:['📊|Hours in sheet','🔄|Auto-calculated','📄|Invoice built','📧|Sent last Friday'],
-    stats:['4hrs|Saved monthly','$0|Billing mistakes','Auto|Every month'],
-    color:0x8a7a3a, sceneType:'invoice',
-    termTitle:'INVOICE GENERATOR · APR 2026',
-    termRows:[
-      {icon:'tl',emoji:'🏠',lbl:'Client · Standard Care',val:'Harbinger Bhangu · Brampton\n40hrs · $25/hr rate',badge:null},
-      {icon:'gn',emoji:'💰',lbl:'Invoice Total',val:'$1,000.00',badge:'auto',bdgTxt:'AUTO-GENERATED'},
-      {icon:'am',emoji:'📧',lbl:'Sent Automatically',val:'Last Friday · Apr 25 2026\nHTML email · Zero manual work',badge:'sent',bdgTxt:'DELIVERED'},
-    ],
-    termStats:['$2,761|Invoiced','2|Clients','0min|Manual'],
-    termTag:'Running on Proximity Care · Mississauga'
-  },
-  {
-    num:'03',title:'Lead Capture <em>System</em>',
-    sub:'When a family reaches out, you get a notification in under 60 seconds. Name, number, city, what they need. You call them before anyone else does.',
-    before:'Families call 3 to 5 agencies and go with whoever responds first. If you\'re checking email every few hours, you\'re already losing those clients.',
-    after:'Someone fills the form. You get a Gmail notification in under 60 seconds with everything you need. You call them first. You win the client.',
-    pipe:['👨‍👩‍👧|Family submits','⚡|Instant alert','📊|Logged in sheet','✅|You call first'],
-    stats:['4.5hrs|Old response','<1min|New response','100%|Leads captured'],
-    color:0x3a6a8a, sceneType:'lead',
-    termTitle:'NEW LEAD ALERT · LIVE',
-    termRows:[
-      {icon:'am',emoji:'🔔',lbl:'New Lead · Family Chatbot',val:'Jennifer Nguyen · Mississauga\n647-555-0123 · Dementia Care · Urgent',badge:'new',bdgTxt:'NEW'},
-      {icon:'tl',emoji:'📊',lbl:'Added to Sheet',val:'Proximity Care Leads · Row 23\nStatus: New · Follow up needed',badge:'sent',bdgTxt:'LOGGED'},
-      {icon:'gn',emoji:'📧',lbl:'Gmail Alert Sent',val:'healthcareproximity@gmail.com\nApr 11 · 9:42 AM · 0s delay',badge:'live',bdgTxt:'INSTANT'},
-    ],
-    termStats:['22|Leads','<1m|Response','0|Missed'],
-    termTag:'Running on Proximity Care · Mississauga'
-  },
-  {
-    num:'04',title:'Family Communications <em>Engine</em>',
-    sub:'Emails go out to families automatically. Follow-ups, birthdays, care plan changes, monthly updates. You stay in touch without sending a single email yourself.',
-    before:'Leads go cold after day one. Families don\'t hear from you between visits. Trust erodes quietly and you don\'t notice until they cancel.',
-    after:'Leads get follow-ups on day 1, 3, and 7. Families get monthly updates. Clients get birthday messages. Care plan changes go out automatically. All of it.',
-    pipe:['🎯|Trigger fires','⚡|System routes','✉️|Email built','📧|Auto-sent'],
-    stats:['5|Auto sequences','0|Manual sends','24/7|Always running'],
-    color:0x6a5a8a, sceneType:'email',
-    termTitle:'FAMILY COMMS ENGINE · LIVE',
-    termRows:[
-      {icon:'am',emoji:'💌',lbl:'Lead Follow-Up · Day 3',val:'Jennifer Nguyen · No reply yet\n"We still have your spot open"',badge:'auto',bdgTxt:'AUTO-SENT'},
-      {icon:'gn',emoji:'🎂',lbl:'Birthday Message',val:'Harbinger Bhangu · Apr 14\n"Happy Birthday from Proximity Care"',badge:'live',bdgTxt:'SCHEDULED'},
-      {icon:'tl',emoji:'📋',lbl:'Care Plan Change Alert',val:'Rick Vardzel family · Hours increased\nFamily notified automatically',badge:'sent',bdgTxt:'SENT'},
-    ],
-    termStats:['5|Sequences','0|Manual','24/7|Active'],
-    termTag:'Zero manual sends · All automated'
-  },
-  {
-    num:'05',title:'Operator <em>Chatbot</em>',
-    sub:'An AI chat on your website that answers questions, qualifies operators, and books calls while you sleep. You just show up to the call.',
-    before:'Someone lands on your site, has questions, can\'t find the answer fast enough, and leaves. You had a potential client for 90 seconds and lost them.',
-    after:'The chatbot answers right away, figures out if they\'re a fit, and gets them to book a call. Their info logs to your sheet. You show up ready.',
-    pipe:['🌐|Operator visits','🤖|AI qualifies','📊|Lead logged','📅|Call booked'],
-    stats:['AI|Powered by Claude','Live|On your site','24/7|Never offline'],
-    color:0x3a8a7a, sceneType:'chat',
-    termTitle:'OPERATOR CHATBOT · LIVE',
-    isChat:true,
-    chatLines:[
-      {u:true,txt:'Do you serve Brampton? We have 12 PSWs and no system.'},
-      {u:false,txt:'Yes — all of Ontario. For 12 PSWs, Full Stack covers everything: timesheets, invoicing, leads, summaries. Under a week to install.'},
-      {u:true,txt:'What does it cost?'},
-      {u:false,txt:'$2,800–3,200 setup + $500/month. Most operators recover that in month one from hours saved. Want to book a free 30-min call?'},
-    ],
-    termTag:'Live on proximitysystems.ca · Always on'
-  },
-  {
-    num:'06',title:'Family <em>Chatbot</em>',
-    sub:'Families chat with an AI on your website. It asks 5 simple questions and gets you everything you need to follow up. Works at 2am.',
-    before:'Families land on your site at night, nobody\'s there to help, and they move on. You find out the next morning — or never.',
-    after:'The chatbot gets their name, phone, city, and what they need. Info goes to your sheet. You wake up with a warm lead ready to call.',
-    pipe:['👨‍👩‍👧|Family chats','🤖|5 questions','📊|Lead in sheet','📧|You get alerted'],
-    stats:['2min|Full intake','5|Questions only','Live|On your site'],
-    color:0x5a6a3a, sceneType:'chat',
-    termTitle:'FAMILY CHATBOT · PROXIMITYCARES.CA',
-    isChat:true,
-    chatLines:[
-      {u:true,txt:'My dad just got home from hospital. He needs daily help.'},
-      {u:false,txt:'I\'m glad you reached out. We can absolutely help. What city are you in?'},
-      {u:true,txt:'Mississauga'},
-      {u:false,txt:'Perfect — we\'re right there. What\'s the best number to reach you?'},
-    ],
-    termTag:'Running on proximitycares.ca · 2am works too'
-  },
-  {
-    num:'07',title:'Family <em>Lead Form</em>',
-    sub:'A simple form for families who\'d rather type than chat. They submit it, you get a notification in seconds. Nothing falls through the cracks.',
-    before:'Generic contact forms go to an inbox nobody monitors closely. Leads sit for hours. By the time you see it the family has already moved on.',
-    after:'They submit the form. A webhook fires instantly. Their info lands in your sheet and hits your Gmail at the same time. Zero delay. Zero misses.',
-    pipe:['📋|Form submitted','⚡|Webhook fires','📊|Sheet updated','📧|Gmail alert'],
-    stats:['0s|Submit to alert','Mobile|Any device','Live|Running now'],
-    color:0x8a5a3a, sceneType:'form',
-    termTitle:'LEAD FORM · RECEIVED',
-    termRows:[
-      {icon:'am',emoji:'📋',lbl:'Form Submitted · Apr 11 · 3:22PM',val:'Jennifer Nguyen · 905-555-0123\nMississauga · Dementia Care · Urgent',badge:'new',bdgTxt:'NEW'},
-      {icon:'tl',emoji:'⚡',lbl:'Webhook Fired',val:'Make.com · Family Leads\nRouted to Proximity Care Leads tab',badge:'live',bdgTxt:'0.3s'},
-      {icon:'gn',emoji:'📧',lbl:'Gmail Alert Sent',val:'All fields formatted · HTML email\nIn your inbox instantly',badge:'sent',bdgTxt:'DELIVERED'},
-    ],
-    termStats:['22|Total leads','0|Missed','0s|Delay'],
-    termTag:'Connected to Proximity Care Leads'
-  },
-  {
-    num:'08',title:'Weekly Care <em>Summaries</em>',
-    sub:'Every Monday morning, AI writes a care summary for each client based on that week\'s visits. It emails it to you. You read it. That\'s all you do.',
-    before:'Writing care notes and summaries by hand takes hours. It always gets pushed to Friday and still never feels done properly.',
-    after:'Visit data goes in. AI reads it and writes a proper summary for each client. Formatted email. In your inbox every Monday morning. You just read it.',
-    pipe:['📊|Visit data in','🤖|AI writes it','📄|Summary ready','📧|Every Monday'],
-    stats:['Weekly|Auto summaries','AI|Written by Claude','Per client|Individual'],
-    color:0x3a5a8a, sceneType:'summary',
-    termTitle:'CARE SUMMARY · WEEKLY · SENT',
-    termRows:[
-      {icon:'tl',emoji:'🤖',lbl:'AI Summary Generated · Apr 7',val:'Rick Vardzel · Weekly Update\nClaude Haiku · 4 visits',badge:'auto',bdgTxt:'AI-WRITTEN'},
-      {icon:'gn',emoji:'📧',lbl:'Emailed · Monday 7:00AM',val:'healthcareproximity@gmail.com\nHTML formatted · Zero manual work',badge:'sent',bdgTxt:'DELIVERED'},
-    ],
-    hasQuote:true,
-    quote:'"Rick had a good week. Morning routines completed. Appetite improved. PSW notes he seemed in better spirits. Medications on schedule. No incidents."',
-    termTag:'Running every Monday automatically'
-  },
-  {
-    num:'09',title:'Care Agency <em>Website</em>',
-    sub:'A proper website for your agency — built for you, connected to all your systems, and hosted for free. Families land on it. The chatbot opens. Leads come in.',
-    before:'Most agency websites are generic templates that don\'t convert. Families land, don\'t feel confident, and go somewhere else.',
-    after:'Custom site for your agency. Chatbot and lead form built in. All systems connected. Hosted on GitHub Pages — costs nothing per month. Ever.',
-    pipe:['🎨|Your branding','🌐|Live in days','🤖|Chatbot in','📊|All connected'],
-    stats:['$0/mo|Hosting forever','Days|To go live','Add-on|Any package'],
-    color:0x6a3a8a, sceneType:'website',
-    isWebsite:true,
-    termTag:'Built on Proximity Care Services · See it live'
-  },
-  {
-    num:'10',title:'Client <em>Portal</em>',
-    sub:'Your clients log in. They see everything.',
-    before:'Clients call asking for updates. PDFs emailed manually. Families confused about next steps. No central place for documents.',
-    after:'Clients log into their own portal. Care plan, summaries, documents, appointments, and messages — all in one place. Zero phone tag.',
-    pipe:['🔐|Client Login','📋|Care Plan','📊|Weekly Summaries','📁|Documents','💬|Messages','🔔|Lance Notified'],
-    stats:['100%|Questions Answered Before Asked','24/7|Phone Tag Eliminated','Zero|Support Tickets Needed'],
-    color:0x3a7a8a, sceneType:'website',
-    isWebsite:false,
-    termTitle:'CLIENT PORTAL · LIVE',
-    termTag:'Proximity Care · Client Portal Active',
-    termRows:[
-      {emoji:'🔐',icon:'tl',lbl:'Client Login',val:'Sarah M. logged in',badge:'live',bdgTxt:'Active'},
-      {emoji:'📋',icon:'tl',lbl:'Care Plan Viewed',val:'Daily Living Support · 20hrs/week',badge:'live',bdgTxt:'Current'},
-      {emoji:'📊',icon:'gn',lbl:'Weekly Summary',val:'Week of Apr 7 — delivered',badge:'sent',bdgTxt:'Sent'},
-      {emoji:'📁',icon:'tl',lbl:'Documents',val:'3 new files uploaded',badge:'new',bdgTxt:'New'},
-      {emoji:'💬',icon:'gn',lbl:'Message Sent',val:'"Thank you for the update on Mom"',badge:'sent',bdgTxt:'Read'},
-      {emoji:'🔔',icon:'gn',lbl:'Notification',val:'Jennifer notified of new message',badge:'auto',bdgTxt:'Auto'}
-    ],
-    termStats:['47|Active Logins','100%|Satisfaction','0|Support Tickets']
-  },
-];
+const SYSTEMS=[null,
+{num:'01',title:'Visit <em>Logging</em>',sub:'PSWs fill a 3-in-1 form on their phone at the end of every shift. Visit log, daily checklist, and private messages. Everything saves to Supabase automatically. You get a branded email notification instantly.',before:'PSWs text you hours and notes. You type them in manually. You chase people every week for missing info. Hours of work that should take zero minutes.',after:'PSW fills the form, taps submit. Visit saves to Supabase, AI writes a care summary, branded email fires to you with hours and pay breakdown. Nobody does anything manually.',pipe:['📱|PSW submits','⚡|Webhook fires','🗄️|Supabase saves','📧|You notified'],stats:['12|PSWs active','0|Manual entries','Live|Running now'],color:0x3d7a8a,sceneType:'form',termTitle:'PSW VISIT LOG · LIVE',termRows:[{icon:'gn',emoji:'📋',lbl:'New Visit Logged',val:'Carolina Hermida · Rosetta Ferrari\n8hrs · Full Day · Apr 21 2026',badge:'live',bdgTxt:'AUTO-LOGGED'},{icon:'tl',emoji:'🗄️',lbl:'Saved to Supabase',val:'visits table · proximity-care\nAI care summary generated',badge:'sent',bdgTxt:'SAVED'},{icon:'am',emoji:'📧',lbl:'Lance Notified',val:'healthcareproximity@gmail.com\n8hrs · $224 PSW · $280 client',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['12|PSWs','47|Visits','11|Clients'],termTag:'Running live on Proximity Care · Mississauga'},
+{num:'02',title:'Billing <em>& Invoices</em>',sub:'One trigger generates two branded emails. The client gets a warm care summary and their invoice. The PSW gets their visit breakdown and pay total. AI writes the care summary from visit notes. You touch nothing.',before:'3 to 5 hours every month. Copy hours. Check math. Write summaries. Send invoices. Chase payment. Same manual work every single month.',after:'Click once. Two branded emails go out. Client sees their care summary and invoice. PSW sees their pay. You see the profit. Zero manual work.',pipe:['📊|Hours in Supabase','🤖|AI summary','📄|Invoice built','📧|Two emails sent'],stats:['$22|Client rate','$19|PSW rate','$3|Profit/hr'],color:0x8a7a3a,sceneType:'invoice',termTitle:'INVOICE GENERATOR · APR 2026',termRows:[{icon:'tl',emoji:'🏠',lbl:'Client · Standard Care',val:'Rosetta Ferrari · Mississauga\n40hrs · $22/hr client rate',badge:null},{icon:'gn',emoji:'💰',lbl:'Dual Emails Generated',val:'Client: care summary + invoice\nPSW: visit breakdown + pay total',badge:'auto',bdgTxt:'AUTO-GENERATED'},{icon:'am',emoji:'📧',lbl:'Both Delivered',val:'Client and PSW notified instantly\nZero manual work',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['$2,761|Invoiced','2|Clients','0min|Manual'],termTag:'Running on Proximity Care · Mississauga'},
+{num:'03',title:'Lead <em>Capture</em>',sub:'When a family reaches out through the chatbot or lead form, you get a notification in under 60 seconds. Name, number, city, care type, urgency. You call them before anyone else does.',before:'Families call 3 to 5 agencies and go with whoever responds first. If you check email every few hours you are already losing those clients.',after:'Someone submits. Lead saves to Supabase. Day 1 email fires automatically. You get an instant notification. You call first. You win the client.',pipe:['👨‍👩‍👧|Family submits','⚡|Lead captured','🗄️|Supabase logged','📧|Day 1 fires'],stats:['<1min|Response','22|Leads this mo','0|Missed'],color:0x3a6a8a,sceneType:'lead',termTitle:'NEW LEAD ALERT · LIVE',termRows:[{icon:'am',emoji:'🔔',lbl:'New Lead · Family Chatbot',val:'Sandra M. · Mississauga\n647-555-0123 · Dementia Care · Urgent',badge:'new',bdgTxt:'NEW'},{icon:'tl',emoji:'🗄️',lbl:'Saved to Supabase',val:'leads table · proximity-care\nStatus: new · Day 1 email queued',badge:'sent',bdgTxt:'LOGGED'},{icon:'gn',emoji:'📧',lbl:'Day 1 Email Fired',val:'healthcareproximity@gmail.com\nApr 21 · 2:07 AM · instant',badge:'live',bdgTxt:'INSTANT'}],termStats:['22|Leads','<1m|Response','0|Missed'],termTag:'Running on Proximity Care · Mississauga'},
+{num:'04',title:'Follow-Up <em>Engine</em>',sub:'Leads get a Day 1, Day 3, and Day 7 email automatically. Never double sends. Branded per business. Warm family tone for care leads. Professional operator tone for systems leads.',before:'Leads go cold after day one. You mean to follow up. You forget. Families move on to the agency that stayed in touch.',after:'Day 1 fires on capture. Day 3 fires if no reply. Day 7 fires as a soft close. All branded. All automatic. Zero manual sends ever.',pipe:['📧|Day 1 fires','⏱️|Day 3 check','🔄|Day 7 close','✅|Never double'],stats:['3|Auto sequences','0|Manual sends','24/7|Always armed'],color:0x6a5a8a,sceneType:'email',termTitle:'FOLLOW-UP ENGINE · LIVE',termRows:[{icon:'am',emoji:'💌',lbl:'Day 3 Follow-Up Fired',val:'Sandra M. · No reply yet\nBranded Proximity Care email sent',badge:'auto',bdgTxt:'AUTO-SENT'},{icon:'gn',emoji:'🔄',lbl:'Day 7 Close Queued',val:'3 more leads · Soft close sequence\nFires automatically in 4 days',badge:'live',bdgTxt:'ARMED'},{icon:'tl',emoji:'✅',lbl:'Double Send Guard',val:'day3_sent and day7_sent flags\nNever sends twice to same lead',badge:'sent',bdgTxt:'PROTECTED'}],termStats:['3|Sequences','0|Manual','0|Double sends'],termTag:'Zero manual sends · All automated'},
+{num:'05',title:'PSW <em>Management</em>',sub:'PSWs get a 3-in-1 daily form — visit log, daily checklist, and private message thread with the operator. Missed visit alert fires at 6pm if no submission. PIN protected. Every conversation stays private.',before:'Paper checklists. WhatsApp groups. You find out about incidents from a family call. Supply shortages go unnoticed for days. No real visibility into what happens on shift.',after:'PSW submits one form per shift. You see visit notes, completed tasks, supply needs, and any concerns — all before the family calls. Missed shifts trigger an alert automatically.',pipe:['📱|PSW logs shift','✅|Checklist saved','💬|Private message','🚨|Alert if missed'],stats:['12|PSWs active','30|Checklist items','PIN|Protected'],color:0x4a8a5a,sceneType:'form',termTitle:'PSW MANAGEMENT · LIVE',termRows:[{icon:'gn',emoji:'✅',lbl:'Daily Checklist Submitted',val:'Carolina Hermida · 28 of 30 tasks\nObservations: client tired today',badge:'live',bdgTxt:'LOGGED'},{icon:'am',emoji:'🛒',lbl:'Supply Request from PSW',val:'Gloves size M running low\nIncontinence pads needed',badge:'new',bdgTxt:'NEW'},{icon:'tl',emoji:'🔒',lbl:'Private Message Thread',val:'Carolina → Lance · PIN: 1389\nConversation private to them only',badge:'sent',bdgTxt:'SECURE'}],termStats:['12|PSWs','30|Tasks','PIN|Protected'],termTag:'Running live on Proximity Care · Mississauga'},
+{num:'06',title:'AI <em>Chatbot</em>',sub:'A Claude-powered chatbot on your website that answers family questions, captures leads, and qualifies operators 24/7. Works at 2am. Never misses a question. Fully branded to your agency.',before:'Someone lands on your site at night, has questions, gets no answer, and moves on. You had a potential client for 90 seconds and lost them.',after:'The chatbot answers instantly, asks 8 intake questions, captures their contact info, and fires the notification. You wake up with a warm lead ready to call.',pipe:['🌐|Visitor lands','🤖|AI answers','📝|8 questions','📧|Lead captured'],stats:['AI|Claude Haiku','24/7|Never offline','Live|Both sites'],color:0x3a8a7a,sceneType:'chat',termTitle:'AI CHATBOT · PROXIMITYCARES.CA',isChat:true,chatLines:[{u:true,txt:'My mom needs help at home. She has dementia.'},{u:false,txt:'I am glad you reached out. We specialize in dementia care with consistent PSWs — same caregiver every visit. What city are you in?'},{u:true,txt:'Mississauga'},{u:false,txt:'Perfect — we serve Mississauga directly. What is the best number to reach you?'}],termTag:'Running on proximitycares.ca · 2am works too'},
+{num:'07',title:'Client <em>Onboarding</em>',sub:'The moment a client signs, a Day 0 welcome email fires with their PIN and portal link. Day 3 check-in confirms everything is running smoothly. Day 7 care plan confirmation closes the loop. All automated.',before:'New clients get a welcome call and a PDF. Then nothing for a week. Families feel uncertain. You field the same questions over and over.',after:'Day 0 welcome email with PIN and portal link fires automatically. Day 3 check-in asks how the first visits went. Day 7 confirms the care plan. Families feel taken care of.',pipe:['✍️|Client signs','📧|Day 0 welcome','📧|Day 3 check','📧|Day 7 confirm'],stats:['Day 0|Instant welcome','PIN|Auto-generated','Portal|Ready day one'],color:0x8a5a3a,sceneType:'email',termTitle:'CLIENT ONBOARDING · LIVE',termRows:[{icon:'gn',emoji:'📧',lbl:'Day 0 Welcome Fired',val:'Rosetta Ferrari · portal_pin: 7842\nPortal link: proximitycares.ca/family.html',badge:'live',bdgTxt:'SENT'},{icon:'tl',emoji:'📅',lbl:'Day 3 Check-In Queued',val:'Fires in 3 days automatically\n"How are the first visits going?"',badge:'auto',bdgTxt:'ARMED'},{icon:'am',emoji:'📋',lbl:'Day 7 Confirmation Queued',val:'Care plan confirmation email\nSame PSW every visit confirmed',badge:'auto',bdgTxt:'ARMED'}],termStats:['Day 0|Instant','Day 3|Check-in','Day 7|Confirm'],termTag:'Running on Proximity Care · Mississauga'},
+{num:'08',title:'Family <em>Portal</em>',sub:'Families enter a PIN and see everything about their loved one. Visits, care plan, documents, invoices, and a direct message to the operator. No more phone tag. Everything in one place.',before:'Families call asking for visit updates, invoices, documents. Every call takes time away from running the agency. No central place for anything.',after:'Family enters their PIN. They see every visit, the care plan, all documents, the invoice history, and a message button that goes straight to you. Zero phone tag.',pipe:['🔐|PIN entry','🏠|Home tab','📋|Visits tab','📁|Documents','💬|Message you'],stats:['5|Portal tabs','PIN|4-digit secure','Live|proximitycares.ca'],color:0x5a3a8a,sceneType:'website',isWebsite:false,termTitle:'FAMILY PORTAL · LIVE',termTag:'proximitycares.ca/family.html · Rosetta Ferrari',termRows:[{emoji:'🔐',icon:'tl',lbl:'PIN Entry · rferrari',val:'Rosetta Ferrari logged in\nPIN: 7842 · Portal slug: rferrari',badge:'live',bdgTxt:'Active'},{emoji:'📋',icon:'tl',lbl:'Visits Tab',val:'47 visits in Supabase\nFull history with care notes',badge:'live',bdgTxt:'Current'},{emoji:'💬',icon:'gn',lbl:'Family Messaged Lance',val:'"Thank you for the update on Mom"\nDelivered to healthcareproximity@gmail.com',badge:'sent',bdgTxt:'Read'}],termStats:['5|Tabs','47|Visits','Live|Supabase']},
+{num:'09',title:'HQ <em>Dashboard</em>',sub:'Every lead, visit, invoice, and PSW in one real-time view. You run your entire operation from one screen. No spreadsheets. No separate tabs. Everything from Supabase, updated instantly.',before:'Spreadsheets for hours. Different apps for leads and invoices. PSW documents emailed back and forth. You spend 3 hours a week just organizing information.',after:'One dashboard. Every lead in the pipeline. Every visit this month. Every invoice status. PSW documents uploaded and stored. Care plans editable inline.',pipe:['📊|All data live','👥|PSW overview','👤|Client overview','💰|Revenue view'],stats:['Real-time|Supabase','All in|One view','Zero|Spreadsheets'],color:0x3a5a8a,sceneType:'summary',termTitle:'HQ DASHBOARD · LIVE',termRows:[{icon:'tl',emoji:'📊',lbl:'Live Revenue View',val:'$2,761 invoiced this month\n$376 profit · 2 active clients',badge:'live',bdgTxt:'REAL-TIME'},{icon:'gn',emoji:'👥',lbl:'PSW Overview',val:'12 PSWs · 47 visits logged\nCarolina Hermida — last shift: today',badge:'live',bdgTxt:'LIVE'},{icon:'am',emoji:'🎯',lbl:'Lead Pipeline',val:'22 leads this month\n3 active · Day 7 follow-up pending',badge:'new',bdgTxt:'PIPELINE'}],termStats:['$2,761|Invoiced','12|PSWs','22|Leads'],termTag:'Running live · Real-time Supabase data'},
+{num:'10',title:'Shift <em>Scheduling</em>',sub:'Operator posts a shift. PSW gets a text or email. First one to confirm fills it. If nobody confirms in 2 hours, the alert escalates. Call-outs trigger a broadcast to available PSWs instantly. No phone tag. No WhatsApp chaos. Zero manual coordination.',before:'A PSW calls out at 7am. You spend the next 90 minutes texting every available caregiver one by one. Half don\'t reply. You end up calling. The client finds out late. The family is upset. This happens every week.',after:'PSW marks themselves unavailable. System broadcasts the open shift to every qualified PSW automatically. First confirmation fills it. You get notified when it\'s covered. The family never knows there was a problem.',pipe:['📅|Shift posted','📲|PSWs notified','✅|First confirms','🔔|You notified'],stats:['0|Phone calls','Auto|Broadcast','<2hrs|Fill time'],color:0x7a4a8a,sceneType:'lead',termTitle:'SHIFT SCHEDULING · LIVE',termRows:[{icon:'am',emoji:'🚨',lbl:'Call-Out Received',val:'Phurbu Lhamo · Unavailable Apr 22\nRosetta Ferrari · 8am shift open',badge:'new',bdgTxt:'OPEN SHIFT'},{icon:'tl',emoji:'📲',lbl:'Broadcast Sent · 11 PSWs',val:'Auto-message: "Apr 22 · 8am · Mississauga\nReply YES to confirm — first gets it"',badge:'auto',bdgTxt:'AUTO-SENT'},{icon:'gn',emoji:'✅',lbl:'Shift Filled · 14 minutes',val:'Mandeep Kamboj confirmed\nCalendar updated · Lance notified',badge:'live',bdgTxt:'COVERED'}],termStats:['14min|Avg fill time','0|Calls made','12|PSW pool'],termTag:'No phone tag · No WhatsApp · Fully automated'}];
 
-// ═══════════════════════════════════════════
-// BUILD SYSTEM SLIDES
-// ═══════════════════════════════════════════
-function buildSlide(n) {
-  const d = SYSTEMS[n];
-  if (!d || document.getElementById('s'+n).innerHTML !== '') return;
-  const el = document.getElementById('s'+n);
-
-  const pipeHTML = d.pipe.map((s,i) => {
-    const [emoji, lbl] = s.split('|');
-    return `<div class="pnode"><div class="pcirc" id="pc${n}-${i}">${emoji}</div><div class="plbl" id="pl${n}-${i}">${lbl}</div></div>${i<d.pipe.length-1?`<div class="pconn"><div class="pbeam" id="pb${n}-${i}"></div></div>`:''}`;
-  }).join('');
-
-  const statsHTML = d.stats.map(s => {
-    const [v,l] = s.split('|');
-    return `<div class="stat"><div class="sv">${v}</div><div class="sl">${l}</div></div>`;
-  }).join('');
-
-  // Build terminal
-  let termBody = '';
-  if (d.isChat) {
-    termBody = d.chatLines.map(l =>
-      `<div class="tclbl">${l.u?'VISITOR':'PROXIMITY AI'} · 11:${42+Math.floor(Math.random()*5)}PM</div><div class="tchat ${l.u?'u':'b'}">${l.txt}</div>`
-    ).join('');
-  } else {
-    termBody = (d.termRows||[]).map(r =>
-      `<div class="trow"><div class="ticon ${r.icon}">${r.emoji}</div><div class="tcont"><div class="tlbl">${r.lbl}</div><div class="tval">${r.val.replace(/\n/g,'<br>')}</div>${r.badge?`<div class="tbadge ${r.badge}">${r.bdgTxt}</div>`:''}</div></div>`
-    ).join('');
-    if (d.hasQuote) {
-      termBody += `<div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:3px;padding:9px;margin:5px 0;font-size:9px;color:rgba(255,255,255,0.45);line-height:1.55;font-style:italic">${d.quote}</div>`;
-    }
-  }
-
-  let termStats = '';
-  if (d.termStats) {
-    const sg = d.termStats.map(s => { const[v,l]=s.split('|'); return `<div class="tstat"><div class="tsv">${v}</div><div class="tsl">${l}</div></div>`; }).join('');
-    termStats = `<div class="tdiv"></div><div class="tgrid">${sg}</div>`;
-  }
-
-  // Right visual
-  let rightPanel = '';
-  if (d.isWebsite) {
-    rightPanel = `<div class="wmock">
-      <div class="wmbar"><div class="wmdot" style="background:#ff5f57"></div><div class="wmdot" style="background:#febc2e"></div><div class="wmdot" style="background:#28c840"></div><span class="wmurl">proximitycares.ca · LIVE</span></div>
-      <div class="wmsite">
-        <div class="wmnav"><div class="wmlogo">Proximity <em>Care</em></div><div class="wmbtn">Book Assessment</div></div>
-        <div class="wmhero"><div class="wmh1">Finally, care your family can<br><em>stop worrying about.</em></div><div class="wmhsub">Consistent PSWs. Same caregiver every visit. Peel Region.</div><div class="wmhbtn">Get Started →</div></div>
-        <div class="wmcards">
-          <div class="wmcard"><div class="wmcico">🧠</div><div class="wmcn">Dementia Care</div><div class="wmcp">Trained PSWs. Consistent routines.</div></div>
-          <div class="wmcard"><div class="wmcico">🏥</div><div class="wmcn">Post-Hospital</div><div class="wmcp">Recovery at home.</div></div>
-          <div class="wmcard"><div class="wmcico">🤲</div><div class="wmcn">Daily Support</div><div class="wmcp">Meals, hygiene, companionship.</div></div>
-        </div>
-        <div class="wmchat"><div class="wmclbl"><span class="wmcdot"></span>PROXIMITY AI · ONLINE</div><div class="wmcmsg">Hi — I can help find the right care for your family. What's going on right now?</div><div class="wmcrep">→ My parent needs daily help at home</div></div>
-        <div class="wmfoot"><div class="wmfp">PROXIMITY CARE SERVICES · 647-382-8047</div></div>
-      </div>
-    </div>`;
-  } else {
-    rightPanel = `
-      <div class="scene" id="scene${n}">
-        <div class="scene-lbl">System ${d.num} · Live</div>
-        <div class="scene-hint">drag to rotate</div>
-        <canvas id="sc${n}" height="180"></canvas>
-      </div>
-      <div class="term">
-        <div class="tbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><div class="ttitle">${d.termTitle}</div></div>
-        <div class="tbody">${termBody}${termStats}</div>
-        <div class="ttag">${d.termTag}</div>
-      </div>`;
-  }
-
-  el.innerHTML = `<div class="sys-wrap">
-    <div class="sys-left">
-      <div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">System ${d.num}</div></div>
-      <h1 class="stitle">${d.title}</h1>
-      <p class="ssub">${d.sub}</p>
-      <div class="baf">
-        <div class="baf-b"><div class="baf-lbl">Right now</div><div class="baf-txt">${d.before}</div></div>
-        <div class="baf-a"><div class="baf-lbl">With this system</div><div class="baf-txt">${d.after}</div></div>
-      </div>
-      <div class="pipe" id="pipe${n}">${pipeHTML}</div>
-      <div class="stats">${statsHTML}</div>
-    </div>
-    <div class="sys-right">${rightPanel}</div>
-  </div>`;
-
-  // Build 3D scene after DOM
-  setTimeout(() => buildScene(n, d.color, d.sceneType), 50);
+function buildSlide(n){
+  const d=SYSTEMS[n];
+  if(!d||document.getElementById('s'+n).innerHTML!=='')return;
+  const el=document.getElementById('s'+n);
+  const pipeHTML=d.pipe.map((s,i)=>{const[emoji,lbl]=s.split('|');return`<div class="pnode"><div class="pcirc" id="pc${n}-${i}">${emoji}</div><div class="plbl" id="pl${n}-${i}">${lbl}</div></div>${i<d.pipe.length-1?`<div class="pconn"><div class="pbeam" id="pb${n}-${i}"></div></div>`:''}`}).join('');
+  const statsHTML=d.stats.map(s=>{const[v,l]=s.split('|');return`<div class="stat"><div class="sv">${v}</div><div class="sl">${l}</div></div>`}).join('');
+  let termBody='';
+  if(d.isChat){termBody=d.chatLines.map(l=>`<div class="tclbl">${l.u?'VISITOR':'PROXIMITY AI'} · now</div><div class="tchat ${l.u?'u':'b'}">${l.txt}</div>`).join('');}
+  else{termBody=(d.termRows||[]).map(r=>`<div class="trow"><div class="ticon ${r.icon}">${r.emoji}</div><div class="tcont"><div class="tlbl">${r.lbl}</div><div class="tval">${r.val.replace(/\n/g,'<br>')}</div>${r.badge?`<div class="tbadge ${r.badge}">${r.bdgTxt}</div>`:''}</div></div>`).join('');if(d.hasQuote)termBody+=`<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:10px;margin:6px 0;font-size:10px;color:var(--text2);line-height:1.55;font-style:italic">${d.quote}</div>`;}
+  let termStats='';
+  if(d.termStats){const sg=d.termStats.map(s=>{const[v,l]=s.split('|');return`<div class="tstat"><div class="tsv">${v}</div><div class="tsl">${l}</div></div>`}).join('');termStats=`<div class="tdiv"></div><div class="tgrid">${sg}</div>`;}
+  let rightPanel='';
+  if(d.isWebsite){rightPanel=`<div class="wmock"><div class="wmbar"><div class="wmdot" style="background:#ff5f57"></div><div class="wmdot" style="background:#febc2e"></div><div class="wmdot" style="background:#28c840"></div><span class="wmurl">proximitycares.ca · LIVE</span></div><div class="wmsite"><div class="wmnav"><div class="wmlogo">Proximity <em>Care</em></div><div class="wmbtn">Book Assessment</div></div><div class="wmhero"><div class="wmh1">Finally, care your family can<br><em>stop worrying about.</em></div><div class="wmhsub">Consistent PSWs. Same caregiver every visit.</div><div class="wmhbtn">Get Started →</div></div><div class="wmcards"><div class="wmcard"><div class="wmcico">🧠</div><div class="wmcn">Dementia Care</div><div class="wmcp">Trained PSWs.</div></div><div class="wmcard"><div class="wmcico">🏥</div><div class="wmcn">Post-Hospital</div><div class="wmcp">Recovery at home.</div></div><div class="wmcard"><div class="wmcico">🌙</div><div class="wmcn">Overnight</div><div class="wmcp">24/7 support.</div></div></div></div></div><div class="term" style="margin-top:10px"><div class="tbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><div class="ttitle">${d.termTag}</div></div><div class="ttag">All systems connected · Free hosting on GitHub Pages</div></div>`;}
+  else{rightPanel=`<div class="scene" id="scene${n}"><div class="scene-lbl">System ${d.num} · Live</div><div class="scene-hint">drag to rotate</div><canvas id="sc${n}" height="180"></canvas></div><div class="term"><div class="tbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><div class="ttitle">${d.termTitle||'SYSTEM '+d.num+' · LIVE'}</div></div><div class="tbody">${termBody}${termStats}</div><div class="ttag">${d.termTag}</div></div>`;}
+  el.innerHTML=`<div class="sys-wrap"><div class="sys-left"><div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">System ${d.num}</div></div><h1 class="stitle">${d.title}</h1><p class="ssub">${d.sub}</p><div class="baf"><div class="baf-b"><div class="baf-lbl">Right now without this</div><div class="baf-txt">${d.before}</div></div><div class="baf-a"><div class="baf-lbl">With this system</div><div class="baf-txt">${d.after}</div></div></div><div class="pipe" id="pipe${n}">${pipeHTML}</div><div class="stats">${statsHTML}</div></div><div class="sys-right">${rightPanel}</div></div>`;
+  setTimeout(()=>buildScene(n,d.color,d.sceneType),50);
 }
 
-// ═══════════════════════════════════════════
-// 3D PER-SYSTEM SCENES
-// ═══════════════════════════════════════════
-const sceneBuilt = {};
-function buildScene(n, colorHex, type) {
-  if (sceneBuilt[n] || typeof THREE === 'undefined') return;
-  const canvas = document.getElementById('sc'+n);
-  if (!canvas) return;
-  sceneBuilt[n] = true;
-
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor(0x000000, 0);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-  camera.position.z = 3;
-  const group = new THREE.Group();
-  scene.add(group);
-  const col = new THREE.Color(colorHex);
-
-  if (type === 'form') {
-    // Floating phone
-    const body = new THREE.BoxGeometry(.7, 1.3, .07);
-    group.add(new THREE.Mesh(body, new THREE.MeshBasicMaterial({color:0x111820})));
-    const scr = new THREE.Mesh(new THREE.BoxGeometry(.56, 1.0, .01), new THREE.MeshBasicMaterial({color:0x0a1520}));
-    scr.position.z = .04; group.add(scr);
-    [-0.28,-0.1,0.08,0.26].forEach(y => {
-      const l = new THREE.Mesh(new THREE.BoxGeometry(.42,.02,.01), new THREE.MeshBasicMaterial({color:colorHex, transparent:true, opacity:.5}));
-      l.position.set(0,y,.05); group.add(l);
-    });
-    const btn = new THREE.Mesh(new THREE.BoxGeometry(.26,.07,.01), new THREE.MeshBasicMaterial({color:col}));
-    btn.position.set(0,-.38,.05); group.add(btn);
-    // Data beam
-    const beam = new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,1.2,8), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.6}));
-    beam.rotation.z = Math.PI/2; beam.position.set(.95,0,0); group.add(beam);
-
-  } else if (type === 'invoice') {
-    // Document
-    const doc = new THREE.Mesh(new THREE.BoxGeometry(.9,.02,1.2), new THREE.MeshBasicMaterial({color:0x0a0f14}));
-    doc.rotation.x = -.3; group.add(doc);
-    [.38,.18,-.02,-.22,-.42].forEach((z,i) => {
-      const l = new THREE.Mesh(new THREE.BoxGeometry(.7,.015,.015), new THREE.MeshBasicMaterial({color:i===0?colorHex:0x3d7a8a, transparent:true, opacity:i===0?1:.4}));
-      l.rotation.x=.3; l.position.set(0,.02,z); group.add(l);
-    });
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(.28,.02,8,20), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.6}));
-    ring.position.set(.7,.5,0); group.add(ring);
-
-  } else if (type === 'lead') {
-    // Notification rings
-    [.3,.55,.8].forEach((r,i) => {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(r,.012,8,32), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.4-i*.1}));
-      group.add(ring);
-    });
-    group.add(new THREE.Mesh(new THREE.SphereGeometry(.16,12,12), new THREE.MeshBasicMaterial({color:col})));
-    for (let i=0;i<5;i++) {
-      const a = i*Math.PI*2/5;
-      const pts = [new THREE.Vector3(0,0,0), new THREE.Vector3(Math.cos(a)*1.1,Math.sin(a)*1.1,0)];
-      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({color:colorHex,transparent:true,opacity:.3})));
-      const nd = new THREE.Mesh(new THREE.SphereGeometry(.07,8,8), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.7}));
-      nd.position.set(Math.cos(a)*1.1,Math.sin(a)*1.1,0); group.add(nd);
-    }
-
-  } else if (type === 'email') {
-    // Envelope
-    group.add(new THREE.Mesh(new THREE.BoxGeometry(1.3,.02,.85), new THREE.MeshBasicMaterial({color:0x111820})));
-    const flap = new THREE.BufferGeometry();
-    flap.setAttribute('position', new THREE.BufferAttribute(new Float32Array([-.65,0,.425, .65,0,.425, 0,0,-.1]),3));
-    group.add(new THREE.Mesh(flap, new THREE.MeshBasicMaterial({color:0x1a2530,side:THREE.DoubleSide})));
-    const at = new THREE.Mesh(new THREE.TorusGeometry(.22,.018,8,20), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.7}));
-    at.rotation.x=Math.PI/2; group.add(at);
-    // Envelope lines (email)
-    [-0.1,.1].forEach(z => {
-      const l = new THREE.Mesh(new THREE.BoxGeometry(.8,.01,.01), new THREE.MeshBasicMaterial({color:colorHex,transparent:true,opacity:.3}));
-      l.position.set(0,.02,z); group.add(l);
-    });
-
-  } else if (type === 'chat') {
-    // Chat bubbles
-    [-0.35,0.1,.45].forEach((y,i) => {
-      const bub = new THREE.Mesh(new THREE.BoxGeometry(i%2===0?.75:.55,.18,.05), new THREE.MeshBasicMaterial({color:i%2===0?0x111820:colorHex, transparent:true, opacity:i%2===0?.9:.7}));
-      bub.position.set(i%2===0?-.08:.12,y,0); group.add(bub);
-    });
-    // AI rings
-    [.35,.52,.68].forEach((r,i) => {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(r,.01,6,24), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.22-i*.06}));
-      ring.position.set(.55,.5,-.2); ring.rotation.set(i*.3,i*.2,0); group.add(ring);
-    });
-    group.add(new THREE.Mesh(new THREE.SphereGeometry(.1,10,10), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.8})));
-    document.getElementById('sc'+n).querySelector && null;
-
-  } else if (type === 'summary') {
-    // Document stack
-    [-0.07,0,.07].forEach((z,i) => {
-      const doc = new THREE.Mesh(new THREE.BoxGeometry(.85,.02,1.1), new THREE.MeshBasicMaterial({color:0x0a1520,transparent:true,opacity:.8-i*.15}));
-      doc.rotation.x=-.2; doc.position.set(z*2,i*.07,z); group.add(doc);
-    });
-    [.38,.52,.66].forEach((r,i) => {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(r,.01,6,24), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.3-i*.08}));
-      ring.position.set(.48,.38,0); ring.rotation.set(i*.4,i*.3,i*.2); group.add(ring);
-    });
-    const c = new THREE.Mesh(new THREE.SphereGeometry(.11,10,10), new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.9}));
-    c.position.set(.48,.38,0); group.add(c);
-  }
-
-  // Drag + hover tilt
-  let drag=false, px=0, py=0, gy=0, gx=0;
-  canvas.addEventListener('mousedown', e=>{drag=true;px=e.clientX;py=e.clientY;});
-  window.addEventListener('mouseup', ()=>{drag=false;});
-  window.addEventListener('mousemove', e=>{
-    if (!drag) return;
-    gy += (e.clientX-px)*.005; gx += (e.clientY-py)*.005;
-    px=e.clientX; py=e.clientY;
-  });
-  canvas.addEventListener('mousemove', e=>{
-    if (drag) return;
-    const r=canvas.getBoundingClientRect();
-    group.rotation.y = gy+(e.clientX-r.left)/r.width*.5-.25;
-    group.rotation.x = gx-(e.clientY-r.top)/r.height*.4+.2;
-  });
-
-  function resz() {
-    const w=canvas.parentElement.offsetWidth, h=180;
-    renderer.setSize(w,h,false);
-    camera.aspect=w/h; camera.updateProjectionMatrix();
-  }
-  resz(); new ResizeObserver(resz).observe(canvas.parentElement);
-
-  let f=0;
-  (function anim(){
-    requestAnimationFrame(anim); f++;
-    if (!drag) gy += .006;
-    group.rotation.y = gy; group.rotation.x = gx;
-    group.position.y = Math.sin(f*.02)*.07;
-    renderer.render(scene,camera);
-  })();
-}
-
-// ═══════════════════════════════════════════
-// GLOBE
-// ═══════════════════════════════════════════
-function initGlobe() {
-  const canvas = document.getElementById('globe-c');
-  if (!canvas || typeof THREE === 'undefined') return;
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+const sceneBuilt={};
+function buildScene(n,colorHex,type){
+  if(sceneBuilt[n]||typeof THREE==='undefined')return;
+  const canvas=document.getElementById('sc'+n);
+  if(!canvas)return;
+  sceneBuilt[n]=true;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setClearColor(0,0);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42,1,.1,100);
-  camera.position.z=3.6;
-
-  // Wireframe sphere
-  scene.add(new THREE.Mesh(new THREE.SphereGeometry(1,22,22), new THREE.MeshBasicMaterial({color:0x3d7a8a,wireframe:true,transparent:true,opacity:.1})));
-  scene.add(new THREE.Mesh(new THREE.SphereGeometry(.96,16,16), new THREE.MeshBasicMaterial({color:0x07090c,transparent:true,opacity:.75})));
-
-  const colors=[0x4a8a6a,0x8a7a3a,0x3a6a8a,0x6a5a8a,0x3a8a7a,0x5a6a3a,0x8a5a3a,0x3a5a8a,0x6a3a8a];
-  const group = new THREE.Group();
-  const nodes = [], pos = [];
-
-  SYSTEMS.slice(1).forEach((d,i) => {
-    const phi = Math.acos(-1+2*(i+.5)/9);
-    const theta = Math.PI*(3-Math.sqrt(5))*i;
-    const x=Math.sin(phi)*Math.cos(theta), y=Math.sin(phi)*Math.sin(theta), z=Math.cos(phi);
-    pos.push(new THREE.Vector3(x,y,z));
-    const nd = new THREE.Mesh(new THREE.SphereGeometry(.065,10,10), new THREE.MeshBasicMaterial({color:colors[i]}));
-    nd.position.set(x,y,z); group.add(nd); nodes.push(nd);
-    // Ring around node
-    const rg = new THREE.Mesh(new THREE.TorusGeometry(.1,.007,6,20), new THREE.MeshBasicMaterial({color:colors[i],transparent:true,opacity:.35}));
-    rg.position.set(x,y,z); rg.lookAt(0,0,0); group.add(rg);
-  });
-
-  // Connecting lines
-  for (let i=0;i<pos.length;i++) {
-    const j=(i+1)%pos.length;
-    group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pos[i],pos[j]]), new THREE.LineBasicMaterial({color:0x3d7a8a,transparent:true,opacity:.18})));
-    if (i<pos.length-3) {
-      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pos[i],pos[(i+3)%pos.length]]), new THREE.LineBasicMaterial({color:0x3d7a8a,transparent:true,opacity:.07})));
-    }
-  }
+  renderer.setClearColor(0x000000,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(50,1,0.1,100);
+  camera.position.z=3;
+  const group=new THREE.Group();
   scene.add(group);
+  const col=new THREE.Color(colorHex);
+  if(type==='form'){
+    group.add(new THREE.Mesh(new THREE.BoxGeometry(.7,1.3,.07),new THREE.MeshBasicMaterial({color:0x111820})));
+    const scr=new THREE.Mesh(new THREE.BoxGeometry(.56,1.0,.01),new THREE.MeshBasicMaterial({color:0x0a1520}));scr.position.z=.04;group.add(scr);
+    [-0.28,-0.1,0.08,0.26].forEach(y=>{const l=new THREE.Mesh(new THREE.BoxGeometry(.42,.02,.01),new THREE.MeshBasicMaterial({color:colorHex,transparent:true,opacity:.6}));l.position.set(0,y,.05);group.add(l);});
+    const btn=new THREE.Mesh(new THREE.BoxGeometry(.26,.07,.01),new THREE.MeshBasicMaterial({color:col}));btn.position.set(0,-.38,.05);group.add(btn);
+    const beam=new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,1.2,8),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.6}));beam.rotation.z=Math.PI/2;beam.position.set(.95,0,0);group.add(beam);
+  }else if(type==='invoice'){
+    const doc=new THREE.Mesh(new THREE.BoxGeometry(.9,.02,1.2),new THREE.MeshBasicMaterial({color:0x0a0f14}));doc.rotation.x=-.3;group.add(doc);
+    [.38,.18,-.02,-.22,-.42].forEach((z,i)=>{const l=new THREE.Mesh(new THREE.BoxGeometry(.7,.015,.015),new THREE.MeshBasicMaterial({color:i===0?colorHex:0x3d7a8a,transparent:true,opacity:i===0?1:.4}));l.rotation.x=.3;l.position.set(0,.02,z);group.add(l);});
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(.28,.02,8,20),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.6}));ring.position.set(.7,.5,0);group.add(ring);
+  }else if(type==='lead'){
+    [.3,.55,.8].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.TorusGeometry(r,.012,8,32),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.4-i*.1}));group.add(ring);});
+    group.add(new THREE.Mesh(new THREE.SphereGeometry(.16,12,12),new THREE.MeshBasicMaterial({color:col})));
+    for(let i=0;i<5;i++){const a=i*Math.PI*2/5;const pts=[new THREE.Vector3(0,0,0),new THREE.Vector3(Math.cos(a)*1.1,Math.sin(a)*1.1,0)];group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:colorHex,transparent:true,opacity:.3})));const nd=new THREE.Mesh(new THREE.SphereGeometry(.07,8,8),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.7}));nd.position.set(Math.cos(a)*1.1,Math.sin(a)*1.1,0);group.add(nd);}
+  }else if(type==='email'){
+    group.add(new THREE.Mesh(new THREE.BoxGeometry(1.3,.02,.85),new THREE.MeshBasicMaterial({color:0x111820})));
+    const flap=new THREE.BufferGeometry();flap.setAttribute('position',new THREE.BufferAttribute(new Float32Array([-.65,0,.425,.65,0,.425,0,0,-.1]),3));group.add(new THREE.Mesh(flap,new THREE.MeshBasicMaterial({color:0x1a2530,side:THREE.DoubleSide})));
+    const at=new THREE.Mesh(new THREE.TorusGeometry(.22,.018,8,20),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.7}));at.rotation.x=Math.PI/2;group.add(at);
+    [-0.1,.1].forEach(z=>{const l=new THREE.Mesh(new THREE.BoxGeometry(.8,.01,.01),new THREE.MeshBasicMaterial({color:colorHex,transparent:true,opacity:.35}));l.position.set(0,.02,z);group.add(l);});
+  }else if(type==='chat'){
+    [-0.35,0.1,.45].forEach((y,i)=>{const bub=new THREE.Mesh(new THREE.BoxGeometry(i%2===0?.75:.55,.18,.05),new THREE.MeshBasicMaterial({color:i%2===0?0x111820:colorHex,transparent:true,opacity:i%2===0?.9:.7}));bub.position.set(i%2===0?-.08:.12,y,0);group.add(bub);});
+    [.35,.52,.68].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.TorusGeometry(r,.01,6,24),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.22-i*.06}));ring.position.set(.55,.5,-.2);ring.rotation.set(i*.3,i*.2,0);group.add(ring);});
+    group.add(new THREE.Mesh(new THREE.SphereGeometry(.1,10,10),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.8})));
+  }else if(type==='summary'){
+    [-0.07,0,.07].forEach((z,i)=>{const doc=new THREE.Mesh(new THREE.BoxGeometry(.85,.02,1.1),new THREE.MeshBasicMaterial({color:0x0a1520,transparent:true,opacity:.8-i*.15}));doc.rotation.x=-.2;doc.position.set(z*2,i*.07,z);group.add(doc);});
+    [.38,.52,.66].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.TorusGeometry(r,.01,6,24),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.3-i*.08}));ring.position.set(.48,.38,0);ring.rotation.set(i*.4,i*.3,i*.2);group.add(ring);});
+    const c=new THREE.Mesh(new THREE.SphereGeometry(.11,10,10),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.9}));c.position.set(.48,.38,0);group.add(c);
+  }
+  let drag=false,px=0,py=0,gy=0,gx=0;
+  canvas.addEventListener('mousedown',e=>{drag=true;px=e.clientX;py=e.clientY;});
+  window.addEventListener('mouseup',()=>{drag=false;});
+  window.addEventListener('mousemove',e=>{if(!drag)return;gy+=(e.clientX-px)*.005;gx+=(e.clientY-py)*.005;px=e.clientX;py=e.clientY;});
+  canvas.addEventListener('mousemove',e=>{if(drag)return;const r=canvas.getBoundingClientRect();group.rotation.y=gy+(e.clientX-r.left)/r.width*.5-.25;group.rotation.x=gx-(e.clientY-r.top)/r.height*.4+.2;});
+  function resz(){const w=canvas.parentElement.offsetWidth,h=180;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  resz();new ResizeObserver(resz).observe(canvas.parentElement);
+  let f=0;(function anim(){requestAnimationFrame(anim);f++;if(!drag)gy+=.006;group.rotation.y=gy;group.rotation.x=gx;group.position.y=Math.sin(f*.02)*.07;renderer.render(scene,camera);})();
+}
 
-  // Orbit rings
-  [1.22,1.38].forEach((r,i) => {
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(r,.003,8,80), new THREE.MeshBasicMaterial({color:0x3d7a8a,transparent:true,opacity:i===0?.14:.07}));
-    ring.rotation.x = i===0?Math.PI/2:Math.PI/3; scene.add(ring);
-  });
-
-  // Traveling particles
-  const particles = Array.from({length:3},(_,i) => {
-    const p = new THREE.Mesh(new THREE.SphereGeometry(.02,6,6), new THREE.MeshBasicMaterial({color:0xc8dde2,transparent:true,opacity:.9}));
-    scene.add(p); return {mesh:p, offset:i*(Math.PI*2/3), speed:.016+i*.005, r:1.22+i*.09};
-  });
-
-  let drag=false, px=0, py=0, ry=0, rx=0, vy=0, vx=0;
+function initGlobe(){
+  const canvas=document.getElementById('globe-c');
+  if(!canvas||typeof THREE==='undefined')return;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));renderer.setClearColor(0,0);
+  const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(42,1,.1,100);camera.position.z=3.6;
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(1,22,22),new THREE.MeshBasicMaterial({color:0x3d7a8a,wireframe:true,transparent:true,opacity:.1})));
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(.96,16,16),new THREE.MeshBasicMaterial({color:0x07090c,transparent:true,opacity:.75})));
+  const colors=[0x3d7a8a,0x8a7a3a,0x3a6a8a,0x6a5a8a,0x4a8a5a,0x3a8a7a,0x8a5a3a,0x5a3a8a,0x3a5a8a,0x6a3a8a];
+  const group=new THREE.Group();const nodes=[],pos=[];
+  SYSTEMS.slice(1).forEach((d,i)=>{const phi=Math.acos(-1+2*(i+.5)/10);const theta=Math.PI*(3-Math.sqrt(5))*i;const x=Math.sin(phi)*Math.cos(theta),y=Math.sin(phi)*Math.sin(theta),z=Math.cos(phi);pos.push(new THREE.Vector3(x,y,z));const nd=new THREE.Mesh(new THREE.SphereGeometry(.065,10,10),new THREE.MeshBasicMaterial({color:colors[i]}));nd.position.set(x,y,z);group.add(nd);nodes.push(nd);const rg=new THREE.Mesh(new THREE.TorusGeometry(.1,.007,6,20),new THREE.MeshBasicMaterial({color:colors[i],transparent:true,opacity:.35}));rg.position.set(x,y,z);rg.lookAt(0,0,0);group.add(rg);});
+  for(let i=0;i<pos.length;i++){const j=(i+1)%pos.length;group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([pos[i],pos[j]]),new THREE.LineBasicMaterial({color:0x3d7a8a,transparent:true,opacity:.18})));}
+  scene.add(group);
+  [1.22,1.38].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.TorusGeometry(r,.003,8,80),new THREE.MeshBasicMaterial({color:0x3d7a8a,transparent:true,opacity:i===0?.14:.07}));ring.rotation.x=i===0?Math.PI/2:Math.PI/3;scene.add(ring);});
+  const particles=Array.from({length:3},(_,i)=>{const p=new THREE.Mesh(new THREE.SphereGeometry(.02,6,6),new THREE.MeshBasicMaterial({color:0x6ab4c8,transparent:true,opacity:.9}));scene.add(p);return{mesh:p,offset:i*(Math.PI*2/3),speed:.016+i*.005,r:1.22+i*.09};});
+  let drag=false,px=0,py=0,ry=0,rx=0,vy=0,vx=0;
   canvas.addEventListener('mousedown',e=>{drag=true;px=e.clientX;py=e.clientY;vy=0;vx=0;});
   window.addEventListener('mouseup',()=>{drag=false;});
-  window.addEventListener('mousemove',e=>{
-    if(!drag)return;
-    vy=(e.clientX-px)*.004; vx=(e.clientY-py)*.004;
-    ry+=vy; rx+=vx; px=e.clientX; py=e.clientY;
-  });
-
-  function resz(){const w=canvas.parentElement.offsetWidth,h=230;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
-  resz(); new ResizeObserver(resz).observe(canvas.parentElement);
-
-  let f=0;
-  (function anim(){
-    requestAnimationFrame(anim); f++;
-    if (!drag){vy*=.95;vx*=.95;ry+=vy+.002;rx+=vx;}
-    group.rotation.y=ry; group.rotation.x=rx;
-    nodes.forEach((n,i)=>{const s=1+Math.sin(f*.04+i*.8)*.18;n.scale.setScalar(s);});
-    particles.forEach(p=>{p.offset+=p.speed;p.mesh.position.set(Math.cos(p.offset)*p.r,Math.sin(p.offset*.35)*.35,Math.sin(p.offset)*p.r);});
-    renderer.render(scene,camera);
-  })();
+  window.addEventListener('mousemove',e=>{if(!drag)return;vy=(e.clientX-px)*.004;vx=(e.clientY-py)*.004;ry+=vy;rx+=vx;px=e.clientX;py=e.clientY;});
+  function resz(){const w=canvas.parentElement.offsetWidth,h=220;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  resz();new ResizeObserver(resz).observe(canvas.parentElement);
+  let f=0;(function anim(){requestAnimationFrame(anim);f++;if(!drag){vy*=.95;vx*=.95;ry+=vy+.002;rx+=vx;}group.rotation.y=ry;group.rotation.x=rx;nodes.forEach((n,i)=>{const s=1+Math.sin(f*.04+i*.8)*.18;n.scale.setScalar(s);});particles.forEach(p=>{p.offset+=p.speed;p.mesh.position.set(Math.cos(p.offset)*p.r,Math.sin(p.offset*.35)*.35,Math.sin(p.offset)*p.r);});renderer.render(scene,camera);})();
 }
 
-// ═══════════════════════════════════════════
-// INTRO
-// ═══════════════════════════════════════════
-(function() {
-  const c = document.getElementById('intro-canvas');
-  const ctx = c.getContext('2d');
-  function rsz(){c.width=window.innerWidth;c.height=window.innerHeight;}
-  rsz(); window.addEventListener('resize',rsz);
-  const pts = Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}));
-  let mx=c.width/2, my=c.height/2;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>c.width)p.vx*=-1;
-      if(p.y<0||p.y>c.height)p.vy*=-1;
-      const d=Math.hypot(p.x-mx,p.y-my);
-      if(d<110){const f=(1-d/110)*.055;p.vx-=(p.x-mx)/d*f;p.vy-=(p.y-my)/d*f;}
-      ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle='rgba(90,154,170,0.4)';ctx.fill();
-    });
-    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
-      const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
-      if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(61,122,138,${.12*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke();}
-    }
-    requestAnimationFrame(draw);
-  }
+(function(){
+  const c=document.getElementById('intro-canvas');const ctx=c.getContext('2d');
+  function rsz(){c.width=window.innerWidth;c.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);
+  const pts=Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}));
+  let mx=c.width/2,my=c.height/2;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;const d=Math.hypot(p.x-mx,p.y-my);if(d<110){const f=(1-d/110)*.055;p.vx-=(p.x-mx)/d*f;p.vy-=(p.y-my)/d*f;}ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle='rgba(106,180,200,0.4)';ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(61,122,138,${.14*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke();}}requestAnimationFrame(draw);}
   draw();
   setTimeout(()=>{const e=document.getElementById('ilogo');if(e){e.style.transition='all .8s cubic-bezier(.4,0,.2,1)';e.style.opacity=1;e.style.transform='translateY(0)';}},400);
   setTimeout(()=>{const e=document.getElementById('irule');if(e){e.style.transition='width 1s ease';e.style.width='160px';}},900);
@@ -1122,236 +660,108 @@ function initGlobe() {
 })();
 
 function enterDemo(){
-  const intro=document.getElementById('intro');
-  intro.style.transition='opacity .8s';
-  intro.style.opacity='0';
-  intro.style.pointerEvents='none';
+  const intro=document.getElementById('intro');intro.style.transition='opacity .8s';intro.style.opacity='0';intro.style.pointerEvents='none';
   setTimeout(()=>{intro.style.display='none';},800);
-  document.getElementById('app').classList.add('show');
-  setTimeout(initGlobe,400);
+  document.getElementById('app').classList.add('show');setTimeout(initGlobe,400);
 }
 
-// ═══════════════════════════════════════════
-// BG PARTICLES
-// ═══════════════════════════════════════════
-(function(){
-  const c=document.getElementById('bg');
-  const ctx=c.getContext('2d');
-  function rsz(){c.width=window.innerWidth;c.height=window.innerHeight;}
-  rsz(); window.addEventListener('resize',rsz);
-  const pts=Array.from({length:45},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,.7,0,Math.PI*2);ctx.fillStyle='rgba(90,154,170,0.2)';ctx.fill();});
-    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<85){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(61,122,138,${.07*(1-d/85)})`;ctx.lineWidth=.4;ctx.stroke();}}
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+(function(){const c=document.getElementById('bg');const ctx=c.getContext('2d');function rsz(){c.width=window.innerWidth;c.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);const pts=Array.from({length:45},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,.7,0,Math.PI*2);ctx.fillStyle='rgba(106,180,200,0.18)';ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<85){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(61,122,138,${.08*(1-d/85)})`;ctx.lineWidth=.4;ctx.stroke();}}requestAnimationFrame(draw);}draw();})();
 
-// ═══════════════════════════════════════════
-// CURSOR
-// ═══════════════════════════════════════════
 if(window.matchMedia('(pointer: fine)').matches){
-  const CUR=document.getElementById('cur'), RING=document.getElementById('cur-r');
+  const CUR=document.getElementById('cur'),RING=document.getElementById('cur-r');
   let cmx=-100,cmy=-100,crx=-100,cry=-100;
-  CUR.style.cssText+='left:-100px;top:-100px';
-  RING.style.cssText+='left:-100px;top:-100px';
-  document.addEventListener('mousemove',e=>{cmx=e.clientX;cmy=e.clientY;CUR.style.left=cmx+'px';CUR.style.top=cmy+'px';});
-  (function animC(){crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;RING.style.left=crx+'px';RING.style.top=cry+'px';requestAnimationFrame(animC);})();
-  document.querySelectorAll('button,a,.chip,.wcard,.stat,.pcard,.sb-item').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{CUR.style.width='14px';CUR.style.height='14px';RING.style.width='36px';RING.style.height='36px';});
-    el.addEventListener('mouseleave',()=>{CUR.style.width='8px';CUR.style.height='8px';RING.style.width='28px';RING.style.height='28px';});
-  });
+  CUR.style.cssText+='left:-100px;top:-100px';RING.style.cssText+='left:-100px;top:-100px';
+  document.addEventListener('mousemove',e=>{cmx=e.clientX;cmy=e.clientY;});
+  (function loop(){crx+=(cmx-crx)*.18;cry+=(cmy-cry)*.18;CUR.style.left=cmx+'px';CUR.style.top=cmy+'px';RING.style.left=crx+'px';RING.style.top=cry+'px';requestAnimationFrame(loop);})();
 }
 
-// ═══════════════════════════════════════════
-// PIPELINE ANIMATION
-// ═══════════════════════════════════════════
 function animPipe(n){
-  const d=SYSTEMS[n];
-  const tot=d?d.pipe.length:4;
-  for(let i=0;i<tot;i++){
-    const c=document.getElementById(`pc${n}-${i}`);
-    const l=document.getElementById(`pl${n}-${i}`);
-    const b=document.getElementById(`pb${n}-${i}`);
-    if(c)c.classList.remove('lit'); if(l)l.classList.remove('lit');
-    if(b){b.style.transition='none';b.style.width='0';}
-  }
+  const d=SYSTEMS[n];const tot=d?d.pipe.length:4;
+  for(let i=0;i<tot;i++){const c=document.getElementById(`pc${n}-${i}`);const l=document.getElementById(`pl${n}-${i}`);const b=document.getElementById(`pb${n}-${i}`);if(c)c.classList.remove('lit');if(l)l.classList.remove('lit');if(b){b.style.transition='none';b.style.width='0';}}
   let step=0;
-  function run(){
-    if(step>=tot)return;
-    const c=document.getElementById(`pc${n}-${step}`);
-    const l=document.getElementById(`pl${n}-${step}`);
-    if(c)c.classList.add('lit'); if(l)l.classList.add('lit');
-    if(step<tot-1){
-      setTimeout(()=>{
-        const b=document.getElementById(`pb${n}-${step}`);
-        if(b){b.style.transition='width .5s ease';b.style.width='100%';}
-        step++; setTimeout(run,500);
-      },350);
-    }
-  }
+  function run(){if(step>=tot)return;const c=document.getElementById(`pc${n}-${step}`);const l=document.getElementById(`pl${n}-${step}`);if(c)c.classList.add('lit');if(l)l.classList.add('lit');if(step<tot-1){setTimeout(()=>{const b=document.getElementById(`pb${n}-${step}`);if(b){b.style.transition='width .5s ease';b.style.width='100%';}step++;setTimeout(run,500);},350);}}
   setTimeout(run,500);
 }
 
-// ═══════════════════════════════════════════
-// STAT COUNTERS
-// ═══════════════════════════════════════════
 function animStats(n){
   document.querySelectorAll(`#s${n} .sv`).forEach(el=>{
-    const txt=el.textContent;
-    const num=parseFloat(txt);
-    if(isNaN(num)||txt.includes('Live')||txt.includes('Auto')||txt.includes('AI')||txt.includes('Mobile')||txt.includes('Weekly')||txt.includes('Per')||txt.includes('Add')||txt.includes('Days')){return;}
-    let start=0, dur=800, s=Date.now();
-    el.textContent='0';
-    (function tick(){
-      const p=Math.min(1,(Date.now()-s)/dur);
-      const cur=num*p;
-      el.textContent=txt.replace(String(num), num%1!==0?cur.toFixed(1):Math.round(cur));
-      if(p<1)requestAnimationFrame(tick);
-      else el.textContent=txt;
-    })();
+    const txt=el.textContent;const num=parseFloat(txt);
+    if(isNaN(num)||/Live|Auto|AI|Mobile|Weekly|Per|Add|Days|PIN|Day|Month|Real|All|Zero/.test(txt))return;
+    let dur=800,s=Date.now();el.textContent='0';
+    (function tick(){const p=Math.min(1,(Date.now()-s)/dur);const cur=num*p;el.textContent=txt.replace(String(num),num%1!==0?cur.toFixed(1):Math.round(cur));if(p<1)requestAnimationFrame(tick);else el.textContent=txt;})();
   });
 }
 
-// ═══════════════════════════════════════════
-// SLIDE NAVIGATION
-// ═══════════════════════════════════════════
-let cur=0, tot=12, lastCtx='', ptimer=0, pFired=false;
+let cur=0,tot=12,lastCtx='',ptimer=0,pFired=false;
 const hist=[];
+const NAMES=['Overview','Visit Logging','Billing & Invoices','Lead Capture','Follow-Up Engine','PSW Management','AI Chatbot','Client Onboarding','Family Portal','HQ Dashboard','Shift Scheduling','Pricing'];
 
 function go(n){
   document.getElementById('s'+cur).classList.remove('on');
-  document.querySelectorAll('.sb-item')[cur].classList.remove('on');
+  const sbItems=document.querySelectorAll('.sb-item');
+  if(sbItems[cur])sbItems[cur].classList.remove('on');
   cur=n;
-  if(cur>=1&&cur<=10) buildSlide(cur);
-  const slide=document.getElementById('s'+cur);
-  slide.classList.add('on');
-  document.querySelectorAll('.sb-item')[cur].classList.add('on');
-  document.getElementById('ctr').textContent=(cur+1)+' of '+tot;
-  document.getElementById('prevbtn').disabled=cur===0;
-  const nb=document.getElementById('nextbtn');
-  nb.disabled=cur===tot-1;
-  nb.textContent=cur===tot-1?'✓ Done':'Next →';
+  if(cur>=1&&cur<=10)buildSlide(cur);
+  document.getElementById('s'+cur).classList.add('on');
+  if(sbItems[cur])sbItems[cur].classList.add('on');
   document.getElementById('pgf').style.width=((cur+1)/tot*100)+'%';
-  document.getElementById('slides').scrollTop=0;
+  const slidesEl=document.getElementById('slides');if(slidesEl)slidesEl.scrollTop=0;window.scrollTo(0,0);
   if(cur>=1&&cur<=10){animPipe(cur);setTimeout(()=>animStats(cur),600);}
-
-  const names=['','PSW Visit Log','Invoice Generator','Lead Capture','Family Comms Engine','Operator Chatbot','Family Chatbot','Family Lead Form','Care Summaries','Website','Client Portal',''];
-  if(cur>0&&cur<tot-1&&names[cur]&&names[cur]!==lastCtx){
-    lastCtx=names[cur];
-    const d=document.createElement('div'); d.className='msg b';
-    d.innerHTML=`<div class="bub" style="font-size:9px;color:var(--muted);background:transparent;border-color:transparent;padding:3px 8px">Now viewing: <strong style="color:var(--teal2)">${names[cur]}</strong></div>`;
-    document.getElementById('msgs').appendChild(d); sc();
-  }
+  const prevBtn=document.getElementById('prevbtn');const nextBtn=document.getElementById('nextbtn');const ctrEl=document.getElementById('ctr');
+  if(prevBtn)prevBtn.disabled=cur===0;
+  if(nextBtn){nextBtn.disabled=cur===tot-1;nextBtn.textContent=cur===tot-1?'✓ Done':'Next →';}
+  if(ctrEl)ctrEl.textContent=NAMES[cur]||((cur+1)+' of '+tot);
+  if(cur>0&&cur<tot-1&&NAMES[cur]&&NAMES[cur]!==lastCtx){lastCtx=NAMES[cur];const d=document.createElement('div');d.className='msg b';d.innerHTML=`<div class="bub" style="font-size:10px;color:var(--muted);background:transparent;border-color:transparent;padding:3px 8px">Now viewing: <strong style="color:var(--teal2)">${NAMES[cur]}</strong></div>`;document.getElementById('msgs').appendChild(d);sc();}
 }
 function nav(d){const n=cur+d;if(n>=0&&n<tot)go(n);}
 
-// ═══════════════════════════════════════════
-// CHAT AI
-// ═══════════════════════════════════════════
-const W='https://proximity-agent-production.up.railway.app/chat', M='claude-haiku-4-5-20251001';
-const SYS=`You are the sales assistant for Proximity Systems. Plain English. Short sentences. No jargon. Help home care operators understand the 10 systems and decide if they want to book a call.
+(function(){
+  let tx=0,ty=0,swiping=false;
+  document.addEventListener('touchstart',function(e){if(e.target.closest('.chat')||e.target.closest('input')||e.target.closest('textarea'))return;tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;swiping=true;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!swiping)return;const dx=e.changedTouches[0].clientX-tx;const dy=e.changedTouches[0].clientY-ty;if(Math.abs(dy)>Math.abs(dx))swiping=false;},{passive:true});
+  document.addEventListener('touchend',function(e){if(!swiping)return;swiping=false;const dx=e.changedTouches[0].clientX-tx;const dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>48){if(dx<0&&cur<tot-1)go(cur+1);else if(dx>0&&cur>0)go(cur-1);}},{passive:true});
+})();
 
-10 SYSTEMS:
-1. PSW Visit Log — PSWs fill a quick form after each visit. Hours go to Google Sheets automatically. Saves 5.5hrs/month.
-2. Invoice Generator — Invoices calculate from logged hours. Email sent automatically last Friday every month. Saves 4hrs/month.
-3. Lead Capture — Family submits form → Gmail alert in under 60 seconds → row in leads sheet. Response time: 4.5hrs → under 1 min.
-4. Family Communications Engine — Automated emails: lead follow-up Day 1/3/7, birthday messages, care plan change alerts, monthly family updates, referral requests at 30 days. Zero manual sends.
-5. Operator Chatbot — AI chat on their website qualifies operators and books discovery calls. Powered by Claude. 24/7.
-6. Family Chatbot — AI chat asks families 5 questions. Info goes to sheet. Gmail alert instant. 24/7.
-7. Family Lead Form — Form submit → webhook → sheet → Gmail. Zero delay.
-8. Care Summaries — Every Monday, Claude AI writes a care summary per client from visit data. Auto-emailed.
-9. Website — Custom home care website. Chatbot and lead form built in. All systems connected. Free hosting forever on GitHub Pages.
-10. Client Portal — Clients log into their own portal. Care plan, summaries, documents, appointments, and messages — all in one place. Zero phone tag.
-
-EVERYTHING IS CUSTOMIZED to the operator's agency — their name, branding, PSW names, clients, pricing. Nothing is generic.
-
-PRICING:
-- Core (Automation Only): $2,000–2,500 setup + $500/month
-- Full Stack (Automation + Website): $2,800–3,200 setup + $500/month — most popular
-- Scale (Growth Package): $3,500+ setup + $750/month
-
-HOW IT WORKS: Free 30-min call → full install under a week → they never touch tech → $500/mo covers maintenance and support.
-
-REAL NUMBERS (Proximity Care Services, Mississauga): 15hrs saved/month, lead response under 1 min, $2,761 invoiced, 2 clients, 4 PSWs, 22 leads.
-
-BOOK: calendly.com/lancesalazar56/discovery | PHONE: 647-382-8047
-
-RULES: 2-4 sentences max. Real numbers. Nudge toward booking if interested.`;
-
+const W='https://proximity-agent-production.up.railway.app/chat';
 async function send(){
-  const inp=document.getElementById('chatinp');
-  const msg=inp.value.trim(); if(!msg)return;
-  inp.value=''; inp.style.height='auto';
-  document.getElementById('sendbtn').disabled=true;
-  document.getElementById('chips').style.display='none';
-  am('u',msg); hist.push({role:'user',content:msg});
-  document.getElementById('typ').classList.add('show'); sc();
+  const inp=document.getElementById('chatinp');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='auto';document.getElementById('sendbtn').disabled=true;document.getElementById('chips').style.display='none';
+  am('u',msg);hist.push({role:'user',content:msg});lastUserMsg=msg;
+  document.getElementById('typ').classList.add('show');sc();
   try{
     const r=await fetch(W,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',messages:hist})});
-    const data=await r.json();
-    const rep=data.response||'Something went wrong — call Lance at 647-382-8047';
-    hist.push({role:'assistant',content:rep});
-    document.getElementById('typ').classList.remove('show');
-    am('b',rep);demoStage++;renderDemoChips();
-  }catch(e){
-    document.getElementById('typ').classList.remove('show');
-    am('b','Connection issue — reach Lance at 647-382-8047 or book at calendly.com/lancesalazar56/discovery');
-    renderDemoChips();
-  }
-  document.getElementById('sendbtn').disabled=false; sc();
+    const data=await r.json();const rep=data.response||'Something went wrong — call Lance at 647-382-8047';
+    hist.push({role:'assistant',content:rep});document.getElementById('typ').classList.remove('show');
+    am('b',rep);demoStage++;renderDemoChips(msg);
+  }catch(e){document.getElementById('typ').classList.remove('show');am('b','Connection issue — reach Lance at 647-382-8047 or visit proximitysystems.ca');renderDemoChips(msg);}
+  document.getElementById('sendbtn').disabled=false;sc();
 }
-function am(type,text){
-  const d=document.createElement('div'); d.className='msg '+type;
-  const t=new Date(); const ti=t.getHours()+':'+String(t.getMinutes()).padStart(2,'0');
-  d.innerHTML=`<div class="bub">${text.replace(/\n/g,'<br>')}</div><div class="msgt">${ti}</div>`;
-  document.getElementById('msgs').appendChild(d); sc();
-}
-function sc(){const m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;}
+function am(type,text){const d=document.createElement('div');d.className='msg '+type;const t=new Date();const ti=t.getHours()+':'+String(t.getMinutes()).padStart(2,'0');d.innerHTML=`<div class="bub">${text.replace(/\n/g,'<br>')}</div><div class="msgt">${ti}</div>`;document.getElementById('msgs').appendChild(d);sc();}
+function sc(){const m=document.getElementById('msgs');if(m)m.scrollTop=m.scrollHeight;}
 function sug(el){document.getElementById('chatinp').value=el.textContent;send();}
-var demoStage=0;
-function getDemoChips(){
-  switch(demoStage){
-    case 0:return['What does this do?','How much does it cost?','See a demo'];
-    case 1:return['Lead capture','PSW visit logs','Family chatbot'];
-    case 2:return['Home care agency','I run multiple locations','Just starting out'];
-    default:return['__BOOK_DISCOVERY__'];
-  }
+
+function calcRoi(){
+  const keap=parseInt(document.getElementById('rKeapI').value)||0;const mem=parseInt(document.getElementById('rMemI').value)||0;const host=parseInt(document.getElementById('rHostI').value)||0;const other=parseInt(document.getElementById('rOtherI').value)||0;
+  const current=keap+mem+host+other;const ours=500;const diff=current-ours;const savedYear=diff*12;
+  document.getElementById('rKeap').textContent='$'+keap+'/mo';document.getElementById('rMem').textContent='$'+mem+'/mo';document.getElementById('rHost').textContent='$'+host+'/mo';document.getElementById('rOther').textContent='$'+other+'/mo';
+  document.getElementById('roiCurrent').textContent='$'+current.toLocaleString();
+  const saveEl=document.getElementById('roiSave');const msgEl=document.getElementById('roiMsg');
+  if(savedYear>0){saveEl.textContent='$'+savedYear.toLocaleString();saveEl.style.color='var(--teal2)';msgEl.textContent='You save $'+diff+'/mo and get 4 systems you never had. Month 2 you are cash flow positive.';}
+  else if(savedYear===0){saveEl.textContent='$0';saveEl.style.color='var(--muted)';msgEl.textContent='Same cost — but everything connected and 4 extra systems included.';}
+  else{saveEl.textContent='-$'+(Math.abs(savedYear)).toLocaleString();saveEl.style.color='#f87a7a';msgEl.textContent='$'+(Math.abs(diff))+' more per month — but you get a full connected back office you never had.';}
 }
-function renderDemoChips(){
-  var wrap=document.getElementById('chips');
-  wrap.innerHTML='';wrap.style.display='';
-  getDemoChips().forEach(function(c){
-    if(c==='__BOOK_DISCOVERY__'){
-      var a=document.createElement('a');a.className='chip';
-      a.textContent='Book a Discovery Call';
-      a.href='https://calendly.com/lancesalazar56/discovery';a.target='_blank';
-      a.style.cssText='text-decoration:none;background:rgba(61,122,138,0.2);color:var(--teal2);border-color:rgba(61,122,138,0.4);';
-      wrap.appendChild(a);
-    }else{
-      var d=document.createElement('div');d.className='chip';d.textContent=c;
-      d.onclick=function(){sug(d);};
-      wrap.appendChild(d);
-    }
-  });
-}
+calcRoi();
+
+(function(){function countUp(id,target,dur){const el=document.getElementById(id);if(!el)return;let s=Date.now();(function tick(){const p=Math.min(1,(Date.now()-s)/dur);el.textContent=Math.round(target*p);if(p<1)requestAnimationFrame(tick);else el.textContent=target;})();}setTimeout(()=>{countUp('cntVisits',47,1200);countUp('cntLeads',22,1000);},800);})();
+
+const CHIP_MAP={pricing:['What is included?','How long does setup take?','First month free?'],setup:['What do I need to provide?','How long does it take?','Do I need tech skills?'],systems:['How much does it cost?','Is it customized?','Can I see the portal?'],portal:['What can families see?','Is it secure?','How do PSWs log in?'],psw:['How does the checklist work?','Can they message privately?','What about missed visits?'],leads:['How fast does it respond?','Where do leads go?','What follow-ups fire?'],default0:['What does this do?','How much does it cost?','Show me the PSW system'],default1:['Tell me about the portal','How does lead capture work?','What about invoicing?'],default2:['I run multiple locations','How long does setup take?','What is included at $500/mo?'],defaultEnd:['__BOOK__']};
+function getSmartChips(lastMsg,stage){if(!lastMsg)return CHIP_MAP['default'+Math.min(stage,2)]||CHIP_MAP.defaultEnd;const m=lastMsg.toLowerCase();if(m.includes('price')||m.includes('cost')||m.includes('$')||m.includes('much'))return CHIP_MAP.pricing;if(m.includes('setup')||m.includes('install')||m.includes('how long')||m.includes('week'))return CHIP_MAP.setup;if(m.includes('portal')||m.includes('family')||m.includes('client'))return CHIP_MAP.portal;if(m.includes('psw')||m.includes('caregiver')||m.includes('staff'))return CHIP_MAP.psw;if(m.includes('lead')||m.includes('inquiry')||m.includes('capture'))return CHIP_MAP.leads;if(m.includes('system')||m.includes('what')||m.includes('how'))return CHIP_MAP.systems;return CHIP_MAP['default'+Math.min(stage,2)]||CHIP_MAP.defaultEnd;}
+var demoStage=0,lastUserMsg='';
+function renderDemoChips(msg){lastUserMsg=msg||lastUserMsg;const wrap=document.getElementById('chips');wrap.innerHTML='';wrap.style.display='';const chips=getSmartChips(lastUserMsg,demoStage);chips.forEach(function(c){if(c==='__BOOK__'){const a=document.createElement('a');a.className='chip';a.textContent='Visit proximitysystems.ca';a.href='https://proximitysystems.ca';a.target='_blank';a.style.cssText='text-decoration:none;background:var(--teal3);color:var(--teal2);border-color:var(--border2);';wrap.appendChild(a);}else{const d=document.createElement('div');d.className='chip';d.textContent=c;d.onclick=function(){sug(d);};wrap.appendChild(d);}});}
 renderDemoChips();
 function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function rs(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,56)+'px';}
-function calcRoi(){
-  const h=parseInt(document.getElementById('rHi').value);
-  const r=parseInt(document.getElementById('rRi').value);
-  const s=Math.round(h*.6*4), v=s*r, p=Math.ceil(2500/v);
-  document.getElementById('rH').textContent=h+' hrs';
-  document.getElementById('rR').textContent='$'+r+'/hr';
-  document.getElementById('roiH').textContent=s;
-  document.getElementById('roiV').textContent='$'+v.toLocaleString();
-  document.getElementById('roiP').textContent=p+'mo';
-}
-calcRoi();
-setInterval(()=>{ptimer++;if(ptimer===120&&!pFired){pFired=true;document.getElementById('pro').classList.add('show');}},1000);
+setInterval(()=>{ptimer++;if(ptimer===120&&!pFired){pFired=true;const p=document.getElementById('pro');if(p)p.classList.add('show');}},1000);
 </script>
 </body>
 </html>
