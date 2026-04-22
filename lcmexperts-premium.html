@@ -701,7 +701,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <div class="pulse-ring"></div>
       <span>thelifecareexperts.com &nbsp;·&nbsp; lcmexpert.com &nbsp;·&nbsp; Unified 2025</span>
     </div>
-    <h1 class="hero-h wipe">Navigating Life Care<br>With <em>Integrity</em><br>&amp; Experience.</h1>
+    <h1 class="hero-h">Navigating Life Care<br>With <em>Integrity</em><br>&amp; Experience.</h1>
     <p class="hero-desc">
       <strong>Jennifer Crowley RN, CLCP, CDP, CMC</strong> — Registered Nurse with over 30 years of experience. Certified Life Care Planner, published author, certified dementia trainer, expert witness, and co-developer of Montana's State Plan for Alzheimer's Disease.
     </p>
@@ -1558,6 +1558,14 @@ const io=new IntersectionObserver(entries=>{
   });
 },{threshold:.1});
 document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stat-item,.wipe').forEach(el=>io.observe(el));
+
+/* force vis on wipe elements already in viewport at load */
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.wipe').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight)el.classList.add('vis');
+  });
+});
 
 /* hero card count-up on load */
 const hio=new IntersectionObserver(es=>{
