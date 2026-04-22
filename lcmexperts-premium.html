@@ -559,10 +559,79 @@ input,select,textarea{font-family:var(--sans);}
    SCROLL PROGRESS BAR
 ════════════════════════════════════════════ */
 #scroll-prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--sage),var(--coral));width:0%;z-index:1000;transition:width .1s linear;pointer-events:none;}
+
+/* ════════════════════════════════════════════
+   MAGNETIC CURSOR
+════════════════════════════════════════════ */
+@media(hover:hover){
+  *{cursor:none!important;}
+  #cur{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s var(--ease-out),height .2s var(--ease-out),background .2s,opacity .3s;mix-blend-mode:normal;}
+  #cur-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid rgba(21,94,117,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s var(--ease-out),height .35s var(--ease-out),border-color .2s,opacity .3s;}
+  #cur.on-btn{width:48px;height:48px;background:var(--coral);opacity:.18;}
+  #cur.on-btn ~ #cur-ring{width:0;height:0;opacity:0;}
+  #cur.hidden{opacity:0;}
+  #cur-ring.hidden{opacity:0;}
+}
+
+/* ════════════════════════════════════════════
+   GRAIN OVERLAY
+════════════════════════════════════════════ */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:200px 200px;}
+
+/* ════════════════════════════════════════════
+   CLIP-PATH WIPE REVEAL (hero headings only)
+════════════════════════════════════════════ */
+.wipe{clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease-out);}
+.wipe.vis{clip-path:inset(0 0 0% 0);}
+
+/* ════════════════════════════════════════════
+   SHIMMER ON STATS
+════════════════════════════════════════════ */
+@keyframes shimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
+.stat-n.shimmered{background:linear-gradient(90deg,var(--white) 0%,rgba(255,255,255,.4) 40%,var(--white) 50%,rgba(255,255,255,.4) 60%,var(--white) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer .8s ease-in-out 1;}
+
+/* ════════════════════════════════════════════
+   STAGGERED SERVICE CARDS
+════════════════════════════════════════════ */
+.svc-grid .svc-card:nth-child(1){transition-delay:.05s!important;}
+.svc-grid .svc-card:nth-child(2){transition-delay:.13s!important;}
+.svc-grid .svc-card:nth-child(3){transition-delay:.21s!important;}
+.svc-grid .svc-card:nth-child(4){transition-delay:.29s!important;}
+.svc-grid .svc-card:nth-child(5){transition-delay:.37s!important;}
+.svc-grid .svc-card:nth-child(6){transition-delay:.45s!important;}
+
+/* ════════════════════════════════════════════
+   TESTIMONIAL CAROUSEL (mobile)
+════════════════════════════════════════════ */
+@media(max-width:900px){
+  .testi-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:1rem;padding-bottom:1rem;scrollbar-width:none;}
+  .testi-grid::-webkit-scrollbar{display:none;}
+  .testi-card{flex:0 0 85vw;scroll-snap-align:start;}
+  .testi-dots{display:flex;justify-content:center;gap:.45rem;margin-top:1.2rem;}
+  .testi-dot{width:6px;height:6px;border-radius:50%;background:var(--rule);transition:background .25s,transform .25s;}
+  .testi-dot.active{background:var(--teal);transform:scale(1.3);}
+}
+@media(min-width:901px){.testi-dots{display:none;}}
+
+/* ════════════════════════════════════════════
+   LIVE STATUS BADGE
+════════════════════════════════════════════ */
+.live-status{display:inline-flex;align-items:center;gap:.5rem;background:rgba(40,200,64,.08);border:1px solid rgba(40,200,64,.25);padding:.32rem .8rem;margin-bottom:1.4rem;}
+.live-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;flex-shrink:0;animation:livepulse 2s ease-in-out infinite;}
+@keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5);}50%{box-shadow:0 0 0 5px rgba(34,197,94,0);}}
+.live-txt{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#166534;}
+
+/* ════════════════════════════════════════════
+   FOOTER CLOSING STATEMENT
+════════════════════════════════════════════ */
+.ft-closing{font-family:var(--serif);font-size:1.45rem;font-style:italic;color:rgba(255,255,255,.55);line-height:1.55;margin-bottom:2.5rem;max-width:580px;}
+.ft-closing em{color:var(--coral-l);font-style:normal;}
 </style>
 </head>
 <body>
 <div id="scroll-prog"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
 
 <!-- ══ NAV ══ -->
 <nav class="nav" id="mainNav">
@@ -632,10 +701,14 @@ input,select,textarea{font-family:var(--sans);}
       <div class="pulse-ring"></div>
       <span>thelifecareexperts.com &nbsp;·&nbsp; lcmexpert.com &nbsp;·&nbsp; Unified 2025</span>
     </div>
-    <h1 class="hero-h">Navigating Life Care<br>With <em>Integrity</em><br>&amp; Experience.</h1>
+    <h1 class="hero-h wipe">Navigating Life Care<br>With <em>Integrity</em><br>&amp; Experience.</h1>
     <p class="hero-desc">
       <strong>Jennifer Crowley RN, CLCP, CDP, CMC</strong> — Registered Nurse with over 30 years of experience. Certified Life Care Planner, published author, certified dementia trainer, expert witness, and co-developer of Montana's State Plan for Alzheimer's Disease.
     </p>
+    <div class="live-status">
+      <div class="live-dot"></div>
+      <span class="live-txt">Currently Accepting Clients</span>
+    </div>
     <div class="split-cta">
       <a href="#contact" class="split-btn family">
         <span class="split-btn-label">Families &amp; Individuals</span>
@@ -761,7 +834,7 @@ input,select,textarea{font-family:var(--sans);}
     <div class="founder-grid">
       <div>
         <div class="eyebrow reveal"><div class="eyebrow-dot coral"></div><span class="eyebrow-text coral">The Authority</span></div>
-        <h2 class="display reveal d1" style="font-size:clamp(2rem,3vw,2.8rem);margin-bottom:1.3rem;">A Nurse Who Built<br><em>the Field's Playbook.</em></h2>
+        <h2 class="display reveal wipe d1" style="font-size:clamp(2rem,3vw,2.8rem);margin-bottom:1.3rem;">A Nurse Who Built<br><em>the Field's Playbook.</em></h2>
         <p class="body-t reveal d2">Jennifer spent <strong>15 years as an ICU charge nurse at Logan Health</strong>, served as a U.S. Peace Corps volunteer in Papua New Guinea, and trained in critical care surgical nursing at Detroit Medical Center before founding The Life Care Experts in 2006.</p>
         <div class="pull-q reveal d2">"I built frameworks that I've been using for 20 years — and made them available for anyone."</div>
         <p class="body-t reveal d3">She co-developed Montana's State Plan for Alzheimer's and Related Dementias, serves on the BOLD Steering Committee, has provided <strong>expert witness testimony in deposition and trial settings</strong>, and has trained hundreds of care professionals across Montana since 2019.</p>
@@ -1225,6 +1298,11 @@ input,select,textarea{font-family:var(--sans);}
         <div><span class="testi-author-name">James R., Esq.</span><span class="testi-author-role">Attorney · Insurance Litigation</span></div>
       </div>
     </div>
+    <div class="testi-dots" id="testiDots">
+      <div class="testi-dot active"></div>
+      <div class="testi-dot"></div>
+      <div class="testi-dot"></div>
+    </div>
   </div>
 </section>
 
@@ -1330,6 +1408,9 @@ input,select,textarea{font-family:var(--sans);}
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C480,0 960,60 1440,20 L1440,60 L0,60 Z" fill="var(--navy)"/></svg>
 </div>
 <footer class="footer">
+  <div class="wrap" style="padding-top:3.5rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:2.5rem;">
+    <div class="ft-closing">Every family deserves a guide who has been there.<br><em>That is what 31 years builds.</em></div>
+  </div>
   <div class="footer-inner">
     <div>
       <div class="ft-brand-name">The Life Care <span>Experts</span></div>
@@ -1421,8 +1502,33 @@ window.addEventListener('scroll',()=>{
   dev.parentElement.addEventListener('mouseleave',()=>{dev.style.transform='';});
 })();
 
-/* ─── COUNT-UP ─── */
-function countUp(el){
+/* ─── MAGNETIC CURSOR ─── */
+(function(){
+  const cur=document.getElementById('cur');
+  const ring=document.getElementById('cur-ring');
+  if(!cur||!ring)return;
+  if(window.matchMedia('(hover:none)').matches){cur.style.display='none';ring.style.display='none';return;}
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  (function animRing(){
+    rx+=(mx-rx)*.12;
+    ry+=(my-ry)*.12;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a,button,.split-btn,.svc-card,.prod-card,.course-card,.testi-card,.inst-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.classList.add('on-btn');ring.classList.add('on-btn');});
+    el.addEventListener('mouseleave',()=>{cur.classList.remove('on-btn');ring.classList.remove('on-btn');});
+  });
+  document.addEventListener('mouseleave',()=>{cur.classList.add('hidden');ring.classList.add('hidden');});
+  document.addEventListener('mouseenter',()=>{cur.classList.remove('hidden');ring.classList.remove('hidden');});
+})();
+
+/* ─── SHIMMER ON STATS AFTER COUNT-UP ─── */
+function countUpShimmer(el){
   const target=+el.dataset.target;
   const suffix=el.dataset.suffix||'';
   const dur=1600;
@@ -1431,33 +1537,51 @@ function countUp(el){
     const p=Math.min((now-start)/dur,1);
     const ease=1-Math.pow(1-p,3);
     el.textContent=Math.round(ease*target)+suffix;
-    if(p<1)requestAnimationFrame(frame);
+    if(p<1){requestAnimationFrame(frame);}
+    else{
+      setTimeout(()=>{
+        el.classList.add('shimmered');
+        setTimeout(()=>el.classList.remove('shimmered'),900);
+      },100);
+    }
   })(start);
 }
 
-/* ─── SCROLL REVEAL + COUNT-UP ─── */
+/* ─── SCROLL REVEAL + COUNT-UP + WIPE ─── */
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
       e.target.classList.add('vis');
-      e.target.querySelectorAll('[data-target]').forEach(countUp);
+      e.target.querySelectorAll('[data-target]').forEach(countUpShimmer);
       io.unobserve(e.target);
     }
   });
 },{threshold:.1});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stat-item').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stat-item,.wipe').forEach(el=>io.observe(el));
 
 /* hero card count-up on load */
 const hio=new IntersectionObserver(es=>{
   es.forEach(e=>{
     if(e.isIntersecting){
-      e.target.querySelectorAll('[data-target]').forEach(countUp);
+      e.target.querySelectorAll('[data-target]').forEach(countUpShimmer);
       hio.unobserve(e.target);
     }
   });
 },{threshold:.3});
 const hCard=document.getElementById('heroCard');
 if(hCard)hio.observe(hCard);
+
+/* ─── TESTIMONIAL DOT TRACKER ─── */
+(function(){
+  const grid=document.querySelector('.testi-grid');
+  const dots=document.querySelectorAll('.testi-dot');
+  if(!grid||!dots.length)return;
+  grid.addEventListener('scroll',()=>{
+    const idx=Math.round(grid.scrollLeft/(grid.scrollWidth/dots.length));
+    dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+  },{passive:true});
+})();
+
 
 /* ─── CONTACT FORM ─── */
 function submitForm(){
