@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="Jennifer Crowley RN, CLCP — Life Care Planning, Care Management and Professional Education. The Life Care Experts · LCM Institute.">
+<title>The Life Care Experts · LCM Institute | Jennifer Crowley RN, CLCP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*{-webkit-tap-highlight-color:transparent;}
+:root{
+  /* Light palette */
+  --white:#ffffff;
+  --cream:#faf8f4;
+  --cream2:#f3efe8;
+  --cream3:#ede8df;
+  --rule:#e0d9cf;
+
+  /* Brand */
+  --teal:#155e75;
+  --teal-m:#1a7a94;
+  --teal-l:#2196b3;
+  --teal-pale:#e8f5f9;
+  --teal-ghost:rgba(21,94,117,.07);
+  --teal-glow:rgba(21,94,117,.15);
+  --coral:#c85a32;
+  --coral-m:#d97048;
+  --coral-pale:#fdf1eb;
+  --coral-ghost:rgba(200,90,50,.08);
+  --sage:#4a8c5c;
+  --sage-pale:#ecf5ee;
+  --sage-ghost:rgba(74,140,92,.08);
+  --gold:#b8965a;
+  --gold-pale:#faf4e8;
+
+  /* Dark */
+  --navy:#0d1e2e;
+  --navy2:#152233;
+  --navy3:#1e3347;
+  --ink:#213040;
+  --gray:#506070;
+  --gray2:#7a8f9f;
+  --gray3:#b0c3cc;
+
+  /* Type */
+  --serif:'Cormorant Garamond',serif;
+  --sans:'Nunito Sans',sans-serif;
+  --script:'Dancing Script',cursive;
+
+  /* Shadow */
+  --s1:0 2px 8px rgba(13,30,46,.06);
+  --s2:0 8px 32px rgba(13,30,46,.1);
+  --s3:0 20px 60px rgba(13,30,46,.14);
+  --s4:0 40px 100px rgba(13,30,46,.18);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:72px;}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);overflow-x:hidden;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:var(--sans);cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:var(--sans);}
+
+/* ── GRAIN ── */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9995;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px;}
+
+/* ── SCROLL PROGRESS ── */
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--coral),var(--sage));width:0%;z-index:1001;pointer-events:none;transition:width .08s linear;}
+
+/* ── CURSOR ── */
+@media(hover:hover){
+  *{cursor:none!important;}
+  #cur{position:fixed;width:10px;height:10px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),background .2s,opacity .3s;top:0;left:0;}
+  #cur-r{position:fixed;width:38px;height:38px;border:1.5px solid rgba(21,94,117,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .2s,opacity .3s;top:0;left:0;}
+  #cur.h{width:50px;height:50px;background:var(--coral);opacity:.12;}
+  #cur.h~#cur-r{opacity:0;}
+  #cur.out,#cur-r.out{opacity:0;}
+}
+
+/* ── PAGE LOAD ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes navIn{from{opacity:0;transform:translateY(-100%);}to{opacity:1;transform:none;}}
+@keyframes wipeUp{from{clip-path:inset(0 0 100% 0);}to{clip-path:inset(0 0 0% 0);}}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.rev.vis{opacity:1;transform:none;}
+.rev-l{opacity:0;transform:translateX(-22px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.rev-l.vis{opacity:1;transform:none;}
+.rev-r{opacity:0;transform:translateX(22px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.rev-r.vis{opacity:1;transform:none;}
+.wipe{clip-path:inset(0 0 100% 0);transition:clip-path .95s var(--ease);}
+.wipe.vis{clip-path:inset(0 0 0% 0);}
+.d1{transition-delay:.08s!important;}.d2{transition-delay:.16s!important;}.d3{transition-delay:.24s!important;}.d4{transition-delay:.32s!important;}.d5{transition-delay:.4s!important;}
+
+/* ════════ NAV ════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;height:68px;display:flex;align-items:center;background:rgba(250,248,244,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;animation:navIn .6s var(--ease) both;}
+.nav.scrolled{border-bottom-color:var(--rule);box-shadow:0 4px 24px rgba(13,30,46,.06);}
+.nav-inner{width:100%;max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+
+/* SVG Logo */
+.nav-logo{display:flex;align-items:center;gap:.65rem;flex-shrink:0;}
+.logo-icon{width:32px;height:32px;flex-shrink:0;}
+.logo-text{display:flex;flex-direction:column;}
+.logo-main{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--teal);line-height:1;letter-spacing:.01em;}
+.logo-main em{font-style:italic;color:var(--coral);}
+.logo-sub{font-family:var(--script);font-size:.8rem;color:var(--sage);line-height:1;margin-top:.1rem;}
+
+.nav-links{display:flex;align-items:center;gap:.1rem;}
+.nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);padding:.5rem .75rem;transition:color .2s;min-height:44px;display:inline-flex;align-items:center;}
+.nav-links a:hover{color:var(--teal);}
+.nav-cta{background:var(--coral);color:var(--white);padding:.5rem 1.3rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;min-height:44px;display:inline-flex;align-items:center;}
+.nav-cta:hover{background:var(--coral-m);}
+.ham{display:none;flex-direction:column;gap:5px;padding:.5rem;min-height:44px;min-width:44px;align-items:center;justify-content:center;}
+.ham span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s;}
+.mob{display:none;position:fixed;inset:0;background:var(--cream);z-index:950;flex-direction:column;align-items:center;justify-content:center;gap:1.8rem;}
+.mob.open{display:flex;}
+.mob a{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--navy);font-weight:300;}
+.mob a:hover{color:var(--teal);}
+.mob-close{position:absolute;top:1.2rem;right:1.4rem;font-size:1.5rem;color:var(--gray2);min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;}
+
+/* ════════ HERO ════════ */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--cream) 0%,var(--teal-pale) 60%,var(--cream2) 100%);}
+
+/* Parallax background layers */
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.hbg-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(21,94,117,.1) 1px,transparent 1px);background-size:32px 32px;will-change:transform;}
+.hbg-blob1{position:absolute;top:-10%;right:-5%;width:55%;padding-bottom:55%;background:radial-gradient(circle,rgba(21,94,117,.08) 0%,transparent 70%);border-radius:50%;will-change:transform;}
+.hbg-blob2{position:absolute;bottom:-15%;left:-8%;width:50%;padding-bottom:50%;background:radial-gradient(circle,rgba(74,140,92,.06) 0%,transparent 70%);border-radius:50%;will-change:transform;}
+.hbg-blob3{position:absolute;top:30%;right:20%;width:30%;padding-bottom:30%;background:radial-gradient(circle,rgba(200,90,50,.05) 0%,transparent 70%);border-radius:50%;will-change:transform;}
+
+.hero-l{position:relative;z-index:2;padding:10rem 2rem 6rem 3.5rem;}
+.hero-r{position:relative;z-index:2;padding:10rem 3.5rem 6rem 1rem;display:flex;align-items:center;justify-content:center;}
+
+/* eyebrow */
+.hero-eye{display:inline-flex;align-items:center;gap:.55rem;background:var(--teal-ghost);border:1px solid rgba(21,94,117,.18);padding:.38rem 1rem .38rem .6rem;margin-bottom:1.6rem;animation:fadeUp .7s .1s var(--ease) both;}
+.eye-pulse{width:10px;height:10px;position:relative;flex-shrink:0;}
+.eye-pulse::before{content:'';position:absolute;inset:0;background:var(--coral);border-radius:50%;}
+.eye-pulse::after{content:'';position:absolute;inset:-3px;border:2px solid var(--coral);border-radius:50%;animation:ring 2s ease-out infinite;}
+@keyframes ring{0%{transform:scale(.7);opacity:1;}100%{transform:scale(1.9);opacity:0;}}
+.eye-txt{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);font-weight:700;}
+
+.hero-h{font-family:var(--serif);font-size:clamp(2.8rem,4.5vw,5.2rem);font-weight:700;line-height:1.04;color:var(--navy);margin-bottom:1.2rem;animation:wipeUp .9s .2s var(--ease) both;}
+.hero-h em{font-style:italic;color:var(--teal);}
+
+/* typed line */
+.hero-typed{font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);margin-bottom:1.2rem;min-height:1.2em;animation:fadeIn .5s .9s both;}
+.hero-typed::after{content:'|';animation:blink 1s step-end infinite;margin-left:1px;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+.hero-desc{font-size:.95rem;font-weight:300;line-height:1.9;color:var(--gray);max-width:500px;margin-bottom:1.6rem;animation:fadeUp .7s .6s var(--ease) both;}
+.hero-desc strong{color:var(--navy);font-weight:700;}
+
+.live-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(34,197,94,.25);background:rgba(34,197,94,.06);padding:.3rem .8rem;margin-bottom:1.4rem;animation:fadeIn .6s .55s both;}
+.live-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:livep 2s ease-in-out infinite;}
+@keyframes livep{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5);}50%{box-shadow:0 0 0 5px rgba(34,197,94,0);}}
+.live-txt{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#166534;}
+
+.split-cta{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:460px;margin-bottom:1.6rem;animation:fadeUp .7s .75s var(--ease) both;}
+.sc-btn{display:flex;flex-direction:column;align-items:center;padding:1rem 1.2rem;min-height:72px;transition:all .25s var(--ease);position:relative;overflow:hidden;}
+.sc-btn-lbl{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.28rem;opacity:.75;}
+.sc-btn-txt{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.sc-fam{background:var(--teal);color:var(--white);}
+.sc-fam:hover{background:var(--teal-m);transform:translateY(-2px);box-shadow:0 10px 28px rgba(21,94,117,.28);}
+.sc-pro{background:transparent;color:var(--sage);border:2px solid var(--sage);}
+.sc-pro:hover{background:var(--sage);color:var(--white);transform:translateY(-2px);}
+
+.chips{display:flex;flex-wrap:wrap;gap:.42rem;animation:fadeUp .7s .9s var(--ease) both;}
+.chip{font-size:.62rem;font-weight:700;letter-spacing:.06em;color:var(--teal);background:var(--teal-ghost);border:1px solid rgba(21,94,117,.15);padding:.26rem .7rem;}
+
+/* ── CSS 3D ORBIT SPHERE ── */
+.sphere-wrap{width:360px;height:360px;perspective:900px;position:relative;animation:fadeIn .8s .4s both;}
+.sphere{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:sphereSpin 20s linear infinite;}
+.sphere:hover{animation-play-state:paused;}
+
+/* Rings */
+.ring{position:absolute;inset:0;transform-style:preserve-3d;border-radius:50%;}
+.ring-face{position:absolute;inset:0;border:1.5px solid rgba(21,94,117,.25);border-radius:50%;}
+.r1{animation:r1spin 8s linear infinite;}
+.r2{animation:r2spin 12s linear infinite;}
+.r3{animation:r3spin 16s linear infinite;}
+.r4{animation:r4spin 10s linear infinite reverse;}
+@keyframes sphereSpin{from{transform:rotateY(0);}to{transform:rotateY(360deg);}}
+@keyframes r1spin{from{transform:rotateX(70deg) rotateZ(0);}to{transform:rotateX(70deg) rotateZ(360deg);}}
+@keyframes r2spin{from{transform:rotateX(40deg) rotateY(60deg) rotateZ(0);}to{transform:rotateX(40deg) rotateY(60deg) rotateZ(360deg);}}
+@keyframes r3spin{from{transform:rotateX(20deg) rotateY(120deg) rotateZ(0);}to{transform:rotateX(20deg) rotateY(120deg) rotateZ(360deg);}}
+@keyframes r4spin{from{transform:rotateX(55deg) rotateY(200deg) rotateZ(0);}to{transform:rotateX(55deg) rotateY(200deg) rotateZ(360deg);}}
+
+/* Dots on rings */
+.rdot{position:absolute;width:8px;height:8px;border-radius:50%;top:50%;left:50%;margin:-4px 0 0 -4px;}
+.ring.r1 .rdot{background:var(--teal);box-shadow:0 0 10px var(--teal);}
+.ring.r2 .rdot{background:var(--coral);box-shadow:0 0 10px var(--coral);}
+.ring.r3 .rdot{background:var(--sage);box-shadow:0 0 10px var(--sage);}
+.ring.r4 .rdot{background:var(--gold);box-shadow:0 0 10px var(--gold);}
+/* dot positions on ring circumference */
+.rdot:nth-child(1){transform:translateX(165px);}
+.rdot:nth-child(2){transform:translateX(-165px);}
+.rdot:nth-child(3){transform:translateY(165px);}
+
+/* Center sphere core */
+.sphere-core{position:absolute;top:50%;left:50%;width:90px;height:90px;margin:-45px 0 0 -45px;background:radial-gradient(circle at 35% 35%,var(--teal-pale),var(--teal-ghost));border:1px solid rgba(21,94,117,.25);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(21,94,117,.15),inset 0 0 20px rgba(21,94,117,.08);}
+.sphere-init{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--teal);font-style:italic;line-height:1;}
+.sphere-sub{font-size:.42rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);opacity:.6;margin-top:.1rem;}
+
+/* Credential orbit labels */
+.orb-labels{position:absolute;inset:0;pointer-events:none;}
+.orb-lbl{position:absolute;background:var(--white);border:1px solid var(--rule);padding:.3rem .7rem;font-size:.6rem;font-weight:700;letter-spacing:.06em;color:var(--navy);white-space:nowrap;box-shadow:var(--s1);display:flex;align-items:center;gap:.35rem;}
+.orb-lbl::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.ol1{top:6%;left:50%;transform:translateX(-50%);animation:float1 4s ease-in-out infinite;}
+.ol1::before{background:var(--teal);}
+.ol2{bottom:6%;left:50%;transform:translateX(-50%);animation:float2 5s ease-in-out infinite;}
+.ol2::before{background:var(--coral);}
+.ol3{left:0%;top:50%;transform:translateY(-50%);animation:float3 4.5s ease-in-out infinite;}
+.ol3::before{background:var(--sage);}
+.ol4{right:0%;top:50%;transform:translateY(-50%);animation:float4 3.8s ease-in-out infinite;}
+.ol4::before{background:var(--gold);}
+@keyframes float1{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-8px);}}
+@keyframes float2{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+@keyframes float3{0%,100%{transform:translateY(-50%) translateX(0);}50%{transform:translateY(-50%) translateX(-6px);}}
+@keyframes float4{0%,100%{transform:translateY(-50%) translateX(0);}50%{transform:translateY(-50%) translateX(6px);}}
+
+/* Hero floating badges */
+.hero-badge{position:absolute;background:var(--white);border:1px solid var(--rule);padding:.4rem .9rem .4rem .6rem;display:flex;align-items:center;gap:.5rem;box-shadow:var(--s2);font-size:.64rem;font-weight:700;color:var(--navy);white-space:nowrap;z-index:3;pointer-events:none;}
+.hb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.hb1{top:9%;right:1.5%;animation:hbf1 4.5s 1.5s ease-in-out infinite,badgeDrift .6s .9s var(--ease) both;}
+.hb2{top:46%;right:1%;animation:hbf2 5.5s 1.7s ease-in-out infinite,badgeDrift .6s 1.1s var(--ease) both;}
+.hb3{bottom:12%;right:1.5%;animation:hbf3 5s 1.9s ease-in-out infinite,badgeDrift .6s 1.3s var(--ease) both;}
+@keyframes hbf1{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+@keyframes hbf2{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+@keyframes hbf3{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes badgeDrift{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+/* ════════ STATS ════════ */
+.stats-bar{background:var(--teal);padding:3rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);position:relative;overflow:hidden;}
+.stats-bar::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E");background-size:40px;}
+.st-col{text-align:center;position:relative;z-index:1;padding:0 1rem;}
+.st-col+.st-col::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:40px;background:rgba(255,255,255,.15);}
+.st-num{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:300;font-style:italic;color:var(--white);line-height:1;}
+.st-num.shim{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.4) 40%,#fff 50%,rgba(255,255,255,.4) 60%,#fff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shim .9s ease-in-out 1;}
+@keyframes shim{0%{background-position:-200% center;}100%{background-position:200% center;}}
+.st-lbl{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.4rem;}
+
+/* ════════ TICKER ════════ */
+.ticker{background:var(--coral);overflow:hidden;padding:.65rem 0;}
+.ticker:hover .ticker-t{animation-play-state:paused;}
+.ticker-t{display:flex;animation:tick 42s linear infinite;width:max-content;}
+.ticker-t span{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.88);padding:0 2.5rem;white-space:nowrap;display:inline-flex;align-items:center;gap:.7rem;}
+.ticker-t span::before{content:'';display:inline-block;width:5px;height:5px;background:rgba(255,255,255,.45);transform:rotate(45deg);flex-shrink:0;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ════════ SECTIONS ════════ */
+.sec{padding:7.5rem 0;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 2.5rem;}
+.wrap-n{max-width:800px;margin:0 auto;padding:0 2.5rem;}
+.sec-eye{display:flex;align-items:center;gap:.8rem;margin-bottom:3rem;}
+.sec-eye-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.sec-eye-dot.t{background:var(--teal);}
+.sec-eye-dot.c{background:var(--coral);}
+.sec-eye-dot.s{background:var(--sage);}
+.sec-eye-line{flex:1;height:1px;background:var(--rule);}
+.sec-eye-tag{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray2);}
+.display{font-family:var(--serif);font-weight:300;line-height:1.06;color:var(--navy);}
+.display em{font-style:italic;color:var(--teal);}
+.display em.c{color:var(--coral);}
+.body-p{font-size:.9rem;font-weight:300;line-height:1.95;color:var(--gray);margin-bottom:1rem;}
+.body-p strong{color:var(--navy);font-weight:600;}
+.pull{border-left:3px solid var(--coral);padding:1rem 1.4rem;background:var(--coral-ghost);font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--coral);line-height:1.7;margin:1.8rem 0;}
+
+/* ════════ ABOUT ════════ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+
+/* Interactive credential tiles */
+.cred-wall{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:2rem;}
+.cred-tile{background:var(--white);border:1px solid var(--rule);padding:1.1rem 1.2rem;cursor:pointer;transition:all .3s var(--ease);position:relative;overflow:hidden;}
+.cred-tile::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--teal);transition:width .3s var(--ease);}
+.cred-tile:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--s2);}
+.cred-tile:hover::after{width:100%;}
+.cred-tile.open{border-color:var(--teal);box-shadow:var(--s2);}
+.cred-tile.open::after{width:100%;}
+.ct-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.ct-abbr{font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--teal);font-weight:600;}
+.ct-arrow{width:18px;height:18px;border:1.5px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s,border-color .3s;flex-shrink:0;}
+.ct-arrow svg{width:8px;height:8px;transition:transform .3s;}
+.cred-tile.open .ct-arrow{border-color:var(--teal);}
+.cred-tile.open .ct-arrow svg{transform:rotate(180deg);}
+.ct-name{font-size:.68rem;font-weight:700;color:var(--navy);margin-top:.2rem;}
+.ct-body{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;}
+.cred-tile.open .ct-body{max-height:120px;padding-top:.7rem;}
+.ct-desc{font-size:.75rem;font-weight:300;color:var(--gray);line-height:1.75;}
+
+/* about device */
+.about-dev{background:var(--white);border:1px solid var(--rule);border-top:4px solid var(--teal);box-shadow:var(--s4);position:relative;}
+.dev-bar{background:var(--cream);border-bottom:1px solid var(--rule);padding:.6rem 1rem;display:flex;align-items:center;gap:.45rem;}
+.dev-dots{display:flex;gap:.28rem;}
+.dev-dots span{width:8px;height:8px;border-radius:50%;}
+.dev-dots span:nth-child(1){background:#ff5f57;}
+.dev-dots span:nth-child(2){background:#febc2e;}
+.dev-dots span:nth-child(3){background:#28c840;}
+.dev-url{font-size:.58rem;color:var(--gray2);font-weight:600;margin-left:.15rem;}
+.dev-body{padding:1.2rem;}
+.dev-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem;}
+.dev-st{background:var(--teal-pale);border:1px solid rgba(21,94,117,.12);padding:.8rem;}
+.dvn{font-family:var(--serif);font-size:1.8rem;font-style:italic;color:var(--teal);line-height:1;}
+.dvl{font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray2);margin-top:.14rem;}
+.dev-item{display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;background:var(--cream);border-left:3px solid var(--coral);margin-bottom:.45rem;}
+.di-nm{font-size:.7rem;font-weight:700;color:var(--navy);}
+.di-sb{font-size:.58rem;color:var(--gray2);}
+.di-st{margin-left:auto;font-size:.54rem;font-weight:700;padding:.1rem .38rem;flex-shrink:0;}
+.sg{background:rgba(40,200,64,.1);color:#1a7a28;}
+.st{background:var(--teal-ghost);color:var(--teal);}
+.dev-float{position:absolute;background:var(--white);border:1px solid var(--rule);padding:.36rem .7rem;font-size:.62rem;font-weight:700;color:var(--navy);box-shadow:var(--s2);white-space:nowrap;display:flex;align-items:center;gap:.4rem;pointer-events:none;}
+.dev-float .d{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.df1{top:-12px;right:0;animation:float1 4s ease-in-out infinite;}
+.df2{bottom:24px;left:0;animation:float2 5s ease-in-out infinite;}
+
+/* ════════ PARTNERSHIP ════════ */
+.partner{background:var(--sage-pale);border-top:1px solid rgba(74,140,92,.15);border-bottom:1px solid rgba(74,140,92,.15);padding:2.2rem 2rem;overflow:hidden;position:relative;}
+.pb-svg{position:absolute;inset:0;pointer-events:none;}
+.pb-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;position:relative;z-index:1;}
+.pb-brand{text-align:center;}
+.pb-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--navy);}
+.pb-url{font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-top:.18rem;}
+.pb-script{font-family:var(--script);font-size:1.5rem;color:var(--sage);line-height:1.2;text-align:center;}
+.pb-vline{width:1px;height:44px;background:rgba(74,140,92,.25);}
+
+/* ════════ INSTITUTE (DARK SECTION) ════════ */
+.inst-sec{background:var(--navy);padding:8rem 0;position:relative;overflow:hidden;}
+.inst-sec::before{content:'';position:absolute;top:-1px;left:0;right:0;height:60px;background:var(--cream2);clip-path:polygon(0 0,100% 0,100% 0,0 100%);pointer-events:none;}
+.inst-sec::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:60px;background:var(--cream);clip-path:polygon(0 100%,100% 0,100% 100%,0 100%);pointer-events:none;}
+.inst-eye{display:flex;align-items:center;gap:.8rem;margin-bottom:3rem;}
+.inst-eye-dot{width:7px;height:7px;border-radius:50%;background:var(--teal-l);}
+.inst-eye-line{flex:1;height:1px;background:rgba(255,255,255,.1);}
+.inst-eye-tag{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.inst-display{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;font-style:italic;color:var(--white);line-height:1.08;margin-bottom:1rem;}
+.inst-display em{color:var(--teal-l);font-style:normal;}
+.inst-lead{font-size:.92rem;font-weight:300;line-height:1.95;color:rgba(255,255,255,.5);max-width:580px;margin-bottom:0;}
+.inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);margin-top:4rem;}
+.inst-panel{background:var(--navy2);padding:3rem;position:relative;overflow:hidden;transition:background .3s;}
+.inst-panel:hover{background:var(--navy3);}
+.inst-panel-num{position:absolute;top:1.5rem;right:2rem;font-family:var(--serif);font-size:5rem;font-style:italic;color:rgba(255,255,255,.03);line-height:1;user-select:none;}
+.inst-tag{font-size:.54rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:.2rem .6rem;display:inline-block;margin-bottom:1.5rem;}
+.inst-tag.t{background:rgba(33,150,179,.15);color:var(--teal-l);border:1px solid rgba(33,150,179,.25);}
+.inst-tag.s{background:rgba(74,140,92,.12);color:#7abb8a;border:1px solid rgba(74,140,92,.2);}
+.inst-name{font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--white);margin-bottom:.9rem;line-height:1.2;}
+.inst-desc{font-size:.84rem;font-weight:300;color:rgba(255,255,255,.48);line-height:1.9;margin-bottom:1.8rem;}
+.inst-list{display:flex;flex-direction:column;gap:.65rem;margin-bottom:2.2rem;}
+.inst-li{display:flex;align-items:flex-start;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);}
+.inst-li::before{content:'—';color:var(--teal-l);flex-shrink:0;font-family:var(--serif);}
+.inst-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.72rem 1.5rem;min-height:44px;transition:all .25s;}
+.inst-btn.t{background:transparent;color:var(--teal-l);border:1px solid var(--teal-l);}
+.inst-btn.t:hover{background:var(--teal-l);color:var(--navy);}
+.inst-btn.s{background:transparent;color:#7abb8a;border:1px solid #7abb8a;}
+.inst-btn.s:hover{background:#7abb8a;color:var(--navy);}
+
+/* ════════ SERVICES ACCORDION ════════ */
+.svc-list{margin-top:3.5rem;}
+.svc-item{border-top:1px solid var(--rule);overflow:hidden;}
+.svc-item:last-child{border-bottom:1px solid var(--rule);}
+.svc-head{display:grid;grid-template-columns:60px 1fr auto;gap:1.5rem;align-items:center;padding:1.6rem 0;cursor:pointer;transition:all .2s;}
+.svc-head:hover .svc-name{color:var(--teal);}
+.svc-n{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--gray3);line-height:1;transition:color .3s;}
+.svc-item.open .svc-n{color:var(--teal);}
+.svc-name{font-family:var(--serif);font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:400;color:var(--navy);transition:color .2s;}
+.svc-toggle{width:28px;height:28px;border:1.5px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;}
+.svc-item.open .svc-toggle{border-color:var(--teal);background:var(--teal);}
+.svc-toggle svg{width:10px;height:10px;transition:transform .3s;}
+.svc-item.open .svc-toggle svg{transform:rotate(45deg);}
+.svc-item.open .svc-toggle svg path{stroke:white;}
+.svc-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease);}
+.svc-item.open .svc-body{max-height:200px;}
+.svc-inner{padding:0 0 1.8rem 4.5rem;display:grid;grid-template-columns:2fr 1fr;gap:2rem;align-items:start;}
+.svc-desc{font-size:.84rem;font-weight:300;color:var(--gray);line-height:1.9;}
+.svc-badge{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(21,94,117,.2);padding:.22rem .6rem;display:inline-block;margin-top:.3rem;}
+
+/* ════════ COURSES ════════ */
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.5rem;}
+.course-card{background:var(--white);border:1px solid var(--rule);border-top:3px solid var(--sage);padding:2rem;transition:all .3s var(--ease);position:relative;overflow:hidden;}
+.course-card::before{content:'';position:absolute;inset:0;background:var(--sage-ghost);opacity:0;transition:opacity .3s;}
+.course-card:hover{transform:translateY(-4px);box-shadow:var(--s3);}
+.course-card:hover::before{opacity:1;}
+.cc-num{font-family:var(--serif);font-size:.75rem;font-style:italic;color:var(--sage);margin-bottom:.8rem;display:block;position:relative;}
+.cc-name{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;position:relative;}
+.cc-desc{font-size:.78rem;font-weight:300;color:var(--gray);line-height:1.85;margin-bottom:.9rem;position:relative;}
+.cc-tag{font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);border:1px solid rgba(74,140,92,.25);padding:.18rem .55rem;display:inline-block;position:relative;}
+
+/* ════════ RESOURCES ════════ */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.5rem;}
+.res-card{background:var(--white);border:1px solid var(--rule);padding:1.8rem;display:flex;flex-direction:column;transition:all .3s var(--ease);}
+.res-card:hover{transform:translateY(-3px);box-shadow:var(--s2);}
+.res-card.feat{border-color:var(--coral);border-top:3px solid var(--coral);}
+.res-cat{font-size:.54rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray2);margin-bottom:.7rem;}
+.res-name{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.45rem;}
+.res-desc{font-size:.78rem;font-weight:300;color:var(--gray);line-height:1.85;flex:1;margin-bottom:.9rem;}
+.res-price{font-size:1.05rem;font-style:italic;font-family:var(--serif);color:var(--coral);margin-bottom:.8rem;}
+.res-btn{display:flex;align-items:center;justify-content:center;padding:.65rem;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;min-height:44px;}
+.res-btn.t{background:var(--teal);color:var(--white);}
+.res-btn.t:hover{background:var(--teal-m);}
+.res-btn.o{border:1px solid var(--rule);color:var(--gray2);}
+.res-btn.o:hover{border-color:var(--teal);color:var(--teal);}
+.books-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.2rem;}
+.book-card{background:var(--white);border:1px solid var(--rule);padding:1.6rem;display:flex;gap:1rem;transition:border-color .3s;}
+.book-card:hover{border-color:var(--teal);}
+.book-num{font-family:var(--serif);font-size:2.8rem;font-style:italic;color:var(--teal);opacity:.14;line-height:1;flex-shrink:0;}
+.book-name{font-family:var(--serif);font-size:.92rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;}
+.book-desc{font-size:.75rem;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:.5rem;}
+.book-price{font-size:.88rem;font-style:italic;font-family:var(--serif);color:var(--coral);}
+
+/* ════════ CREDENTIALS STRIP ════════ */
+.cred-strip{background:var(--navy);padding:6rem 2rem;}
+.cred-strip-inner{max-width:1100px;margin:0 auto;}
+.cred-strip .sec-eye-line{background:rgba(255,255,255,.1);}
+.cred-strip .sec-eye-tag{color:rgba(255,255,255,.3);}
+.cred-strip-title{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-style:italic;color:var(--white);margin-bottom:3rem;}
+.cred-strip-title em{color:var(--teal-l);}
+.cred-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.07);}
+.cred-col{background:var(--navy2);padding:2rem 1.6rem;}
+.cc2-abbr{font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--teal-l);margin-bottom:.4rem;}
+.cc2-name{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.65);margin-bottom:.35rem;}
+.cc2-desc{font-size:.7rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.75;}
+
+/* ════════ TESTIMONIALS ════════ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.5rem;}
+.tc{background:var(--white);border:1px solid var(--rule);padding:2rem;position:relative;overflow:hidden;transition:all .3s var(--ease);}
+.tc:hover{box-shadow:var(--s2);}
+.tc-q{position:absolute;top:.8rem;right:1rem;font-family:var(--serif);font-size:4rem;line-height:1;color:var(--teal);opacity:.05;user-select:none;}
+.stars{display:flex;gap:.2rem;margin-bottom:.9rem;}
+.star{width:13px;height:13px;}
+.tc-txt{font-size:.83rem;font-weight:300;font-style:italic;color:var(--gray);line-height:1.9;margin-bottom:1.2rem;}
+.tc-rule{width:20px;height:1px;background:var(--coral);margin-bottom:.9rem;}
+.tc-name{font-size:.78rem;font-weight:700;color:var(--navy);display:block;}
+.tc-role{font-size:.65rem;color:var(--gray2);}
+@media(max-width:900px){
+  .testi-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:1rem;scrollbar-width:none;padding-bottom:.5rem;}
+  .testi-grid::-webkit-scrollbar{display:none;}
+  .tc{flex:0 0 86vw;scroll-snap-align:start;}
+  .testi-dots{display:flex;justify-content:center;gap:.4rem;margin-top:1rem;}
+  .testi-dot{width:5px;height:5px;border-radius:50%;background:var(--rule);}
+  .testi-dot.active{background:var(--teal);}
+}
+@media(min-width:901px){.testi-dots{display:none;}}
+
+/* ════════ PORTAL ════════ */
+.portal-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.pf-list{display:flex;flex-direction:column;gap:1.4rem;margin-top:2.5rem;}
+.pf-row{display:flex;align-items:flex-start;gap:.9rem;padding-bottom:1.4rem;border-bottom:1px solid var(--rule);}
+.pf-row:last-child{border-bottom:none;}
+.pf-ic{width:38px;height:38px;background:var(--teal-ghost);border:1px solid rgba(21,94,117,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pf-title{font-size:.84rem;font-weight:700;color:var(--navy);margin-bottom:.18rem;}
+.pf-desc{font-size:.77rem;font-weight:300;color:var(--gray);line-height:1.75;}
+
+/* ════════ CONTACT ════════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;margin-top:3.5rem;}
+.cf{background:var(--white);border:1px solid var(--rule);border-top:4px solid var(--teal);padding:2.5rem;}
+.cf-title{font-family:var(--serif);font-size:1.3rem;font-style:italic;color:var(--navy);margin-bottom:.4rem;}
+.cf-sub{font-size:.8rem;font-weight:300;color:var(--gray);margin-bottom:1.8rem;line-height:1.7;}
+.cf-g{margin-bottom:1rem;}
+.cf-l{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray2);margin-bottom:.4rem;display:block;}
+.cf-i,.cf-s,.cf-ta{width:100%;background:var(--cream);border:1px solid var(--rule);padding:.8rem 1rem;font-size:16px;color:var(--navy);font-family:var(--sans);transition:border-color .2s;outline:none;min-height:48px;-webkit-appearance:none;appearance:none;}
+.cf-i:focus,.cf-s:focus,.cf-ta:focus{border-color:var(--teal);background:var(--white);}
+.cf-i.err,.cf-s.err,.cf-ta.err{border-color:var(--coral);animation:shake .35s var(--ease);}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+.cf-i::placeholder,.cf-ta::placeholder{color:var(--gray3);}
+.cf-s{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a8f9f' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-color:var(--cream);padding-right:36px;}
+.cf-ta{min-height:100px;resize:vertical;line-height:1.65;}
+.cf-btn{width:100%;background:var(--teal);color:var(--white);padding:.95rem;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:all .25s;margin-top:.3rem;min-height:52px;}
+.cf-btn:hover{background:var(--coral);}
+.cf-note{font-size:.65rem;color:var(--gray2);text-align:center;margin-top:.7rem;line-height:1.6;}
+.cf-success{display:none;text-align:center;padding:3rem;}
+.cf-success.show{display:block;}
+.cf-success h3{font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--teal);margin-bottom:.5rem;}
+.cf-success p{font-size:.85rem;color:var(--gray);line-height:1.7;}
+.ci-item{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--rule);}
+.ci-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ci-ic{width:36px;height:36px;background:var(--teal-ghost);border:1px solid rgba(21,94,117,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci-lbl{font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray2);margin-bottom:.25rem;}
+.ci-val{font-size:.86rem;color:var(--navy);}
+.ci-val a{color:var(--teal);transition:color .2s;}
+
+/* ════════ CHATBOT ════════ */
+#chat-btn{position:fixed;bottom:24px;right:24px;z-index:800;display:flex;align-items:center;gap:.6rem;background:var(--teal);color:var(--white);padding:.7rem 1.1rem .7rem .8rem;box-shadow:0 8px 28px rgba(21,94,117,.3);transition:all .3s var(--ease);min-height:52px;}
+#chat-btn:hover{background:var(--coral);transform:translateY(-2px);}
+.cb-ico{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cb-lbl{font-size:.7rem;font-weight:700;letter-spacing:.05em;}
+.cb-live{width:6px;height:6px;background:#22c55e;border-radius:50%;flex-shrink:0;animation:livep 2.5s ease-in-out infinite;}
+#chat{display:none;position:fixed;bottom:84px;right:24px;width:334px;background:var(--white);border:1px solid var(--rule);border-top:3px solid var(--teal);z-index:801;flex-direction:column;overflow:hidden;box-shadow:var(--s4);max-height:480px;}
+#chat.open{display:flex;}
+.ch-hd{padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--teal-pale);display:flex;align-items:center;gap:.7rem;}
+.ch-av{width:30px;height:30px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-style:italic;color:var(--white);flex-shrink:0;}
+.ch-info h4{font-size:11px;color:var(--navy);font-weight:700;}
+.ch-info p{font-size:9.5px;color:var(--gray2);}
+.ch-close{color:var(--gray2);font-size:16px;margin-left:auto;min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;}
+.ch-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--cream);min-height:200px;}
+.ch-msgs::-webkit-scrollbar{width:2px;}
+.ch-msgs::-webkit-scrollbar-thumb{background:var(--rule);}
+.ch-msg{max-width:88%;font-size:12px;line-height:1.55;padding:9px 12px;}
+.ch-msg.b{align-self:flex-start;background:var(--white);border:1px solid var(--rule);color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.ch-msg.u{align-self:flex-end;background:var(--teal);color:var(--white);}
+.ch-chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px;background:var(--white);border-top:1px solid var(--rule);}
+.ch-chip{background:var(--teal-ghost);border:1px solid rgba(21,94,117,.16);color:var(--teal);font-size:10px;font-weight:700;padding:6px 10px;min-height:34px;display:flex;align-items:center;transition:background .2s;}
+.ch-chip:hover{background:rgba(21,94,117,.14);}
+.ch-row{padding:9px 12px;border-top:1px solid var(--rule);display:flex;gap:7px;background:var(--white);}
+.ch-inp{flex:1;background:var(--cream);border:1px solid var(--rule);padding:8px 10px;font-size:16px;color:var(--navy);outline:none;resize:none;-webkit-appearance:none;}
+.ch-inp::placeholder{color:var(--gray3);}
+.ch-send{width:40px;height:40px;background:var(--teal);color:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:flex-end;transition:background .2s;min-height:44px;min-width:44px;}
+.ch-send:hover{background:var(--coral);}
+.ch-typ{display:none;align-self:flex-start;padding:9px 12px;background:var(--white);border:1px solid var(--rule);gap:3px;align-items:center;}
+.ch-typ.show{display:flex;}
+.ch-td{width:4px;height:4px;background:var(--gray2);border-radius:50%;animation:tyb 1.2s infinite;}
+.ch-td:nth-child(2){animation-delay:.2s;}.ch-td:nth-child(3){animation-delay:.4s;}
+@keyframes tyb{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+
+/* ════════ FOOTER ════════ */
+.footer{background:var(--navy);color:rgba(255,255,255,.5);padding:5rem 2rem 2.5rem;}
+.ft-closing{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.6rem);font-style:italic;color:rgba(255,255,255,.28);line-height:1.35;margin-bottom:3.5rem;max-width:640px;}
+.ft-closing em{color:rgba(200,90,50,.7);font-style:normal;}
+.ft-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:4rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);}
+.ft-brand{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:rgba(255,255,255,.7);margin-bottom:.25rem;}
+.ft-sub{font-family:var(--script);font-size:1rem;color:rgba(74,140,92,.7);margin-bottom:1.2rem;}
+.ft-contact a{display:block;font-size:.76rem;color:rgba(255,255,255,.35);margin-bottom:.3rem;transition:color .2s;}
+.ft-contact a:hover{color:rgba(255,255,255,.8);}
+.ft-links{display:flex;flex-wrap:wrap;gap:.2rem 1.4rem;justify-content:flex-end;margin-bottom:2rem;}
+.ft-links a{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);min-height:44px;display:inline-flex;align-items:center;transition:color .2s;}
+.ft-links a:hover{color:rgba(255,255,255,.75);}
+.ft-bottom{max-width:1100px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.ft-copy{font-size:.58rem;color:rgba(255,255,255,.18);line-height:1.8;}
+
+/* ════════ MOBILE ════════ */
+@media(max-width:900px){
+  .nav-links,.nav-cta{display:none!important;}
+  .ham{display:flex;}
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-l{padding:8rem 1.5rem 2.5rem;}
+  .hero-r{padding:2rem 1.5rem 4rem;justify-content:center;}
+  .hero-badge{display:none!important;}
+  .split-cta{max-width:100%;}
+  .about-grid,.portal-grid,.contact-grid{grid-template-columns:1fr;}
+  .cred-wall{grid-template-columns:1fr;}
+  .inst-grid,.course-grid,.res-grid,.testi-grid{grid-template-columns:1fr;}
+  .cred-cols{grid-template-columns:1fr 1fr;}
+  .books-row{grid-template-columns:1fr;}
+  .svc-inner{grid-template-columns:1fr;padding-left:3rem;}
+  .svc-desc,.svc-badge{display:block;}
+  .stats-bar{grid-template-columns:1fr 1fr;padding:2rem 1rem;}
+  .st-col+.st-col::before{display:none;}
+  .sec{padding:5rem 0;}
+  .wrap,.wrap-n{padding:0 1.5rem;}
+  .pb-inner{flex-direction:column;gap:1.2rem;text-align:center;}
+  .pb-vline{width:60px;height:1px;}
+  .sphere-wrap{width:260px;height:260px;}
+  .ft-grid{grid-template-columns:1fr;}
+  .ft-links{justify-content:flex-start;}
+  .ft-bottom{flex-direction:column;}
+  #chat{width:calc(100vw - 2rem);right:1rem;bottom:76px;max-height:72vh;}
+  #chat-btn{bottom:14px;right:14px;}
+}
+@media(max-width:480px){
+  .split-cta{grid-template-columns:1fr;}
+  .cred-cols{grid-template-columns:1fr;}
+  .stats-bar{grid-template-columns:1fr 1fr;}
+  .hero-h{font-size:2.4rem;}
+}
+@media(min-width:901px){
+  .nav-links{display:flex!important;}
+  .nav-cta{display:inline-flex!important;}
+  .ham{display:none!important;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <!-- SVG Logo Mark -->
+    <div class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14.5" stroke="#155e75" stroke-width="1" stroke-opacity=".3"/>
+        <circle cx="16" cy="16" r="10" stroke="#155e75" stroke-width=".7" stroke-opacity=".18"/>
+        <!-- sunrise rays -->
+        <path d="M16 8V5" stroke="#155e75" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M10.5 10.5L8.4 8.4" stroke="#155e75" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M21.5 10.5L23.6 8.4" stroke="#155e75" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M8 16H5" stroke="#155e75" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M27 16H24" stroke="#155e75" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- horizon arc -->
+        <path d="M9 19 A7 7 0 0 1 23 19" stroke="#c85a32" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M8 20 H24" stroke="#155e75" stroke-width=".8" stroke-opacity=".4"/>
+        <!-- cross-hatch L -->
+        <path d="M12 22 L14 20 L16 22 L18 20 L20 22" stroke="#4a8c5c" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="logo-text">
+        <div class="logo-main">The Life Care <em>Experts</em></div>
+        <div class="logo-sub">· LCM Institute</div>
+      </div>
+    </div>
+    <nav class="nav-links" style="display:none;">
+      <a href="#about">About</a>
+      <a href="#institute">Institute</a>
+      <a href="#services">Services</a>
+      <a href="#courses">Courses</a>
+      <a href="#resources">Resources</a>
+      <a href="#portal">Portal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta" style="display:none;">Work With Jennifer</a>
+    <button class="ham" id="ham" onclick="document.getElementById('mob').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <button class="mob-close" onclick="document.getElementById('mob').classList.remove('open')" aria-label="Close">✕</button>
+  <a href="#about" onclick="document.getElementById('mob').classList.remove('open')">About</a>
+  <a href="#institute" onclick="document.getElementById('mob').classList.remove('open')">Institute</a>
+  <a href="#services" onclick="document.getElementById('mob').classList.remove('open')">Services</a>
+  <a href="#courses" onclick="document.getElementById('mob').classList.remove('open')">Courses</a>
+  <a href="#resources" onclick="document.getElementById('mob').classList.remove('open')">Resources</a>
+  <a href="#contact" onclick="document.getElementById('mob').classList.remove('open')">Contact</a>
+  <a href="#contact" class="sc-btn sc-fam" style="padding:.9rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;" onclick="document.getElementById('mob').classList.remove('open')">Work With Jennifer</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Parallax background -->
+  <div class="hero-bg" id="heroBg">
+    <div class="hbg-dots" id="bgDots"></div>
+    <div class="hbg-blob1" id="bgBlob1"></div>
+    <div class="hbg-blob2" id="bgBlob2"></div>
+    <div class="hbg-blob3" id="bgBlob3"></div>
+  </div>
+
+  <div class="hero-l">
+    <div class="hero-eye">
+      <div class="eye-pulse"></div>
+      <span class="eye-txt">thelifecareexperts.com &nbsp;·&nbsp; lcmexpert.com &nbsp;·&nbsp; Unified 2025</span>
+    </div>
+    <h1 class="hero-h">Navigating Life Care<br>With <em>Integrity</em><br>&amp; Experience.</h1>
+    <div class="hero-typed" id="typedLine"></div>
+    <p class="hero-desc">
+      <strong>Jennifer Crowley RN, CLCP, CDP, CMC</strong> — Registered Nurse with over 30 years of experience. Certified Life Care Planner, published author, certified dementia trainer, expert witness, and co-developer of Montana's State Plan for Alzheimer's Disease.
+    </p>
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      <span class="live-txt">Currently Accepting Clients</span>
+    </div>
+    <div class="split-cta">
+      <a href="#contact" class="sc-btn sc-fam">
+        <span class="sc-btn-lbl">Families &amp; Individuals</span>
+        <span class="sc-btn-txt">I Need Care Guidance</span>
+      </a>
+      <a href="#institute" class="sc-btn sc-pro">
+        <span class="sc-btn-lbl">Care Professionals</span>
+        <span class="sc-btn-txt">I'm a Professional</span>
+      </a>
+    </div>
+    <div class="chips">
+      <span class="chip">RN · Ohio State 1993</span>
+      <span class="chip">Certified Life Care Planner</span>
+      <span class="chip">3 Published Books</span>
+      <span class="chip">Expert Witness</span>
+      <span class="chip">In Practice Since 2006</span>
+    </div>
+  </div>
+
+  <!-- CSS 3D Orbit Sphere -->
+  <div class="hero-r">
+    <div class="sphere-wrap" id="sphereWrap">
+      <div class="sphere">
+        <div class="ring r1">
+          <div class="ring-face"></div>
+          <div class="rdot"></div>
+          <div class="rdot"></div>
+          <div class="rdot"></div>
+        </div>
+        <div class="ring r2">
+          <div class="ring-face"></div>
+          <div class="rdot"></div>
+          <div class="rdot"></div>
+        </div>
+        <div class="ring r3">
+          <div class="ring-face"></div>
+          <div class="rdot"></div>
+          <div class="rdot"></div>
+        </div>
+        <div class="ring r4">
+          <div class="ring-face"></div>
+          <div class="rdot"></div>
+        </div>
+        <div class="sphere-core">
+          <div class="sphere-init">JC</div>
+          <div class="sphere-sub">RN · CLCP</div>
+        </div>
+      </div>
+      <!-- Floating labels around sphere -->
+      <div class="orb-labels">
+        <div class="orb-lbl ol1">Certified Life Care Planner</div>
+        <div class="orb-lbl ol2">Expert Witness · Trial</div>
+        <div class="orb-lbl ol3">RN · 31 Years</div>
+        <div class="orb-lbl ol4">LCM Institute</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating hero badges -->
+  <div class="hero-badge hb1"><div class="hb-dot" style="background:var(--teal)"></div><span>RN · Certified Life Care Planner</span></div>
+  <div class="hero-badge hb2"><div class="hb-dot" style="background:var(--sage)"></div><span>MT Alzheimer's Plan Co-Developer</span></div>
+  <div class="hero-badge hb3"><div class="hb-dot" style="background:var(--coral)"></div><span>Expert Witness · Trial &amp; Deposition</span></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="st-col rev"><div class="st-num" data-target="31" data-suffix=" Yrs">0</div><div class="st-lbl">Nursing Career</div></div>
+  <div class="st-col rev d1"><div class="st-num" data-target="19" data-suffix=" Yrs">0</div><div class="st-lbl">In Practice</div></div>
+  <div class="st-col rev d2"><div class="st-num" data-target="3" data-suffix="">0</div><div class="st-lbl">Published Books</div></div>
+  <div class="st-col rev d3"><div class="st-num" data-target="75" data-suffix="+">0</div><div class="st-lbl">Professionals Trained</div></div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-t">
+    <span>Life Care Planning</span><span>Dementia Specialist</span><span>Expert Witness</span><span>Published Author</span><span>Registered Nurse</span><span>Certified Life Care Planner</span><span>Montana Alzheimer's Plan</span><span>Peace Corps Volunteer</span><span>LCM Institute</span><span>Family Navigation</span><span>Insurance Consulting</span><span>In Practice Since 2006</span>
+    <span>Life Care Planning</span><span>Dementia Specialist</span><span>Expert Witness</span><span>Published Author</span><span>Registered Nurse</span><span>Certified Life Care Planner</span><span>Montana Alzheimer's Plan</span><span>Peace Corps Volunteer</span><span>LCM Institute</span><span>Family Navigation</span><span>Insurance Consulting</span><span>In Practice Since 2006</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot t"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">The Authority</span></div>
+    <div class="about-grid">
+      <div>
+        <h2 class="display wipe" style="font-size:clamp(2.2rem,3.5vw,3.4rem);margin-bottom:1.8rem;">A Nurse Who Built<br><em>the Field's Playbook.</em></h2>
+        <p class="body-p rev d1">Jennifer spent <strong>15 years as an ICU charge nurse at Logan Health</strong>, served as a U.S. Peace Corps volunteer in Papua New Guinea, and trained in critical care surgical nursing at Detroit Medical Center before founding The Life Care Experts in 2006.</p>
+        <div class="pull rev d2">"I built frameworks that I've been using for 20 years — and made them available for anyone."</div>
+        <p class="body-p rev d3">She co-developed Montana's State Plan for Alzheimer's and Related Dementias, serves on the BOLD Steering Committee, has provided <strong>expert witness testimony in deposition and trial settings</strong>, and has trained hundreds of care professionals across Montana since 2019.</p>
+
+        <!-- Interactive Credential Tiles -->
+        <div class="cred-wall rev d4" id="credWall">
+          <div class="cred-tile" onclick="toggleCred(this)">
+            <div class="ct-head"><span class="ct-abbr">RN</span><div class="ct-arrow"><svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+            <div class="ct-name">Registered Nurse</div>
+            <div class="ct-body"><div class="ct-desc">BSN from Ohio State University, 1993. 15 years as ICU Charge Nurse at Logan Health. The clinical foundation behind everything Jennifer does.</div></div>
+          </div>
+          <div class="cred-tile" onclick="toggleCred(this)">
+            <div class="ct-head"><span class="ct-abbr">CLCP</span><div class="ct-arrow"><svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+            <div class="ct-name">Certified Life Care Planner</div>
+            <div class="ct-body"><div class="ct-desc">Advanced post-graduate certification. Retained by attorneys, insurance companies, and families as an expert in complex long-term care cases.</div></div>
+          </div>
+          <div class="cred-tile" onclick="toggleCred(this)">
+            <div class="ct-head"><span class="ct-abbr">CDP</span><div class="ct-arrow"><svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+            <div class="ct-name">Certified Dementia Practitioner</div>
+            <div class="ct-body"><div class="ct-desc">Certified Alzheimer's Disease and Dementia Care Trainer since 2019. Specialist in all stages of dementia from early diagnosis through complex late-stage care.</div></div>
+          </div>
+          <div class="cred-tile" onclick="toggleCred(this)">
+            <div class="ct-head"><span class="ct-abbr">CMC</span><div class="ct-arrow"><svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+            <div class="ct-name">Certified Care Manager</div>
+            <div class="ct-body"><div class="ct-desc">Professional certification in care management covering comprehensive assessment, coordination, and long-term case management across complex situations.</div></div>
+          </div>
+        </div>
+        <a href="#contact" class="sc-btn sc-fam rev d5" style="margin-top:2rem;display:inline-flex;">Work With Jennifer</a>
+      </div>
+      <div class="rev-r">
+        <!-- Dashboard Device -->
+        <div class="about-dev" id="dashDev" style="margin-bottom:1.2rem;">
+          <div class="dev-float df1"><div class="d" style="background:var(--sage)"></div>Care Plan Filed</div>
+          <div class="dev-float df2"><div class="d" style="background:var(--coral)"></div>Expert Report Submitted</div>
+          <div class="dev-bar"><div class="dev-dots"><span></span><span></span><span></span></div><div class="dev-url">Life Care Experts · Practice Dashboard</div></div>
+          <div class="dev-body">
+            <div class="dev-row">
+              <div class="dev-st"><div class="dvn" data-target="31" data-suffix="">0</div><div class="dvl">Years as RN</div></div>
+              <div class="dev-st"><div class="dvn" data-target="19" data-suffix="">0</div><div class="dvl">Yrs in Practice</div></div>
+            </div>
+            <div class="dev-item"><div><div class="di-nm">LCM Handbook</div><div class="di-sb">Amazon · Published</div></div><div class="di-st sg">Live</div></div>
+            <div class="dev-item"><div><div class="di-nm">Expert Witness</div><div class="di-sb">Trial &amp; Deposition</div></div><div class="di-st sg">Active</div></div>
+            <div class="dev-item"><div><div class="di-nm">MT State ADRD Plan</div><div class="di-sb">Co-Developer · BOLD</div></div><div class="di-st st">Ongoing</div></div>
+            <div class="dev-item"><div><div class="di-nm">LCM Institute</div><div class="di-sb">Online Courses · Enrolling</div></div><div class="di-st sg">Open</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERSHIP -->
+<div class="partner">
+  <svg class="pb-svg" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,50 Q600,15 1200,50" stroke="rgba(74,140,92,0.12)" stroke-width="1" fill="none">
+      <animate attributeName="d" dur="7s" repeatCount="indefinite" values="M0,50 Q600,15 1200,50;M0,50 Q600,85 1200,50;M0,50 Q600,15 1200,50"/>
+    </path>
+  </svg>
+  <div class="pb-inner">
+    <div class="pb-brand"><div class="pb-name">The Life Care Experts</div><div class="pb-url">thelifecareexperts.com</div></div>
+    <div class="pb-vline"></div>
+    <div class="pb-script">In Strategic Partnership With</div>
+    <div class="pb-vline"></div>
+    <div class="pb-brand"><div class="pb-name">LCM Institute</div><div class="pb-url">lcmexpert.com</div></div>
+  </div>
+</div>
+
+<!-- INSTITUTE — DARK SECTION -->
+<section class="inst-sec" id="institute">
+  <div class="wrap">
+    <div class="inst-eye rev"><div class="inst-eye-dot"></div><div class="inst-eye-line"></div><span class="inst-eye-tag">Two Brands. One Vision.</span></div>
+    <h2 class="inst-display wipe">The Life Care Experts<br><em>meets</em> LCM Institute.</h2>
+    <p class="inst-lead rev d1">Jennifer has spent 31 years building two of the most trusted names in life care — one for families navigating aging, one for professionals building a practice. Now unified under one roof.</p>
+    <div class="inst-grid rev d2">
+      <div class="inst-panel">
+        <div class="inst-panel-num">01</div>
+        <div class="inst-tag t">For Families &amp; Individuals</div>
+        <div class="inst-name">The Life Care<br><em>Experts</em></div>
+        <div class="inst-desc">Guiding families through aging, long-term care planning, and late-life decisions with 31 years of clinical experience. Patient advocacy, care coordination, and expert consultation under Jennifer's direct oversight.</div>
+        <div class="inst-list">
+          <div class="inst-li">Life care planning &amp; care management</div>
+          <div class="inst-li">Dementia care consulting &amp; family navigation</div>
+          <div class="inst-li">Expert witness &amp; legal consultation</div>
+          <div class="inst-li">Complex case management since 2006</div>
+        </div>
+        <a href="#contact" class="inst-btn t">Get Family Guidance</a>
+      </div>
+      <div class="inst-panel">
+        <div class="inst-panel-num">02</div>
+        <div class="inst-tag s">For Care Professionals</div>
+        <div class="inst-name">Life Care Management<br><em>Institute</em></div>
+        <div class="inst-desc">Training and certifying the next generation of life care professionals. The LCM Intensive, online courses, and the handbook that has become the field's reference standard — all built from 31 years of practice.</div>
+        <div class="inst-list">
+          <div class="inst-li">LCM Intensive — 7 courses, 19 lessons A to Z</div>
+          <div class="inst-li">Business Intensive — start &amp; grow your practice</div>
+          <div class="inst-li">À La Carte Classes — extensive class library</div>
+          <div class="inst-li">Member portal &amp; private coaching</div>
+        </div>
+        <a href="#courses" class="inst-btn s">Explore the Institute</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES ACCORDION -->
+<section class="sec" id="services" style="background:var(--cream2);">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot c"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">Professional Services</span></div>
+    <h2 class="display wipe" style="font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:.5rem;">Solutions for Improving<br><em class="c">the Health &amp; Aging Experience.</em></h2>
+    <p class="body-p rev d1" style="max-width:540px;">Since 2006, providing guidance for families, insurance companies, private clients, and government entities.</p>
+    <div class="svc-list rev d2" id="svcList">
+      <div class="svc-item open">
+        <div class="svc-head" onclick="toggleSvc(this.parentElement)">
+          <div class="svc-n">01</div>
+          <div class="svc-name">Life Care Planning</div>
+          <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="svc-body"><div class="svc-inner"><div class="svc-desc">Baccalaureate-level professionals with advanced post-graduate study in life care planning. Retained as experts by attorneys and families to help all parties understand lifelong needs in complex cases.</div><span class="svc-badge">Flagship Service</span></div></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-head" onclick="toggleSvc(this.parentElement)">
+          <div class="svc-n">02</div>
+          <div class="svc-name">Life Care Management</div>
+          <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="svc-body"><div class="svc-inner"><div class="svc-desc">Holistic process including care planning, comprehensive assessments, coordination, and ongoing case management. Communication with all parties, accompaniment to medical visits.</div><span class="svc-badge">Ongoing Management</span></div></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-head" onclick="toggleSvc(this.parentElement)">
+          <div class="svc-n">03</div>
+          <div class="svc-name">Dementia Care Consulting</div>
+          <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="svc-body"><div class="svc-inner"><div class="svc-desc">Certified Alzheimer's Disease and Dementia Care Trainer since 2019. Direct consulting for families and institutions navigating dementia from early stages through complex late-stage decisions.</div><span class="svc-badge">Certified Specialist</span></div></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-head" onclick="toggleSvc(this.parentElement)">
+          <div class="svc-n">04</div>
+          <div class="svc-name">Expert Witness Services</div>
+          <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="svc-body"><div class="svc-inner"><div class="svc-desc">Deposition and trial testimony experience for insurance companies, government entities, and legal teams requiring certified life care planning expertise in worker's compensation and disability cases.</div><span class="svc-badge">Legal &amp; Insurance</span></div></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-head" onclick="toggleSvc(this.parentElement)">
+          <div class="svc-n">05</div>
+          <div class="svc-name">Family Care Navigation</div>
+          <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="svc-body"><div class="svc-inner"><div class="svc-desc">Guided aging and life care planning using the Seven-Step Framework — turning overwhelming decisions into manageable, confident steps. Objective but supportive partner at every stage.</div><span class="svc-badge">Families</span></div></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-head" onclick="toggleSvc(this.parentElement)">
+          <div class="svc-n">06</div>
+          <div class="svc-name">Keynote Speaking</div>
+          <div class="svc-toggle"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="svc-body"><div class="svc-inner"><div class="svc-desc">Engaging presentations for healthcare organizations, professional associations, and community groups on life care planning, dementia, aging, and building a care management practice.</div><span class="svc-badge">Speaking</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="sec" id="courses">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot s"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">LCM Institute · Professional Education</span></div>
+    <h2 class="display wipe" style="font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:2rem;">Built From<br><em>31 Years of Practice.</em></h2>
+    <div class="course-grid">
+      <div class="course-card rev"><span class="cc-num">Course 01</span><div class="cc-name">Family Aging Life Care Planning</div><div class="cc-desc">Foundational course for care professionals entering the field. Covers the complete life care planning process from assessment to final report.</div><span class="cc-tag">Foundation</span></div>
+      <div class="course-card rev d1"><span class="cc-num">Course 02</span><div class="cc-name">LCM Intensive</div><div class="cc-desc">The complete A to Z program. 7 courses, 19 lessons covering everything from clinical assessment to building and scaling a care management practice.</div><span class="cc-tag">7 Courses · 19 Lessons</span></div>
+      <div class="course-card rev d2"><span class="cc-num">Course 03</span><div class="cc-name">Business Intensive</div><div class="cc-desc">Start, build, and grow your life care management practice. Marketing, client acquisition, systems, pricing, and Jennifer's operational framework.</div><span class="cc-tag">Practice Growth</span></div>
+      <div class="course-card rev d1"><span class="cc-num">Course 04</span><div class="cc-name">À La Carte Classes</div><div class="cc-desc">Extensive class library. Pick the specific skills and knowledge you need without committing to the full intensive. Continuously expanding.</div><span class="cc-tag">Flexible</span></div>
+      <div class="course-card rev d2"><span class="cc-num">Coaching 05</span><div class="cc-name">Private Coaching</div><div class="cc-desc">Direct one-on-one coaching with Jennifer. For practitioners who want personalized guidance building or scaling their life care management practice.</div><span class="cc-tag">1-on-1</span></div>
+      <div class="course-card rev d3"><span class="cc-num">Community 06</span><div class="cc-name">Member Portal</div><div class="cc-desc">Private member community. Access all course materials, resources, templates, and Jennifer's direct Q&amp;A support in one place.</div><span class="cc-tag">Members Only</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="sec" id="resources" style="background:var(--cream2);">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot t"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">Books · Templates · Tools</span></div>
+    <h2 class="display wipe" style="font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:2rem;">The Reference Standard<br><em>for Life Care Professionals.</em></h2>
+    <div class="res-grid">
+      <div class="res-card feat rev"><div class="res-cat">Handbook</div><div class="res-name">Life Care Management Handbook</div><div class="res-desc">The definitive reference for life care management professionals. Comprehensive, practical, and built from 20 years of direct practice. The book Jennifer wishes existed when she started.</div><div class="res-price">$179</div><a href="https://lcmexpert.com" target="_blank" class="res-btn t">Get the Handbook</a></div>
+      <div class="res-card rev d1"><div class="res-cat">Templates</div><div class="res-name">Ultimate Care Plan Guide</div><div class="res-desc">101 ready-to-use care plan templates covering every category of need. Immediate time savings for practicing care managers and life care planners.</div><div class="res-price">Available at LCM Institute</div><a href="https://lcmexpert.com" target="_blank" class="res-btn o">View Resource</a></div>
+      <div class="res-card rev d2"><div class="res-cat">Templates</div><div class="res-name">LCM Form Templates</div><div class="res-desc">Complete library of professional forms used in a working life care management practice. Assessment forms, care agreements, documentation, and billing.</div><div class="res-price">Available at LCM Institute</div><a href="https://lcmexpert.com" target="_blank" class="res-btn o">View Resource</a></div>
+    </div>
+    <div class="books-row">
+      <div class="book-card rev"><div class="book-num">01</div><div><div class="book-name">7 Steps to Long-Term Care Planning</div><div class="book-desc">A practical framework for families navigating the overwhelming process of planning for aging and long-term care. Plain language. Actionable steps.</div><div class="book-price">$19.95 · Amazon</div></div></div>
+      <div class="book-card rev d1"><div class="book-num">02</div><div><div class="book-name">Easy Aging Guidebook</div><div class="book-desc">Guidance for families and caregivers navigating the aging journey. Jennifer's most accessible book — designed for the people who need it most.</div><div class="book-price">$19.95 · Amazon</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS STRIP (dark) -->
+<div class="cred-strip" id="credentials">
+  <div class="cred-strip-inner">
+    <div class="sec-eye rev inst-eye" style="margin-bottom:2rem;"><div class="inst-eye-dot"></div><div class="inst-eye-line"></div><span class="inst-eye-tag">Credentials &amp; Certifications</span></div>
+    <div class="cred-strip-title wipe">31 Years.<br><em>Every Credential Earned.</em></div>
+    <div class="cred-cols rev d2">
+      <div class="cred-col"><div class="cc2-abbr">RN</div><div class="cc2-name">Registered Nurse</div><div class="cc2-desc">BSN from Ohio State University, 1993. 15 years as ICU Charge Nurse at Logan Health.</div></div>
+      <div class="cred-col"><div class="cc2-abbr">CLCP</div><div class="cc2-name">Certified Life Care Planner</div><div class="cc2-desc">Advanced post-graduate certification. Expert retained by attorneys and insurance companies in complex cases.</div></div>
+      <div class="cred-col"><div class="cc2-abbr">CDP</div><div class="cc2-name">Certified Dementia Practitioner</div><div class="cc2-desc">Certified Alzheimer's Disease and Dementia Care Trainer since 2019. All stages, all settings.</div></div>
+      <div class="cred-col"><div class="cc2-abbr">CMC</div><div class="cc2-name">Certified Care Manager</div><div class="cc2-desc">Professional certification in care management covering assessment, coordination, and complex case management.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="testimonials">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot c"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">What Clients Say</span></div>
+    <h2 class="display wipe" style="font-size:clamp(2rem,3.5vw,3.2rem);">Trusted by Families<br><em>&amp; Professionals.</em></h2>
+    <div class="testi-grid rev d1">
+      <div class="tc"><div class="tc-q">"</div><div class="stars"><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div><div class="tc-txt">Jennifer navigated every difficult conversation with our family — doctors, facilities, insurance — with a calm authority we had never experienced before. She did not just plan. She led.</div><div class="tc-rule"></div><span class="tc-name">Margaret S.</span><span class="tc-role">Family Client · Complex Care Case</span></div>
+      <div class="tc"><div class="tc-q">"</div><div class="stars"><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div><div class="tc-txt">The LCM Intensive completely changed how I approach my practice. Jennifer does not teach theory. She teaches the way she actually works — and that is worth more than any textbook.</div><div class="tc-rule"></div><span class="tc-name">Dr. Patricia L., RN CLCP</span><span class="tc-role">LCM Institute Graduate</span></div>
+      <div class="tc"><div class="tc-q">"</div><div class="stars"><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg><svg class="star" viewBox="0 0 14 14" fill="var(--coral)"><path d="M7 1l1.5 4H13l-3.5 2.5 1.5 4L7 9l-4 2.5 1.5-4L1 5h4.5z"/></svg></div><div class="tc-txt">We engaged Jennifer for expert witness services on a complex long-term care case. Her depth of knowledge and testimony were simply unmatched by anyone we have worked with.</div><div class="tc-rule"></div><span class="tc-name">James R., Esq.</span><span class="tc-role">Attorney · Insurance Litigation</span></div>
+    </div>
+    <div class="testi-dots" id="testiDots"><div class="testi-dot active"></div><div class="testi-dot"></div><div class="testi-dot"></div></div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<section class="sec" id="portal" style="background:var(--teal-pale);">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot t"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">Client Portal</span></div>
+    <div class="portal-grid">
+      <div>
+        <h2 class="display wipe" style="font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:1rem;">Your Care Plan.<br><em>Always With You.</em></h2>
+        <p class="body-p rev d1">A secure private portal for every client and their family. Access care plans, visit notes, documents, and direct communication with Jennifer — from any device, any time.</p>
+        <div class="pf-list rev d2">
+          <div class="pf-row"><div class="pf-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><div class="pf-title">Live Care Plan Access</div><div class="pf-desc">Your care plan is always current. Updated after every visit, every consultation, every change in condition.</div></div></div>
+          <div class="pf-row"><div class="pf-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="pf-title">Secure Documents</div><div class="pf-desc">Medical records, reports, assessments, and care correspondence — organized and secure in one place.</div></div></div>
+          <div class="pf-row"><div class="pf-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="pf-title">Direct Messaging</div><div class="pf-desc">Message Jennifer directly from the portal. Every message is read and responded to personally.</div></div></div>
+        </div>
+      </div>
+      <div class="rev-r">
+        <div class="about-dev">
+          <div class="dev-bar"><div class="dev-dots"><span></span><span></span><span></span></div><div class="dev-url">Life Care Experts · Client Portal</div></div>
+          <div class="dev-body">
+            <div style="font-family:var(--serif);font-size:.9rem;font-style:italic;color:var(--navy);margin-bottom:1rem;">Welcome back, <span style="color:var(--teal);">Margaret.</span></div>
+            <div class="dev-row">
+              <div class="dev-st"><div class="dvn">19</div><div class="dvl">Consultations</div></div>
+              <div class="dev-st"><div class="dvn">4</div><div class="dvl">Active Plans</div></div>
+            </div>
+            <div class="dev-item"><div><div class="di-nm">Annual Care Plan</div><div class="di-sb">Updated Oct 2025</div></div><div class="di-st sg">Current</div></div>
+            <div class="dev-item"><div><div class="di-nm">Medical Summary</div><div class="di-sb">Logan Health Records</div></div><div class="di-st st">On File</div></div>
+            <div class="dev-item"><div><div class="di-nm">Insurance Report</div><div class="di-sb">Expert Witness · Nov 2025</div></div><div class="di-st sg">Filed</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="sec-eye rev"><div class="sec-eye-dot c"></div><div class="sec-eye-line"></div><span class="sec-eye-tag">Get In Touch</span></div>
+    <h2 class="display wipe" style="font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:.5rem;">Ready to Work<br><em class="c">With Jennifer?</em></h2>
+    <p class="body-p rev d1" style="max-width:520px;">Whether you are a family navigating aging or a professional building a practice — Jennifer responds personally within 24 hours.</p>
+    <div class="contact-grid">
+      <div class="cf rev-l">
+        <div class="cf-title">Start the Conversation</div>
+        <div class="cf-sub">Tell Jennifer a bit about your situation. She will be in touch within 24 hours.</div>
+        <div id="cfFields">
+          <div class="cf-g"><label class="cf-l" for="cfName">Your Name</label><input class="cf-i" id="cfName" type="text" placeholder="Full name"></div>
+          <div class="cf-g"><label class="cf-l" for="cfEmail">Email Address</label><input class="cf-i" id="cfEmail" type="email" placeholder="your@email.com"></div>
+          <div class="cf-g"><label class="cf-l" for="cfPhone">Phone (optional)</label><input class="cf-i" id="cfPhone" type="tel" placeholder="(406) 000-0000"></div>
+          <div class="cf-g"><label class="cf-l" for="cfType">I Am Reaching Out As</label>
+            <select class="cf-s" id="cfType">
+              <option value="">Select one</option>
+              <option>A family member or caregiver</option>
+              <option>An individual planning for my future</option>
+              <option>A healthcare professional</option>
+              <option>An attorney or insurance professional</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="cf-g"><label class="cf-l" for="cfMsg">How Can Jennifer Help?</label><textarea class="cf-ta" id="cfMsg" placeholder="Tell us what you are looking for..."></textarea></div>
+          <button class="cf-btn" id="cfBtn" onclick="submitForm()">Send Message</button>
+          <div class="cf-note">Jennifer responds personally within 24 hours. Your information is never shared.</div>
+        </div>
+        <div class="cf-success" id="cfSuccess"><h3>Message Received.</h3><p id="cfThanks"></p></div>
+      </div>
+      <div class="rev-r">
+        <div class="ci-item"><div class="ci-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:Jennifer@thelifecareexperts.com">Jennifer@thelifecareexperts.com</a></div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.47 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="ci-lbl">Phone</div><div class="ci-val"><a href="tel:4062120620">(406) 212-0620</a></div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="ci-lbl">Response Time</div><div class="ci-val">Within 24 hours, personally</div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ci-lbl">Location</div><div class="ci-val">Kalispell, Montana · Serving Nationwide</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="ft-closing rev">Every family deserves a guide who has been there.<br><em>That is what 31 years builds.</em></div>
+    <div class="ft-grid">
+      <div>
+        <div class="ft-brand">The Life Care Experts · LCM Institute</div>
+        <div class="ft-sub">In Strategic Partnership</div>
+        <div class="ft-contact">
+          <a href="mailto:Jennifer@thelifecareexperts.com">Jennifer@thelifecareexperts.com</a>
+          <a href="tel:4062120620">(406) 212-0620</a>
+          <a href="https://lcmexpert.com" target="_blank">lcmexpert.com</a>
+          <a href="https://thelifecareexperts.com" target="_blank">thelifecareexperts.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-links">
+          <a href="#about">About</a><a href="#institute">Institute</a><a href="#services">Services</a>
+          <a href="#courses">Courses</a><a href="#resources">Resources</a><a href="#portal">Portal</a>
+          <a href="#contact">Contact</a><a href="https://members.lcmexpert.com" target="_blank">Member Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="ft-copy">© 2026 The Life Care Experts · LCM Institute · Kalispell, Montana 59901<br>Jennifer Crowley BSN RN, CLCP, CDP, CADDCT, CMC · All Rights Reserved</div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button id="chat-btn" onclick="document.getElementById('chat').classList.toggle('open')">
+  <div class="cb-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--white)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+  <span class="cb-lbl">Ask Jennifer's AI</span>
+  <div class="cb-live"></div>
+</button>
+<div id="chat">
+  <div class="ch-hd"><div class="ch-av">J</div><div class="ch-info"><h4>Jennifer's Assistant</h4><p>The Life Care Experts · LCM Institute</p></div><button class="ch-close" onclick="document.getElementById('chat').classList.remove('open')">✕</button></div>
+  <div class="ch-msgs" id="chMsgs"><div class="ch-msg b">Hello. I'm Jennifer's AI assistant. Are you a family looking for care guidance, or a professional interested in the LCM Institute?</div></div>
+  <div class="ch-typ" id="chTyp"><div class="ch-td"></div><div class="ch-td"></div><div class="ch-td"></div></div>
+  <div class="ch-chips" id="chChips">
+    <button class="ch-chip" onclick="chipSend(this)">I need care guidance</button>
+    <button class="ch-chip" onclick="chipSend(this)">I'm a professional</button>
+    <button class="ch-chip" onclick="chipSend(this)">Tell me about Jennifer</button>
+  </div>
+  <div class="ch-row"><textarea class="ch-inp" id="chInp" rows="1" placeholder="Type a message..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();chatSend();}"></textarea><button class="ch-send" onclick="chatSend()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
+</div>
+
+<script>
+const R='https://proximity-agent-production.up.railway.app';
+
+/* ── SCROLL PROGRESS + NAV ── */
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>20);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  if(prog&&h>0)prog.style.width=(window.scrollY/h*100)+'%';
+},{passive:true});
+
+/* ── PARALLAX HERO BACKGROUND ── */
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY;
+  const dots=document.getElementById('bgDots');
+  const b1=document.getElementById('bgBlob1');
+  const b2=document.getElementById('bgBlob2');
+  const b3=document.getElementById('bgBlob3');
+  if(dots)dots.style.transform=`translateY(${s*.12}px)`;
+  if(b1)b1.style.transform=`translateY(${s*.18}px)`;
+  if(b2)b2.style.transform=`translateY(${s*.08}px)`;
+  if(b3)b3.style.transform=`translateY(${s*.22}px)`;
+},{passive:true});
+
+/* ── SPHERE MOUSE TILT ── */
+(function(){
+  const sw=document.getElementById('sphereWrap');
+  if(!sw)return;
+  const sphere=sw.querySelector('.sphere');
+  sw.addEventListener('mousemove',e=>{
+    const r=sw.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    sphere.style.transform=`perspective(900px) rotateX(${-y*18}deg) rotateY(${x*18}deg)`;
+  });
+  sw.addEventListener('mouseleave',()=>{
+    sphere.style.transition='transform .6s cubic-bezier(.16,1,.3,1)';
+    sphere.style.transform='';
+    setTimeout(()=>sphere.style.transition='',700);
+  });
+})();
+
+/* ── TYPED HEADLINE ── */
+(function(){
+  const el=document.getElementById('typedLine');
+  if(!el)return;
+  const phrases=['Registered Nurse','Certified Life Care Planner','Expert Witness','Dementia Specialist','Published Author'];
+  let pi=0,ci=0,deleting=false,wait=0;
+  function type(){
+    const phrase=phrases[pi];
+    if(wait>0){wait--;setTimeout(type,50);return;}
+    if(!deleting){
+      el.textContent=phrase.slice(0,ci+1);
+      ci++;
+      if(ci===phrase.length){deleting=true;wait=40;}
+      setTimeout(type,70);
+    } else {
+      el.textContent=phrase.slice(0,ci-1);
+      ci--;
+      if(ci===0){deleting=false;pi=(pi+1)%phrases.length;wait=10;}
+      setTimeout(type,35);
+    }
+  }
+  setTimeout(type,1100);
+})();
+
+/* ── MAGNETIC CURSOR ── */
+(function(){
+  const cur=document.getElementById('cur');
+  const ring=document.getElementById('cur-r');
+  if(!cur||!ring)return;
+  if(window.matchMedia('(hover:none)').matches){cur.style.display='none';ring.style.display='none';return;}
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.svc-head,.cred-tile,.res-card,.course-card,.inst-panel,.tc').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.classList.add('h');});
+    el.addEventListener('mouseleave',()=>{cur.classList.remove('h');});
+  });
+  document.addEventListener('mouseleave',()=>{cur.classList.add('out');ring.classList.add('out');});
+  document.addEventListener('mouseenter',()=>{cur.classList.remove('out');ring.classList.remove('out');});
+})();
+
+/* ── COUNT-UP WITH SHIMMER ── */
+function countUp(el){
+  const target=+el.dataset.target,suffix=el.dataset.suffix||'',dur=1600,start=performance.now();
+  (function frame(now){
+    const p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(ease*target)+suffix;
+    if(p<1){requestAnimationFrame(frame);}
+    else{setTimeout(()=>{el.classList.add('shim');setTimeout(()=>el.classList.remove('shim'),950);},80);}
+  })(start);
+}
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('[data-target]').forEach(countUp);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.08});
+document.querySelectorAll('.rev,.rev-l,.rev-r,.st-col,.wipe').forEach(el=>io.observe(el));
+
+/* ── INTERACTIVE CREDENTIAL TILES ── */
+function toggleCred(tile){
+  const isOpen=tile.classList.contains('open');
+  document.querySelectorAll('.cred-tile.open').forEach(t=>t.classList.remove('open'));
+  if(!isOpen)tile.classList.add('open');
+}
+
+/* ── SERVICE ACCORDION ── */
+function toggleSvc(item){
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.svc-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+/* ── TESTIMONIAL DOTS ── */
+(function(){
+  const grid=document.querySelector('.testi-grid');
+  const dots=document.querySelectorAll('.testi-dot');
+  if(!grid||!dots.length)return;
+  grid.addEventListener('scroll',()=>{
+    const idx=Math.round(grid.scrollLeft/(grid.scrollWidth/dots.length));
+    dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+  },{passive:true});
+})();
+
+/* ── CONTACT FORM ── */
+function submitForm(){
+  const ne=document.getElementById('cfName'),ee=document.getElementById('cfEmail');
+  const name=ne.value.trim(),email=ee.value.trim();
+  let ok=true;
+  [ne,ee].forEach(el=>el.classList.remove('err'));
+  if(!name){ne.classList.add('err');ok=false;}
+  if(!email||!email.includes('@')){ee.classList.add('err');ok=false;}
+  if(!ok)return;
+  const btn=document.getElementById('cfBtn');
+  btn.textContent='Sending...';btn.disabled=true;
+  fetch(R+'/webhook/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    Full_Name:name,Email:email,
+    Phone:document.getElementById('cfPhone').value.trim(),
+    Care_Type:document.getElementById('cfType').value,
+    Notes:document.getElementById('cfMsg').value.trim(),
+    Source:'LCM Experts V4',operator_id:'lcm-experts',Status:'New Lead'
+  })}).finally(()=>{
+    document.getElementById('cfFields').style.display='none';
+    document.getElementById('cfSuccess').classList.add('show');
+    document.getElementById('cfThanks').textContent='Thank you '+name+'. Jennifer will be in touch within 24 hours.';
+  });
+}
+
+/* ── CHATBOT ── */
+var chatHist=[];
+var SYS="You are Jennifer Crowley's personal AI assistant on the unified Life Care Experts and LCM Institute website.\n\nJennifer Crowley RN, CLCP, CDP, CMC — Registered Nurse with 31 years experience. Certified Life Care Planner. Certified Dementia Practitioner. Certified Care Manager. Published author of three books. Co-developer of Montana's State Plan for Alzheimer's and Related Dementias. Expert witness. Based in Kalispell, Montana. In practice since 2006.\n\nSHE RUNS TWO ENTITIES:\n1. The Life Care Experts (thelifecareexperts.com) — for families and individuals.\n2. LCM Institute (lcmexpert.com) — for healthcare professionals.\n\nRULES: Max 2 sentences per reply. No bullet points. End every reply with one question. Warm but efficient. For families: direct to contact form. For professionals: direct to Courses or Resources.";
+
+function addMsg(t,txt){const d=document.createElement('div');d.className='ch-msg '+t;d.textContent=txt;document.getElementById('chMsgs').appendChild(d);document.getElementById('chMsgs').scrollTop=99999;}
+function chipSend(el){document.getElementById('chChips').style.display='none';document.getElementById('chInp').value=el.textContent;chatSend();}
+async function chatSend(){
+  const inp=document.getElementById('chInp'),msg=inp.value.trim();
+  if(!msg)return;inp.value='';addMsg('u',msg);chatHist.push({role:'user',content:msg});
+  document.getElementById('chTyp').classList.add('show');
+  try{
+    const r=await fetch(R+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'lcm-experts',system_override:SYS,messages:chatHist})});
+    const d=await r.json();
+    const rep=d.response||'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com or call (406) 212-0620.';
+    chatHist.push({role:'assistant',content:rep});
+    document.getElementById('chTyp').classList.remove('show');addMsg('b',rep);
+  }catch(e){
+    document.getElementById('chTyp').classList.remove('show');
+    addMsg('b','Please reach out directly at (406) 212-0620 or Jennifer@thelifecareexperts.com.');
+  }
+}
+</script>
+</body>
+</html>
