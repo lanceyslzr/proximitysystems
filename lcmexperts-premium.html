@@ -55,6 +55,25 @@ button{font-family:var(--sans);cursor:pointer;border:none;background:none;}
 input,select,textarea{font-family:var(--sans);}
 
 /* ════════════════════════════════════════════
+   PAGE LOAD ENTRANCE
+════════════════════════════════════════════ */
+@keyframes navSlideDown{from{transform:translateY(-100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes fadeUp{from{transform:translateY(32px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes badgeDrift{from{transform:translateY(16px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+.nav{animation:navSlideDown .6s var(--ease-out) both;}
+.hero-eyebrow{animation:fadeUp .7s .1s var(--ease-out) both;}
+.hero-h{animation:fadeUp .7s .2s var(--ease-out) both;}
+.hero-desc{animation:fadeUp .7s .3s var(--ease-out) both;}
+.split-cta{animation:fadeUp .7s .4s var(--ease-out) both;}
+.cred-chips{animation:fadeUp .7s .5s var(--ease-out) both;}
+.info-card{animation:fadeUp .8s .35s var(--ease-out) both;}
+.hb1{animation:badgeDrift .6s .9s var(--ease-out) both, hbf1 4.5s 1.5s ease-in-out infinite!important;}
+.hb2{animation:badgeDrift .6s 1.05s var(--ease-out) both, hbf2 5.5s 1.65s ease-in-out infinite!important;}
+.hb3{animation:badgeDrift .6s 1.2s var(--ease-out) both, hbf3 5s 1.8s ease-in-out infinite!important;}
+
+/* ════════════════════════════════════════════
    UTILITIES
 ════════════════════════════════════════════ */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);}
@@ -168,7 +187,7 @@ input,select,textarea{font-family:var(--sans);}
 .cred-chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.64rem;font-weight:700;letter-spacing:.05em;color:var(--teal);background:var(--teal-ghost);border:1px solid rgba(21,94,117,.18);padding:.28rem .7rem;}
 
 /* hero right — info card */
-.info-card{background:var(--white);border-top:4px solid var(--teal);box-shadow:var(--shadow-xl);padding:2rem;width:100%;max-width:360px;position:relative;}
+.info-card{background:var(--white);border-top:4px solid var(--teal);box-shadow:var(--shadow-xl);padding:2rem;width:100%;max-width:360px;position:relative;will-change:transform;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s cubic-bezier(.16,1,.3,1);}
 .info-card::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--sage),var(--coral));opacity:.6;}
 .ic-top{display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem;padding-bottom:1.4rem;border-bottom:1px solid var(--rule);}
 .ic-av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-m));display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
@@ -223,9 +242,10 @@ input,select,textarea{font-family:var(--sans);}
    TICKER
 ════════════════════════════════════════════ */
 .ticker{background:var(--coral);overflow:hidden;padding:.68rem 0;}
+.ticker:hover .ticker-track{animation-play-state:paused;}
 .ticker-track{display:flex;animation:tick 40s linear infinite;width:max-content;}
-.ticker-track span{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white);padding:0 2.5rem;white-space:nowrap;}
-.ticker-track span::before{content:'✦  ';}
+.ticker-track span{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white);padding:0 2.5rem;white-space:nowrap;display:inline-flex;align-items:center;gap:.7rem;}
+.ticker-track span::before{content:'';display:inline-block;width:6px;height:6px;background:rgba(255,255,255,.5);transform:rotate(45deg);flex-shrink:0;}
 @keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 /* ════════════════════════════════════════════
@@ -247,7 +267,11 @@ input,select,textarea{font-family:var(--sans);}
 
 /* dashboard device */
 .dev-scene{position:relative;display:flex;justify-content:center;}
-.dev{background:var(--white);border:1px solid var(--rule);border-top:4px solid var(--teal);width:100%;max-width:360px;box-shadow:var(--shadow-xl);position:relative;z-index:1;}
+.dev-float{position:absolute;background:var(--white);border:1px solid var(--rule);padding:.38rem .7rem;font-size:.64rem;font-weight:700;color:var(--navy);box-shadow:var(--shadow-md);white-space:nowrap;z-index:10;display:flex;align-items:center;gap:.4rem;pointer-events:none;}
+.dev-float .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+@keyframes fl1{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+@keyframes fl2{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+@keyframes fl3{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}border:1px solid var(--rule);border-top:4px solid var(--teal);width:100%;max-width:360px;box-shadow:var(--shadow-xl);position:relative;z-index:1;}
 .dev-bar{background:var(--off);border-bottom:1px solid var(--rule);padding:.65rem 1rem;display:flex;align-items:center;gap:.5rem;}
 .dev-dots{display:flex;gap:.28rem;}
 .dev-dots span{width:8px;height:8px;border-radius:50%;}
@@ -268,8 +292,6 @@ input,select,textarea{font-family:var(--sans);}
 .sgreen{background:rgba(40,200,64,.12);color:#1a7a28;}
 .steal{background:var(--teal-ghost);color:var(--teal);}
 .dev-ft{font-size:.58rem;color:var(--gray2);text-align:center;padding:.5rem;background:var(--off);border-top:1px solid var(--rule);}
-.dev-float{position:absolute;background:var(--white);border:1px solid var(--rule);padding:.38rem .7rem;font-size:.64rem;font-weight:700;color:var(--navy);box-shadow:var(--shadow-md);white-space:nowrap;z-index:10;display:flex;align-items:center;gap:.4rem;}
-.dev-float .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
 /* ════════════════════════════════════════════
    INSTITUTE MERGER
@@ -411,6 +433,8 @@ input,select,textarea{font-family:var(--sans);}
 /* ALL INPUTS 16px font to prevent iOS zoom */
 .cf-i,.cf-s,.cf-ta{width:100%;background:var(--off);border:1px solid var(--rule);padding:.8rem 1rem;font-size:16px;color:var(--navy);font-family:var(--sans);transition:border-color .2s,background .2s;outline:none;min-height:48px;-webkit-appearance:none;appearance:none;}
 .cf-i:focus,.cf-s:focus,.cf-ta:focus{border-color:var(--teal);background:var(--white);}
+.cf-i.error,.cf-s.error,.cf-ta.error{border-color:var(--coral);animation:shake .35s var(--ease-out);}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
 .cf-i::placeholder,.cf-ta::placeholder{color:var(--gray3);}
 .cf-s{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a8f9f' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-color:var(--off);padding-right:36px;}
 .cf-ta{min-height:100px;resize:vertical;line-height:1.65;}
@@ -531,9 +555,14 @@ input,select,textarea{font-family:var(--sans);}
   .nav-cta{display:inline-flex!important;}
   .ham{display:none!important;}
 }
+/* ════════════════════════════════════════════
+   SCROLL PROGRESS BAR
+════════════════════════════════════════════ */
+#scroll-prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--sage),var(--coral));width:0%;z-index:1000;transition:width .1s linear;pointer-events:none;}
 </style>
 </head>
 <body>
+<div id="scroll-prog"></div>
 
 <!-- ══ NAV ══ -->
 <nav class="nav" id="mainNav">
@@ -740,13 +769,13 @@ input,select,textarea{font-family:var(--sans);}
       </div>
       <div class="dev-scene reveal-r">
         <!-- Floating device labels -->
-        <div class="dev-float" style="top:-12px;right:-16px;animation:fl1 4.4s ease-in-out infinite;">
+        <div class="dev-float" style="top:-14px;right:0;animation:fl1 4.4s ease-in-out infinite;">
           <div class="dot" style="background:var(--sage)"></div>Care Plan Filed
         </div>
-        <div class="dev-float" style="bottom:32px;left:-50px;animation:fl2 5.3s ease-in-out infinite;">
+        <div class="dev-float" style="bottom:24px;left:0;animation:fl2 5.3s ease-in-out infinite;">
           <div class="dot" style="background:var(--coral)"></div>Expert Report Submitted
         </div>
-        <div class="dev-float" style="top:160px;right:-54px;animation:fl3 4.9s ease-in-out infinite;">
+        <div class="dev-float" style="top:140px;right:0;animation:fl3 4.9s ease-in-out infinite;">
           <div class="dot" style="background:var(--teal)"></div>RN Certified &amp; Active
         </div>
         <div class="dev" id="dashDev">
@@ -1335,9 +1364,12 @@ input,select,textarea{font-family:var(--sans);}
 /* ─── RAILWAY ENDPOINT ─── */
 const R='https://proximity-agent-production.up.railway.app';
 
-/* ─── NAV SCROLL ─── */
+/* ─── NAV SCROLL + PROGRESS BAR ─── */
+const prog=document.getElementById('scroll-prog');
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>20);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  if(prog&&h>0)prog.style.width=(window.scrollY/h*100)+'%';
 });
 
 /* ─── HERO CARD 3D TILT ─── */
@@ -1345,14 +1377,19 @@ window.addEventListener('scroll',()=>{
   const card=document.getElementById('heroCard');
   if(!card)return;
   const scene=card.parentElement;
+  let tiltActive=false;
   scene.addEventListener('mousemove',e=>{
     const r=scene.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width-.5;
     const y=(e.clientY-r.top)/r.height-.5;
+    tiltActive=true;
+    card.style.transition='none';
     card.style.transform=`perspective(800px) rotateY(${x*14}deg) rotateX(${-y*14}deg)`;
     card.style.boxShadow=`${-x*20}px ${-y*20}px 60px rgba(21,94,117,.16)`;
   });
   scene.addEventListener('mouseleave',()=>{
+    tiltActive=false;
+    card.style.transition='transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s cubic-bezier(.16,1,.3,1)';
     card.style.transform='perspective(800px) rotateY(0) rotateX(0)';
     card.style.boxShadow='';
   });
@@ -1362,9 +1399,13 @@ window.addEventListener('scroll',()=>{
     const r=scene.getBoundingClientRect();
     const x=(t.clientX-r.left)/r.width-.5;
     const y=(t.clientY-r.top)/r.height-.5;
+    card.style.transition='none';
     card.style.transform=`perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg)`;
   },{passive:true});
-  scene.addEventListener('touchend',()=>{card.style.transform='';});
+  scene.addEventListener('touchend',()=>{
+    card.style.transition='transform .6s cubic-bezier(.16,1,.3,1)';
+    card.style.transform='';
+  });
 })();
 
 /* ─── DASHBOARD TILT ─── */
@@ -1420,9 +1461,15 @@ if(hCard)hio.observe(hCard);
 
 /* ─── CONTACT FORM ─── */
 function submitForm(){
-  const name=document.getElementById('cfName').value.trim();
-  const email=document.getElementById('cfEmail').value.trim();
-  if(!name||!email){alert('Please enter your name and email.');return;}
+  const nameEl=document.getElementById('cfName');
+  const emailEl=document.getElementById('cfEmail');
+  const name=nameEl.value.trim();
+  const email=emailEl.value.trim();
+  let valid=true;
+  [nameEl,emailEl].forEach(el=>{el.classList.remove('error');});
+  if(!name){nameEl.classList.add('error');valid=false;}
+  if(!email||!email.includes('@')){emailEl.classList.add('error');valid=false;}
+  if(!valid)return;
   const btn=document.getElementById('cfBtn');
   btn.textContent='Sending...';btn.disabled=true;
   const payload={
@@ -1470,7 +1517,7 @@ async function chatSend(){
     const r=await fetch(R+'/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({operator_id:'lcm-experts',system:SYS,messages:chatHist})
+      body:JSON.stringify({operator_id:'lcm-experts',system_override:SYS,messages:chatHist})
     });
     const d=await r.json();
     const rep=d.response||'Please reach out to Jennifer directly at Jennifer@thelifecareexperts.com or call (406) 212-0620.';
