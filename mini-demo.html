@@ -1134,13 +1134,7 @@ Do not output the block until you have all five fields. Do not ask more than one
 let history = [];
 let isProcessing = false;
 let leadCaptured = false;
-let chatStage = 0;
-
-function getChips() {
-  if (chatStage === 0) return ['I run a home care agency', 'How does this work?', 'What does it cost?'];
-  if (chatStage === 1) return ['Invoicing takes forever', 'PSWs forget to log visits', 'Leads go cold', 'Families call constantly'];
-  return [];
-}
+let chipsShown = false;
 
 function openChat() {
   const w = document.getElementById('chatWindow');
@@ -1157,7 +1151,10 @@ function initChat() {
   const greeting = "Hey. Do you run a home care agency?";
   addMessage('bot', greeting);
   history.push({ role: 'assistant', content: greeting });
-  showChips(getChips());
+  if (!chipsShown) {
+    chipsShown = true;
+    showChips(['I run a home care agency', 'How does this work?', 'What does it cost?']);
+  }
 }
 
 function addMessage(role, text) {
@@ -1265,8 +1262,7 @@ async function sendMessage(text) {
       document.getElementById('chatSend').disabled = true;
       document.getElementById('quickChips').innerHTML = '';
     } else {
-      if (chatStage < 2) chatStage++;
-      showChips(getChips());
+      document.getElementById('quickChips').innerHTML = '';
     }
 
   } catch(e) {
