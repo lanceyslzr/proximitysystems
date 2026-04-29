@@ -1202,7 +1202,7 @@ function handleSend() {
 }
 
 async function sendMessage(text) {
-  if (!text || isProcessing || leadCaptured) return;
+  if (!text || isProcessing) return;
 
   document.getElementById('quickChips').innerHTML = '';
   addMessage('user', text);
@@ -1237,13 +1237,17 @@ async function sendMessage(text) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            Full_Name: lead.name || '',
-            Agency: lead.agency || '',
-            City: lead.city || '',
-            Pain_Point: lead.pain || '',
-            Contact: lead.contact || '',
-            Source: 'Proximity Systems Mini Demo',
-            Timestamp: new Date().toISOString()
+            operator_id: 'proximity-systems',
+            lead_type: 'operator',
+            first_name: (lead.name || '').split(' ')[0] || '',
+            last_name: (lead.name || '').split(' ').slice(1).join(' ') || '',
+            phone: lead.contact || '',
+            email: '',
+            city: lead.city || '',
+            care_needed_for: lead.agency || '',
+            urgency: 'warm',
+            pain_point: lead.pain || '',
+            source: 'Proximity Systems Mini Demo'
           })
         });
         leadCaptured = true;
@@ -1257,9 +1261,7 @@ async function sendMessage(text) {
     history.push({ role: 'assistant', content: reply });
 
     if (leadCaptured) {
-      document.getElementById('chatInput').disabled = true;
-      document.getElementById('chatInput').placeholder = "Lance will be in touch shortly.";
-      document.getElementById('chatSend').disabled = true;
+      document.getElementById('chatInput').placeholder = "Lance will be in touch — keep chatting if you have questions.";
       document.getElementById('quickChips').innerHTML = '';
     } else {
       document.getElementById('quickChips').innerHTML = '';
