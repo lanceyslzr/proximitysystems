@@ -1137,12 +1137,9 @@ let leadCaptured = false;
 let chatStage = 0;
 
 function getChips() {
-  switch(chatStage) {
-    case 0: return ['I run a home care agency', 'How does this work?', 'What does it cost?'];
-    case 1: return ['Invoicing takes forever', 'PSWs forget to log visits', 'Leads go cold', 'Family calls non-stop'];
-    case 2: return ['Under 10 clients', '10 to 30 clients', '30 or more clients'];
-    default: return [];
-  }
+  if (chatStage === 0) return ['I run a home care agency', 'How does this work?', 'What does it cost?'];
+  if (chatStage === 1) return ['Invoicing takes forever', 'PSWs forget to log visits', 'Leads go cold', 'Families call constantly'];
+  return [];
 }
 
 function openChat() {
@@ -1268,7 +1265,7 @@ async function sendMessage(text) {
       document.getElementById('chatSend').disabled = true;
       document.getElementById('quickChips').innerHTML = '';
     } else {
-      chatStage++;
+      if (chatStage < 2) chatStage++;
       showChips(getChips());
     }
 
