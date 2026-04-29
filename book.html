@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Book a Free Call — Proximity Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090c;
+  --bg2: #0b0f14;
+  --teal: #3d7a8a;
+  --teal-lt: #5a9aaa;
+  --teal-bg: #0b2028;
+  --text: #ddd9d0;
+  --text-dim: #6a8a92;
+  --text-muted: #3a5a62;
+  --card: #0e1419;
+  --border: rgba(90,154,170,0.12);
+  --border-bright: rgba(90,154,170,0.25);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(7,9,12,0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--teal-lt);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.nav-back:hover { color: var(--teal-lt); }
+
+/* PAGE */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-glow {
+  position: absolute;
+  top: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(61,122,138,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.page-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(90,154,170,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90,154,170,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.page-inner {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--teal);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.live-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--teal-lt);
+  box-shadow: 0 0 8px rgba(90,154,170,0.8);
+  animation: livepulse 2s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.page-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: clamp(40px, 10vw, 64px);
+  line-height: 0.92;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.page-headline em {
+  color: var(--teal-lt);
+  font-style: italic;
+}
+.page-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 380px;
+}
+
+/* FORM */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border-bright);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.form-header {
+  background: var(--teal-bg);
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.form-header-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--teal-lt);
+  text-transform: uppercase;
+}
+.form-header-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #5aaa7a;
+  text-transform: uppercase;
+}
+.badge-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #5aaa7a;
+  animation: livepulse 2s ease-in-out infinite;
+}
+
+.form-body { padding: 20px; }
+.f-group { margin-bottom: 16px; }
+.f-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+.f-input, .f-select, .f-textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+.f-input:focus, .f-select:focus, .f-textarea:focus { border-color: var(--teal); }
+.f-input::placeholder, .f-textarea::placeholder { color: var(--text-muted); }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f-textarea { min-height: 88px; resize: vertical; font-size: 14px; line-height: 1.5; }
+.f-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%236a8a92' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+  color: var(--text-dim);
+}
+.f-select option { background: #0e1419; color: var(--text); }
+
+.form-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+}
+.f-submit {
+  width: 100%;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+.f-submit:active { transform: scale(0.98); background: #2d6a7a; }
+.f-submit:disabled { background: var(--text-muted); cursor: not-allowed; }
+.f-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+/* SUCCESS */
+.success-state {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+}
+.success-state.show { display: block; }
+.success-check {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  color: var(--teal-lt);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.success-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.success-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  min-height: 44px;
+  transition: background 0.2s;
+}
+.success-back:active { background: #2d6a7a; }
+
+/* TRUST ROW */
+.trust-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.trust-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+@media (max-width: 599px) {
+  .f-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://proximitysystems.ca" class="nav-logo">Proximity Systems</a>
+  <a href="https://proximitysystems.ca" class="nav-back">Back to site</a>
+</nav>
+
+<div class="page">
+  <div class="page-glow"></div>
+  <div class="page-grid"></div>
+
+  <div class="page-inner">
+
+    <!-- FORM STATE -->
+    <div id="formState">
+      <div class="page-eyebrow">
+        <div class="live-dot"></div>
+        Free 20-min discovery call
+      </div>
+      <h1 class="page-headline">Let's build<br>your <em>back office.</em></h1>
+      <p class="page-sub">Tell us about your agency. Lance will reach out within a few hours to walk you through exactly what gets built for you in 7 days.</p>
+
+      <div class="form-card">
+        <div class="form-header">
+          <span class="form-header-title">Agency Intake</span>
+          <span class="form-header-badge"><span class="badge-dot"></span>No obligation</span>
+        </div>
+        <div class="form-body">
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-label">Your Name *</label>
+              <input class="f-input" id="f-name" type="text" placeholder="Full name" autocomplete="name">
+            </div>
+            <div class="f-group">
+              <label class="f-label">Phone *</label>
+              <input class="f-input" id="f-phone" type="tel" placeholder="647-000-0000" autocomplete="tel">
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Agency Name *</label>
+            <input class="f-input" id="f-agency" type="text" placeholder="Your agency name">
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-label">City *</label>
+              <input class="f-input" id="f-city" type="text" placeholder="City, Province">
+            </div>
+            <div class="f-group">
+              <label class="f-label">Clients Served</label>
+              <select class="f-select" id="f-clients">
+                <option value="">Select range...</option>
+                <option>Under 10</option>
+                <option>10 to 30</option>
+                <option>30 to 100</option>
+                <option>100+</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Biggest Admin Headache</label>
+            <textarea class="f-textarea" id="f-pain" placeholder="Invoicing, visit logs, lead follow-up, family communication..."></textarea>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="f-submit" id="f-submit" onclick="submitForm()">Book My Free Call</button>
+          <div class="f-note">No obligation · Responds within a few hours · 647-382-8047</div>
+        </div>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item"><div class="trust-dot"></div>7 days to go live</div>
+        <div class="trust-item"><div class="trust-dot"></div>10 systems built for you</div>
+        <div class="trust-item"><div class="trust-dot"></div>$500/mo after setup</div>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="successState">
+      <div class="success-check">✓</div>
+      <div class="success-title">You're booked in.</div>
+      <div class="success-sub">Lance will reach out within a few hours to schedule your 20-minute call. You can also reach him directly at 647-382-8047 or lancesalazar56@gmail.com.</div>
+      <a href="https://proximitysystems.ca" class="success-back">Back to site</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const LEAD_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
+
+async function submitForm() {
+  const fullName = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const agency = document.getElementById('f-agency').value.trim();
+  const city = document.getElementById('f-city').value.trim();
+  const clients = document.getElementById('f-clients').value;
+  const pain = document.getElementById('f-pain').value.trim();
+
+  if (!fullName || !phone || !agency || !city) {
+    alert('Please fill in your name, phone, agency name, and city.');
+    return;
+  }
+
+  const btn = document.getElementById('f-submit');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const nameParts = fullName.split(/\s+/);
+  const first_name = nameParts.shift();
+  const last_name = nameParts.join(' ') || '';
+
+  try {
+    const res = await fetch(LEAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operator_id: 'proximity-systems',
+        lead_type: 'operator',
+        first_name,
+        last_name,
+        phone,
+        email: '',
+        city,
+        care_needed_for: agency,
+        urgency: 'warm',
+        pain_point: pain || clients || 'Not specified',
+        source: 'Proximity Systems Book Page'
+      })
+    });
+
+    if (!res.ok) throw new Error('Server error');
+
+    document.getElementById('formState').style.display = 'none';
+    document.getElementById('successState').classList.add('show');
+    window.scrollTo(0, 0);
+
+  } catch(e) {
+    alert('Something went wrong. Call Lance directly at 647-382-8047.');
+    btn.disabled = false;
+    btn.textContent = 'Book My Free Call';
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') submitForm();
+});
+</script>
+</body>
+</html>

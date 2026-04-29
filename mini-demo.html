@@ -820,6 +820,215 @@ footer {
 @media (max-width: 599px) {
   .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
 }
+
+/* BOOKING SECTION */
+#booking {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.booking-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(32px, 8vw, 48px);
+  line-height: 1.0;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.booking-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.booking-form {
+  background: var(--card);
+  border: 1px solid var(--border-bright);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.booking-form-header {
+  background: var(--teal-bg);
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.booking-form-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--teal-lt);
+  text-transform: uppercase;
+}
+.booking-form-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #5aaa7a;
+  text-transform: uppercase;
+}
+.booking-form-badge-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #5aaa7a;
+  animation: livepulse 2s ease-in-out infinite;
+}
+.booking-form-body { padding: 20px; }
+.b-group { margin-bottom: 16px; }
+.b-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+.b-input, .b-select, .b-textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+.b-input:focus, .b-select:focus, .b-textarea:focus {
+  border-color: var(--teal);
+}
+.b-input::placeholder, .b-textarea::placeholder { color: var(--text-muted); }
+.b-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.b-textarea { min-height: 80px; resize: vertical; font-size: 14px; line-height: 1.5; }
+.b-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%236a8a92' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+  color: var(--text-dim);
+}
+.b-select option { background: #0e1419; color: var(--text); }
+.booking-form-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+}
+.b-submit {
+  width: 100%;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+.b-submit:active { transform: scale(0.98); background: #2d6a7a; }
+.b-submit:disabled { background: var(--text-muted); cursor: not-allowed; }
+.b-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+/* BOOKING POPUP */
+.booking-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.booking-popup-overlay.open { display: flex; }
+.booking-popup {
+  background: var(--bg2);
+  border: 1px solid var(--border-bright);
+  border-radius: 14px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.booking-popup-head {
+  background: var(--teal-bg);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.booking-popup-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+.booking-popup-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.booking-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.booking-success.show { display: block; }
+.booking-success-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  color: var(--teal-lt);
+  margin-bottom: 12px;
+}
+.booking-success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.booking-success-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+@media (max-width: 599px) {
+  .b-row { grid-template-columns: 1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -832,6 +1041,7 @@ footer {
     <a href="#systems" class="nav-link">Systems</a>
     <a href="#leads" class="nav-link">Leads</a>
     <a href="#visits" class="nav-link">Visits</a>
+    <a href="#booking" class="nav-link">Book</a>
   </div>
 </nav>
 
@@ -1055,6 +1265,65 @@ footer {
 
 <div class="section-divider"></div>
 
+
+<div class="section-divider"></div>
+
+<!-- BOOKING SECTION -->
+<section id="booking">
+  <div class="section-tag">Book a Call</div>
+  <h2 class="booking-headline">Ready to stop<br><em style="color:var(--teal-lt);font-style:italic;">doing it manually?</em></h2>
+  <p class="booking-sub">Tell us about your agency and Lance will reach out within a few hours to walk you through exactly what gets built for you.</p>
+
+  <div class="booking-form">
+    <div class="booking-form-header">
+      <span class="booking-form-title">Agency Intake</span>
+      <span class="booking-form-badge"><span class="booking-form-badge-dot"></span>Free 20-min call</span>
+    </div>
+    <div class="booking-form-body">
+      <div class="b-row">
+        <div class="b-group">
+          <label class="b-label">Your Name *</label>
+          <input class="b-input" id="b-name" type="text" placeholder="Full name" autocomplete="name">
+        </div>
+        <div class="b-group">
+          <label class="b-label">Phone *</label>
+          <input class="b-input" id="b-phone" type="tel" placeholder="647-000-0000" autocomplete="tel">
+        </div>
+      </div>
+      <div class="b-group">
+        <label class="b-label">Agency Name *</label>
+        <input class="b-input" id="b-agency" type="text" placeholder="Your agency name">
+      </div>
+      <div class="b-row">
+        <div class="b-group">
+          <label class="b-label">City *</label>
+          <input class="b-input" id="b-city" type="text" placeholder="City, Province">
+        </div>
+        <div class="b-group">
+          <label class="b-label">Clients Served</label>
+          <select class="b-select" id="b-clients">
+            <option value="">Select range...</option>
+            <option>Under 10</option>
+            <option>10 to 30</option>
+            <option>30 to 100</option>
+            <option>100+</option>
+          </select>
+        </div>
+      </div>
+      <div class="b-group">
+        <label class="b-label">Biggest Admin Headache</label>
+        <textarea class="b-textarea" id="b-pain" placeholder="Invoicing, visit logs, lead follow-up, family communication..."></textarea>
+      </div>
+    </div>
+    <div class="booking-form-footer">
+      <button class="b-submit" id="b-submit" onclick="submitBooking('inline')">Book My Free Call</button>
+      <div class="b-note">No obligation · Lance responds within a few hours · 647-382-8047</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Proximity Systems</div>
@@ -1065,6 +1334,52 @@ footer {
     proximitysystems.ca
   </div>
 </footer>
+
+
+<!-- BOOKING POPUP -->
+<div class="booking-popup-overlay" id="bookingPopup">
+  <div class="booking-popup">
+    <div class="booking-popup-head">
+      <span class="booking-popup-title">Book a Free Call</span>
+      <button class="booking-popup-close" onclick="closeBookingPopup()">×</button>
+    </div>
+    <div id="bookingPopupForm">
+      <div class="booking-form-body">
+        <div class="b-row">
+          <div class="b-group">
+            <label class="b-label">Your Name *</label>
+            <input class="b-input" id="p-name" type="text" placeholder="Full name" autocomplete="name">
+          </div>
+          <div class="b-group">
+            <label class="b-label">Phone *</label>
+            <input class="b-input" id="p-phone" type="tel" placeholder="647-000-0000" autocomplete="tel">
+          </div>
+        </div>
+        <div class="b-group">
+          <label class="b-label">Agency Name *</label>
+          <input class="b-input" id="p-agency" type="text" placeholder="Your agency name">
+        </div>
+        <div class="b-group">
+          <label class="b-label">City *</label>
+          <input class="b-input" id="p-city" type="text" placeholder="City, Province">
+        </div>
+        <div class="b-group">
+          <label class="b-label">Biggest Admin Headache</label>
+          <textarea class="b-textarea" id="p-pain" placeholder="Invoicing, visit logs, lead follow-up..."></textarea>
+        </div>
+      </div>
+      <div class="booking-form-footer">
+        <button class="b-submit" id="p-submit" onclick="submitBooking('popup')">Book My Free Call</button>
+        <div class="b-note">No obligation · Lance responds within a few hours</div>
+      </div>
+    </div>
+    <div class="booking-success" id="bookingPopupSuccess">
+      <div class="booking-success-icon">✓</div>
+      <div class="booking-success-title">You're booked in.</div>
+      <div class="booking-success-sub">Lance will reach out within a few hours to schedule your 20-minute call. You can also reach him directly at 647-382-8047.</div>
+    </div>
+  </div>
+</div>
 
 <!-- CHAT TOGGLE -->
 <button class="chat-toggle" onclick="openChat()" aria-label="Open chat">
@@ -1202,7 +1517,7 @@ function handleSend() {
 }
 
 async function sendMessage(text) {
-  if (!text || isProcessing) return;
+  if (!text || isProcessing || leadCaptured) return;
 
   document.getElementById('quickChips').innerHTML = '';
   addMessage('user', text);
@@ -1237,17 +1552,13 @@ async function sendMessage(text) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            operator_id: 'proximity-systems',
-            lead_type: 'operator',
-            first_name: (lead.name || '').split(' ')[0] || '',
-            last_name: (lead.name || '').split(' ').slice(1).join(' ') || '',
-            phone: lead.contact || '',
-            email: '',
-            city: lead.city || '',
-            care_needed_for: lead.agency || '',
-            urgency: 'warm',
-            pain_point: lead.pain || '',
-            source: 'Proximity Systems Mini Demo'
+            Full_Name: lead.name || '',
+            Agency: lead.agency || '',
+            City: lead.city || '',
+            Pain_Point: lead.pain || '',
+            Contact: lead.contact || '',
+            Source: 'Proximity Systems Mini Demo',
+            Timestamp: new Date().toISOString()
           })
         });
         leadCaptured = true;
@@ -1261,7 +1572,9 @@ async function sendMessage(text) {
     history.push({ role: 'assistant', content: reply });
 
     if (leadCaptured) {
-      document.getElementById('chatInput').placeholder = "Lance will be in touch — keep chatting if you have questions.";
+      document.getElementById('chatInput').disabled = true;
+      document.getElementById('chatInput').placeholder = "Lance will be in touch shortly.";
+      document.getElementById('chatSend').disabled = true;
       document.getElementById('quickChips').innerHTML = '';
     } else {
       document.getElementById('quickChips').innerHTML = '';
@@ -1278,6 +1591,93 @@ async function sendMessage(text) {
       isProcessing = false;
     }
   }
+}
+
+
+// BOOKING FORM
+const LEAD_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
+
+function openBookingPopup() {
+  document.getElementById('bookingPopup').classList.add('open');
+}
+
+function closeBookingPopup() {
+  document.getElementById('bookingPopup').classList.remove('open');
+}
+
+async function submitBooking(source) {
+  const isPopup = source === 'popup';
+  const nameId = isPopup ? 'p-name' : 'b-name';
+  const phoneId = isPopup ? 'p-phone' : 'b-phone';
+  const agencyId = isPopup ? 'p-agency' : 'b-agency';
+  const cityId = isPopup ? 'p-city' : 'b-city';
+  const painId = isPopup ? 'p-pain' : 'b-pain';
+  const submitId = isPopup ? 'p-submit' : 'b-submit';
+
+  const fullName = document.getElementById(nameId).value.trim();
+  const phone = document.getElementById(phoneId).value.trim();
+  const agency = document.getElementById(agencyId).value.trim();
+  const city = document.getElementById(cityId).value.trim();
+  const pain = document.getElementById(painId).value.trim();
+
+  if (!fullName || !phone || !agency || !city) {
+    alert('Please fill in your name, phone, agency name, and city.');
+    return;
+  }
+
+  const btn = document.getElementById(submitId);
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const nameParts = fullName.split(/\s+/);
+  const first_name = nameParts.shift();
+  const last_name = nameParts.join(' ') || '';
+
+  try {
+    const res = await fetch(LEAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operator_id: 'proximity-systems',
+        lead_type: 'operator',
+        first_name,
+        last_name,
+        phone,
+        email: '',
+        city,
+        care_needed_for: agency,
+        urgency: 'warm',
+        pain_point: pain || 'Not specified',
+        source: 'Proximity Systems Mini Demo Booking Form'
+      })
+    });
+
+    if (!res.ok) throw new Error('Server error');
+
+    if (isPopup) {
+      document.getElementById('bookingPopupForm').style.display = 'none';
+      document.getElementById('bookingPopupSuccess').classList.add('show');
+    } else {
+      const formArea = document.querySelector('.booking-form');
+      formArea.innerHTML = `
+        <div style="padding:40px 20px;text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--teal-lt);margin-bottom:12px;">✓</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:8px;">You're booked in.</div>
+          <div style="font-size:13px;color:var(--text-dim);line-height:1.6;">Lance will reach out within a few hours. You can also reach him directly at 647-382-8047.</div>
+        </div>`;
+    }
+  } catch(e) {
+    alert('Something went wrong. Call Lance directly at 647-382-8047.');
+    btn.disabled = false;
+    btn.textContent = 'Book My Free Call';
+  }
+}
+
+// Show booking popup after lead is captured in chat
+function showBookingPopupAfterLead() {
+  setTimeout(() => {
+    openBookingPopup();
+  }, 2000);
 }
 
 document.getElementById('chatInput').addEventListener('keydown', e => {
