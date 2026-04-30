@@ -134,12 +134,12 @@ h1.hero-h em{color:var(--teal);font-style:italic}
 /* HERO BADGES — desktop only, hidden mobile */
 .hero-badge{position:absolute;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.92);border:1px solid var(--rule);backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(13,30,46,.1);padding:8px 14px;border-radius:30px;font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap;z-index:10;animation:hbf 4s ease-in-out infinite alternate}
 .hb-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.hb1{bottom:18%;left:46%}.hb2{top:22%;right:2%;animation-delay:1.2s}.hb3{bottom:30%;right:1%;animation-delay:2.5s}
+.hb1{top:14%;right:2%;animation-delay:0s}.hb2{top:44%;right:2%;animation-delay:1.2s}.hb3{bottom:14%;right:2%;animation-delay:2.5s}
 @keyframes hbf{from{transform:translateY(0)}to{transform:translateY(-8px)}}
 
 /* SPHERE */
 .hero-r{flex:0 0 400px;display:flex;align-items:center;justify-content:center;position:relative}
-.sphere-wrap{position:relative;width:320px;height:320px;display:flex;align-items:center;justify-content:center}
+.sphere-wrap{position:relative;width:380px;height:380px;display:flex;align-items:center;justify-content:center}
 .sphere{position:relative;width:210px;height:210px}
 .ring{position:absolute;inset:-20px;border-radius:50%;animation:rs 9s linear infinite}
 .ring-face{position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(21,94,117,.15)}
@@ -149,15 +149,15 @@ h1.hero-h em{color:var(--teal);font-style:italic}
 .r4{animation-direction:reverse;animation-duration:17s;inset:-72px}
 @keyframes rs{from{transform:rotateX(68deg) rotateZ(0deg)}to{transform:rotateX(68deg) rotateZ(360deg)}}
 .rdot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px rgba(21,94,117,.6)}
-.sphere-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,var(--navy2) 60%,transparent 100%);border-radius:50%;border:1px solid rgba(21,94,117,.3)}
-.sphere-init{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--teal-l);letter-spacing:-.02em;line-height:1}
-.sphere-sub{font-size:9px;letter-spacing:.2em;color:var(--gray2);text-transform:uppercase;margin-top:2px}
+.sphere-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(255,255,255,.98) 55%,rgba(21,94,117,.06) 100%);border-radius:50%;border:1.5px solid rgba(21,94,117,.22);box-shadow:0 4px 24px rgba(21,94,117,.12),inset 0 1px 0 rgba(255,255,255,.9)}
+.sphere-init{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--teal);letter-spacing:-.02em;line-height:1}
+.sphere-sub{font-size:9px;letter-spacing:.2em;color:var(--gray);text-transform:uppercase;margin-top:2px}
 .orb-labels{position:absolute;inset:0;pointer-events:none}
-.orb-lbl{position:absolute;font-size:10px;font-weight:600;color:var(--gray);letter-spacing:.04em;background:rgba(255,255,255,.92);border:1px solid var(--rule);padding:4px 10px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px rgba(13,30,46,.08)}
-.ol1{top:4%;left:50%;transform:translateX(-50%);animation:od 6s ease-in-out infinite alternate}
-.ol2{bottom:4%;left:50%;transform:translateX(-50%);animation:od 6s ease-in-out infinite alternate;animation-delay:1.5s}
-.ol3{left:0%;top:42%;animation:od2 6s ease-in-out infinite alternate;animation-delay:3s}
-.ol4{right:0%;top:42%;animation:od2 6s ease-in-out infinite alternate;animation-delay:4.5s}
+.orb-lbl{position:absolute;font-size:10px;font-weight:600;color:var(--ink);letter-spacing:.04em;background:rgba(255,255,255,.95);border:1px solid var(--rule);padding:5px 12px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 10px rgba(13,30,46,.1)}
+.ol1{top:-2%;left:50%;transform:translateX(-50%);animation:od 6s ease-in-out infinite alternate}
+.ol2{bottom:-2%;left:50%;transform:translateX(-50%);animation:od 6s ease-in-out infinite alternate;animation-delay:1.5s}
+.ol3{left:-18%;top:44%;transform:translateY(-50%);animation:od2 6s ease-in-out infinite alternate;animation-delay:3s}
+.ol4{right:-12%;top:44%;transform:translateY(-50%);animation:od2 6s ease-in-out infinite alternate;animation-delay:4.5s}
 @keyframes od{from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(-7px)}}
 @keyframes od2{from{transform:translateY(0)}to{transform:translateY(-7px)}}
 
