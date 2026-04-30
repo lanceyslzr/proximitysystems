@@ -900,6 +900,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   .ob-pkg-header{flex-direction:row}
 }
 
+/* HERO ENEMY */
+.hero-enemy{font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:20px;padding:12px 14px;background:rgba(224,88,88,0.04);border:1px solid rgba(224,88,88,0.12);border-left:3px solid rgba(224,88,88,0.4);border-radius:0 6px 6px 0}
+.hero-enemy strong{color:#d08080;font-weight:500}
+
+/* FINAL CTA UPGRADE */
+.final-offer-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0}
+.fos-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px 12px;text-align:center;position:relative;overflow:hidden}
+.fos-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--teal),transparent)}
+.fos-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--teal-lt);display:block;line-height:1;margin-bottom:4px}
+.fos-lbl{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;display:block}
+.final-risk{font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:20px;line-height:1.7}
+.final-risk strong{color:var(--text-dim)}
+
 /* WIDE DESKTOP — 1280px+ */
 @media(min-width:1280px){
   nav{padding:0 64px}
@@ -923,10 +936,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 <nav>
   <a href="/" class="nav-logo">Proximity <em>Systems</em></a>
-  <a href="#booking" class="nav-cta">Book a Free Call</a>
+  <a href="#booking" class="nav-cta">Get Your 7-Day Plan</a>
 </nav>
 
-<div class="ann"><strong>First month free.</strong> We build everything first. You pay after it is live. &nbsp;·&nbsp; <strong>3 spots remaining this month.</strong></div>
+<div class="ann"><strong>First month free.</strong> We build everything first. You pay after it is live. &nbsp;·&nbsp; We onboard <strong>3 agencies at a time</strong> to guarantee 7-day delivery. <strong>3 spots open.</strong></div>
 
 <!-- ── HERO ── -->
 <section id="hero">
@@ -940,13 +953,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     </div>
     <h1 class="h1">Get <em>20 hours</em><br>back. We automate<br>your agency in <em>7 days.</em></h1>
     <p class="sub">10 done-for-you systems — visit logging, invoicing, lead capture, family portal, and more. All running automatically without you touching any of it.</p>
+    <div class="hero-enemy">Right now you are stitching together <strong>spreadsheets, WhatsApp, and generic email tools</strong> that were never built for home care. That stack costs you 20 hours a week and loses leads while you sleep.</div>
     <div class="hero-proof-quote">
       <div class="hpq-stars">✓ &nbsp;Running live right now</div>
       <div class="hpq-text">"We built this on our own agency first. 12 PSWs. 15 clients. Thousands of hours logged. Zero admin hours."</div>
       <div class="hpq-name">Lance Salazar · Founder · Proximity Care Services · Mississauga, ON</div>
     </div>
     <div class="cta-stack">
-      <a href="#booking" class="btn">Get My Agency Automated — Book a Free Call</a>
+      <a href="#booking" class="btn">Get My 7-Day Automation Plan</a>
       <div class="btn-note">Free 20-min call · No obligation · Built in 7 days</div>
     </div>
     <div class="hero-trust">
@@ -1177,111 +1191,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
     <div class="ba-scroll-hint">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Build your package
+      Get your 7-day plan
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
-
-<!-- ── SYSTEM BUILDER ── -->
-<section id="builder">
-  <div class="sec w-wide">
-    <div class="w" style="margin-bottom:28px;padding-left:0;padding-right:0">
-      <div class="eyebrow"><div class="eyebrow-dot"></div>Build Your Package</div>
-      <h2 class="h2">Tell us what<br>you <em>actually need.</em></h2>
-      <p class="sub" style="margin-bottom:0">Nine systems built for you. The converting website is a free bonus. All $3,500 setup + $500/mo. Pick what fits your agency.</p>
-    </div>
-    <div class="bld-compact-wrap">
-      <div class="bld-chips-area">
-        <div class="bld-chips-controls">
-          <span class="bld-chip-count"><span id="bldCount">0</span> of 10 selected</span>
-          <button class="bld-chip-selall" onclick="selectAll()">Select all 10</button>
-        </div>
-        <div class="bld-chips-grid" id="bldGrid"></div>
-        <div class="bld-upsell-hint" id="bldUpsellHint"></div>
-      </div>
-      <div class="bld-compact-panel">
-        <div class="bld-cp-head">
-          <div class="bld-cp-title">Your Build</div>
-          <div class="bld-cp-live"><span class="live-dot"></span>Live pricing</div>
-        </div>
-        <div class="bld-cp-body">
-          <div class="bld-cp-empty" id="bldEmpty">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="opacity:0.25;margin:0 auto 10px;display:block"><rect x="6" y="10" width="28" height="22" rx="3" stroke="#5a9aaa" stroke-width="1.5"/><path d="M14 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M16 19h8M16 24h5" stroke="#5a9aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <div style="font-size:11px;color:var(--text-muted);line-height:1.6;text-align:center">Select systems to<br>build your package</div>
-          </div>
-          <div id="bldActive" style="display:none">
-            <div class="bld-ring-wrap">
-              <svg class="bld-ring-svg" width="80" height="80" viewBox="0 0 80 80">
-                <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border)" stroke-width="6"/>
-                <circle cx="40" cy="40" r="34" fill="none" stroke="var(--teal)" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="213.6" id="bldRingFill" stroke-linecap="round" transform="rotate(-90 40 40)" style="transition:stroke-dashoffset 0.4s ease"/>
-              </svg>
-              <div class="bld-ring-center"><span class="bld-ring-num" id="bldRingNum">0</span><span class="bld-ring-of">/10</span></div>
-            </div>
-            <div class="bld-cp-price-block">
-              <div class="bld-cp-price-row"><span>Setup</span><span>$3,500</span></div>
-              <div class="bld-cp-price-row"><span>Monthly</span><span>$500 / mo</span></div>
-              <div class="bld-cp-price-row" style="color:var(--green)"><span>Month 1</span><span>Free</span></div>
-              <div class="bld-cp-divider"></div>
-              <div class="bld-cp-total-row"><span>You pay today</span><span class="bld-cp-total-val">$3,500</span></div>
-            </div>
-            <div class="bld-cp-save-note" id="bldSaveNote"></div>
-          </div>
-          <button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 6.5h10M7 2l4.5 4.5L7 11" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Book a Free Call
-          </button>
-          <button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button>
-          <div class="bld-cp-fine">Build first · Pay after · First month free</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MOBILE STICKY BAR -->
-<div class="bld-mobile-bar" id="bldMobileBar">
-  <div class="bld-mob-info">
-    <div class="bld-mob-count" id="bldMobCount">0 systems</div>
-    <div class="bld-mob-price" id="bldMobPrice">$0 setup</div>
-  </div>
-  <button class="bld-mob-btn" onclick="openBldModal()">Book a Free Call</button>
-</div>
-
-<!-- BOOKING MODAL -->
-<div class="bld-modal-overlay" id="bldModalOverlay" onclick="handleBldOverlay(event)">
-  <div class="bld-modal">
-    <div id="bldModalForm">
-      <div class="bld-modal-top">
-        <div class="bld-modal-title">Book Your Free Call</div>
-        <button class="bld-modal-close" onclick="closeBldModal()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="#6a8a92" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-      <div class="bld-modal-pkg" id="bldModalPkg"></div>
-      <div class="mf-row">
-        <div class="mf-group"><label class="mf-label">First Name *</label><input class="mf-input" id="mfFirst" type="text" placeholder="First name" autocomplete="given-name"></div>
-        <div class="mf-group"><label class="mf-label">Last Name</label><input class="mf-input" id="mfLast" type="text" placeholder="Last name" autocomplete="family-name"></div>
-      </div>
-      <div class="mf-group"><label class="mf-label">Phone *</label><input class="mf-input" id="mfPhone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
-      <div class="mf-group"><label class="mf-label">Agency Name *</label><input class="mf-input" id="mfAgency" type="text" placeholder="Your agency name"></div>
-      <div class="mf-group"><label class="mf-label">City *</label><input class="mf-input" id="mfCity" type="text" placeholder="City, Province"></div>
-      <div class="mf-group"><label class="mf-label">Anything else?</label><textarea class="mf-textarea" id="mfNotes" placeholder="Questions, concerns, what you are not sure about..."></textarea></div>
-      <button class="mf-submit" id="mfSubmit" onclick="submitBldBooking()">Send My Package — Book the Call</button>
-      <div class="mf-note">Lance responds within a few hours · 647-382-8047<br>We build first · You pay after it is live</div>
-    </div>
-    <div class="bld-success" id="bldSuccess">
-      <svg class="bld-success-icon" width="56" height="56" viewBox="0 0 56 56" fill="none">
-        <circle cx="28" cy="28" r="27" stroke="#3d7a8a" stroke-width="1.5"/>
-        <path d="M17 28l8 8 14-16" stroke="#5a9aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div class="bld-success-title">Package sent.</div>
-      <p class="bld-success-sub">Lance will reach out within a few hours with a plan built around exactly what you selected.<br><br>Direct line: 647-382-8047</p>
-    </div>
-  </div>
-</div>
-
 
 
 <div class="divider"></div>
@@ -1301,8 +1214,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     </div>
     <div class="proof-narrative">One button pressed at month end. Invoice to client. Pay summary to PSW. AI care note written automatically. <strong>Total time: 30 seconds.</strong> No spreadsheet. No chasing. No manual anything. This is running live right now.</div>
     <div class="testi-row">
-      <div class="testi"><span class="testi-stars">✓ &nbsp;Verified · Live</span><p class="testi-text">April 2026. 20 visits logged from PSW phones. One button triggered the invoice. PDF sent to client in under 30 seconds. Zero manual work. This is Proximity Care — our own agency — running on our own system.</p><span class="testi-name">Lance Salazar</span><span class="testi-role">Founder · Proximity Care Services · Mississauga, ON</span></div>
-      <div class="testi"><span class="testi-stars">✓ &nbsp;Real Numbers</span><p class="testi-text">12 PSWs logging visits from their phones. 11 active clients. Day 1, Day 3, and Day 7 follow-ups firing automatically. Leads captured at 2am and replied to before we wake up. This is not a demo. It is live.</p><span class="testi-name">Proximity Care Services</span><span class="testi-role">Mississauga · Brampton · Caledon · proximitycares.com</span></div>
+      <div class="testi"><span class="testi-stars">What Happened When We Ran This On Our Own Agency</span><p class="testi-text">Before: manual invoices taking 45 minutes per client, PSW hours tracked by text, leads seen hours after they came in. After: April 2026 — 20 visits logged from PSW phones, one button triggered the invoice, PDF sent to client in under 30 seconds. Zero manual work. Total admin time that month: under 2 hours. This is Proximity Care running on the same system we build for you.</p><span class="testi-name">Lance Salazar</span><span class="testi-role">Founder · Proximity Care Services · Mississauga, ON</span></div>
+      <div class="testi"><span class="testi-stars">✓ &nbsp;Real Numbers — Not a Demo</span><p class="testi-text">12 PSWs logging visits from their phones. 11 active clients. Day 1, Day 3, and Day 7 follow-ups firing automatically. Leads captured at 2am and replied to before we wake up. Families checking visit logs from their own portal instead of calling. This is live right now and has been for months.</p><span class="testi-name">Proximity Care Services</span><span class="testi-role">Mississauga · Brampton · Caledon · proximitycares.com</span></div>
     </div>
   </div>
 </section>
@@ -1447,9 +1360,24 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="final-box">
       <div class="eyebrow" style="justify-content:center;margin-bottom:14px"><div class="eyebrow-dot"></div>One last thing</div>
       <h2 class="h2" style="text-align:center;margin-bottom:12px">Every week you wait<br>is <em>20 more hours</em><br>gone.</h2>
-      <p class="sub" style="text-align:center;margin:0 auto 24px;max-width:440px">The call is free. The build is risk-free. The first month is free. It costs you 20 minutes.</p>
+      <p class="sub" style="text-align:center;margin:0 auto 20px;max-width:440px">Here is what you get. Here is what it costs. Here is the risk you take.</p>
+      <div class="final-offer-strip">
+        <div class="fos-item">
+          <span class="fos-val">10</span>
+          <span class="fos-lbl">Done-for-you systems</span>
+        </div>
+        <div class="fos-item">
+          <span class="fos-val">7</span>
+          <span class="fos-lbl">Days to go live</span>
+        </div>
+        <div class="fos-item">
+          <span class="fos-val">$0</span>
+          <span class="fos-lbl">Risk — build first</span>
+        </div>
+      </div>
+      <p class="final-risk">We build everything before you pay a cent. First month is <strong>free</strong>. Month 2 onwards is <strong>$500/mo</strong>. You can cancel after month 3. The call costs you 20 minutes. The build costs you nothing until you see it live.</p>
       <div class="cta-stack" style="max-width:380px;margin:0 auto">
-        <a href="#booking" class="btn">Get My Agency Automated Now</a>
+        <a href="#booking" class="btn">Get My 7-Day Automation Plan</a>
         <div class="btn-note">647-382-8047 · lancesalazar56@gmail.com</div>
       </div>
     </div>
@@ -1551,242 +1479,6 @@ async function sendC(text){
 }
 
 function toggleFaq(btn){const i=btn.parentElement;const was=i.classList.contains("open");document.querySelectorAll(".faq-item").forEach(x=>x.classList.remove("open"));if(!was)i.classList.add("open");}
-// ══════════════════════════════════════════
-// SYSTEM BUILDER — Compact chip version
-// ══════════════════════════════════════════
-const BLD_SYSTEMS = [
-  {id:'s01',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Visit Logging',live:true,addon:false},
-  {id:'s02',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M5 3h12v16l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8h6M8 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Auto Invoicing',live:true,addon:false},
-  {id:'s03',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="1" fill="currentColor"/></svg>',name:'Lead Capture',live:true,addon:false},
-  {id:'s04',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M3 6l8 5 8-5M3 6v10a1 1 0 001 1h14a1 1 0 001-1V6M3 6l8-3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',name:'Follow-Up Engine',live:true,addon:false},
-  {id:'s05',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M11 11a3 3 0 100-6 3 3 0 000 6zM5 19a6 6 0 0112 0M16 9a2 2 0 100-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Family Portal',live:true,addon:false},
-  {id:'s06',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><rect x="4" y="6" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="14" cy="11" r="1.2" fill="currentColor"/><path d="M11 3v3M7 17l-1.5 2M15 17l1.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'AI Chat & Voice',live:true,addon:false},
-  {id:'s07',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>',name:'Client Onboarding',live:true,addon:false},
-  {id:'s08',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'HQ Dashboard',live:true,addon:false},
-  {id:'s09',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'PSW Management',live:true,addon:false},
-  {id:'s10',svg:'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="6" r="0.5" fill="currentColor"/><circle cx="8" cy="6" r="0.5" fill="currentColor"/></svg>',name:'Converting Website',live:true,addon:true},
-];
-const BLD_PRICE = 3500;
-const bldSelected = new Set();
-
-function bldRender(){
-  const grid = document.getElementById('bldGrid');
-  if(!grid) return;
-  grid.innerHTML = BLD_SYSTEMS.map(function(s,i){
-    var cls = 'bld-chip';
-    if(!s.live) cls += ' coming-chip';
-    if(s.addon) cls += ' addon-chip';
-    var anim = 'animation:fadeUp 0.25s ease ' + (i*0.035).toFixed(3) + 's both';
-    var badge = '';
-    if(!s.live) badge = '<span class="bld-chip-badge">Soon</span>';
-    else if(s.addon) badge = '<span class="bld-chip-badge bonus-badge">Free</span>';
-    var check = s.live ? '<span class="bld-chip-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2.5 2.5 3.5-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' : '';
-    return '<div class="' + cls + '" id="bldchip-' + s.id + '" data-sid="' + s.id + '" data-live="' + (s.live?'1':'0') + '" style="' + anim + '">'
-      + '<span class="bld-chip-icon">' + s.svg + '</span>'
-      + '<span class="bld-chip-name">' + s.name + '</span>'
-      + badge + check + '</div>';
-  }).join('');
-  grid.querySelectorAll('.bld-chip').forEach(function(el){
-    el.addEventListener('click', function(){
-      if(el.getAttribute('data-live') === '1') bldToggle(el.getAttribute('data-sid'));
-      else showComing();
-    });
-  });
-}
-
-function bldToggle(id){
-  const chip = document.getElementById('bldchip-'+id);
-  if(!chip) return;
-  if(bldSelected.has(id)){bldSelected.delete(id);chip.classList.remove('sel');}
-  else{bldSelected.add(id);chip.classList.add('sel');}
-  bldUpdate();
-}
-
-function selectAll(){
-  const live = BLD_SYSTEMS.filter(s=>s.live);
-  const allSel = live.every(s=>bldSelected.has(s.id));
-  live.forEach(s=>{
-    const chip=document.getElementById('bldchip-'+s.id);
-    if(allSel){bldSelected.delete(s.id);chip&&chip.classList.remove('sel');}
-    else{bldSelected.add(s.id);chip&&chip.classList.add('sel');}
-  });
-  bldUpdate();
-}
-
-function showComing(){
-  const h=document.getElementById('bldUpsellHint');
-  if(h){h.textContent='Voice Assistant is coming soon — we will add it automatically when live.';h.classList.add('show');setTimeout(()=>h.classList.remove('show'),3000);}
-}
-
-function bldUpdate(){
-  const items = BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
-  const count = items.length;
-  const hrs = items.reduce((a,s)=>a+s.hours,0);
-
-  document.getElementById('bldCount').textContent = count;
-
-  const empty = document.getElementById('bldEmpty');
-  const active = document.getElementById('bldActive');
-  const btn = document.getElementById('bldBookBtn');
-
-  if(count===0){
-    empty.style.display='block';
-    active.style.display='none';
-    btn.disabled=true;
-    // Mobile bar
-    document.getElementById('bldMobileBar').style.display='none';
-    // Sync offer + booking sections
-    syncPersonalized([]);
-    return;
-  }
-  empty.style.display='none';
-  active.style.display='block';
-  btn.disabled=false;
-
-  // Ring
-  const pct=count/10;
-  const circ=213.6;
-  const offset=circ-(circ*pct);
-  const ring=document.getElementById('bldRingFill');
-  if(ring) ring.setAttribute('stroke-dashoffset', offset.toFixed(1));
-  const rn=document.getElementById('bldRingNum');
-  if(rn) rn.textContent=count;
-
-  // Save note
-  const sn=document.getElementById('bldSaveNote');
-  if(sn){
-    if(count>=10) sn.textContent='Full stack + free website — best value';
-    else if(count>=9) sn.textContent='Full package — add the free website too';
-    else if(count>0) sn.textContent='~'+hrs+'h saved every month';
-    else sn.textContent='';
-  }
-
-  // Upsell hint
-  const hint=document.getElementById('bldUpsellHint');
-  if(hint){
-    if(count>0 && count<9){
-      hint.textContent='Most operators add all 9 systems plus the free website. Each connects to the next.';
-      hint.classList.add('show');
-    } else {
-      hint.classList.remove('show');
-    }
-  }
-
-  // Mobile bar
-  const mob=document.getElementById('bldMobileBar');
-  if(mob){
-    mob.style.display='flex';
-    const mc=document.getElementById('bldMobCount');
-    const mp=document.getElementById('bldMobPrice');
-    if(mc) mc.textContent=count+' system'+(count===1?'':'s')+' selected';
-    if(mp) mp.textContent='$3,500 setup';
-  }
-
-  // Sync offer + booking sections
-  syncPersonalized(items);
-}
-
-function syncPersonalized(items){
-  const count=items.length;
-
-  // Offer section — ob-package-card
-  const emptyMsg=document.getElementById('obEmptyMsg');
-  const pkgTags=document.getElementById('obPkgTags');
-  if(emptyMsg && pkgTags){
-    if(count===0){
-      emptyMsg.style.display='block';
-      pkgTags.innerHTML='';
-    } else {
-      emptyMsg.style.display='none';
-      pkgTags.innerHTML=items.map(s=>`<div class="ob-pkg-tag"><span class="ob-pkg-tag-pulse"></span>${s.svg} ${s.name}</div>`).join('');
-    }
-  }
-
-  // Booking preview
-  const bpItems=document.getElementById('bpItems');
-  const bpNone=document.getElementById('bpNone');
-  const bpCount=document.getElementById('bpCount');
-  const bpLabel=document.getElementById('bpLabel');
-  if(bpItems && bpNone){
-    if(count===0){
-      bpItems.innerHTML='';
-      bpNone.style.display='flex';
-      if(bpCount) bpCount.textContent='';
-      if(bpLabel) bpLabel.textContent='No systems selected yet';
-    } else {
-      bpNone.style.display='none';
-      if(bpCount) bpCount.textContent=count+' selected';
-      if(bpLabel) bpLabel.textContent='Systems you selected';
-      bpItems.innerHTML=items.map(s=>`<div class="bp-item"><span class="bp-pulse"></span>${s.svg} ${s.name}</div>`).join('');
-    }
-  }
-}
-
-function openBldModal(){
-  const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
-  const isUnsure=items.length===0;
-  const pkg=document.getElementById('bldModalPkg');
-  if(pkg){
-    if(isUnsure){
-      pkg.innerHTML=`<div class="bld-modal-pkg-label">Not sure what you need</div><div style="font-size:12px;color:var(--text-dim);line-height:1.6">Fill in your details and Lance will walk you through exactly what makes sense for your agency on the call.</div>`;
-    } else {
-      pkg.innerHTML=`
-        <div class="bld-modal-pkg-label">Your selected package</div>
-        <div class="bld-modal-tags">${items.map(s=>`<span class="bld-modal-tag">${s.svg} ${s.name}</span>`).join('')}</div>
-        <div class="bld-modal-totline"><span class="bld-modal-totlbl">${items.length} system${items.length===1?'':'s'} · Setup</span><span class="bld-modal-totval">$3,500</span></div>
-      `;
-    }
-  }
-  const overlay=document.getElementById('bldModalOverlay');
-  if(overlay) overlay.classList.add('open');
-  document.body.style.overflow='hidden';
-  setTimeout(()=>{const f=document.getElementById('mfFirst');if(f)f.focus();},300);
-}
-
-function openUnsure(){
-  bldSelected.clear();
-  document.querySelectorAll('.bld-chip').forEach(c=>c.classList.remove('sel'));
-  bldUpdate();
-  openBldModal();
-}
-
-function closeBldModal(){
-  const overlay=document.getElementById('bldModalOverlay');
-  if(overlay) overlay.classList.remove('open');
-  document.body.style.overflow='';
-}
-function handleBldOverlay(e){if(e.target===document.getElementById('bldModalOverlay'))closeBldModal();}
-
-async function submitBldBooking(){
-  const first=(document.getElementById('mfFirst').value||'').trim();
-  const last=(document.getElementById('mfLast').value||'').trim();
-  const phone=(document.getElementById('mfPhone').value||'').trim();
-  const agency=(document.getElementById('mfAgency').value||'').trim();
-  const city=(document.getElementById('mfCity').value||'').trim();
-  const notes=(document.getElementById('mfNotes').value||'').trim();
-  if(!first||!phone||!agency||!city){alert('Please fill in your name, phone, agency, and city.');return;}
-  const btn=document.getElementById('mfSubmit');btn.disabled=true;btn.textContent='Sending...';
-  const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
-  const sysList=items.length>0?items.map(s=>s.name).join(', '):'Unsure — needs consultation';
-  const pain='Builder: '+sysList+'. Quoted: $3,500 setup + $500/mo. Notes: '+(notes||'None');
-  try{
-    const r=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:'',city,care_needed_for:agency,urgency:items.length>=5?'hot':'warm',pain_point:pain,source:'Proximity Systems — System Builder'})});
-    if(!r.ok) throw new Error();
-    const mf=document.getElementById('bldModalForm');
-    const ms=document.getElementById('bldSuccess');
-    if(mf) mf.style.display='none';
-    if(ms) ms.classList.add('show');
-  }catch(e){alert('Something went wrong. Call Lance at 647-382-8047.');btn.disabled=false;btn.textContent='Send My Package — Book the Call';}
-}
-
-// Fade up keyframe
-const _bldSt=document.createElement('style');
-_bldSt.textContent='@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}';
-document.head.appendChild(_bldSt);
-
-// Init — show empty state for personalized sections
-syncPersonalized([]);
-bldRender();
 
 document.getElementById('chatInp').addEventListener('keydown',e=>{if(e.key==='Enter')doSend();});
 </script>
