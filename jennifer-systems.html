@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>6 Systems Built for Jennifer Crowley | Proximity Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf8f4;--cream2:#f3efe8;--rule:#e0d9cf;
+  --navy:#0d1e2e;--navy2:#152233;--navy3:#1e3347;
+  --teal:#155e75;--teal-m:#1a7a94;--teal-l:#2196b3;--teal-pale:#e8f5f9;
+  --coral:#c85a32;--coral-pale:#fdf1eb;
+  --sage:#4a8c5c;--sage-pale:#ecf5ee;
+  --gold:#b8965a;
+  --ink:#213040;--gray:#506070;--gray2:#7a8f9f;--gray3:#b0c3cc;
+  --white:#fff;
+  --s1:0 2px 8px rgba(13,30,46,.06);--s2:0 8px 28px rgba(13,30,46,.1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Nunito Sans',sans-serif;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* TOP BAR */
+.top-bar{background:var(--navy);padding:12px 52px;display:flex;align-items:center;justify-content:space-between}
+.top-bar-brand{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(255,255,255,.5);letter-spacing:.04em}
+.top-bar-brand em{color:var(--teal-l);font-style:italic}
+.top-bar-tag{font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.3);text-transform:uppercase;font-weight:600}
+
+/* HERO */
+.hero{background:var(--navy2);padding:80px 52px 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(21,94,117,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.eye-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px rgba(21,94,117,.5);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+.eye-txt{font-size:10px;letter-spacing:.24em;color:var(--teal-l);text-transform:uppercase;font-weight:600}
+h1.hero-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:700;color:var(--white);line-height:1.04;letter-spacing:-.02em;margin-bottom:16px}
+h1.hero-h em{color:var(--teal-l);font-style:italic}
+.hero-sub{font-size:16px;color:var(--gray3);line-height:1.7;max-width:620px;margin-bottom:32px;font-weight:300}
+.hero-meta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.hero-meta-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray2)}
+.hero-meta-icon{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.status-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(74,140,92,.12);border:1px solid rgba(74,140,92,.25);padding:7px 16px;border-radius:20px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);box-shadow:0 0 6px rgba(74,140,92,.6);animation:pulse 2s infinite}
+.status-txt{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--sage);text-transform:uppercase}
+
+/* SECTION */
+.section{padding:80px 52px}
+.wrap{max-width:1100px;margin:0 auto}
+.sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sec-line{height:1px;width:26px;background:rgba(21,94,117,.2)}
+.sec-tag{font-size:10px;letter-spacing:.2em;color:var(--gray2);text-transform:uppercase;font-weight:600}
+h2.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:700;color:var(--navy);line-height:1.06;letter-spacing:-.02em;margin-bottom:12px}
+h2.sec-h em{color:var(--teal);font-style:italic}
+.sec-desc{font-size:14px;color:var(--gray);line-height:1.78;max-width:580px;margin-bottom:48px}
+
+/* SYSTEMS GRID */
+.systems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sys-card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden;box-shadow:var(--s1);transition:border-color .2s,box-shadow .2s,transform .2s}
+.sys-card:hover{border-color:var(--teal);box-shadow:var(--s2);transform:translateY(-3px)}
+.sys-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s}
+.sys-card:hover::before{opacity:1}
+.sys-card.c-teal::before{background:linear-gradient(to right,var(--teal),transparent)}
+.sys-card.c-coral::before{background:linear-gradient(to right,var(--coral),transparent)}
+.sys-card.c-sage::before{background:linear-gradient(to right,var(--sage),transparent)}
+.sys-card.c-gold::before{background:linear-gradient(to right,var(--gold),transparent)}
+.sys-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:rgba(13,30,46,.05);position:absolute;top:10px;right:16px;line-height:1}
+.sys-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;flex-shrink:0}
+.sys-icon.i-teal{background:rgba(21,94,117,.1);border:1px solid rgba(21,94,117,.18)}
+.sys-icon.i-coral{background:rgba(200,90,50,.08);border:1px solid rgba(200,90,50,.16)}
+.sys-icon.i-sage{background:rgba(74,140,92,.08);border:1px solid rgba(74,140,92,.18)}
+.sys-icon.i-gold{background:rgba(184,150,90,.1);border:1px solid rgba(184,150,90,.2)}
+.sys-icon svg{width:20px;height:20px}
+.sys-status{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:12px}
+.sys-status.live{background:rgba(74,140,92,.1);color:var(--sage);border:1px solid rgba(74,140,92,.2)}
+.sys-status.live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--sage);display:block;animation:pulse 1.8s infinite}
+.sys-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.2}
+.sys-desc{font-size:13px;color:var(--gray);line-height:1.72;margin-bottom:16px}
+.sys-details{display:flex;flex-direction:column;gap:6px}
+.sys-detail{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray2);line-height:1.4}
+.sys-detail::before{content:'';width:4px;height:4px;border-radius:50%;background:rgba(21,94,117,.35);flex-shrink:0;margin-top:5px}
+
+/* DIVIDER STAT ROW */
+.stat-row{background:var(--navy);padding:48px 52px}
+.stat-row-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:0}
+.stat-item{flex:1;max-width:220px;text-align:center;padding:0 28px;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:rgba(255,255,255,.1)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--white);line-height:1;margin-bottom:4px}
+.stat-num em{color:var(--teal-l);font-style:normal}
+.stat-lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray3)}
+
+/* HOW IT FLOWS */
+.flow-section{padding:80px 52px;background:var(--cream2)}
+.flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;position:relative}
+.flow-steps::before{content:'';position:absolute;top:28px;left:12.5%;right:12.5%;height:1px;background:var(--rule);z-index:0}
+.flow-step{position:relative;z-index:1;padding:0 16px;text-align:center}
+.flow-num{width:56px;height:56px;border-radius:50%;background:var(--white);border:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);box-shadow:var(--s1)}
+.flow-step.active .flow-num{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.flow-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.flow-desc{font-size:11px;color:var(--gray);line-height:1.55}
+
+/* CTA */
+.cta-section{background:var(--navy2);padding:72px 52px}
+.cta-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.cta-text h3{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:8px}
+.cta-text h3 em{color:var(--teal-l);font-style:italic}
+.cta-text p{font-size:14px;color:var(--gray3);line-height:1.65;max-width:500px}
+.cta-link{display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:var(--white);font-size:12px;font-weight:700;padding:14px 28px;border-radius:4px;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;white-space:nowrap}
+.cta-link:hover{background:var(--teal-m)}
+.cta-link-arrow{font-size:16px;line-height:1}
+
+/* FOOTER */
+.foot{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding:28px 52px}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(255,255,255,.4)}
+.foot-brand em{color:var(--teal-l);font-style:italic}
+.foot-note{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .top-bar,.hero,.section,.stat-row,.flow-section,.cta-section,.foot{padding-left:28px;padding-right:28px}
+  .systems-grid{grid-template-columns:1fr 1fr}
+  .flow-steps{grid-template-columns:1fr 1fr;gap:24px}
+  .flow-steps::before{display:none}
+  .stat-row-inner{flex-wrap:wrap}
+  .stat-item{flex:1 1 40%}
+}
+@media(max-width:599px){
+  .top-bar,.hero,.section,.stat-row,.flow-section,.cta-section,.foot{padding-left:18px;padding-right:18px}
+  .systems-grid{grid-template-columns:1fr}
+  .flow-steps{grid-template-columns:1fr}
+  h1.hero-h{font-size:32px}
+  .stat-item{flex:1 1 100%}
+  .stat-item+.stat-item::before{display:none}
+  .cta-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-brand">Proximity <em>Systems</em> &nbsp;&middot;&nbsp; Built for Jennifer Crowley</div>
+  <div class="top-bar-tag">System Report</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="eye-dot"></div>
+      <span class="eye-txt">Proximity Systems &nbsp;&middot;&nbsp; Life Care Experts Build</span>
+    </div>
+    <h1 class="hero-h">6 Systems. Built and<br><em>Running for Jennifer.</em></h1>
+    <p class="hero-sub">Every system purpose-built for The Life Care Experts and LCM Institute — from the unified website to the AI assistant to the lead capture pipeline. Here is what was built, how it works, and where it fires.</p>
+    <div class="hero-meta">
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        <span class="status-txt">All Systems Live</span>
+      </div>
+      <div class="hero-meta-item">
+        <svg class="hero-meta-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gray2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Built April 2026
+      </div>
+      <div class="hero-meta-item">
+        <svg class="hero-meta-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gray2)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        operator_id: lcm-experts
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SYSTEMS GRID -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-eyebrow">
+      <div class="sec-dot" style="background:var(--teal)"></div>
+      <div class="sec-line"></div>
+      <span class="sec-tag">What Was Built</span>
+    </div>
+    <h2 class="sec-h">Six Systems,<br><em>One Unified Platform.</em></h2>
+    <p class="sec-desc">Each system was built from scratch, tested end-to-end, and wired into Jennifer's practice. Click any card to see the details.</p>
+
+    <div class="systems-grid">
+
+      <!-- SYSTEM 1 -->
+      <div class="sys-card c-teal">
+        <div class="sys-num">01</div>
+        <div class="sys-icon i-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="sys-status live">Live</div>
+        <div class="sys-title">Unified Website</div>
+        <div class="sys-desc">A single site combining The Life Care Experts and LCM Institute — serving families, professionals, attorneys, and insurance clients under one roof with a clear dual-entity identity.</div>
+        <div class="sys-details">
+          <div class="sys-detail">thelifecareexperts.com + lcmexpert.com merged</div>
+          <div class="sys-detail">All 9 sections: About, Institute, Services, Courses, Resources, Credentials, Testimonials, Portal, Contact</div>
+          <div class="sys-detail">Hosted-ready HTML — connects to any domain in minutes</div>
+          <div class="sys-detail">Preview: proximitysystems.ca/lcmexperts3.0.html</div>
+        </div>
+      </div>
+
+      <!-- SYSTEM 2 -->
+      <div class="sys-card c-coral">
+        <div class="sys-num">02</div>
+        <div class="sys-icon i-coral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="sys-status live">Live</div>
+        <div class="sys-title">AI Chatbot — Jennifer's Assistant</div>
+        <div class="sys-desc">A live AI assistant trained on Jennifer's full profile, both entities, all services, all courses, contact details, and routing rules. Handles questions 24/7 and directs every lead to the right place.</div>
+        <div class="sys-details">
+          <div class="sys-detail">Trained on 31 years of credentials, both entity URLs, 3 books, all services and courses</div>
+          <div class="sys-detail">Families routed to contact form or (406) 212-0620</div>
+          <div class="sys-detail">Professionals routed to lcmexpert.com courses</div>
+          <div class="sys-detail">Fires to Railway endpoint: /chat with operator_id lcm-experts</div>
+          <div class="sys-detail">2-sentence reply rule, ends every reply with a question</div>
+        </div>
+      </div>
+
+      <!-- SYSTEM 3 -->
+      <div class="sys-card c-teal">
+        <div class="sys-num">03</div>
+        <div class="sys-icon i-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 11.5"/><path d="M1 4.5h7l2 5-3 1.5a11 11 0 0 0 5.5 5.5L14 14l5 2v7"/></svg>
+        </div>
+        <div class="sys-status live">Live</div>
+        <div class="sys-title">Lead Capture Pipeline</div>
+        <div class="sys-desc">Every contact form submission fires a structured JSON payload directly to Railway — capturing first name, last name, email, phone, lead type, care context, and urgency. No third-party form tools. No data loss.</div>
+        <div class="sys-details">
+          <div class="sys-detail">Endpoint: /webhook/lead — operator_id: lcm-experts</div>
+          <div class="sys-detail">Payload: first_name, last_name, email, phone, care_needed_for, urgency, pain_point, source</div>
+          <div class="sys-detail">lead_type: client — source: LCM Experts Website</div>
+          <div class="sys-detail">Success state: personalized thank-you with 24-hour response promise</div>
+          <div class="sys-detail">Validation: first name + email required, error states on field</div>
+        </div>
+      </div>
+
+      <!-- SYSTEM 4 -->
+      <div class="sys-card c-sage">
+        <div class="sys-num">04</div>
+        <div class="sys-icon i-sage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="sys-status live">Live</div>
+        <div class="sys-title">Brand Identity System</div>
+        <div class="sys-desc">A complete visual identity layer built in pure CSS and SVG — no image files required. Includes the dual-entity logo treatment for nav, partnership section, and footer, matching Jennifer's existing brand colors exactly.</div>
+        <div class="sys-details">
+          <div class="sys-detail">Exact brand colors extracted from logo: teal #155e75, coral #c85a32, sage #4a8c5c</div>
+          <div class="sys-detail">Two-line nav logo mark: "The Life Care Experts · LCM Institute"</div>
+          <div class="sys-detail">Partnership section: dual SVG brand icons + Dancing Script script text</div>
+          <div class="sys-detail">Institute section: teal panel (families) + coral panel (professionals)</div>
+          <div class="sys-detail">Zero external image dependencies</div>
+        </div>
+      </div>
+
+      <!-- SYSTEM 5 -->
+      <div class="sys-card c-gold">
+        <div class="sys-num">05</div>
+        <div class="sys-icon i-gold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="sys-status live">Live</div>
+        <div class="sys-title">Engagement Layer</div>
+        <div class="sys-desc">A full interactive engagement system: scroll-triggered reveals on every section, count-up statistics, orbiting sphere with mouse-tilt response, typed headline cycling Jennifer's credentials, and magnetic cursor tracking.</div>
+        <div class="sys-details">
+          <div class="sys-detail">IntersectionObserver scroll reveal on all 50+ elements</div>
+          <div class="sys-detail">Count-up stats: 31 Yrs Nursing, 19 Yrs Practice, 3 Books, 75+ Trained</div>
+          <div class="sys-detail">CSS 3D orbit sphere with 4 rings and mouse-tilt response</div>
+          <div class="sys-detail">Typed headline: 5 rotating credential phrases</div>
+          <div class="sys-detail">Parallax background blobs, scroll progress bar, animated ticker</div>
+        </div>
+      </div>
+
+      <!-- SYSTEM 6 -->
+      <div class="sys-card c-teal">
+        <div class="sys-num">06</div>
+        <div class="sys-icon i-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg>
+        </div>
+        <div class="sys-status live">Live</div>
+        <div class="sys-title">Mobile-Responsive Architecture</div>
+        <div class="sys-desc">Four clean breakpoints covering every device Jennifer's clients use — from 360px phones through 1920px wide desktop. Every section tested against 9 real device widths. No layout breaks. No iOS zoom on inputs.</div>
+        <div class="sys-details">
+          <div class="sys-detail">4 tiers: wide desktop 1280px+, desktop 1024px, mobile 599px, baseline</div>
+          <div class="sys-detail">9 devices tested: 360, 375, 390, 430, 768, 1024, 1280, 1440, 1920px</div>
+          <div class="sys-detail">All inputs 16px font-size — no iOS zoom on focus</div>
+          <div class="sys-detail">Hero sphere hidden on mobile, hero badges hidden on mobile</div>
+          <div class="sys-detail">Chat window full-width on mobile with safe bottom offset</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- STAT ROW -->
+<div class="stat-row">
+  <div class="stat-row-inner">
+    <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Systems Built</div></div>
+    <div class="stat-item"><div class="stat-num"><em>1</em></div><div class="stat-lbl">Unified Website</div></div>
+    <div class="stat-item"><div class="stat-num">74</div><div class="stat-lbl">Audit Checks Passed</div></div>
+    <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">Device Widths Tested</div></div>
+  </div>
+</div>
+
+<!-- HOW IT FLOWS -->
+<div class="flow-section">
+  <div class="wrap">
+    <div class="sec-eyebrow">
+      <div class="sec-dot" style="background:var(--coral)"></div>
+      <div class="sec-line"></div>
+      <span class="sec-tag">How It Works</span>
+    </div>
+    <h2 class="sec-h">A Visitor Lands.<br><em>Here Is What Happens.</em></h2>
+    <p class="sec-desc">Every visitor — family, professional, attorney, or referral — is routed through a system that captures, qualifies, and connects them to Jennifer without her lifting a finger.</p>
+    <div class="flow-steps">
+      <div class="flow-step active">
+        <div class="flow-num">1</div>
+        <div class="flow-title">Visitor Lands</div>
+        <div class="flow-desc">Arrives at the unified site from either thelifecareexperts.com or lcmexpert.com</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-title">AI Routes Them</div>
+        <div class="flow-desc">Chatbot asks if they are a family or a professional and routes accordingly — 24/7</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-title">Lead Captured</div>
+        <div class="flow-desc">Form submission fires full structured payload to Railway with 8 data fields</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-title">Jennifer Responds</div>
+        <div class="flow-desc">Receives qualified lead with all context — responds personally within 24 hours</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h3>Ready to connect<br><em>and go live?</em></h3>
+      <p>Two things left: connect thelifecareexperts.com to the site, and wire the payment method for courses. Everything else is done. Preview the site below and let us know when you are ready to flip the switch.</p>
+    </div>
+    <a href="https://proximitysystems.ca/lcmexperts3.0.html" target="_blank" class="cta-link">
+      Preview the Site <span class="cta-link-arrow">&#8594;</span>
+    </a>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <div class="foot-brand">Proximity <em>Systems</em> &nbsp;&middot;&nbsp; Built for The Life Care Experts &middot; LCM Institute</div>
+    <div class="foot-note">proximitysystems.ca &nbsp;&middot;&nbsp; April 2026</div>
+  </div>
+</div>
+
+</body>
+</html>
