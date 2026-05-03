@@ -457,48 +457,59 @@ input,select,textarea{font-size:16px!important;}
 
         <!-- 11: PRICING -->
         <div class="slide" id="s11">
-          <div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">Pricing & Next Steps</div></div>
+          <div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">Pricing &amp; Next Steps</div></div>
           <h1 class="stitle">Simple pricing.<br><em>Real results.</em></h1>
-          <p class="ssub">One setup fee. One monthly retainer. No tech work on your end. No long contracts. Everything built specifically for your agency.</p>
+          <p class="ssub">One setup fee. One monthly retainer. No tech work on you. No long contracts. We build first — you pay after it goes live.</p>
           <div class="pgrid">
             <div class="pcard">
-              <div class="ptier">Automation Only</div>
-              <div class="pname">Core Systems</div>
-              <div class="pprice"><strong>$2,000–2,500</strong>setup + $500/mo</div>
-              <div class="pfeat">Visit logging and PSW management</div>
-              <div class="pfeat">Billing and invoice generator</div>
-              <div class="pfeat">Lead capture and chatbot</div>
-              <div class="pfeat">Follow-up engine Day 1, 3, 7</div>
-              <div class="pfeat">Client onboarding sequence</div>
-              <div class="pfeat">Family portal with PIN entry</div>
+              <div class="pcard-label">Tier 1</div>
+              <div class="pcard-name">The Essentials</div>
+              <div class="pcard-price">$3,000 <span>setup</span></div>
+              <div class="pcard-mo">$500/mo after</div>
+              <ul class="pcard-items">
+                <li>✓ Visit Logging</li>
+                <li>✓ Auto Invoicing</li>
+                <li>✓ Lead Capture</li>
+                <li>✓ Family Portal</li>
+                <li>✓ AI Chat</li>
+                <li>✓ HQ Dashboard</li>
+                <li>✓ PSW Management</li>
+                <li>✓ Converting Website — free</li>
+                <li>— No Follow-Up Engine</li>
+                <li>— No Client Onboarding</li>
+                <li>— No Voice AI</li>
+              </ul>
             </div>
-            <div class="pcard ft">
-              <div class="fbadge">Most Popular</div>
-              <div class="ptier">Automation + Website</div>
-              <div class="pname">Full Stack</div>
-              <div class="pprice"><strong>$2,800–3,200</strong>setup + $500/mo</div>
-              <div class="pfeat">Everything in Core Systems</div>
-              <div class="pfeat">Custom agency website built for you</div>
-              <div class="pfeat">Family chatbot wired in</div>
-              <div class="pfeat">Operator chatbot on your site</div>
-              <div class="pfeat">HQ dashboard for your whole operation</div>
-              <div class="pfeat">$0/mo hosting forever on GitHub Pages</div>
+            <div class="pcard pcard-hero">
+              <div class="pcard-badge">Most Popular</div>
+              <div class="pcard-label">Tier 2</div>
+              <div class="pcard-name">Done For You</div>
+              <div class="pcard-price">$3,500 <span>setup</span></div>
+              <div class="pcard-mo">$500/mo · Month 1 free</div>
+              <ul class="pcard-items">
+                <li>✓ Everything in Tier 1</li>
+                <li>✓ Follow-Up Engine</li>
+                <li>✓ Client + PSW Onboarding</li>
+                <li>✓ Voice AI on Telnyx</li>
+                <li>✓ First month free</li>
+              </ul>
             </div>
             <div class="pcard">
-              <div class="ptier">Growth Package</div>
-              <div class="pname">Scale</div>
-              <div class="pprice"><strong>$3,500+</strong>setup + $750/mo</div>
-              <div class="pfeat">Everything in Full Stack</div>
-              <div class="pfeat">Priority support and response</div>
-              <div class="pfeat">Monthly strategy call with Lance</div>
-              <div class="pfeat">Custom feature additions each month</div>
-              <div class="pfeat">Multi-location franchise setup</div>
-              <div class="pfeat">Philippines-ready configuration</div>
+              <div class="pcard-label">Tier 3</div>
+              <div class="pcard-name">Scale With Me</div>
+              <div class="pcard-price">$5,000 <span>setup</span></div>
+              <div class="pcard-mo">$750/mo</div>
+              <ul class="pcard-items">
+                <li>✓ Everything in Tier 2</li>
+                <li>✓ New systems monthly</li>
+                <li>✓ Monthly 1-on-1 with Lance</li>
+                <li>✓ Pipeline review + support</li>
+                <li>✓ First access to new releases</li>
+              </ul>
             </div>
           </div>
           <div class="ctaw">
-            <a href="https://proximitysystems.ca" target="_blank" class="ctab">Get Started at proximitysystems.ca →</a>
-            <p class="ctas">No pitch. No pressure. We walk through your setup and show you exactly what this looks like for your agency.</p>
+            <a href="https://proximitysystems.ca" class="ctab">Book a Free Discovery Call — proximitysystems.ca</a>
           </div>
         </div>
 
@@ -542,15 +553,15 @@ input,select,textarea{font-size:16px!important;}
 <script>
 const SYSTEMS=[null,
 {num:'01',title:'Visit <em>Logging</em>',sub:'PSWs fill a 3-in-1 form on their phone at the end of every shift. Visit log, daily checklist, and private messages. Everything saves to Supabase automatically. You get a branded email notification instantly.',before:'PSWs text you hours and notes. You type them in manually. You chase people every week for missing info. Hours of work that should take zero minutes.',after:'PSW fills the form, taps submit. Visit saves to Supabase, AI writes a care summary, branded email fires to you with hours and pay breakdown. Nobody does anything manually.',pipe:['📱|PSW submits','⚡|Webhook fires','🗄️|Supabase saves','📧|You notified'],stats:['12|PSWs active','0|Manual entries','Live|Running now'],color:0x3d7a8a,sceneType:'form',termTitle:'PSW VISIT LOG · LIVE',termRows:[{icon:'gn',emoji:'📋',lbl:'New Visit Logged',val:'Carolina Hermida · Rosetta Ferrari\n8hrs · Full Day · Apr 21 2026',badge:'live',bdgTxt:'AUTO-LOGGED'},{icon:'tl',emoji:'🗄️',lbl:'Saved to Supabase',val:'visits table · proximity-care\nAI care summary generated',badge:'sent',bdgTxt:'SAVED'},{icon:'am',emoji:'📧',lbl:'Lance Notified',val:'healthcareproximity@gmail.com\n8hrs · $224 PSW · $280 client',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['12|PSWs','47|Visits','11|Clients'],termTag:'Running live on Proximity Care · Mississauga'},
-{num:'02',title:'Billing <em>& Invoices</em>',sub:'One trigger generates two branded emails. The client gets a warm care summary and their invoice. The PSW gets their visit breakdown and pay total. AI writes the care summary from visit notes. You touch nothing.',before:'3 to 5 hours every month. Copy hours. Check math. Write summaries. Send invoices. Chase payment. Same manual work every single month.',after:'Click once. Two branded emails go out. Client sees their care summary and invoice. PSW sees their pay. You see the profit. Zero manual work.',pipe:['📊|Hours in Supabase','🤖|AI summary','📄|Invoice built','📧|Two emails sent'],stats:['$22|Client rate','$19|PSW rate','$3|Profit/hr'],color:0x8a7a3a,sceneType:'invoice',termTitle:'INVOICE GENERATOR · APR 2026',termRows:[{icon:'tl',emoji:'🏠',lbl:'Client · Standard Care',val:'Rosetta Ferrari · Mississauga\n40hrs · $22/hr client rate',badge:null},{icon:'gn',emoji:'💰',lbl:'Dual Emails Generated',val:'Client: care summary + invoice\nPSW: visit breakdown + pay total',badge:'auto',bdgTxt:'AUTO-GENERATED'},{icon:'am',emoji:'📧',lbl:'Both Delivered',val:'Client and PSW notified instantly\nZero manual work',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['$2,761|Invoiced','2|Clients','0min|Manual'],termTag:'Running on Proximity Care · Mississauga'},
+{num:'02',title:'Auto <em>Invoicing</em>',sub:'One trigger generates two branded emails. The client gets a warm care summary and their invoice. The PSW gets their visit breakdown and pay total. AI writes the care summary from visit notes. You touch nothing.',before:'3 to 5 hours every month. Copy hours. Check math. Write summaries. Send invoices. Chase payment. Same manual work every single month.',after:'Click once. Two branded emails go out. Client sees their care summary and invoice. PSW sees their pay. You see the profit. Zero manual work.',pipe:['📊|Hours in Supabase','🤖|AI summary','📄|Invoice built','📧|Two emails sent'],stats:['$22|Client rate','$19|PSW rate','$3|Profit/hr'],color:0x8a7a3a,sceneType:'invoice',termTitle:'INVOICE GENERATOR · APR 2026',termRows:[{icon:'tl',emoji:'🏠',lbl:'Client · Standard Care',val:'Rosetta Ferrari · Mississauga\n40hrs · $22/hr client rate',badge:null},{icon:'gn',emoji:'💰',lbl:'Dual Emails Generated',val:'Client: care summary + invoice\nPSW: visit breakdown + pay total',badge:'auto',bdgTxt:'AUTO-GENERATED'},{icon:'am',emoji:'📧',lbl:'Both Delivered',val:'Client and PSW notified instantly\nZero manual work',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['$2,761|Invoiced','2|Clients','0min|Manual'],termTag:'Running on Proximity Care · Mississauga'},
 {num:'03',title:'Lead <em>Capture</em>',sub:'When a family reaches out through the chatbot or lead form, you get a notification in under 60 seconds. Name, number, city, care type, urgency. You call them before anyone else does.',before:'Families call 3 to 5 agencies and go with whoever responds first. If you check email every few hours you are already losing those clients.',after:'Someone submits. Lead saves to Supabase. Day 1 email fires automatically. You get an instant notification. You call first. You win the client.',pipe:['👨‍👩‍👧|Family submits','⚡|Lead captured','🗄️|Supabase logged','📧|Day 1 fires'],stats:['<1min|Response','22|Leads this mo','0|Missed'],color:0x3a6a8a,sceneType:'lead',termTitle:'NEW LEAD ALERT · LIVE',termRows:[{icon:'am',emoji:'🔔',lbl:'New Lead · Family Chatbot',val:'Sandra M. · Mississauga\n647-555-0123 · Dementia Care · Urgent',badge:'new',bdgTxt:'NEW'},{icon:'tl',emoji:'🗄️',lbl:'Saved to Supabase',val:'leads table · proximity-care\nStatus: new · Day 1 email queued',badge:'sent',bdgTxt:'LOGGED'},{icon:'gn',emoji:'📧',lbl:'Day 1 Email Fired',val:'healthcareproximity@gmail.com\nApr 21 · 2:07 AM · instant',badge:'live',bdgTxt:'INSTANT'}],termStats:['22|Leads','<1m|Response','0|Missed'],termTag:'Running on Proximity Care · Mississauga'},
 {num:'04',title:'Follow-Up <em>Engine</em>',sub:'Leads get a Day 1, Day 3, and Day 7 email automatically. Never double sends. Branded per business. Warm family tone for care leads. Professional operator tone for systems leads.',before:'Leads go cold after day one. You mean to follow up. You forget. Families move on to the agency that stayed in touch.',after:'Day 1 fires on capture. Day 3 fires if no reply. Day 7 fires as a soft close. All branded. All automatic. Zero manual sends ever.',pipe:['📧|Day 1 fires','⏱️|Day 3 check','🔄|Day 7 close','✅|Never double'],stats:['3|Auto sequences','0|Manual sends','24/7|Always armed'],color:0x6a5a8a,sceneType:'email',termTitle:'FOLLOW-UP ENGINE · LIVE',termRows:[{icon:'am',emoji:'💌',lbl:'Day 3 Follow-Up Fired',val:'Sandra M. · No reply yet\nBranded Proximity Care email sent',badge:'auto',bdgTxt:'AUTO-SENT'},{icon:'gn',emoji:'🔄',lbl:'Day 7 Close Queued',val:'3 more leads · Soft close sequence\nFires automatically in 4 days',badge:'live',bdgTxt:'ARMED'},{icon:'tl',emoji:'✅',lbl:'Double Send Guard',val:'day3_sent and day7_sent flags\nNever sends twice to same lead',badge:'sent',bdgTxt:'PROTECTED'}],termStats:['3|Sequences','0|Manual','0|Double sends'],termTag:'Zero manual sends · All automated'},
-{num:'05',title:'PSW <em>Management</em>',sub:'PSWs get a 3-in-1 daily form — visit log, daily checklist, and private message thread with the operator. Missed visit alert fires at 6pm if no submission. PIN protected. Every conversation stays private.',before:'Paper checklists. WhatsApp groups. You find out about incidents from a family call. Supply shortages go unnoticed for days. No real visibility into what happens on shift.',after:'PSW submits one form per shift. You see visit notes, completed tasks, supply needs, and any concerns — all before the family calls. Missed shifts trigger an alert automatically.',pipe:['📱|PSW logs shift','✅|Checklist saved','💬|Private message','🚨|Alert if missed'],stats:['12|PSWs active','30|Checklist items','PIN|Protected'],color:0x4a8a5a,sceneType:'form',termTitle:'PSW MANAGEMENT · LIVE',termRows:[{icon:'gn',emoji:'✅',lbl:'Daily Checklist Submitted',val:'Carolina Hermida · 28 of 30 tasks\nObservations: client tired today',badge:'live',bdgTxt:'LOGGED'},{icon:'am',emoji:'🛒',lbl:'Supply Request from PSW',val:'Gloves size M running low\nIncontinence pads needed',badge:'new',bdgTxt:'NEW'},{icon:'tl',emoji:'🔒',lbl:'Private Message Thread',val:'Carolina → Lance · PIN: 1389\nConversation private to them only',badge:'sent',bdgTxt:'SECURE'}],termStats:['12|PSWs','30|Tasks','PIN|Protected'],termTag:'Running live on Proximity Care · Mississauga'},
-{num:'06',title:'AI <em>Chatbot</em>',sub:'A Claude-powered chatbot on your website that answers family questions, captures leads, and qualifies operators 24/7. Works at 2am. Never misses a question. Fully branded to your agency.',before:'Someone lands on your site at night, has questions, gets no answer, and moves on. You had a potential client for 90 seconds and lost them.',after:'The chatbot answers instantly, asks 8 intake questions, captures their contact info, and fires the notification. You wake up with a warm lead ready to call.',pipe:['🌐|Visitor lands','🤖|AI answers','📝|8 questions','📧|Lead captured'],stats:['AI|Claude Haiku','24/7|Never offline','Live|Both sites'],color:0x3a8a7a,sceneType:'chat',termTitle:'AI CHATBOT · PROXIMITYCARES.CA',isChat:true,chatLines:[{u:true,txt:'My mom needs help at home. She has dementia.'},{u:false,txt:'I am glad you reached out. We specialize in dementia care with consistent PSWs — same caregiver every visit. What city are you in?'},{u:true,txt:'Mississauga'},{u:false,txt:'Perfect — we serve Mississauga directly. What is the best number to reach you?'}],termTag:'Running on proximitycares.ca · 2am works too'},
+{num:'05',title:'Family <em>Portal</em>',sub:'Families enter a PIN and see everything about their loved one. Visits, care plan, documents, invoices, and a direct message thread. Zero phone calls for updates.',before:'Families call asking for visit updates, invoices, documents. Every call takes time out of your day. Nothing is centralised.',after:'Family enters their PIN. They see every visit, the care plan, all documents, the invoice, and can message you directly. No calls needed.',pipe:['🔐|PIN entry','🏠|Home tab','📋|Visits tab','📁|Documents','💬|Message you'],stats:['5|Portal tabs','PIN|4-digit secure','Live|proximitycares.ca'],sceneType:'particles'},
+{num:'06',title:'AI Chat <em>+ Voice</em>',sub:'A Claude-powered chatbot on your website answers family questions, captures leads, and qualifies them 24/7. Voice AI on Telnyx answers every call.',before:'Someone lands on your site at night, has questions, gets no answer, and moves on to the next agency.',after:'The chatbot answers instantly, asks intake questions, captures their contact info, and fires your Day 1 follow-up automatically.',pipe:['🌐|Visitor lands','🤖|AI answers','📝|Intake questions','📧|Lead captured'],stats:['AI|Claude-powered','24/7|Never offline','Voice|Telnyx live'],sceneType:'network'},
 {num:'07',title:'Client <em>Onboarding</em>',sub:'The moment a client signs, a Day 0 welcome email fires with their PIN and portal link. Day 3 check-in confirms everything is running smoothly. Day 7 care plan confirmation closes the loop. All automated.',before:'New clients get a welcome call and a PDF. Then nothing for a week. Families feel uncertain. You field the same questions over and over.',after:'Day 0 welcome email with PIN and portal link fires automatically. Day 3 check-in asks how the first visits went. Day 7 confirms the care plan. Families feel taken care of.',pipe:['✍️|Client signs','📧|Day 0 welcome','📧|Day 3 check','📧|Day 7 confirm'],stats:['Day 0|Instant welcome','PIN|Auto-generated','Portal|Ready day one'],color:0x8a5a3a,sceneType:'email',termTitle:'CLIENT ONBOARDING · LIVE',termRows:[{icon:'gn',emoji:'📧',lbl:'Day 0 Welcome Fired',val:'Rosetta Ferrari · portal_pin: 7842\nPortal link: proximitycares.ca/family.html',badge:'live',bdgTxt:'SENT'},{icon:'tl',emoji:'📅',lbl:'Day 3 Check-In Queued',val:'Fires in 3 days automatically\n"How are the first visits going?"',badge:'auto',bdgTxt:'ARMED'},{icon:'am',emoji:'📋',lbl:'Day 7 Confirmation Queued',val:'Care plan confirmation email\nSame PSW every visit confirmed',badge:'auto',bdgTxt:'ARMED'}],termStats:['Day 0|Instant','Day 3|Check-in','Day 7|Confirm'],termTag:'Running on Proximity Care · Mississauga'},
-{num:'08',title:'Family <em>Portal</em>',sub:'Families enter a PIN and see everything about their loved one. Visits, care plan, documents, invoices, and a direct message to the operator. No more phone tag. Everything in one place.',before:'Families call asking for visit updates, invoices, documents. Every call takes time away from running the agency. No central place for anything.',after:'Family enters their PIN. They see every visit, the care plan, all documents, the invoice history, and a message button that goes straight to you. Zero phone tag.',pipe:['🔐|PIN entry','🏠|Home tab','📋|Visits tab','📁|Documents','💬|Message you'],stats:['5|Portal tabs','PIN|4-digit secure','Live|proximitycares.ca'],color:0x5a3a8a,sceneType:'website',isWebsite:false,termTitle:'FAMILY PORTAL · LIVE',termTag:'proximitycares.ca/family.html · Rosetta Ferrari',termRows:[{emoji:'🔐',icon:'tl',lbl:'PIN Entry · rferrari',val:'Rosetta Ferrari logged in\nPIN: 7842 · Portal slug: rferrari',badge:'live',bdgTxt:'Active'},{emoji:'📋',icon:'tl',lbl:'Visits Tab',val:'47 visits in Supabase\nFull history with care notes',badge:'live',bdgTxt:'Current'},{emoji:'💬',icon:'gn',lbl:'Family Messaged Lance',val:'"Thank you for the update on Mom"\nDelivered to healthcareproximity@gmail.com',badge:'sent',bdgTxt:'Read'}],termStats:['5|Tabs','47|Visits','Live|Supabase']},
-{num:'09',title:'HQ <em>Dashboard</em>',sub:'Every lead, visit, invoice, and PSW in one real-time view. You run your entire operation from one screen. No spreadsheets. No separate tabs. Everything from Supabase, updated instantly.',before:'Spreadsheets for hours. Different apps for leads and invoices. PSW documents emailed back and forth. You spend 3 hours a week just organizing information.',after:'One dashboard. Every lead in the pipeline. Every visit this month. Every invoice status. PSW documents uploaded and stored. Care plans editable inline.',pipe:['📊|All data live','👥|PSW overview','👤|Client overview','💰|Revenue view'],stats:['Real-time|Supabase','All in|One view','Zero|Spreadsheets'],color:0x3a5a8a,sceneType:'summary',termTitle:'HQ DASHBOARD · LIVE',termRows:[{icon:'tl',emoji:'📊',lbl:'Live Revenue View',val:'$2,761 invoiced this month\n$376 profit · 2 active clients',badge:'live',bdgTxt:'REAL-TIME'},{icon:'gn',emoji:'👥',lbl:'PSW Overview',val:'12 PSWs · 47 visits logged\nCarolina Hermida — last shift: today',badge:'live',bdgTxt:'LIVE'},{icon:'am',emoji:'🎯',lbl:'Lead Pipeline',val:'22 leads this month\n3 active · Day 7 follow-up pending',badge:'new',bdgTxt:'PIPELINE'}],termStats:['$2,761|Invoiced','12|PSWs','22|Leads'],termTag:'Running live · Real-time Supabase data'},
-{num:'10',title:'Shift <em>Scheduling</em>',sub:'Operator posts a shift. PSW gets a text or email. First one to confirm fills it. If nobody confirms in 2 hours, the alert escalates. Call-outs trigger a broadcast to available PSWs instantly. No phone tag. No WhatsApp chaos. Zero manual coordination.',before:'A PSW calls out at 7am. You spend the next 90 minutes texting every available caregiver one by one. Half don\'t reply. You end up calling. The client finds out late. The family is upset. This happens every week.',after:'PSW marks themselves unavailable. System broadcasts the open shift to every qualified PSW automatically. First confirmation fills it. You get notified when it\'s covered. The family never knows there was a problem.',pipe:['📅|Shift posted','📲|PSWs notified','✅|First confirms','🔔|You notified'],stats:['0|Phone calls','Auto|Broadcast','<2hrs|Fill time'],color:0x7a4a8a,sceneType:'lead',termTitle:'SHIFT SCHEDULING · LIVE',termRows:[{icon:'am',emoji:'🚨',lbl:'Call-Out Received',val:'Phurbu Lhamo · Unavailable Apr 22\nRosetta Ferrari · 8am shift open',badge:'new',bdgTxt:'OPEN SHIFT'},{icon:'tl',emoji:'📲',lbl:'Broadcast Sent · 11 PSWs',val:'Auto-message: "Apr 22 · 8am · Mississauga\nReply YES to confirm — first gets it"',badge:'auto',bdgTxt:'AUTO-SENT'},{icon:'gn',emoji:'✅',lbl:'Shift Filled · 14 minutes',val:'Mandeep Kamboj confirmed\nCalendar updated · Lance notified',badge:'live',bdgTxt:'COVERED'}],termStats:['14min|Avg fill time','0|Calls made','12|PSW pool'],termTag:'No phone tag · No WhatsApp · Fully automated'}];
+{num:'08',title:'HQ <em>Dashboard</em>',sub:'Every lead, visit, invoice, and PSW in one real-time view. You run your entire operation from one screen. PWA installable on any device.',before:'Spreadsheets for hours. Different apps for leads and invoices. PSW documents emailed to you. No single view of anything.',after:'One dashboard. Every lead in the pipeline. Every visit this month. Every invoice status. Every PSW on shift. One screen.',pipe:['📊|All data live','👥|PSW overview','👤|Client overview','💰|Revenue view'],stats:['Real-time|Supabase','All in|One view','Zero|Spreadsheets'],sceneType:'grid'},
+{num:'09',title:'PSW <em>Management</em>',sub:'PSWs get a portal on their phone as an app. Schedules, visits, notes, and messages — all in one place. Voice AI on Telnyx answers missed calls 24/7.',before:'Paper checklists. WhatsApp groups. You find out about incidents from a family call the next morning.',after:'PSW logs their shift in one form. You see visit notes, completed tasks, supply needs, and private messages in real time.',pipe:['📱|PSW logs shift','✅|Checklist saved','💬|Private message','🚨|Alert if missed'],stats:['12|PSWs active','30|Checklist items','Voice|Telnyx AI'],sceneType:'particles'},
+{num:'10',title:'Converting <em>Website</em>',sub:'A premium done-for-you agency site connected to your lead system from day one. Included free in every package. Live in 7 days.',before:'Generic website with a contact form that goes to an email you check twice a day. Leads go cold.',after:'Custom agency site with chatbot wired in, lead capture connected to Supabase, and follow-up firing automatically from day one.',pipe:['🎨|Site built','🤖|Chatbot wired','📊|Leads to Supabase','📧|Follow-up fires'],stats:['Free|Every package','7 days|Live','Custom|Your brand'],sceneType:'web'}];
 
 function buildSlide(n){
   const d=SYSTEMS[n];
@@ -695,13 +706,13 @@ function animStats(n){
 
 let cur=0,tot=12,lastCtx='',ptimer=0,pFired=false;
 const hist=[];
-const NAMES=['Overview','Visit Logging','Billing & Invoices','Lead Capture','Follow-Up Engine','PSW Management','AI Chatbot','Client Onboarding','Family Portal','HQ Dashboard','Shift Scheduling','Pricing'];
+const NAMES=['Overview','Visit Logging','Auto Invoicing','Lead Capture','Follow-Up Engine','Family Portal','AI Chat + Voice','Client Onboarding','HQ Dashboard','PSW Management','Converting Website','Pricing'];
 
 function go(n){
   document.getElementById('s'+cur).classList.remove('on');
   const sbItems=document.querySelectorAll('.sb-item');
   if(sbItems[cur])sbItems[cur].classList.remove('on');
-  cur=n;
+  cur=n;renderDemoChips();
   if(cur>=1&&cur<=10)buildSlide(cur);
   document.getElementById('s'+cur).classList.add('on');
   if(sbItems[cur])sbItems[cur].classList.add('on');
@@ -730,7 +741,7 @@ async function send(){
   am('u',msg);hist.push({role:'user',content:msg});lastUserMsg=msg;
   document.getElementById('typ').classList.add('show');sc();
   try{
-    const r=await fetch(W,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',messages:hist})});
+    const r=await fetch(W,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',system_override:'You are the demo assistant for Proximity Systems. Answer questions about the 10 systems clearly and directly. Two sentences max. No bullets. No dashes. Plain English. Only mention booking a call if the user asks about next steps, pricing, or how to get started. Never pitch unprompted. Pricing: Tier 1 $3,000 setup, Tier 2 $3,500 (most popular, first month free), Tier 3 $5,000. All $500/mo. We build first. You pay after it is live. 7 days to go live.',messages:hist})});
     const data=await r.json();const rep=data.response||'Something went wrong — call Lance at 647-382-8047';
     hist.push({role:'assistant',content:rep});document.getElementById('typ').classList.remove('show');
     am('b',rep);demoStage++;renderDemoChips(msg);
@@ -755,8 +766,9 @@ calcRoi();
 
 (function(){function countUp(id,target,dur){const el=document.getElementById(id);if(!el)return;let s=Date.now();(function tick(){const p=Math.min(1,(Date.now()-s)/dur);el.textContent=Math.round(target*p);if(p<1)requestAnimationFrame(tick);else el.textContent=target;})();}setTimeout(()=>{countUp('cntVisits',47,1200);countUp('cntLeads',22,1000);},800);})();
 
+const SLIDE_CHIPS={0:'systems',1:'psw',2:'pricing',3:'leads',4:'leads',5:'portal',6:'portal',7:'setup',8:'systems',9:'psw',10:'setup',11:'pricing'};
 const CHIP_MAP={pricing:['What is included?','How long does setup take?','First month free?'],setup:['What do I need to provide?','How long does it take?','Do I need tech skills?'],systems:['How much does it cost?','Is it customized?','Can I see the portal?'],portal:['What can families see?','Is it secure?','How do PSWs log in?'],psw:['How does the checklist work?','Can they message privately?','What about missed visits?'],leads:['How fast does it respond?','Where do leads go?','What follow-ups fire?'],default0:['What does this do?','How much does it cost?','Show me the PSW system'],default1:['Tell me about the portal','How does lead capture work?','What about invoicing?'],default2:['I run multiple locations','How long does setup take?','What is included at $500/mo?'],defaultEnd:['__BOOK__']};
-function getSmartChips(lastMsg,stage){if(!lastMsg)return CHIP_MAP['default'+Math.min(stage,2)]||CHIP_MAP.defaultEnd;const m=lastMsg.toLowerCase();if(m.includes('price')||m.includes('cost')||m.includes('$')||m.includes('much'))return CHIP_MAP.pricing;if(m.includes('setup')||m.includes('install')||m.includes('how long')||m.includes('week'))return CHIP_MAP.setup;if(m.includes('portal')||m.includes('family')||m.includes('client'))return CHIP_MAP.portal;if(m.includes('psw')||m.includes('caregiver')||m.includes('staff'))return CHIP_MAP.psw;if(m.includes('lead')||m.includes('inquiry')||m.includes('capture'))return CHIP_MAP.leads;if(m.includes('system')||m.includes('what')||m.includes('how'))return CHIP_MAP.systems;return CHIP_MAP['default'+Math.min(stage,2)]||CHIP_MAP.defaultEnd;}
+function getSmartChips(lastMsg,stage){var slideKey=SLIDE_CHIPS[cur];if(!lastMsg)return CHIP_MAP[slideKey]||CHIP_MAP['default'+Math.min(stage,2)]||CHIP_MAP.defaultEnd;const m=lastMsg.toLowerCase();if(m.includes('price')||m.includes('cost')||m.includes('much'))return CHIP_MAP.pricing;if(m.includes('setup')||m.includes('install')||m.includes('how long')||m.includes('week'))return CHIP_MAP.setup;if(m.includes('portal')||m.includes('family')||m.includes('client'))return CHIP_MAP.portal;if(m.includes('psw')||m.includes('caregiver')||m.includes('staff'))return CHIP_MAP.psw;if(m.includes('lead')||m.includes('inquiry')||m.includes('capture'))return CHIP_MAP.leads;if(m.includes('system')||m.includes('what')||m.includes('how'))return CHIP_MAP.systems;return CHIP_MAP[slideKey]||CHIP_MAP['default'+Math.min(stage,2)]||CHIP_MAP.defaultEnd;}
 var demoStage=0,lastUserMsg='';
 function renderDemoChips(msg){lastUserMsg=msg||lastUserMsg;const wrap=document.getElementById('chips');wrap.innerHTML='';wrap.style.display='';const chips=getSmartChips(lastUserMsg,demoStage);chips.forEach(function(c){if(c==='__BOOK__'){const a=document.createElement('a');a.className='chip';a.textContent='Visit proximitysystems.ca';a.href='https://proximitysystems.ca';a.target='_blank';a.style.cssText='text-decoration:none;background:var(--teal3);color:var(--teal2);border-color:var(--border2);';wrap.appendChild(a);}else{const d=document.createElement('div');d.className='chip';d.textContent=c;d.onclick=function(){sug(d);};wrap.appendChild(d);}});}
 renderDemoChips();
