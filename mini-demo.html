@@ -544,10 +544,16 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
   text-transform:uppercase;
 }
 
+
+/* Book section heading constrained to card width */
+#book .sec-tag,
+#book .sec-title,
+#book .sec-sub { max-width:640px; margin-left:auto; margin-right:auto; }
+#book .sec-tag { margin-bottom:20px; }
+
 @media(max-width:1024px) {
   #hero { display:flex !important; flex-direction:column; }
   .demo-nav-badge { display:none; }
-  .hero-right { width:100%; max-width:600px; margin:0 auto; }
   nav { padding:14px 24px; }
   nav.scrolled { padding:10px 24px; }
   .nav-links { display:none; }
@@ -555,6 +561,7 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
   .section-full { padding:80px 0; }
   .section-inner { padding:0 24px; }
   #hero { padding:100px 24px 60px; }
+  .hero-right { width:100%; max-width:600px; margin:0 auto; }
   .conf-header { padding:0 24px 40px; }
   .conf-layout { grid-template-columns:1fr; gap:0; padding:0 24px; }
   .conf-summary { display:none; }
@@ -564,7 +571,6 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
   .pc-grid { grid-template-columns:1fr; gap:2px; }
   .preview-grid { grid-template-columns:1fr; }
   .proof-grid { grid-template-columns:1fr 1fr; }
-  .bf-row { grid-template-columns:1fr; }
   .mf-row { grid-template-columns:1fr; }
   .chat-win { width:calc(100vw - 32px); right:16px; }
   footer { flex-direction:column; gap:16px; padding:32px 24px; text-align:center; }
@@ -586,7 +592,6 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
   .chat-win { bottom:0; left:0; right:0; width:100%; max-height:80dvh; border-radius:12px 12px 0 0; }
   .chat-bubble { bottom:84px; right:16px; width:50px; height:50px; }
 
-  /* Demo card mobile */
   .hero-right { width:100%; max-width:100%; margin:0; }
   .demo-sys-row { padding:6px 12px; }
   .demo-sys-name { font-size:10px; }
