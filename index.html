@@ -2,21 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Proximity Care Systems — Within Reach</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
     --bg: #f6f3ee; --dark: #13181c; --dark2: #1c2228; --teal: #6a9eaa;
     --teal-dark: #3d7a8a; --teal-light: #c8dde2; --cream: #faf8f4;
     --muted: #7a7a72; --border: #e2ddd4; --green: #5a8a6a; --text: #1e2420; --red: #c05050;
+    --b-bg: #0b0f14; --b-bg2: #0e1419; --b-bg3: #111820;
+    --b-teal: #3d7a8a; --b-teal-lt: #5a9aaa;
+    --b-teal-bg: rgba(61,122,138,0.1); --b-border: rgba(90,154,170,0.15);
+    --b-border-b: rgba(90,154,170,0.28); --b-text: #ddd9d0;
+    --b-text-dim: #6a8a92; --b-gold: #c8a96e;
+    --b-green: #5aaa7a; --b-red: #e05858;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; cursor: none; }
   .cursor { width: 8px; height: 8px; background: var(--teal-dark); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease; }
   .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--teal); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; opacity: 0.6; transition: transform 0.15s ease, opacity 0.15s ease; }
-  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.5; }
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 24px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
   nav.scrolled { background: rgba(246,243,238,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 64px; }
   .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 4px; color: var(--dark); text-decoration: none; text-transform: uppercase; }
@@ -26,9 +35,9 @@
   .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--teal-dark); transition: width 0.3s ease; }
   .nav-links a:hover { color: var(--dark); }
   .nav-links a:hover::after { width: 100%; }
-  .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; border-radius: 2px; font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
+  .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
   .nav-cta::after { display: none !important; }
-  .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; }
+  .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%); }
   #hero { min-height: 100vh; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center; padding: 0 48px 0 64px; position: relative; overflow: hidden; gap: 80px; }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
@@ -670,6 +679,7 @@
     .roi-slider-val { font-size: 22px; }
   }
 @media (max-width: 600px) {
+    #heroCanvas { display: none; }
     .chat-bubble { bottom: 84px; right: 16px; width: 54px; height: 54px; }
     .chat-bubble svg { width: 22px; height: 22px; }
     .chat-modal { width: 100vw; height: 100vh; height: 100dvh; max-width: 100vw; max-height: 100vh; max-height: 100dvh; border-radius: 0; }
@@ -679,6 +689,122 @@
     .sys-chips-grid { grid-template-columns: 1fr; }
     .bld-chips-grid { grid-template-columns: 1fr; }
   }
+
+  /* ============================================================
+     LEVEL 20 UPGRADES — JARVIS 18
+     ============================================================ */
+
+  /* ASYMMETRIC CUT — Brand signature shape */
+  /* clip-path: polygon(0 0, 100% 0, 100% calc(100%-Xpx), calc(100%-Xpx) 100%, 0 100%) */
+
+  /* Primary buttons — 10px cut */
+  .btn-primary, .btn-book, .btn-cta, [class*="book-btn"], .cta-primary {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    border-radius: 0 !important;
+    transition: clip-path 0.2s ease, background 0.2s ease, transform 0.2s ease !important;
+  }
+  .btn-primary:hover, .btn-book:hover, .btn-cta:hover, [class*="book-btn"]:hover, .cta-primary:hover {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  }
+
+  /* All section CTAs */
+  .section-cta, .hero-cta-btn, .cta-btn {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+    border-radius: 0 !important;
+    transition: clip-path 0.2s ease, background 0.2s ease !important;
+  }
+  .section-cta:hover, .hero-cta-btn:hover, .cta-btn:hover {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+  }
+
+  /* Builder submit and modal buttons */
+  #mfSubmit, #bldBookBtn {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    border-radius: 0 !important;
+  }
+  #mfSubmit:hover, #bldBookBtn:hover {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  }
+
+  /* SCROLL REVEAL */
+  .ps-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .ps-reveal.ps-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* SECTION ENTRANCE LINE */
+  .section-wrap {
+    position: relative;
+  }
+  .section-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 64px; right: 64px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal-dark), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.16,1,0.3,1);
+  }
+  .section-wrap.line-visible::before {
+    transform: scaleX(1);
+  }
+
+  /* MAGNETIC WRAPPER */
+  .mag-wrap {
+    display: inline-block;
+    position: relative;
+  }
+
+  /* HERO WORD SPLIT */
+  .hero-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: wordUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  /* LENIS SMOOTH SCROLL */
+  html.lenis { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+  /* ENHANCED CURSOR */
+  .cursor { mix-blend-mode: multiply; }
+  .cursor-ring { transition: transform 0.12s ease, opacity 0.12s ease, width 0.25s ease, height 0.25s ease, border-color 0.25s ease !important; }
+  .cursor-ring.cursor-hover { width: 56px !important; height: 56px !important; border-color: var(--teal-dark) !important; opacity: 0.8 !important; }
+
+  /* TRUST BAR TICKER */
+  .trust-bar {
+    overflow: hidden;
+    padding: 16px 0 !important;
+  }
+  .trust-inner {
+    display: flex;
+    gap: 60px;
+    animation: trustTicker 24s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  @keyframes trustTicker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes wordUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+
+
+  input, select, textarea { font-size: 16px; }
+  @media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}}
 </style>
 </head>
 <body>
@@ -706,6 +832,7 @@
 </div>
 
 <div id="hero">
+  <canvas id="heroCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.6"></canvas>
   <div class="hero-bg-text">PS</div>
   <div class="hero-left">
     <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Currently accepting new clients</div></div>
@@ -761,11 +888,11 @@
     <h2 class="s-title light reveal">Still Running Your Business <em>Manually?</em></h2>
     <div class="problem-cols">
       <div class="problem-items reveal">
-        <div class="prob-item"><div class="prob-strike">Missed leads</div><div class="prob-why">because no one followed up fast enough.</div></div>
-        <div class="prob-item"><div class="prob-strike">Manual timesheets</div><div class="prob-why">that take hours to calculate every month.</div></div>
-        <div class="prob-item"><div class="prob-strike">Invoices built in Excel</div><div class="prob-why">always one mistake away from a billing error.</div></div>
-        <div class="prob-item"><div class="prob-strike">No client communication system</div><div class="prob-why">families left waiting for answers at midnight.</div></div>
-        <div class="prob-item"><div class="prob-strike">Website that doesn't convert</div><div class="prob-why">looks outdated, builds zero trust, loses leads before they even call.</div></div>
+        <div class="prob-item ps-reveal"><div class="prob-strike">Missed leads</div><div class="prob-why">because no one followed up fast enough.</div></div>
+        <div class="prob-item ps-reveal"><div class="prob-strike">Manual timesheets</div><div class="prob-why">that take hours to calculate every month.</div></div>
+        <div class="prob-item ps-reveal"><div class="prob-strike">Invoices built in Excel</div><div class="prob-why">always one mistake away from a billing error.</div></div>
+        <div class="prob-item ps-reveal"><div class="prob-strike">No client communication system</div><div class="prob-why">families left waiting for answers at midnight.</div></div>
+        <div class="prob-item ps-reveal"><div class="prob-strike">Website that doesn't convert</div><div class="prob-why">looks outdated, builds zero trust, loses leads before they even call.</div></div>
       </div>
       <div class="problem-right-content reveal reveal-delay-2">
         <div class="big-stat">
@@ -786,63 +913,63 @@
       <div class="package-intro-text reveal reveal-delay-2"><strong>We build it. We install it. We hand it to you running.</strong><br>Not a template. Not a course. Not a DIY tool. We come in, build your entire system from scratch, and hand it back running.</div>
     </div>
     <div class="sys-chips-grid reveal">
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">01</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">Visit Logging</div>
         <div class="sc-desc">PSWs log from their phone in 60 seconds. Hours auto-calculate. No paper. No spreadsheets.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">02</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M5 3h12v16l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8h6M8 11h6M8 14h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">Auto Invoicing</div>
         <div class="sc-desc">One button at month end. Invoice to client, pay summary to PSW, AI care note written. 30 seconds.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">03</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="1" fill="currentColor"/></svg></div>
         <div class="sc-name">Lead Capture</div>
         <div class="sc-desc">Full intake chatbot on your site. Leads captured and replied to in under 60 seconds. 24/7.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">04</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M3 6l8 5 8-5M3 6v10a1 1 0 001 1h14a1 1 0 001-1V6M3 6l8-3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="sc-name">Follow-Up Engine</div>
         <div class="sc-desc">Day 1, Day 3, Day 7 emails fire automatically. Leads never go cold. Nothing to remember.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">05</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M11 11a3 3 0 100-6 3 3 0 000 6zM5 19a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">Family Portal</div>
         <div class="sc-desc">Families log in with a PIN. View visits, care plan, documents, and billing. Zero phone tag.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">06</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="4" y="6" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="14" cy="11" r="1.2" fill="currentColor"/><path d="M11 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">AI Chat + Voice</div>
         <div class="sc-desc">Trained on your agency. Answers families and operators. Books calls automatically at 2am.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">07</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg></div>
         <div class="sc-name">Client Onboarding</div>
         <div class="sc-desc">Day 0 welcome fires automatically. PIN, portal link, care plan sent before you open your eyes.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">08</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">HQ Dashboard</div>
         <div class="sc-desc">One screen. Every lead, visit, invoice, and PSW in real time. PWA installable on your phone.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
-      <div class="sys-chip">
+      <div class="sys-chip ps-reveal">
         <div class="sc-num">09</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">PSW Management</div>
@@ -1653,6 +1780,167 @@
     function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
     resetTimer();
   })();
+
+
+/* ============================================================
+   LEVEL 20 — New JS Additions
+   ============================================================ */
+
+// LENIS SMOOTH SCROLL
+(function initLenis() {
+  if(typeof Lenis === 'undefined') return;
+  document.documentElement.style.scrollBehavior = 'auto';
+  const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+  function lenisRaf(time) { lenis.raf(time); requestAnimationFrame(lenisRaf); }
+  requestAnimationFrame(lenisRaf);
+})();
+
+// THREE.JS PARTICLE BACKGROUND
+(function initHeroCanvas() {
+  const canvas = document.getElementById('heroCanvas');
+  if(!canvas || typeof THREE === 'undefined') return;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
+  camera.position.z = 5;
+
+  // Create floating particles
+  const count = 120;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(count * 3);
+  const speeds = new Float32Array(count);
+  for(let i = 0; i < count; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 14;
+    positions[i*3+1] = (Math.random() - 0.5) * 10;
+    positions[i*3+2] = (Math.random() - 0.5) * 4;
+    speeds[i] = Math.random() * 0.3 + 0.1;
+  }
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({
+    color: 0x3d7a8a,
+    size: 0.04,
+    transparent: true,
+    opacity: 0.5,
+    sizeAttenuation: true
+  });
+
+  const particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 0.3;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 0.3;
+  });
+
+  let frame = 0;
+  function animateCanvas() {
+    requestAnimationFrame(animateCanvas);
+    frame += 0.003;
+    const pos = geometry.attributes.position.array;
+    for(let i = 0; i < count; i++) {
+      pos[i*3+1] += speeds[i] * 0.004;
+      if(pos[i*3+1] > 5) pos[i*3+1] = -5;
+    }
+    geometry.attributes.position.needsUpdate = true;
+    particles.rotation.y += 0.0008;
+    camera.position.x += (mouseX - camera.position.x) * 0.02;
+    camera.position.y += (-mouseY - camera.position.y) * 0.02;
+    renderer.render(scene, camera);
+  }
+  animateCanvas();
+
+  window.addEventListener('resize', () => {
+    const w = canvas.offsetWidth, h = canvas.offsetHeight;
+    camera.aspect = w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+})();
+
+// SCROLL REVEAL OBSERVER
+const psRevealObs = new IntersectionObserver(entries => {
+  entries.forEach((en, i) => {
+    if(en.isIntersecting) {
+      const el = en.target;
+      const delay = parseInt(el.dataset.revealDelay || 0);
+      setTimeout(() => el.classList.add('ps-visible'), delay);
+      psRevealObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.ps-reveal').forEach((el, i) => {
+  el.dataset.revealDelay = (i % 6) * 80;
+  psRevealObs.observe(el);
+});
+
+// SECTION LINE OBSERVER
+const lineObs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting) {
+      en.target.classList.add('line-visible');
+      lineObs.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.section-wrap').forEach(el => lineObs.observe(el));
+
+// MAGNETIC BUTTONS
+function initMagnetic(selector, strength) {
+  strength = strength || 0.25;
+  document.querySelectorAll(selector).forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width/2) * strength;
+      const dy = (e.clientY - r.top - r.height/2) * strength;
+      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    });
+    el.addEventListener('mouseleave', function() {
+      el.style.transform = '';
+    });
+  });
+}
+initMagnetic('.hero-btns a, .cta-primary, #mfSubmit');
+
+// HERO WORD SPLIT ANIMATION
+(function splitHeroWords() {
+  const titleEl = document.querySelector('.hero-title');
+  if(!titleEl) return;
+  // Only split text nodes, preserve em tags
+  Array.from(titleEl.childNodes).forEach(node => {
+    if(node.nodeType === 3 && node.textContent.trim()) {
+      const words = node.textContent.split(' ').filter(w => w.trim());
+      const fragment = document.createDocumentFragment();
+      words.forEach((word, i) => {
+        const span = document.createElement('span');
+        span.className = 'hero-word';
+        span.textContent = word + ' ';
+        span.style.animationDelay = (0.4 + i * 0.08) + 's';
+        fragment.appendChild(span);
+      });
+      node.parentNode.replaceChild(fragment, node);
+    }
+  });
+})();
+
+// ENHANCED CURSOR HOVER — extend to all interactive elements
+document.querySelectorAll('a, button, [data-hover], .prob-item, .sys-chip, .review-card, .tl-step').forEach(function(el) {
+  el.addEventListener('mouseenter', function() {
+    const ring = document.getElementById('cursorRing');
+    if(ring) ring.classList.add('cursor-hover');
+  });
+  el.addEventListener('mouseleave', function() {
+    const ring = document.getElementById('cursorRing');
+    if(ring) ring.classList.remove('cursor-hover');
+  });
+});
+
 </script>
 </body>
 </html>
