@@ -20,6 +20,7 @@
 html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
 #cur{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--teal2);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .06s}
 #cur-r{position:fixed;width:26px;height:26px;border-radius:50%;border:1px solid rgba(106,180,200,0.35);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease}
+input,select,textarea{font-size:16px!important;}
 @media(hover:none){#cur,#cur-r{display:none}body{cursor:auto}}
 #intro{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--bg)}
 #intro-canvas{position:absolute;inset:0;pointer-events:none}
@@ -271,12 +272,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--b
   .chip{text-align:center;font-size:12px;padding:12px 8px;min-height:44px;justify-content:center}
   .chat-inp-row{padding:12px 16px;position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border)}
   .msgs{padding:16px}
-  .app{display:block!important;grid-template-rows:none!important;min-height:100vh;padding-top:56px}
+  .app{display:block!important;grid-template-rows:none!important;height:auto!important;overflow:visible!important;min-height:100vh;padding-top:56px}
   .ws{display:block!important;overflow:visible}
   .main{width:100%!important;overflow:visible;display:block}
   .slides{padding:0!important;overflow:visible!important;height:auto!important;display:block}
   .slide.on{display:block!important;padding:20px 16px!important;animation:none!important;padding-bottom:80px!important}
-  #s0{display:flex!important;flex-direction:column!important;gap:0!important}
+  #s0.on{display:flex!important;flex-direction:column!important;gap:0!important}
   #s0>div:nth-child(2){order:-1;margin-bottom:4px}
   .wgrid{grid-template-columns:1fr!important;gap:8px}
   .wcard{padding:14px}
@@ -566,7 +567,7 @@ function buildSlide(n){
   if(d.isWebsite){rightPanel=`<div class="wmock"><div class="wmbar"><div class="wmdot" style="background:#ff5f57"></div><div class="wmdot" style="background:#febc2e"></div><div class="wmdot" style="background:#28c840"></div><span class="wmurl">proximitycares.ca · LIVE</span></div><div class="wmsite"><div class="wmnav"><div class="wmlogo">Proximity <em>Care</em></div><div class="wmbtn">Book Assessment</div></div><div class="wmhero"><div class="wmh1">Finally, care your family can<br><em>stop worrying about.</em></div><div class="wmhsub">Consistent PSWs. Same caregiver every visit.</div><div class="wmhbtn">Get Started →</div></div><div class="wmcards"><div class="wmcard"><div class="wmcico">🧠</div><div class="wmcn">Dementia Care</div><div class="wmcp">Trained PSWs.</div></div><div class="wmcard"><div class="wmcico">🏥</div><div class="wmcn">Post-Hospital</div><div class="wmcp">Recovery at home.</div></div><div class="wmcard"><div class="wmcico">🌙</div><div class="wmcn">Overnight</div><div class="wmcp">24/7 support.</div></div></div></div></div><div class="term" style="margin-top:10px"><div class="tbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><div class="ttitle">${d.termTag}</div></div><div class="ttag">All systems connected · Free hosting on GitHub Pages</div></div>`;}
   else{rightPanel=`<div class="scene" id="scene${n}"><div class="scene-lbl">System ${d.num} · Live</div><div class="scene-hint">drag to rotate</div><canvas id="sc${n}" height="180"></canvas></div><div class="term"><div class="tbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><div class="ttitle">${d.termTitle||'SYSTEM '+d.num+' · LIVE'}</div></div><div class="tbody">${termBody}${termStats}</div><div class="ttag">${d.termTag}</div></div>`;}
   el.innerHTML=`<div class="sys-wrap"><div class="sys-left"><div class="eyebrow"><div class="ey-line"></div><div class="ey-tag">System ${d.num}</div></div><h1 class="stitle">${d.title}</h1><p class="ssub">${d.sub}</p><div class="baf"><div class="baf-b"><div class="baf-lbl">Right now without this</div><div class="baf-txt">${d.before}</div></div><div class="baf-a"><div class="baf-lbl">With this system</div><div class="baf-txt">${d.after}</div></div></div><div class="pipe" id="pipe${n}">${pipeHTML}</div><div class="stats">${statsHTML}</div></div><div class="sys-right">${rightPanel}</div></div>`;
-  setTimeout(()=>buildScene(n,d.color,d.sceneType),50);
+  if(window.innerWidth>768)setTimeout(()=>buildScene(n,d.color,d.sceneType),50);
 }
 
 const sceneBuilt={};
@@ -662,7 +663,7 @@ function initGlobe(){
 function enterDemo(){
   const intro=document.getElementById('intro');intro.style.transition='opacity .8s';intro.style.opacity='0';intro.style.pointerEvents='none';
   setTimeout(()=>{intro.style.display='none';},800);
-  document.getElementById('app').classList.add('show');setTimeout(initGlobe,400);
+  document.getElementById('app').classList.add('show');if(window.innerWidth>768)setTimeout(initGlobe,400);
 }
 
 (function(){const c=document.getElementById('bg');const ctx=c.getContext('2d');function rsz(){c.width=window.innerWidth;c.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);const pts=Array.from({length:45},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,.7,0,Math.PI*2);ctx.fillStyle='rgba(106,180,200,0.18)';ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<85){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(61,122,138,${.08*(1-d/85)})`;ctx.lineWidth=.4;ctx.stroke();}}requestAnimationFrame(draw);}draw();})();
