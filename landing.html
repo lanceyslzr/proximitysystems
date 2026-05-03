@@ -849,7 +849,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   #hero{padding:90px 0 56px;min-height:auto}
   .hero-wrap{flex-direction:column;padding:0 18px;gap:24px}
   .hero-left{max-width:100%}
-  .hero-right{display:none}
+  .hero-right{width:100%;flex:none}
   .hero-pills{margin-bottom:18px}
   .hero-proof-quote{max-width:100%;padding:12px 14px;margin-bottom:16px}
   .hpq-text{font-size:12px}
@@ -937,7 +937,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
   .lp-cursor,.lp-cursor-ring{display:none}
   body{cursor:auto}
-  a,button{cursor:auto}}
+  a,button{cursor:auto}
+  .hvc-feed-item:nth-child(3){display:none}
+  .hvc-feed-time{display:none}
+  .hero-visual-card{border-radius:0}
+}
 
 /* TABLET — 600px to 1023px */
 @media(min-width:600px) and (max-width:1023px){
