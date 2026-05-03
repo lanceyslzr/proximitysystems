@@ -7,6 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
@@ -835,9 +837,9 @@
   <canvas id="heroCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.6"></canvas>
   <div class="hero-bg-text">PS</div>
   <div class="hero-left">
-    <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Currently accepting new clients</div></div>
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text" id="heroEyebrow">Currently accepting new clients</div></div>
     <h1 class="hero-title">Your Home Care Business.<em>On Autopilot.</em></h1>
-    <p class="hero-sub">Stop losing leads. Stop doing admin. Stop being the bottleneck. We build your entire operation on autopilot — and hand it back running in 7 days. We need 60 minutes from you on Day 1. That is it.</p>
+    <p class="hero-sub" id="heroSub">Stop losing leads. Stop doing admin. Stop being the bottleneck. We build your entire operation on autopilot — and hand it back running in 7 days. We need 60 minutes from you on Day 1. That is it.</p>
     <div class="hero-btns">
       <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="btn-primary">Book a Free Call</a>
       <a href="#package" class="btn-secondary">See What's Included ↓</a>
@@ -1066,6 +1068,10 @@
       <div class="mf-group"><label class="mf-label">Agency Name *</label><input class="mf-input" id="mfAgency" type="text" placeholder="Your agency name"></div>
       <div class="mf-group"><label class="mf-label">City *</label><input class="mf-input" id="mfCity" type="text" placeholder="City, Province"></div>
       <div class="mf-group"><label class="mf-label">Anything else?</label><textarea class="mf-textarea" id="mfNotes" placeholder="Questions, concerns, what you are working on..."></textarea></div>
+      <input type="hidden" id="utmSource" name="utm_source" value="">
+      <input type="hidden" id="utmMedium" name="utm_medium" value="">
+      <input type="hidden" id="utmCampaign" name="utm_campaign" value="">
+      <input type="hidden" id="pageSrc" name="page_src" value="">
       <button class="mf-submit" id="mfSubmit" onclick="submitBldBooking()">Send My Package — Book the Call</button>
       <div class="mf-note">Lance responds within a few hours · 647-382-8047<br>We build first · You pay after it is live</div>
     </div>
@@ -1940,6 +1946,141 @@ document.querySelectorAll('a, button, [data-hover], .prob-item, .sys-chip, .revi
     if(ring) ring.classList.remove('cursor-hover');
   });
 });
+
+
+
+
+/* ============================================================
+   LEVEL 20 ADDITIONS — Safe, additive only
+   Global vars already taken: chatBubble, chatOverlay, chatClose,
+   chatFrame, nav, obs, burger, mobileMenu, feedData, feedIdx,
+   LEAD_URL, BLD_SYSTEMS, bldSelected, psRevealObs, lineObs
+   New globals: bookingAttempted (flag only)
+   GSAP scope: nav scroll only. All other animations handled by
+   existing CSS + observers. Do not compete.
+   ============================================================ */
+
+// GSAP — nav scroll enhancement only
+(function initGSAP() {
+  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Nav scroll shrink — GSAP replaces the existing scroll class toggle
+  // The existing code does: window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50))
+  // GSAP ScrollTrigger does the same thing more smoothly
+  // We leave the existing scroll listener in place — both do the same thing, no conflict
+  // Actually the existing one is fine — skip GSAP on nav too
+  // GSAP is loaded for future use — no animations added here to avoid all conflicts
+})();
+
+// BEHAVIOR ENGINE
+var bookingAttempted = false;
+
+(function initBehaviorEngine() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var pageSrc = urlParams.get('src') || urlParams.get('utm_source') || 'direct';
+  var utmMed = urlParams.get('utm_medium') || '';
+  var utmCamp = urlParams.get('utm_campaign') || '';
+
+  // Populate UTM hidden fields
+  var fUtmSrc = document.getElementById('utmSource');
+  var fUtmMed = document.getElementById('utmMedium');
+  var fUtmCamp = document.getElementById('utmCampaign');
+  var fPageSrc = document.getElementById('pageSrc');
+  if(fUtmSrc) fUtmSrc.value = pageSrc;
+  if(fUtmMed) fUtmMed.value = utmMed;
+  if(fUtmCamp) fUtmCamp.value = utmCamp;
+  if(fPageSrc) fPageSrc.value = window.location.pathname;
+
+  // SOURCE COPY REWRITE — eyebrow and sub headline adapt to entry point
+  var eyebrowEl = document.getElementById('heroEyebrow');
+  var subEl = document.getElementById('heroSub');
+
+  var copyMap = {
+    linkedin: {
+      eyebrow: 'Built for home care operators',
+      sub: 'You run the agency. We run the back office. Visit logging, invoicing, lead capture, family portal and PSW management — done for you in 7 days.'
+    },
+    email: {
+      eyebrow: 'Following up on your demo',
+      sub: 'The system you saw is live and running on a real agency in Mississauga right now. Here is what we would build for yours.'
+    },
+    demo: {
+      eyebrow: 'Ready to see it live',
+      sub: 'This is the operating system behind Proximity Care Services. Every system you are about to see is running in production right now.'
+    }
+  };
+
+  var copy = copyMap[pageSrc];
+  if(copy && eyebrowEl) eyebrowEl.textContent = copy.eyebrow;
+  if(copy && subEl) subEl.innerHTML = copy.sub;
+
+  // BOOKING ATTEMPT FLAG — track via click on booking elements
+  document.querySelectorAll('#mfSubmit, #bldBookBtn, a[href*="calendly"]').forEach(function(el) {
+    el.addEventListener('click', function() { bookingAttempted = true; });
+  });
+
+  // DWELL TIME BEACON — fires at 90s if no booking attempted
+  var scrollDepth = 0;
+  window.addEventListener('scroll', function() {
+    var d = Math.round((window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * 100);
+    if(d > scrollDepth) scrollDepth = d;
+  }, { passive: true });
+
+  setTimeout(function() {
+    if(bookingAttempted) return;
+    try {
+      fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'dwell_beacon',
+          source: pageSrc,
+          utm_medium: utmMed,
+          utm_campaign: utmCamp,
+          scroll_depth: scrollDepth,
+          dwell_seconds: 90,
+          page: window.location.href,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(function(){});
+    } catch(e) {}
+  }, 90000);
+
+  // SCROLL VELOCITY — fast scroller gets pricing section highlighted
+  var lastSY = 0;
+  var lastST = Date.now();
+  var fastCount = 0;
+  window.addEventListener('scroll', function() {
+    var now = Date.now();
+    var velDelta = Math.abs(window.scrollY - lastSY);
+    var velTime = now - lastST;
+    var vel = velTime > 0 ? velDelta / velTime : 0;
+    if(vel > 2.5) {
+      fastCount++;
+      if(fastCount === 3) {
+        var pkgEl = document.getElementById('package');
+        if(pkgEl) {
+          pkgEl.style.transition = 'box-shadow 0.5s ease';
+          pkgEl.style.boxShadow = 'inset 0 0 0 1px rgba(61,122,138,0.2)';
+          setTimeout(function() { if(pkgEl) pkgEl.style.boxShadow = ''; }, 3000);
+        }
+      }
+    }
+    lastSY = window.scrollY;
+    lastST = now;
+  }, { passive: true });
+
+  // EXIT INTENT — scroll to CTA when cursor leaves viewport top
+  var exitFired = false;
+  document.addEventListener('mouseleave', function(e) {
+    if(e.clientY <= 0 && !exitFired && !bookingAttempted && scrollDepth > 20) {
+      exitFired = true;
+      var ctaEl = document.getElementById('cta');
+      if(ctaEl) window.scrollTo({ top: ctaEl.offsetTop - 80, behavior: 'smooth' });
+    }
+  });
+})();
 
 </script>
 </body>
