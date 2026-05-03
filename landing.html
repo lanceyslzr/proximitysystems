@@ -747,6 +747,89 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .ob-divider{height:1px;background:linear-gradient(to right,transparent,var(--border-b),transparent);margin:48px 0 0}
 
 /* MOBILE — up to 599px */
+
+/* ============================================================
+   LANDING PAGE VISUAL DIFFERENTIATION
+   Sales page feel — urgent, direct, problem-focused
+   ============================================================ */
+
+/* Pain section — red accent on eyebrow dot */
+#pain .eyebrow-dot {
+  background: var(--red) !important;
+  box-shadow: 0 0 7px rgba(224,88,88,0.5) !important;
+}
+#pain .eyebrow { color: var(--red) !important; }
+#pain .h2 em { color: var(--red) !important; }
+
+/* Pain section background — slightly warmer than mini-demo */
+#pain { background: rgba(224,88,88,0.03) !important; border-top: 1px solid rgba(224,88,88,0.08); border-bottom: 1px solid rgba(224,88,88,0.08); }
+
+/* Named enemy strip — stronger red border */
+.hero-enemy {
+  border-color: rgba(224,88,88,0.25) !important;
+  background: rgba(224,88,88,0.05) !important;
+}
+
+/* Hero pills — first pill gets "SALES" feel with teal dot */
+.pill:first-child .pill-dot { background: var(--green); box-shadow: 0 0 6px rgba(90,170,122,0.5); }
+
+/* Offer section guarantee — gold accent to reinforce value */
+.guarantee { border-color: rgba(200,169,110,0.2) !important; }
+
+/* Landing-specific nav differentiator — warmer teal */
+nav .nav-logo { letter-spacing: 4px; }
+
+/* CTA buttons on landing — slightly warmer */
+.btn { background: var(--teal) !important; }
+.btn:hover { background: var(--teal-lt) !important; }
+
+/* Pain row cost — red to reinforce urgency */
+.pain-cost { color: var(--red) !important; }
+
+
+/* ASYMMETRIC CUT — brand signature */
+.btn {
+  border-radius:0 !important;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);
+  transition:background 0.2s,transform 0.15s,clip-path 0.2s !important;
+}
+.btn:hover {
+  transform:translateY(-2px);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);
+}
+.btn-ghost {
+  border-radius:0 !important;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+}
+.btn-ghost:hover {
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%);
+}
+.nav-cta {
+  border-radius:0 !important;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%);
+}
+.bld-book-btn,.mf-submit,#f-submit {
+  border-radius:0 !important;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);
+}
+
+/* ============================================================
+   LEVEL 20 ADDITIONS
+   ============================================================ */
+
+/* LENIS */
+html.lenis{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto}
+.lenis.lenis-stopped{overflow:hidden}
+
+/* NOISE OVERLAY */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.35}
+
+/* CUSTOM CURSOR */
+.lp-cursor{position:fixed;width:5px;height:5px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
+.lp-cursor-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(61,122,138,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.25s ease,height 0.25s ease,border-color 0.25s ease}
+.lp-cursor-ring.hover{width:46px;height:46px;border-color:var(--teal)}
+
 @media(max-width:599px){
   /* Typography */
   .h1{font-size:40px;line-height:1.05}
@@ -851,7 +934,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   .sys-grid{grid-template-columns:1fr}
   .f-row{grid-template-columns:1fr}
   .hero-stats{grid-template-columns:repeat(3,1fr)}
-}
+
+  .lp-cursor,.lp-cursor-ring{display:none}
+  body{cursor:auto}
+  a,button{cursor:auto}}
 
 /* TABLET — 600px to 1023px */
 @media(min-width:600px) and (max-width:1023px){
@@ -928,8 +1014,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   .bld-compact-wrap{grid-template-columns:1fr 320px}
 }
 </style>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 </head>
 <body>
+<div class="lp-cursor" id="lpCursor"></div>
+<div class="lp-cursor-ring" id="lpCursorRing"></div>
 
 <div class="bg-glow"></div>
 <div class="bg-grid"></div>
@@ -948,12 +1037,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   <!-- LEFT COLUMN -->
   <div class="hero-left">
     <div class="hero-pills">
-      <div class="pill"><div class="pill-dot"></div>Live in Mississauga, ON</div>
+      <div class="pill" id="heroEyebrow"><div class="pill-dot"></div>Live in Mississauga, ON</div>
       <div class="pill"><div class="pill-dot"></div>10 systems running</div>
     </div>
     <h1 class="h1">Get <em>20 hours</em><br>back. We automate<br>your agency in <em>7 days.</em></h1>
-    <p class="sub">10 done-for-you systems — visit logging, invoicing, lead capture, family portal, and more. All running automatically without you touching any of it.</p>
-    <div class="hero-enemy">Right now you are stitching together <strong>spreadsheets, WhatsApp, and generic email tools</strong> that were never built for home care. That stack costs you 20 hours a week and loses leads while you sleep.</div>
+    <p class="sub" id="heroSub">10 done-for-you systems — visit logging, invoicing, lead capture, family portal, and more. All running automatically without you touching any of it.</p>
+    <div class="hero-enemy">Right now you are stitching together <strong style="color:var(--red)">spreadsheets, WhatsApp, and generic email tools</strong> that were never built for home care. That stack costs you 20 hours a week and loses leads while you sleep.</div>
     <div class="hero-proof-quote">
       <div class="hpq-stars">✓ &nbsp;Running live right now</div>
       <div class="hpq-text">"We built this on our own agency first. 12 PSWs. 15 clients. Thousands of hours logged. Zero admin hours."</div>
@@ -1304,6 +1393,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
           </div>
           <div class="f-group"><label class="f-label">Biggest Admin Problem</label><textarea class="f-textarea" id="f-pain" placeholder="What is eating the most of your time?"></textarea></div>
         </div>
+        <input type="hidden" id="utmSource" name="utm_source" value="">
+        <input type="hidden" id="utmMedium" name="utm_medium" value="">
+        <input type="hidden" id="utmCampaign" name="utm_campaign" value="">
+        <input type="hidden" id="pageSrc" name="page_src" value="">
         <div class="booking-footer">
           <button class="btn" id="f-submit" onclick="submitForm()" style="margin-bottom:8px">Book My Free Call</button>
           <div class="btn-note">Lance responds within a few hours · 647-382-8047</div>
@@ -1443,6 +1536,8 @@ const SYS=`You are a sales assistant for Proximity Systems. Your job is to book 
 
 Collect one at a time: name, agency name and city, biggest admin problem, phone or email.
 
+Pricing: from $3,000 setup (Tier 1 Essentials), $3,500 (Tier 2 Done For You — most popular, first month free), $5,000 (Tier 3 Scale With Me). All $500/mo recurring. 7 days to go live. We build first, you pay after.
+
 Rules: Short, warm, direct. Two sentences max. No bullets. No dashes. Plain English.
 Pricing: $3,500 setup then $500/mo. First month free. 7 days to go live. We build first, you pay after.
 
@@ -1481,6 +1576,143 @@ async function sendC(text){
 function toggleFaq(btn){const i=btn.parentElement;const was=i.classList.contains("open");document.querySelectorAll(".faq-item").forEach(x=>x.classList.remove("open"));if(!was)i.classList.add("open");}
 
 document.getElementById('chatInp').addEventListener('keydown',e=>{if(e.key==='Enter')doSend();});
+
+
+/* ============================================================
+   LEVEL 20 JS — landing page
+   Existing globals: LEAD_URL, RAIL, SYS, cH
+   New global: lpBooked (flag only)
+   ============================================================ */
+
+// LENIS
+(function initLenis(){
+  if(typeof Lenis==='undefined') return;
+  document.documentElement.style.scrollBehavior='auto';
+  var lenis=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true});
+  function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
+  requestAnimationFrame(raf);
+}());
+
+// CUSTOM CURSOR
+(function initCursor(){
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+  var dot=document.getElementById('lpCursor');
+  var ring=document.getElementById('lpCursorRing');
+  if(!dot||!ring) return;
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  (function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+  document.querySelectorAll('a,button,[data-hover]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.classList.add('hover');});
+    el.addEventListener('mouseleave',function(){ring.classList.remove('hover');});
+  });
+}());
+
+// BEHAVIOR ENGINE
+var lpBooked=false;
+
+(function initBehaviorEngine(){
+  var params=new URLSearchParams(window.location.search);
+  var src=params.get('src')||params.get('utm_source')||'direct';
+  var utmMed=params.get('utm_medium')||'';
+  var utmCamp=params.get('utm_campaign')||'';
+
+  // Populate UTM hidden fields
+  var el;
+  if((el=document.getElementById('utmSource')))   el.value=src;
+  if((el=document.getElementById('utmMedium')))   el.value=utmMed;
+  if((el=document.getElementById('utmCampaign'))) el.value=utmCamp;
+  if((el=document.getElementById('pageSrc')))     el.value=window.location.pathname;
+
+  // Source copy rewrite — eyebrow pill + sub headline
+  var eyebrow=document.getElementById('heroEyebrow');
+  var sub=document.getElementById('heroSub');
+  var copyMap={
+    linkedin:{
+      pill:'Built for home care operators',
+      sub:'10 done-for-you systems — visit logging, invoicing, lead capture, family portal, and more. Built on a live agency in Mississauga.'
+    },
+    email:{
+      pill:'Following up on your demo',
+      sub:'The system you saw is live right now. Here is what we would build for your agency in 7 days.'
+    },
+    demo:{
+      pill:'Ready to see it live',
+      sub:'This is the operating system behind Proximity Care Services. Every system running in production today.'
+    }
+  };
+  var copy=copyMap[src];
+  if(copy){
+    if(eyebrow){
+      var dot=eyebrow.querySelector('.pill-dot');
+      if(dot) dot.nextSibling ? dot.nextSibling.textContent=copy.pill : eyebrow.appendChild(document.createTextNode(copy.pill));
+      else eyebrow.textContent=copy.pill;
+    }
+    if(sub) sub.textContent=copy.sub;
+  }
+
+  // Booking flag
+  document.querySelectorAll('#f-submit,.bld-book-btn,a[href*="calendly"]').forEach(function(el){
+    el.addEventListener('click',function(){lpBooked=true;});
+  });
+
+  // Dwell beacon — fires at 90s if no booking
+  var scrollDepth=0;
+  window.addEventListener('scroll',function(){
+    var d=Math.round((window.scrollY/Math.max(1,document.body.scrollHeight-window.innerHeight))*100);
+    if(d>scrollDepth) scrollDepth=d;
+  },{passive:true});
+
+  setTimeout(function(){
+    if(lpBooked) return;
+    try{
+      fetch(LEAD_URL,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          type:'dwell_beacon',
+          source:src,
+          utm_medium:utmMed,
+          utm_campaign:utmCamp,
+          scroll_depth:scrollDepth,
+          dwell_seconds:90,
+          page:window.location.href,
+          timestamp:new Date().toISOString()
+        })
+      }).catch(function(){});
+    }catch(e){}
+  },90000);
+
+  // Scroll velocity — fast scroller gets offer section highlighted
+  var lastSY=0,lastST=Date.now(),fastCount=0;
+  window.addEventListener('scroll',function(){
+    var now=Date.now();
+    var vel=Math.abs(window.scrollY-lastSY)/Math.max(1,now-lastST);
+    if(vel>2.5){
+      fastCount++;
+      if(fastCount===3){
+        var offerEl=document.getElementById('offer');
+        if(offerEl){
+          offerEl.style.transition='box-shadow 0.5s ease';
+          offerEl.style.boxShadow='inset 0 0 0 1px rgba(61,122,138,0.2)';
+          setTimeout(function(){if(offerEl)offerEl.style.boxShadow='';},3000);
+        }
+      }
+    }
+    lastSY=window.scrollY;lastST=now;
+  },{passive:true});
+
+  // Exit intent — scroll to booking
+  var exitFired=false;
+  document.addEventListener('mouseleave',function(e){
+    if(e.clientY<=0&&!exitFired&&!lpBooked&&scrollDepth>20){
+      exitFired=true;
+      var bookEl=document.getElementById('booking');
+      if(bookEl) window.scrollTo({top:bookEl.offsetTop-80,behavior:'smooth'});
+    }
+  });
+}());
+
 </script>
 </body>
 </html>
