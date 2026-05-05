@@ -821,13 +821,41 @@ const SYS_META = {
 
 // ── AI SYSTEM PROMPT ────────────────────────────────────────────
 const AI_SYS = `You are the Proximity Systems assistant embedded in the OS configurator.
-Speak in Lance's voice: direct, confident, home care operator who built and runs a real agency.
-Know all 10 Proximity OS systems (S01-S10). Keep every answer under 3 sentences.
-No bullet points. No em dashes. No hedging.
-Pricing: $500/month, 7-day build, no long contracts.
-Integration: ADP, Stripe, QuickBooks, Xero all connect on top. Nothing gets replaced.
-Always end with one action: "Keep going — next section" or "Book a call" or "Comment SYSTEM".
-Never say you are an AI. Never say Claude.`;
+
+WHO YOU ARE:
+You speak in Lance's voice — direct, confident, a real home care operator who built and runs Proximity Care Services in Mississauga. You are talking to another home care operator who is actively building their personalised system right now.
+
+THE 10 PROXIMITY OS SYSTEMS:
+S01 PSW Visit Log — 30-second logging on phone, 30-item checklist, AI-generated visit notes, family confirmation
+S02 Auto Invoicing — hours flow from visit log to branded invoice plus PSW pay summary, AI care narrative embedded
+S03 Lead Capture and PSW Recruitment — chatbot replies under 60 seconds, lead beacon to HQ, applicant pipeline
+S04 Follow-Up Engine — Day 1, 3, 7, 30 emails fire automatically, never double-sends
+S05 Family Portal — PIN login, visit history, care plan, documents, free in every tier
+S06 AI Chat plus Voice AI — role-aware AI across 3 portals from one Railway endpoint, 24/7
+S07 Client and PSW Onboarding — 7-day automated, portal welcome, done-for-you
+S08 HQ Dashboard — every lead, visit, invoice, PSW in one real-time screen
+S09 PSW Portal plus Voice AI on Telnyx — covers every call type 24/7
+S10 Converting Website — free custom site connected to lead capture from day 1
+
+PRICING (always quote correctly):
+Tier 1 Essentials: $3,000 setup, $500 per month
+Tier 2 Done For You: $3,500 setup, $500 per month, first month free, MOST POPULAR
+Tier 3 Scale With Me: $5,000 setup, $500 per month
+We build first. You pay after it goes live. 7 days to go live.
+
+INTEGRATION RULE:
+Nothing gets ripped out. Proximity OS connects on top. ADP, Stripe, QuickBooks, Xero, AlayaCare, ShiftCare — all stay. Hours and invoices flow from the visit log into whatever billing system the operator already uses.
+
+RULES:
+- Two sentences maximum per reply
+- Speak operator-to-operator, no fluff, no sales talk
+- No bullet points, no em dashes, plain English
+- If they ask about pricing, give the exact tier numbers
+- If they ask which systems they need, reference what they have already selected on the right
+- If they ask something specific you cannot answer, say "Lance will cover that on a quick call"
+- Never say you are an AI or Claude
+- End most replies with one action like "Keep going to the next section" or "Send your blueprint to Lance" depending on where they are
+- Use their name and agency from the live context if you have it`;
 
 // ── STATE ───────────────────────────────────────────────────────
 let CUR=0, simFlipped=false, roiShown=false;
@@ -1401,7 +1429,7 @@ async function submitForm(){
     blueprint_slug:bpSlug,notify_email:NOTIFY,source:'proximity-configurator-v4',
   };
   try{
-    const r=await fetch(`${RAILWAY}/webhook/onboarding`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const r=await fetch(`${RAILWAY}/webhook/configurator`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     if(!r.ok)throw new Error();
     clearInterval(iv);
     document.getElementById('bpDoc').style.display='none';
@@ -1453,6 +1481,8 @@ function addMsg(text,isUser,targetId='chMsgs'){
 
 async function sendChatText(text,targetMsgs='chMsgs',targetTyping='typingRow',targetInp='chInp'){
   if(!text.trim())return;
+  if(window.chatProcessing) return; // prevent double-fire
+  window.chatProcessing = true;
   const inp=document.getElementById(targetInp);
   if(inp){inp.value='';inp.style.height='auto';}
   addMsg(text,true,targetMsgs);
@@ -1460,25 +1490,56 @@ async function sendChatText(text,targetMsgs='chMsgs',targetTyping='typingRow',ta
   const typing=document.getElementById(targetTyping);
   if(typing)typing.classList.add('show');
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    // Build live context from configurator state so the AI knows what they've already filled in
+    const liveContext = buildLiveContext();
+    const systemWithContext = AI_SYS + (liveContext ? '\n\nLIVE CONTEXT (what they have filled in so far):\n' + liveContext : '');
+
+    const res=await fetch(`${RAILWAY}/chat`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:280,
-        system:AI_SYS,
-        messages:chatHistory.slice(-8),
+        operator_id:'proximity-systems',
+        system_override: systemWithContext,
+        messages: chatHistory.slice(-8)
       })
     });
     const data=await res.json();
-    const reply=(data.content&&data.content[0]&&data.content[0].text)||'Ask Lance directly at proximitysystems.ca.';
+    const reply = data.response || 'Reach Lance directly at proximitysystems.ca.';
     chatHistory.push({role:'assistant',content:reply});
     if(typing)typing.classList.remove('show');
     addMsg(reply,false,targetMsgs);
   }catch(e){
     if(typing)typing.classList.remove('show');
-    addMsg('Ask Lance directly at proximitysystems.ca — he responds fast.',false,targetMsgs);
+    addMsg('Connection issue. Reach Lance directly at proximitysystems.ca.',false,targetMsgs);
+    console.error('Configurator chat error:', e);
+  } finally {
+    window.chatProcessing = false;
   }
+}
+
+// Build live context string from current configurator state for AI context
+function buildLiveContext() {
+  const parts = [];
+  const name = document.getElementById('f_name')?.value?.trim();
+  const agency = document.getElementById('f_agency')?.value?.trim();
+  const province = document.getElementById('f_province')?.value;
+  const city = document.getElementById('f_city')?.value?.trim();
+  const psws = document.getElementById('f_psws')?.value;
+  const clientCount = document.getElementById('f_clients')?.value;
+  const revenue = document.getElementById('f_revenue')?.value;
+
+  if (name) parts.push('User name: ' + name);
+  if (agency) parts.push('Agency: ' + agency);
+  if (city || province) parts.push('Location: ' + (city || '') + (province ? ', ' + province : ''));
+  if (psws) parts.push('PSW count: ' + psws);
+  if (clientCount) parts.push('Client count: ' + clientCount);
+  if (revenue) parts.push('Monthly revenue: ' + revenue);
+  if (careTypes && careTypes.length) parts.push('Care types: ' + careTypes.join(', '));
+  if (painPoints && painPoints.length) parts.push('Pain points selected: ' + painPoints.join(', '));
+  if (totalCost) parts.push('Estimated annual cost of pain: CAD $' + Number(totalCost).toLocaleString());
+  if (selectedSystems && selectedSystems.length) parts.push('Systems selected: ' + selectedSystems.join(', '));
+  if (CUR > 0) parts.push('Currently on section: ' + (CUR + 1) + ' of 5');
+  return parts.join('\n');
 }
 
 function sendChat(){
