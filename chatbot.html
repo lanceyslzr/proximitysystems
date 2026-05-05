@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Proximity Care Services — Chat With Us</title>
+<title>Proximity Systems — Chat With Us</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -516,7 +516,7 @@ var STAGE_CHIPS=[
   ['Morning 9-12','Afternoon 12-4','Evening 4-7']
 ];
 
-var AI_SYSTEM='You are a confident assistant for Proximity Systems, an AI automation agency for home care operators. You are speaking to a home care agency owner who has already booked a discovery call. Use what you know from the conversation \u2014 their name, agency size, pain point.\n\nABOUT THE SERVICE:\n- Full automation stack: lead capture, visit logs, family chatbot, PSW portal, client portal, invoicing, care summaries \u2014 10 systems total\n- Automation Only: $2,000 to $2,500 setup plus $500 per month\n- Automation plus Website: $2,800 to $3,200 setup plus $500 per month\n- Growth Package: $3,500 plus setup plus $750 per month\n- Live in 7 days or no setup fee\n- Built by Lance who runs his own home care agency in Mississauga\n\nRULES:\n- Never mention Calendly \u2014 booking is already done\n- Under 3 sentences per reply\n- Speak operator-to-operator \u2014 direct, confident, no fluff\n- Reference what you know about their agency from the conversation\n- If they ask something specific, answer it directly\n- If you cannot answer, say Lance will cover it on the call';
+var AI_SYSTEM='You are a confident assistant for Proximity Systems, an AI automation agency for home care operators in Canada and the Philippines. You are speaking to a home care agency owner who has already booked a discovery call with Lance. Use what you know from the conversation, including their name, agency size, and pain point.\n\nABOUT PROXIMITY SYSTEMS:\nWe build a complete operator OS for home care agencies. 10 systems, 5 layers, no further additions, depth only. Built and proven on a real live agency (Proximity Care Services, Mississauga).\n\nTHE 10 SYSTEMS (mention by name only if asked):\n01 Visit Logging \u2014 PSWs log shifts from phone in 60 seconds with 30-item checklist\n02 Auto Invoicing \u2014 one-click branded invoice plus PSW pay summary, AI care narrative embedded\n03 Lead Capture plus PSW Recruitment \u2014 chatbot replies under 60 seconds, lead beacon to HQ\n04 Follow-Up Engine \u2014 Day 1, 3, 7 emails fire automatically, never double-sends\n05 Family Portal \u2014 PIN login, visit history, care plan, documents, free in every tier\n06 AI Chat plus Voice \u2014 role-aware AI across 3 portals from one Railway endpoint\n07 Client plus PSW Onboarding \u2014 done-for-you, every competitor takes weeks\n08 HQ Dashboard \u2014 every lead, visit, invoice, PSW in one real-time screen\n09 PSW Management plus Voice AI on Telnyx \u2014 covers every call type 24/7\n10 Converting Website \u2014 free custom site connected to lead capture from day one\n\nCURRENT PRICING (always quote these exact numbers):\nTier 1 Essentials: $3,000 setup, $500 per month\nTier 2 Done For You: $3,500 setup, $500 per month, first month free, MOST POPULAR\nTier 3 Scale With Me: $5,000 setup, $500 per month\nWe build first, you pay after it is live. 7 days to go live.\n\nRULES, NEVER VIOLATE:\n- Never mention Calendly, booking is already done\n- Two sentences maximum per reply\n- Speak operator-to-operator, direct, confident, no fluff\n- No bullet points, no em dashes, plain English\n- Reference what you know about their agency from the conversation\n- If they ask something specific you cannot answer, say Lance will cover it on the call';
 
 var messagesEl=document.getElementById('chatMessages');
 var inputEl=document.getElementById('chatInput');
@@ -608,70 +608,236 @@ function advanceStage(answer){
           preferred_time:intake.day+' '+intake.time
         })
       }).catch(function(e){console.error('Booking webhook error:',e);});
+      // Switch to AI Q&A mode IMMEDIATELY so user can ask follow-ups right away
+      openChat=true;
       setTimeout(function(){
         var followUp='In the meantime, feel free to ask me anything about how the system works or what the setup looks like.';
         addMessage('assistant',followUp);
         chatHistory.push({role:'assistant',content:followUp});
-        openChat=true;
-      },3000);
+      },1500);
     },500);
   }
 }
 
+var chatProcessing = false;
+
+function showError(msg) {
+  var el = document.getElementById('errorBanner');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('visible');
+  setTimeout(function(){ el.classList.remove('visible'); }, 4000);
+}
+
+function isValidContact(text) {
+  // Accept email or phone (10+ digits)
+  var hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(text);
+  var digits = (text.match(/\d/g) || []).length;
+  var hasPhone = digits >= 10;
+  return hasEmail || hasPhone;
+}
+
+function detectSkipAhead(text) {
+  var lc = text.toLowerCase();
+  return (
+    /\bjust book\b/.test(lc) ||
+    /\bbook me\b/.test(lc) ||
+    /\bskip ahead\b/.test(lc) ||
+    /\b(skip|skip the|skip these) (questions|intake|stages|steps)\b/.test(lc) ||
+    /\bbook (a|the) call (now|please)\b/.test(lc) ||
+    /\bjust schedule\b/.test(lc) ||
+    /\blet's just talk\b/.test(lc)
+  );
+}
+
+function isAnswerToCurrentStage(text, stage) {
+  // For chip-driven stages (0,1,2,5,6) — check if their freeform text contains expected keywords
+  if (!STAGE_EXPECTED[stage]) return true; // freeform stage (3,4)
+  var lc = text.toLowerCase();
+  // Check if any expected option is contained in their text
+  return STAGE_EXPECTED[stage].some(function(opt) {
+    // Extract main keyword from option (e.g., "missed leads" → "leads")
+    var words = opt.toLowerCase().split(/\s+/);
+    return words.some(function(w) { return w.length > 3 && lc.includes(w); });
+  });
+}
+
 async function handleInput(text){
-  if(openChat){
-    addMessage('user',text);
-    chatHistory.push({role:'user',content:text});
-    chipsEl.innerHTML='';
+  if (chatProcessing) return;
+  if (!text || !text.trim()) return;
+  text = text.trim();
+  chatProcessing = true;
+
+  try {
+    // ── POST-BOOKING AI MODE ──
+    if(openChat){
+      addMessage('user',text);
+      chatHistory.push({role:'user',content:text});
+      chipsEl.innerHTML='';
+      showTyping();
+      try{
+        var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({operator_id:'proximity-systems',messages:chatHistory,system_override:AI_SYSTEM})
+        });
+        hideTyping();
+        var d=await r.json();
+        var reply=(d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
+        if(!reply) throw new Error('empty');
+        chatHistory.push({role:'assistant',content:reply});
+        addMessage('assistant',reply);
+      }catch(e){
+        hideTyping();
+        addMessage('assistant','Sorry, I had trouble connecting. Lance will reach out at your confirmed time.');
+        showError('Connection issue, retrying...');
+      }
+      return;
+    }
+
+    // ── SKIP-AHEAD DETECTION ──
+    // If user wants to skip the funnel, fast-forward to stage 5 (day picker)
+    if (detectSkipAhead(text) && chatStage < 5) {
+      addMessage('user',text);
+      chatHistory.push({role:'user',content:text});
+      // Fill missing intake with placeholders
+      if (!intake.role) intake.role = 'home care operator';
+      if (!intake.painPoint) intake.painPoint = 'general operations';
+      if (!intake.size) intake.size = 'not specified';
+      if (!intake.name) intake.name = 'New Lead';
+      if (!intake.contact) intake.contact = 'pending';
+      chatStage = 5;
+      setTimeout(function(){
+        var msg = 'Got it. Let me skip ahead and lock in a time. What day works for a quick discovery call?';
+        addMessage('assistant', msg);
+        chatHistory.push({role:'assistant', content: msg});
+        renderChips(STAGE_CHIPS[4]); // Monday-Friday chips
+        scrollToBottom();
+      }, 400);
+      return;
+    }
+
+    // ── INTAKE STAGES ──
+    var expected = STAGE_EXPECTED[chatStage];
+    var lc = text.toLowerCase().trim();
+
+    // Exact match against expected chip values
+    var isExpected = expected === null || (expected && expected.includes(lc));
+
+    // Case-insensitive partial match for chips that may have been retyped (e.g. "Monday" instead of "monday")
+    if (!isExpected && expected) {
+      isExpected = expected.some(function(opt){ return opt.toLowerCase() === lc; });
+    }
+
+    // Stage 4 (contact) — validate as email or phone
+    if (chatStage === 4) {
+      if (!isValidContact(text)) {
+        addMessage('user', text);
+        chatHistory.push({role:'user', content: text});
+        setTimeout(function(){
+          var msg = 'I need an email or phone number so Lance can reach you. What is the best way to contact you?';
+          addMessage('assistant', msg);
+          chatHistory.push({role:'assistant', content: msg});
+          scrollToBottom();
+        }, 400);
+        return;
+      }
+      // Valid contact → advance
+      addMessage('user', text);
+      advanceStage(text);
+      return;
+    }
+
+    // Stage 3 (name) — accept any non-empty text under 60 chars as a name
+    if (chatStage === 3) {
+      if (text.length > 60 || text.split(/\s+/).length > 6) {
+        // Too long to be a name — treat as a question
+        addMessage('user', text);
+        chatHistory.push({role:'user', content: text});
+        chipsEl.innerHTML = '';
+        showTyping();
+        try {
+          var r = await fetch('https://proximity-agent-production.up.railway.app/chat',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({operator_id:'proximity-systems',messages:chatHistory,system_override:AI_SYSTEM + '\n\nIMPORTANT: You are mid-intake. After you answer their question in 1 sentence, end with: "What is your name?"'})
+          });
+          hideTyping();
+          var d = await r.json();
+          var reply = (d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
+          if(!reply) throw new Error('empty');
+          chatHistory.push({role:'assistant', content: reply});
+          addMessage('assistant', reply);
+        } catch(e) {
+          hideTyping();
+          addMessage('assistant','Just need your name to lock this in.');
+        }
+        return;
+      }
+      addMessage('user', text);
+      advanceStage(text);
+      return;
+    }
+
+    // Stages 0, 1, 2, 5, 6 — chip-driven with smart freeform fallback
+    if (isExpected) {
+      addMessage('user', text);
+      advanceStage(text);
+      return;
+    }
+
+    // Smart freeform — check if their answer ACTUALLY matches the current stage's intent
+    if (isAnswerToCurrentStage(text, chatStage)) {
+      // They gave a valid answer in their own words — accept it and advance
+      addMessage('user', text);
+      // Map their freeform answer to the closest expected option for storage
+      var matched = expected.find(function(opt){
+        var words = opt.toLowerCase().split(/\s+/);
+        return words.some(function(w){ return w.length > 3 && lc.includes(w); });
+      });
+      advanceStage(matched || text);
+      return;
+    }
+
+    // True freeform question (asks AI something off-topic) → pause intake, AI answers, then re-prompt
+    addMessage('user', text);
+    chatHistory.push({role:'user', content: text});
+    chipsEl.innerHTML = '';
     showTyping();
-    try{
-      var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{
+    try {
+      var stageContext = chatStage === 0 ? 'do you run a home care agency'
+        : chatStage === 1 ? 'biggest pain point'
+        : chatStage === 2 ? 'how many clients you serve'
+        : chatStage === 5 ? 'what day works for the call'
+        : chatStage === 6 ? 'what time works'
+        : 'continue the booking flow';
+      var r = await fetch('https://proximity-agent-production.up.railway.app/chat',{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({operator_id:'proximity-systems',messages:chatHistory,system_override:AI_SYSTEM})
+        body:JSON.stringify({
+          operator_id:'proximity-systems',
+          messages:chatHistory,
+          system_override: AI_SYSTEM + '\n\nIMPORTANT: You are mid-intake. The user just asked a question instead of answering. Answer their question in 1 sentence then ask: "' + stageContext + '?"'
+        })
       });
       hideTyping();
-      var d=await r.json();
-      var reply=(d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
+      var d = await r.json();
+      var reply = (d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
       if(!reply) throw new Error('empty');
-      chatHistory.push({role:'assistant',content:reply});
-      addMessage('assistant',reply);
-    }catch(e){
+      chatHistory.push({role:'assistant', content: reply});
+      addMessage('assistant', reply);
+    } catch(e) {
       hideTyping();
-      addMessage('assistant','Sorry, I had trouble connecting. Lance will reach out at your confirmed time.');
+      addMessage('assistant','Connection issue. Try one of the options below.');
+      showError('Connection issue');
     }
-    return;
-  }
-
-  var expected=STAGE_EXPECTED[chatStage];
-  var isExpected=expected===null||expected.includes(text.toLowerCase().trim());
-  var isFreeform=!isExpected&&(text.includes('?')||text.split(' ').length>5);
-
-  if(isFreeform){
-    addMessage('user',text);
-    chatHistory.push({role:'user',content:text});
-    chipsEl.innerHTML='';
-    showTyping();
-    try{
-      var r=await fetch('https://proximity-agent-production.up.railway.app/chat',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({operator_id:'proximity-systems',messages:chatHistory,system_override:AI_SYSTEM})
-      });
-      hideTyping();
-      var d=await r.json();
-      var reply=(d.response||'').replace(/\*\*(.+?)\*\*/g,'$1');
-      if(!reply) throw new Error('empty');
-      chatHistory.push({role:'assistant',content:reply});
-      addMessage('assistant',reply);
-    }catch(e){
-      hideTyping();
-      addMessage('assistant','Sorry, I had trouble connecting. Lance will reach out at your confirmed time.');
+    // Re-render the chips for the current stage so user has a clear path forward
+    if (STAGE_CHIPS[chatStage > 0 ? chatStage - 1 : 0]) {
+      renderChips(STAGE_CHIPS[chatStage > 0 ? chatStage - 1 : 0]);
+    } else if (chatStage === 0) {
+      renderChips(['Yes I do','I\'m looking into it','I work at one']);
     }
-    renderChips(STAGE_EXPECTED[chatStage]?STAGE_CHIPS[chatStage>0?chatStage-1:0]:null);
-    return;
-  }
 
-  addMessage('user',text);
-  advanceStage(text);
+  } finally {
+    chatProcessing = false;
+  }
 }
 
 function sendMessage(){
