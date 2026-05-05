@@ -784,7 +784,13 @@ async function send(){
   sc();
   // Build context-aware system prompt including current slide
   var slideContext = 'The user is currently viewing slide: ' + (NAMES[cur]||'Overview') + ' (slide ' + cur + ' of ' + (NAMES.length-1) + '). Answer in context of what they are looking at.';
-  var fullSystem = 'You are the demo assistant for Proximity Systems — a done-for-you AI operating system for home care agencies in Canada. Answer questions about the 10 systems clearly and directly. Two sentences max. No bullets. No dashes. Plain English. Only mention booking if the user asks about next steps or pricing — never pitch unprompted. Pricing: Tier 1 $3,000 setup, Tier 2 $3,500 (most popular, first month free), Tier 3 $5,000. All $500/mo. We build first. You pay after it is live. 7 days to go live. The 10 systems: 01 Visit Logging — PSWs log from phone in 60 seconds, 02 Auto Invoicing — one button sends invoice and PSW pay summary, 03 Lead Capture — chatbot replies to every inquiry in under 60 seconds, 04 Follow-Up Engine — Day 1/3/7 emails fire automatically, 05 Family Portal — PIN login, visit history, care plan, documents, 06 AI Chat + Voice — trained on your agency, answers 24/7 including voice via Telnyx, 07 Client Onboarding — Day 0 welcome email fires automatically, 08 HQ Dashboard — every lead, visit, invoice and PSW in one real-time screen, 09 PSW Management — PSW portal on their phone, voice AI covers missed calls, 10 Converting Website — free custom agency site connected to lead capture from day one. ' + slideContext;
+  var fullSystem = 'You are the demo assistant for Proximity Systems, a done-for-you AI operating system for home care agencies in Canada. ' +
+    'Answer questions about the 10 systems clearly and directly. Two sentences max. No bullets. No dashes. Plain English. ' +
+    'After answering, if the user has asked 3 or more substantive questions and seems engaged, end your reply with one short line that nudges toward a discovery call, like "Want me to walk you through this on a 20 minute call with Lance?" Only nudge once every 3 turns, never every reply. ' +
+    'If the user asks about pricing, booking, getting started, or next steps, say "Tap the Book a discovery call button below to lock in a 20 minute call with Lance" and stop. ' +
+    'Pricing: Tier 1 $3,000 setup, Tier 2 $3,500 (most popular, first month free), Tier 3 $5,000. All $500/mo. We build first. You pay after it is live. 7 days to go live. ' +
+    'The 10 systems: 01 Visit Logging — PSWs log from phone in 60 seconds. 02 Auto Invoicing — one button sends invoice and PSW pay summary. 03 Lead Capture — chatbot replies to every inquiry in under 60 seconds. 04 Follow-Up Engine — Day 1, 3, 7 emails fire automatically. 05 Family Portal — PIN login, visit history, care plan, documents. 06 AI Chat plus Voice — trained on your agency, answers 24/7 including voice via Telnyx. 07 Client Onboarding — Day 0 welcome email fires automatically. 08 HQ Dashboard — every lead, visit, invoice and PSW in one real-time screen. 09 PSW Management — PSW portal on their phone, voice AI covers missed calls. 10 Converting Website — free custom agency site connected to lead capture from day one. ' +
+    slideContext;
   try{
     var r = await fetch(W, {
       method:'POST',
@@ -908,13 +914,18 @@ function getSmartChips(lastMsg, botReply, stage) {
   }
   return CHIP_MAP[slideKey] || CHIP_MAP['default'+Math.min(stage,2)] || CHIP_MAP.defaultEnd;
 }
-var demoStage=0,lastUserMsg='',bookingCaptured=false,chatConfig={system:null};
+var demoStage=0,lastUserMsg='',bookingCaptured=false,chatConfig={system:null},demoBookingShown=false;
 function renderDemoChips(msg, botReply) {
+  if (demoBookingShown) return; // Don't show chips while booking form is up
   lastUserMsg = msg || lastUserMsg;
   var wrap = document.getElementById('chips');
   wrap.innerHTML = '';
   wrap.style.display = '';
   var chips = getSmartChips(lastUserMsg, botReply, demoStage);
+  // From turn 2 onward, append a persistent Book Discovery Call CTA
+  if (demoStage >= 2 && !chips.includes('Book a discovery call')) {
+    chips = chips.slice(0, 2).concat(['Book a discovery call']);
+  }
   chips.forEach(function(c) {
     if (c === 'Visit proximitysystems.ca') {
       var a = document.createElement('a');
@@ -923,6 +934,15 @@ function renderDemoChips(msg, botReply) {
       a.href = 'https://proximitysystems.ca';
       a.target = '_blank';
       wrap.appendChild(a);
+    } else if (c === 'Book a discovery call') {
+      var btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.style.background = 'rgba(74,154,110,0.15)';
+      btn.style.borderColor = 'rgba(74,154,110,0.4)';
+      btn.style.color = 'var(--teal2)';
+      btn.textContent = '→ Book a discovery call';
+      btn.addEventListener('click', function() { showDemoBookingForm(); });
+      wrap.appendChild(btn);
     } else {
       var btn = document.createElement('button');
       btn.className = 'chip';
@@ -931,6 +951,122 @@ function renderDemoChips(msg, botReply) {
       wrap.appendChild(btn);
     }
   });
+}
+
+function showDemoBookingForm() {
+  if (demoBookingShown) return;
+  demoBookingShown = true;
+  var msgs = document.getElementById('msgs');
+  var chips = document.getElementById('chips');
+  if (chips) { chips.innerHTML = ''; chips.style.display = 'none'; }
+
+  // Add a brief assistant intro message
+  am('b', 'Here. Pick a time and Lance will call you for a 20 minute discovery call. He does every call personally.');
+
+  var card = document.createElement('div');
+  card.className = 'msg b';
+  card.id = 'demo-booking-card';
+  card.innerHTML =
+    '<div class="bub" style="background:var(--bg2);border-color:var(--border);padding:14px;width:100%;max-width:none">' +
+      '<div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal2);margin-bottom:10px">Book Your 20-Minute Discovery Call</div>' +
+      '<div style="display:flex;flex-direction:column;gap:8px">' +
+        '<input type="text" id="demo-bk-name" placeholder="Your name" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
+        '<input type="email" id="demo-bk-email" placeholder="Email" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
+        '<input type="tel" id="demo-bk-phone" placeholder="Phone (optional)" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
+        '<input type="text" id="demo-bk-agency" placeholder="Agency name and city" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
+        '<select id="demo-bk-clients" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
+          '<option value="">Active clients (rough number)</option>' +
+          '<option>Just starting (0)</option>' +
+          '<option>1 to 5</option>' +
+          '<option>6 to 15</option>' +
+          '<option>16 to 40</option>' +
+          '<option>40 plus</option>' +
+        '</select>' +
+        '<button id="demo-bk-submit" disabled style="background:var(--teal2);color:#fff;border:none;padding:11px;border-radius:5px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer;margin-top:4px">Lock in My Call</button>' +
+        '<div style="font-size:11px;color:var(--muted);text-align:center;margin-top:2px">Lance will reach out within 2 hours</div>' +
+      '</div>' +
+    '</div>';
+  msgs.appendChild(card);
+  sc();
+
+  // Live validation
+  function validateDemoBk() {
+    var name = document.getElementById('demo-bk-name').value.trim();
+    var email = document.getElementById('demo-bk-email').value.trim();
+    var agency = document.getElementById('demo-bk-agency').value.trim();
+    var clients = document.getElementById('demo-bk-clients').value;
+    var ok = name && email && agency && clients;
+    document.getElementById('demo-bk-submit').disabled = !ok;
+  }
+  ['demo-bk-name','demo-bk-email','demo-bk-phone','demo-bk-agency','demo-bk-clients'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', validateDemoBk);
+      el.addEventListener('change', validateDemoBk);
+    }
+  });
+
+  // Submit
+  document.getElementById('demo-bk-submit').addEventListener('click', function(){
+    submitDemoBooking();
+  });
+}
+
+async function submitDemoBooking() {
+  var btn = document.getElementById('demo-bk-submit');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.textContent = 'Booking...';
+
+  var name    = document.getElementById('demo-bk-name').value.trim();
+  var email   = document.getElementById('demo-bk-email').value.trim();
+  var phone   = document.getElementById('demo-bk-phone').value.trim();
+  var agency  = document.getElementById('demo-bk-agency').value.trim();
+  var clients = document.getElementById('demo-bk-clients').value;
+  var nm = name.split(/\s+/);
+
+  try {
+    await fetch('https://proximity-agent-production.up.railway.app/webhook/lead', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        operator_id: 'proximity-systems',
+        lead_type: 'operator',
+        first_name: nm.shift()||'',
+        last_name: nm.join(' '),
+        email: email,
+        phone: phone,
+        agency_name: agency,
+        client_count: clients,
+        source: 'demo_chat_booking',
+        slide_at_capture: NAMES[cur]||'',
+        message_count: demoStage,
+        last_question: lastUserMsg
+      })
+    });
+  } catch(e) { console.error('Booking webhook error:', e); }
+
+  // Replace card with confirmation
+  var card = document.getElementById('demo-booking-card');
+  if (card) card.remove();
+
+  am('b', 'Locked in. Lance will reach out within 2 hours to ' + email + '. He does every discovery call personally, expect a real conversation about your agency, not a sales pitch.');
+
+  // Restore chip area with informational chips
+  demoBookingShown = false;
+  var chipsEl = document.getElementById('chips');
+  if (chipsEl) {
+    chipsEl.style.display = '';
+    chipsEl.innerHTML = '';
+    var followups = ['What happens on the call?','How fast can you build my system?','Is everything customized to my agency?'];
+    followups.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = 'chip';
+      b.textContent = c;
+      b.addEventListener('click', function(){ sug(b); });
+      chipsEl.appendChild(b);
+    });
+  }
 }
 renderDemoChips();
 function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
