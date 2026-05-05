@@ -1254,23 +1254,47 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
 const RAILWAY_URL = 'https://proximity-agent-production.up.railway.app/chat';
 const WEBHOOK_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
 
-const SYSTEM_PROMPT = `You are a sales assistant for Proximity Systems — an AI automation agency that builds done-for-you back office systems for home care operators in Canada and the Philippines.
+const SYSTEM_PROMPT = `You are a sales assistant for Proximity Systems, an AI automation agency that builds done-for-you back office systems for home care operators in Canada and the Philippines.
 
-Your job: qualify the operator and book a free 20-minute discovery call with Lance Salazar.
+YOUR JOB: Qualify the operator in 4 short turns then output the BOOKING_READY block to trigger a booking form.
 
-Collect these in natural conversation, one at a time:
+Collect these in natural conversation, ONE QUESTION AT A TIME:
 1. Their name
 2. Agency name and city
-3. How many clients they serve
-4. Their biggest admin pain point
+3. How many active clients they serve
+4. Their biggest admin pain point (paperwork, billing, lead response, PSW management, etc)
 
-Once collected, confirm the booking and tell them Lance will reach out within 2 hours.
+THE FOUR-STRIKES RULE, NEVER VIOLATE:
+- Count user messages. The first user message is answer 1, the second is answer 2, etc.
+- After the user has given their 4th answer, your very next reply MUST be EXACTLY:
 
-Tone: direct, no fluff, no emojis, plain English. One question at a time. Short replies — never more than 3 sentences. Never use bullet points. Never use dashes.
+<!--BOOKING_READY:{"name":"[their name]","agency":"[agency and city]","clients":"[client count]","pain":"[pain point]"}-->
+Got everything I need. Pulling up booking now so you can lock in 20 minutes with Lance.
 
-Pricing: from $3,000 setup (Tier 1 Essentials), $3,500 (Tier 2 Done For You — most popular), $5,000 (Tier 3 Scale With Me). All $500/mo recurring. First month free on Tier 2. 7 days to go live. We build first, you pay after it is live.
+Replace bracketed values with what they actually said. If a field was vague, write your best inference. Never leave a field empty.
 
-If asked about specific systems: visit logging, auto invoicing, lead capture, family portal, AI chat and voice, follow-up engine, client and PSW onboarding, HQ dashboard, PSW management, converting website.`;
+CRITICAL FAILURE MODES:
+- Do NOT ask a 5th question. After the 4th user answer, output the booking block.
+- Do NOT summarize or confirm what you collected.
+- Do NOT ask for email or phone, the booking form handles that.
+- Do NOT split the booking trigger across two messages.
+- If the user explicitly asks to skip ahead and book, output the booking block immediately with whatever data you have, using "not yet specified" for missing fields.
+
+TONE:
+- Direct, no fluff, no emojis, plain English
+- One question at a time
+- Two sentences maximum per reply
+- Never use bullet points or em dashes
+- If the user asks about pricing or systems mid-flow, answer in one sentence then ask the next intake question
+
+PRICING (for context, do not pitch unprompted):
+- Tier 1 Essentials: $3,000 setup, $500/mo
+- Tier 2 Done For You: $3,500 setup, $500/mo, first month free, MOST POPULAR
+- Tier 3 Scale With Me: $5,000 setup, $500/mo
+- 7 days to go live. We build first, you pay after it is live.
+
+THE 10 SYSTEMS (only mention if asked specifically):
+Visit logging, auto invoicing, lead capture, family portal, AI chat and voice, follow-up engine, client and PSW onboarding, HQ dashboard, PSW management, converting website.`;
 
 /* ============================================================
    STATE
@@ -1636,8 +1660,19 @@ function renderChips(chips) {
   container.innerHTML = '';
   chips.forEach(function(chip) {
     var btn = document.createElement('button');
-    btn.className = 'chat-chip'; btn.textContent = chip;
-    btn.addEventListener('click', function() { sendChat(chip); });
+    btn.className = 'chat-chip';
+    btn.textContent = chip;
+    if (chip === 'Skip ahead and book' || chip === 'Book a call') {
+      btn.style.background = 'rgba(74,154,110,0.2)';
+      btn.style.borderColor = 'rgba(74,154,110,0.4)';
+      btn.style.color = '#4a9a6e';
+      btn.addEventListener('click', function() {
+        // Force-trigger booking with whatever we know
+        sendChat('Skip ahead and book my call');
+      });
+    } else {
+      btn.addEventListener('click', function() { sendChat(chip); });
+    }
     container.appendChild(btn);
   });
 }
@@ -1656,6 +1691,20 @@ async function sendChat(text) {
   chatBusy = true;
   document.getElementById('chatSendBtn').disabled = true;
   showTyping();
+
+  // Count user turns to force booking after 4
+  var userTurns = chatHistory.filter(function(m){ return m.role === 'user'; }).length;
+  var shouldForceBooking = userTurns >= 4 && !leadCaptured;
+  var lc = text.toLowerCase();
+  var userWantsToSkip = (
+    /\bskip\b/.test(lc) ||
+    /\bbook (a call|now|me|us|the call|my call)\b/.test(lc) ||
+    /\bschedule (a|the|my|me|us|now)\b/.test(lc) ||
+    /\bjust (book|get) me\b/.test(lc) ||
+    /\blet's book\b/.test(lc) ||
+    /\bbook it\b/.test(lc)
+  );
+
   try {
     var r = await fetch(RAILWAY_URL, {
       method: 'POST',
@@ -1665,20 +1714,37 @@ async function sendChat(text) {
     var data = await r.json();
     hideTyping();
     var raw  = data.response || 'Something went wrong. Call Lance at 647-382-8047.';
-    var lm   = raw.match(/<!--\s*LEAD_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
+
+    // Detect BOOKING_READY marker from AI
+    var bm    = raw.match(/<!--\s*BOOKING_READY\s*:\s*(\{[\s\S]*?\})\s*-->/);
+    // Backwards compat for old LEAD_DATA marker
+    var lm    = raw.match(/<!--\s*LEAD_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
     var reply = raw.replace(/<!--[\s\S]*?-->/g, '').trim();
+
+    // FORCE BOOKING FAILSAFE
+    var leadData = null;
+    if (bm) {
+      try { leadData = JSON.parse(bm[1]); } catch(e) { leadData = {}; }
+    } else if (lm) {
+      try { leadData = JSON.parse(lm[1]); } catch(e) { leadData = {}; }
+    } else if ((shouldForceBooking || userWantsToSkip) && !leadCaptured) {
+      leadData = {}; // force trigger with whatever we have
+      reply = "Got everything I need. Pulling up booking now so you can lock in 20 minutes with Lance.";
+    }
+
     chatHistory.push({ role: 'assistant', content: reply });
     appendMsg('assistant', reply);
-    if (lm && !leadCaptured) {
+
+    if (leadData && !leadCaptured) {
       leadCaptured = true;
-      try {
-        var ld = JSON.parse(lm[1]);
-        fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ operator_id: 'proximity-systems', lead_type: 'operator', source: 'mini-demo chat' }, ld)) }).catch(function(){});
-      } catch(e) {}
-    }
-    if (!chipsRendered && chatHistory.length >= 4) {
+      // Show inline booking form right after the assistant message
+      setTimeout(function(){ showMiniDemoBookingForm(leadData); }, 600);
+      // Hide chip area while form is open
+      var chipsEl = document.getElementById('chatChips');
+      if (chipsEl) chipsEl.innerHTML = '';
+    } else if (!chipsRendered && chatHistory.length >= 4) {
       chipsRendered = true;
-      renderChips(['Tell me about pricing', 'How does this work?', 'Book a call']);
+      renderChips(['Tell me about pricing', 'How does this work?', 'Skip ahead and book']);
     }
   } catch(e) {
     hideTyping();
@@ -1687,6 +1753,97 @@ async function sendChat(text) {
   chatBusy = false;
   document.getElementById('chatSendBtn').disabled = false;
   document.getElementById('chatInput').focus();
+}
+
+function showMiniDemoBookingForm(leadData) {
+  var msgs = document.getElementById('chatMsgs');
+  if (!msgs) return;
+  if (document.getElementById('mini-bk-card')) return; // guard against duplicate
+
+  var card = document.createElement('div');
+  card.className = 'cmsg assistant';
+  card.id = 'mini-bk-card';
+  card.style.maxWidth = 'none';
+  card.innerHTML =
+    '<div class="cmsg-bub" style="width:100%;max-width:none;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1)">' +
+      '<div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:10px;font-family:ui-monospace,monospace">Lock In Your Discovery Call</div>' +
+      '<div style="display:flex;flex-direction:column;gap:8px">' +
+        '<input type="email" id="mini-bk-email" placeholder="Email" style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:10px 12px;border-radius:6px;font-size:13px;font-family:inherit;outline:none">' +
+        '<input type="tel" id="mini-bk-phone" placeholder="Phone (optional but speeds things up)" style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:10px 12px;border-radius:6px;font-size:13px;font-family:inherit;outline:none">' +
+        '<button id="mini-bk-submit" disabled style="background:#3d8a7a;color:#fff;border:none;padding:11px;border-radius:6px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer;margin-top:4px;opacity:0.5">Book My Discovery Call</button>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-top:2px">Lance will call you within 2 hours, no sales pitch</div>' +
+      '</div>' +
+    '</div>';
+  msgs.appendChild(card);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  function validate() {
+    var email = document.getElementById('mini-bk-email').value.trim();
+    var btn = document.getElementById('mini-bk-submit');
+    var ok = email.length > 4 && email.indexOf('@') > 0;
+    btn.disabled = !ok;
+    btn.style.opacity = ok ? '1' : '0.5';
+  }
+  document.getElementById('mini-bk-email').addEventListener('input', validate);
+  document.getElementById('mini-bk-phone').addEventListener('input', validate);
+
+  document.getElementById('mini-bk-submit').addEventListener('click', function(){
+    submitMiniDemoBooking(leadData);
+  });
+
+  // Disable input area
+  var inp = document.getElementById('chatInput');
+  if (inp) { inp.disabled = true; inp.placeholder = 'Fill in the form above to book'; }
+}
+
+async function submitMiniDemoBooking(leadData) {
+  var btn = document.getElementById('mini-bk-submit');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.textContent = 'Booking...';
+
+  var email = document.getElementById('mini-bk-email').value.trim();
+  var phone = document.getElementById('mini-bk-phone').value.trim();
+
+  // Parse name from leadData if available
+  var fullName = (leadData && leadData.name) ? leadData.name : '';
+  var nm = fullName.split(/\s+/);
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operator_id: 'proximity-systems',
+        lead_type: 'operator',
+        first_name: nm.shift() || fullName,
+        last_name: nm.join(' '),
+        email: email,
+        phone: phone,
+        agency_name: (leadData && leadData.agency) || '',
+        client_count: (leadData && leadData.clients) || '',
+        pain_point: (leadData && leadData.pain) || '',
+        source: 'mini-demo chat booking'
+      })
+    });
+  } catch(e) { console.error('Booking webhook error:', e); }
+
+  // Replace card with confirmation
+  var card = document.getElementById('mini-bk-card');
+  if (card) card.remove();
+
+  appendMsg('assistant', "Locked in. Lance will reach out within 2 hours to " + email + ". He does every discovery call personally, expect a real conversation about your agency, not a sales pitch.");
+
+  // Re-enable input for follow-up questions
+  var inp = document.getElementById('chatInput');
+  if (inp) {
+    inp.disabled = false;
+    inp.placeholder = 'Ask anything else...';
+    setTimeout(function(){ inp.focus(); }, 100);
+  }
+
+  // Show post-booking chips
+  renderChips(['What happens on the call?','How fast can you build my system?','What is in Tier 2?']);
 }
 
 /* ============================================================
