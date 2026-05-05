@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Build Your OS — Proximity Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf8f4;--cream2:#f2ede4;--white:#fff;
+  --ink:#111;--sub:#2a2a2a;--muted:#666;--dim:#999;
+  --border:#d8d0c4;--border2:#c0b09a;
+  --dk:#07090c;--dk2:#0d1117;--dk3:#111820;
+  --dk-b:rgba(106,180,200,.12);--dk-b2:rgba(106,180,200,.22);
+  --teal:#1e7d96;--teal2:#6ab4c8;--teal-l:#eaf5f9;--teal-m:#b8e2f0;
+  --green:#1e8a52;--green2:#3fb950;--green-l:#eaf6f0;--green-m:#9ed8b8;
+  --gold:#b87010;--gold-l:#fef5e4;
+  --red:#c8321a;--red-l:#fdf2ef;--red-m:#f5c4b8;
+  --amber:#e0b96a;--amber-l:#fef8ec;
+}
+html{background:var(--dk)}
+body{font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;color:var(--ink);-webkit-font-smoothing:antialiased;cursor:none;overflow:hidden}
+@media(hover:none){body{cursor:auto}}
+
+/* ─ KEYFRAMES ─ */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes glow2{0%,100%{box-shadow:0 0 6px var(--green2)}50%{box-shadow:0 0 16px var(--green2)}}
+@keyframes fin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cff{0%{transform:translateY(-20px)rotate(0);opacity:1}85%{opacity:1}100%{transform:translateY(110vh)rotate(800deg);opacity:0}}
+@keyframes trow{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes pipe{0%{width:0;opacity:0}8%{opacity:1}100%{width:100%;opacity:0}}
+@keyframes alert-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.01)}}
+@keyframes cost-grow{from{width:0}to{width:100%}}
+@keyframes flip-out{0%{transform:perspective(800px) rotateY(0)}100%{transform:perspective(800px) rotateY(-90deg);opacity:0}}
+@keyframes flip-in{0%{transform:perspective(800px) rotateY(90deg);opacity:0}100%{transform:perspective(800px) rotateY(0);opacity:1}}
+@keyframes msg-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+
+/* ─ CURSOR ─ */
+#cur{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--teal2);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-r{position:fixed;width:22px;height:22px;border-radius:50%;border:1px solid rgba(106,180,200,.3);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .13s,top .13s,width .18s,height .18s}
+@media(hover:none){#cur,#cur-r{display:none}}
+
+/* ─ CONFETTI ─ */
+.cfw{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+.cf{position:absolute;animation:cff linear forwards}
+
+/* ─ INTRO ─ */
+#intro{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;background:var(--dk);overflow:hidden}
+#intro-c{position:absolute;inset:0;pointer-events:none}
+.i-inner{position:relative;z-index:2;text-align:center;padding:0 20px;max-width:580px}
+.i-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5.5vw,68px);letter-spacing:6px;text-transform:uppercase;color:#f0ece4;opacity:0;transform:translateY(22px);line-height:.95}
+.i-logo em{color:var(--teal2);font-style:italic}
+.i-rule{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--teal2),transparent);margin:18px auto}
+.i-sub{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:5px;text-transform:uppercase;color:rgba(240,236,228,.28);opacity:0;margin-bottom:28px}
+.i-chips{display:flex;gap:0;justify-content:center;margin-bottom:30px;opacity:0}
+.i-chip{padding:9px 20px;border:1px solid rgba(255,255,255,.08);text-align:center}
+.i-chip+.i-chip{border-left:none}
+.i-chip-n{font-family:'DM Mono',monospace;font-size:19px;font-weight:700;color:var(--teal2);line-height:1}
+.i-chip-l{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:2px;color:rgba(255,255,255,.22);text-transform:uppercase;margin-top:3px}
+.i-cta{opacity:0}
+.i-btn{background:transparent;border:1px solid rgba(106,180,200,.32);color:var(--teal2);font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;padding:13px 38px;cursor:pointer;transition:all .3s;min-height:48px}
+.i-btn:hover{background:rgba(106,180,200,.08);border-color:var(--teal2)}
+.i-note{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(255,255,255,.15);margin-top:12px;letter-spacing:1px}
+
+/* ─ APP SHELL ─ */
+.app{display:none;height:100vh;background:var(--dk);flex-direction:column}
+.app.show{display:flex;animation:fin .4s ease}
+
+/* ─ TOP BAR ─ */
+.tb{background:rgba(7,9,12,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--dk-b);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;flex-shrink:0;z-index:50}
+.tb-l{display:flex;align-items:center;gap:12px}
+.tb-logo{font-family:'Cormorant Garamond',serif;font-size:12.5px;letter-spacing:4px;text-transform:uppercase;color:#f0ece4}
+.tb-logo em{color:var(--teal2);font-style:italic}
+.tb-ver{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;color:rgba(106,180,200,.4);border:1px solid var(--dk-b);padding:2px 6px}
+.tb-r{display:flex;align-items:center;gap:14px}
+.tb-save{font-family:'DM Mono',monospace;font-size:8px;color:var(--green2);opacity:0;transition:opacity .3s;letter-spacing:1px}
+.tb-save.show{opacity:1}
+.tb-step{font-family:'DM Mono',monospace;font-size:8px;color:rgba(240,236,228,.28);letter-spacing:1px}
+.tb-step strong{color:#f0ece4}
+.tb-live{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;color:rgba(240,236,228,.3);text-transform:uppercase}
+.tb-ldot{width:5px;height:5px;border-radius:50%;background:var(--green2);animation:glow2 2s infinite}
+.pgbar{background:rgba(106,180,200,.05);height:2px;flex-shrink:0}
+.pgf{height:100%;background:linear-gradient(90deg,var(--teal2),var(--green2));transition:width .6s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--teal2);width:0}
+
+/* ─ WORKSPACE ─ */
+.ws{display:grid;grid-template-columns:440px 1fr 280px;flex:1;overflow:hidden;min-height:0}
+
+/* ─ LEFT FORM ─ */
+.form-col{background:var(--cream);overflow-y:auto;display:flex;flex-direction:column;min-width:0}
+.form-col::-webkit-scrollbar{width:3px}
+.form-col::-webkit-scrollbar-thumb{background:var(--border)}
+
+/* Section nav */
+.snav{display:flex;align-items:center;padding:16px 24px 0;border-bottom:1px solid var(--border);flex-shrink:0}
+.sn-w{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding-bottom:10px}
+.snd{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8.5px;font-weight:700;color:var(--dim);background:var(--white);transition:all .3s;flex-shrink:0}
+.snd.act{border-color:var(--teal);color:var(--teal);background:var(--teal-l);box-shadow:0 0 0 3px rgba(30,125,150,.1)}
+.snd.done{border-color:var(--green);color:var(--white);background:var(--green)}
+.snlbl{font-family:'DM Mono',monospace;font-size:6.5px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.snd.act+.snlbl{color:var(--teal)}
+.snd.done+.snlbl{color:var(--green)}
+.snline{flex:1;height:1.5px;background:var(--border);margin-bottom:18px;transition:background .4s}
+.snline.done{background:var(--green)}
+.pipe-bar{height:2.5px;background:var(--border);overflow:hidden;position:relative;flex-shrink:0}
+.pipe-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--teal2),var(--green2));width:0;box-shadow:0 0 6px var(--teal2)}
+
+/* Sections */
+.sec{display:none;padding:20px 24px 72px;flex:1}
+.sec.active{display:block;animation:fin .28s ease}
+.s-tag{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.s-tag::before{content:'';width:14px;height:1px;background:var(--teal);opacity:.45}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:600;line-height:1.1;margin-bottom:5px;color:var(--ink)}
+.s-title em{font-style:italic;color:var(--teal)}
+.s-sub{font-size:10.5px;color:var(--muted);margin-bottom:18px;line-height:1.75;max-width:380px}
+
+/* Fields */
+.f{margin-bottom:12px;opacity:0;transform:translateY(7px);transition:opacity .32s,transform .32s}
+.f.vis{opacity:1;transform:none}
+.f-lbl{display:block;font-size:10.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.f-opt{font-size:8.5px;color:var(--dim);font-weight:400;margin-left:4px}
+.f-tip{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--teal);background:var(--teal-l);border:1px solid var(--teal-m);padding:5px 9px;margin-top:5px;line-height:1.5}
+.f-wrap{position:relative}
+.f-ck{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--green);font-size:10px;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:700}
+.f-ck.show{opacity:1}
+.gr2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+input.fi,textarea.fi,select.fi{width:100%;background:var(--white);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:500;padding:9px 30px 9px 11px;outline:none;appearance:none;-webkit-appearance:none;transition:border-color .2s,box-shadow .2s;line-height:1.5;border-radius:0}
+input.fi:focus,select.fi:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(30,125,150,.1)}
+input.fi.ok{border-color:var(--green-m)}
+input.fi::placeholder{color:var(--dim);font-weight:400}
+select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath fill='%23999' d='M5 7L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:26px;cursor:pointer}
+textarea.fi{resize:vertical;min-height:64px;padding-right:11px;font-size:15px}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chip{padding:5px 11px;border:1.5px solid var(--border);font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);cursor:pointer;user-select:none;transition:all .16s;background:var(--white);letter-spacing:.3px}
+.chip:hover{border-color:var(--teal);color:var(--teal)}
+.chip.on{border-color:var(--teal);color:var(--teal);background:var(--teal-l)}
+
+/* Cost ticker */
+.cost-ticker{margin-top:12px;padding:10px 14px;background:var(--red-l);border:1.5px solid var(--red-m);display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+.ct-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+.ct-amount{font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:var(--red);line-height:1;transition:all .4s}
+.ct-sub{font-family:'DM Mono',monospace;font-size:7.5px;color:var(--red);opacity:.6;margin-top:3px;letter-spacing:.5px}
+.cost-bar-wrap{height:3px;background:var(--red-m);margin-top:8px;border-radius:1px;overflow:hidden}
+.cost-bar-fill{height:100%;background:var(--red);border-radius:1px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+
+/* Choice cards */
+.choices{display:grid;gap:5px;margin-top:5px}
+.c3{grid-template-columns:1fr 1fr 1fr}
+.c4{grid-template-columns:1fr 1fr 1fr 1fr}
+.choice{background:var(--white);border:1.5px solid var(--border);padding:10px 8px;cursor:pointer;transition:all .16s;text-align:center;user-select:none}
+.choice:hover{border-color:var(--teal);background:var(--teal-l)}
+.choice.on{border-color:var(--teal);background:var(--teal-l);box-shadow:0 0 0 3px rgba(30,125,150,.08)}
+.choice-icon{font-size:1.2rem;margin-bottom:3px}
+.choice-label{font-size:10.5px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.choice-sub{font-family:'DM Mono',monospace;font-size:7.5px;color:var(--muted);line-height:1.3}
+
+/* System toggles */
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:5px}
+.stog{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;transition:all .18s;user-select:none}
+.stog:hover{border-color:var(--teal);background:var(--teal-l)}
+.stog.on{border-color:var(--teal);background:var(--teal-l)}
+.stchk{width:13px;height:13px;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .18s;font-size:7.5px;font-weight:700}
+.stog.on .stchk{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.st-id{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:1px}
+.st-nm{font-size:10px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:1px}
+.st-sb{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);line-height:1.3}
+
+/* Nav row */
+.nav-row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1.5px solid var(--border)}
+.btn-bk{background:none;border:1.5px solid var(--border);color:var(--muted);font-size:10px;font-weight:700;padding:8px 16px;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:1px;transition:all .2s}
+.btn-bk:hover{border-color:var(--teal);color:var(--teal)}
+.btn-nx{background:var(--ink);border:none;color:var(--white);font-size:10px;font-weight:700;padding:9px 22px;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:7px}
+.btn-nx:hover{background:var(--teal)}
+.btn-arr{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:7px;flex-shrink:0}
+
+/* Toast */
+.toast{position:fixed;top:56px;left:50%;transform:translateX(-50%) translateY(-8px);background:var(--dk);border:1px solid rgba(106,180,200,.28);color:var(--teal2);font-family:'DM Mono',monospace;font-size:8.5px;padding:5px 16px;opacity:0;transition:all .3s;pointer-events:none;z-index:500;letter-spacing:1px;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── BLUEPRINT ── */
+.bp-doc{background:var(--white);border:2px solid var(--ink);margin-bottom:18px;position:relative;overflow:hidden}
+.bp-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;opacity:.022;font-family:'Cormorant Garamond',serif;font-size:110px;font-weight:700;color:var(--ink);letter-spacing:-2px;transform:rotate(-25deg);white-space:nowrap;user-select:none}
+.bp-in{position:relative;z-index:1;padding:20px}
+.bp-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:14px;border-bottom:1.5px solid var(--border);margin-bottom:14px}
+.bp-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink);line-height:1.1}
+.bp-name em{font-style:italic;color:var(--teal)}
+.bp-sub{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);margin-top:4px;letter-spacing:.4px}
+.bp-stamp{background:var(--green-l);border:2px solid var(--green);padding:7px 12px;text-align:center}
+.bp-st-top{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:2px}
+.bp-st-n{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--green);line-height:1}
+.bp-st-sub{font-family:'DM Mono',monospace;font-size:6.5px;color:var(--green);opacity:.6;letter-spacing:1px;margin-top:2px}
+.bp-url{background:var(--dk2);border:1px solid var(--dk-b2);padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bp-url-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(106,180,200,.5);margin-bottom:4px}
+.bp-url-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--teal2);letter-spacing:.3px}
+.bp-url-copy{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal2);border:1px solid rgba(106,180,200,.3);padding:4px 10px;cursor:pointer;background:transparent;transition:all .2s;flex-shrink:0}
+.bp-url-copy:hover{background:rgba(106,180,200,.1)}
+.bp-url-copy.copied{color:var(--green2);border-color:rgba(63,185,80,.3)}
+.bp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:14px}
+.bp-m{background:var(--cream);padding:10px;text-align:center}
+.bp-ml{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.bp-mv{font-family:'DM Mono',monospace;font-size:16px;font-weight:700;color:var(--teal);line-height:1}
+.bp-ms{font-family:'DM Mono',monospace;font-size:7.5px;color:var(--muted);margin-top:2px}
+.bp-order-lbl{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.bp-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+.bp-row:last-child{border:none}
+.bp-rn{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--dim);width:20px;text-align:right;flex-shrink:0}
+.bp-rid{font-family:'DM Mono',monospace;font-size:8.5px;font-weight:700;width:30px;flex-shrink:0}
+.bp-rnm{font-size:10.5px;font-weight:700;color:var(--ink);flex:1}
+.bp-rwhy{font-family:'DM Mono',monospace;font-size:7.5px;color:var(--muted);text-align:right;max-width:120px;line-height:1.4}
+.bp-bar{height:2px;background:var(--border);margin-top:3px;border-radius:1px;overflow:hidden;width:50px;flex-shrink:0}
+.bp-barf{height:100%;border-radius:1px;transition:width 1s ease .4s}
+.bp-cta{background:var(--teal-l);border-top:1.5px solid var(--teal-m);padding:14px;text-align:center}
+.bp-cta-txt{font-size:10.5px;color:var(--sub);line-height:1.65;margin-bottom:10px}
+.bp-cta-txt strong{color:var(--ink);font-weight:700}
+.bp-send{background:var(--ink);color:var(--white);border:none;padding:11px 24px;font-family:'DM Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.bp-send:hover{background:var(--teal)}
+.bp-send:disabled{opacity:.4;cursor:not-allowed}
+
+/* Success */
+.success-scr{display:none;padding:4rem 2rem;text-align:center;background:var(--cream)}
+.success-scr.show{display:block;animation:fin .5s ease}
+.s-icon{width:58px;height:58px;border-radius:50%;background:var(--green-l);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.4rem;animation:pop .4s .1s both cubic-bezier(.34,1.56,.64,1)}
+.s-nm{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--ink);margin-bottom:7px}
+.s-nm em{color:var(--teal);font-style:italic}
+.s-msg{font-size:10.5px;color:var(--muted);line-height:1.8;max-width:380px;margin:0 auto 24px}
+.s-tl{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:480px;margin:0 auto}
+.s-tc{background:var(--white);border:1.5px solid var(--border);padding:9px}
+.s-tc.now{border-color:var(--teal-m);background:var(--teal-l)}
+.s-tn{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);margin-bottom:3px;letter-spacing:1px}
+.s-tt{font-size:10px;font-weight:700;color:var(--ink);line-height:1.3}
+.s-tc.now .s-tt{color:var(--teal)}
+
+/* ─ CENTRE SIMULATION PANEL ─ */
+.sim-col{background:var(--dk2);border-left:1px solid var(--dk-b);border-right:1px solid var(--dk-b);display:flex;flex-direction:column;overflow:hidden;position:relative}
+.sim-head{padding:12px 16px;border-bottom:1px solid var(--dk-b);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sim-hl{display:flex;align-items:center;gap:7px}
+.sim-ldot{width:5px;height:5px;border-radius:50%;background:var(--green2);box-shadow:0 0 8px var(--green2);animation:glow2 2s infinite}
+.sim-htitle{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(240,236,228,.45)}
+.sim-mode-badge{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;border-radius:10px;transition:all .4s}
+.sim-mode-badge.bad{color:rgba(200,50,26,.8);border-color:rgba(200,50,26,.3);background:rgba(200,50,26,.07)}
+.sim-mode-badge.good{color:var(--green2);border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.07)}
+
+/* Simulation body — contains two modes */
+.sim-body{flex:1;overflow:hidden;position:relative}
+.sim-mode{position:absolute;inset:0;overflow-y:auto;padding:14px;transition:opacity .3s}
+.sim-mode::-webkit-scrollbar{width:2px}
+.sim-mode::-webkit-scrollbar-thumb{background:var(--dk-b)}
+
+/* Mode A — broken agency */
+.sim-agency-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#f0ece4;margin-bottom:2px;min-height:20px;transition:all .3s}
+.sim-agency-name em{color:var(--teal2);font-style:italic}
+.sim-agency-sub{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(106,180,200,.45);margin-bottom:12px;letter-spacing:.4px;min-height:11px}
+.sim-section-lbl{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(240,236,228,.2);margin-bottom:7px}
+
+/* Alert cards */
+.alert-card{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border:1px solid;border-radius:2px;margin-bottom:5px;transition:all .4s;opacity:.25}
+.alert-card.lit{opacity:1;animation:alert-pulse 2s ease-in-out infinite}
+.alert-card.red{border-color:rgba(200,50,26,.3);background:rgba(200,50,26,.07)}
+.alert-card.amber{border-color:rgba(224,185,106,.25);background:rgba(224,185,106,.06)}
+.alert-card.resolved{border-color:rgba(63,185,80,.25);background:rgba(63,185,80,.06);opacity:1;animation:none}
+.alert-ico{width:22px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.alert-card.red .alert-ico{background:rgba(200,50,26,.15)}
+.alert-card.amber .alert-ico{background:rgba(224,185,106,.12)}
+.alert-card.resolved .alert-ico{background:rgba(63,185,80,.12)}
+.alert-title{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;color:#f0ece4;margin-bottom:2px;transition:color .3s}
+.alert-card.resolved .alert-title{color:var(--green2)}
+.alert-sub{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(240,236,228,.4);line-height:1.4;transition:color .3s}
+.alert-card.resolved .alert-sub{color:rgba(63,185,80,.7)}
+
+/* Notification badges */
+.notif-row{display:flex;gap:4px;margin-bottom:10px}
+.notif-badge{display:flex;align-items:center;gap:5px;padding:4px 9px;border:1px solid var(--dk-b);background:var(--dk3);font-family:'DM Mono',monospace;font-size:8px;color:rgba(240,236,228,.45);letter-spacing:.5px}
+.notif-count{font-weight:700;font-size:10px;color:rgba(200,50,26,.9)}
+
+/* Mode B — OS running */
+.os-header{background:rgba(30,125,150,.08);border:1px solid rgba(106,180,200,.2);padding:10px 12px;margin-bottom:8px}
+.os-header-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#f0ece4;min-height:20px}
+.os-header-name em{color:var(--teal2);font-style:italic}
+.os-header-sub{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(106,180,200,.55);margin-top:3px;letter-spacing:.4px}
+.os-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dk-b);margin-bottom:8px}
+.os-m{background:var(--dk3);padding:7px;text-align:center}
+.os-mv{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--teal2);line-height:1}
+.os-ml{font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(240,236,228,.22);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
+.os-sys-row{display:flex;align-items:center;gap:7px;padding:6px 8px;border:1px solid var(--dk-b);margin-bottom:3px;background:rgba(255,255,255,.018);opacity:.25;transition:all .45s}
+.os-sys-row.active{opacity:1;border-color:rgba(106,180,200,.22);background:rgba(30,125,150,.07)}
+.os-sys-row.live{opacity:1;border-color:rgba(63,185,80,.22);background:rgba(63,185,80,.06)}
+.os-stripe{width:2px;height:24px;border-radius:1px;background:var(--dk-b);flex-shrink:0;transition:background .35s}
+.os-sys-row.active .os-stripe{background:var(--teal2)}
+.os-sys-row.live .os-stripe{background:var(--green2)}
+.os-sid{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(240,236,228,.2);width:24px;flex-shrink:0;transition:color .35s}
+.os-sys-row.active .os-sid{color:var(--teal2)}
+.os-sys-row.live .os-sid{color:var(--green2)}
+.os-sname{font-size:9.5px;font-weight:600;color:rgba(240,236,228,.25);flex:1;transition:color .35s}
+.os-sys-row.active .os-sname,.os-sys-row.live .os-sname{color:#f0ece4}
+.os-sbadge{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:1px;text-transform:uppercase;padding:2px 5px;border:1px solid;border-radius:8px;opacity:.4;transition:all .35s}
+.os-sys-row.active .os-sbadge{opacity:1;color:var(--teal2);border-color:rgba(106,180,200,.28);background:rgba(30,125,150,.1)}
+.os-sys-row.live .os-sbadge{opacity:1;color:var(--green2);border-color:rgba(63,185,80,.28);background:rgba(63,185,80,.08)}
+
+/* ROI strip in sim */
+.sim-roi{background:rgba(30,138,82,.06);border:1px solid rgba(30,138,82,.18);padding:10px 12px;margin-top:8px}
+.sim-roi-lbl{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--green2);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.sim-roi-lbl::after{content:'';flex:1;height:1px;background:rgba(63,185,80,.18)}
+.sim-roi-row{display:flex;justify-content:space-between;padding:2.5px 0;border-bottom:1px solid rgba(63,185,80,.08)}
+.sim-roi-row:last-child{border:none}
+.sim-roi-k{font-family:'DM Mono',monospace;font-size:8px;color:rgba(240,236,228,.38)}
+.sim-roi-v{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--green2)}
+
+/* ─ RIGHT AI CHAT ─ */
+.chat-col{background:var(--dk);display:flex;flex-direction:column;overflow:hidden}
+.ch-head{padding:12px 14px;border-bottom:1px solid var(--dk-b);display:flex;align-items:center;gap:9px;flex-shrink:0}
+.ch-av{width:28px;height:28px;border-radius:50%;background:rgba(30,125,150,.2);border:1px solid rgba(106,180,200,.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:var(--teal2);flex-shrink:0}
+.ch-info h4{font-size:11px;font-weight:700;color:#f0ece4;line-height:1.2}
+.ch-info p{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(240,236,228,.35);letter-spacing:.5px}
+.ch-live{width:6px;height:6px;border-radius:50%;background:var(--green2);box-shadow:0 0 8px var(--green2);margin-left:auto;animation:glow2 2s infinite;flex-shrink:0}
+.ch-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.ch-msgs::-webkit-scrollbar{width:2px}
+.ch-msgs::-webkit-scrollbar-thumb{background:var(--dk-b)}
+.msg{animation:msg-in .28s ease}
+.msg.bot .bub{background:rgba(255,255,255,.045);border:1px solid var(--dk-b);border-radius:2px 8px 8px 8px;padding:9px 11px;font-size:10.5px;line-height:1.6;color:rgba(240,236,228,.85)}
+.msg.usr .bub{background:rgba(30,125,150,.18);border:1px solid rgba(106,180,200,.22);border-radius:8px 2px 8px 8px;padding:9px 11px;font-size:10.5px;line-height:1.6;color:#f0ece4;text-align:right}
+.msg-t{font-family:'DM Mono',monospace;font-size:7px;color:rgba(240,236,228,.22);margin-top:3px;letter-spacing:.5px}
+.msg.usr .msg-t{text-align:right}
+.typing-row{display:flex;gap:4px;padding:8px 11px;background:rgba(255,255,255,.03);border:1px solid var(--dk-b);border-radius:2px 8px 8px 8px;display:none;align-items:center;width:fit-content}
+.typing-row.show{display:flex}
+.tyd{width:5px;height:5px;border-radius:50%;background:rgba(106,180,200,.5)}
+.tyd:nth-child(1){animation:typing 1.2s ease infinite}
+.tyd:nth-child(2){animation:typing 1.2s ease .2s infinite}
+.tyd:nth-child(3){animation:typing 1.2s ease .4s infinite}
+.ch-chips{display:flex;flex-wrap:wrap;gap:4px;padding:8px 12px;border-top:1px solid var(--dk-b);flex-shrink:0}
+.ch-chip{font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(106,180,200,.65);border:1px solid rgba(106,180,200,.18);padding:4px 9px;cursor:pointer;transition:all .18s;letter-spacing:.3px;background:transparent}
+.ch-chip:hover{background:rgba(30,125,150,.1);border-color:rgba(106,180,200,.35);color:var(--teal2)}
+.ch-inp-row{display:flex;align-items:center;gap:0;padding:10px 12px;border-top:1px solid var(--dk-b);flex-shrink:0}
+.ch-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--dk-b);color:#f0ece4;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;padding:8px 11px;outline:none;border-radius:0;transition:border-color .2s;line-height:1.4;resize:none;max-height:60px;min-height:36px}
+.ch-inp:focus{border-color:rgba(106,180,200,.35)}
+.ch-inp::placeholder{color:rgba(240,236,228,.2);font-size:13px}
+.ch-send{background:rgba(30,125,150,.2);border:1px solid rgba(106,180,200,.22);border-left:none;color:var(--teal2);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;flex-shrink:0}
+.ch-send:hover{background:rgba(30,125,150,.35)}
+
+/* ─ MOBILE ─ */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;background:rgba(7,9,12,.98);backdrop-filter:blur(12px);border-top:1px solid var(--dk-b);padding:8px 16px 12px}
+.mob-bar-inner{display:flex;align-items:center;justify-content:space-between}
+.mob-step{font-family:'DM Mono',monospace;font-size:8.5px;color:rgba(240,236,228,.38)}
+.mob-step strong{color:var(--teal2)}
+.mob-dots-row{display:flex;gap:4px}
+.mob-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s}
+.mob-dot.act{background:var(--teal2)}
+.mob-dot.done{background:var(--green)}
+/* Mobile sim strip */
+.mob-sim{display:none;background:var(--dk2);border-bottom:1px solid var(--dk-b);padding:10px 16px;flex-shrink:0}
+.mob-sim-inner{display:flex;align-items:center;gap:10px}
+.mob-sim-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;transition:all .4s}
+.mob-sim-dot.bad{background:var(--red);box-shadow:0 0 6px var(--red)}
+.mob-sim-dot.good{background:var(--green2);box-shadow:0 0 6px var(--green2);animation:glow2 2s infinite}
+.mob-sim-txt{font-family:'DM Mono',monospace;font-size:8px;color:rgba(240,236,228,.45);letter-spacing:.5px;line-height:1.5}
+.mob-sim-cost{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--red);margin-left:auto;flex-shrink:0;transition:all .4s}
+/* AI FAB */
+.ai-fab{display:none;position:fixed;bottom:68px;right:16px;z-index:400;width:48px;height:48px;border-radius:50%;background:var(--teal);border:none;color:#fff;font-size:18px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(30,125,150,.45);transition:all .2s}
+.ai-fab:hover{background:var(--teal2)}
+.ai-drawer{display:none;position:fixed;inset:0;z-index:450;background:var(--dk);flex-direction:column}
+.ai-drawer.open{display:flex}
+.ai-drawer-close{position:absolute;top:12px;right:12px;background:none;border:none;color:rgba(240,236,228,.4);font-size:18px;cursor:pointer;z-index:2;padding:4px}
+
+@media(max-width:1100px){
+  .ws{grid-template-columns:1fr 1fr}
+  .chat-col{display:none}
+  .ai-fab{display:flex}
+}
+@media(max-width:768px){
+  .ws{grid-template-columns:1fr}
+  .sim-col{display:none}
+  .mob-bar{display:block}
+  .mob-sim{display:block}
+  .form-col{padding-bottom:0}
+  .sec{padding:16px 16px 80px}
+  .snav{padding:12px 16px 0}
+  .gr2{grid-template-columns:1fr}
+  .c3{grid-template-columns:1fr 1fr}
+  .c4{grid-template-columns:1fr 1fr}
+  .sys-grid{grid-template-columns:1fr}
+  .nav-row{flex-direction:column-reverse;gap:7px}
+  .btn-bk,.btn-nx{width:100%;justify-content:center}
+  .bp-metrics{grid-template-columns:1fr 1fr}
+  .s-tl{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div><div id="cur-r"></div>
+<div class="cfw" id="cfw"></div>
+<div class="toast" id="toast"></div>
+
+<!-- ══ INTRO ══ -->
+<div id="intro">
+  <canvas id="intro-c"></canvas>
+  <div class="i-inner">
+    <div class="i-logo" id="ilogo">Proximity <em>Systems</em></div>
+    <div class="i-rule" id="irule"></div>
+    <div class="i-sub" id="isub">Build Your Operating System · Private Pay Home Care</div>
+    <div class="i-chips" id="ichips">
+      <div class="i-chip"><div class="i-chip-n">10</div><div class="i-chip-l">Systems</div></div>
+      <div class="i-chip"><div class="i-chip-n">7</div><div class="i-chip-l">Days live</div></div>
+      <div class="i-chip"><div class="i-chip-n">$500</div><div class="i-chip-l">Per month</div></div>
+      <div class="i-chip"><div class="i-chip-n">1 of 0</div><div class="i-chip-l">Category</div></div>
+    </div>
+    <div class="i-cta" id="icta">
+      <button class="i-btn" onclick="enterApp()">Build My OS →</button>
+      <div class="i-note">5 sections · personalised blueprint · watch it come alive</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div class="app" id="app">
+  <div class="tb">
+    <div class="tb-l">
+      <div class="tb-logo">Proximity <em>Systems</em></div>
+      <div class="tb-ver">JARVIS 18</div>
+    </div>
+    <div class="tb-r">
+      <div class="tb-save" id="tbSave">✓ Saved</div>
+      <div class="tb-step">Section <strong id="stepLbl">1</strong> of 5</div>
+      <div class="tb-step" id="tbTime">~<span id="timeLeft">11</span> min</div>
+      <div class="tb-live"><div class="tb-ldot"></div>Live</div>
+    </div>
+  </div>
+  <div class="pgbar"><div class="pgf" id="pgf"></div></div>
+
+  <!-- Mobile sim strip -->
+  <div class="mob-sim" id="mobSim">
+    <div class="mob-sim-inner">
+      <div class="mob-sim-dot bad" id="mobDot"></div>
+      <div class="mob-sim-txt" id="mobSimTxt">Without a system — watching your agency now</div>
+      <div class="mob-sim-cost" id="mobCost">$0/yr</div>
+    </div>
+  </div>
+
+  <div class="ws">
+
+    <!-- ── LEFT FORM ── -->
+    <div class="form-col" id="formCol">
+      <div class="snav" id="snav">
+        <div class="sn-w" onclick="tryNav(1)"><div class="snd act" id="d1">1</div><div class="snlbl">Agency</div></div>
+        <div class="snline" id="c1"></div>
+        <div class="sn-w" onclick="tryNav(2)"><div class="snd" id="d2">2</div><div class="snlbl">Pain</div></div>
+        <div class="snline" id="c2"></div>
+        <div class="sn-w" onclick="tryNav(3)"><div class="snd" id="d3">3</div><div class="snlbl">Tools</div></div>
+        <div class="snline" id="c3"></div>
+        <div class="sn-w" onclick="tryNav(4)"><div class="snd" id="d4">4</div><div class="snlbl">Systems</div></div>
+        <div class="snline" id="c4"></div>
+        <div class="sn-w" onclick="tryNav(5)"><div class="snd" id="d5">5</div><div class="snlbl">Blueprint</div></div>
+      </div>
+      <div class="pipe-bar"><div class="pipe-fill" id="pipeFill"></div></div>
+
+      <!-- SEC 1 -->
+      <div class="sec" id="sec1">
+        <div class="s-tag">Section 1 of 5 · Your Agency</div>
+        <div class="s-title">Tell me about <em>your agency.</em></div>
+        <div class="s-sub">This becomes the foundation of your personalised OS. Watch the right panel as you fill this in.</div>
+
+        <div class="f"><label class="f-lbl">Your full name</label>
+          <div class="f-wrap"><input class="fi" type="text" id="f_name" placeholder="e.g. Sarah Mitchell" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+        <div class="f"><label class="f-lbl">Agency name</label>
+          <div class="f-wrap"><input class="fi" type="text" id="f_agency" placeholder="e.g. Comfort First Home Care" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+        <div class="gr2">
+          <div class="f"><label class="f-lbl">Province / State</label>
+            <select class="fi" id="f_province" onchange="upd()">
+              <option value="">Select province</option>
+              <option>Ontario</option><option>British Columbia</option><option>Alberta</option><option>Quebec</option><option>Manitoba</option><option>Saskatchewan</option><option>Nova Scotia</option><option>New Brunswick</option><option>Other Canada</option><option>Philippines</option><option>United States</option><option>Other</option>
+            </select></div>
+          <div class="f"><label class="f-lbl">City / Region</label>
+            <div class="f-wrap"><input class="fi" type="text" id="f_city" placeholder="e.g. Mississauga" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+        </div>
+
+        <div class="gr2">
+          <div class="f"><label class="f-lbl">Active PSWs</label>
+            <select class="fi" id="f_psws" onchange="upd()">
+              <option value="">Select range</option>
+              <option value="1-5">1–5 PSWs</option><option value="6-10">6–10 PSWs</option><option value="11-20">11–20 PSWs</option><option value="21-35">21–35 PSWs</option><option value="36+">36+ PSWs</option>
+            </select></div>
+          <div class="f"><label class="f-lbl">Active clients</label>
+            <select class="fi" id="f_clients" onchange="upd()">
+              <option value="">Select range</option>
+              <option value="1-5">1–5 clients</option><option value="6-10">6–10 clients</option><option value="11-20">11–20 clients</option><option value="21-35">21–35 clients</option><option value="36+">36+ clients</option>
+            </select></div>
+        </div>
+
+        <div class="f"><label class="f-lbl">Care type</label>
+          <div class="chips" id="careChips">
+            <div class="chip" data-v="private-pay">Private Pay</div>
+            <div class="chip" data-v="publicly-funded">Publicly Funded</div>
+            <div class="chip" data-v="mixed">Mixed (both)</div>
+            <div class="chip" data-v="dementia">Dementia / Memory Care</div>
+            <div class="chip" data-v="palliative">Palliative</div>
+            <div class="chip" data-v="rehab">Post-Hospital Rehab</div>
+            <div class="chip" data-v="companionship">Companionship</div>
+          </div></div>
+
+        <div class="f"><label class="f-lbl">Monthly revenue <span class="f-opt">approximate</span></label>
+          <select class="fi" id="f_revenue" onchange="upd()">
+            <option value="">Select range</option>
+            <option value="under-10k">Under $10K/month</option>
+            <option value="10-25k">$10K–$25K/month</option>
+            <option value="25-50k">$25K–$50K/month</option>
+            <option value="50-100k">$50K–$100K/month</option>
+            <option value="100k+">$100K+/month</option>
+          </select></div>
+
+        <div class="f"><label class="f-lbl">Your contact email</label>
+          <div class="f-wrap"><input class="fi" type="email" id="f_email" placeholder="e.g. sarah@agency.ca" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+        <div class="nav-row"><div></div><button class="btn-nx" onclick="nav(2)">Pain Points <div class="btn-arr">→</div></button></div>
+      </div>
+
+      <!-- SEC 2 -->
+      <div class="sec" id="sec2">
+        <div class="s-tag">Section 2 of 5 · Your Pain Points</div>
+        <div class="s-title">Where is your agency <em>bleeding money?</em></div>
+        <div class="s-sub">Tap every pain. Watch the cost accumulate in real time. This is what you stop paying for.</div>
+
+        <div class="f"><label class="f-lbl">What is costing you the most — tap all that apply</label>
+          <div class="chips" id="painChips" style="gap:5px">
+            <div class="chip" data-v="timesheets" data-cost="7800" style="font-size:9.5px;padding:6px 13px">Chasing timesheets on WhatsApp</div>
+            <div class="chip" data-v="invoicing" data-cost="5200" style="font-size:9.5px;padding:6px 13px">Manual invoicing in Excel</div>
+            <div class="chip" data-v="scheduling" data-cost="6500" style="font-size:9.5px;padding:6px 13px">PSW scheduling chaos</div>
+            <div class="chip" data-v="leads" data-cost="12000" style="font-size:9.5px;padding:6px 13px">Missing or slow lead replies</div>
+            <div class="chip" data-v="family" data-cost="4200" style="font-size:9.5px;padding:6px 13px">Family phone calls and updates</div>
+            <div class="chip" data-v="billing-errors" data-cost="9100" style="font-size:9.5px;padding:6px 13px">Billing disputes and errors</div>
+            <div class="chip" data-v="psw-turnover" data-cost="19200" style="font-size:9.5px;padding:6px 13px">PSW turnover and recruitment</div>
+            <div class="chip" data-v="cash-flow" data-cost="8400" style="font-size:9.5px;padding:6px 13px">Slow cash flow (45+ day collection)</div>
+            <div class="chip" data-v="sunday-nights" data-cost="6240" style="font-size:9.5px;padding:6px 13px">Working Sunday nights on admin</div>
+          </div>
+          <!-- LIVE COST TICKER -->
+          <div class="cost-ticker" id="costTicker" style="display:none">
+            <div>
+              <div class="ct-label">Estimated annual cost of these pains</div>
+              <div class="ct-sub">Based on industry benchmarks · Home Care Pulse 2024</div>
+            </div>
+            <div>
+              <div class="ct-amount" id="ctAmount">$0</div>
+            </div>
+          </div>
+          <div class="cost-bar-wrap" id="costBarWrap" style="display:none">
+            <div class="cost-bar-fill" id="costBarFill"></div>
+          </div>
+        </div>
+
+        <div class="f"><label class="f-lbl">Hours on admin per week?</label>
+          <div class="choices c4" id="adminHrs">
+            <div class="choice" onclick="pick(this,'adminHrs')"><div class="choice-label">5–10</div><div class="choice-sub">hrs/week</div></div>
+            <div class="choice" onclick="pick(this,'adminHrs')"><div class="choice-label">10–20</div><div class="choice-sub">hrs/week</div></div>
+            <div class="choice" onclick="pick(this,'adminHrs')"><div class="choice-label">20–30</div><div class="choice-sub">hrs/week</div></div>
+            <div class="choice" onclick="pick(this,'adminHrs')"><div class="choice-label">30+</div><div class="choice-sub">hrs/week</div></div>
+          </div></div>
+
+        <div class="f"><label class="f-lbl">Biggest single problem</label>
+          <div class="choices c3" id="biggestPain">
+            <div class="choice" onclick="pick(this,'biggestPain')"><div class="choice-icon">📥</div><div class="choice-label">Missing leads</div><div class="choice-sub">Competitors reply first</div></div>
+            <div class="choice" onclick="pick(this,'biggestPain')"><div class="choice-icon">💸</div><div class="choice-label">Billing chaos</div><div class="choice-sub">Errors · disputes · slow pay</div></div>
+            <div class="choice" onclick="pick(this,'biggestPain')"><div class="choice-icon">👥</div><div class="choice-label">PSW turnover</div><div class="choice-sub">Good ones keep leaving</div></div>
+          </div></div>
+
+        <div class="f"><label class="f-lbl">Anything else? <span class="f-opt">optional</span></label>
+          <textarea class="fi" id="f_notes" placeholder="Specific situation, software tried, frustrations..." style="padding-right:11px"></textarea></div>
+
+        <div class="nav-row"><button class="btn-bk" onclick="nav(1)">← Agency</button><button class="btn-nx" onclick="nav(3)">Your Tools <div class="btn-arr">→</div></button></div>
+      </div>
+
+      <!-- SEC 3 — adaptive -->
+      <div class="sec" id="sec3">
+        <div class="s-tag">Section 3 of 5 · Your Current Tools</div>
+        <div class="s-title">What are you <em>already using?</em></div>
+        <div class="s-sub">Nothing gets ripped out. Proximity OS connects on top. We meet your tools where they are.</div>
+
+        <div id="sec3-adaptive"></div>
+
+        <div class="f"><label class="f-lbl">Website URL <span class="f-opt">if you have one</span></label>
+          <div class="f-wrap"><input class="fi" type="url" id="f_website" placeholder="https://yourwebsite.ca" oninput="upd()"/><span class="f-ck">✓</span></div></div>
+
+        <div class="nav-row"><button class="btn-bk" onclick="nav(2)">← Pain Points</button><button class="btn-nx" onclick="nav(4)">Select Systems <div class="btn-arr">→</div></button></div>
+      </div>
+
+      <!-- SEC 4 -->
+      <div class="sec" id="sec4">
+        <div class="s-tag">Section 4 of 5 · Your System Selection</div>
+        <div class="s-title">Which systems do you <em>need most?</em></div>
+        <div class="s-sub">All 10 pre-selected. Deselect anything you don't need. Watch your OS come alive on the right as you choose.</div>
+
+        <div class="f"><div class="sys-grid" id="sysToggles">
+          <div class="stog on" onclick="togSys(this,'s10')" data-sys="s10"><div class="stchk">✓</div><div><div class="st-id">S10</div><div class="st-nm">Converting Website</div><div class="st-sb">Lead entry · chatbot · booking</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s03')" data-sys="s03"><div class="stchk">✓</div><div><div class="st-id">S03</div><div class="st-nm">Lead Capture + PSW Recruit</div><div class="st-sb">Pipeline · Day 1 email · scoring</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s06')" data-sys="s06"><div class="stchk">✓</div><div><div class="st-id">S06</div><div class="st-nm">AI Chat + Voice AI</div><div class="st-sb">60-sec reply · role-aware · 24/7</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s04')" data-sys="s04"><div class="stchk">✓</div><div><div class="st-id">S04</div><div class="st-nm">Follow-Up Engine</div><div class="st-sb">Day 1 · 3 · 7 · 30 · never double</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s07')" data-sys="s07"><div class="stchk">✓</div><div><div class="st-id">S07</div><div class="st-nm">Client + PSW Onboarding</div><div class="st-sb">7-day automated · portal welcome</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s01')" data-sys="s01"><div class="stchk">✓</div><div><div class="st-id">S01</div><div class="st-nm">PSW Visit Log</div><div class="st-sb">30-sec log · AI notes · confirm</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s02')" data-sys="s02"><div class="stchk">✓</div><div><div class="st-id">S02</div><div class="st-nm">Auto Invoicing</div><div class="st-sb">Hours → invoice · AI summary · 0%</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s05')" data-sys="s05"><div class="stchk">✓</div><div><div class="st-id">S05</div><div class="st-nm">Family Portal</div><div class="st-sb">5 tabs · PIN-gated · free</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s08')" data-sys="s08"><div class="stchk">✓</div><div><div class="st-id">S08</div><div class="st-nm">HQ Dashboard</div><div class="st-sb">All systems · 1 screen · real-time</div></div></div>
+          <div class="stog on" onclick="togSys(this,'s09')" data-sys="s09"><div class="stchk">✓</div><div><div class="st-id">S09</div><div class="st-nm">PSW Portal + Voice AI</div><div class="st-sb">Schedule · log · Telnyx</div></div></div>
+        </div></div>
+
+        <div class="nav-row"><button class="btn-bk" onclick="nav(3)">← Tools</button><button class="btn-nx" onclick="nav(5);genBlueprint()">See Blueprint <div class="btn-arr">→</div></button></div>
+      </div>
+
+      <!-- SEC 5 -->
+      <div class="sec" id="sec5">
+        <div class="s-tag">Section 5 of 5 · Your OS Blueprint</div>
+        <div class="s-title">Your <em>Proximity OS</em> is ready.</div>
+        <div class="s-sub">Built from your answers. Review it, then send it to Lance to start the 7-day build.</div>
+
+        <div class="bp-doc" id="bpDoc">
+          <div class="bp-wm" id="bpWm">PROXIMITY OS</div>
+          <div class="bp-in">
+            <div class="bp-hdr">
+              <div>
+                <div class="bp-name" id="bpName">Your <em>OS Blueprint</em></div>
+                <div class="bp-sub" id="bpSub">Private pay · Ontario · Proximity Systems · JARVIS 18</div>
+              </div>
+              <div class="bp-stamp">
+                <div class="bp-st-top">Personalised</div>
+                <div class="bp-st-n">7 days</div>
+                <div class="bp-st-sub">to go live</div>
+              </div>
+            </div>
+            <!-- Blueprint URL -->
+            <div class="bp-url">
+              <div>
+                <div class="bp-url-label">Your personalised OS link</div>
+                <div class="bp-url-val" id="bpUrl">proximitysystems.ca/build/your-agency</div>
+              </div>
+              <button class="bp-url-copy" id="bpCopy" onclick="copyUrl()">Copy link</button>
+            </div>
+            <div class="bp-metrics" id="bpMetrics"></div>
+            <div>
+              <div class="bp-order-lbl">Build order — your systems, your priority</div>
+              <div id="bpSysList"></div>
+            </div>
+          </div>
+          <div class="bp-cta">
+            <div class="bp-cta-txt">This blueprint goes directly to Lance. He reviews within 24 hours and confirms your build timeline. <strong>Your system goes live in 7 days.</strong></div>
+            <button class="bp-send" id="sendBtn" onclick="submitForm()">Send to Lance — Start the Build →</button>
+          </div>
+        </div>
+
+        <div class="success-scr" id="successBox">
+          <div class="s-icon">✓</div>
+          <div class="s-nm">Blueprint sent, <em id="successName">friend</em>.</div>
+          <div class="s-msg">Lance has your blueprint. Expect a confirmed timeline within 24 hours. Your system goes live in 7 days.</div>
+          <div class="s-tl">
+            <div class="s-tc now"><div class="s-tn">Today</div><div class="s-tt">Blueprint received</div></div>
+            <div class="s-tc"><div class="s-tn">Day 1–2</div><div class="s-tt">Site + lead system</div></div>
+            <div class="s-tc"><div class="s-tn">Day 3–5</div><div class="s-tt">Care + billing layer</div></div>
+            <div class="s-tc"><div class="s-tn">Day 7</div><div class="s-tt">Go live. Done.</div></div>
+          </div>
+        </div>
+
+        <div class="nav-row" id="sec5nav"><button class="btn-bk" onclick="nav(4)">← Systems</button></div>
+      </div>
+    </div><!-- /form-col -->
+
+    <!-- ── CENTRE SIMULATION ── -->
+    <div class="sim-col" id="simCol">
+      <div class="sim-head">
+        <div class="sim-hl"><div class="sim-ldot"></div><div class="sim-htitle" id="simTitle">Without a system</div></div>
+        <div class="sim-mode-badge bad" id="simBadge">⚠ Manual Ops</div>
+      </div>
+      <div class="sim-body">
+
+        <!-- MODE A: broken agency -->
+        <div class="sim-mode" id="modeA">
+          <div class="sim-agency-name" id="simNameA">Your <em>agency</em></div>
+          <div class="sim-agency-sub" id="simSubA">Awaiting your information...</div>
+          <div class="notif-row">
+            <div class="notif-badge">💬 WhatsApp <span class="notif-count">47</span></div>
+            <div class="notif-badge">📧 Email <span class="notif-count">23</span></div>
+            <div class="notif-badge">⚠️ Overdue <span class="notif-count" id="overdueCount">0</span></div>
+          </div>
+          <div class="sim-section-lbl">Active issues — tap a pain point to see it light up</div>
+          <div id="alertCards">
+            <div class="alert-card red" id="ac-timesheets" data-pain="timesheets"><div class="alert-ico">⚠️</div><div><div class="alert-title">Timesheets overdue</div><div class="alert-sub">7 PSWs haven't submitted this week</div></div></div>
+            <div class="alert-card red" id="ac-invoicing" data-pain="invoicing"><div class="alert-ico">📄</div><div><div class="alert-title">3 invoices not sent</div><div class="alert-sub">$6,200 unbilled this month</div></div></div>
+            <div class="alert-card red" id="ac-leads" data-pain="leads"><div class="alert-ico">📵</div><div><div class="alert-title">Lead replied 3 days later</div><div class="alert-sub">Family already signed elsewhere</div></div></div>
+            <div class="alert-card red" id="ac-scheduling" data-pain="scheduling"><div class="alert-ico">🔴</div><div><div class="alert-title">PSW no-show · 6am</div><div class="alert-sub">No backup system. Client waiting.</div></div></div>
+            <div class="alert-card amber" id="ac-family" data-pain="family"><div class="alert-ico">📞</div><div><div class="alert-title">14 missed calls today</div><div class="alert-sub">Families calling for updates</div></div></div>
+            <div class="alert-card red" id="ac-billing-errors" data-pain="billing-errors"><div class="alert-ico">❌</div><div><div class="alert-title">Invoice error reported</div><div class="alert-sub">Client disputing $840 charge</div></div></div>
+            <div class="alert-card red" id="ac-psw-turnover" data-pain="psw-turnover"><div class="alert-ico">👋</div><div><div class="alert-title">PSW gave 2-day notice</div><div class="alert-sub">3rd one this month. No pipeline.</div></div></div>
+            <div class="alert-card amber" id="ac-cash-flow" data-pain="cash-flow"><div class="alert-ico">⏳</div><div><div class="alert-title">Payment 38 days overdue</div><div class="alert-sub">Still chasing March invoice</div></div></div>
+          </div>
+        </div>
+
+        <!-- MODE B: OS running -->
+        <div class="sim-mode" id="modeB" style="display:none">
+          <div class="os-header">
+            <div class="os-header-name" id="simNameB">Your <em>agency</em></div>
+            <div class="os-header-sub" id="simSubB">Proximity OS · JARVIS 18 · All systems active</div>
+          </div>
+          <div class="os-metrics">
+            <div class="os-m"><div class="os-mv" id="osPsws">—</div><div class="os-ml">PSWs</div></div>
+            <div class="os-m"><div class="os-mv" id="osClients">—</div><div class="os-ml">Clients</div></div>
+            <div class="os-m"><div class="os-mv" id="osSysCount">0</div><div class="os-ml">Systems</div></div>
+          </div>
+          <div class="sim-section-lbl">Your 10 systems — activating as you choose</div>
+          <div id="osSysList">
+            <div class="os-sys-row" id="os-s10"><div class="os-stripe"></div><div class="os-sid">S10</div><div class="os-sname">Converting Website</div><div class="os-sbadge">Building</div></div>
+            <div class="os-sys-row" id="os-s03"><div class="os-stripe"></div><div class="os-sid">S03</div><div class="os-sname">Lead Capture</div><div class="os-sbadge">Partial</div></div>
+            <div class="os-sys-row" id="os-s06"><div class="os-stripe"></div><div class="os-sid">S06</div><div class="os-sname">AI Chat + Voice</div><div class="os-sbadge">Partial</div></div>
+            <div class="os-sys-row" id="os-s04"><div class="os-stripe"></div><div class="os-sid">S04</div><div class="os-sname">Follow-Up Engine</div><div class="os-sbadge">Partial</div></div>
+            <div class="os-sys-row" id="os-s07"><div class="os-stripe"></div><div class="os-sid">S07</div><div class="os-sname">Onboarding</div><div class="os-sbadge">Partial</div></div>
+            <div class="os-sys-row live" id="os-s01"><div class="os-stripe"></div><div class="os-sid">S01</div><div class="os-sname">PSW Visit Log</div><div class="os-sbadge">Live</div></div>
+            <div class="os-sys-row live" id="os-s02"><div class="os-stripe"></div><div class="os-sid">S02</div><div class="os-sname">Auto Invoicing</div><div class="os-sbadge">Live</div></div>
+            <div class="os-sys-row live" id="os-s05"><div class="os-stripe"></div><div class="os-sid">S05</div><div class="os-sname">Family Portal</div><div class="os-sbadge">Live</div></div>
+            <div class="os-sys-row" id="os-s08"><div class="os-stripe"></div><div class="os-sid">S08</div><div class="os-sname">HQ Dashboard</div><div class="os-sbadge">Partial</div></div>
+            <div class="os-sys-row" id="os-s09"><div class="os-stripe"></div><div class="os-sid">S09</div><div class="os-sname">PSW Portal</div><div class="os-sbadge">Partial</div></div>
+          </div>
+          <div class="sim-roi" id="simRoi" style="display:none">
+            <div class="sim-roi-lbl">ROI Estimate</div>
+            <div class="sim-roi-row"><span class="sim-roi-k">Admin hrs saved/wk</span><span class="sim-roi-v" id="roi-hrs">—</span></div>
+            <div class="sim-roi-row"><span class="sim-roi-k">Annual waste eliminated</span><span class="sim-roi-v" id="roi-waste">—</span></div>
+            <div class="sim-roi-row"><span class="sim-roi-k">OS annual cost</span><span class="sim-roi-v">$6,000</span></div>
+            <div class="sim-roi-row"><span class="sim-roi-k">Net saving/year</span><span class="sim-roi-v" id="roi-net">—</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sim-col -->
+
+    <!-- ── RIGHT AI CHAT ── -->
+    <div class="chat-col" id="chatCol">
+      <div class="ch-head">
+        <div class="ch-av">P</div>
+        <div class="ch-info"><h4>Proximity Assistant</h4><p>Ask anything about the 10 systems</p></div>
+        <div class="ch-live"></div>
+      </div>
+      <div class="ch-msgs" id="chMsgs">
+        <div class="msg bot"><div class="bub">Hi — ask me anything. I know all 10 systems, pricing, and how the 7-day build works. What do you want to know?</div><div class="msg-t">Just now</div></div>
+      </div>
+      <div class="typing-row" id="typingRow"><div class="tyd"></div><div class="tyd"></div><div class="tyd"></div></div>
+      <div class="ch-chips" id="chChips"></div>
+      <div class="ch-inp-row">
+        <textarea class="ch-inp" id="chInp" placeholder="Ask anything..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,60)+'px'"></textarea>
+        <button class="ch-send" onclick="sendChat()">→</button>
+      </div>
+    </div>
+
+  </div><!-- /ws -->
+</div><!-- /app -->
+
+<!-- Mobile bar -->
+<div class="mob-bar" id="mobBar" style="display:none">
+  <div class="mob-bar-inner">
+    <div class="mob-step">Section <strong id="mobStep">1</strong> of 5</div>
+    <div class="mob-dots-row" id="mobDots"></div>
+  </div>
+</div>
+
+<!-- AI FAB for mobile -->
+<button class="ai-fab" id="aiFab" onclick="openAiDrawer()" style="display:none">💬</button>
+
+<!-- AI Drawer for mobile -->
+<div class="ai-drawer" id="aiDrawer">
+  <button class="ai-drawer-close" onclick="closeAiDrawer()">✕</button>
+  <div class="ch-head">
+    <div class="ch-av">P</div>
+    <div class="ch-info"><h4>Proximity Assistant</h4><p>Ask anything about the 10 systems</p></div>
+    <div class="ch-live"></div>
+  </div>
+  <div class="ch-msgs" id="chMsgsMob" style="flex:1;overflow-y:auto;padding:12px">
+    <div class="msg bot"><div class="bub">Hi — ask me anything about the OS, pricing, or how the build works.</div></div>
+  </div>
+  <div class="typing-row" id="typingRowMob"><div class="tyd"></div><div class="tyd"></div><div class="tyd"></div></div>
+  <div class="ch-inp-row">
+    <textarea class="ch-inp" id="chInpMob" placeholder="Ask anything..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMob()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,60)+'px'"></textarea>
+    <button class="ch-send" onclick="sendChatMob()">→</button>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────
+const RAILWAY = 'https://proximity-agent-production.up.railway.app';
+const NOTIFY  = 'healthcareproximity@gmail.com';
+const CFCOLS  = ['#1e7d96','#1e8a52','#b87010','#c8321a','#5ab4e8','#2dd4a0','#e09a5a'];
+const LIVE_SYS = ['s01','s02','s05'];
+const SEC_TIMES = [0,3,2,2,2,2];
+const MAX_COST  = 78640;
+
+// ── PAIN COST MAP ───────────────────────────────────────────────
+const COST_MAP = {
+  timesheets:7800, invoicing:5200, scheduling:6500, leads:12000,
+  family:4200, 'billing-errors':9100, 'psw-turnover':19200,
+  'cash-flow':8400, 'sunday-nights':6240,
+};
+
+// ── PAIN → SYSTEM MAP ───────────────────────────────────────────
+const PAIN_SYS = {
+  leads:['s10','s03','s06','s04'], timesheets:['s01','s09','s08'],
+  invoicing:['s02','s01','s08'], 'billing-errors':['s02','s01'],
+  scheduling:['s09','s08','s07'], family:['s05','s01','s06'],
+  'psw-turnover':['s09','s01','s07'], 'cash-flow':['s02','s04'],
+  'sunday-nights':['s01','s02','s08','s09'],
+};
+
+// ── SYSTEM META ─────────────────────────────────────────────────
+const SYS_META = {
+  s10:{name:'Converting Website',    why:'Lead entry · all traffic lands here',   col:'var(--gold)'},
+  s03:{name:'Lead Capture + Recruit',why:'Every lead logged · Day 1 fires',       col:'var(--gold)'},
+  s06:{name:'AI Chat + Voice',       why:'60-sec reply · never misses a call',    col:'var(--teal)'},
+  s04:{name:'Follow-Up Engine',      why:'Day 1/3/7/30 · auto-fires',            col:'var(--gold)'},
+  s07:{name:'Onboarding',            why:'7 days · portal + welcome · automated', col:'var(--gold)'},
+  s01:{name:'PSW Visit Log',         why:'30-sec log · AI notes · confirmation',  col:'var(--green)'},
+  s02:{name:'Auto Invoicing',        why:'Hours → invoice · 0% error',           col:'var(--green)'},
+  s05:{name:'Family Portal',         why:'Visit same night · free',              col:'var(--green)'},
+  s08:{name:'HQ Dashboard',          why:'All systems · 1 screen · real-time',   col:'var(--teal)'},
+  s09:{name:'PSW Portal + Voice AI', why:'Schedule · log · Telnyx Voice AI',     col:'var(--teal)'},
+};
+
+// ── AI SYSTEM PROMPT ────────────────────────────────────────────
+const AI_SYS = `You are the Proximity Systems assistant embedded in the OS configurator.
+Speak in Lance's voice: direct, confident, home care operator who built and runs a real agency.
+Know all 10 Proximity OS systems (S01-S10). Keep every answer under 3 sentences.
+No bullet points. No em dashes. No hedging.
+Pricing: $500/month, 7-day build, no long contracts.
+Integration: ADP, Stripe, QuickBooks, Xero all connect on top. Nothing gets replaced.
+Always end with one action: "Keep going — next section" or "Book a call" or "Comment SYSTEM".
+Never say you are an AI. Never say Claude.`;
+
+// ── STATE ───────────────────────────────────────────────────────
+let CUR=0, simFlipped=false, roiShown=false;
+let careTypes=[], painPoints=[], commTools=[], schedTools=[], billingTools=[], webTools=[];
+let selectedSystems=['s10','s03','s06','s04','s07','s01','s02','s05','s08','s09'];
+let CS={}, totalCost=0, chatHistory=[], bpSlug='';
+
+// ── ADAPTIVE SECTION 3 CONTENT ──────────────────────────────────
+const SEC3_BILLING = `
+  <div class="f"><label class="f-lbl" style="color:var(--teal);font-size:11px">⭐ Billing &amp; payments — your top pain</label>
+    <div class="chips" id="billingChips">
+      <div class="chip" data-v="quickbooks">QuickBooks</div>
+      <div class="chip" data-v="xero">Xero</div>
+      <div class="chip" data-v="adp">ADP</div>
+      <div class="chip" data-v="stripe">Stripe</div>
+      <div class="chip" data-v="excel-billing">Excel invoices</div>
+      <div class="chip" data-v="paypal">PayPal</div>
+      <div class="chip" data-v="etransfer">e-Transfer / cheque</div>
+      <div class="chip" data-v="sage">Sage</div>
+    </div>
+    <div class="f-tip">Already using ADP, Stripe, QuickBooks, or Xero? We connect on top — nothing gets replaced. Hours flow from visit log to your existing billing system.</div></div>
+  <div class="f"><label class="f-lbl">Scheduling / operations</label>
+    <div class="chips" id="schedChips">
+      <div class="chip" data-v="excel">Excel / Google Sheets</div>
+      <div class="chip" data-v="alayacare">AlayaCare</div>
+      <div class="chip" data-v="shiftcare">ShiftCare</div>
+      <div class="chip" data-v="careswitch">Careswitch</div>
+      <div class="chip" data-v="axiscare">AxisCare</div>
+      <div class="chip" data-v="paper">Paper / Nothing</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Communication</label>
+    <div class="chips" id="commChips">
+      <div class="chip" data-v="whatsapp">WhatsApp</div>
+      <div class="chip" data-v="email">Email only</div>
+      <div class="chip" data-v="phone">Phone calls</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Website &amp; lead capture</label>
+    <div class="chips" id="webChips">
+      <div class="chip" data-v="no-website">No website</div>
+      <div class="chip" data-v="wix">Wix</div>
+      <div class="chip" data-v="wordpress">WordPress</div>
+      <div class="chip" data-v="carrd">Carrd</div>
+      <div class="chip" data-v="custom">Custom site</div>
+      <div class="chip" data-v="facebook-only">Facebook only</div>
+    </div></div>`;
+
+const SEC3_PSW = `
+  <div class="f"><label class="f-lbl" style="color:var(--teal);font-size:11px">⭐ Scheduling &amp; PSW tools — your top pain</label>
+    <div class="chips" id="schedChips">
+      <div class="chip" data-v="excel">Excel / Google Sheets</div>
+      <div class="chip" data-v="alayacare">AlayaCare</div>
+      <div class="chip" data-v="shiftcare">ShiftCare</div>
+      <div class="chip" data-v="careswitch">Careswitch</div>
+      <div class="chip" data-v="axiscare">AxisCare</div>
+      <div class="chip" data-v="when-i-work">When I Work</div>
+      <div class="chip" data-v="paper">Paper / Nothing</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Communication</label>
+    <div class="chips" id="commChips">
+      <div class="chip" data-v="whatsapp">WhatsApp</div>
+      <div class="chip" data-v="email">Email only</div>
+      <div class="chip" data-v="phone">Phone calls</div>
+      <div class="chip" data-v="slack">Slack</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Billing &amp; payments</label>
+    <div class="chips" id="billingChips">
+      <div class="chip" data-v="excel-billing">Excel invoices</div>
+      <div class="chip" data-v="quickbooks">QuickBooks</div>
+      <div class="chip" data-v="xero">Xero</div>
+      <div class="chip" data-v="adp">ADP</div>
+      <div class="chip" data-v="stripe">Stripe</div>
+      <div class="chip" data-v="etransfer">e-Transfer</div>
+    </div>
+    <div class="f-tip">Already using ADP, Stripe, or QuickBooks? We connect on top.</div></div>
+  <div class="f"><label class="f-lbl">Website &amp; lead capture</label>
+    <div class="chips" id="webChips">
+      <div class="chip" data-v="no-website">No website</div>
+      <div class="chip" data-v="wix">Wix</div>
+      <div class="chip" data-v="wordpress">WordPress</div>
+      <div class="chip" data-v="carrd">Carrd</div>
+      <div class="chip" data-v="custom">Custom site</div>
+      <div class="chip" data-v="facebook-only">Facebook only</div>
+    </div></div>`;
+
+const SEC3_LEADS = `
+  <div class="f"><label class="f-lbl" style="color:var(--teal);font-size:11px">⭐ Website &amp; lead capture — your top pain</label>
+    <div class="chips" id="webChips">
+      <div class="chip" data-v="no-website">No website</div>
+      <div class="chip" data-v="wix">Wix</div>
+      <div class="chip" data-v="squarespace">Squarespace</div>
+      <div class="chip" data-v="wordpress">WordPress</div>
+      <div class="chip" data-v="carrd">Carrd</div>
+      <div class="chip" data-v="custom">Custom site</div>
+      <div class="chip" data-v="facebook-only">Facebook only</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Communication</label>
+    <div class="chips" id="commChips">
+      <div class="chip" data-v="whatsapp">WhatsApp</div>
+      <div class="chip" data-v="email">Email only</div>
+      <div class="chip" data-v="phone">Phone calls</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Scheduling / operations</label>
+    <div class="chips" id="schedChips">
+      <div class="chip" data-v="excel">Excel / Google Sheets</div>
+      <div class="chip" data-v="alayacare">AlayaCare</div>
+      <div class="chip" data-v="shiftcare">ShiftCare</div>
+      <div class="chip" data-v="paper">Paper / Nothing</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Billing &amp; payments</label>
+    <div class="chips" id="billingChips">
+      <div class="chip" data-v="excel-billing">Excel invoices</div>
+      <div class="chip" data-v="quickbooks">QuickBooks</div>
+      <div class="chip" data-v="xero">Xero</div>
+      <div class="chip" data-v="adp">ADP</div>
+      <div class="chip" data-v="stripe">Stripe</div>
+      <div class="chip" data-v="etransfer">e-Transfer</div>
+    </div>
+    <div class="f-tip">Already using ADP, Stripe, QuickBooks, or Xero? We connect on top.</div></div>`;
+
+const SEC3_DEFAULT = `
+  <div class="f"><label class="f-lbl">Communication tools</label>
+    <div class="chips" id="commChips">
+      <div class="chip" data-v="whatsapp">WhatsApp</div>
+      <div class="chip" data-v="email">Email only</div>
+      <div class="chip" data-v="phone">Phone calls</div>
+      <div class="chip" data-v="slack">Slack</div>
+      <div class="chip" data-v="teams">Microsoft Teams</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Scheduling / operations</label>
+    <div class="chips" id="schedChips">
+      <div class="chip" data-v="excel">Excel / Google Sheets</div>
+      <div class="chip" data-v="alayacare">AlayaCare</div>
+      <div class="chip" data-v="shiftcare">ShiftCare</div>
+      <div class="chip" data-v="careswitch">Careswitch</div>
+      <div class="chip" data-v="axiscare">AxisCare</div>
+      <div class="chip" data-v="when-i-work">When I Work</div>
+      <div class="chip" data-v="paper">Paper / Nothing</div>
+    </div></div>
+  <div class="f"><label class="f-lbl">Billing &amp; payments</label>
+    <div class="chips" id="billingChips">
+      <div class="chip" data-v="excel-billing">Excel invoices</div>
+      <div class="chip" data-v="quickbooks">QuickBooks</div>
+      <div class="chip" data-v="xero">Xero</div>
+      <div class="chip" data-v="stripe">Stripe</div>
+      <div class="chip" data-v="adp">ADP</div>
+      <div class="chip" data-v="paypal">PayPal</div>
+      <div class="chip" data-v="etransfer">e-Transfer / cheque</div>
+      <div class="chip" data-v="sage">Sage</div>
+    </div>
+    <div class="f-tip">Already using ADP, Stripe, QuickBooks, or Xero? We connect on top — nothing gets replaced.</div></div>
+  <div class="f"><label class="f-lbl">Website &amp; lead capture</label>
+    <div class="chips" id="webChips">
+      <div class="chip" data-v="no-website">No website</div>
+      <div class="chip" data-v="wix">Wix</div>
+      <div class="chip" data-v="squarespace">Squarespace</div>
+      <div class="chip" data-v="wordpress">WordPress</div>
+      <div class="chip" data-v="carrd">Carrd</div>
+      <div class="chip" data-v="custom">Custom site</div>
+      <div class="chip" data-v="facebook-only">Facebook only</div>
+    </div></div>`;
+
+// ── AI CHIP SETS ────────────────────────────────────────────────
+const AI_CHIPS = {
+  1:['What makes this different?','How long is the setup?','What does $500/month include?'],
+  2:['Which pain costs operators most?','Can you show a real number?','What gets fixed first?'],
+  3:['Will this work with QuickBooks?','What if I have AlayaCare?','Do you replace my existing tools?'],
+  4:['Which systems matter most for my size?','What gets built in week 1?','Can I add systems later?'],
+  5:['What happens after I send this?','When does Lance review it?','How does the 7-day build work?'],
+};
+
+// ── INIT ────────────────────────────────────────────────────────
+(function init(){
+  setupChips('careChips',careTypes);
+  setupPainChips();
+  document.querySelectorAll('input.fi,textarea.fi').forEach(setupInput);
+  buildMobDots();
+  upd();
+})();
+
+function setupInput(el){
+  const chk=()=>{
+    const ok=el.value.trim().length>0;
+    el.classList.toggle('ok',ok);
+    const c=el.parentElement?.querySelector('.f-ck');
+    if(c)c.classList.toggle('show',ok);
+  };
+  el.addEventListener('input',chk);chk();
+}
+
+function setupChips(id,store,cb){
+  document.querySelectorAll('#'+id+' .chip').forEach(ch=>{
+    ch.addEventListener('click',()=>{
+      ch.classList.toggle('on');
+      const v=ch.dataset.v;
+      if(ch.classList.contains('on'))store.push(v);
+      else store.splice(store.indexOf(v),1);
+      upd();
+      if(cb)cb(v,ch.classList.contains('on'));
+    });
+  });
+}
+
+function setupPainChips(){
+  document.querySelectorAll('#painChips .chip').forEach(ch=>{
+    ch.addEventListener('click',()=>{
+      ch.classList.toggle('on');
+      const v=ch.dataset.v;
+      const cost=parseInt(ch.dataset.cost||0);
+      if(ch.classList.contains('on')){
+        painPoints.push(v);
+        totalCost+=cost;
+        litAlert(v,true);
+      } else {
+        painPoints.splice(painPoints.indexOf(v),1);
+        totalCost-=cost;
+        litAlert(v,false);
+      }
+      updateCostTicker();
+      upd();
+    });
+  });
+}
+
+// ── NAVIGATION ──────────────────────────────────────────────────
+function nav(n){
+  if(n===2&&!document.getElementById('f_name').value.trim()){shake('f_name');return;}
+  if(CUR>0){
+    document.getElementById('sec'+CUR).classList.remove('active');
+    showToast('Section '+CUR+' saved ✓');
+    markDone(CUR);
+  }
+  // Build adaptive section 3 before showing it
+  if(n===3) buildAdaptiveSec3();
+  // Flip simulation panel at section 4
+  if(n===4&&!simFlipped) flipSim();
+  CUR=n;
+  document.getElementById('sec'+CUR).classList.add('active');
+  updateProgress();
+  animFields(CUR);
+  firePipe();
+  updateChatChips(CUR);
+  document.getElementById('formCol').scrollTop=0;
+  showSave();
+}
+
+function tryNav(n){if(n<CUR)nav(n);}
+
+function buildAdaptiveSec3(){
+  // Reset tool stores before rebuilding so stale selections don't persist
+  commTools.length=0; schedTools.length=0; billingTools.length=0; webTools.length=0;
+  const el=document.getElementById('sec3-adaptive');
+  let html=SEC3_DEFAULT;
+  if(painPoints.includes('billing-errors')||painPoints.includes('invoicing'))html=SEC3_BILLING;
+  else if(painPoints.includes('psw-turnover')||painPoints.includes('scheduling'))html=SEC3_PSW;
+  else if(painPoints.includes('leads'))html=SEC3_LEADS;
+  el.innerHTML=html;
+  // Re-setup chip groups
+  setupChips('commChips',commTools);
+  setupChips('schedChips',schedTools);
+  setupChips('billingChips',billingTools);
+  setupChips('webChips',webTools);
+  // Animate fields
+  setTimeout(()=>{
+    el.querySelectorAll('.f').forEach((f,i)=>{
+      f.style.opacity='0';f.style.transform='translateY(7px)';
+      setTimeout(()=>{f.style.opacity='1';f.style.transform='none';f.classList.add('vis');},i*55);
+    });
+  },100);
+}
+
+function markDone(n){
+  const d=document.getElementById('d'+n);
+  if(d){d.className='snd done';d.textContent='✓';}
+  if(n<5){const c=document.getElementById('c'+n);if(c)c.classList.add('done');}
+}
+
+function shake(id){
+  const el=document.getElementById(id);
+  el.style.borderColor='var(--red)';el.style.boxShadow='0 0 0 3px rgba(200,50,26,.12)';
+  el.focus();setTimeout(()=>{el.style.borderColor='';el.style.boxShadow='';},2000);
+}
+
+function updateProgress(){
+  const pcts=[0,0,20,40,60,80,100];
+  document.getElementById('pgf').style.width=pcts[CUR]+'%';
+  document.getElementById('stepLbl').textContent=CUR;
+  const rem=SEC_TIMES.slice(CUR).reduce((a,b)=>a+b,0);
+  document.getElementById('timeLeft').textContent=rem;
+  document.getElementById('mobStep').textContent=CUR;
+  for(let i=1;i<=5;i++){
+    const d=document.getElementById('d'+i);if(!d)continue;
+    if(i<CUR){d.className='snd done';d.textContent='✓';}
+    else if(i===CUR){d.className='snd act';d.textContent=i;}
+    else{d.className='snd';d.textContent=i;}
+    if(i<5){const c=document.getElementById('c'+i);if(c)c.className='snline'+(i<CUR?' done':'');}
+  }
+  document.querySelectorAll('.mob-dot').forEach((d,i)=>{
+    d.className='mob-dot';
+    if(i+1<CUR)d.classList.add('done');
+    else if(i+1===CUR)d.classList.add('act');
+  });
+}
+
+function animFields(sn){
+  setTimeout(()=>{
+    document.querySelectorAll('#sec'+sn+' .f').forEach((f,i)=>{
+      f.style.opacity='0';f.style.transform='translateY(7px)';
+      setTimeout(()=>{f.style.opacity='1';f.style.transform='none';f.classList.add('vis');},i*55);
+    });
+  },200);
+}
+
+function firePipe(){
+  const p=document.getElementById('pipeFill');
+  if(p){p.style.animation='none';void p.offsetWidth;p.style.animation='pipe 1.6s ease forwards';}
+}
+
+function showSave(){const el=document.getElementById('tbSave');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+
+// ── CHOICES / TOGGLES ───────────────────────────────────────────
+function pick(el,group){
+  document.querySelectorAll('#'+group+' .choice').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  CS[group]=el.querySelector('.choice-label')?.textContent||'';
+  upd();
+}
+
+function togSys(el,id){
+  el.classList.toggle('on');
+  const ck=el.querySelector('.stchk');
+  if(el.classList.contains('on')){
+    ck.textContent='✓';
+    if(!selectedSystems.includes(id))selectedSystems.push(id);
+  } else {
+    ck.textContent='';
+    selectedSystems=selectedSystems.filter(s=>s!==id);
+  }
+  upd();
+}
+
+// ── LIVE UPDATE ─────────────────────────────────────────────────
+function upd(){
+  const name  =document.getElementById('f_name').value.trim();
+  // Reset ROI animation flag so going back and changing PSW count re-animates
+  const agency=document.getElementById('f_agency').value.trim();
+  const psws  =document.getElementById('f_psws').value;
+  const clients=document.getElementById('f_clients').value;
+  const prov  =document.getElementById('f_province').value;
+  const city  =document.getElementById('f_city').value.trim();
+
+  // Sim panel names
+  const dispName=agency||'Your agency';
+  const simA=document.getElementById('simNameA');
+  const simB=document.getElementById('simNameB');
+  if(simA)simA.innerHTML=agency?agency:`Your <em>agency</em>`;
+  if(simB)simB.innerHTML=agency?agency:`Your <em>agency</em>`;
+  const subParts=[];
+  if(prov)subParts.push(prov);if(city)subParts.push(city);
+  if(psws)subParts.push(psws+' PSWs');if(clients)subParts.push(clients+' clients');
+  const sub=subParts.join(' · ')||'Awaiting your information...';
+  const simSubA=document.getElementById('simSubA');const simSubB=document.getElementById('simSubB');
+  if(simSubA)simSubA.textContent=sub;
+  if(simSubB)simSubB.textContent=sub+' · Proximity OS · JARVIS 18';
+
+  // OS metrics
+  const opEl=document.getElementById('osPsws');const ocEl=document.getElementById('osClients');
+  if(opEl)opEl.textContent=psws||'—';if(ocEl)ocEl.textContent=clients||'—';
+
+  // OS system rows
+  let activeCnt=0;
+  document.querySelectorAll('.os-sys-row').forEach(row=>{
+    const id=row.id.replace('os-','');
+    const isLive=LIVE_SYS.includes(id);
+    const on=selectedSystems.includes(id);
+    if(on){row.className='os-sys-row'+(isLive?' live':' active');activeCnt++;}
+    else row.className='os-sys-row';
+  });
+  const osc=document.getElementById('osSysCount');if(osc)osc.textContent=activeCnt;
+
+  // ROI
+  const PSW_MAP={'1-5':5,'6-10':8,'11-20':14,'21-35':22,'36+':30};
+  const adminHrs=PSW_MAP[psws]||0;
+  if(psws||clients){
+    const sr=document.getElementById('simRoi');if(sr)sr.style.display='block';
+    const waste=adminHrs>0?Math.round(adminHrs*30*52/1000)*1000:0;
+    const pswNum=parseInt(psws?.split('-')[0]||5);
+    const turnover=Math.round(pswNum*.6*3200/1000)*1000;
+    const total=waste+turnover;
+    if(!roiShown&&total>0){
+      roiShown=true;
+      cntUp('roi-hrs',adminHrs-0.5,1000,1,' hrs');
+      cntUp('roi-waste',total,1200,1000,'','$');
+      cntUp('roi-net',total-6000,1400,1000,'','$');
+    } else if(total>0){
+      const rh=document.getElementById('roi-hrs');const rw=document.getElementById('roi-waste');const rn=document.getElementById('roi-net');
+      if(rh)rh.textContent=(adminHrs-0.5)+' hrs';
+      if(rw)rw.textContent='$'+total.toLocaleString();
+      if(rn)rn.textContent='$'+(total-6000).toLocaleString();
+    } else {
+      const rh=document.getElementById('roi-hrs');const rw=document.getElementById('roi-waste');const rn=document.getElementById('roi-net');
+      if(rh)rh.textContent=(adminHrs-0.5)+' hrs';
+      if(rw)rw.textContent='$'+total.toLocaleString();
+      if(rn)rn.textContent='$'+(total-6000).toLocaleString();
+    }
+  }
+
+  // Blueprint url slug
+  bpSlug = agency
+    ? agency.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')
+    : 'your-agency';
+  const urlEl=document.getElementById('bpUrl');
+  if(urlEl)urlEl.textContent='proximitysystems.ca/build/'+bpSlug;
+  document.getElementById('bpName').innerHTML=agency?`<em>${agency}'s</em> OS Blueprint`:'Your <em>OS Blueprint</em>';
+  const bsub=[];
+  if(careTypes.includes('private-pay'))bsub.push('Private pay');
+  if(prov)bsub.push(prov);
+  bsub.push('Proximity Systems · JARVIS 18');
+  document.getElementById('bpSub').textContent=bsub.join(' · ');
+  document.getElementById('bpWm').textContent=(agency||'PROXIMITY OS').toUpperCase();
+  document.getElementById('successName').textContent=name||'friend';
+
+  // Mobile sim cost
+  const mc=document.getElementById('mobCost');
+  if(mc)mc.textContent=totalCost>0?'$'+totalCost.toLocaleString()+'/yr':'$0/yr';
+}
+
+// ── ALERT LIGHTING ───────────────────────────────────────────────
+function litAlert(pain,on){
+  const card=document.querySelector('.alert-card[data-pain="'+pain+'"]');
+  if(!card)return;
+  if(on){
+    card.classList.add('lit');
+    // Update overdue count
+    const oc=document.getElementById('overdueCount');
+    if(oc)oc.textContent=parseInt(oc.textContent||0)+1;
+  } else {
+    card.classList.remove('lit');
+  }
+}
+
+// ── COST TICKER ──────────────────────────────────────────────────
+function updateCostTicker(){
+  const ticker=document.getElementById('costTicker');
+  const barWrap=document.getElementById('costBarWrap');
+  if(!ticker)return;
+  if(totalCost>0){
+    ticker.style.display='flex';
+    if(barWrap)barWrap.style.display='block';
+    cntUp('ctAmount',totalCost,600,100,'','$');
+    const pct=Math.min((totalCost/MAX_COST)*100,100);
+    const fill=document.getElementById('costBarFill');
+    if(fill)fill.style.width=pct+'%';
+  } else {
+    ticker.style.display='none';
+    if(barWrap)barWrap.style.display='none';
+  }
+  // Mobile
+  const mt=document.getElementById('mobSimTxt');
+  if(mt&&totalCost>0)mt.textContent='Annual pain cost identified — tap more to see full picture';
+}
+
+// ── SIM FLIP ─────────────────────────────────────────────────────
+function flipSim(){
+  simFlipped=true;
+  const modeA=document.getElementById('modeA');
+  const modeB=document.getElementById('modeB');
+  const badge=document.getElementById('simBadge');
+  const title=document.getElementById('simTitle');
+  const mobDot=document.getElementById('mobDot');
+  const mobTxt=document.getElementById('mobSimTxt');
+
+  // Mark all currently-lit alert cards as resolved before flipping
+  document.querySelectorAll('.alert-card.lit').forEach(card=>{
+    card.classList.remove('lit','red','amber');
+    card.classList.add('resolved');
+  });
+  if(modeA){modeA.style.animation='flip-out .5s ease forwards';setTimeout(()=>{modeA.style.display='none';},500);}
+  setTimeout(()=>{
+    if(modeB){modeB.style.display='block';modeB.style.animation='flip-in .5s ease forwards';}
+    if(badge){badge.className='sim-mode-badge good';badge.textContent='✓ OS Running';}
+    if(title)title.textContent='With Proximity OS';
+    if(mobDot){mobDot.className='mob-sim-dot good';}
+    if(mobTxt)mobTxt.textContent='Your OS is now running — watch systems activate';
+  },480);
+}
+
+// ── COUNT-UP ────────────────────────────────────────────────────
+function cntUp(id,target,dur,step,sfx='',pfx=''){
+  const el=document.getElementById(id);if(!el)return;
+  const start=performance.now();
+  (function tick(now){
+    const p=Math.min(1,(now-start)/dur);
+    const ease=p<.5?2*p*p:-1+(4-2*p)*p;
+    const val=Math.round(target*ease/step)*step;
+    el.textContent=pfx+(val>=1000?val.toLocaleString():val)+sfx;
+    if(p<1)requestAnimationFrame(tick);
+    else el.textContent=pfx+(target>=1000?target.toLocaleString():target)+sfx;
+  })(start);
+}
+
+// ── BLUEPRINT GENERATION ─────────────────────────────────────────
+function genBlueprint(){
+  const psws=document.getElementById('f_psws').value;
+  const PSW_MAP={'1-5':5,'6-10':8,'11-20':14,'21-35':22,'36+':30};
+  const adminN=PSW_MAP[psws]||14;
+  const pswNum=parseInt(psws?.split('-')[0]||10);
+  const waste=Math.round(adminN*30*52/1000)*1000;
+  const turnover=Math.round(pswNum*.6*3200/1000)*1000;
+  const total=waste+turnover;
+
+  document.getElementById('bpMetrics').innerHTML=`
+    <div class="bp-m"><div class="bp-ml">Admin hrs/week</div><div class="bp-mv" id="bpm1">${adminN}</div><div class="bp-ms">→ 30 min after OS</div></div>
+    <div class="bp-m"><div class="bp-ml">Annual waste</div><div class="bp-mv" id="bpm2">$${total.toLocaleString()}</div><div class="bp-ms">Admin + turnover</div></div>
+    <div class="bp-m"><div class="bp-ml">OS annual cost</div><div class="bp-mv">$6,000</div><div class="bp-ms">$500/mo · all 10</div></div>
+    <div class="bp-m"><div class="bp-ml">Net saving/year</div><div class="bp-mv" style="color:var(--green)" id="bpm3">$${(total-6000).toLocaleString()}</div><div class="bp-ms">After OS cost</div></div>`;
+  setTimeout(()=>{cntUp('bpm1',adminN,700,1,' hrs');cntUp('bpm2',total,900,1000,'','$');cntUp('bpm3',total-6000,1100,1000,'','$');},300);
+
+  const order=[];
+  painPoints.forEach(p=>(PAIN_SYS[p]||[]).forEach(s=>{if(selectedSystems.includes(s)&&!order.includes(s))order.push(s);}));
+  selectedSystems.forEach(s=>{if(!order.includes(s))order.push(s);});
+
+  document.getElementById('bpSysList').innerHTML=order.map((id,i)=>{
+    const s=SYS_META[id];if(!s)return'';
+    const pct=Math.round((1-i/order.length)*100);
+    return`<div class="bp-row">
+      <div class="bp-rn">${i+1}</div>
+      <div class="bp-rid" style="color:${s.col}">${id.toUpperCase()}</div>
+      <div class="bp-rnm">${s.name}</div>
+      <div style="flex:1"></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+        <div class="bp-rwhy">${s.why}</div>
+        <div class="bp-bar"><div class="bp-barf" style="width:${pct}%;background:${s.col}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── BLUEPRINT URL COPY ───────────────────────────────────────────
+function copyUrl(){
+  const url='https://proximitysystems.ca/build/'+(bpSlug||'your-agency');
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>{
+      const btn=document.getElementById('bpCopy');
+      if(btn){btn.textContent='Copied ✓';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy link';btn.classList.remove('copied');},2000);}
+    }).catch(()=>showToast('Copy: '+url));
+  } else showToast(url);
+}
+
+// ── SUBMIT ───────────────────────────────────────────────────────
+async function submitForm(){
+  const btn=document.getElementById('sendBtn');
+  btn.disabled=true;
+  const steps=['Sending blueprint...','Building your timeline...','Confirming with Lance...'];
+  let si=0;const iv=setInterval(()=>{if(si<steps.length)btn.textContent=steps[si++];},900);
+  const payload={
+    name:document.getElementById('f_name').value.trim(),
+    agency:document.getElementById('f_agency').value.trim(),
+    province:document.getElementById('f_province').value,
+    city:document.getElementById('f_city').value.trim(),
+    psws:document.getElementById('f_psws').value,
+    clients:document.getElementById('f_clients').value,
+    revenue:document.getElementById('f_revenue').value,
+    email:document.getElementById('f_email').value.trim(),
+    website:document.getElementById('f_website').value.trim(),
+    care_types:careTypes,pain_points:painPoints,total_pain_cost:totalCost,
+    admin_hrs:CS.adminHrs||'',biggest_pain:CS.biggestPain||'',
+    comm_tools:commTools,sched_tools:schedTools,billing_tools:billingTools,
+    web_tools:webTools,selected_systems:selectedSystems,
+    notes:document.getElementById('f_notes').value.trim(),
+    blueprint_slug:bpSlug,notify_email:NOTIFY,source:'proximity-configurator-v4',
+  };
+  try{
+    const r=await fetch(`${RAILWAY}/webhook/onboarding`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!r.ok)throw new Error();
+    clearInterval(iv);
+    document.getElementById('bpDoc').style.display='none';
+    document.getElementById('sec5nav').style.display='none';
+    document.getElementById('successBox').classList.add('show');
+    confetti();
+    document.getElementById('formCol').scrollTop=0;
+  }catch(e){
+    clearInterval(iv);btn.disabled=false;btn.textContent='Send to Lance — Start the Build →';
+    showToast('Connection issue — email lance@proximitysystems.ca');
+  }
+}
+
+// ── CONFETTI ─────────────────────────────────────────────────────
+function confetti(){
+  const w=document.getElementById('cfw');w.innerHTML='';
+  for(let i=0;i<100;i++){
+    const c=document.createElement('div');c.className='cf';
+    const s=Math.random()*9+4;
+    c.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${CFCOLS[Math.floor(Math.random()*CFCOLS.length)]};animation-duration:${Math.random()*2.5+1.5}s;animation-delay:${Math.random()*.7}s;border-radius:${Math.random()>.5?'50%':'2px'}`;
+    w.appendChild(c);
+  }
+  setTimeout(()=>w.innerHTML='',5000);
+}
+
+// ── MOB DOTS ────────────────────────────────────────────────────
+function buildMobDots(){
+  const c=document.getElementById('mobDots');
+  for(let i=0;i<5;i++){const d=document.createElement('div');d.className='mob-dot';c.appendChild(d);}
+}
+
+// ── AI CHAT ─────────────────────────────────────────────────────
+function updateChatChips(sec){
+  const chips=AI_CHIPS[sec]||[];
+  // Update desktop chips
+  const cc=document.getElementById('chChips');
+  if(cc){cc.innerHTML=chips.map(c=>`<div class="ch-chip" onclick="sendChatText('${c}')">${c}</div>`).join('');}
+}
+
+function addMsg(text,isUser,targetId='chMsgs'){
+  const container=document.getElementById(targetId);if(!container)return;
+  const now=new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'});
+  const div=document.createElement('div');
+  div.className='msg '+(isUser?'usr':'bot');
+  div.innerHTML=`<div class="bub">${text}</div><div class="msg-t">${now}</div>`;
+  container.appendChild(div);
+  container.scrollTop=container.scrollHeight;
+}
+
+async function sendChatText(text,targetMsgs='chMsgs',targetTyping='typingRow',targetInp='chInp'){
+  if(!text.trim())return;
+  const inp=document.getElementById(targetInp);
+  if(inp){inp.value='';inp.style.height='auto';}
+  addMsg(text,true,targetMsgs);
+  chatHistory.push({role:'user',content:text});
+  const typing=document.getElementById(targetTyping);
+  if(typing)typing.classList.add('show');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:280,
+        system:AI_SYS,
+        messages:chatHistory.slice(-8),
+      })
+    });
+    const data=await res.json();
+    const reply=(data.content&&data.content[0]&&data.content[0].text)||'Ask Lance directly at proximitysystems.ca.';
+    chatHistory.push({role:'assistant',content:reply});
+    if(typing)typing.classList.remove('show');
+    addMsg(reply,false,targetMsgs);
+  }catch(e){
+    if(typing)typing.classList.remove('show');
+    addMsg('Ask Lance directly at proximitysystems.ca — he responds fast.',false,targetMsgs);
+  }
+}
+
+function sendChat(){
+  const inp=document.getElementById('chInp');
+  if(inp&&inp.value.trim())sendChatText(inp.value.trim(),'chMsgs','typingRow','chInp');
+}
+
+function sendChatMob(){
+  const inp=document.getElementById('chInpMob');
+  if(inp&&inp.value.trim())sendChatText(inp.value.trim(),'chMsgsMob','typingRowMob','chInpMob');
+}
+
+function openAiDrawer(){document.getElementById('aiDrawer').classList.add('open');}
+function closeAiDrawer(){document.getElementById('aiDrawer').classList.remove('open');}
+
+// ── THREE.JS (removed — canvas not in sim panel) ──────────────────────────
+function initScene(){} // reserved for future enhancement
+
+// ── CURSOR ───────────────────────────────────────────────────────
+if(window.matchMedia('(pointer: fine)').matches){
+  const CU=document.getElementById('cur'),RG=document.getElementById('cur-r');
+  let cx=-100,cy=-100,rx=-100,ry=-100;
+  document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;CU.style.left=cx+'px';CU.style.top=cy+'px';});
+  (function lp(){rx+=(cx-rx)*.15;ry+=(cy-ry)*.15;RG.style.left=rx+'px';RG.style.top=ry+'px';requestAnimationFrame(lp);})();
+  document.querySelectorAll('button,.chip,.choice,.stog,.sn-w').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{RG.style.width='34px';RG.style.height='34px';});
+    el.addEventListener('mouseleave',()=>{RG.style.width='22px';RG.style.height='22px';});
+  });
+}
+
+// ── INTRO PARTICLES ──────────────────────────────────────────────
+(function(){
+  const c=document.getElementById('intro-c');if(!c)return;
+  const ctx=c.getContext('2d');
+  function rsz(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  rsz();window.addEventListener('resize',rsz);
+  const pts=Array.from({length:60},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.26,vy:(Math.random()-.5)*.26}));
+  let mx=c.width/2,my=c.height/2;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;
+      const d=Math.hypot(p.x-mx,p.y-my);
+      if(d<115){const f=(1-d/115)*.038;p.vx-=(p.x-mx)/d*f;p.vy-=(p.y-my)/d*f;}
+      ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);
+      ctx.fillStyle='rgba(106,180,200,0.32)';ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+      if(d<88){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(30,125,150,${.11*(1-d/88)})`;ctx.lineWidth=.5;ctx.stroke();}
+    }
+    requestAnimationFrame(draw);
+  }draw();
+})();
+
+// ── INTRO SEQUENCE ───────────────────────────────────────────────
+[['ilogo',350,'opacity:1;transform:none','all .8s cubic-bezier(.4,0,.2,1)'],['irule',850,'width:150px','width 1s ease'],['isub',1100,'opacity:1','opacity .6s'],['ichips',1400,'opacity:1','opacity .6s'],['icta',1750,'opacity:1','opacity .6s']].forEach(([id,d,s,tr])=>{
+  setTimeout(()=>{const e=document.getElementById(id);if(e){e.style.transition=tr;s.split(';').forEach(p=>{const[k,v]=p.split(':');if(k&&v)e.style[k.trim()]=v.trim();})}},d);
+});
+
+// ── ENTER APP ────────────────────────────────────────────────────
+function enterApp(){
+  const intro=document.getElementById('intro');
+  intro.style.transition='opacity .8s';intro.style.opacity='0';intro.style.pointerEvents='none';
+  setTimeout(()=>{
+    intro.style.display='none';
+    const app=document.getElementById('app');app.classList.add('show');
+    document.getElementById('mobBar').style.display='block';
+    // Show AI FAB on tablet/mobile
+    if(window.innerWidth<=1100)document.getElementById('aiFab').style.display='flex';
+    nav(1);
+    updateChatChips(1);
+  },800);
+}
+</script>
+</body>
+</html>
