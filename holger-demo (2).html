@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Always Best Care — Kitchener-Waterloo | Senior Home Care</title>
+<meta name="description" content="Compassionate in-home senior care in Kitchener-Waterloo. Personal care, dementia support, overnight care. Holger Fischer — local owner. Free home consultation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:   #0B1F3A;
+  --navy2:  #071529;
+  --navy3:  #122d52;
+  --gold:   #D4A843;
+  --gold2:  #e8c06a;
+  --gold3:  #f5dfa0;
+  --cream:  #F8F5EE;
+  --white:  #ffffff;
+  --muted:  rgba(255,255,255,0.45);
+  --border: rgba(212,168,67,0.18);
+  --shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--navy);
+  color:#fff;
+  overflow-x:hidden;
+  cursor:none;
+}
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;mix-blend-mode:difference;}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,168,67,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;will-change:transform;}
+body:hover #cur{opacity:1;}
+
+/* CANVAS */
+#canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.4;pointer-events:none;}
+
+/* NOISE */
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:0.35;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--navy2);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 48px;
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(11,31,58,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:all 0.3s;
+}
+.nav.scrolled{background:rgba(7,21,41,0.96);}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo-mark{
+  width:36px;height:36px;
+  border:1px solid var(--gold);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  color:var(--gold);letter-spacing:1px;
+}
+.nav-logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:15px;color:#fff;letter-spacing:0.3px;
+}
+.nav-logo-text span{color:var(--gold);font-style:italic;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-link{color:var(--muted);font-size:13px;font-weight:400;text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}
+.nav-link:hover{color:#fff;}
+.nav-cta{
+  background:transparent;border:1px solid var(--gold);
+  color:var(--gold);padding:9px 20px;border-radius:4px;
+  font-size:13px;font-weight:500;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.3px;
+}
+.nav-cta:hover{background:var(--gold);color:var(--navy2);}
+.nav-mob-btn{display:none;background:none;border:none;cursor:none;padding:4px;}
+.nav-mob-btn svg{width:22px;height:22px;color:#fff;}
+
+/* HERO */
+.hero{
+  position:relative;z-index:2;
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:100px 48px 80px;
+  overflow:hidden;
+}
+.hero-grid{
+  max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 480px;
+  gap:80px;align-items:center;
+}
+.hero-left{}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid var(--border);border-radius:30px;
+  padding:6px 14px 6px 10px;margin-bottom:28px;
+  opacity:0;animation:fadeUp 0.8s 0.2s forwards;
+}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.4);}}
+.hero-eyebrow-text{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,5.5vw,72px);
+  font-weight:400;line-height:1.08;
+  color:#fff;margin-bottom:6px;
+  opacity:0;animation:fadeUp 0.9s 0.35s forwards;
+}
+.hero-h1 em{color:var(--gold);font-style:italic;}
+.hero-h1-2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,5.5vw,72px);
+  font-weight:400;line-height:1.08;
+  color:rgba(255,255,255,0.35);
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp 0.9s 0.5s forwards;
+}
+.hero-sub{
+  font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);
+  max-width:480px;line-height:1.75;margin-bottom:40px;
+  opacity:0;animation:fadeUp 0.9s 0.65s forwards;
+}
+.hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 0.9s 0.8s forwards;
+}
+.btn-gold{
+  background:var(--gold);color:var(--navy2);
+  padding:14px 28px;border-radius:4px;
+  font-size:14px;font-weight:600;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.3px;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-ghost{
+  background:transparent;border:1px solid rgba(255,255,255,0.2);
+  color:#fff;padding:14px 28px;border-radius:4px;
+  font-size:14px;font-weight:400;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.3px;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.5);}
+.hero-trust{
+  display:flex;gap:28px;margin-top:40px;
+  opacity:0;animation:fadeUp 0.9s 0.95s forwards;
+}
+.ht-i{display:flex;align-items:center;gap:7px;}
+.ht-check{color:var(--gold);font-size:13px;}
+.ht-t{font-size:12px;color:var(--muted);font-weight:300;}
+
+/* HERO RIGHT — TERMINAL */
+.hero-terminal{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  opacity:0;animation:fadeLeft 1s 0.5s forwards;
+  box-shadow:0 40px 100px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.ht-bar{
+  background:rgba(255,255,255,0.05);
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.ht-dots{display:flex;gap:6px;}
+.ht-dot{width:10px;height:10px;border-radius:50%;}
+.ht-dot.r{background:#ff5f57;}
+.ht-dot.y{background:#febc2e;}
+.ht-dot.g{background:#28c840;}
+.ht-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin:0 auto;}
+.ht-body{padding:20px;font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.9;}
+.ht-line{margin-bottom:4px;}
+.ht-line .cmd{color:var(--gold);}
+.ht-line .val{color:rgba(255,255,255,0.5);}
+.ht-line .ok{color:#4ade80;}
+.ht-line .warn{color:#fbbf24;}
+.ht-line.blink::after{content:'█';animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.ht-divider{border-top:1px solid var(--border);margin:12px 0;}
+.ht-metric{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.ht-metric:last-child{border-bottom:none;}
+.ht-metric-label{font-size:11px;color:var(--muted);}
+.ht-metric-val{font-size:11px;color:var(--gold);}
+
+/* SCROLL INDICATOR */
+.scroll-ind{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fadeUp 1s 1.2s forwards;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollLine 2s ease-in-out infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+.scroll-text{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeLeft{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+
+/* SECTION BASE */
+.section{position:relative;z-index:2;padding:100px 48px;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.sec-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.sec-h{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,48px);font-weight:400;color:#fff;margin-bottom:10px;line-height:1.15;}
+.sec-h em{color:var(--gold);font-style:italic;}
+.sec-sub{font-size:15px;color:var(--muted);font-weight:300;max-width:540px;line-height:1.7;}
+.section-head{margin-bottom:56px;}
+
+/* STATS STRIP */
+.stats-strip{
+  position:relative;z-index:2;
+  padding:0 48px;
+}
+.stats-inner{
+  max-width:1200px;margin:0 auto;
+  background:rgba(212,168,67,0.06);
+  border:1px solid var(--border);
+  border-radius:12px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  divide-x:1px solid var(--border);
+  overflow:hidden;
+}
+.stat-cell{
+  padding:32px 28px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-cell:last-child{border-right:none;}
+.stat-cell::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:40px;height:2px;background:var(--gold);opacity:0;
+  transition:opacity 0.4s;
+}
+.stat-cell.visible::before{opacity:1;}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:42px;font-weight:500;
+  color:var(--gold);line-height:1;margin-bottom:6px;
+}
+.stat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.svc-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px;padding:28px;
+  transition:all 0.3s;
+  cursor:none;position:relative;overflow:hidden;
+}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.svc-card:hover{background:rgba(212,168,67,0.06);border-color:var(--border);transform:translateY(-4px);}
+.svc-card:hover::before{opacity:1;}
+.svc-icon{
+  width:44px;height:44px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);margin-bottom:16px;
+  transition:background 0.3s;
+}
+.svc-card:hover .svc-icon{background:rgba(212,168,67,0.1);}
+.svc-icon svg{width:20px;height:20px;}
+.svc-name{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:500;color:#fff;
+  margin-bottom:8px;
+}
+.svc-desc{font-size:13px;color:var(--muted);line-height:1.65;font-weight:300;}
+
+/* HOLGER SECTION */
+.holger-section{
+  background:rgba(255,255,255,0.02);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.holger-grid{display:grid;grid-template-columns:440px 1fr;gap:80px;align-items:start;}
+.holger-card{
+  background:rgba(212,168,67,0.05);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:36px;
+  position:relative;overflow:hidden;
+}
+.holger-card::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:120px;height:120px;
+  background:radial-gradient(circle,rgba(212,168,67,0.15) 0%,transparent 70%);
+}
+.hc-avatar{
+  width:64px;height:64px;
+  background:linear-gradient(135deg,var(--navy3),var(--gold));
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:#fff;
+  margin-bottom:16px;
+}
+.hc-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;color:#fff;margin-bottom:2px;}
+.hc-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+.hc-detail{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.hc-detail:last-child{border-bottom:none;}
+.hc-detail-icon{color:var(--gold);flex-shrink:0;margin-top:1px;}
+.hc-detail-icon svg{width:14px;height:14px;}
+.hc-detail-text{font-size:13px;color:rgba(255,255,255,0.65);font-weight:300;line-height:1.4;}
+.hc-detail-text a{color:rgba(255,255,255,0.65);text-decoration:none;}
+.hc-detail-text strong{display:block;color:#fff;font-weight:500;font-size:12px;margin-bottom:1px;}
+.holger-right{}
+.holger-bio{font-size:15px;line-height:1.85;color:rgba(255,255,255,0.65);font-weight:300;margin-bottom:32px;}
+.holger-bio p{margin-bottom:14px;}
+.holger-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.badge{
+  border:1px solid var(--border);
+  color:var(--gold);
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 12px;border-radius:2px;
+}
+.holger-quote{
+  border-left:2px solid var(--gold);
+  padding-left:20px;
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-style:italic;
+  color:rgba(255,255,255,0.7);
+  line-height:1.6;
+}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:28px;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),transparent);}
+.tl-item{position:relative;padding:0 0 32px 24px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{
+  position:absolute;left:-28px;top:4px;
+  width:8px;height:8px;
+  background:var(--gold);border-radius:50%;
+  box-shadow:0 0 0 3px rgba(212,168,67,0.2);
+}
+.tl-day{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+.tl-title{font-size:15px;font-weight:500;color:#fff;margin-bottom:4px;}
+.tl-desc{font-size:13px;color:var(--muted);font-weight:300;line-height:1.5;}
+
+/* CHAT SECTION */
+.chat-section{
+  position:relative;z-index:2;
+  padding:0 48px 100px;
+}
+.chat-wrap{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 420px;
+  gap:80px;align-items:start;
+}
+.chat-left{}
+.chat-right{position:sticky;top:88px;}
+.chat-window{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-top:2px solid var(--gold);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,0.4);
+  display:flex;flex-direction:column;
+  height:480px;
+}
+.cw-head{
+  background:rgba(212,168,67,0.06);
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.cw-av{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:12px;font-weight:500;
+  color:var(--navy2);flex-shrink:0;
+}
+.cw-info{}
+.cw-name{font-size:13px;font-weight:500;color:#fff;line-height:1.2;}
+.cw-status{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-top:1px;}
+.cw-online{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse-dot 2s infinite;}
+.cw-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+.cw-msg{max-width:88%;}
+.cw-msg.b{align-self:flex-start;}
+.cw-msg.u{align-self:flex-end;}
+.cw-bub{padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.55;}
+.cw-msg.b .cw-bub{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.9);border-radius:2px 10px 10px 10px;}
+.cw-msg.u .cw-bub{background:var(--gold);color:var(--navy2);font-weight:500;border-radius:10px 2px 10px 10px;}
+.cw-typing{display:none;align-self:flex-start;}
+.cw-typing.show{display:flex;}
+.cw-typing .cw-bub{display:flex;gap:4px;align-items:center;}
+.cw-typing span{width:6px;height:6px;background:rgba(255,255,255,0.4);border-radius:50%;animation:bounce 1.2s infinite;}
+.cw-typing span:nth-child(2){animation-delay:0.2s;}
+.cw-typing span:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+.cw-chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px;}
+.cw-chip{
+  border:1px solid rgba(212,168,67,0.3);
+  background:transparent;color:rgba(255,255,255,0.75);
+  padding:5px 12px;border-radius:20px;font-size:12px;
+  cursor:none;transition:all 0.15s;font-family:'Outfit',sans-serif;
+}
+.cw-chip:hover{background:rgba(212,168,67,0.1);border-color:var(--gold);color:#fff;}
+.cw-inp-wrap{
+  padding:10px 12px;border-top:1px solid var(--border);
+  display:flex;gap:8px;
+}
+.cw-inp{
+  flex:1;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px;padding:9px 12px;
+  color:#fff;font-size:13px;font-family:'Outfit',sans-serif;outline:none;
+  transition:border-color 0.2s;
+}
+.cw-inp::placeholder{color:rgba(255,255,255,0.25);}
+.cw-inp:focus{border-color:var(--gold);}
+.cw-send{
+  width:36px;height:36px;background:var(--gold);border:none;
+  border-radius:6px;cursor:none;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:opacity 0.2s;
+}
+.cw-send:hover{opacity:0.85;}
+.cw-send svg{width:15px;height:15px;color:var(--navy2);}
+
+/* FORM SECTION */
+.form-section{
+  background:rgba(212,168,67,0.04);
+  border-top:1px solid var(--border);
+}
+.form-grid{display:grid;grid-template-columns:1fr 440px;gap:80px;align-items:start;}
+.form-wrap{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:36px;}
+.f-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:block;}
+.f-input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:5px;padding:11px 14px;
+  color:#fff;font-size:14px;font-family:'Outfit',sans-serif;
+  outline:none;margin-bottom:16px;transition:border-color 0.2s;
+  appearance:none;
+}
+.f-input:focus{border-color:var(--gold);}
+.f-input option{background:var(--navy2);color:#fff;}
+.f-btn{
+  width:100%;background:var(--gold);color:var(--navy2);
+  border:none;border-radius:5px;padding:14px;
+  font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;
+  cursor:none;transition:all 0.2s;letter-spacing:0.3px;
+}
+.f-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+.f-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;}
+.form-contact{}
+.fc-item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.fc-item:last-child{border-bottom:none;}
+.fc-icon{
+  width:36px;height:36px;flex-shrink:0;
+  border:1px solid var(--border);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);
+}
+.fc-icon svg{width:16px;height:16px;}
+.fc-text{}
+.fc-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.fc-val{font-size:14px;color:#fff;}
+.fc-val a{color:#fff;text-decoration:none;}
+
+/* SUCCESS */
+.form-success{display:none;text-align:center;padding:48px;}
+.form-success.show{display:block;}
+.fs-icon{
+  width:56px;height:56px;background:rgba(212,168,67,0.1);border:1px solid var(--gold);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin:0 auto 16px;color:var(--gold);
+}
+.fs-h{font-family:'Playfair Display',serif;font-size:28px;color:#fff;margin-bottom:8px;}
+.fs-sub{font-size:14px;color:var(--muted);}
+
+/* FOOTER */
+footer{
+  position:relative;z-index:2;
+  background:var(--navy2);
+  border-top:1px solid var(--border);
+  padding:48px;
+}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-brand{
+  font-family:'Playfair Display',serif;font-size:20px;color:#fff;
+  display:flex;align-items:center;gap:10px;
+}
+.footer-brand-mark{
+  width:28px;height:28px;border:1px solid var(--gold);border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);
+}
+.footer-mid{font-size:12px;color:rgba(255,255,255,0.25);text-align:center;line-height:1.8;}
+.footer-right{font-size:12px;color:rgba(255,255,255,0.3);text-align:right;}
+
+/* FAB CHAT BUBBLE */
+.fab{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:56px;height:56px;
+  background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;
+  box-shadow:0 8px 32px rgba(212,168,67,0.4);
+  transition:all 0.3s;
+  animation:fab-pulse 3s ease-in-out infinite;
+}
+.fab:hover{transform:scale(1.1);}
+.fab svg{width:24px;height:24px;color:var(--navy2);}
+.fab-badge{
+  position:absolute;top:-4px;right:-4px;
+  width:18px;height:18px;background:#ef4444;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:#fff;
+}
+@keyframes fab-pulse{
+  0%,100%{box-shadow:0 8px 32px rgba(212,168,67,0.4),0 0 0 0 rgba(212,168,67,0.4);}
+  50%{box-shadow:0 8px 32px rgba(212,168,67,0.4),0 0 0 12px rgba(212,168,67,0);}
+}
+
+/* MOBILE */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-terminal{display:none;}
+  .holger-grid{grid-template-columns:1fr;}
+  .chat-wrap{grid-template-columns:1fr;}
+  .chat-right{position:relative;top:auto;}
+  .form-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero{padding:80px 20px 60px;}
+  .section{padding:70px 20px;}
+  .stats-strip{padding:0 20px;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .chat-section{padding:0 20px 70px;}
+  .form-section .section-inner{padding:0;}
+  .form-section .section{padding:70px 20px;}
+  footer{padding:32px 20px;}
+  .footer-inner{flex-direction:column;text-align:center;}
+  .footer-right{text-align:center;}
+  #cur,#cur-ring{display:none;}
+  body{cursor:auto;}
+  .svc-card,.f-btn,.fab,.nav-cta,.btn-gold,.btn-ghost{cursor:pointer;}
+  .cw-chip,.cw-send,.cw-inp{cursor:auto;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">ABC</div>
+    <div class="nav-logo-text">Always Best Care <span>· Kitchener-Waterloo</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#chat" class="nav-link">Get a Reply</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <a href="#contact" class="nav-cta">Free Home Visit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <div class="hero-eyebrow-text">Kitchener-Waterloo · Waterloo Region · Est. 2025</div>
+      </div>
+      <h1 class="hero-h1">Senior care that<br>feels like <em>family.</em></h1>
+      <div class="hero-h1-2">Delivered at home.</div>
+      <p class="hero-sub">Always Best Care of Kitchener-Waterloo provides compassionate, professional in-home senior care across the Waterloo Region. Same caregiver every visit. Free home consultation. No contracts, no commitment.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-gold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Book Free Home Visit
+        </a>
+        <a href="tel:5199003303" class="btn-ghost">519-900-3303</a>
+      </div>
+      <div class="hero-trust">
+        <div class="ht-i"><div class="ht-check">✓</div><div class="ht-t">Local Kitchener-Waterloo owner</div></div>
+        <div class="ht-i"><div class="ht-check">✓</div><div class="ht-t">Screened and trained caregivers</div></div>
+        <div class="ht-i"><div class="ht-check">✓</div><div class="ht-t">Reply in under 60 seconds</div></div>
+      </div>
+    </div>
+    <div class="hero-terminal reveal">
+      <div class="ht-bar">
+        <div class="ht-dots"><div class="ht-dot r"></div><div class="ht-dot y"></div><div class="ht-dot g"></div></div>
+        <div class="ht-title">abc-kw — system status</div>
+      </div>
+      <div class="ht-body">
+        <div class="ht-line"><span class="cmd">></span> <span class="val">initializing care coordination system...</span></div>
+        <div class="ht-line"><span class="ok">✓</span> <span class="val">Holger Fischer — owner connected</span></div>
+        <div class="ht-line"><span class="ok">✓</span> <span class="val">Waterloo Region — territory active</span></div>
+        <div class="ht-line"><span class="ok">✓</span> <span class="val">Caregiver network — ready</span></div>
+        <div class="ht-line"><span class="ok">✓</span> <span class="val">Lead capture — online</span></div>
+        <div class="ht-line"><span class="warn">⚡</span> <span class="val">AI reply — under 60 seconds</span></div>
+        <div class="ht-divider"></div>
+        <div class="ht-metric"><span class="ht-metric-label">Territory</span><span class="ht-metric-val">Waterloo Region ON</span></div>
+        <div class="ht-metric"><span class="ht-metric-label">Response time</span><span class="ht-metric-val">< 60 seconds</span></div>
+        <div class="ht-metric"><span class="ht-metric-label">Care available</span><span class="ht-metric-val">24/7 · 7 days/week</span></div>
+        <div class="ht-metric"><span class="ht-metric-label">Free consultation</span><span class="ht-metric-val">Yes — in your home</span></div>
+        <div class="ht-metric"><span class="ht-metric-label">Contracts</span><span class="ht-metric-val">None required</span></div>
+        <div class="ht-divider"></div>
+        <div class="ht-line blink"><span class="cmd">></span> <span class="val">awaiting your inquiry</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-ind">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner reveal">
+    <div class="stat-cell"><div class="stat-num" data-target="60">0</div><div class="stat-label">Second Reply Time</div></div>
+    <div class="stat-cell"><div class="stat-num" data-target="25" data-suffix="+">0</div><div class="stat-label">Years ABC Network</div></div>
+    <div class="stat-cell"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Screened Caregivers</div></div>
+    <div class="stat-cell"><div class="stat-num" data-target="24" data-suffix="/7">0</div><div class="stat-label">Care Availability</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="sec-tag">What We Provide</div>
+      <h2 class="sec-h">Every level of care. <em>In your home.</em></h2>
+      <p class="sec-sub">From a few hours of companionship to 24-hour care, we match your loved one with the right caregiver for their needs and personality.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="svc-name">Personal Care</div>
+        <p class="svc-desc">Bathing, grooming, dressing, and daily hygiene provided with dignity and respect. We only hire caregivers we would trust with our own families.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+        <div class="svc-name">Dementia Care</div>
+        <p class="svc-desc">Specialized support for Alzheimer's and all stages of dementia using the Meaningful Day program. We support the whole family, not just the client.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-3">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="svc-name">Companionship</div>
+        <p class="svc-desc">Meaningful social interaction, conversation, activities, and outings. Reduces isolation and supports mental health. More than care — genuine human connection.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="svc-name">Post-Hospital Recovery</div>
+        <p class="svc-desc">Transitional care after surgery or hospital discharge. We coordinate with your medical team to reduce re-admission risk and support a safe recovery at home.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="svc-name">Overnight and 24-Hour Care</div>
+        <p class="svc-desc">Round-the-clock support for seniors who need continuous care. From overnight stays to full-time live-in arrangements with consistent, reliable coverage every shift.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-3">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="svc-name">Respite Care</div>
+        <p class="svc-desc">Relief for family caregivers who need to rest or attend to other obligations. We step in so you can recharge, knowing your loved one is safe and cared for.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z M9 9h6M9 12h6M9 15h4"/></svg></div>
+        <div class="svc-name">Meal Preparation</div>
+        <p class="svc-desc">Nutritious, balanced meal planning and preparation tailored to dietary needs and preferences. Supports physical health and establishes comforting daily routines.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <div class="svc-name">Medication Reminders</div>
+        <p class="svc-desc">Non-medical medication reminders to ensure schedules are followed. Caregivers monitor regularity without administering medications, keeping loved ones on track safely.</p>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-3">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+        <div class="svc-name">Light Housekeeping</div>
+        <p class="svc-desc">Laundry, cleaning, errands, and grocery shopping to maintain a safe, comfortable home environment. Supports independence while reducing daily stress on seniors and families.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT HOLGER -->
+<section class="section holger-section" id="about">
+  <div class="section-inner">
+    <div class="holger-grid">
+      <div>
+        <div class="holger-card reveal">
+          <div class="hc-avatar">H</div>
+          <div class="hc-name">Holger Fischer</div>
+          <div class="hc-title">Owner · Always Best Care KW</div>
+          <div class="hc-detail">
+            <div class="hc-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18C1.61 2.1 2.5 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="hc-detail-text"><strong>Phone</strong><a href="tel:5199003303">519-900-3303</a></div>
+          </div>
+          <div class="hc-detail">
+            <div class="hc-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="hc-detail-text"><strong>Email</strong><a href="mailto:hfischer@abc-seniors.com">hfischer@abc-seniors.com</a></div>
+          </div>
+          <div class="hc-detail">
+            <div class="hc-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="hc-detail-text"><strong>Office</strong>210-137 Glasgow St, Office 5052<br>Kitchener, ON N2G 4X8</div>
+          </div>
+          <div class="hc-detail">
+            <div class="hc-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="hc-detail-text"><strong>Hours</strong>Office Mon–Fri 9am–5pm<br>Care available 24 hours, 7 days</div>
+          </div>
+        </div>
+      </div>
+      <div class="holger-right reveal">
+        <div class="sec-tag">Your Local Owner</div>
+        <h2 class="sec-h" style="font-size:38px;margin-bottom:20px">Built for this <em>community.</em></h2>
+        <div class="holger-bio">
+          <p>Holger Fischer is a Kitchener-Waterloo resident and the owner of Always Best Care of Kitchener-Waterloo. His goal is simple — to join your family's journey and provide the best possible care plan for your loved one.</p>
+          <p>Holger has spent his life giving back to the Waterloo Region community. From Scouts Canada since his youth, to working as a lifeguard and Water Safety Instructor at university, to coaching and refereeing wrestling, his commitment to others has been lifelong. That same commitment is what drives everything at Always Best Care of Kitchener-Waterloo.</p>
+          <p>Every caregiver on Holger's team is carefully screened, thoroughly trained, and insured before their first shift. His team has built strong relationships with area hospitals, social workers, and senior communities across the region. When you call, you reach real people who know your community.</p>
+        </div>
+        <div class="holger-badges">
+          <div class="badge">Local Owner</div>
+          <div class="badge">Community Leader</div>
+          <div class="badge">Scouts Canada</div>
+          <div class="badge">Waterloo Region</div>
+          <div class="badge">ABC Network</div>
+        </div>
+        <div class="holger-quote reveal">"My goal is to join your family's journey and provide the absolute best care plan for your loved one."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT CHANGES / TIMELINE -->
+<section class="section">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+      <div>
+        <div class="section-head reveal" style="margin-bottom:40px">
+          <div class="sec-tag">Why Always Best Care</div>
+          <h2 class="sec-h">What makes <em>us different.</em></h2>
+          <p class="sec-sub">ABC combines national strength with local care. What you get from Holger's team is something most agencies can't offer.</p>
+        </div>
+        <div class="services-grid" style="grid-template-columns:1fr;gap:12px;">
+          <div class="svc-card reveal" style="padding:20px 24px;display:flex;align-items:flex-start;gap:16px;">
+            <div class="svc-icon" style="flex-shrink:0;margin-bottom:0;width:36px;height:36px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="svc-name" style="font-size:16px;margin-bottom:4px">Same caregiver every visit</div><p class="svc-desc">No rotating strangers. Your loved one gets consistency and builds a real relationship with one dedicated caregiver.</p></div>
+          </div>
+          <div class="svc-card reveal" style="padding:20px 24px;display:flex;align-items:flex-start;gap:16px;">
+            <div class="svc-icon" style="flex-shrink:0;margin-bottom:0;width:36px;height:36px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="svc-name" style="font-size:16px;margin-bottom:4px">Reply in under 60 seconds</div><p class="svc-desc">Every inquiry gets a response in under 60 seconds, around the clock. Most agencies take 8 days. We take less than a minute.</p></div>
+          </div>
+          <div class="svc-card reveal" style="padding:20px 24px;display:flex;align-items:flex-start;gap:16px;">
+            <div class="svc-icon" style="flex-shrink:0;margin-bottom:0;width:36px;height:36px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M10 21v-6h4v6"/></svg></div>
+            <div><div class="svc-name" style="font-size:16px;margin-bottom:4px">Family stay connected</div><p class="svc-desc">Every client's family has a private portal to see visit history, care plan, and updates after every shift. No more wondering what happened.</p></div>
+          </div>
+          <div class="svc-card reveal" style="padding:20px 24px;display:flex;align-items:flex-start;gap:16px;">
+            <div class="svc-icon" style="flex-shrink:0;margin-bottom:0;width:36px;height:36px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="svc-name" style="font-size:16px;margin-bottom:4px">Fully vetted, insured, trained</div><p class="svc-desc">Every caregiver goes through background checks, reference verification, and comprehensive training before their first shift. Licensed and insured.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="padding-top:60px;">
+        <div class="sec-tag">What Happens After You Call</div>
+        <h2 class="sec-h" style="font-size:34px;margin-bottom:32px">Care starts <em>fast.</em></h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-day">Within 60 Seconds</div>
+            <div class="tl-title">You get a reply</div>
+            <div class="tl-desc">Submit a form or start a chat. You get a real response in under 60 seconds. Not a voicemail. Not a callback request form. A real reply.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-day">Within 2 Hours</div>
+            <div class="tl-title">Holger calls you</div>
+            <div class="tl-desc">Holger personally calls to understand your situation. No scripts, no call center. A real conversation about your loved one and what they actually need.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-day">Within 48 Hours</div>
+            <div class="tl-title">Free home visit</div>
+            <div class="tl-desc">A Care Coordinator visits your home at no charge. They assess your loved one's needs, meet the family, and put together a personalized care plan.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-day">Day 1 of Care</div>
+            <div class="tl-title">Your caregiver arrives</div>
+            <div class="tl-desc">Your matched caregiver starts. Family gets portal access. Every visit gets logged. You see what happened within hours of the shift ending.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAT SECTION -->
+<section class="chat-section" id="chat">
+  <div class="chat-wrap">
+    <div class="chat-left reveal">
+      <div class="sec-tag">Get Answers Now</div>
+      <h2 class="sec-h">Ask us anything. <em>Right now.</em></h2>
+      <p class="sec-sub" style="margin-bottom:32px">Our care assistant replies in under 60 seconds. Ask about services, pricing, availability, or book a free home consultation directly in the chat.</p>
+      <div class="timeline" style="margin-top:20px;">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">Real-time</div>
+          <div class="tl-title">Under 60-second reply</div>
+          <div class="tl-desc">AI-powered but trained specifically on our services, territory, and pricing. You get accurate answers instantly.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">24 hours a day</div>
+          <div class="tl-title">Available any time</div>
+          <div class="tl-desc">Searching for care at 11pm on a Sunday? You still get an immediate response. We don't close.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">No obligation</div>
+          <div class="tl-title">Book directly in chat</div>
+          <div class="tl-desc">When you're ready, the chat books your free home consultation directly. Holger will call you within 2 hours to confirm.</div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-right reveal">
+      <div class="chat-window" id="chatBox">
+        <div class="cw-head">
+          <div class="cw-av">H</div>
+          <div class="cw-info">
+            <div class="cw-name">Always Best Care · KW</div>
+            <div class="cw-status"><div class="cw-online"></div>Online — reply under 60 seconds</div>
+          </div>
+        </div>
+        <div class="cw-msgs" id="cwMsgs">
+          <div class="cw-msg b"><div class="cw-bub">Hi there. I'm here to help you find the right care for your loved one in the Kitchener-Waterloo area. Who are you looking for care for?</div></div>
+        </div>
+        <div class="cw-typing" id="cwTyping"><div class="cw-bub"><span></span><span></span><span></span></div></div>
+        <div class="cw-chips" id="cwChips">
+          <button class="cw-chip" onclick="cwChip('A parent')">A parent</button>
+          <button class="cw-chip" onclick="cwChip('My spouse')">My spouse</button>
+          <button class="cw-chip" onclick="cwChip('Myself')">Myself</button>
+          <button class="cw-chip" onclick="cwChip('Someone else')">Someone else</button>
+        </div>
+        <div class="cw-inp-wrap">
+          <input type="text" class="cw-inp" id="cwInp" placeholder="Type a message..." onkeydown="if(event.key==='Enter'){cwSend(this.value);}">
+          <button class="cw-send" onclick="cwSend(document.getElementById('cwInp').value)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="section form-section" id="contact">
+  <div class="section-inner">
+    <div class="form-grid">
+      <div>
+        <div class="section-head reveal" style="margin-bottom:40px">
+          <div class="sec-tag">Book Your Consultation</div>
+          <h2 class="sec-h">Free home visit. <em>No commitment.</em></h2>
+          <p class="sec-sub">Holger or a Care Coordinator will visit your home at no charge to understand your loved one's needs and create a personalised care plan.</p>
+        </div>
+        <div class="form-contact reveal">
+          <div class="fc-item">
+            <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18C1.61 2.1 2.5 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="fc-text"><div class="fc-title">Phone</div><div class="fc-val"><a href="tel:5199003303">519-900-3303</a></div></div>
+          </div>
+          <div class="fc-item">
+            <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="fc-text"><div class="fc-title">Email</div><div class="fc-val"><a href="mailto:hfischer@abc-seniors.com">hfischer@abc-seniors.com</a></div></div>
+          </div>
+          <div class="fc-item">
+            <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="fc-text"><div class="fc-title">Office</div><div class="fc-val">210-137 Glasgow St, Office 5052<br>Kitchener, ON N2G 4X8</div></div>
+          </div>
+          <div class="fc-item">
+            <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="fc-text"><div class="fc-title">Hours</div><div class="fc-val">Office Mon–Fri 9am–5pm<br>Care available 24/7</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-wrap reveal">
+        <div id="leadForm">
+          <label class="f-label">Your name</label>
+          <input type="text" class="f-input" id="lf-name" placeholder="First and last name">
+          <label class="f-label">Phone number</label>
+          <input type="tel" class="f-input" id="lf-phone" placeholder="519-000-0000">
+          <label class="f-label">Email address</label>
+          <input type="email" class="f-input" id="lf-email" placeholder="your@email.com">
+          <label class="f-label">Who needs care?</label>
+          <select class="f-input" id="lf-for">
+            <option value="">Select one</option>
+            <option>A parent</option><option>My spouse</option>
+            <option>Myself</option><option>Someone else</option>
+          </select>
+          <label class="f-label">Type of care needed</label>
+          <select class="f-input" id="lf-type">
+            <option value="">Select one</option>
+            <option>Personal care and hygiene</option>
+            <option>Dementia or Alzheimer's care</option>
+            <option>Post-hospital recovery</option>
+            <option>Companionship</option>
+            <option>Overnight or 24-hour care</option>
+            <option>Respite care for family</option>
+            <option>Meal preparation and housekeeping</option>
+            <option>Not sure yet</option>
+          </select>
+          <label class="f-label">How soon do you need care?</label>
+          <select class="f-input" id="lf-urgency">
+            <option value="">Select one</option>
+            <option>Immediately</option>
+            <option>Within 1 to 2 weeks</option>
+            <option>Within a month</option>
+            <option>Just exploring options</option>
+          </select>
+          <button class="f-btn" id="lf-btn" onclick="submitLead()">Book My Free Home Visit →</button>
+          <p class="f-note">Holger will call within 2 hours. No commitment required.</p>
+          <div id="lf-err" style="display:none;color:#ef4444;font-size:12px;text-align:center;margin-top:8px;"></div>
+        </div>
+        <div class="form-success" id="leadSuccess">
+          <div class="fs-icon">✓</div>
+          <div class="fs-h">Thank you.</div>
+          <p class="fs-sub">Holger will call within 2 hours to schedule your free home visit. We look forward to meeting your family.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-mark">ABC</div>
+      Always Best Care
+    </div>
+    <div class="footer-mid">
+      Always Best Care of Kitchener-Waterloo · Holger Fischer, Local Owner<br>
+      Serving Kitchener · Waterloo · Cambridge · Guelph · Waterloo Region<br>
+      © 2026 Always Best Care of Kitchener-Waterloo. Member of Always Best Care Senior Services Network.
+    </div>
+    <div class="footer-right">
+      519-900-3303<br>
+      hfischer@abc-seniors.com<br>
+      137 Glasgow St, Kitchener ON
+    </div>
+  </div>
+</footer>
+
+<!-- FAB -->
+<div class="fab" id="fab" onclick="document.getElementById('chat').scrollIntoView({behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <div class="fab-badge">1</div>
+</div>
+
+<script>
+// ── CONSTANTS ──
+const RAILWAY = 'https://proximity-agent-production.up.railway.app';
+const CHAT_SYSTEM = `You are the care intake assistant for Always Best Care of Kitchener-Waterloo, owned by Holger Fischer. You help families in the Waterloo Region find compassionate in-home senior care.
+
+TONE: Warm, calm, like a trusted community member. Two sentences max. Plain English. No bullet points. No em dashes.
+
+SERVICES: Personal care and hygiene, dementia and Alzheimer's care (Meaningful Day program), companionship, post-hospital recovery, overnight and 24-hour care, respite care, meal preparation, medication reminders, light housekeeping, transportation to appointments.
+
+TERRITORY: Kitchener, Waterloo, Cambridge, Guelph, and all of Waterloo Region Ontario.
+
+PRICING — always monthly: Essential (4 to 20 hours per week) $800 to $1,600 per month. Standard (20 to 40 hours per week) $1,600 to $3,000 per month. Full-Time (40 to 80 hours per week) $3,000 to $5,000 per month. First 6 hours completely free.
+
+CONTACT: Holger Fischer, 519-900-3303, hfischer@abc-seniors.com.
+
+YOUR JOB: Collect 3 answers through natural conversation one question at a time.
+1. Who needs care and their relationship (parent, spouse, self, other)
+2. What kind of care they need
+3. How urgently they want to start
+
+THREE-STRIKES RULE — NEVER VIOLATE: After the user answers 3 questions your very next reply MUST be exactly this and nothing else:
+<!--READY_FOR_BOOKING:{"care_for":"[who]","care_type":"[type]","urgency":"[when]"}-->
+Great. Let me get Holger's next available time for your free home consultation.
+
+Replace bracketed values with what they said. If the user says skip or book at any point, output the trigger immediately with whatever you have, using "not specified" for unknowns.`;
+
+// ── CANVAS PARTICLES ──
+(function(){
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var W, H;
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for(var i=0;i<70;i++){
+    particles.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      r:Math.random()*1.5+0.5,
+      dx:(Math.random()-0.5)*0.3,
+      dy:(Math.random()-0.5)*0.3,
+      a:Math.random()*0.5+0.2
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p){
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(212,168,67,'+p.a+')';
+      ctx.fill();
+      p.x+=p.dx; p.y+=p.dy;
+      if(p.x<0||p.x>W)p.dx*=-1;
+      if(p.y<0||p.y>H)p.dy*=-1;
+    });
+    // Draw faint connecting lines
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx=particles[i].x-particles[j].x;
+        var dy=particles[i].y-particles[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(212,168,67,'+(0.06*(1-dist/120))+')';
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── CURSOR ──
+(function(){
+  if(!window.matchMedia('(pointer:fine)').matches)return;
+  var cur=document.getElementById('cur');
+  var ring=document.getElementById('cur-ring');
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+  animRing();
+  document.querySelectorAll('a,button,.svc-card,.cw-chip,.f-btn,.nav-cta,.btn-gold,.btn-ghost').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.style.transform='translate(-50%,-50%) scale(2)';ring.style.borderColor='rgba(212,168,67,0.8)';});
+    el.addEventListener('mouseleave',function(){ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(212,168,67,0.5)';});
+  });
+})();
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── SCROLL REVEAL ──
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+
+// ── STAT COUNTERS ──
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      e.target.classList.add('visible');
+      var nums=e.target.querySelectorAll('[data-target]');
+      nums.forEach(function(el){
+        var target=parseInt(el.getAttribute('data-target'));
+        var suffix=el.getAttribute('data-suffix')||'';
+        var start=0; var dur=1600; var startTime=null;
+        function step(ts){
+          if(!startTime)startTime=ts;
+          var prog=Math.min((ts-startTime)/dur,1);
+          var ease=1-Math.pow(1-prog,3);
+          el.textContent=Math.floor(start+(target-start)*ease)+suffix;
+          if(prog<1)requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+      obs.unobserve(e.target);
+    });
+  },{threshold:0.4});
+  document.querySelectorAll('.stats-inner').forEach(function(el){obs.observe(el);});
+})();
+
+// ── CHAT STATE ──
+var cwHistory=[];
+var cwBusy=false;
+var cwTurns=0;
+var cwBooked=false;
+
+function cwAddMsg(role,text){
+  var msgs=document.getElementById('cwMsgs');
+  var d=document.createElement('div');
+  d.className='cw-msg '+(role==='user'?'u':'b');
+  d.innerHTML='<div class="cw-bub">'+text.replace(/<!--[\s\S]*?-->/g,'').trim()+'</div>';
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function cwShowTyping(){document.getElementById('cwTyping').classList.add('show');}
+function cwHideTyping(){document.getElementById('cwTyping').classList.remove('show');}
+function cwChip(t){document.getElementById('cwChips').innerHTML='';cwSend(t);}
+function cwRenderChips(chips){
+  var el=document.getElementById('cwChips');
+  el.innerHTML='';
+  if(!chips||!chips.length)return;
+  chips.forEach(function(c){
+    var b=document.createElement('button');
+    b.className='cw-chip';b.textContent=c;
+    b.addEventListener('click',function(){cwChip(c);});
+    el.appendChild(b);
+  });
+}
+
+async function cwSend(text){
+  if(!text||!text.trim()||cwBusy)return;
+  cwBusy=true;
+  var inp=document.getElementById('cwInp');
+  if(inp)inp.value='';
+  document.getElementById('cwChips').innerHTML='';
+  cwAddMsg('user',text);
+  cwHistory.push({role:'user',content:text});
+  cwTurns++;
+  cwShowTyping();
+
+  var lc=text.toLowerCase();
+  var wantsSkip=/\bskip\b/.test(lc)||/\bbook\b/.test(lc)||/\bschedule\b/.test(lc)||/\btalk to holger\b/.test(lc);
+  var forceBook=cwTurns>=3&&!cwBooked;
+
+  try{
+    var r=await fetch(RAILWAY+'/chat',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        operator_id:'proximity-care',
+        system_override:CHAT_SYSTEM,
+        messages:cwHistory.slice(-8)
+      })
+    });
+    var data=await r.json();
+    var raw=data.response||'Please call Holger directly at 519-900-3303.';
+    cwHideTyping();
+
+    var bm=raw.match(/<!--READY_FOR_BOOKING:([\s\S]*?)-->/);
+    var intake=null;
+    if(bm){try{intake=JSON.parse(bm[1]);}catch(e){intake={};}}
+
+    if(!bm&&(forceBook||wantsSkip)&&!cwBooked){
+      intake={};
+      raw='Got it. Let me get Holger\'s next available time for your free home visit.';
+    }
+
+    var reply=raw.replace(/<!--READY_FOR_BOOKING:[\s\S]*?-->/g,'').trim();
+    cwHistory.push({role:'assistant',content:reply});
+    cwAddMsg('assistant',reply);
+
+    if(intake&&!cwBooked){
+      cwBooked=true;
+      // Disable input, show booking form
+      var cwInp=document.getElementById('cwInp');
+      if(cwInp){cwInp.disabled=true;cwInp.placeholder='Fill in your details above to book';}
+      // Expand chat window
+      var cw=document.getElementById('chatBox');
+      if(cw)cw.style.height='auto';
+      setTimeout(function(){cwShowBookingForm(intake);},600);
+    } else {
+      var chips=[];
+      var b=reply.toLowerCase();
+      if(cwTurns===1||b.includes('who'))chips=['A parent','My spouse','Myself','Someone else'];
+      else if(b.includes('how soon')||b.includes('when')||b.includes('start')||b.includes('soon'))chips=['This week','Within a month','Just exploring'];
+      else if(b.includes('kind of')||b.includes('type of')||b.includes('support')||b.includes('help')||b.includes('care'))chips=['Personal care','Dementia care','Post-hospital recovery','Companionship','Overnight care'];
+      if(cwTurns>=1&&chips.indexOf('Skip ahead and book')===-1)chips.push('Skip ahead and book');
+      setTimeout(function(){cwRenderChips(chips);},350);
+    }
+  }catch(e){
+    cwHideTyping();
+    cwAddMsg('assistant','Please call Holger at 519-900-3303.');
+  }
+  cwBusy=false;
+}
+
+function cwShowBookingForm(intake){
+  if(document.getElementById('cw-bk'))return;
+  var msgs=document.getElementById('cwMsgs');
+  var card=document.createElement('div');
+  card.id='cw-bk';
+  card.style.cssText='padding:8px 0;';
+  card.innerHTML=
+    '<div style="background:rgba(212,168,67,0.06);border:1px solid rgba(212,168,67,0.25);border-top:2px solid #D4A843;border-radius:8px;padding:16px;">'
+    +'<div style="font-family:ui-monospace,monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#D4A843;margin-bottom:12px">Book Free Home Visit</div>'
+    +'<input type="text" id="cw-nm" placeholder="Your name" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:12px;font-family:inherit;margin-bottom:8px;outline:none">'
+    +'<input type="tel" id="cw-ph" placeholder="Phone number" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:12px;font-family:inherit;margin-bottom:8px;outline:none">'
+    +'<input type="email" id="cw-em" placeholder="Email address" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:12px;font-family:inherit;margin-bottom:10px;outline:none">'
+    +'<button id="cw-btn" disabled onclick="cwSubmitBooking()" style="width:100%;background:#D4A843;color:#0B1F3A;border:none;padding:10px;border-radius:5px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;opacity:0.5">Confirm Free Home Visit</button>'
+    +'<div style="font-size:10px;color:rgba(255,255,255,0.35);text-align:center;margin-top:6px">Holger calls within 2 hours</div>'
+    +'</div>';
+  msgs.appendChild(card);
+  msgs.scrollTop=msgs.scrollHeight;
+
+  function val(){
+    var n=document.getElementById('cw-nm').value.trim();
+    var p=document.getElementById('cw-ph').value.trim();
+    var e=document.getElementById('cw-em').value.trim();
+    var ok=n&&(p||(e&&e.includes('@')));
+    var btn=document.getElementById('cw-btn');
+    if(btn){btn.disabled=!ok;btn.style.opacity=ok?'1':'0.5';}
+  }
+  ['cw-nm','cw-ph','cw-em'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',val);});
+}
+
+async function cwSubmitBooking(){
+  var btn=document.getElementById('cw-btn');
+  if(!btn)return;
+  btn.disabled=true;btn.textContent='Booking...';
+  var name=document.getElementById('cw-nm').value.trim();
+  var phone=document.getElementById('cw-ph').value.trim();
+  var email=document.getElementById('cw-em').value.trim();
+  var nm=name.split(/\s+/);
+  try{
+    await fetch(RAILWAY+'/webhook/lead',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        operator_id:'holger-demo',lead_type:'client',
+        first_name:nm.shift()||'',last_name:nm.join(' '),
+        email:email,phone:phone,source:'holger-demo-chat',urgency:'asap',
+        care_type_interest:'Senior home care Kitchener-Waterloo'
+      })
+    });
+  }catch(e){console.error(e);}
+  var card=document.getElementById('cw-bk');
+  if(card)card.remove();
+  cwAddMsg('assistant','Booked. Holger will call '+(phone||email)+' within 2 hours to arrange your free home visit. We look forward to meeting your family.');
+  var i=document.getElementById('cwInp');
+  if(i){i.disabled=false;i.placeholder='Ask anything else...';}
+  cwRenderChips(['What does a home visit involve?','How do you match caregivers?','What does care cost?']);
+}
+
+async function submitLead(){
+  var name=document.getElementById('lf-name').value.trim();
+  var phone=document.getElementById('lf-phone').value.trim();
+  var email=document.getElementById('lf-email').value.trim();
+  var forWho=document.getElementById('lf-for').value;
+  var type=document.getElementById('lf-type').value;
+  var urgency=document.getElementById('lf-urgency').value;
+  var errEl=document.getElementById('lf-err');
+  errEl.style.display='none';
+  if(!name){errEl.textContent='Please enter your name.';errEl.style.display='block';return;}
+  if(!phone&&!email){errEl.textContent='Please enter a phone number or email.';errEl.style.display='block';return;}
+  var btn=document.getElementById('lf-btn');
+  btn.disabled=true;btn.textContent='Sending...';
+  var nm=name.split(/\s+/);
+  try{
+    await fetch(RAILWAY+'/webhook/lead',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        operator_id:'holger-demo',lead_type:'client',
+        first_name:nm.shift()||'',last_name:nm.join(' '),
+        email:email,phone:phone,
+        care_type_interest:type||'Not specified',
+        care_needed_for:forWho||'Not specified',
+        urgency:urgency||'Not specified',
+        source:'holger-demo-form'
+      })
+    });
+  }catch(e){console.error(e);}
+  document.getElementById('leadForm').style.display='none';
+  document.getElementById('leadSuccess').classList.add('show');
+}
+
+// ── FAB HIDE ON CONTACT IN VIEW ──
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    document.getElementById('fab').style.display=entries[0].isIntersecting?'none':'flex';
+  },{threshold:0.1});
+  var sec=document.getElementById('chat');
+  if(sec)obs.observe(sec);
+})();
+</script>
+</body>
+</html>
