@@ -571,6 +571,24 @@ footer{
   body{cursor:auto;}
   .svc-card,.f-btn,.fab,.nav-cta,.btn-gold,.btn-ghost{cursor:pointer;}
   .cw-chip,.cw-send,.cw-inp{cursor:auto;}
+  /* Touch — removes 300ms tap delay on iOS */
+  a,button,.svc-card,.cw-chip,.f-btn,.fab,.btn-gold,.btn-ghost,.nav-cta{touch-action:manipulation;}
+  /* Hero actions stack vertically on mobile */
+  .hero-actions{flex-direction:column;gap:12px;}
+  .btn-gold,.btn-ghost{width:100%;justify-content:center;text-align:center;}
+  /* Safe area — iPhone notch/home bar */
+  .fab{bottom:calc(28px + env(safe-area-inset-bottom));}
+  footer{padding-bottom:calc(32px + env(safe-area-inset-bottom));}
+}
+@media(max-width:390px){
+  .hero-h1{font-size:36px;}
+  .hero-h1-2{font-size:36px;}
+  .hero-eyebrow{font-size:9px;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat-num{font-size:32px;}
+  .holger-card{padding:24px;}
+  .form-wrap{padding:24px;}
+  .cw-chip{font-size:11px;padding:4px 10px;}
 }
 </style>
 </head>
@@ -619,7 +637,7 @@ footer{
         <div class="ht-i"><div class="ht-check">✓</div><div class="ht-t">Reply in under 60 seconds</div></div>
       </div>
     </div>
-    <div class="hero-terminal">
+    <div class="hero-terminal reveal">
       <div class="ht-bar">
         <div class="ht-dots"><div class="ht-dot r"></div><div class="ht-dot y"></div><div class="ht-dot g"></div></div>
         <div class="ht-title">abc-kw — system status</div>

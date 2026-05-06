@@ -192,7 +192,7 @@ footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var
 .footer-brand{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
 .footer-right{font-size:12px;color:rgba(255,255,255,0.2);}
 
-/* MOBILE — @media blocks LAST, correct order 900 → 600 */
+/* MOBILE — @media blocks LAST, correct order 900 → 600 → 480 */
 @media(max-width:900px){
   nav{padding:0 20px;}
   .nav-right{display:none;}
@@ -212,12 +212,31 @@ footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var
   footer{padding:24px 20px;}
   #cur,#cur-ring{display:none;}
   body{cursor:auto;}
+  /* Touch — removes 300ms tap delay on iOS */
+  a,button,.finding-card,.prot-card,.sys-card,.offer-cta,.nav-cta{touch-action:manipulation;}
+  /* Intake row stacks on mobile */
+  .intake-row{grid-template-columns:1fr;}
+  /* Safe area — iPhone notch/home bar */
+  footer{padding-bottom:calc(24px + env(safe-area-inset-bottom));}
 }
 @media(max-width:600px){
   .hero-h{font-size:36px;}
   .hero-h2{font-size:36px;}
   .hero-meta{grid-template-columns:1fr 1fr;}
   .findings-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .hero-h{font-size:30px;}
+  .hero-h2{font-size:30px;}
+  .hero-meta{grid-template-columns:1fr 1fr;}
+  .hm-cell{padding:12px 14px;}
+  .hm-val{font-size:12px;}
+  .fc-stat .num{font-size:22px;}
+  .offer-h{font-size:28px;}
+  .sys-main{padding:18px 20px;}
+  .sys-aside{padding:18px 20px;}
+  .intake-wrap{padding:20px;}
+  .fmap-body{padding:20px 16px;}
 }
 </style>
 </head>
@@ -524,9 +543,43 @@ footer{position:relative;z-index:2;background:var(--bg);border-top:1px solid var
     <div class="offer-guar reveal">
       <strong>90-day guarantee.</strong> If no paying client books through the system within 90 days, we keep building and refining at no additional cost until you close one. The risk is ours, not yours.
     </div>
-    <div class="reveal">
-      <a href="mailto:lancesalazar56@gmail.com?subject=ABC Systems Build — Holger Fischer KW&body=Lance, I'm ready to start. Here are my details:" class="offer-cta">Reply to Start Your Build →</a>
+    <div class="reveal" id="startForm">
+      <div class="intake-wrap">
+        <div class="intake-row">
+          <div class="intake-field">
+            <label class="intake-label">Your name</label>
+            <input type="text" class="intake-input" id="in-name" placeholder="Holger Fischer">
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">Phone number</label>
+            <input type="tel" class="intake-input" id="in-phone" placeholder="519-900-3303">
+          </div>
+        </div>
+        <div class="intake-row">
+          <div class="intake-field">
+            <label class="intake-label">Email address</label>
+            <input type="email" class="intake-input" id="in-email" placeholder="hfischer@abc-seniors.com">
+          </div>
+          <div class="intake-field">
+            <label class="intake-label">Territory or city</label>
+            <input type="text" class="intake-input" id="in-territory" placeholder="Kitchener-Waterloo, ON">
+          </div>
+        </div>
+        <div class="intake-row" style="grid-template-columns:1fr;">
+          <div class="intake-field">
+            <label class="intake-label">What do you want built first?</label>
+            <input type="text" class="intake-input" id="in-priority" placeholder="e.g. My own landing page and lead capture">
+          </div>
+        </div>
+        <button class="offer-cta" id="in-btn" onclick="submitIntake()" style="width:100%;justify-content:center;margin-top:8px;">Start My Build →</button>
+        <div id="in-err" style="display:none;color:#ef4444;font-size:12px;text-align:center;margin-top:8px;"></div>
+      </div>
       <p class="offer-note">Or call Lance directly · 647 382 8047 · Proximity Systems · Proximity Care Services</p>
+    </div>
+    <div class="intake-success reveal" id="intakeSuccess" style="display:none;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:24px;color:#fff;margin-bottom:8px;">Got it, Holger.</div>
+      <p style="font-size:14px;color:var(--muted);">Lance will reach out within 2 hours. Build starts this week.</p>
     </div>
   </div>
 </section>
