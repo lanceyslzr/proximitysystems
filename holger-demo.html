@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Always Best Care — Kitchener-Waterloo | Senior Home Care</title>
 <meta name="description" content="Compassionate in-home senior care in Kitchener-Waterloo. Personal care, dementia support, overnight care. Holger Fischer — local owner. Free home consultation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -544,6 +544,10 @@ footer{
   50%{box-shadow:0 8px 32px rgba(212,168,67,0.4),0 0 0 12px rgba(212,168,67,0);}
 }
 
+/* Mobile globals */
+*{-webkit-tap-highlight-color:transparent;}
+button,.btn-gold,.btn-ghost,.nav-cta,.fab,.f-btn,.cw-send,.cw-chip{min-height:44px;touch-action:manipulation;}
+
 /* MOBILE */
 @media(max-width:1024px){
   .hero-grid{grid-template-columns:1fr;}
@@ -580,8 +584,11 @@ footer{
   .fab{bottom:calc(28px + env(safe-area-inset-bottom));}
   footer{padding-bottom:calc(32px + env(safe-area-inset-bottom));}
 }
+@media(hover:none){
+  #cur,#cur-ring{display:none;}
+  body{cursor:auto;}
+}
 @media(max-width:390px){
-  .hero-h1{font-size:36px;}
   .hero-h1-2{font-size:36px;}
   .hero-eyebrow{font-size:9px;}
   .stats-inner{grid-template-columns:1fr 1fr;}
@@ -1251,10 +1258,10 @@ function cwShowBookingForm(intake){
   card.innerHTML=
     '<div style="background:rgba(212,168,67,0.06);border:1px solid rgba(212,168,67,0.25);border-top:2px solid #D4A843;border-radius:8px;padding:16px;">'
     +'<div style="font-family:ui-monospace,monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#D4A843;margin-bottom:12px">Book Free Home Visit</div>'
-    +'<input type="text" id="cw-nm" placeholder="Your name" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:12px;font-family:inherit;margin-bottom:8px;outline:none">'
-    +'<input type="tel" id="cw-ph" placeholder="Phone number" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:12px;font-family:inherit;margin-bottom:8px;outline:none">'
-    +'<input type="email" id="cw-em" placeholder="Email address" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:12px;font-family:inherit;margin-bottom:10px;outline:none">'
-    +'<button id="cw-btn" disabled onclick="cwSubmitBooking()" style="width:100%;background:#D4A843;color:#0B1F3A;border:none;padding:10px;border-radius:5px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;opacity:0.5">Confirm Free Home Visit</button>'
+    +'<input type="text" id="cw-nm" placeholder="Your name" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:16px;font-family:inherit;margin-bottom:8px;outline:none">'
+    +'<input type="tel" id="cw-ph" placeholder="Phone number" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:16px;font-family:inherit;margin-bottom:8px;outline:none">'
+    +'<input type="email" id="cw-em" placeholder="Email address" style="display:block;width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:5px;font-size:16px;font-family:inherit;margin-bottom:10px;outline:none">'
+    +'<button id="cw-btn" disabled onclick="cwSubmitBooking()" style="width:100%;background:#D4A843;color:#0B1F3A;border:none;padding:12px 10px;border-radius:5px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;opacity:0.5;min-height:44px">Confirm Free Home Visit</button>'
     +'<div style="font-size:10px;color:rgba(255,255,255,0.35);text-align:center;margin-top:6px">Holger calls within 2 hours</div>'
     +'</div>';
   msgs.appendChild(card);
