@@ -1338,24 +1338,44 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <div class="divider"></div>
 
-<!-- ── OFFER + BOOKING COMBINED ── -->
+<!-- ── OFFER + BOOKING ── -->
 <section id="offer" style="background:var(--bg)">
   <div class="sec w">
     <div class="eyebrow"><div class="eyebrow-dot"></div>The Offer</div>
     <h2 class="h2">Built first.<br>You pay after<br>it is <em>live.</em></h2>
+    <p class="sub">One call. Seven days. Ten systems running on your agency. You see everything working before you pay a cent.</p>
 
-    <!-- PERSONALIZED PACKAGE — syncs from builder -->
-    <div class="ob-package-card" id="obPackageCard">
-      <div class="ob-pkg-header">
-        <div class="ob-pkg-left">
-          <div class="ob-pkg-label">Your selected package</div>
-          <div class="ob-pkg-empty-msg" id="obEmptyMsg">You have not selected systems yet. <a href="#builder" style="color:var(--teal-lt);text-decoration:none">Build your package above</a> or book a call and we will figure it out together.</div>
-          <div class="ob-pkg-tags" id="obPkgTags"></div>
+    <div class="ob-package-card" style="margin:28px 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px">
+        <div style="background:var(--bg3);padding:20px 16px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);line-height:1">$3,500</div>
+          <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-top:4px">Setup fee</div>
         </div>
-        <div class="ob-pkg-right">
-          <div class="ob-pkg-price-lbl">Setup total</div>
-          <div class="ob-pkg-price-val">$3,500</div>
-          <div class="ob-pkg-month">+ $500 / mo</div>
+        <div style="background:var(--bg3);padding:20px 16px;text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);line-height:1">$0</div>
+          <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-top:4px">Until first client</div>
+        </div>
+        <div style="background:var(--bg3);padding:20px 16px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);line-height:1">$500</div>
+          <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-top:4px">Per month after</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
+          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">10 systems built and configured for your agency in 7 days</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
+          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">First month free — $0/mo until your first paying client comes through the system</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
+          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">Your domain. Your branding. Your phone number. Nothing generic.</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
+          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">90-day guarantee. No paying client in 90 days, we keep building free until you do.</div>
         </div>
       </div>
     </div>
@@ -1364,43 +1384,15 @@ button,a,[onclick]{touch-action:manipulation;}
       <div class="guarantee-icon">🛡</div>
       <div>
         <div class="guarantee-title">Zero risk. We build first.</div>
-        <div class="guarantee-text">We build everything before you pay a cent. You see all systems live and working before the invoice is sent. If it is not right, you walk away owing nothing.</div>
+        <div class="guarantee-text">You see all 10 systems live and working before the setup invoice is sent. If it is not right, you walk away owing nothing.</div>
       </div>
     </div>
 
-    <div class="value-stack">
-      <div class="vs-title">What you get — total value</div>
-      <div class="vs-item"><span class="vs-name">PSW Visit Logging + 30-Item Checklist</span><span class="vs-val">$800</span></div>
-      <div class="vs-item"><span class="vs-name">Auto Invoicing + Pay Summaries + AI Care Notes</span><span class="vs-val">$600</span></div>
-      <div class="vs-item"><span class="vs-name">Lead Capture + Day 1, 3, 7 Follow-Up Engine</span><span class="vs-val">$700</span></div>
-      <div class="vs-item"><span class="vs-name">Family Portal with PIN Auth</span><span class="vs-val">$500</span></div>
-      <div class="vs-item"><span class="vs-name">AI Chat &amp; Voice — Trained on Your Agency</span><span class="vs-val">$900</span></div>
-      <div class="vs-item"><span class="vs-name">HQ Dashboard + PSW Management</span><span class="vs-val">$500</span></div>
-      <div class="vs-item"><span class="vs-name">Client Onboarding Sequences</span><span class="vs-val">$400</span></div>
-      <div class="vs-item bonus-item"><span class="vs-name"><span class="vs-bonus-tag">FREE</span>Converting Agency Website</span><span class="vs-val">$1,200</span></div>
-      <div class="vs-item"><span class="vs-name">Month 1 Free ($500 value)</span><span class="vs-val">$500</span></div>
-      <div class="vs-total-row"><span class="vs-total-lbl">Total value</span><span class="vs-total-cross">$6,100</span></div>
-      <div class="vs-price-row"><span class="vs-price-lbl">You pay today</span><span class="vs-price-val">$3,500</span></div>
-    </div>
+    <div class="ob-divider" style="margin:32px 0 28px"></div>
 
-    <div class="ob-divider"></div>
-
-    <div class="eyebrow" style="margin-top:32px"><div class="eyebrow-dot"></div>20 Minutes. We Show You Everything.</div>
-    <h2 class="h2">Tell us about<br>your agency.<br><em>We handle the rest.</em></h2>
+    <div class="eyebrow"><div class="eyebrow-dot"></div>20 Minutes. We Show You Everything.</div>
+    <h2 class="h2" style="margin-bottom:10px">Tell us about<br>your agency.<br><em>We handle the rest.</em></h2>
     <p class="sub">No pitch. Just the exact plan for your agency. Lance will reach out within a few hours.</p>
-
-    <!-- PERSONALIZED SYSTEMS PREVIEW — syncs from builder -->
-    <div class="booking-preview" id="bookingPreview">
-      <div class="bp-header">
-        <span class="bp-label" id="bpLabel">Systems you selected</span>
-        <span class="bp-count" id="bpCount"></span>
-      </div>
-      <div class="bp-items" id="bpItems"></div>
-      <div class="bp-none" id="bpNone" style="display:flex">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#3d7a8a" stroke-width="1.2"/><path d="M7 4.5v3M7 9.5v.1" stroke="#3d7a8a" stroke-width="1.2" stroke-linecap="round"/></svg>
-        No systems selected yet — that is fine. We will walk through everything on the call.
-      </div>
-    </div>
 
     <div class="booking-card" id="booking">
       <div class="booking-head">
@@ -1413,9 +1405,12 @@ button,a,[onclick]{touch-action:manipulation;}
             <div class="f-group"><label class="f-label">Your Name *</label><input class="f-input" id="f-name" type="text" placeholder="Full name" autocomplete="name"></div>
             <div class="f-group"><label class="f-label">Phone *</label><input class="f-input" id="f-phone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
           </div>
-          <div class="f-group"><label class="f-label">Agency Name *</label><input class="f-input" id="f-agency" type="text" placeholder="Your agency name"></div>
           <div class="f-row">
+            <div class="f-group"><label class="f-label">Agency Name *</label><input class="f-input" id="f-agency" type="text" placeholder="Your agency name"></div>
             <div class="f-group"><label class="f-label">City *</label><input class="f-input" id="f-city" type="text" placeholder="City, Province"></div>
+          </div>
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">Email</label><input class="f-input" id="f-email" type="email" placeholder="your@email.com" autocomplete="email"></div>
             <div class="f-group"><label class="f-label">Clients Served</label><select class="f-select" id="f-clients"><option value="">Select...</option><option>Under 10</option><option>10 to 30</option><option>30 to 100</option><option>100+</option></select></div>
           </div>
           <div class="f-group"><label class="f-label">Biggest Admin Problem</label><textarea class="f-textarea" id="f-pain" placeholder="What is eating the most of your time?"></textarea></div>
@@ -1431,12 +1426,16 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
       <div class="booking-success" id="bookingSuccess">
         <div class="success-icon">✓</div>
-        <div class="success-title">You're in.</div>
+        <div class="success-title">You are in.</div>
         <p class="success-sub">Lance will reach out within a few hours. You can also call directly at 647-382-8047 or email lancesalazar56@gmail.com.</p>
       </div>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- ── FAQ ──</section>
 
 <div class="divider"></div>
 
@@ -1543,6 +1542,7 @@ const RAIL='https://proximity-agent-production.up.railway.app/chat';
 async function submitForm(){
   const name=document.getElementById('f-name').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
+  const email=(document.getElementById('f-email')||{}).value||'';
   const agency=document.getElementById('f-agency').value.trim();
   const city=document.getElementById('f-city').value.trim();
   const clients=document.getElementById('f-clients').value;
@@ -1551,7 +1551,7 @@ async function submitForm(){
   const btn=document.getElementById('f-submit');btn.disabled=true;btn.textContent='Submitting...';
   const parts=name.split(/\s+/);const first=parts.shift();const last=parts.join(' ')||'';
   try{
-    const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:'',city,care_needed_for:agency,urgency:'warm',pain_point:pain||clients||'Not specified',source:'Proximity Systems Website'})});
+    const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:email,city,care_needed_for:agency,urgency:'warm',pain_point:pain||clients||'Not specified',source:'Proximity Systems Website'})});
     if(!res.ok)throw new Error();
     document.getElementById('bookingForm').style.display='none';
     document.getElementById('bookingSuccess').classList.add('show');
