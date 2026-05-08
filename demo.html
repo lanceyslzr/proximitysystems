@@ -250,10 +250,18 @@ input,select,textarea{font-size:16px!important;}
 .chat-inp{flex:1;border:1px solid var(--border);border-radius:14px;padding:8px 13px;font-size:16px;font-family:var(--sans);outline:none;background:rgba(255,255,255,0.03);color:var(--text);resize:none;max-height:56px;transition:border-color .2s}
 .chat-inp:focus{border-color:var(--border2)}
 .chat-inp::placeholder{color:var(--faint)}
-.chat-send{width:32px;height:32px;background:var(--teal3);border:1px solid var(--border2);border-radius:50%;color:var(--teal2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;align-self:flex-end;min-height:32px}
+.chat-send{width:44px;height:44px;background:var(--teal3);border:1px solid var(--border2);border-radius:50%;color:var(--teal2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;align-self:flex-end;min-height:44px}
 .chat-send:hover{background:var(--teal);color:#fff}
 .chat-send:disabled{opacity:.3}
 
+@media(max-width:1024px){
+  :root{--sw:160px;--cw:240px}
+  .stitle{font-size:clamp(22px,2.8vw,36px)}
+  .ssub{font-size:12px}
+  .baf-txt{font-size:11px}
+  #s0.on{grid-template-columns:1fr}
+  #s0>div:nth-child(2){display:none}
+}
 /* ── MOBILE ── */
 @media(max-width:768px){
   html,body{overflow:auto}
@@ -322,6 +330,13 @@ input,select,textarea{font-size:16px!important;}
   .intro-tagline{font-size:11px!important}
   .intro-btn{width:100%;padding:18px;font-size:12px;min-height:52px}
   .mob-chat-btn{display:flex!important;position:fixed;bottom:72px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--teal);border:none;color:#fff;font-size:20px;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(61,122,138,0.45);cursor:pointer}
+}
+@media(max-width:390px){
+  .stitle{font-size:1.5rem!important}
+  .chip{font-size:11px;padding:10px 6px}
+  .intro-logo{font-size:1.8rem!important}
+  .pgrid{gap:8px}
+  .pcard{padding:16px 12px}
 }
 @media(min-width:769px){
   .mob-chat-btn{display:none!important}
@@ -465,47 +480,39 @@ input,select,textarea{font-size:16px!important;}
           <p class="ssub">One setup fee. One monthly retainer. No tech work on you. No long contracts. We build first — you pay after it goes live.</p>
           <div class="pgrid">
             <div class="pcard">
-              <div class="pcard-label">Tier 1</div>
-              <div class="pcard-name">The Essentials</div>
-              <div class="pcard-price">$3,000 <span>setup</span></div>
-              <div class="pcard-mo">$500/mo after</div>
-              <ul class="pcard-items">
-                <li>✓ Visit Logging</li>
-                <li>✓ Auto Invoicing</li>
-                <li>✓ Lead Capture</li>
-                <li>✓ Family Portal</li>
-                <li>✓ AI Chat</li>
-                <li>✓ HQ Dashboard</li>
-                <li>✓ PSW Management</li>
-                <li>✓ Converting Website — free</li>
-                <li>— No Follow-Up Engine</li>
-                <li>— No Client Onboarding</li>
-                <li>— No Voice AI</li>
-              </ul>
+              <div class="ptier">Tier 1</div>
+              <div class="pname">The Essentials</div>
+              <div class="pprice"><strong>$3,000</strong>setup fee · $500/mo after</div>
+              <div class="pfeat">Visit Logging</div>
+              <div class="pfeat">Auto Invoicing</div>
+              <div class="pfeat">Lead Capture</div>
+              <div class="pfeat">Family Portal</div>
+              <div class="pfeat">AI Chat</div>
+              <div class="pfeat">HQ Dashboard</div>
+              <div class="pfeat">PSW Management</div>
+              <div class="pfeat">Converting Website — free</div>
+              <div class="pfeat" style="opacity:.4;color:var(--muted)">No Follow-Up Engine</div>
+              <div class="pfeat" style="opacity:.4;color:var(--muted)">No Client Onboarding</div>
+              <div class="pfeat" style="opacity:.4;color:var(--muted)">No Voice AI</div>
             </div>
             <div class="pcard pcard-hero">
-              <div class="pcard-badge">Most Popular</div>
-              <div class="pcard-label">Tier 2</div>
-              <div class="pcard-name">Done For You</div>
-              <div class="pcard-price">$3,500 <span>setup</span></div>
-              <div class="pcard-mo">$500/mo · Month 1 free</div>
-              <ul class="pcard-items">
-                <li>✓ Everything in Tier 1</li>
-                <li>✓ Follow-Up Engine</li>
-                <li>✓ Client + PSW Onboarding</li>
-                <li>✓ Voice AI on Telnyx</li>
-                <li>✓ First month free</li>
-              </ul>
+              <div class="fbadge">Most Popular</div>
+              <div class="ptier">Tier 2</div>
+              <div class="pname">Done For You</div>
+              <div class="pprice"><strong>$3,500</strong>setup fee · $500/mo · Month 1 free</div>
+              <div class="pfeat">Everything in Tier 1</div>
+              <div class="pfeat">Follow-Up Engine (10 templates)</div>
+              <div class="pfeat">Client + PSW Onboarding</div>
+              <div class="pfeat">Voice AI on Telnyx</div>
+              <div class="pfeat" style="color:var(--teal2);font-weight:500">First month free</div>
             </div>
             <div class="pcard">
-              <div class="pcard-label">Tier 3</div>
-              <div class="pcard-name">Scale With Me</div>
-              <div class="pcard-price">$5,000 <span>setup</span></div>
-              <div class="pcard-mo">$750/mo</div>
-              <ul class="pcard-items">
-                <li>✓ Everything in Tier 2</li>
-                <li>✓ New systems monthly</li>
-                <li>✓ Monthly 1-on-1 with Lance</li>
+              <div class="ptier">Tier 3</div>
+              <div class="pname">Scale With Me</div>
+              <div class="pprice"><strong>$5,000</strong>setup fee · $750/mo</div>
+              <div class="pfeat">Everything in Tier 2</div>
+              <div class="pfeat">New systems monthly</div>
+              <div class="pfeat">Monthly 1-on-1 with Lance</div>
                 <li>✓ Pipeline review + support</li>
                 <li>✓ First access to new releases</li>
               </ul>
@@ -558,7 +565,7 @@ const SYSTEMS=[null,
 {num:'01',title:'Visit <em>Logging</em>',sub:'PSWs fill a 3-in-1 form on their phone at the end of every shift. Visit log, daily checklist, and private messages. Everything saves to Supabase automatically. You get a branded email notification instantly.',before:'PSWs text you hours and notes. You type them in manually. You chase people every week for missing info. Hours of work that should take zero minutes.',after:'PSW fills the form, taps submit. Visit saves to Supabase, AI writes a care summary, branded email fires to you with hours and pay breakdown. Nobody does anything manually.',pipe:['📱|PSW submits','⚡|Webhook fires','🗄️|Supabase saves','📧|You notified'],stats:['12|PSWs active','0|Manual entries','Live|Running now'],color:0x3d7a8a,sceneType:'form',termTitle:'PSW VISIT LOG · LIVE',termRows:[{icon:'gn',emoji:'📋',lbl:'New Visit Logged',val:'Carolina Hermida · Rosetta Ferrari\n8hrs · Full Day · Apr 21 2026',badge:'live',bdgTxt:'AUTO-LOGGED'},{icon:'tl',emoji:'🗄️',lbl:'Saved to Supabase',val:'visits table · proximity-care\nAI care summary generated',badge:'sent',bdgTxt:'SAVED'},{icon:'am',emoji:'📧',lbl:'Lance Notified',val:'healthcareproximity@gmail.com\n8hrs · $224 PSW · $280 client',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['12|PSWs','47|Visits','11|Clients'],termTag:'Running live on Proximity Care · Mississauga'},
 {num:'02',title:'Auto <em>Invoicing</em>',sub:'One trigger generates two branded emails. The client gets a warm care summary and their invoice. The PSW gets their visit breakdown and pay total. AI writes the care summary from visit notes. You touch nothing.',before:'3 to 5 hours every month. Copy hours. Check math. Write summaries. Send invoices. Chase payment. Same manual work every single month.',after:'Click once. Two branded emails go out. Client sees their care summary and invoice. PSW sees their pay. You see the profit. Zero manual work.',pipe:['📊|Hours in Supabase','🤖|AI summary','📄|Invoice built','📧|Two emails sent'],stats:['$22|Client rate','$19|PSW rate','$3|Profit/hr'],color:0x8a7a3a,sceneType:'invoice',termTitle:'INVOICE GENERATOR · APR 2026',termRows:[{icon:'tl',emoji:'🏠',lbl:'Client · Standard Care',val:'Rosetta Ferrari · Mississauga\n40hrs · $22/hr client rate',badge:null},{icon:'gn',emoji:'💰',lbl:'Dual Emails Generated',val:'Client: care summary + invoice\nPSW: visit breakdown + pay total',badge:'auto',bdgTxt:'AUTO-GENERATED'},{icon:'am',emoji:'📧',lbl:'Both Delivered',val:'Client and PSW notified instantly\nZero manual work',badge:'sent',bdgTxt:'DELIVERED'}],termStats:['$2,761|Invoiced','2|Clients','0min|Manual'],termTag:'Running on Proximity Care · Mississauga'},
 {num:'03',title:'Lead <em>Capture</em>',sub:'When a family reaches out through the chatbot or lead form, you get a notification in under 60 seconds. Name, number, city, care type, urgency. You call them before anyone else does.',before:'Families call 3 to 5 agencies and go with whoever responds first. If you check email every few hours you are already losing those clients.',after:'Someone submits. Lead saves to Supabase. Day 1 email fires automatically. You get an instant notification. You call first. You win the client.',pipe:['👨‍👩‍👧|Family submits','⚡|Lead captured','🗄️|Supabase logged','📧|Day 1 fires'],stats:['<1min|Response','22|Leads this mo','0|Missed'],color:0x3a6a8a,sceneType:'lead',termTitle:'NEW LEAD ALERT · LIVE',termRows:[{icon:'am',emoji:'🔔',lbl:'New Lead · Family Chatbot',val:'Sandra M. · Mississauga\n647-555-0123 · Dementia Care · Urgent',badge:'new',bdgTxt:'NEW'},{icon:'tl',emoji:'🗄️',lbl:'Saved to Supabase',val:'leads table · proximity-care\nStatus: new · Day 1 email queued',badge:'sent',bdgTxt:'LOGGED'},{icon:'gn',emoji:'📧',lbl:'Day 1 Email Fired',val:'healthcareproximity@gmail.com\nApr 21 · 2:07 AM · instant',badge:'live',bdgTxt:'INSTANT'}],termStats:['22|Leads','<1m|Response','0|Missed'],termTag:'Running on Proximity Care · Mississauga'},
-{num:'04',title:'Follow-Up <em>Engine</em>',sub:'Leads get a Day 1, Day 3, and Day 7 email automatically. Never double sends. Branded per business. Warm family tone for care leads. Professional operator tone for systems leads.',before:'Leads go cold after day one. You mean to follow up. You forget. Families move on to the agency that stayed in touch.',after:'Day 1 fires on capture. Day 3 fires if no reply. Day 7 fires as a soft close. All branded. All automatic. Zero manual sends ever.',pipe:['📧|Day 1 fires','⏱️|Day 3 check','🔄|Day 7 close','✅|Never double'],stats:['3|Auto sequences','0|Manual sends','24/7|Always armed'],color:0x6a5a8a,sceneType:'email',termTitle:'FOLLOW-UP ENGINE · LIVE',termRows:[{icon:'am',emoji:'💌',lbl:'Day 3 Follow-Up Fired',val:'Sandra M. · No reply yet\nBranded Proximity Care email sent',badge:'auto',bdgTxt:'AUTO-SENT'},{icon:'gn',emoji:'🔄',lbl:'Day 7 Close Queued',val:'3 more leads · Soft close sequence\nFires automatically in 4 days',badge:'live',bdgTxt:'ARMED'},{icon:'tl',emoji:'✅',lbl:'Double Send Guard',val:'day3_sent and day7_sent flags\nNever sends twice to same lead',badge:'sent',bdgTxt:'PROTECTED'}],termStats:['3|Sequences','0|Manual','0|Double sends'],termTag:'Zero manual sends · All automated'},
+{num:'04',title:'Follow-Up <em>Engine</em>',sub:'Every lead gets an immediate confirmation, appointment reminders at 24h and 5 hours before their call, a Day 5 re-engage, and a Day 7 close. 10 templates. Two tracks — family care tone and operator tone. Zero manual sends.',before:'Leads go cold after day one. You mean to follow up. You forget. Families and operators move on to whoever stayed in touch.',after:'Immediate confirmation fires on submit. Appointment reminders fire automatically. Day 5 re-engage. Day 7 Hormozi close. 10 branded templates, 2 tracks, Railway cron every 5 minutes. Zero manual sends.',pipe:['📧|Immediate','⏰|24h reminder','🔄|Day 5 re-engage','✅|Day 7 close'],stats:['10|Templates','2|Tracks','5min|Cron'],color:0x6a5a8a,sceneType:'email',termTitle:'FOLLOW-UP ENGINE · LIVE',termRows:[{icon:'am',emoji:'📧',lbl:'Immediate Confirmation Fired',val:'Sandra M. · Mississauga\nAppointment confirmed · Portal link sent',badge:'live',bdgTxt:'INSTANT'},{icon:'gn',emoji:'⏰',lbl:'24h Reminder Queued',val:'Fires tomorrow · "Your call is tomorrow"\nRailway cron · 5-min intervals',badge:'auto',bdgTxt:'ARMED'},{icon:'tl',emoji:'✅',lbl:'Day 7 Hormozi Close',val:'$3,500 build · $0/mo until first client\n90-day guarantee · Fires automatically',badge:'sent',bdgTxt:'READY'}],termStats:['10|Templates','2|Tracks','0|Manual'],termTag:'10 templates · 2 tracks · Railway cron every 5 min'},
 {num:'05',title:'Family <em>Portal</em>',sub:'Families enter a PIN and see everything about their loved one. Visits, care plan, documents, invoices, and a direct message thread. Zero phone calls for updates.',before:'Families call asking for visit updates, invoices, documents. Every call takes time out of your day. Nothing is centralised.',after:'Family enters their PIN. They see every visit, the care plan, all documents, the invoice, and can message you directly. No calls needed.',pipe:['🔐|PIN entry','🏠|Home tab','📋|Visits tab','📁|Documents','💬|Message you'],stats:['5|Portal tabs','PIN|4-digit secure','Live|proximitycares.ca'],color:0x3d7a8a,sceneType:'chat',termTitle:'FAMILY PORTAL · LIVE',termRows:[{icon:'gn',emoji:'🔐',lbl:'PIN Entry',val:'Margaret F. · Mississauga\nPIN: ●●●● · Authenticated',badge:'live',bdgTxt:'ACTIVE'},{icon:'tl',emoji:'📋',lbl:'Visits Tab Opened',val:'Last visit: Apr 21 · Carolina Hermida\n8hrs · Care summary attached',badge:'sent',bdgTxt:'VIEWED'},{icon:'am',emoji:'💬',lbl:'Message Sent to Operator',val:'Family: "How did mom do today?"\nReply sent in 4 mins',badge:'live',bdgTxt:'REPLIED'}],termStats:['5|Tabs','0|Phone calls','Live|proximitycares.ca'],termTag:'Running on Proximity Care Services · Mississauga'},
 {num:'06',title:'AI Chat <em>+ Voice</em>',sub:'A Claude-powered chatbot on your website answers family questions, captures leads, and qualifies them 24/7. Voice AI on Telnyx answers every call.',before:'Someone lands on your site at night, has questions, gets no answer, and moves on to the next agency.',after:'The chatbot answers instantly, asks intake questions, captures their contact info, and fires your Day 1 follow-up automatically.',pipe:['🌐|Visitor lands','🤖|AI answers','📝|Intake questions','📧|Lead captured'],stats:['AI|Claude-powered','24/7|Never offline','Voice|Telnyx live'],color:0x3d8a7a,sceneType:'chat',isChat:true,termTitle:'AI CHATBOT · LIVE',chatLines:[{u:true,txt:'Hi — my mom needs help after her hip surgery. Is someone available this week?'},{u:false,txt:'We have availability starting Thursday. Can I ask a few quick questions to match her with the right PSW?'},{u:true,txt:'Yes of course.'},{u:false,txt:'Got it — lead captured, Day 1 email queued. Lance will call within 2 hours.'}],termTag:'Running 24/7 · Proximity Care · Mississauga'},
 {num:'07',title:'Client <em>Onboarding</em>',sub:'The moment a client signs, a Day 0 welcome email fires with their PIN and portal link. Day 3 check-in confirms everything is running smoothly. Day 7 care plan confirmation closes the loop. All automated.',before:'New clients get a welcome call and a PDF. Then nothing for a week. Families feel uncertain. You field the same questions over and over.',after:'Day 0 welcome email with PIN and portal link fires automatically. Day 3 check-in asks how the first visits went. Day 7 confirms the care plan. Families feel taken care of.',pipe:['✍️|Client signs','📧|Day 0 welcome','📧|Day 3 check','📧|Day 7 confirm'],stats:['Day 0|Instant welcome','PIN|Auto-generated','Portal|Ready day one'],color:0x8a5a3a,sceneType:'email',termTitle:'CLIENT ONBOARDING · LIVE',termRows:[{icon:'gn',emoji:'📧',lbl:'Day 0 Welcome Fired',val:'Rosetta Ferrari · portal_pin: 7842\nPortal link: proximitycares.ca/family.html',badge:'live',bdgTxt:'SENT'},{icon:'tl',emoji:'📅',lbl:'Day 3 Check-In Queued',val:'Fires in 3 days automatically\n"How are the first visits going?"',badge:'auto',bdgTxt:'ARMED'},{icon:'am',emoji:'📋',lbl:'Day 7 Confirmation Queued',val:'Care plan confirmation email\nSame PSW every visit confirmed',badge:'auto',bdgTxt:'ARMED'}],termStats:['Day 0|Instant','Day 3|Check-in','Day 7|Confirm'],termTag:'Running on Proximity Care · Mississauga'},
@@ -701,6 +708,8 @@ function initGlobe(){
   setTimeout(()=>{const e=document.getElementById('ibtn');if(e){e.style.transition='opacity .6s';e.style.opacity=1;}},1600);
 })();
 
+function countUp(id,target,dur){var el=document.getElementById(id);if(!el)return;var s=Date.now();(function tick(){var p=Math.min(1,(Date.now()-s)/dur);el.textContent=Math.round(target*p);if(p<1)requestAnimationFrame(tick);else el.textContent=target;})();}
+
 function enterDemo(){
   const intro=document.getElementById('intro');intro.style.transition='opacity .8s';intro.style.opacity='0';intro.style.pointerEvents='none';
   setTimeout(()=>{intro.style.display='none';},800);
@@ -737,7 +746,7 @@ function animStats(n){
 }
 
 let cur=0,tot=12,lastCtx='',ptimer=0,pFired=false;
-const hist=[];
+let hist=[];
 const NAMES=['Overview','Visit Logging','Auto Invoicing','Lead Capture','Follow-Up Engine','Family Portal','AI Chat + Voice','Client Onboarding','HQ Dashboard','PSW Management','Converting Website','Pricing'];
 
 function go(n){
@@ -862,7 +871,7 @@ function calcRoi(){
   const keap=parseInt(document.getElementById('rKeapI').value)||0;const mem=parseInt(document.getElementById('rMemI').value)||0;const host=parseInt(document.getElementById('rHostI').value)||0;const other=parseInt(document.getElementById('rOtherI').value)||0;
   const current=keap+mem+host+other;const ours=500;const diff=current-ours;const savedYear=diff*12;
   document.getElementById('rKeap').textContent='$'+keap+'/mo';document.getElementById('rMem').textContent='$'+mem+'/mo';document.getElementById('rHost').textContent='$'+host+'/mo';document.getElementById('rOther').textContent='$'+other+'/mo';
-  document.getElementById('roiCurrent').textContent='$'+current.toLocaleString();
+  document.getElementById('roiCurrent').textContent='$'+current.toLocaleString();document.getElementById('roiNew').textContent='$500';
   const saveEl=document.getElementById('roiSave');const msgEl=document.getElementById('roiMsg');
   if(savedYear>0){saveEl.textContent='$'+savedYear.toLocaleString();saveEl.style.color='var(--teal2)';msgEl.textContent='You save $'+diff+'/mo and get 4 systems you never had. Month 2 you are cash flow positive.';}
   else if(savedYear===0){saveEl.textContent='$0';saveEl.style.color='var(--muted)';msgEl.textContent='Same cost — but everything connected and 4 extra systems included.';}
@@ -870,7 +879,7 @@ function calcRoi(){
 }
 calcRoi();
 
-(function(){function countUp(id,target,dur){const el=document.getElementById(id);if(!el)return;let s=Date.now();(function tick(){const p=Math.min(1,(Date.now()-s)/dur);el.textContent=Math.round(target*p);if(p<1)requestAnimationFrame(tick);else el.textContent=target;})();}setTimeout(()=>{countUp('cntVisits',47,1200);countUp('cntLeads',22,1000);},800);})();
+// countUp fires on enterDemo
 
 const SLIDE_CHIPS={0:'overview',1:'visit',2:'billing',3:'leads',4:'followup',5:'portal',6:'aichat',7:'onboarding',8:'hq',9:'psw',10:'website',11:'pricing'};
 const CHIP_MAP={
@@ -970,11 +979,11 @@ function showDemoBookingForm() {
     '<div class="bub" style="background:var(--bg2);border-color:var(--border);padding:14px;width:100%;max-width:none">' +
       '<div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal2);margin-bottom:10px">Book Your 20-Minute Discovery Call</div>' +
       '<div style="display:flex;flex-direction:column;gap:8px">' +
-        '<input type="text" id="demo-bk-name" placeholder="Your name" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
-        '<input type="email" id="demo-bk-email" placeholder="Email" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
-        '<input type="tel" id="demo-bk-phone" placeholder="Phone (optional)" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
-        '<input type="text" id="demo-bk-agency" placeholder="Agency name and city" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
-        '<select id="demo-bk-clients" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-size:13px;font-family:inherit">' +
+        '<input type="text" id="demo-bk-name" placeholder="Your name" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
+        '<input type="email" id="demo-bk-email" placeholder="Email" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
+        '<input type="tel" id="demo-bk-phone" placeholder="Phone (optional)" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
+        '<input type="text" id="demo-bk-agency" placeholder="Agency name and city" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
+        '<select id="demo-bk-clients" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
           '<option value="">Active clients (rough number)</option>' +
           '<option>Just starting (0)</option>' +
           '<option>1 to 5</option>' +
@@ -982,7 +991,7 @@ function showDemoBookingForm() {
           '<option>16 to 40</option>' +
           '<option>40 plus</option>' +
         '</select>' +
-        '<button id="demo-bk-submit" disabled style="background:var(--teal2);color:#fff;border:none;padding:11px;border-radius:5px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer;margin-top:4px">Lock in My Call</button>' +
+        '<button id="demo-bk-submit" disabled style="background:var(--teal2);color:#fff;border:none;padding:12px;border-radius:5px;font-weight:600;font-size:16px;font-family:inherit;cursor:pointer;margin-top:4px;min-height:44px">Lock in My Call</button>' +
         '<div style="font-size:11px;color:var(--muted);text-align:center;margin-top:2px">Lance will reach out within 2 hours</div>' +
       '</div>' +
     '</div>';
