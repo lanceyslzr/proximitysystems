@@ -17,13 +17,17 @@
   --serif:'Cormorant Garamond',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
   --sw:200px;--cw:280px;
 }
-html,body{height:100%;overflow:hidden;font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
+html,body{overflow-x:hidden;height:100%;overflow:hidden;font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
 #cur{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--teal2);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .06s}
 #cur-r{position:fixed;width:26px;height:26px;border-radius:50%;border:1px solid rgba(106,180,200,0.35);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease}
 input,select,textarea{font-size:16px!important;}
 
 .msg{will-change:opacity,transform;}
 @keyframes pcglow{0%,100%{box-shadow:0 0 0 1px var(--teal2),0 0 18px rgba(106,180,200,0.18)}50%{box-shadow:0 0 0 1px var(--teal2),0 0 32px rgba(106,180,200,0.32)}}
+
+/* Level 20 mobile globals */
+*{-webkit-tap-highlight-color:transparent;}
+button,a,[onclick]{touch-action:manipulation;}
 @media(hover:none){#cur,#cur-r{display:none}body{cursor:auto}}
 #intro{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--bg)}
 #intro-canvas{position:absolute;inset:0;pointer-events:none}
