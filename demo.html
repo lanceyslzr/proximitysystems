@@ -323,7 +323,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .tgrid{grid-template-columns:1fr 1fr!important}
   .pgrid{grid-template-columns:1fr!important;gap:10px}
   .ctaw{padding:0 0 24px}
-  .ctab{display:block;width:100%;text-align:center;padding:16px;font-size:12px}
+  .ctab{display:block;width:100%;text-align:center;padding:16px;font-size:15px;min-height:44px}
   .botnav{position:fixed!important;bottom:0;left:0;right:0;z-index:500;background:rgba(7,9,12,0.98);backdrop-filter:blur(12px);padding:10px 16px 16px;display:flex!important;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
   .botbtn{min-height:44px;padding:10px 20px;font-size:12px;cursor:pointer;background:var(--teal3);border:1px solid var(--border2);color:var(--teal2)}
   .botbtn:disabled{opacity:0.25}
@@ -332,7 +332,7 @@ button,a,[onclick]{touch-action:manipulation;}
   #intro{padding:24px 20px}
   .intro-logo{font-size:clamp(2rem,11vw,3rem)!important;letter-spacing:4px}
   .intro-tagline{font-size:11px!important}
-  .intro-btn{width:100%;padding:18px;font-size:12px;min-height:52px}
+  .intro-btn{width:100%;padding:18px;font-size:16px;min-height:52px}
   .mob-chat-btn{display:flex!important;position:fixed;bottom:72px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--teal);border:none;color:#fff;font-size:20px;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(61,122,138,0.45);cursor:pointer}
 }
 @media(max-width:390px){
@@ -522,7 +522,7 @@ button,a,[onclick]{touch-action:manipulation;}
             </div>
           </div>
           <div class="ctaw">
-            <a href="https://proximitysystems.ca" class="ctab">Book a Free Discovery Call — proximitysystems.ca</a>
+            <button class="ctab" onclick="showDemoBookingForm()" style="cursor:pointer;border:none">Book a Free Discovery Call with Lance</button>
           </div>
         </div>
 
@@ -801,7 +801,7 @@ async function send(){
     'After answering, if the user has asked 3 or more substantive questions and seems engaged, end your reply with one short line that nudges toward a discovery call, like "Want me to walk you through this on a 20 minute call with Lance?" Only nudge once every 3 turns, never every reply. ' +
     'If the user asks about pricing, booking, getting started, or next steps, say "Tap the Book a discovery call button below to lock in a 20 minute call with Lance" and stop. ' +
     'Pricing: Tier 1 $3,000 setup, Tier 2 $3,500 (most popular, first month free), Tier 3 $5,000. All $500/mo. We build first. You pay after it is live. 7 days to go live. ' +
-    'The 10 systems: 01 Visit Logging — PSWs log from phone in 60 seconds. 02 Auto Invoicing — one button sends invoice and PSW pay summary. 03 Lead Capture — chatbot replies to every inquiry in under 60 seconds. 04 Follow-Up Engine — Day 1, 3, 7 emails fire automatically. 05 Family Portal — PIN login, visit history, care plan, documents. 06 AI Chat plus Voice — trained on your agency, answers 24/7 including voice via Telnyx. 07 Client Onboarding — Day 0 welcome email fires automatically. 08 HQ Dashboard — every lead, visit, invoice and PSW in one real-time screen. 09 PSW Management — PSW portal on their phone, voice AI covers missed calls. 10 Converting Website — free custom agency site connected to lead capture from day one. ' +
+    'The 10 systems: 01 Visit Logging — PSWs log from phone in 60 seconds. 02 Auto Invoicing — one button sends invoice and PSW pay summary. 03 Lead Capture — chatbot replies to every inquiry in under 60 seconds. 04 Follow-Up Engine — 10 templates, 2 tracks (family + operator), immediate confirmation, 24h and 5h reminders, Day 5 re-engage, Day 7 Hormozi close. All automatic. 05 Family Portal — PIN login, visit history, care plan, documents. 06 AI Chat plus Voice — trained on your agency, answers 24/7 including voice via Telnyx. 07 Client Onboarding — Day 0 welcome email fires automatically. 08 HQ Dashboard — every lead, visit, invoice and PSW in one real-time screen. 09 PSW Management — PSW portal on their phone, voice AI covers missed calls. 10 Converting Website — free custom agency site connected to lead capture from day one. ' +
     slideContext;
   try{
     var r = await fetch(W, {
@@ -982,10 +982,10 @@ function showDemoBookingForm() {
     '<div class="bub" style="background:var(--bg2);border-color:var(--border);padding:14px;width:100%;max-width:none">' +
       '<div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal2);margin-bottom:10px">Book Your 20-Minute Discovery Call</div>' +
       '<div style="display:flex;flex-direction:column;gap:8px">' +
-        '<input type="text" id="demo-bk-name" placeholder="Your name" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
-        '<input type="email" id="demo-bk-email" placeholder="Email" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
-        '<input type="tel" id="demo-bk-phone" placeholder="Phone (optional)" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
-        '<input type="text" id="demo-bk-agency" placeholder="Agency name and city" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
+        '<input type="text" id="demo-bk-name" placeholder="Your name" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit;font-size:16px">' +
+        '<input type="email" id="demo-bk-email" placeholder="Email" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit;font-size:16px">' +
+        '<input type="tel" id="demo-bk-phone" placeholder="Phone (optional)" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit;font-size:16px">' +
+        '<input type="text" id="demo-bk-agency" placeholder="Agency name and city" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit;font-size:16px">' +
         '<select id="demo-bk-clients" style="background:var(--bg);border:1px solid var(--border);color:#fff;padding:9px 11px;border-radius:5px;font-family:inherit">' +
           '<option value="">Active clients (rough number)</option>' +
           '<option>Just starting (0)</option>' +
@@ -1005,9 +1005,9 @@ function showDemoBookingForm() {
   function validateDemoBk() {
     var name = document.getElementById('demo-bk-name').value.trim();
     var email = document.getElementById('demo-bk-email').value.trim();
+    var phone = document.getElementById('demo-bk-phone').value.trim();
     var agency = document.getElementById('demo-bk-agency').value.trim();
-    var clients = document.getElementById('demo-bk-clients').value;
-    var ok = name && email && agency && clients;
+    var ok = name && (email || phone) && agency;
     document.getElementById('demo-bk-submit').disabled = !ok;
   }
   ['demo-bk-name','demo-bk-email','demo-bk-phone','demo-bk-agency','demo-bk-clients'].forEach(function(id){
