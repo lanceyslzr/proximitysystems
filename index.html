@@ -571,6 +571,10 @@
   .testi-dot-btn.ts-on{background:#fff;width:20px;border-radius:3px}
 
 
+
+/* Level 20 mobile globals */
+*{-webkit-tap-highlight-color:transparent;}
+button,a,[onclick]{touch-action:manipulation;}
 @media (max-width: 1024px) {
     nav { padding: 18px 24px; } nav.scrolled { padding: 14px 24px; }
     #hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; }
@@ -807,6 +811,13 @@
 
   input, select, textarea { font-size: 16px; }
   @media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}}
+
+@media(max-width:390px){
+  body{font-size:14px;}
+  h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
+  .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
+  input,select,textarea{font-size:16px!important;}
+}
 </style>
 </head>
 <body>
