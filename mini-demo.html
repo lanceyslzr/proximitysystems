@@ -551,6 +551,10 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
 #book .sec-sub { max-width:640px; margin-left:auto; margin-right:auto; }
 #book .sec-tag { margin-bottom:20px; }
 
+
+/* Level 20 mobile globals */
+*{-webkit-tap-highlight-color:transparent;}
+button,a,[onclick]{touch-action:manipulation;}
 @media(max-width:1024px) {
   #hero { display:flex !important; flex-direction:column; }
   .demo-nav-badge { display:none; }
@@ -596,6 +600,19 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
   .demo-sys-row { padding:6px 12px; }
   .demo-sys-name { font-size:10px; }
   .demo-card-event { display:none; }
+}
+
+@media(hover:none){
+  [class*="cursor"],[id*="cursor"],[id*="cur"],[class*="cur"]{display:none!important}
+  body{cursor:auto!important}
+  a,button{cursor:auto!important}
+}
+
+@media(max-width:390px){
+  body{font-size:14px;}
+  h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
+  .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
+  input,select,textarea{font-size:16px!important;}
 }
 </style>
 </head>
