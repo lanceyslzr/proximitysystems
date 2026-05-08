@@ -821,7 +821,7 @@
     <li><a href="#solution">The Solution</a></li>
     <li><a href="#package">The Package</a></li>
     <li><a href="#proof">Pricing</a></li>
-    <li><a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="nav-cta">Book a Free Call</a></li>
+    <li><a href="#builder" class="nav-cta">Book a Free Call</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -830,7 +830,7 @@
   <a href="#solution" onclick="closeMenu()">The Solution</a>
   <a href="#package" onclick="closeMenu()">The Package</a>
   <a href="#proof" onclick="closeMenu()">Pricing</a>
-  <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" onclick="closeMenu()">Book a Free Call</a>
+  <a href="#builder" onclick="closeMenu()">Book a Free Call</a>
 </div>
 
 <div id="hero">
@@ -841,7 +841,7 @@
     <h1 class="hero-title">Your Home Care Business.<em>On Autopilot.</em></h1>
     <p class="hero-sub" id="heroSub">Stop losing leads. Stop doing admin. Stop being the bottleneck. We build your entire operation on autopilot — and hand it back running in 7 days. We need 60 minutes from you on Day 1. That is it.</p>
     <div class="hero-btns">
-      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="btn-primary">Book a Free Call</a>
+      <a href="#builder" class="btn-primary">Book a Free Call</a>
       <a href="#package" class="btn-secondary">See What's Included ↓</a>
       <a href="/demo.html" class="btn-secondary">See Interactive Demo →</a>
     </div>
@@ -1203,7 +1203,7 @@
       </div>
     </div>
     <div class="tl-cta-wrap reveal">
-      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="tl-cta">Book Your Discovery Call →</a>
+      <a href="#builder" class="tl-cta">Book Your Discovery Call →</a>
     </div>
   </div>
 </div>
@@ -1269,7 +1269,7 @@
             </div>
             <div class="ht-gut">Live in 7 days. Zero effort on your end.</div>
             <div class="ht-guarantee"><span class="ht-shield">🛡</span>We build first. You pay after it is live. Not live in 7 days — you owe nothing.</div>
-            <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="ht-cta ht-cta-outline">Book a Free Call →</a>
+            <a href="#builder" class="ht-cta ht-cta-outline">Book a Free Call →</a>
           </div>
         </div>
 
@@ -1306,7 +1306,7 @@
             </div>
             <div class="ht-gut">One new client covers the entire setup cost. Live in 7 days or you do not pay.</div>
             <div class="ht-guarantee"><span class="ht-shield">🛡</span>We build first. You pay after it is live. Not live in 7 days — you owe nothing.</div>
-            <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="ht-cta ht-cta-solid">Book a Free Call →</a>
+            <a href="#builder" class="ht-cta ht-cta-solid">Book a Free Call →</a>
           </div>
         </div>
 
@@ -1342,7 +1342,7 @@
             </div>
             <div class="ht-gut">Not a vendor. A growth partner. Built for operators expanding past one location.</div>
             <div class="ht-guarantee"><span class="ht-shield">🛡</span>We build first. You pay after it is live. Not live in 7 days — you owe nothing.</div>
-            <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="ht-cta ht-cta-outline">Book a Free Call →</a>
+            <a href="#builder" class="ht-cta ht-cta-outline">Book a Free Call →</a>
           </div>
         </div>
 
@@ -1403,7 +1403,7 @@
     <h2 class="cta-title reveal">Are you ready to stop running<br>your agency <em>manually?</em></h2>
     <p class="cta-sub reveal">Book a free 20-minute call. We will show you exactly what we would build for your business. <strong>No pressure. No obligation.</strong> Just clarity.<br>Live in 7 days or you do not pay.<br>We need 60 minutes from you on Day 1. That is it.</p>
     <div class="cta-btns reveal">
-      <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="btn-primary">Yes — Show Me How It Works</a>
+      <a href="#builder" class="btn-primary">Yes — Show Me How It Works</a>
       <a href="mailto:lancesalazar56@gmail.com" class="btn-secondary">Email Us Directly</a>
     </div>
   </div>
@@ -1427,7 +1427,7 @@
         <li><a href="#solution">The Solution</a></li>
         <li><a href="#package">The Package</a></li>
         <li><a href="#proof">Pricing</a></li>
-        <li><a href="https://calendly.com/lancesalazar56/discovery" target="_blank">Book a Call</a></li>
+        <li><a href="#builder">Book a Call</a></li>
       </ul>
     </div>
     <div>
@@ -1445,7 +1445,7 @@
 </footer>
 
 <div class="mobile-cta">
-  <a href="https://calendly.com/lancesalazar56/discovery" target="_blank" class="btn-primary light full">Book a Free Discovery Call</a>
+  <a href="#builder" class="btn-primary light full">Book a Free Discovery Call</a>
 </div>
 
 <!-- CHAT BUBBLE & MODAL -->
@@ -2016,7 +2016,7 @@ var bookingAttempted = false;
   if(copy && subEl) subEl.innerHTML = copy.sub;
 
   // BOOKING ATTEMPT FLAG — track via click on booking elements
-  document.querySelectorAll('#mfSubmit, #bldBookBtn, a[href*="calendly"]').forEach(function(el) {
+  document.querySelectorAll('#mfSubmit, #bldBookBtn, a[href="#builder"]').forEach(function(el) {
     el.addEventListener('click', function() { bookingAttempted = true; });
   });
 
