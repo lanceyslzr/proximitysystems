@@ -850,7 +850,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .ann{margin-top:52px;font-size:8.5px;padding:8px 16px}
 
   /* Hero */
-  #hero{padding:90px 0 56px;min-height:auto}
+  #hero{padding:72px 0 40px!important;min-height:0!important;align-items:flex-start!important;justify-content:flex-start!important}
   .hero-wrap{flex-direction:column;padding:0 18px;gap:24px}
   .hero-left{max-width:100%}
   .hero-right{width:100%;flex:none}
@@ -858,7 +858,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .hero-proof-quote{max-width:100%;padding:12px 14px;margin-bottom:16px}
   .hpq-text{font-size:12px}
   .cta-stack{max-width:100%}
-  .hero-trust{gap:6px;margin-top:20px}
+  .hero-trust{gap:4px;margin-top:16px;flex-wrap:nowrap;overflow:hidden;}.hero-trust-item{font-size:8px;letter-spacing:0.08em;white-space:nowrap;}.hero-trust-sep{font-size:9px;flex-shrink:0;}
 
   /* Pain section */
   .pain-row{padding:11px 12px;gap:10px}
@@ -1034,13 +1034,16 @@ button,a,[onclick]{touch-action:manipulation;}
   h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
+  #hero{padding:56px 0 28px!important;min-height:0!important;align-items:flex-start!important;}
+  .hero-trust{flex-wrap:wrap;gap:3px;}
+  .hero-trust-item{font-size:7px;}
+  .hero-trust-sep{display:none;}
 }
 
 
 @media(max-width:768px){
   [class*="grid"]{grid-template-columns:1fr!important;}
-  [class*="hero"]{padding-top:80px;}
-  [class*="col"]{width:100%!important;}
+    [class*="col"]{width:100%!important;}
 }
 </style>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
