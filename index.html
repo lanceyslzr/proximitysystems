@@ -812,6 +812,25 @@ button,a,[onclick]{touch-action:manipulation;}
   input, select, textarea { font-size: 16px; }
   @media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}}
 
+
+/* ── INDEX INLINE CHATBOT ── */
+.chat-modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0;}
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(255,255,255,0.08);}
+.chat-input-row input{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:#ddd9d0;padding:10px 12px;border-radius:8px;font-family:inherit;outline:none;}
+.chat-input-row input::placeholder{color:rgba(221,217,208,0.35);}
+.chat-input-row button{background:#3d7a8a;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:16px;min-width:44px;min-height:44px;}
+.ix-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.6;}
+.ix-msg-bot{background:rgba(61,122,138,0.15);border:1px solid rgba(61,122,138,0.25);color:#ddd9d0;align-self:flex-start;border-radius:4px 12px 12px 12px;}
+.ix-msg-user{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#ddd9d0;align-self:flex-end;border-radius:12px 4px 12px 12px;}
+.ix-typing{display:flex;gap:4px;align-items:center;padding:12px 16px;}
+.ix-typing span{width:6px;height:6px;border-radius:50%;background:#3d7a8a;animation:ixDot 1.2s infinite;}
+.ix-typing span:nth-child(2){animation-delay:.2s;}
+.ix-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes ixDot{0%,80%,100%{opacity:.2;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+.ix-chip{background:rgba(61,122,138,0.1);border:1px solid rgba(61,122,138,0.3);color:#6ab4c8;padding:6px 12px;border-radius:100px;font-size:11px;cursor:pointer;white-space:nowrap;min-height:32px;font-family:'DM Mono',monospace;letter-spacing:0.5px;}
+.ix-chip:hover{background:rgba(61,122,138,0.2);}
+
 @media(max-width:390px){
   body{font-size:14px;}
   h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
@@ -848,15 +867,15 @@ button,a,[onclick]{touch-action:manipulation;}
   <canvas id="heroCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.6"></canvas>
   <div class="hero-bg-text">PS</div>
   <div class="hero-left">
-    <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text" id="heroEyebrow">Currently accepting new clients</div></div>
-    <h1 class="hero-title">Your Home Care Business.<em>On Autopilot.</em></h1>
-    <p class="hero-sub" id="heroSub">Stop losing leads. Stop doing admin. Stop being the bottleneck. We build your entire operation on autopilot — and hand it back running in 7 days. We need 60 minutes from you on Day 1. That is it.</p>
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text" id="heroEyebrow">Built inside a real home care agency. Running live.</div></div>
+    <h1 class="hero-title">The Operating System<em>for Home Care.</em></h1>
+    <p class="hero-sub" id="heroSub">Most home care operators are running 3 spreadsheets, a WhatsApp group, and a prayer. We replace all of it — scheduling board, PSW sign in/out, AI care summaries, family portal, automated invoicing, lead capture — with one done-for-you system. Built inside our own agency. Handed to you live in 7 days. $500/month all in.</p>
     <div class="hero-btns">
       <a href="#builder" class="btn-primary">Book a Free Call</a>
       <a href="#package" class="btn-secondary">See What's Included ↓</a>
       <a href="/demo.html" class="btn-secondary">See Interactive Demo →</a>
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:0.3px;">Live in 7 days or you do not pay.</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:0.3px;">We build first. You go live. Then you pay.</div>
   </div>
   <div class="hero-right">
     <div class="hero-card">
@@ -890,7 +909,7 @@ button,a,[onclick]{touch-action:manipulation;}
 <div class="trust-bar">
   <div class="trust-item">Built in Canada</div>
   <div class="trust-item">Serving Ontario</div>
-  <div class="trust-item">Expanding to Philippines</div>
+  <div class="trust-item">No software platforms. No templates. No DIY.</div>
   <div class="trust-item">Live on Proximity Care Services — Mississauga</div>
   <div class="trust-item">100% Remote Setup</div>
 </div>
@@ -902,7 +921,7 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="problem-cols">
       <div class="problem-items reveal">
         <div class="prob-item ps-reveal"><div class="prob-strike">Missed leads</div><div class="prob-why">because no one followed up fast enough.</div></div>
-        <div class="prob-item ps-reveal"><div class="prob-strike">Manual timesheets</div><div class="prob-why">that take hours to calculate every month.</div></div>
+        <div class="prob-item ps-reveal"><div class="prob-strike">Manual scheduling</div><div class="prob-why">spreadsheets, phone calls, last-minute PSW swaps with no system to track them.</div></div>
         <div class="prob-item ps-reveal"><div class="prob-strike">Invoices built in Excel</div><div class="prob-why">always one mistake away from a billing error.</div></div>
         <div class="prob-item ps-reveal"><div class="prob-strike">No client communication system</div><div class="prob-why">families left waiting for answers at midnight.</div></div>
         <div class="prob-item ps-reveal"><div class="prob-strike">Website that doesn't convert</div><div class="prob-why">looks outdated, builds zero trust, loses leads before they even call.</div></div>
@@ -912,7 +931,7 @@ button,a,[onclick]{touch-action:manipulation;}
           <div class="big-stat-num">15+</div>
           <div class="big-stat-label">Hours wasted every month on admin work that <strong>should run itself.</strong></div>
         </div>
-        <div class="problem-quote"><p>While you're doing all of this manually — <strong>your competitors are automating it.</strong></p></div>
+        <div class="problem-quote"><p>Every hour you spend on admin is an hour you are not growing. And the families you are losing to voicemail are not coming back.</p></div>
       </div>
     </div>
   </div>
@@ -972,21 +991,21 @@ button,a,[onclick]{touch-action:manipulation;}
         <div class="sc-num">07</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg></div>
         <div class="sc-name">Client Onboarding</div>
-        <div class="sc-desc">Day 0 welcome fires automatically. PIN, portal link, care plan sent before you open your eyes.</div>
+        <div class="sc-desc">Digital care intake form with e-signature. Day 0 welcome fires automatically. PIN, family portal link, care plan all sent before you open your eyes.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">08</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">HQ Dashboard</div>
-        <div class="sc-desc">One screen. Every lead, visit, invoice, and PSW in real time. PWA installable on your phone.</div>
+        <div class="sc-desc">14-tab command center. Scheduling board with drag-to-assign and conflict detection. Client care plan drawers. Revenue analytics. Works at 1 PSW or 100.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">09</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">PSW Management</div>
-        <div class="sc-desc">PSW portal lives on their phone as an app. Schedules, visits, notes, and messages. All central.</div>
+        <div class="sc-desc">PSW signs in on their phone, completes a live checklist, checks out with observations and mood. AI writes the care summary. Family gets notified. Pay auto-calculates.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip addon-chip">
@@ -1223,7 +1242,7 @@ button,a,[onclick]{touch-action:manipulation;}
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Built For Operators</div></div>
     <h2 class="s-title light reveal">Tested on a Real Home Care <em>Business First.</em></h2>
-    <p class="proof-story reveal" style="max-width:640px;">We built this for <strong>Proximity Care Services in Mississauga.</strong> It works. We use it every day.</p>
+    <p class="proof-story reveal" style="max-width:640px;">We built this for <strong>Proximity Care Services in Mississauga</strong> — 12 PSWs, 11 clients, thousands of visits logged. It runs every day without us touching it. That is the proof.</p>
     <div class="reveal ba-grid">
       <div class="ba before">
         <div class="ba-tag">Before</div>
@@ -1465,35 +1484,170 @@ button,a,[onclick]{touch-action:manipulation;}
 </button>
 <div class="chat-overlay" id="chatOverlay">
   <div class="chat-modal">
-    <button class="chat-modal-close" id="chatClose" aria-label="Close chat">
-      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
-    <iframe id="chatFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+    <div class="chat-modal-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#5aaa7a;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(221,217,208,0.7);">Proximity Systems</span>
+      </div>
+      <button class="chat-modal-close" id="chatClose" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <div class="chat-messages" id="ixChatMsgs"></div>
+    <div id="ixChatChips" style="padding:0 12px 8px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+    <div class="chat-input-row">
+      <input type="text" id="ixChatInp" placeholder="Ask anything..." autocomplete="off" style="font-size:16px;">
+      <button id="ixChatSend" onclick="ixSend()">→</button>
+    </div>
   </div>
 </div>
 
 <script>
-  // Chat bubble logic
-  const chatBubble = document.getElementById('chatBubble');
-  const chatOverlay = document.getElementById('chatOverlay');
-  const chatClose = document.getElementById('chatClose');
-  const chatFrame = document.getElementById('chatFrame');
+// ── INDEX INLINE CHATBOT ──
+const IX_RAIL = 'https://proximity-agent-production.up.railway.app/chat';
+const IX_LEAD = 'https://proximity-agent-production.up.railway.app/webhook/lead';
+const IX_SYS = `You are a sales assistant for Proximity Systems. Your job is to book a 20-minute call with Lance Salazar for home care operators.
 
-  chatBubble.addEventListener('click', () => {
-    if (!chatFrame.src) chatFrame.src = 'chatbot.html?v=5';
-    chatOverlay.classList.add('open');
-    chatBubble.style.display = 'none';
-  });
-  chatClose.addEventListener('click', () => {
+Collect one at a time: name, agency name and city, biggest admin problem, phone or email.
+
+Pricing: $3,500 setup then $500/mo. First month free. 7 days to go live. We build first, you pay after.
+
+Rules: Short, warm, direct. Two sentences max. No bullets. No dashes. Plain English.
+
+When you have all fields output on its own line:
+<!--LEAD_DATA:{"name":"...","agency":"...","city":"...","pain":"...","contact":"..."}-->
+
+Then say: "Perfect. Lance will reach out within a few hours. You can also reach him at 647-382-8047."
+
+One question at a time. Do not output the block early.`;
+
+let ixH = [], ixB = false, ixD = false;
+
+const chatBubble = document.getElementById('chatBubble');
+const chatOverlay = document.getElementById('chatOverlay');
+const chatClose = document.getElementById('chatClose');
+
+chatBubble.addEventListener('click', () => {
+  chatOverlay.classList.add('open');
+  chatBubble.style.display = 'none';
+  if (!ixH.length) ixInit();
+});
+chatClose.addEventListener('click', () => {
+  chatOverlay.classList.remove('open');
+  chatBubble.style.display = 'flex';
+});
+chatOverlay.addEventListener('click', (e) => {
+  if (e.target === chatOverlay) {
     chatOverlay.classList.remove('open');
     chatBubble.style.display = 'flex';
-  });
-  chatOverlay.addEventListener('click', (e) => {
-    if (e.target === chatOverlay) {
-      chatOverlay.classList.remove('open');
-      chatBubble.style.display = 'flex';
+  }
+});
+
+function ixInit() {
+  ixAddM('bot', 'Hey — do you run a home care agency?');
+  ixChips(['Yes I do', 'How does this work?', 'What does it cost?']);
+}
+
+function ixAddM(role, text) {
+  const el = document.getElementById('ixChatMsgs');
+  if (!el) return;
+  const div = document.createElement('div');
+  div.className = 'ix-msg ix-msg-' + role;
+  div.textContent = text;
+  el.appendChild(div);
+  el.scrollTop = el.scrollHeight;
+}
+
+function ixChips(chips) {
+  const el = document.getElementById('ixChatChips');
+  if (!el) return;
+  el.innerHTML = chips.map(c =>
+    `<button class="ix-chip" onclick="ixSendText(this.textContent)">${c}</button>`
+  ).join('');
+}
+
+function ixSend() {
+  const inp = document.getElementById('ixChatInp');
+  if (!inp) return;
+  const text = inp.value.trim();
+  inp.value = '';
+  if (text) ixSendText(text);
+}
+
+async function ixSendText(text) {
+  if (!text || ixB) return;
+  document.getElementById('ixChatChips').innerHTML = '';
+  ixAddM('user', text);
+  ixH.push({ role: 'user', content: text });
+  ixB = true;
+  const send = document.getElementById('ixChatSend');
+  if (send) send.disabled = true;
+  ixShowTyping();
+  try {
+    const r = await fetch(IX_RAIL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ operator_id: 'proximity-systems', system_override: IX_SYS, messages: ixH })
+    });
+    const data = await r.json();
+    ixHideTyping();
+    const raw = data.response || 'Something went wrong. Call Lance at 647-382-8047.';
+    const lm = raw.match(/<!--\s*LEAD_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
+    if (lm && !ixD) {
+      try {
+        const lead = JSON.parse(lm[1]);
+        ixD = true;
+        await fetch(IX_LEAD, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            operator_id: 'proximity-systems', lead_type: 'operator',
+            first_name: (lead.name || '').split(' ')[0] || '',
+            last_name: (lead.name || '').split(' ').slice(1).join(' ') || '',
+            phone: lead.contact || '', email: '', city: lead.city || '',
+            care_needed_for: lead.agency || '', urgency: 'warm',
+            pain_point: lead.pain || '', source: 'Proximity Systems Index Chatbot'
+          })
+        });
+      } catch(e) { console.error(e); }
     }
-  });
+    const reply = raw.replace(/<!--[\s\S]*?-->/g, '').trim();
+    ixAddM('bot', reply);
+    ixH.push({ role: 'assistant', content: reply });
+    if (ixD) {
+      const inp = document.getElementById('ixChatInp');
+      if (inp) inp.placeholder = 'Lance will be in touch — keep chatting if you have questions.';
+    }
+  } catch(e) {
+    ixHideTyping();
+    ixAddM('bot', 'Something went wrong. Reach Lance at 647-382-8047.');
+  } finally {
+    ixB = false;
+    const send = document.getElementById('ixChatSend');
+    if (send) send.disabled = false;
+  }
+}
+
+function ixShowTyping() {
+  const el = document.getElementById('ixChatMsgs');
+  if (!el || document.getElementById('ixTyping')) return;
+  const d = document.createElement('div');
+  d.className = 'ix-msg ix-msg-bot ix-typing'; d.id = 'ixTyping';
+  d.innerHTML = '<span></span><span></span><span></span>';
+  el.appendChild(d); el.scrollTop = el.scrollHeight;
+}
+
+function ixHideTyping() {
+  const t = document.getElementById('ixTyping');
+  if (t) t.remove();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const inp = document.getElementById('ixChatInp');
+    if (inp && document.activeElement === inp) ixSend();
+  }
+});
 </script>
 
 <script>
@@ -1528,7 +1682,7 @@ button,a,[onclick]{touch-action:manipulation;}
   }
 
   const feedData=[
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',title:'PSW Visit Log — System 01',text:'Luz P. logged 8hrs · Rosario M. · Hours auto-calculated',time:'just now'},
+    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',title:'PSW Signed In · Checklist Active',text:'Carolina H. · Rosetta Ferrari · 8:02 AM · Family notified',time:'just now'},
     {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>',title:'Invoice Generator — System 02',text:'Thompson Family · $1,720 · April billing sent automatically',time:'2 min ago'},
     {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>',title:'Lead Capture — System 03',text:'Sandra M. · Mississauga · Standard Care · Starts ASAP',time:'5 min ago'},
     {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',title:'Family Comms Engine — System 04',text:'Day 3 follow-up sent · Chen Family · Auto-delivered',time:'12 min ago'},
@@ -2014,7 +2168,7 @@ var bookingAttempted = false;
     },
     email: {
       eyebrow: 'Following up on your demo',
-      sub: 'The system you saw is live and running on a real agency in Mississauga right now. Here is what we would build for yours.'
+      sub: 'The system you just saw is live on a real home care agency in Mississauga right now. 12 PSWs. 11 clients. Thousands of visits logged. Here is what we would build for yours.'
     },
     demo: {
       eyebrow: 'Ready to see it live',
