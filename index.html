@@ -577,7 +577,7 @@
 button,a,[onclick]{touch-action:manipulation;}
 @media (max-width: 1024px) {
     nav { padding: 18px 24px; } nav.scrolled { padding: 14px 24px; }
-    #hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; }
+    #hero { grid-template-columns: 1fr; padding: 100px 24px 48px; gap: 32px; min-height:auto; }
     .hero-right { padding-top: 0; }
     .hero-left { padding-top: 0; }
     .section-wrap { padding: 80px 24px; }
@@ -626,8 +626,8 @@ button,a,[onclick]{touch-action:manipulation;}
     .chat-bubble { cursor: pointer; }
     .chat-modal-close { cursor: pointer; }
     .nav-brand { font-size: 14px; letter-spacing: 1.5px; }
-    #hero { padding: 100px 1.5rem 3rem; gap: 2rem; }
-    .hero-right { display: none; }
+    #hero { padding: 80px 16px 40px; gap: 24px; min-height:auto!important; }
+    .hero-right { display: block; width:100%; }
     .hero-title { font-size: clamp(2rem,8vw,3.5rem); margin-bottom: 1.5rem; }
     .hero-sub { font-size: 0.9rem; margin-bottom: 2rem; }
     .hero-btns { flex-direction: column; gap: 10px; }
@@ -694,6 +694,10 @@ button,a,[onclick]{touch-action:manipulation;}
     .sc-desc { font-size: 9px; }
     .sys-chips-grid { grid-template-columns: 1fr; }
     .bld-chips-grid { grid-template-columns: 1fr; }
+    .hero-right { display:block!important; width:100%; margin-top:0; }
+    .hero-card { width:100%; max-width:100%; }
+    .hero-card-body { padding:12px; }
+    #hero { min-height:auto!important; padding:80px 16px 40px!important; gap:24px!important; }
   }
 
   /* ============================================================
