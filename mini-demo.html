@@ -556,6 +556,10 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
 *{-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
 @media(max-width:1024px) {
+  .nav-hamburger{display:flex;}
+  .nav-links{display:none;}
+  .nav-cta-btn{display:none;}
+
   #hero { display:flex !important; flex-direction:column; }
   .demo-nav-badge { display:none; }
   nav { padding:14px 24px; }
@@ -608,6 +612,18 @@ button,a,[onclick]{touch-action:manipulation;}
   a,button{cursor:auto!important}
 }
 
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;padding:8px 10px;min-height:44px;min-width:44px;}
+.nav-hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:all .2s;}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.nav-hamburger.open span:nth-child(2){opacity:0;width:0;}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.nav-mobile-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--teal-bd);z-index:9999;flex-direction:column;padding:8px 0;}
+.nav-mobile-drawer.open{display:flex;}
+.nav-mobile-drawer a{padding:14px 24px;font-family:var(--font-m);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--border);min-height:44px;display:flex;align-items:center;}
+.nav-mobile-drawer a:last-child{border-bottom:none;}
+
 @media(max-width:390px){
   body{font-size:14px;}
   h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
@@ -634,14 +650,24 @@ button,a,[onclick]{touch-action:manipulation;}
     <li><a href="#book" class="nav-link">Book</a></li>
   </ul>
   <button class="nav-cta-btn" id="navCtaBtn">Book a Free Call</button>
+  <button class="nav-hamburger" id="mdHamburger" onclick="toggleMDNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile-drawer" id="mdMobileDrawer">
+  <a href="#feed" onclick="toggleMDNav()">Live Feed</a>
+  <a href="#systems" onclick="toggleMDNav()">Systems</a>
+  <a href="#configurator" onclick="toggleMDNav()">Build Yours</a>
+  <a href="#pricing" onclick="toggleMDNav()">Pricing</a>
+  <a href="#book" onclick="toggleMDNav()">Book a Call</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-content">
-    <div class="hero-pill" id="heroPill">Live Demo · Running on a Real Agency</div>
-    <h1 class="hero-h1">Your agency.<br><em>Runs itself.</em></h1>
-    <p class="hero-sub" id="heroSub">Ten systems. One connected stack. Every lead captured, every visit logged, every invoice sent — without you touching it. Built on Proximity Care Services in Mississauga.</p>
+    <div class="hero-pill" id="heroPill">Built inside a real agency · Running live · 7 days to yours</div>
+    <h1 class="hero-h1">The operating system<br><em>for home care.</em></h1>
+    <p class="hero-sub" id="heroSub">Most home care operators are running 3 spreadsheets, a WhatsApp group, and a prayer. We replace all of it. Scheduling board. PSW sign in/out. AI care summaries. Family portal. Automated invoicing. Lead capture. One done-for-you system. Built inside our own agency. Live in 7 days. $500/month.</p>
     <div class="hero-btns">
       <a href="#configurator" class="hero-btn-primary">Build Your System ↓</a>
       <button class="hero-btn-secondary" id="heroCtaBtn">Talk to Lance →</button>
@@ -649,7 +675,7 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="hero-stats">
       <div><div class="hero-stat-num">10</div><div class="hero-stat-lbl">Systems Live</div></div>
       <div><div class="hero-stat-num">7</div><div class="hero-stat-lbl">Days to Go Live</div></div>
-      <div><div class="hero-stat-num">$0</div><div class="hero-stat-lbl">Admin Staff</div></div>
+      <div><div class="hero-stat-num">$0</div><div class="hero-stat-lbl">Admin Staff Needed</div></div>
     </div>
   </div>
   <div class="hero-right">
@@ -671,8 +697,8 @@ button,a,[onclick]{touch-action:manipulation;}
         <div class="demo-sys-row"><span class="demo-sys-num">S05</span><span class="demo-sys-name">Family Portal</span><span class="demo-status green">●</span></div>
         <div class="demo-sys-row"><span class="demo-sys-num">S06</span><span class="demo-sys-name">AI Chat + Voice</span><span class="demo-status gold">●</span></div>
         <div class="demo-sys-row"><span class="demo-sys-num">S07</span><span class="demo-sys-name">Client + PSW Onboarding</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S08</span><span class="demo-sys-name">HQ Dashboard</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S09</span><span class="demo-sys-name">PSW Management + Voice AI</span><span class="demo-status amber">●</span></div>
+        <div class="demo-sys-row"><span class="demo-sys-num">S08</span><span class="demo-sys-name">HQ Dashboard + Scheduling Board</span><span class="demo-status green">●</span></div>
+        <div class="demo-sys-row"><span class="demo-sys-num">S09</span><span class="demo-sys-name">PSW Portal — Sign In/Out + Pay</span><span class="demo-status green">●</span></div>
         <div class="demo-sys-row"><span class="demo-sys-num">S10</span><span class="demo-sys-name">Converting Website</span><span class="demo-status green">●</span></div>
       </div>
       <div class="demo-card-metrics">
@@ -693,12 +719,12 @@ button,a,[onclick]{touch-action:manipulation;}
 <!-- TICKER BAND -->
 <div class="ticker-band">
   <div class="ticker-inner">
-    <span class="ticker-item ticker-dot-live">PSW Visit Logged · Mississauga</span>
-    <span class="ticker-item ticker-dot-live">Invoice Auto-Sent · 11 Clients</span>
-    <span class="ticker-item">Lead Captured · Day 1 Email Fired</span>
+    <span class="ticker-item ticker-dot-live">PSW Signed In · Checklist Active · Family Notified</span>
+    <span class="ticker-item ticker-dot-live">Invoice Sent · 0 Minutes of Manual Work</span>
+    <span class="ticker-item">Lead Captured · Replied in 47 Seconds · 2am</span>
     <span class="ticker-item ticker-dot-gold">Family Portal View · 2:47 AM</span>
     <span class="ticker-item ticker-dot-live">HQ Dashboard · All Systems Green</span>
-    <span class="ticker-item">PSW Scheduled · Zero Phone Calls</span>
+    <span class="ticker-item ticker-dot-live">Shift Dragged · PSW Reassigned · No Call</span>
     <span class="ticker-item ticker-dot-live">Care Plan Updated · Family Notified</span>
     <span class="ticker-item">Follow-Up Day 7 · 106 Contacts</span>
     <!-- duplicate for seamless loop -->
@@ -718,8 +744,8 @@ button,a,[onclick]{touch-action:manipulation;}
 <!-- LIVE FEED -->
 <section class="section" id="feed">
   <div class="sec-tag reveal">What's Happening Right Now</div>
-  <h2 class="sec-title reveal reveal-d1">Your operation.<br><em>Live.</em></h2>
-  <p class="sec-sub reveal reveal-d2">This is what a connected system looks like. Every event below is the kind of thing that used to require a phone call, a spreadsheet, or someone staying up late.</p>
+  <h2 class="sec-title reveal reveal-d1">This is what<br><em>done looks like.</em></h2>
+  <p class="sec-sub reveal reveal-d2">Every event below used to be a phone call, a spreadsheet entry, or something that fell through the cracks. This is what it looks like when the whole thing runs itself.</p>
   <div class="feed-grid reveal reveal-d3" id="feedTrack">
     <div class="feed-card" data-feed="0">
       <div class="feed-icon">📋</div>
@@ -779,8 +805,8 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="feed-card" data-feed="5">
       <div class="feed-icon">🏥</div>
       <div class="feed-body">
-        <div class="feed-name">Care Plan Updated</div>
-        <div class="feed-detail">PSW + family notified automatically · No phone calls made</div>
+        <div class="feed-name">PSW Signed In · Checklist Active</div>
+        <div class="feed-detail">Carolina Hermida · Rosetta Ferrari · 8:02 AM · Family notified</div>
         <div class="feed-meta">
           <span class="feed-badge live">Live</span>
           <span class="feed-time">34 min ago</span>
@@ -790,8 +816,8 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="feed-card" data-feed="6">
       <div class="feed-icon">📊</div>
       <div class="feed-body">
-        <div class="feed-name">HQ Dashboard Accessed</div>
-        <div class="feed-detail">All 11 clients · 12 PSWs · 0 missed visits this week</div>
+        <div class="feed-name">Scheduling Board Updated</div>
+        <div class="feed-detail">Shift dragged · Carolina reassigned · Conflict resolved</div>
         <div class="feed-meta">
           <span class="feed-badge live">Live</span>
           <span class="feed-time">1 hr ago</span>
@@ -817,8 +843,8 @@ button,a,[onclick]{touch-action:manipulation;}
 <!-- SYSTEMS -->
 <section class="section" id="systems">
   <div class="sec-tag reveal">10 Systems</div>
-  <h2 class="sec-title reveal reveal-d1">Everything.<br><em>Already built.</em></h2>
-  <p class="sec-sub reveal reveal-d2">We deploy the full stack to your agency in 7 days. Every system is live on day one — configured for your PSWs, your clients, your rates.</p>
+  <h2 class="sec-title reveal reveal-d1">10 systems.<br><em>Zero DIY.</em></h2>
+  <p class="sec-sub reveal reveal-d2">We build everything. We configure it for your PSWs, your clients, your rates. You do nothing except show up for a 60-minute call on Day 1. We hand it back running.</p>
   <div class="sys-list reveal reveal-d3">
     <div class="sys-row"><div class="sys-left"><span class="sys-num">01</span><div class="sys-dot"></div><span class="sys-name">Visit Logging</span></div><span class="sys-tag live">Live</span></div>
     <div class="sys-row"><div class="sys-left"><span class="sys-num">02</span><div class="sys-dot"></div><span class="sys-name">Auto Invoicing + Pay Summary</span></div><span class="sys-tag live">Live</span></div>
@@ -827,8 +853,8 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="sys-row"><div class="sys-left"><span class="sys-num">05</span><div class="sys-dot"></div><span class="sys-name">Family Portal</span></div><span class="sys-tag live">Live</span></div>
     <div class="sys-row"><div class="sys-left"><span class="sys-num">06</span><div class="sys-dot gold"></div><span class="sys-name">AI Chat + Voice — Trained On You</span></div><span class="sys-tag free">Included</span></div>
     <div class="sys-row"><div class="sys-left"><span class="sys-num">07</span><div class="sys-dot"></div><span class="sys-name">Client + PSW Onboarding</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">08</span><div class="sys-dot"></div><span class="sys-name">HQ Dashboard</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">09</span><div class="sys-dot"></div><span class="sys-name">PSW Management + Voice AI</span></div><span class="sys-tag live">Live</span></div>
+    <div class="sys-row"><div class="sys-left"><span class="sys-num">08</span><div class="sys-dot"></div><span class="sys-name">HQ Dashboard — Scheduling Board + 14 Tabs</span></div><span class="sys-tag live">Live</span></div>
+    <div class="sys-row"><div class="sys-left"><span class="sys-num">09</span><div class="sys-dot"></div><span class="sys-name">PSW Portal — Sign In/Out, AI Care Summary, Pay, Availability</span></div><span class="sys-tag live">Live</span></div>
     <div class="sys-row"><div class="sys-left"><span class="sys-num">10</span><div class="sys-dot gold"></div><span class="sys-name">Converting Website</span></div><span class="sys-tag free">Free Add-On</span></div>
   </div>
 </section>
@@ -1020,7 +1046,7 @@ button,a,[onclick]{touch-action:manipulation;}
 <!-- PRICING -->
 <section class="section" id="pricing">
   <div class="sec-tag reveal">Three Tiers</div>
-  <h2 class="sec-title reveal reveal-d1">The offer.<br><em>Straight up.</em></h2>
+  <h2 class="sec-title reveal reveal-d1">Simple pricing.<br><em>No surprises.</em></h2>
   <p class="sec-sub reveal reveal-d2">All tiers go live in 7 days. We build first. You pay after it is live.</p>
   <div class="pc-grid reveal reveal-d3" id="pcGrid">
     <!-- TIER 1 -->
@@ -1100,7 +1126,7 @@ button,a,[onclick]{touch-action:manipulation;}
 <section class="section" id="proof">
   <div class="sec-tag reveal">Real Numbers</div>
   <h2 class="sec-title reveal reveal-d1">Built on a real<br><em>agency first.</em></h2>
-  <p class="sec-sub reveal reveal-d2">This is Proximity Care Services — our own agency in Mississauga. Every number below is live.</p>
+  <p class="sec-sub reveal reveal-d2">This is Proximity Care Services — our own agency in Mississauga. 12 PSWs. 11 clients. Thousands of visits logged. Every number below is live.</p>
   <div class="proof-grid reveal reveal-d3">
     <div class="proof-stat"><span class="proof-val">1,000s</span><span class="proof-lbl">Hours Logged</span></div>
     <div class="proof-stat"><span class="proof-val">100s</span><span class="proof-lbl">Invoices Sent</span></div>
@@ -1946,6 +1972,24 @@ document.getElementById('chatInput').addEventListener('keydown', function(e) {
     }
   });
 }());
+
+function toggleMDNav(){
+  const btn=document.getElementById('mdHamburger');
+  const drawer=document.getElementById('mdMobileDrawer');
+  if(!btn||!drawer)return;
+  btn.classList.toggle('open');
+  drawer.classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('mdHamburger');
+  const drawer=document.getElementById('mdMobileDrawer');
+  if(!btn||!drawer)return;
+  if(!btn.contains(e.target)&&!drawer.contains(e.target)){
+    btn.classList.remove('open');
+    drawer.classList.remove('open');
+  }
+});
+
 </script>
 </body>
 </html>
