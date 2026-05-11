@@ -1087,10 +1087,7 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="hero-trust">
       <span class="hero-trust-item"><span class="hero-trust-dot"></span>10 systems built</span>
       <span class="hero-trust-sep">·</span>
-      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days</span>
-      <span class="hero-trust-sep">·</span>
-      <span class="hero-trust-item"><span class="hero-trust-dot"></span>$500/mo all in</span>
-    </div>
+      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days
   </div>
 
   <!-- RIGHT COLUMN — LIVE SYSTEM FEED -->
@@ -1178,10 +1175,8 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <div class="divider"></div>
 
-<!-- ── 10 SYSTEMS ── -->
-<section 
 <!-- ── OS FLOW ANIMATION ── -->
-<section id="os-flow" style="padding:56px 0 44px;background:var(--bg);overflow:hidden;">
+<section id="os-flow" style="padding:56px 0 48px;background:var(--bg);overflow:hidden;">
   <div style="max-width:960px;margin:0 auto;padding:0 20px;">
     <div style="text-align:center;margin-bottom:36px;">
       <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">The OS in motion</div>
@@ -1198,131 +1193,75 @@ button,a,[onclick]{touch-action:manipulation;}
       </svg>
       <div id="os-nodes" style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;position:relative;z-index:2;flex-wrap:nowrap;"></div>
     </div>
-    <div id="os-flow-desc" style="text-align:center;margin-top:24px;min-height:44px;">
+    <div style="text-align:center;margin-top:24px;min-height:44px;">
       <div id="os-flow-desc-text" style="font-size:13px;color:rgba(232,228,220,.45);line-height:1.6;max-width:500px;margin:0 auto;transition:opacity .25s;"></div>
     </div>
   </div>
 </section>
 <style>
-.osn-icon{width:42px;height:42px;border-radius:10px;background:rgba(61,122,138,.08);border:1.5px solid rgba(61,122,138,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0;color:rgba(232,228,220,.4);}
-.osn-label{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(232,228,220,.25);text-align:center;line-height:1.35;transition:color .3s;margin-top:5px;word-break:break-word;max-width:64px;}
-@media(max-width:599px){
-  #os-nodes{gap:3px;}
-  .osn-icon{width:34px;height:34px;border-radius:8px;}
-  .osn-icon svg{width:15px;height:15px;}
-  .osn-label{font-size:6.5px;max-width:52px;}
-  #os-flow .sec-desc{font-size:12px;}
-}
-@media(max-width:390px){
-  .osn-icon{width:30px;height:30px;}
-  .osn-label{display:none;}
-}
+.osn-icon{width:42px;height:42px;border-radius:10px;background:rgba(61,122,138,.08);border:1.5px solid rgba(61,122,138,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0;color:rgba(232,228,220,.35);}
+.osn-label{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(232,228,220,.25);text-align:center;line-height:1.35;transition:color .3s;margin-top:5px;word-break:break-word;max-width:62px;}
+@media(max-width:599px){.osn-icon{width:34px;height:34px;}.osn-icon svg{width:14px;height:14px;}.osn-label{font-size:6px;max-width:48px;}}
+@media(max-width:390px){.osn-icon{width:28px;height:28px;}.osn-label{display:none;}}
 </style>
 <script>
 (function(){
-  const STEPS = [{"label":"Lead Captured","desc":"Operator website chatbot qualifies the lead and fires it to HQ automatically.","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"},{"label":"Client Onboarded","desc":"Family completes a digital care agreement. Care plan pre-populated in minutes.","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"},{"label":"Shift Scheduled","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection built in.","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"},{"label":"PSW Checks In","desc":"GPS coordinates captured. Family notified. Visit starts — fully logged.","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"},{"label":"Checklist Done","desc":"PSW completes every care task. AI structures the progress note in plain English.","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"},{"label":"AI Summary Sent","desc":"Care summary written by AI and emailed to the family within seconds of checkout.","icon":"M21 6.5c0-1.38-1.12-2.5-2.5-2.5h-15C2.12 4 1 5.12 1 6.5v11C1 18.88 2.12 20 3.5 20h15c1.38 0 2.5-1.12 2.5-2.5v-11zM12 13L3 7h18l-9 6z"},{"label":"Family Rates Visit","desc":"One-tap satisfaction rating in the family portal. Low score alerts Lance immediately.","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"},{"label":"Invoice Generated","desc":"Invoice PDF auto-generated and sent. Follow-up sequence armed automatically.","icon":"M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1zm-5-5H6v-2h8v2zm3-4H6V7h11v2z"}];
-  const TEAL = 'var(--teal)';
-  const TEAL_DK = '#3d7a8a';
-  let cur = 0, timer = null, ready = false;
-
-  function buildNodes(){
-    const wrap = document.getElementById('os-nodes');
-    if(!wrap) return;
-    wrap.innerHTML = STEPS.map((s,i) => `
-      <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;" onclick="osGo(${i})">
-        <div class="osn-icon" id="osni-${i}">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="${s.icon}"/></svg>
-        </div>
-        <div class="osn-label" id="osnl-${i}">${s.label}</div>
-      </div>`).join('');
-  }
-
-  function drawPath(){
-    const svg = document.getElementById('os-flow-svg');
-    const path = document.getElementById('os-flow-path');
-    const wrap = document.getElementById('os-nodes');
-    if(!svg||!path||!wrap) return;
-    const sr = svg.getBoundingClientRect();
-    const icons = wrap.querySelectorAll('.osn-icon');
-    if(!icons.length) return;
-    const pts = [];
-    icons.forEach(el=>{
-      const r = el.getBoundingClientRect();
-      pts.push({x: r.left - sr.left + r.width/2, y: r.top - sr.top + r.height/2});
-    });
-    if(pts.length < 2) return;
-    let d = `M ${pts[0].x} ${pts[0].y}`;
-    for(let i=1;i<pts.length;i++){
-      const mx=(pts[i-1].x+pts[i].x)/2;
-      d+=` C ${mx} ${pts[i-1].y} ${mx} ${pts[i].y} ${pts[i].x} ${pts[i].y}`;
-    }
-    path.setAttribute('d',d);
-    const dot=document.getElementById('os-flow-dot');
-    const anim=document.getElementById('os-dot-anim');
-    if(dot&&anim){
-      dot.setAttribute('opacity','0.9');
-      anim.setAttribute('path',d);
-      try{anim.beginElement();}catch(e){}
-    }
-  }
-
-  window.osGo = function(i){
-    cur = i;
-    STEPS.forEach((_,idx)=>{
-      const ic=document.getElementById('osni-'+idx);
-      const lb=document.getElementById('osnl-'+idx);
-      if(!ic||!lb) return;
-      if(idx===i){
-        ic.style.background='rgba(61,122,138,.25)';
-        ic.style.borderColor=TEAL;
-        ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';
-        ic.style.transform='scale(1.08)';
-        ic.style.color=TEAL;
-        lb.style.color=TEAL;
-      } else if(idx<i){
-        ic.style.background='rgba(61,122,138,.1)';
-        ic.style.borderColor='rgba(61,122,138,.3)';
-        ic.style.boxShadow='';
-        ic.style.transform='scale(1)';
-        ic.style.color='rgba(232,228,220,.4)';
-        lb.style.color='rgba(232,228,220,.4)';
-      } else {
-        ic.style.background='rgba(61,122,138,.05)';
-        ic.style.borderColor='rgba(61,122,138,.15)';
-        ic.style.boxShadow='';
-        ic.style.transform='scale(1)';
-        ic.style.color='rgba(232,228,220,.2)';
-        lb.style.color='rgba(232,228,220,.2)';
-      }
-    });
-    const dt=document.getElementById('os-flow-desc-text');
-    if(dt){
-      dt.style.opacity='0';
-      setTimeout(()=>{dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);
-    }
-  };
-
-  function tick(){ osGo(cur); cur=(cur+1)%STEPS.length; }
-
-  function init(){
-    if(ready) return; ready=true;
-    buildNodes();
-    setTimeout(()=>{drawPath();osGo(0);timer=setInterval(tick,2400);},120);
-    window.addEventListener('resize',()=>{clearTimeout(window._osRT);window._osRT=setTimeout(drawPath,200);});
-  }
-
-  const sec=document.getElementById('os-flow');
-  if(sec){
-    if('IntersectionObserver' in window){
-      const ob=new IntersectionObserver(e=>{if(e[0].isIntersecting){init();ob.disconnect();}},{threshold:0.15});
-      ob.observe(sec);
-    } else { init(); }
-  }
+var STEPS=[{"label":"Lead Captured","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z","desc":"Operator website chatbot qualifies the lead and fires it to HQ automatically."},{"label":"Client Onboarded","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z","desc":"Family completes a digital care agreement. Care plan pre-populated in minutes."},{"label":"Shift Scheduled","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection built in."},{"label":"PSW Checks In","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z","desc":"GPS coordinates captured. Family notified. Visit starts — fully logged."},{"label":"Checklist Done","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z","desc":"PSW completes every care task. AI structures the progress note automatically."},{"label":"AI Summary Sent","icon":"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z","desc":"Care summary written by AI and emailed to the family within seconds of checkout."},{"label":"Family Rates Visit","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z","desc":"One-tap satisfaction rating in the family portal. Low score alerts HQ immediately."},{"label":"Invoice Generated","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8zm0-4h5v2H8z","desc":"Invoice PDF auto-generated and sent. Follow-up sequence armed automatically."}];
+var TEAL='var(--teal)';
+var cur=0,tmr=null,rdy=false;
+function buildNodes(){
+  var w=document.getElementById('os-nodes');if(!w)return;
+  w.innerHTML=STEPS.map(function(s,i){return'<div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;" onclick="osGo('+i+')"><div class="osn-icon" id="osni-'+i+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="'+s.icon+'"/></svg></div><div class="osn-label" id="osnl-'+i+'">'+s.label+'</div></div>';}).join('');
+}
+function drawPath(){
+  var svg=document.getElementById('os-flow-svg');
+  var path=document.getElementById('os-flow-path');
+  var w=document.getElementById('os-nodes');
+  if(!svg||!path||!w)return;
+  var sr=svg.getBoundingClientRect();
+  var icons=w.querySelectorAll('.osn-icon');
+  if(!icons.length)return;
+  var pts=[];
+  icons.forEach(function(el){var r=el.getBoundingClientRect();pts.push({x:r.left-sr.left+r.width/2,y:r.top-sr.top+r.height/2});});
+  if(pts.length<2)return;
+  var d='M '+pts[0].x+' '+pts[0].y;
+  for(var i=1;i<pts.length;i++){var mx=(pts[i-1].x+pts[i].x)/2;d+=' C '+mx+' '+pts[i-1].y+' '+mx+' '+pts[i].y+' '+pts[i].x+' '+pts[i].y;}
+  path.setAttribute('d',d);
+  var dot=document.getElementById('os-flow-dot');
+  var anim=document.getElementById('os-dot-anim');
+  if(dot&&anim){dot.setAttribute('opacity','0.9');anim.setAttribute('path',d);try{anim.beginElement();}catch(e){}}
+}
+window.osGo=function(i){
+  cur=i;
+  STEPS.forEach(function(_,idx){
+    var ic=document.getElementById('osni-'+idx);
+    var lb=document.getElementById('osnl-'+idx);
+    if(!ic||!lb)return;
+    if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor=TEAL;ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color=TEAL;lb.style.color=TEAL;}
+    else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.4)';lb.style.color='rgba(232,228,220,.4)';}
+    else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.18)';lb.style.color='rgba(232,228,220,.18)';}
+  });
+  var dt=document.getElementById('os-flow-desc-text');
+  if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}
+};
+function tick(){osGo(cur);cur=(cur+1)%STEPS.length;}
+function init(){
+  if(rdy)return;rdy=true;
+  buildNodes();
+  setTimeout(function(){drawPath();osGo(0);tmr=setInterval(tick,2400);},120);
+  window.addEventListener('resize',function(){clearTimeout(window._osRT);window._osRT=setTimeout(drawPath,200);});
+}
+var sec=document.getElementById('os-flow');
+if(sec){
+  if('IntersectionObserver' in window){var ob=new IntersectionObserver(function(e){if(e[0].isIntersecting){init();ob.disconnect();}},{threshold:0.15});ob.observe(sec);}
+  else{init();}
+}
 })();
 </script>
 
 
-id="systems" style="background:var(--bg2)">
+<!-- ── 10 SYSTEMS ── -->
+<section id="systems" style="background:var(--bg2)">
   <div class="sec w-wide">
     <div class="eyebrow"><div class="eyebrow-dot"></div>10 Done-For-You Systems</div>
     <h2 class="h2">Less time on admin.<br>More time on <em>care.</em></h2>
