@@ -834,6 +834,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* Level 20 mobile globals */
 *{-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
+@media(max-width:900px){
+  .hero-wrap{flex-direction:column;gap:32px;}
+  .hero-right{width:100%;flex:none;max-width:520px;margin:0 auto;}
+}
 @media(max-width:599px){
   /* Typography */
   .h1{font-size:40px;line-height:1.05}
@@ -1062,7 +1066,6 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <div class="ann"><strong>First month free.</strong> We build everything first. You pay after it is live. &nbsp;·&nbsp; We onboard <strong>3 agencies at a time</strong> to guarantee 7-day delivery. <strong>3 spots open.</strong></div>
 
-
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-wrap">
@@ -1088,7 +1091,10 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="hero-trust">
       <span class="hero-trust-item"><span class="hero-trust-dot"></span>10 systems built</span>
       <span class="hero-trust-sep">·</span>
-      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days
+      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days</span>
+      <span class="hero-trust-sep">·</span>
+      <span class="hero-trust-item"><span class="hero-trust-dot"></span>$500/mo all in</span>
+    </div>
   </div>
 
   <!-- RIGHT COLUMN — LIVE SYSTEM FEED -->
@@ -1207,58 +1213,19 @@ button,a,[onclick]{touch-action:manipulation;}
 </style>
 <script>
 (function(){
-var STEPS=[{"label":"Lead Captured","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z","desc":"Operator website chatbot qualifies the lead and fires it to HQ automatically."},{"label":"Client Onboarded","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z","desc":"Family completes a digital care agreement. Care plan pre-populated in minutes."},{"label":"Shift Scheduled","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection built in."},{"label":"PSW Checks In","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z","desc":"GPS coordinates captured. Family notified. Visit starts — fully logged."},{"label":"Checklist Done","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z","desc":"PSW completes every care task. AI structures the progress note automatically."},{"label":"AI Summary Sent","icon":"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z","desc":"Care summary written by AI and emailed to the family within seconds of checkout."},{"label":"Family Rates Visit","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z","desc":"One-tap satisfaction rating in the family portal. Low score alerts HQ immediately."},{"label":"Invoice Generated","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8zm0-4h5v2H8z","desc":"Invoice PDF auto-generated and sent. Follow-up sequence armed automatically."}];
+var STEPS=[{"label":"Lead Captured","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z","desc":"Operator website chatbot qualifies the lead and fires it to HQ automatically."},{"label":"Client Onboarded","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z","desc":"Family completes a digital care agreement. Care plan pre-populated in minutes."},{"label":"Shift Scheduled","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection built in."},{"label":"PSW Checks In","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z","desc":"GPS coordinates captured. Family notified. Visit starts — fully logged."},{"label":"Checklist Done","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z","desc":"PSW completes every care task. AI structures the progress note automatically."},{"label":"AI Summary Sent","icon":"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z","desc":"Care summary written by AI and emailed to the family within seconds of checkout."},{"label":"Family Rates Visit","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z","desc":"One-tap satisfaction rating in the family portal. Low score alerts HQ immediately."},{"label":"Invoice Generated","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8z","desc":"Invoice PDF auto-generated and sent. Follow-up sequence armed automatically."}];
 var TEAL='var(--teal)';
 var cur=0,tmr=null,rdy=false;
-function buildNodes(){
-  var w=document.getElementById('os-nodes');if(!w)return;
-  w.innerHTML=STEPS.map(function(s,i){return'<div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;" onclick="osGo('+i+')"><div class="osn-icon" id="osni-'+i+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="'+s.icon+'"/></svg></div><div class="osn-label" id="osnl-'+i+'">'+s.label+'</div></div>';}).join('');
-}
-function drawPath(){
-  var svg=document.getElementById('os-flow-svg');
-  var path=document.getElementById('os-flow-path');
-  var w=document.getElementById('os-nodes');
-  if(!svg||!path||!w)return;
-  var sr=svg.getBoundingClientRect();
-  var icons=w.querySelectorAll('.osn-icon');
-  if(!icons.length)return;
-  var pts=[];
-  icons.forEach(function(el){var r=el.getBoundingClientRect();pts.push({x:r.left-sr.left+r.width/2,y:r.top-sr.top+r.height/2});});
-  if(pts.length<2)return;
-  var d='M '+pts[0].x+' '+pts[0].y;
-  for(var i=1;i<pts.length;i++){var mx=(pts[i-1].x+pts[i].x)/2;d+=' C '+mx+' '+pts[i-1].y+' '+mx+' '+pts[i].y+' '+pts[i].x+' '+pts[i].y;}
-  path.setAttribute('d',d);
-  var dot=document.getElementById('os-flow-dot');
-  var anim=document.getElementById('os-dot-anim');
-  if(dot&&anim){dot.setAttribute('opacity','0.9');anim.setAttribute('path',d);try{anim.beginElement();}catch(e){}}
-}
-window.osGo=function(i){
-  cur=i;
-  STEPS.forEach(function(_,idx){
-    var ic=document.getElementById('osni-'+idx);
-    var lb=document.getElementById('osnl-'+idx);
-    if(!ic||!lb)return;
-    if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor=TEAL;ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color=TEAL;lb.style.color=TEAL;}
-    else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.4)';lb.style.color='rgba(232,228,220,.4)';}
-    else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.18)';lb.style.color='rgba(232,228,220,.18)';}
-  });
-  var dt=document.getElementById('os-flow-desc-text');
-  if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}
-};
+function buildNodes(){var w=document.getElementById('os-nodes');if(!w)return;w.innerHTML=STEPS.map(function(s,i){return'<div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;" onclick="osGo('+i+')"><div class="osn-icon" id="osni-'+i+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="'+s.icon+'"/></svg></div><div class="osn-label" id="osnl-'+i+'">'+s.label+'</div></div>';}).join('');}
+function drawPath(){var svg=document.getElementById('os-flow-svg');var path=document.getElementById('os-flow-path');var w=document.getElementById('os-nodes');if(!svg||!path||!w)return;var sr=svg.getBoundingClientRect();var icons=w.querySelectorAll('.osn-icon');if(!icons.length)return;var pts=[];icons.forEach(function(el){var r=el.getBoundingClientRect();pts.push({x:r.left-sr.left+r.width/2,y:r.top-sr.top+r.height/2});});if(pts.length<2)return;var d='M '+pts[0].x+' '+pts[0].y;for(var i=1;i<pts.length;i++){var mx=(pts[i-1].x+pts[i].x)/2;d+=' C '+mx+' '+pts[i-1].y+' '+mx+' '+pts[i].y+' '+pts[i].x+' '+pts[i].y;}path.setAttribute('d',d);var dot=document.getElementById('os-flow-dot');var anim=document.getElementById('os-dot-anim');if(dot&&anim){dot.setAttribute('opacity','0.9');anim.setAttribute('path',d);try{anim.beginElement();}catch(e){}}}
+window.osGo=function(i){cur=i;STEPS.forEach(function(_,idx){var ic=document.getElementById('osni-'+idx);var lb=document.getElementById('osnl-'+idx);if(!ic||!lb)return;if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor='var(--teal)';ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color='var(--teal)';lb.style.color='var(--teal)';}else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.4)';lb.style.color='rgba(232,228,220,.4)';}else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.18)';lb.style.color='rgba(232,228,220,.18)';}});var dt=document.getElementById('os-flow-desc-text');if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}};
 function tick(){osGo(cur);cur=(cur+1)%STEPS.length;}
-function init(){
-  if(rdy)return;rdy=true;
-  buildNodes();
-  setTimeout(function(){drawPath();osGo(0);tmr=setInterval(tick,2400);},120);
-  window.addEventListener('resize',function(){clearTimeout(window._osRT);window._osRT=setTimeout(drawPath,200);});
-}
+function init(){if(rdy)return;rdy=true;buildNodes();setTimeout(function(){drawPath();osGo(0);tmr=setInterval(tick,2400);},120);window.addEventListener('resize',function(){clearTimeout(window._osRT);window._osRT=setTimeout(drawPath,200);});}
 var sec=document.getElementById('os-flow');
-if(sec){
-  if('IntersectionObserver' in window){var ob=new IntersectionObserver(function(e){if(e[0].isIntersecting){init();ob.disconnect();}},{threshold:0.15});ob.observe(sec);}
-  else{init();}
-}
+if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(function(e){if(e[0].isIntersecting){init();ob.disconnect();}},{threshold:0.15});ob.observe(sec);}else{init();}}
 })();
 </script>
+
 
 
 <!-- ── 10 SYSTEMS ── -->
