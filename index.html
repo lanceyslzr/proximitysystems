@@ -12,7 +12,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
-    --bg: #f6f3ee; --dark: #13181c; --dark2: #1c2228; --teal: #6a9eaa;
+    --bg: #f6f3ee; --bg2: #eeeae3; --bg3: #f0ede8; --navy: #13181c; --teal2: #3d7a8a; --amber: #c8863a; --gold: #b87010; --red: #c05050; --dark: #13181c; --dark2: #1c2228; --teal: #6a9eaa;
     --teal-dark: #3d7a8a; --teal-light: #c8dde2; --cream: #faf8f4;
     --muted: #7a7a72; --border: #e2ddd4; --green: #5a8a6a; --text: #1e2420; --red: #c05050;
     --b-bg: #0b0f14; --b-bg2: #0e1419; --b-bg3: #111820;
@@ -23,6 +23,7 @@
     --b-green: #5aaa7a; --b-red: #e05858;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
+  .section-wrap
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; cursor: none; }
   .cursor { width: 8px; height: 8px; background: var(--teal-dark); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease; }
@@ -78,7 +79,7 @@
   .trust-item::before { content: '·'; color: var(--teal); font-size: 20px; }
   .trust-item:first-child::before { display: none; }
   .section-wrap { padding: 140px 64px; max-width: 100%; }
-  .section-wrap .inner { max-width: 1200px; margin: 0 auto; }
+  .section-wrap
   #problem { background: var(--dark2); }
   #solution { background: var(--cream); }
   #package { background: var(--bg); }
@@ -86,7 +87,7 @@
   .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .eyebrow-line { width: 40px; height: 1px; background: var(--teal); }
   .eyebrow-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); }
-  .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; }
+  .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); }
   .s-title.light { color: #fff; } .s-title.dark { color: var(--dark); }
   .s-title em { font-style: italic; color: var(--teal); }
   .problem-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
@@ -187,7 +188,7 @@
   .wm-card-title { font-size: 7px; color: #1a2738; font-weight: 500; margin-bottom: 2px; }
   .wm-card-body { font-size: 6px; color: #888; line-height: 1.4; }
   .testimonial-bar { background: var(--teal-dark); padding: 64px; }
-  .testimonial-bar .inner { max-width: 1200px; margin: 0 auto; }
+  .testimonial-bar
   .testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px,3vw,36px); font-style: italic; color: #fff; line-height: 1.4; font-weight: 300; }
   .testimonial-attr { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 20px; letter-spacing: 1px; }
   .testimonial-attr strong { color: rgba(255,255,255,0.8); font-weight: 500; }
@@ -244,7 +245,7 @@
   .btn-secondary { display: inline-block; border: 1px solid var(--border); color: var(--muted); padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
   .btn-secondary:hover { border-color: var(--dark); color: var(--dark); }
   #cta { background: var(--bg); padding: 160px 64px; text-align: center; }
-  #cta .inner { max-width: 800px; margin: 0 auto; }
+  #cta
   .cta-pre { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 32px; }
   .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,5vw,64px); font-weight: 300; color: var(--dark); line-height: 1.15; margin-bottom: 28px; }
   .cta-title em { font-style: italic; color: var(--teal-dark); }
@@ -362,7 +363,7 @@
 
   /* Timeline Section */
   #timeline { background: #07090c; padding: 120px 64px; }
-  #timeline .inner { max-width: 1200px; margin: 0 auto; }
+  #timeline
   #timeline .tl-eyebrow { font-size: 10px; letter-spacing: 3px; color: #3d7a8a; text-transform: uppercase; font-variant: small-caps; margin-bottom: 24px; }
   #timeline .tl-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #ddd9d0; margin-bottom: 20px; }
   #timeline .tl-title em { font-style: italic; color: #6a9eaa; }
@@ -379,7 +380,7 @@
 
   /* Reviews Section */
   #reviews { background: #0d1117; padding: 120px 64px; }
-  #reviews .inner { max-width: 1200px; margin: 0 auto; }
+  #reviews
   #reviews .rv-eyebrow { font-size: 10px; letter-spacing: 3px; color: #3d7a8a; text-transform: uppercase; font-variant: small-caps; margin-bottom: 24px; }
   #reviews .rv-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #ddd9d0; margin-bottom: 64px; }
   #reviews .rv-title em { font-style: italic; color: #6a9eaa; }
@@ -406,7 +407,7 @@
 
   /* ── BUILDER SECTION ── */
   #builder{background:var(--bg);padding:100px 64px}
-  #builder .bld-inner{max-width:1200px;margin:0 auto}
+  #builder
   /* Scoped CSS vars for builder dark components */
   #builder,#bldModalOverlay{
     --b-bg:#0b0f14;--b-bg2:#0e1419;--b-bg3:#111820;
@@ -506,7 +507,7 @@
 
   /* ── ROI CALCULATOR ── */
   #roi-calc{background:var(--dark2);padding:100px 64px}
-  #roi-calc .inner{max-width:1200px;margin:0 auto}
+  #roi-calc
   .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:48px}
   .roi-sliders{display:flex;flex-direction:column;gap:24px}
   .roi-slider-row{display:flex;flex-direction:column;gap:10px}
@@ -575,6 +576,11 @@
 /* Level 20 mobile globals */
 *{-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
+
+  /* ── CONTAINER ── */
+  .inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
+  .section-wrap .inner { padding: 0; }
+  .bld-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
 @media (max-width: 1024px) {
     nav { padding: 18px 24px; } nav.scrolled { padding: 14px 24px; }
     #hero { grid-template-columns: 1fr; padding: 100px 24px 48px; gap: 32px; min-height:auto; }
@@ -621,6 +627,7 @@ button,a,[onclick]{touch-action:manipulation;}
     .rv-grid { grid-template-columns: 1fr; }
   }
 @media (max-width: 768px) {
+  .inner, .bld-inner { padding: 0 24px; }
     body { cursor: auto !important; }
     .cur,.cursor,#cur,#curRing,.cur-ring,.cursor-ring { display: none !important; }
     .chat-bubble { cursor: pointer; }
@@ -746,6 +753,8 @@ button,a,[onclick]{touch-action:manipulation;}
     opacity: 1;
     transform: none;
   }
+  .ps-reveal { animation: psShow 0.001s 1.8s forwards; }
+  @keyframes psShow { to { opacity: 1; transform: none; } }
 
   /* SECTION ENTRANCE LINE */
   .section-wrap {
@@ -835,12 +844,18 @@ button,a,[onclick]{touch-action:manipulation;}
 .ix-chip{background:rgba(61,122,138,0.1);border:1px solid rgba(61,122,138,0.3);color:#6ab4c8;padding:6px 12px;border-radius:100px;font-size:11px;cursor:pointer;white-space:nowrap;min-height:32px;font-family:'DM Mono',monospace;letter-spacing:0.5px;}
 .ix-chip:hover{background:rgba(61,122,138,0.2);}
 
-@media(max-width:390px){
+@media(max-width:390px){ .inner, .bld-inner { padding: 0 16px; }
   body{font-size:14px;}
   h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
 }
+
+  /* OS Flow — light bg node colors */
+  .osn-icon { width:42px;height:42px;border-radius:10px;background:rgba(61,122,138,.08);border:1.5px solid rgba(61,122,138,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0;color:rgba(30,36,32,.4); }
+  .osn-label { font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(30,36,32,.5);text-align:center;line-height:1.35;transition:color .3s;margin-top:5px;word-break:break-word;max-width:62px; }
+  @media(max-width:599px){.osn-icon{width:34px;height:34px;}.osn-icon svg{width:14px;height:14px;}.osn-label{font-size:6px;max-width:48px;}}
+  @media(max-width:390px){.osn-icon{width:28px;height:28px;}.osn-label{display:none;}}
 </style>
 </head>
 <body>
@@ -919,7 +934,7 @@ button,a,[onclick]{touch-action:manipulation;}
   <div class="trust-item">100% Remote Setup</div>
 </div>
 
-<div id="problem" class="section-wrap">
+<div id="problem" class="section-wrap" style="background:#1c2228;">
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#c05050"></div><div class="eyebrow-tag" style="color:#c05050">The Problem</div></div>
     <h2 class="s-title light reveal">Still Running Your Business <em>Manually?</em></h2>
@@ -1121,57 +1136,6 @@ button,a,[onclick]{touch-action:manipulation;}
   </div>
 </div>
 
-<!-- ── ROI CALCULATOR ── -->
-<div id="roi-calc">
-  <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">What Admin Actually Costs You</div></div>
-    <h2 class="s-title light reveal">Calculate Your <em>Real Cost</em><br>of Doing This Manually.</h2>
-    <div class="roi-grid reveal">
-      <div class="roi-sliders">
-        <div class="roi-slider-row">
-          <div class="roi-slider-top">
-            <span class="roi-slider-lbl">Number of active clients</span>
-            <span class="roi-slider-val" id="roiClients">10</span>
-          </div>
-          <input class="roi-range" type="range" id="roiClientsSlider" min="5" max="60" value="10" oninput="updateRoi()">
-        </div>
-        <div class="roi-slider-row">
-          <div class="roi-slider-top">
-            <span class="roi-slider-lbl">Admin hours per client per month</span>
-            <span class="roi-slider-val" id="roiHrsPerClient">3</span>
-          </div>
-          <input class="roi-range" type="range" id="roiHrsSlider" min="1" max="8" value="3" oninput="updateRoi()">
-        </div>
-        <div class="roi-slider-row">
-          <div class="roi-slider-top">
-            <span class="roi-slider-lbl">Your hourly rate (as operator)</span>
-            <span class="roi-slider-val" id="roiRate">$40</span>
-          </div>
-          <input class="roi-range" type="range" id="roiRateSlider" min="20" max="100" value="40" step="5" oninput="updateRoi()">
-        </div>
-        <div class="roi-verdict" id="roiVerdict">Move the sliders to see your real numbers.</div>
-      </div>
-      <div class="roi-outputs">
-        <div class="roi-out">
-          <span class="roi-out-lbl">Hours lost per month</span>
-          <span class="roi-out-val" id="roiHrsOut">—</span>
-        </div>
-        <div class="roi-out">
-          <span class="roi-out-lbl">Cost of that time per month</span>
-          <span class="roi-out-val" id="roiCostOut">—</span>
-        </div>
-        <div class="roi-out">
-          <span class="roi-out-lbl">Annual admin cost</span>
-          <span class="roi-out-val" id="roiAnnualOut">—</span>
-        </div>
-        <div class="roi-out" style="border-top:2px solid var(--teal-dark)">
-          <span class="roi-out-lbl">Months to recover setup cost</span>
-          <span class="roi-out-val highlight" id="roiPaybackOut">—</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="testimonial-bar">
   <div class="inner">
@@ -1243,12 +1207,84 @@ button,a,[onclick]{touch-action:manipulation;}
   </div>
 </div>
 
+
+<!-- ── ROI CALCULATOR ── -->
+<div id="roi-calc" style="background:#f6f3ee;padding:72px 0 64px;border-top:1px solid #e2ddd4;">
+  <div class="inner" style="max-width:780px;">
+    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#3d7a8a;"></div><div class="eyebrow-tag" style="color:#3d7a8a;border-color:rgba(61,122,138,.3);">What Admin Actually Costs You</div></div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,68px);font-weight:300;line-height:1.05;color:#1e2420;margin-bottom:48px;" class="reveal">What are you spending <em style="font-style:italic;color:#6a9eaa;">right now?</em></h2>
+    <div class="reveal" style="display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center;">
+
+      <!-- SVG GAUGE -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+        <div style="position:relative;width:220px;height:220px;">
+          <svg viewBox="0 0 220 220" width="220" height="220">
+            <defs>
+              <linearGradient id="roiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3d7a8a"/>
+                <stop offset="50%" stop-color="#c8863a"/>
+                <stop offset="100%" stop-color="#c05050"/>
+              </linearGradient>
+            </defs>
+            <!-- Track arc: 270deg open arc, r=90, center=110,110 -->
+            <!-- Start: bottom-left (225deg from top = 135deg from right = point 30,165 approx) -->
+            <!-- Arc goes clockwise 270deg -->
+            <path d="M 46.3 173.7 A 90 90 0 1 1 173.7 173.7" fill="none" stroke="#e2ddd4" stroke-width="14" stroke-linecap="round"/>
+            <!-- Value arc — same path, dasharray controls fill -->
+            <path id="roiArcPath" d="M 46.3 173.7 A 90 90 0 1 1 173.7 173.7" fill="none"
+              stroke="url(#roiGrad)" stroke-width="14" stroke-linecap="round"
+              stroke-dasharray="0 848.2"
+              style="transition:stroke-dasharray .45s cubic-bezier(.4,0,.2,1);"/>
+            <!-- Dot indicator -->
+            <circle id="roiDot" cx="46.3" cy="173.7" r="7" fill="#3d7a8a"
+              style="transition:cx .45s cubic-bezier(.4,0,.2,1),cy .45s cubic-bezier(.4,0,.2,1);"/>
+          </svg>
+          <!-- Center -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:4px;">clients</div>
+            <div id="roiClients" style="font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:700;color:#1e2420;line-height:1;">10</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;background:#f0ede8;border:1px solid #e2ddd4;border-radius:100px;overflow:hidden;">
+          <button onclick="roiAdj(-5)" style="width:52px;height:44px;font-size:24px;font-weight:300;color:#7a7a72;background:none;border:none;cursor:pointer;" onmouseover="this.style.color='#1e2420'" onmouseout="this.style.color='#7a7a72'">−</button>
+          <div style="width:1px;height:22px;background:#e2ddd4;"></div>
+          <div style="width:60px;text-align:center;font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;">adjust</div>
+          <div style="width:1px;height:22px;background:#e2ddd4;"></div>
+          <button onclick="roiAdj(5)" style="width:52px;height:44px;font-size:24px;font-weight:300;color:#7a7a72;background:none;border:none;cursor:pointer;" onmouseover="this.style.color='#1e2420'" onmouseout="this.style.color='#7a7a72'">+</button>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:#7a7a72;letter-spacing:1px;text-transform:uppercase;">5 — 50 clients</div>
+      </div>
+
+      <!-- STATS -->
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div style="background:#fff;border:1px solid #e2ddd4;border-radius:8px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#7a7a72;">Hours wasted / mo</div>
+          <div id="roiHrsOut" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#3d7a8a;">30 hrs</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e2ddd4;border-radius:8px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#7a7a72;">Monthly cost</div>
+          <div id="roiCostOut" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#c05050;">$1,200</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e2ddd4;border-radius:8px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#7a7a72;">Annual admin cost</div>
+          <div id="roiAnnualOut" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#13181c;">$14,400</div>
+        </div>
+        <div style="background:rgba(61,122,138,.06);border:1px solid rgba(61,122,138,.2);border-radius:8px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#3d7a8a;">Setup pays for itself in</div>
+          <div id="roiPaybackOut" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#3d7a8a;">3 months</div>
+        </div>
+        <div id="roiVerdict" style="font-size:12px;color:#7a7a72;padding:12px 0;text-align:center;line-height:1.6;">Then admin is free forever.</div>
+      </div>
+    </div>
+    <style>@media(max-width:700px){#roi-calc .reveal[style*="220px"]{grid-template-columns:1fr!important;}}</style>
+  </div>
+</div>
 <!-- ── OS FLOW ANIMATION ── -->
 <section id="os-flow" style="padding:56px 0 48px;background:var(--bg);overflow:hidden;">
   <div style="max-width:960px;margin:0 auto;padding:0 20px;">
     <div style="text-align:center;margin-bottom:36px;">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">The OS in motion</div>
-      <div style="font-size:clamp(1.3rem,2.8vw,1.9rem);font-weight:600;color:var(--text);line-height:1.3;">Every visit. Automatic.</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#3d7a8a;margin-bottom:8px;">The OS in motion</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:#1e2420;line-height:1.1;">Every visit. Automatic.</div>
     </div>
     <div id="os-flow-wrap" style="position:relative;">
       <svg id="os-flow-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;" preserveAspectRatio="none">
@@ -1306,8 +1342,8 @@ window.osGo=function(i){
     var lb=document.getElementById('osnl-'+idx);
     if(!ic||!lb)return;
     if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor=TEAL;ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color=TEAL;lb.style.color=TEAL;}
-    else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.4)';lb.style.color='rgba(232,228,220,.4)';}
-    else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.18)';lb.style.color='rgba(232,228,220,.18)';}
+    else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='#7a7a72';lb.style.color='#7a7a72';}
+    else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(30,36,32,.3)';lb.style.color='rgba(30,36,32,.3)';}
   });
   var dt=document.getElementById('os-flow-desc-text');
   if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}
@@ -1328,249 +1364,91 @@ if(sec){
 </script>
 
 
-<div id="proof" class="section-wrap">
+<div id="proof" style="background:#eeeae3;padding:80px 0 72px;border-top:1px solid #d8d3ca;">
   <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Built For Operators</div></div>
-    <h2 class="s-title light reveal">Tested on a Real Home Care <em>Business First.</em></h2>
-    <p class="proof-story reveal" style="max-width:640px;">We built this for <strong>Proximity Care Services in Mississauga</strong> — 12 PSWs, 11 clients, thousands of visits logged. It runs every day without us touching it. That is the proof.</p>
-    <div class="reveal" style="margin-bottom:40px;">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.4);margin-bottom:16px;text-align:center;">What's happening right now</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(61,,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3d8a7a"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">PSW Visit Logged</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Carolina R. · 8.0 hrs · Auto-routed to billing</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,138,122,.15);color:#5aada0;border:1px solid rgba(61,138,122,.3)">LIVE</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">Just now</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(61,,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3d7ab5"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">New Lead Captured</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Family inquiry · Day 1 follow-up sent in 60 seconds</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,122,181,.15);color:#6aacf0;border:1px solid rgba(61,122,181,.3)">AUTO</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">2 min ago</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(61,,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3d8a7a"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">Invoice Sent Automatically</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">PDF delivered to client · PSW pay summary sent</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,122,181,.15);color:#6aacf0;border:1px solid rgba(61,122,181,.3)">AUTO</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">5 min ago</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(61,,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3d7ab5"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">Follow-Up Email Fired</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Day 3 sequence · Lead from Tuesday · No reply yet</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,122,181,.15);color:#6aacf0;border:1px solid rgba(61,122,181,.3)">AUTO</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">12 min ago</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(184,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#b87010"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">Family Portal Viewed</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Rosetta F. · Tab: Visit History · 2:47 AM</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(184,112,16,.15);color:#c8a040;border:1px solid rgba(184,112,16,.3)">PORTAL</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">18 min ago</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(61,,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3d8a7a"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">PSW Signed In · Checklist Active</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Carolina Hermida · Rosetta Ferrari · 8:02 AM · Family notified</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,138,122,.15);color:#5aada0;border:1px solid rgba(61,138,122,.3)">LIVE</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">34 min ago</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(61,,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#3d8a7a"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">Scheduling Board Updated</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Shift dragged · Carolina reassigned · Conflict resolved</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,138,122,.15);color:#5aada0;border:1px solid rgba(61,138,122,.3)">LIVE</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">1 hr ago</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-          <div style="width:36px;height:36px;border-radius:8px;background:rgba(160,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="#a060e0"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;">AI Chat Answered After Hours</div>
-            <div style="font-size:11px;color:rgba(232,228,220,.5);line-height:1.5;">Inquiry at 11:42 PM · Qualified lead · Discovery call booked</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:100px;background:rgba(61,122,181,.15);color:#6aacf0;border:1px solid rgba(61,122,181,.3)">AUTO</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(232,228,220,.3);">2 hrs ago</span>
-            </div>
-          </div>
-        </div>
+    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#3d7a8a;"></div><div class="eyebrow-tag" style="color:#3d7a8a;border-color:rgba(61,122,138,.3);">Built For Operators</div></div>
+    <h2 class="s-title dark reveal" style="margin-bottom:20px;">Tested on a Real Home Care <em>Business First.</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;max-width:900px;margin:0 auto 56px;" class="reveal">
+      <div>
+        <p style="font-size:15px;color:#3a4a42;line-height:1.8;margin:0 0 20px;">We built this for <strong style="color:#1e2420;">Proximity Care Services in Mississauga</strong> — our own agency. 12 PSWs. 11 clients. Thousands of visits logged. It runs every day without us touching it.</p>
+        <p style="font-size:13px;color:#7a7a72;line-height:1.7;margin:0 0 24px;font-style:italic;">"I built this to solve my own problems as an operator. Then realized every small home care agency in Canada has the same problems."</p>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:#3d7a8a;text-transform:uppercase;">— Lance Salazar · Founder · Proximity Systems</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#d8d3ca;border-radius:10px;overflow:hidden;">
+        <div style="background:#f0ede8;padding:24px 16px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#3d7a8a;line-height:1;">12</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-top:8px;">PSWs Active</div></div>
+        <div style="background:#f0ede8;padding:24px 16px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#3d7a8a;line-height:1;">11</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-top:8px;">Clients Served</div></div>
+        <div style="background:#f0ede8;padding:24px 16px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#3d7a8a;line-height:1;">1K+</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-top:8px;">Visits Logged</div></div>
+        <div style="background:#f0ede8;padding:24px 16px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#3d7a8a;line-height:1;">$0</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-top:8px;">Admin Staff</div></div>
       </div>
     </div>
-
-    <div class="proof-closer reveal" style="margin-bottom:48px;">Same system. Your business.<br><strong>Built from scratch. Handed to you running.</strong></div>
-
-    <div class="reveal reveal-delay-2">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,28px);line-height:1.45;color:rgba(255,255,255,0.85);text-align:center;font-style:italic;margin:0 0 8px;font-weight:300;">The average operator wastes 20 hours a week on admin. At $50/hr that is <strong style="color:var(--teal);font-style:normal;font-weight:400;">$4,000 a month.</strong> The setup cost pays for itself in under 60 days.</p>
-      <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:40px;letter-spacing:0.4px;">All tiers go live in 7 days. We build first. You pay after.</p>
-
-      <div class="ht-grid">
-
-        <!-- TIER 1 -->
-        <div class="ht-card">
-          <div class="ht-head">
-            <div class="ht-label">Core Stack</div>
-            <div class="ht-name">The Essentials</div>
-            <div class="ht-tagline">8 core systems plus a converting website. Automation running in 7 days. No onboarding flows, no voice AI.</div>
-            <div class="ht-price-row">
-              <div class="ht-price-num">$3,000</div>
-              <div class="ht-price-meta">
-                <span class="ht-price-setup">setup</span>
-                <span class="ht-price-mo">$500/mo after</span>
-              </div>
-            </div>
-          </div>
-          <div class="ht-body">
-            <div class="ht-items">
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Visit Logging — PSWs log from their phone in 60 seconds</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Auto Invoicing — one button, invoice and PSW pay summary sent</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Lead Capture — chatbot catches and replies to every lead 24/7</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Family Portal — PIN login, visits, care plan, documents</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>AI Chat — trained on your agency, answers at 2am</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>HQ Dashboard — every lead, visit, and PSW on one screen</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>PSW Management — portal on any phone, all records central</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Converting Website — premium agency site built and included</div>
-              <div class="ht-item ht-dim"><span class="ht-item-chk">—</span>No Follow-Up Engine</div>
-              <div class="ht-item ht-dim"><span class="ht-item-chk">—</span>No Client or PSW Onboarding automation</div>
-              <div class="ht-item ht-dim"><span class="ht-item-chk">—</span>No Phone / Voice AI</div>
-            </div>
-            <div class="ht-divider"></div>
-            <div class="ht-timeline">
-              <span class="ht-timeline-lbl">What Day 1–7 Looks Like</span>
-              Day 1 — Discovery call. 60 minutes. You walk us through your agency.<br>
-              Days 2–6 — We build everything. Nothing needed from you.<br>
-              Day 7 — All systems live. Site live. Handed to you running.
-            </div>
-            <div class="ht-gut">Live in 7 days. Zero effort on your end.</div>
-            <div class="ht-guarantee"><span class="ht-shield">🛡</span>We build first. You pay after it is live. Not live in 7 days — you owe nothing.</div>
-            <a href="#builder" class="ht-cta ht-cta-outline">Book a Free Call →</a>
-          </div>
-        </div>
-
-        <!-- TIER 2 — HERO -->
-        <div class="ht-card ht-hero">
-          <div class="ht-hero-badge">Most Popular</div>
-          <div class="ht-head">
-            <div class="ht-label">Full Stack</div>
-            <div class="ht-name">Done For You</div>
-            <div class="ht-tagline">Every system, every automation, your converting website — all built and live in 7 days. First month free.</div>
-            <div class="ht-price-row">
-              <div class="ht-price-num">$3,500</div>
-              <div class="ht-price-meta">
-                <span class="ht-price-setup">setup</span>
-                <span class="ht-price-mo">$500/mo after</span>
-                <span class="ht-price-free">Month 1 free</span>
-              </div>
-            </div>
-          </div>
-          <div class="ht-body">
-            <div class="ht-items">
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Everything in The Essentials</div>
-              <div class="ht-item ht-gold"><span class="ht-item-chk">+</span>Client Onboarding — Day 0 welcome, PIN, and portal sent automatically</div>
-              <div class="ht-item ht-gold"><span class="ht-item-chk">+</span>PSW Onboarding — instant portal access, profile, and schedule on hire</div>
-              <div class="ht-item ht-gold"><span class="ht-item-chk">+</span>Phone / Voice AI — answers calls, qualifies leads, books assessments</div>
-              <div class="ht-item ht-gold"><span class="ht-item-chk">+</span>Follow-Up Engine — Day 1, 3, 7 emails fire automatically on every lead</div>
-            </div>
-            <div class="ht-divider"></div>
-            <div class="ht-timeline">
-              <span class="ht-timeline-lbl">What Day 1–7 Looks Like</span>
-              Day 1 — Discovery call. Full brief confirmed same day.<br>
-              Days 2–6 — All systems and site built simultaneously. Nothing from you.<br>
-              Day 7 — Everything live. First lead handled automatically.
-            </div>
-            <div class="ht-gut">One new client covers the entire setup cost. Live in 7 days or you do not pay.</div>
-            <div class="ht-guarantee"><span class="ht-shield">🛡</span>We build first. You pay after it is live. Not live in 7 days — you owe nothing.</div>
-            <a href="#builder" class="ht-cta ht-cta-solid">Book a Free Call →</a>
-          </div>
-        </div>
-
-        <!-- TIER 3 -->
-        <div class="ht-card">
-          <div class="ht-head">
-            <div class="ht-label">Growth Partner</div>
-            <div class="ht-name">Scale With Me</div>
-            <div class="ht-tagline">Everything in Done For You, plus every new system we ship gets added to your stack — automatically, every month.</div>
-            <div class="ht-price-row">
-              <div class="ht-price-num">$5,000</div>
-              <div class="ht-price-meta">
-                <span class="ht-price-setup">setup</span>
-                <span class="ht-price-mo">$750/mo after</span>
-              </div>
-            </div>
-          </div>
-          <div class="ht-body">
-            <div class="ht-items">
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Everything in Done For You</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>New systems added to your stack every month as we ship them</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Monthly 1-on-1 strategy call with Lance</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Pipeline review — leads, conversions, and what to push next</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>Priority support — direct line, same-day response</div>
-              <div class="ht-item"><span class="ht-item-chk">✓</span>First access to every new system before anyone else</div>
-            </div>
-            <div class="ht-divider"></div>
-            <div class="ht-timeline">
-              <span class="ht-timeline-lbl">What Day 1–7 Looks Like</span>
-              Day 1 — Discovery call. Full growth plan mapped out.<br>
-              Days 2–6 — All systems and site built. Nothing from you.<br>
-              Day 7 — Live. Month 2 we review, optimize, and push further.
-            </div>
-            <div class="ht-gut">Not a vendor. A growth partner. Built for operators expanding past one location.</div>
-            <div class="ht-guarantee"><span class="ht-shield">🛡</span>We build first. You pay after it is live. Not live in 7 days — you owe nothing.</div>
-            <a href="#builder" class="ht-cta ht-cta-outline">Book a Free Call →</a>
-          </div>
-        </div>
-
-      </div>
-      <div class="ht-footnote">Currently onboarding 3 operators. &nbsp;·&nbsp; <strong>All builds: 7-day live guarantee.</strong> &nbsp;·&nbsp; We build first. You pay after.</div>
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:16px;text-align:center;" class="reveal">What's happening right now</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:900px;margin:0 auto;" class="reveal">
+      <div style="background:#f6f3ee;border:1px solid #d8d3ca;border-radius:8px;padding:16px;display:flex;align-items:flex-start;gap:12px;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(61,122,138,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="16" height="16" fill="#3d7a8a"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#1e2420;margin-bottom:3px;">PSW Visit Logged</div><div style="font-size:11px;color:#7a7a72;margin-bottom:3px;">Carolina R. · 8.0 hrs · Auto-routed to billing</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:#3d7a8a;">● LIVE · Just now</div></div></div>
+      <div style="background:#f6f3ee;border:1px solid #d8d3ca;border-radius:8px;padding:16px;display:flex;align-items:flex-start;gap:12px;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(61,122,138,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="16" height="16" fill="#6a9eaa"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#1e2420;margin-bottom:3px;">New Lead Captured</div><div style="font-size:11px;color:#7a7a72;margin-bottom:3px;">Family inquiry · Day 1 follow-up in 60 seconds</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:#6a9eaa;">● AUTO · 2 min ago</div></div></div>
+      <div style="background:#f6f3ee;border:1px solid #d8d3ca;border-radius:8px;padding:16px;display:flex;align-items:flex-start;gap:12px;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(61,122,138,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="16" height="16" fill="#3d7a8a"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8z"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#1e2420;margin-bottom:3px;">Invoice Sent Automatically</div><div style="font-size:11px;color:#7a7a72;margin-bottom:3px;">PDF delivered · PSW pay summary sent</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:#6a9eaa;">● AUTO · 5 min ago</div></div></div>
+      <div style="background:#f6f3ee;border:1px solid #d8d3ca;border-radius:8px;padding:16px;display:flex;align-items:flex-start;gap:12px;"><div style="width:34px;height:34px;border-radius:8px;background:rgba(100,80,180,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="16" height="16" fill="#8060c0"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#1e2420;margin-bottom:3px;">AI Chat Answered After Hours</div><div style="font-size:11px;color:#7a7a72;margin-bottom:3px;">Inquiry 11:42 PM · Discovery call booked</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:#6a9eaa;">● AUTO · 2 hrs ago</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="reveal">
+      <p style="font-size:15px;color:#3a4a42;line-height:1.6;margin:0;">Same system. Your business.<br><strong style="color:#1e2420;">Built from scratch. Handed to you running.</strong></p>
     </div>
   </div>
 </div>
-
+<div id="pricing" style="background:#f0ede8;padding:72px 0 64px;border-top:1px solid #e2ddd4;">
+  <div class="inner" style="max-width:960px;">
+    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#13181c;"></div><div class="eyebrow-tag" style="color:#13181c;border-color:rgba(19,24,28,.2);">Pricing</div></div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,68px);font-weight:300;line-height:1.05;color:#13181c;margin-bottom:8px;" class="reveal">Simple. Transparent.</h2>
+    <p style="font-size:13px;color:#7a7a72;text-align:center;margin-bottom:48px;" class="reveal">All tiers go live in 7 days. We build first. You pay after.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,340px));gap:16px;align-items:start;justify-content:center;margin:0 auto;width:fit-content;width:-webkit-fit-content;max-width:100%;" class="reveal">
+      <div style="background:#fff;border:1px solid #e2ddd4;border-radius:12px;padding:28px 24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:8px;">Core Stack</div>
+        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">The Essentials</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#13181c;line-height:1;margin-bottom:4px;">$3,000</div>
+        <div style="font-size:11px;color:#7a7a72;margin-bottom:24px;">setup &middot; $500/mo after</div>
+        <div style="border-top:1px solid #e2ddd4;padding-top:18px;margin-bottom:24px;">
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Visit Logging + GPS + AI notes</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Auto Invoicing + payroll CSV</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Lead Capture + AI chat 24/7</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Family Portal + satisfaction ratings</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>HQ Dashboard + scheduling board</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>PSW portal + broadcast messaging</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Converting agency website</div>
+        </div>
+        <a href="#builder" style="display:block;text-align:center;border:1.5px solid #c8c3ba;color:#13181c;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
+      </div>
+      <div style="background:#13181c;border-radius:12px;padding:28px 24px;position:relative;box-shadow:0 8px 32px rgba(14,32,56,.3);">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#3d8a7a;color:#fff;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;">Most Popular</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Full Stack</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:16px;">Done For You</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#fff;line-height:1;margin-bottom:4px;">$3,500</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;">setup &middot; $500/mo after</div>
+        <div style="font-size:11px;color:#5aada0;margin-bottom:24px;">Month 1 free</div>
+        <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:18px;margin-bottom:24px;">
+          <div style="font-size:12px;color:rgba(255,255,255,.85);padding:4px 0;display:flex;gap:8px;"><span style="color:#5aada0;flex-shrink:0;">✓</span>Everything in The Essentials</div>
+          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Client Onboarding — AI care plan auto-generated</div>
+          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>PSW Onboarding — portal live on hire</div>
+          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Follow-Up Engine — Day 1/3/7 automatic</div>
+          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Voice AI — answers calls, qualifies leads</div>
+        </div>
+        <a href="#builder" style="display:block;text-align:center;background:#3d8a7a;color:#fff;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
+      </div>
+      <div style="background:#fff;border:1px solid #e2ddd4;border-radius:12px;padding:28px 24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:8px;">Growth Partner</div>
+        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">Scale With Me</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#13181c;line-height:1;margin-bottom:4px;">$5,000</div>
+        <div style="font-size:11px;color:#7a7a72;margin-bottom:24px;">setup &middot; $750/mo after</div>
+        <div style="border-top:1px solid #e2ddd4;padding-top:18px;margin-bottom:24px;">
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Everything in Done For You</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>New systems added monthly</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Monthly 1-on-1 strategy call with Lance</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Pipeline review + priority support</div>
+          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>First access to every new system</div>
+        </div>
+        <a href="#builder" style="display:block;text-align:center;border:1.5px solid #c8c3ba;color:#13181c;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px;font-family:'DM Mono',monospace;font-size:10px;color:#7a7a72;" class="reveal">Currently onboarding 3 operators &nbsp;&middot;&nbsp; <strong>7-day live guarantee</strong> &nbsp;&middot;&nbsp; We build first. You pay after.</div>
+  </div>
+</div>
 <div id="reviews">
   <div class="inner">
     <div class="rv-eyebrow reveal">Verified Clients</div>
@@ -2436,6 +2314,47 @@ var bookingAttempted = false;
   });
 })();
 
+
+function updateROI() {
+  var clients = window._roiVal || 10;
+  var el = document.getElementById('roiClients'); if(el) el.textContent = clients;
+  var hrs = clients * 3;
+  var monthly = hrs * 40;
+  var annual = monthly * 12;
+  var payback = Math.ceil(3500 / monthly);
+  var h = document.getElementById('roiHrsOut'); if(h) h.textContent = hrs + ' hrs';
+  var c = document.getElementById('roiCostOut'); if(c) c.textContent = '$' + monthly.toLocaleString();
+  var a = document.getElementById('roiAnnualOut'); if(a) a.textContent = '$' + annual.toLocaleString();
+  var p = document.getElementById('roiPaybackOut'); if(p) p.textContent = payback + ' month' + (payback !== 1 ? 's' : '');
+  var v = document.getElementById('roiVerdict');
+  if(v) v.innerHTML = 'You recover the setup cost in <strong style="color:#3d7a8a;">' + payback + ' month' + (payback!==1?'s':'') + '</strong> — then admin is free.';
+  var arc = document.getElementById('roiArcPath');
+  var dot = document.getElementById('roiDot');
+  var pct = (clients - 5) / 45;
+  var arcLen = 424.12;
+  if (arc) {
+    var filled = Math.max(1, pct * arcLen);
+    arc.setAttribute('stroke-dasharray', filled.toFixed(1) + ' ' + (arcLen * 3));
+  }
+  if (dot) {
+    var angleDeg = 135 + pct * 270;
+    var angleRad = angleDeg * Math.PI / 180;
+    var cx = 110 + 90 * Math.cos(angleRad);
+    var cy = 110 + 90 * Math.sin(angleRad);
+    dot.setAttribute('cx', cx.toFixed(2));
+    dot.setAttribute('cy', cy.toFixed(2));
+    dot.setAttribute('fill', pct < 0.4 ? '#3d7a8a' : pct < 0.75 ? '#c8863a' : '#c05050');
+  }
+}
+
+function roiAdj(delta) {
+  window._roiVal = Math.max(5, Math.min(50, (window._roiVal || 10) + delta));
+  updateROI();
+}
+
+
+
+document.addEventListener("DOMContentLoaded",function(){window._roiVal=10;updateROI();});
 </script>
 </body>
 </html>
