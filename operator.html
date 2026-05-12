@@ -148,6 +148,7 @@ a{color:inherit;text-decoration:none;}
   <div class="nav-tab active" onclick="showTab('create')">Create Agency</div>
   <div class="nav-tab" onclick="showTab('import')">Bulk Import</div>
   <div class="nav-tab" onclick="showTab('postclose')">Post-Close</div>
+  <div class="nav-tab" onclick="showTab('sales')">Sales Log</div>
 </div>
 
 <!-- ── CREATE AGENCY ── -->
@@ -251,6 +252,41 @@ a{color:inherit;text-decoration:none;}
   </div>
 </div>
 
+<!-- ── SALES LOG ── -->
+<div class="section" id="tab-sales">
+  <div class="section-header"><span class="section-title">Sales Log</span></div>
+
+  <div class="card">
+    <div class="card-label">Log a Sale</div>
+    <p class="card-desc">Record a new operator purchase — Stripe payment, e-transfer, or manual close. This fires the purchase webhook and logs to Supabase.</p>
+    <div class="frow2">
+      <div><label class="flabel">Buyer Email *</label><input class="finput" id="mp-email" type="email" placeholder="info@cedarhome.ca"></div>
+      <div><label class="flabel">Buyer Name</label><input class="finput" id="mp-name" placeholder="Yendi Hernandez"></div>
+    </div>
+    <div class="frow2">
+      <div><label class="flabel">Product Name *</label><input class="finput" id="mp-product" placeholder="Proximity OS — Done For You"></div>
+      <div><label class="flabel">Product Label</label>
+        <select class="fselect" id="mp-label">
+          <option value="setup">Setup Fee</option>
+          <option value="monthly">Monthly</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="flabel">Amount (USD)</label>
+      <input class="finput" id="mp-amount" type="number" placeholder="3500" step="0.01">
+    </div>
+    <button class="sbtn" onclick="logSale()">Log Sale</button>
+    <div class="result-box" id="sale-result"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Purchase History</div>
+    <div id="sales-list"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;padding:14px 0;">Loading...</div></div>
+  </div>
+</div>
+
 </div><!-- /app -->
 
 <div class="toast" id="toast"></div>
@@ -285,9 +321,10 @@ function showTab(name) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   const tabs = document.querySelectorAll('.nav-tab');
-  const tm = ['create','import','postclose'];
+  const tm = ['create','import','postclose','sales'];
   const idx = tm.indexOf(name);
   if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+  if (name === 'sales') loadSales();
 }
 
 function showToast(msg, type='ok') {
@@ -409,6 +446,58 @@ async function runChurnCheck() {
     showToast('Churn check done ✓','ok');
   } catch(e) { result.textContent='Error: '+e.message; showToast('Failed','err'); }
 }
+
+// ── SALES LOG ──
+async function logSale() {
+  const email = document.getElementById('mp-email').value.trim();
+  const product = document.getElementById('mp-product').value.trim();
+  if (!email || !product) { showToast('Email and product required', 'err'); return; }
+  const result = document.getElementById('sale-result');
+  result.style.display = 'block'; result.textContent = 'Logging...';
+  try {
+    const res = await fetch(`${API}/webhook/purchase`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        operator_id: 'proximity-systems',
+        buyer_email: email,
+        buyer_name: document.getElementById('mp-name').value.trim(),
+        product_name: product,
+        product_label: document.getElementById('mp-label').value,
+        amount_usd: parseFloat(document.getElementById('mp-amount').value || 0),
+        source: 'manual'
+      })
+    });
+    const d = await res.json();
+    if (!res.ok || !d.success) throw new Error(d.error || 'Failed');
+    result.textContent = '✓ Sale logged · ' + email;
+    showToast('Sale logged ✓', 'ok');
+    ['mp-email','mp-name','mp-product','mp-amount'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+    loadSales();
+  } catch(e) { result.textContent = 'Error: ' + e.message; showToast('Failed', 'err'); }
+}
+
+async function loadSales() {
+  const el = document.getElementById('sales-list');
+  if (!el) return;
+  try {
+    const res = await fetch(`${API}/hq/overview?operator_id=proximity-systems`);
+    const d = await res.json();
+    const purchases = d.purchases || [];
+    if (!purchases.length) { el.innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;padding:14px 0;">No sales yet</div>'; return; }
+    el.innerHTML = purchases.map(p => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--text);">${p.buyer_name || p.buyer_email || '—'}</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--muted2);margin-top:2px;">${p.product_name || '—'} · ${p.buyer_email || ''}</div>
+        </div>
+        <div style="text-align:right;">
+          ${p.amount_usd ? `<div style="font-family:var(--mono);font-size:14px;color:var(--gold);">$${parseFloat(p.amount_usd).toFixed(2)}</div>` : ''}
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted);">${p.purchased_at ? new Date(p.purchased_at).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'}) : '—'}</div>
+        </div>
+      </div>`).join('');
+  } catch { el.innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--muted);">Could not load</div>'; }
+}
+
 </script>
 </body>
 </html>
