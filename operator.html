@@ -146,6 +146,8 @@ a{color:inherit;text-decoration:none;}
 
 <div class="nav-tabs">
   <div class="nav-tab active" onclick="showTab('create')">Create Agency</div>
+  <div class="nav-tab" onclick="showTab('branding')">Branding</div>
+  <div class="nav-tab" onclick="showTab('status')">Op Status</div>
   <div class="nav-tab" onclick="showTab('import')">Bulk Import</div>
   <div class="nav-tab" onclick="showTab('postclose')">Post-Close</div>
   <div class="nav-tab" onclick="showTab('sales')">Sales Log</div>
@@ -186,6 +188,68 @@ a{color:inherit;text-decoration:none;}
     <div class="frow"><label class="flabel">Notes</label><textarea class="ftextarea" id="op-notes" placeholder="Any context about this agency, what they discussed, their focus..." rows="2" style="min-height:60px;resize:none;"></textarea></div>
     <button class="sbtn" id="op-create-btn" onclick="createOperator()">Create Agency + Send Welcome Email</button>
     <div class="result-box" id="op-result"></div>
+  </div>
+</div>
+
+<!-- ── BRANDING ── -->
+<div class="section" id="tab-branding">
+  <div class="section-header"><span class="section-title">Operator Branding</span></div>
+  <div class="card">
+    <div class="card-label">Select Operator</div>
+    <div class="frow">
+      <label class="flabel">Operator ID</label>
+      <input class="finput" id="brand-op-id" placeholder="cedar-home-health" style="font-family:var(--mono);font-size:14px;" oninput="loadBranding()">
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">Brand Settings</div>
+    <p class="card-desc">These values inject into the operator's HQ and family portal. Set before Day 1.</p>
+    <div class="frow2">
+      <div>
+        <label class="flabel">Brand Color</label>
+        <div class="color-row">
+          <div class="color-preview" id="brand-color-preview" style="background:#3d8a7a;"></div>
+          <input class="finput" id="brand-color" value="#3d8a7a" oninput="document.getElementById('brand-color-preview').style.background=this.value" style="flex:1;">
+        </div>
+      </div>
+      <div>
+        <label class="flabel">Accent Color</label>
+        <div class="color-row">
+          <div class="color-preview" id="brand-accent-preview" style="background:#c8a96e;"></div>
+          <input class="finput" id="brand-accent" value="#c8a96e" oninput="document.getElementById('brand-accent-preview').style.background=this.value" style="flex:1;">
+        </div>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="flabel">Logo URL</label>
+      <input class="finput" id="brand-logo" placeholder="https://storage.supabase.co/..." type="url">
+    </div>
+    <div class="frow">
+      <label class="flabel">Default Client Rate ($/hr)</label>
+      <input class="finput" id="brand-client-rate" type="number" placeholder="22" step="0.50">
+    </div>
+    <div class="frow">
+      <label class="flabel">Default PSW Rate ($/hr)</label>
+      <input class="finput" id="brand-psw-rate" type="number" placeholder="19" step="0.50">
+    </div>
+    <button class="sbtn" onclick="saveBranding()">Save Branding</button>
+    <div class="result-box" id="brand-result"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Onboarding Checklist</div>
+    <p class="card-desc">Track this operator's launch progress. Tap a step to mark it done.</p>
+    <div id="brand-checklist"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);padding:8px 0;">Enter operator ID above to load checklist</div></div>
+  </div>
+</div>
+
+<!-- ── OPERATOR STATUS ── -->
+<div class="section" id="tab-status">
+  <div class="section-header"><span class="section-title">All Operators</span></div>
+  <div class="card">
+    <div class="card-label">Operator Health Overview</div>
+    <p class="card-desc">Live status across all active operators — onboarding progress, last activity, outstanding invoices.</p>
+    <button class="sbtn" onclick="loadOperatorStatus()" style="margin-bottom:10px;">Refresh</button>
+    <div id="op-status-list"><div style="font-family:var(--mono);font-size:10px;color:var(--muted);padding:8px 0;">Loading...</div></div>
   </div>
 </div>
 
@@ -321,10 +385,106 @@ function showTab(name) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   const tabs = document.querySelectorAll('.nav-tab');
-  const tm = ['create','import','postclose','sales'];
+  const tm = ['create','branding','status','import','postclose','sales'];
   const idx = tm.indexOf(name);
   if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
   if (name === 'sales') loadSales();
+  if (name === 'status') loadOperatorStatus();
+}
+
+// ── BRANDING ──
+const OB_STEP_LABELS = ['Add first client','Send intake link','Add first PSW','Send PSW access','Book first shift','Preview family portal'];
+
+async function loadBranding() {
+  const opId = document.getElementById('brand-op-id').value.trim();
+  if (!opId) return;
+  try {
+    const res = await fetch(`${API}/hq/branding?operator_id=${opId}`);
+    const d = await res.json();
+    if (!d.success) return;
+    if (d.brand_primary) { document.getElementById('brand-color').value = d.brand_primary; document.getElementById('brand-color-preview').style.background = d.brand_primary; }
+    if (d.brand_accent) { document.getElementById('brand-accent').value = d.brand_accent; document.getElementById('brand-accent-preview').style.background = d.brand_accent; }
+    if (d.logo_url) document.getElementById('brand-logo').value = d.logo_url;
+  } catch {}
+  // Load checklist
+  try {
+    const res2 = await fetch(`${API}/hq/overview?operator_id=${opId}`);
+    const d2 = await res2.json();
+    const step = parseInt(d2.onboarding_step ?? 0);
+    const el = document.getElementById('brand-checklist');
+    el.innerHTML = OB_STEP_LABELS.map((label, i) => {
+      const done = i < step;
+      const active = i === step;
+      return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:${active?'pointer':'default'};" onclick="${active?`advanceBrandingStep(${i+1},'${opId}')`:''}" >
+        <div style="width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;border:1px solid ${done?'var(--teal2)':active?'var(--teal2)':'var(--border2)'};background:${done?'var(--teal2)':'transparent'};color:${done?'#fff':active?'var(--teal2)':'var(--muted)'};font-family:var(--mono);">${done?'✓':i+1}</div>
+        <div style="font-size:12px;color:${done?'var(--muted)':active?'var(--text)':'var(--muted2)'};${done?'text-decoration:line-through;':''}">${label}${active?' →':''}</div>
+      </div>`;
+    }).join('') + `<div style="font-family:var(--mono);font-size:10px;color:var(--muted2);margin-top:8px;">${step}/6 steps complete</div>`;
+  } catch {}
+}
+
+async function advanceBrandingStep(newStep, opId) {
+  try {
+    await fetch(`${API}/hq/onboarding-step`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ operator_id: opId, step: newStep })
+    });
+    showToast('Step '+newStep+' marked done ✓','ok');
+    loadBranding();
+  } catch { showToast('Failed','err'); }
+}
+
+async function saveBranding() {
+  const opId = document.getElementById('brand-op-id').value.trim();
+  if (!opId) { showToast('Enter operator ID first','err'); return; }
+  const body = {
+    operator_id: opId,
+    brand_primary: document.getElementById('brand-color').value.trim(),
+    brand_accent: document.getElementById('brand-accent').value.trim(),
+    logo_url: document.getElementById('brand-logo').value.trim() || null,
+    default_client_rate: parseFloat(document.getElementById('brand-client-rate').value) || null,
+    default_psw_rate: parseFloat(document.getElementById('brand-psw-rate').value) || null
+  };
+  const result = document.getElementById('brand-result');
+  result.style.display = 'block'; result.textContent = 'Saving...';
+  try {
+    const res = await fetch(`${API}/operator/branding`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    const d = await res.json();
+    if (!res.ok||!d.success) throw new Error(d.error||'Failed');
+    result.textContent = '✓ Branding saved for ' + opId;
+    showToast('Branding saved ✓','ok');
+  } catch(e) { result.textContent = 'Error: '+e.message; showToast('Failed','err'); }
+}
+
+// ── OPERATOR STATUS ──
+async function loadOperatorStatus() {
+  const el = document.getElementById('op-status-list');
+  if (!el) return;
+  el.innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--muted);">Loading...</div>';
+  try {
+    const res = await fetch(`${API}/operator/list`);
+    const d = await res.json();
+    const ops = d.operators || [];
+    if (!ops.length) { el.innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--muted);">No operators found</div>'; return; }
+    el.innerHTML = ops.map(op => `
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div>
+            <div style="font-size:13px;font-weight:500;color:var(--text);">${op.agency_name||op.operator_id}</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--muted2);margin-top:2px;">${op.operator_id} · ${op.territory||'—'}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:2px 7px;border-radius:100px;border:1px solid ${op.active?'rgba(58,170,138,.3)':'rgba(224,85,85,.3)'};color:${op.active?'var(--green2)':'var(--red)'};">${op.active?'ACTIVE':'INACTIVE'}</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px;">Step ${op.onboarding_step||0}/6</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          ${Array.from({length:6},(_,i)=>`<div style="flex:1;height:4px;border-radius:2px;background:${i<(op.onboarding_step||0)?'var(--teal2)':'var(--border2)'};"></div>`).join('')}
+        </div>
+      </div>`).join('');
+  } catch(e) { el.innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--red);">Could not load: '+e.message+'</div>'; }
 }
 
 function showToast(msg, type='ok') {
