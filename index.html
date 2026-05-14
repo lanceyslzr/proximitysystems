@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Proximity Care Systems — Within Reach</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -889,7 +888,7 @@ button,a,[onclick]{touch-action:manipulation;}
   <div class="hero-left">
     <div class="hero-eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text" id="heroEyebrow">Built inside a real home care agency. Running live.</div></div>
     <h1 class="hero-title">The Operating System<em>for Home Care.</em></h1>
-    <p class="hero-sub" id="heroSub">Most home care operators are running 3 spreadsheets, a WhatsApp group, and a prayer. We replace all of it — scheduling board, PSW sign in/out, AI care summaries, family portal, automated invoicing, lead capture — with one done-for-you system. Built inside our own agency. Handed to you live in 7 days. $500/month all in.</p>
+    <p class="hero-sub" id="heroSub">Most home care operators are running 3 spreadsheets, a group chat, and a prayer. We replace all of it. GPS sign in/out, AI care summaries, structured medication records, automated invoicing, accounts receivable, family portal, lead capture with call booking, payroll CSV — one done-for-you OS. Built on our own live agency. Running in 7 days.</p>
     <div class="hero-btns">
       <a href="#builder" class="btn-primary">Book a Free Call</a>
       <a href="#package" class="btn-secondary">See What's Included ↓</a>
@@ -901,25 +900,15 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="hero-card">
       <div class="hero-card-top">
         <div class="card-dots"><div class="card-dot r"></div><div class="card-dot y"></div><div class="card-dot g"></div></div>
-        <div class="card-label">Live System Feed</div>
+        <div class="card-label" style="display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#28c840;display:inline-block;animation:pulse 2s infinite;flex-shrink:0;"></span>OS Live Feed · Proximity Care</div>
       </div>
-      <div class="hero-card-body">
-        <div id="feedContainer" style="position:relative;padding:1rem 0;overflow:hidden;max-width:100%;">
-          <div id="feedCard" style="background:#111820;border:1px solid rgba(61,122,138,0.2);border-radius:8px;padding:1.1rem 1.2rem;display:flex;align-items:flex-start;gap:.75rem;transition:opacity 0.6s ease;opacity:1;width:100%;box-sizing:border-box;overflow:hidden;">
-            <div id="feedIcon" style="width:36px;height:36px;border-radius:7px;background:rgba(61,122,138,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"></div>
-            <div style="flex:1;min-width:0;">
-              <div id="feedTitle" style="font-size:.73rem;font-weight:600;color:#6a9eaa;margin-bottom:.3rem;line-height:1.3;word-break:break-word;"></div>
-              <div id="feedText" style="font-size:.7rem;color:rgba(221,217,208,0.65);line-height:1.5;margin-top:.2rem;overflow:hidden;word-break:break-word;"></div>
-              <div id="feedTime" style="font-size:.62rem;color:rgba(221,217,208,0.3);margin-top:.35rem;font-family:monospace;"></div>
-            </div>
-          </div>
-          <div style="margin-top:.75rem;display:flex;gap:.35rem;justify-content:center;" id="feedDots"></div>
-        </div>
+      <div class="hero-card-body" style="padding:12px 16px;">
+        <div id="osFeed" style="display:flex;flex-direction:column;gap:8px;min-height:220px;"></div>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Leads Captured</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">1K+</div><div class="hero-stat-label">Visits Logged</div></div>
         <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Invoices Sent</div></div>
-        <div class="hero-stat"><div class="hero-stat-val">15+</div><div class="hero-stat-label">Hrs Saved/Mo</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">12</div><div class="hero-stat-label">PSWs Active</div></div>
         <div class="hero-stat"><div class="hero-stat-val">$0</div><div class="hero-stat-label">Admin Staff</div></div>
       </div>
     </div>
@@ -969,63 +958,63 @@ button,a,[onclick]{touch-action:manipulation;}
         <div class="sc-num">01</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">Visit Logging</div>
-        <div class="sc-desc">PSWs log from their phone in 60 seconds. Hours auto-calculate. No paper. No spreadsheets.</div>
+        <div class="sc-desc">GPS checkin/out. Structured medication record — given, not given, refused. Care signal detection on every checkout. AI progress note. Offline queue. No paper.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">02</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M5 3h12v16l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8h6M8 11h6M8 14h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">Auto Invoicing</div>
-        <div class="sc-desc">One button at month end. Invoice to client, pay summary to PSW, AI care note written. 30 seconds.</div>
+        <div class="sc-desc">Dual PDF invoicing — client invoice and PSW pay stub generated simultaneously. Accounts receivable with overdue flags. Payroll CSV for ADP or Payworks. 30 seconds.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">03</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="1" fill="currentColor"/></svg></div>
         <div class="sc-name">Lead Capture</div>
-        <div class="sc-desc">Full intake chatbot on your site. Leads captured and replied to in under 60 seconds. 24/7.</div>
+        <div class="sc-desc">Chatbot captures leads 24/7. Families pick a call slot from pre-set times. 24-hour and 5-hour reminder emails fire automatically. You call. You win.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">04</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M3 6l8 5 8-5M3 6v10a1 1 0 001 1h14a1 1 0 001-1V6M3 6l8-3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="sc-name">Follow-Up Engine</div>
-        <div class="sc-desc">Day 1, Day 3, Day 7 emails fire automatically. Leads never go cold. Nothing to remember.</div>
+        <div class="sc-desc">14 email templates across 4 tracks — family care, operator, PSW onboarding, client onboarding. Call reminders, interview reminders, Day 1/3/7. Zero manual sends.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">05</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M11 11a3 3 0 100-6 3 3 0 000 6zM5 19a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">Family Portal</div>
-        <div class="sc-desc">Families log in with a PIN. View visits, care plan, documents, and billing. Zero phone tag.</div>
+        <div class="sc-desc">PIN-gated portal. Visits, care plan, AI summaries, documents, mood trend chart, satisfaction ratings, AI Ask tab. Multiple family contacts. Zero phone tag.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">06</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="4" y="6" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="14" cy="11" r="1.2" fill="currentColor"/><path d="M11 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <div class="sc-name">AI Chat + Voice</div>
-        <div class="sc-desc">Trained on your agency. Answers families and operators. Books calls automatically at 2am.</div>
+        <div class="sc-name">AI Chat</div>
+        <div class="sc-desc">Trained on your agency. Answers families and operators 24/7. Books calls automatically. Voice AI in Phase 2.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">07</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg></div>
         <div class="sc-name">Client Onboarding</div>
-        <div class="sc-desc">Digital care intake form with e-signature. Day 0 welcome fires automatically. PIN, family portal link, care plan all sent before you open your eyes.</div>
+        <div class="sc-desc">Assessment upload in HQ triggers intake link. AI drafts care plan from referral notes in seconds. Family signs digitally. Portal goes live automatically. PHIPA compliant.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">08</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">HQ Dashboard</div>
-        <div class="sc-desc">14-tab command center. Scheduling board with drag-to-assign and conflict detection. Client care plan drawers. Revenue analytics. Works at 1 PSW or 100.</div>
+        <div class="sc-desc">14-tab command center. Drag-to-assign scheduling, conflict detection, accounts receivable, payroll CSV export, AI client intake, PSW profile generator, care signals dashboard, fraud detection.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip ps-reveal">
         <div class="sc-num">09</div>
         <div class="sc-icon"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <div class="sc-name">PSW Management</div>
-        <div class="sc-desc">PSW signs in on their phone, completes a live checklist, checks out with observations and mood. AI writes the care summary. Family gets notified. Pay auto-calculates.</div>
+        <div class="sc-desc">GPS checkin, structured MAR, DNR acknowledgement, AI care summary, care signal detection, offline queue, 2-week schedule, earnings projection, cert expiry alerts.</div>
         <div class="sc-live"><div class="sc-live-dot"></div>Live</div>
       </div>
       <div class="sys-chip addon-chip">
@@ -1310,7 +1299,16 @@ button,a,[onclick]{touch-action:manipulation;}
 </style>
 <script>
 (function(){
-var STEPS=[{"label":"Lead Captured","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z","desc":"Operator website chatbot qualifies the lead and fires it to HQ automatically."},{"label":"Client Onboarded","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z","desc":"Family completes a digital care agreement. Care plan pre-populated in minutes."},{"label":"Shift Scheduled","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection built in."},{"label":"PSW Checks In","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z","desc":"GPS coordinates captured. Family notified. Visit starts — fully logged."},{"label":"Checklist Done","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z","desc":"PSW completes every care task. AI structures the progress note automatically."},{"label":"AI Summary Sent","icon":"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z","desc":"Care summary written by AI and emailed to the family within seconds of checkout."},{"label":"Family Rates Visit","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z","desc":"One-tap satisfaction rating in the family portal. Low score alerts HQ immediately."},{"label":"Invoice Generated","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8zm0-4h5v2H8z","desc":"Invoice PDF auto-generated and sent. Follow-up sequence armed automatically."}];
+var STEPS=[
+  {"label":"Lead Captured","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z","desc":"Chatbot captures the lead. Call booking link fires in the confirmation email. 24-hour and 5-hour reminders schedule automatically."},
+  {"label":"Client Onboarded","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z","desc":"Assessment uploaded in HQ. AI drafts care plan from referral notes. Family signs digitally. Portal goes live. Day 0 welcome fires."},
+  {"label":"Shift Scheduled","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection and capacity bars built in."},
+  {"label":"PSW Checks In","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z","desc":"GPS coordinates captured. DNR acknowledgement confirmed. Family notified. Visit starts — fully logged in real time."},
+  {"label":"Meds Recorded","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z","desc":"Structured MAR at checkout — given, not given, refused per medication. Missed doses flag automatically to HQ."},
+  {"label":"AI Summary Sent","icon":"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z","desc":"Care signal detection runs on checkout notes. HIGH severity alerts fire to Lance. AI summary emails family within seconds."},
+  {"label":"Family Rates Visit","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z","desc":"One-tap satisfaction rating in the family portal. Score above 8 triggers a referral ask. Score below 5 alerts HQ immediately."},
+  {"label":"Invoice Generated","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8zm0-4h5v2H8z","desc":"Dual PDF invoicing fires — client invoice and PSW pay stub. Accounts receivable updated. Payroll CSV ready for ADP."}
+];
 var TEAL='var(--teal)';
 var cur=0,tmr=null,rdy=false;
 function buildNodes(){
@@ -1427,7 +1425,7 @@ if(sec){
           <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Client Onboarding — AI care plan auto-generated</div>
           <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>PSW Onboarding — portal live on hire</div>
           <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Follow-Up Engine — Day 1/3/7 automatic</div>
-          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Voice AI — answers calls, qualifies leads</div>
+          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>PSW Onboarding — portal live on hire, interview scheduling</div>
         </div>
         <a href="#builder" style="display:block;text-align:center;background:#3d8a7a;color:#fff;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
       </div>
@@ -1577,7 +1575,7 @@ const IX_SYS = `You are a sales assistant for Proximity Systems. Your job is to 
 
 Collect one at a time: name, agency name and city, biggest admin problem, phone or email.
 
-Pricing: $3,500 setup then $500/mo. First month free. 7 days to go live. We build first, you pay after.
+Pricing: $3,500 setup then $500/mo. First month free. 7 days to go live. We build first, you pay after. 10 systems including GPS checkin, structured MAR, AI care summaries, accounts receivable, payroll CSV, family portal, AI chatbot, client and PSW onboarding, HQ dashboard.
 
 Rules: Short, warm, direct. Two sentences max. No bullets. No dashes. Plain English.
 
@@ -1748,67 +1746,6 @@ document.addEventListener('keydown', function(e) {
     mobileMenu.classList.remove('open');
   }
 
-  const feedData=[
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',title:'PSW Signed In · Checklist Active',text:'Carolina H. · Rosetta Ferrari · 8:02 AM · Family notified',time:'just now'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>',title:'Invoice Generator — System 02',text:'Thompson Family · $1,720 · April billing sent automatically',time:'2 min ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>',title:'Lead Capture — System 03',text:'Sandra M. · Mississauga · Standard Care · Starts ASAP',time:'5 min ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',title:'Family Comms Engine — System 04',text:'Day 3 follow-up sent · Chen Family · Auto-delivered',time:'12 min ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>',title:'Operator Chatbot — System 05',text:'Discovery call booked · New operator · Thursday 2pm',time:'18 min ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',title:'Family Chatbot — System 06',text:'Assessment booked · Nguyen Family · Wednesday 10am',time:'24 min ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',title:'Family Lead Form — System 07',text:'Robert K. · Brampton · Dementia care · Logged',time:'31 min ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',title:'Care Summaries — System 08',text:'Margaret T. · Weekly summary auto-written · Sunday 8am',time:'1 hr ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',title:'PSW Portal — System 09',text:'Luz P. logged visit · 8hrs · Hours auto-calculated',time:'2 hrs ago'},
-    {svg:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d7a8a" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>',title:'Client Portal — System 10',text:'Patricia O. · Care plan viewed · Documents downloaded',time:'3 hrs ago'},
-  ];
-
-  let feedIdx=0;
-
-  function buildDots(){
-    const dots=document.getElementById('feedDots');
-    if(!dots)return;
-    dots.innerHTML='';
-    feedData.forEach((_,i)=>{
-      const d=document.createElement('div');
-      d.style.cssText=`width:5px;height:5px;border-radius:50%;background:${i===0?'#3d7a8a':'rgba(61,122,138,0.25)'};transition:background 0.3s;`;
-      dots.appendChild(d);
-    });
-  }
-
-  function updateDots(){
-    const dots=document.getElementById('feedDots');
-    if(!dots)return;
-    Array.from(dots.children).forEach((d,i)=>{
-      d.style.background=i===feedIdx?'#3d7a8a':'rgba(61,122,138,0.25)';
-    });
-  }
-
-  function showCard(idx){
-    const card=document.getElementById('feedCard');
-    const icon=document.getElementById('feedIcon');
-    const title=document.getElementById('feedTitle');
-    const text=document.getElementById('feedText');
-    const time=document.getElementById('feedTime');
-    if(!card)return;
-    card.style.opacity='0';
-    setTimeout(()=>{
-      const item=feedData[idx];
-      icon.innerHTML=item.svg;
-      title.textContent=item.title;
-      text.textContent=item.text;
-      time.textContent=item.time;
-      updateDots();
-      card.style.opacity='1';
-    },600);
-  }
-
-  function nextCard(){
-    feedIdx=(feedIdx+1)%feedData.length;
-    showCard(feedIdx);
-  }
-
-  buildDots();
-  showCard(0);
-  setInterval(nextCard,3500);
 
   // ── BUILDER ──
   const LEAD_URL='https://proximity-agent-production.up.railway.app/webhook/lead';
@@ -1865,7 +1802,7 @@ document.addEventListener('keydown', function(e) {
 
   function showComing(){
     const h=document.getElementById('bldUpsellHint');
-    if(h){h.textContent='Voice Assistant is coming soon — we will add it automatically when live.';h.classList.add('show');setTimeout(()=>h.classList.remove('show'),3000);}
+    if(h){h.textContent='Voice AI is Phase 2 — activates automatically when your Telnyx account is connected.';h.classList.add('show');setTimeout(()=>h.classList.remove('show'),3000);}
   }
 
   function bldUpdate(){
@@ -1968,30 +1905,6 @@ document.addEventListener('keydown', function(e) {
 
   bldRender();
 
-  // ── ROI CALCULATOR ──
-  function updateRoi(){
-    const clients=parseInt(document.getElementById('roiClientsSlider').value);
-    const hrsPerClient=parseInt(document.getElementById('roiHrsSlider').value);
-    const rate=parseInt(document.getElementById('roiRateSlider').value);
-    document.getElementById('roiClients').textContent=clients;
-    document.getElementById('roiHrsPerClient').textContent=hrsPerClient;
-    document.getElementById('roiRate').textContent='$'+rate;
-    const totalHrs=clients*hrsPerClient;
-    const monthlyCost=totalHrs*rate;
-    const annualCost=monthlyCost*12;
-    const payback=Math.ceil(3500/monthlyCost);
-    document.getElementById('roiHrsOut').textContent=totalHrs+' hrs';
-    document.getElementById('roiCostOut').textContent='$'+monthlyCost.toLocaleString();
-    document.getElementById('roiAnnualOut').textContent='$'+annualCost.toLocaleString();
-    document.getElementById('roiPaybackOut').textContent=payback+' mo';
-    const verdict=document.getElementById('roiVerdict');
-    if(verdict){
-      if(payback<=2)verdict.innerHTML='The setup cost pays for itself in <strong>'+payback+' month'+(payback===1?'':'s')+'</strong>. One new client covers it.';
-      else if(payback<=4)verdict.innerHTML='You recover the setup cost in <strong>'+payback+' months</strong> — then admin is free forever.';
-      else verdict.innerHTML='At your current scale, the system saves you <strong>$'+monthlyCost.toLocaleString()+'/mo</strong> in time. That grows as you do.';
-    }
-  }
-  updateRoi();
 
   // ── ROTATING TESTIMONIAL ──
   (function(){
@@ -2033,72 +1946,54 @@ document.addEventListener('keydown', function(e) {
   requestAnimationFrame(lenisRaf);
 })();
 
-// THREE.JS PARTICLE BACKGROUND
-(function initHeroCanvas() {
-  const canvas = document.getElementById('heroCanvas');
-  if(!canvas || typeof THREE === 'undefined') return;
-
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-  renderer.setClearColor(0x000000, 0);
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
-  camera.position.z = 5;
-
-  // Create floating particles
-  const count = 120;
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(count * 3);
-  const speeds = new Float32Array(count);
-  for(let i = 0; i < count; i++) {
-    positions[i*3] = (Math.random() - 0.5) * 14;
-    positions[i*3+1] = (Math.random() - 0.5) * 10;
-    positions[i*3+2] = (Math.random() - 0.5) * 4;
-    speeds[i] = Math.random() * 0.3 + 0.1;
+// OS LIVE FEED — Option B hero
+(function initOSFeed() {
+  var FEED = [
+    {icon:'\u{1F4CB}',title:'PSW Checked In - GPS Confirmed',desc:'Carolina H. · Rosetta Ferrari · 8:02 AM',tag:'LIVE'},
+    {icon:'\u{1F4E9}',title:'New Lead Captured',desc:'Sandra M. · Mississauga · Dementia Care · Call booked',tag:'AUTO'},
+    {icon:'\u{1F4C4}',title:'Invoice Generated — Dual PDF',desc:'Thompson Family · $1,720 · PSW pay stub sent',tag:'AUTO'},
+    {icon:'\u{1F48A}',title:'Medication Record Submitted',desc:'Metformin given · Aspirin refused · Flagged HQ',tag:'MAR'},
+    {icon:'\u{1F4E7}',title:'Day 3 Follow-Up Fired',desc:'Chen Family inquiry · Auto-delivered',tag:'AUTO'},
+    {icon:'\u{1F3E0}',title:'Family Portal Viewed',desc:'Nguyen Family · Care plan + last 3 visits',tag:'LIVE'},
+    {icon:'\u26A0\uFE0F',title:'Care Signal Detected — HIGH',desc:'Margaret T. · Increased confusion noted · HQ alerted',tag:'HIGH'},
+    {icon:'\u{1F4B0}',title:'Accounts Receivable — Overdue',desc:'Davidson Family · $2,240 · 7 days · Email sent',tag:'AR'},
+    {icon:'\u{1F514}',title:'PSW Checked Out — AI Summary Sent',desc:'Luz P. · 8hrs · Family emailed instantly',tag:'AUTO'},
+    {icon:'\u270D\uFE0F',title:'Client Agreement Signed',desc:'Williams Family · E-sign complete · Portal live',tag:'LIVE'},
+  ];
+  var feedEl = document.getElementById('osFeed');
+  if (!feedEl) return;
+  var items = [];
+  var maxItems = 4;
+  var feedIdx = 0;
+  function makeItem(data) {
+    var el = document.createElement('div');
+    el.style.cssText = 'background:rgba(255,255,255,0.03);border:1px solid rgba(61,122,138,0.15);border-radius:7px;padding:11px 13px;display:flex;align-items:flex-start;gap:10px;opacity:0;transform:translateX(10px);transition:opacity 0.4s ease,transform 0.4s ease;flex-shrink:0;';
+    el.innerHTML = '<div style="width:30px;height:30px;border-radius:7px;background:rgba(61,122,138,0.15);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">' + data.icon + '</div>'
+      + '<div style="flex:1;min-width:0;">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:2px;">'
+      + '<div style="font-size:10.5px;font-weight:600;color:#aecdd6;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + data.title + '</div>'
+      + '<span style="font-family:\x27DM Mono\x27,monospace;font-size:7px;letter-spacing:1px;background:rgba(61,122,138,0.2);color:#5a9aaa;padding:2px 6px;border-radius:3px;flex-shrink:0;">' + data.tag + '</span>'
+      + '</div>'
+      + '<div style="font-size:9.5px;color:rgba(221,217,208,0.4);line-height:1.4;">' + data.desc + '</div>'
+      + '</div>';
+    return el;
   }
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-  const material = new THREE.PointsMaterial({
-    color: 0x3d7a8a,
-    size: 0.04,
-    transparent: true,
-    opacity: 0.5,
-    sizeAttenuation: true
-  });
-
-  const particles = new THREE.Points(geometry, material);
-  scene.add(particles);
-
-  let mouseX = 0, mouseY = 0;
-  document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 0.3;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 0.3;
-  });
-
-  let frame = 0;
-  function animateCanvas() {
-    requestAnimationFrame(animateCanvas);
-    frame += 0.003;
-    const pos = geometry.attributes.position.array;
-    for(let i = 0; i < count; i++) {
-      pos[i*3+1] += speeds[i] * 0.004;
-      if(pos[i*3+1] > 5) pos[i*3+1] = -5;
+  function addItem() {
+    var data = FEED[feedIdx % FEED.length];
+    feedIdx++;
+    var el = makeItem(data);
+    feedEl.insertBefore(el, feedEl.firstChild);
+    items.unshift(el);
+    setTimeout(function() { el.style.opacity = '1'; el.style.transform = 'translateX(0)'; }, 30);
+    if (items.length > maxItems) {
+      var old = items.pop();
+      old.style.opacity = '0';
+      old.style.transform = 'translateX(-8px)';
+      setTimeout(function() { if (old.parentNode) old.parentNode.removeChild(old); }, 400);
     }
-    geometry.attributes.position.needsUpdate = true;
-    particles.rotation.y += 0.0008;
-    camera.position.x += (mouseX - camera.position.x) * 0.02;
-    camera.position.y += (-mouseY - camera.position.y) * 0.02;
-    renderer.render(scene, camera);
   }
-  animateCanvas();
-
-  window.addEventListener('resize', () => {
-    const w = canvas.offsetWidth, h = canvas.offsetHeight;
-    camera.aspect = w/h; camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
+  for (var i = 0; i < 3; i++) { addItem(); }
+  setInterval(addItem, 3200);
 })();
 
 // SCROLL REVEAL OBSERVER
