@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Proximity Care Systems — Within Reach</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -30,8 +32,7 @@
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.5; }
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 24px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
   nav.scrolled { background: rgba(246,243,238,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 64px; }
-  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 4px; color: var(--dark); text-decoration: none; text-transform: uppercase; }
-  .nav-brand em { color: var(--teal-dark); font-style: italic; }
+  .nav-brand { display:flex; align-items:center; text-decoration: none; }
   .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
   .nav-links a { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative; }
   .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--teal-dark); transition: width 0.3s ease; }
@@ -631,7 +632,9 @@ button,a,[onclick]{touch-action:manipulation;}
     .cur,.cursor,#cur,#curRing,.cur-ring,.cursor-ring { display: none !important; }
     .chat-bubble { cursor: pointer; }
     .chat-modal-close { cursor: pointer; }
-    .nav-brand { font-size: 14px; letter-spacing: 1.5px; }
+    .nav-brand { gap: 8px; }
+    .nav-brand svg { width: 28px; height: 28px; }
+    .nav-brand > div > div:first-child { font-size: 13px; letter-spacing: 3px; }
     #hero { padding: 80px 16px 40px; gap: 24px; min-height:auto!important; }
     .hero-right { display: block; width:100%; }
     .hero-title { font-size: clamp(2rem,8vw,3.5rem); margin-bottom: 1.5rem; }
@@ -863,7 +866,24 @@ button,a,[onclick]{touch-action:manipulation;}
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav id="nav">
-  <a href="#hero" class="nav-brand">PROXIMITY <em>Care Systems</em></a>
+  <a href="#hero" class="nav-brand" style="display:flex;align-items:center;gap:11px;text-decoration:none;">
+    <svg viewBox="0 0 100 100" width="34" height="34" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+      <rect width="100" height="100" rx="18" fill="#111820"/>
+      <polygon points="66,0 100,0 100,34" fill="#3d7a8a" opacity="0.4"/>
+      <rect x="18" y="18" width="9" height="64" rx="1.5" fill="#ddd9d0"/>
+      <rect x="27" y="18" width="28" height="9" fill="#ddd9d0"/>
+      <rect x="27" y="43" width="28" height="9" fill="#ddd9d0"/>
+      <rect x="55" y="18" width="9" height="34" fill="#ddd9d0"/>
+      <circle cx="76" cy="66" r="4" fill="#5a9aaa"/>
+      <circle cx="88" cy="66" r="4" fill="#5a9aaa"/>
+      <circle cx="76" cy="80" r="4" fill="#3d7a8a" opacity="0.45"/>
+      <circle cx="88" cy="80" r="4" fill="#3d7a8a" opacity="0.45"/>
+    </svg>
+    <div style="line-height:1.15;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:5px;color:var(--dark);text-transform:uppercase;">PROXIMITY</div>
+      <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:3px;color:var(--teal-dark);text-transform:uppercase;margin-top:1px;">Care Systems</div>
+    </div>
+  </a>
   <ul class="nav-links">
     <li><a href="#problem">The Problem</a></li>
     <li><a href="#solution">The Solution</a></li>
