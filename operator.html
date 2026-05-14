@@ -151,6 +151,7 @@ a{color:inherit;text-decoration:none;}
   <div class="nav-tab" onclick="showTab('import')">Bulk Import</div>
   <div class="nav-tab" onclick="showTab('postclose')">Post-Close</div>
   <div class="nav-tab" onclick="showTab('sales')">Sales Log</div>
+  <div class="nav-tab" onclick="showTab('debug')">⚡ Auto-Debug</div>
 </div>
 
 <!-- ── CREATE AGENCY ── -->
@@ -351,6 +352,64 @@ a{color:inherit;text-decoration:none;}
   </div>
 </div>
 
+<!-- AUTO-DEBUG TAB -->
+<div class="section" id="tab-debug">
+  <div class="section-header"><span class="section-title">⚡ Auto-Debug Engine</span></div>
+  <div class="card">
+    <div class="card-label">Debug a File</div>
+    <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:14px;">Pulls the file from GitHub, runs the full CLAUDE.md debug protocol via Claude Sonnet, returns the fixed file. You review — one tap to push.</div>
+    <div class="frow">
+      <div>
+        <label class="flabel">Repo *</label>
+        <select class="finput" id="dbg-repo" style="font-size:16px;">
+          <option value="proximitycares">proximitycares (HQ + Family)</option>
+          <option value="proximitycares-psw">proximitycares-psw (PSW Portal)</option>
+          <option value="proximitysystems">proximitysystems (Sales Pages)</option>
+          <option value="proximity-agent">proximity-agent (Server)</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">File path *</label>
+        <select class="finput" id="dbg-filepath" style="font-size:16px;">
+          <option value="hq.html">hq.html</option>
+          <option value="family.html">family.html</option>
+          <option value="index.html">index.html (PSW)</option>
+          <option value="psw-sw.js">psw-sw.js</option>
+          <option value="hq-sw.js">hq-sw.js</option>
+          <option value="server.js">server.js</option>
+          <option value="landing.html">landing.html</option>
+          <option value="demo.html">demo.html</option>
+          <option value="mini-demo.html">mini-demo.html</option>
+        </select>
+      </div>
+    </div>
+    <label class="flabel">Error or issue description</label>
+    <textarea class="finput" id="dbg-error" rows="3" style="min-height:72px;resize:vertical;font-size:14px;margin-bottom:12px;" placeholder="e.g. Schedule section blank after login, AI ask tab returns 500, MAR not showing on checkout..."></textarea>
+    <button class="sbtn" id="dbg-run-btn" onclick="runAutoDebug()">⚡ Run Debug Protocol</button>
+    <div class="result-box" id="dbg-status" style="display:none;margin-top:10px;"></div>
+  </div>
+  <div class="card" id="dbg-diff-card" style="display:none;">
+    <div class="card-label">Changes Found</div>
+    <div id="dbg-diff-list" style="margin-bottom:14px;"></div>
+    <div style="margin-bottom:10px;">
+      <label class="flabel">Commit message</label>
+      <input class="finput" id="dbg-commit-msg" style="font-size:14px;" placeholder="auto-fix: [description]">
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="sbtn" id="dbg-push-btn" onclick="pushAutoFix()" style="background:rgba(61,138,122,.12);color:var(--green2);border-color:rgba(61,138,122,.3);">✓ Approve + Push to GitHub</button>
+      <button class="sbtn ghost" onclick="discardFix()">✕ Discard</button>
+    </div>
+    <div class="result-box" id="dbg-push-result" style="display:none;margin-top:10px;"></div>
+  </div>
+  <div class="card" id="dbg-preview-card" style="display:none;">
+    <div class="card-label" style="display:flex;align-items:center;justify-content:space-between;">
+      <span>Fixed File Preview</span>
+      <button onclick="togglePreview()" style="font-family:var(--mono);font-size:9px;background:none;border:1px solid var(--border2);color:var(--muted2);padding:4px 10px;border-radius:4px;cursor:pointer;min-height:30px;">Toggle</button>
+    </div>
+    <textarea id="dbg-fixed-content" rows="20" style="display:none;width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-family:var(--mono);font-size:10px;line-height:1.6;padding:12px;resize:vertical;margin-top:8px;"></textarea>
+  </div>
+</div>
+
 </div><!-- /app -->
 
 <div class="toast" id="toast"></div>
@@ -385,7 +444,7 @@ function showTab(name) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   const tabs = document.querySelectorAll('.nav-tab');
-  const tm = ['create','branding','status','import','postclose','sales'];
+  const tm = ['create','branding','status','import','postclose','sales','debug'];
   const idx = tm.indexOf(name);
   if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
   if (name === 'sales') loadSales();
@@ -656,6 +715,117 @@ async function loadSales() {
         </div>
       </div>`).join('');
   } catch { el.innerHTML = '<div style="font-family:var(--mono);font-size:10px;color:var(--muted);">Could not load</div>'; }
+}
+
+// ── AUTO-DEBUG ENGINE ──
+let _dbgResult = null;
+
+async function runAutoDebug() {
+  const repo = document.getElementById('dbg-repo').value;
+  const filepath = document.getElementById('dbg-filepath').value;
+  const error = document.getElementById('dbg-error').value.trim();
+  const btn = document.getElementById('dbg-run-btn');
+  const status = document.getElementById('dbg-status');
+
+  btn.disabled = true;
+  btn.textContent = '⚡ Running debug protocol...';
+  status.style.display = 'block';
+  status.textContent = `Pulling ${filepath} from ${repo}... then running CLAUDE.md audit via Claude Sonnet. This takes 30-60 seconds.`;
+  document.getElementById('dbg-diff-card').style.display = 'none';
+  document.getElementById('dbg-preview-card').style.display = 'none';
+
+  try {
+    const res = await fetch(`${API}/hq/auto-debug`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ repo, filepath, error_description: error || 'Full CLAUDE.md audit' })
+    });
+    const d = await res.json();
+    if (!d.success) throw new Error(d.error || 'Debug failed');
+
+    _dbgResult = d;
+    status.textContent = `✓ ${d.message} · ${d.original_lines} → ${d.fixed_lines} lines (${d.line_diff >= 0 ? '+' : ''}${d.line_diff})`;
+
+    // Show diff
+    const diffCard = document.getElementById('dbg-diff-card');
+    const diffList = document.getElementById('dbg-diff-list');
+    const changes = d.changes_preview || [];
+    if (changes.length === 0) {
+      diffList.innerHTML = '<div style="font-size:12px;color:var(--green2);">✓ No changes detected — file is already clean</div>';
+    } else {
+      diffList.innerHTML = changes.map(c =>
+        `<div style="margin-bottom:10px;padding:8px 10px;background:var(--bg3);border-radius:6px;border:1px solid var(--border);">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted2);margin-bottom:4px;">Line ${c.line}</div>
+          <div style="font-size:10px;color:var(--red);margin-bottom:2px;">- ${c.before || '(empty)'}</div>
+          <div style="font-size:10px;color:var(--green2);">+ ${c.after || '(empty)'}</div>
+        </div>`
+      ).join('');
+    }
+    document.getElementById('dbg-commit-msg').value = `auto-fix: ${filepath} — CLAUDE.md audit via debug engine`;
+    diffCard.style.display = 'block';
+
+    // Show fixed file preview
+    document.getElementById('dbg-fixed-content').value = d.fixed_content || '';
+    document.getElementById('dbg-preview-card').style.display = 'block';
+
+    showToast('Debug complete ✓', 'ok');
+  } catch(e) {
+    status.textContent = '✗ Error: ' + e.message;
+    showToast('Debug failed: ' + e.message, 'err');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '⚡ Run Debug Protocol';
+}
+
+async function pushAutoFix() {
+  if (!_dbgResult) return;
+  const commitMsg = document.getElementById('dbg-commit-msg').value.trim() || `auto-fix: ${_dbgResult.filepath}`;
+  const fixedContent = document.getElementById('dbg-fixed-content').value || _dbgResult.fixed_content;
+  const btn = document.getElementById('dbg-push-btn');
+  const result = document.getElementById('dbg-push-result');
+
+  btn.disabled = true;
+  btn.textContent = 'Pushing...';
+  result.style.display = 'block';
+  result.textContent = 'Pushing to GitHub...';
+
+  try {
+    const res = await fetch(`${API}/hq/auto-debug/push`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        repo: _dbgResult.repo,
+        filepath: _dbgResult.filepath,
+        file_sha: _dbgResult.file_sha || _dbgResult.changes_preview?.[0]?.sha,
+        fixed_content: fixedContent,
+        commit_message: commitMsg
+      })
+    });
+    const d = await res.json();
+    if (!d.success) throw new Error(d.error || 'Push failed');
+    result.textContent = `✓ ${d.message} · Commit: ${d.commit_sha}`;
+    showToast('Pushed ✓ Deploying now', 'ok');
+    _dbgResult = null;
+  } catch(e) {
+    result.textContent = '✗ Push failed: ' + e.message;
+    showToast('Push failed', 'err');
+    btn.disabled = false;
+    btn.textContent = '✓ Approve + Push to GitHub';
+  }
+}
+
+function discardFix() {
+  _dbgResult = null;
+  document.getElementById('dbg-diff-card').style.display = 'none';
+  document.getElementById('dbg-preview-card').style.display = 'none';
+  document.getElementById('dbg-status').style.display = 'none';
+  showToast('Fix discarded', 'ok');
+}
+
+function togglePreview() {
+  const ta = document.getElementById('dbg-fixed-content');
+  ta.style.display = ta.style.display === 'none' ? 'block' : 'none';
 }
 
 </script>
