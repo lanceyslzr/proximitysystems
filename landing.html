@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07090c;--bg2:#0b0f14;--bg3:#0e1419;
+  --bg:#07090c;--bg2:#0d1219;--bg3:#121822;
   --teal:#3d7a8a;--teal-lt:#5a9aaa;--teal-bg:#0b2028;
   --red:#e05858;--green:#5aaa7a;--gold:#c8a96e;
   --text:#ddd9d0;--text-dim:#6a8a92;--text-muted:#3a5a62;
@@ -29,12 +29,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .ann strong{color:#fff}
 
 /* LAYOUT */
-.w{max-width:760px;margin:0 auto;padding:0 24px}
-.w-wide{max-width:1100px;margin:0 auto;padding:0 24px}
-.sec{padding:120px 0}
-.divider{height:1px;background:linear-gradient(to right,transparent,var(--border-b),transparent)}
-.sec-inner{max-width:700px}
-.w-content{max-width:760px;margin:0 auto;padding:0 48px}
+.w{max-width:960px;margin:0 auto;padding:0 48px}
+.w-wide{max-width:1100px;margin:0 auto;padding:0 48px}
+.sec{padding:128px 0}
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(61,122,138,0.2),transparent);margin:0}
+.sec-inner{max-width:860px}
+.w-content{max-width:960px;margin:0 auto;padding:0 48px}
 
 /* BG */
 .bg-glow{position:fixed;top:-200px;left:-200px;width:min(700px,100vw);height:min(700px,100vw);background:radial-gradient(circle,rgba(61,122,138,0.08) 0%,transparent 60%);pointer-events:none;z-index:0}
@@ -50,7 +50,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .h1 .strike{color:var(--red);font-style:italic;text-decoration:line-through;text-decoration-color:rgba(224,88,88,0.5)}
 .h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:40px;line-height:0.93;color:#fff;letter-spacing:-0.02em;margin-bottom:14px}
 .h2 em{color:var(--teal-lt);font-style:italic}
-.sub{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:24px;max-width:520px}
+.sub{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:24px;max-width:640px}
 
 /* BUTTONS */
 .btn{display:flex;align-items:center;justify-content:center;background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:6px;text-decoration:none;border:none;cursor:pointer;min-height:52px;transition:background 0.2s,transform 0.1s;width:100%}
@@ -114,7 +114,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .pain-cost{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);flex-shrink:0;white-space:nowrap}
 
 /* BIG NUMBER */
-.big-number-box{background:rgba(224,88,88,0.05);border:1px solid rgba(224,88,88,0.18);border-radius:10px;padding:32px 24px;text-align:center;margin-top:28px}
+.big-number-box{background:rgba(224,88,88,0.05);border:1px solid rgba(224,88,88,0.18);border-radius:10px;padding:48px 40px;text-align:center;margin-top:40px;margin-bottom:8px;max-width:680px;margin-left:auto;margin-right:auto}
 .big-number{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:80px;color:var(--red);line-height:1;display:block;margin-bottom:4px}
 .big-number-lbl{font-size:14px;color:var(--text-dim);line-height:1.5}
 .big-number-lbl strong{color:var(--text)}
@@ -290,7 +290,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .hero-trust-sep{color:var(--text-muted);font-size:10px}
 
 /* HERO PROOF QUOTE */
-.hero-proof-quote{background:rgba(61,122,138,0.08);border:1px solid var(--border-b);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:20px;max-width:480px}
+.hero-proof-quote{background:rgba(61,122,138,0.08);border:1px solid var(--border-b);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:14px 18px;margin-bottom:24px;max-width:560px}
 .hpq-stars{color:var(--gold);font-size:11px;letter-spacing:2px;margin-bottom:5px}
 .hpq-text{font-size:13px;color:var(--text);line-height:1.5;font-style:italic;margin-bottom:5px}
 .hpq-name{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase}
@@ -826,8 +826,8 @@ html.lenis{height:auto}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.35}
 
 /* CUSTOM CURSOR */
-.lp-cursor{position:fixed;width:5px;height:5px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
-.lp-cursor-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(61,122,138,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.25s ease,height 0.25s ease,border-color 0.25s ease}
+.lp-cursor{position:fixed;width:5px;height:5px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity 0.3s}
+.lp-cursor-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(61,122,138,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.25s ease,height 0.25s ease,border-color 0.25s ease,opacity 0.3s;opacity:0}
 .lp-cursor-ring.hover{width:46px;height:46px;border-color:var(--teal)}
 
 
@@ -958,8 +958,8 @@ button,a,[onclick]{touch-action:manipulation;}
   .sys-cards-grid{grid-template-columns:repeat(3,1fr);gap:8px}
   .proof-bar{grid-template-columns:repeat(3,1fr)}
   .testi-row{grid-template-columns:1fr 1fr}
-  .w{padding:0 32px}
-  .w-wide{padding:0 32px}
+  .w{padding:0 40px}
+  .w-wide{padding:0 40px}
   #hero{padding:92px 0 56px}
   .hero-wrap{padding:0 32px;gap:40px}
   .hero-right{flex:0 0 320px}
@@ -976,8 +976,8 @@ button,a,[onclick]{touch-action:manipulation;}
 /* DESKTOP — 1024px and above */
 @media(min-width:1024px){
   nav{padding:0 48px}
-  .w{max-width:760px;padding:0 24px}
-  .w-wide{max-width:1100px;padding:0 24px}
+  .w{max-width:960px;padding:0 40px}
+  .w-wide{max-width:1100px;padding:0 40px}
   #hero{padding:92px 0 60px}
   .hero-wrap{padding:0 48px}
   .hero-left{max-width:520px}
@@ -1015,8 +1015,8 @@ button,a,[onclick]{touch-action:manipulation;}
 /* WIDE DESKTOP — 1280px+ */
 @media(min-width:1280px){
   nav{padding:0 64px}
-  .w{max-width:800px;padding:0 24px}
-  .w-wide{max-width:1120px;padding:0 24px}
+  .w{max-width:960px;padding:0 48px}
+  .w-wide{max-width:1120px;padding:0 48px}
   #hero{padding:92px 0 60px}
   .hero-wrap{padding:0 64px}
   .hero-left{max-width:540px}
@@ -1053,8 +1053,8 @@ button,a,[onclick]{touch-action:manipulation;}
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 </head>
 <body>
-<div class="lp-cursor" id="lpCursor"></div>
-<div class="lp-cursor-ring" id="lpCursorRing"></div>
+<div class="lp-cursor" id="lpCursor" style="left:-100px;top:-100px;"></div>
+<div class="lp-cursor-ring" id="lpCursorRing" style="left:-100px;top:-100px;"></div>
 
 <div class="bg-glow"></div>
 <div class="bg-grid"></div>
@@ -1681,8 +1681,12 @@ document.getElementById('chatInp').addEventListener('keydown',e=>{if(e.key==='En
   var dot=document.getElementById('lpCursor');
   var ring=document.getElementById('lpCursorRing');
   if(!dot||!ring) return;
-  var mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  var mx=0,my=0,rx=0,ry=0,cursorVisible=false;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    if(!cursorVisible){cursorVisible=true;dot.style.opacity='1';ring.style.opacity='1';}
+  });
   (function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
   document.querySelectorAll('a,button,[data-hover]').forEach(function(el){
     el.addEventListener('mouseenter',function(){ring.classList.add('hover');});
