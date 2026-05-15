@@ -31,7 +31,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 /* LAYOUT */
 .w{max-width:760px;margin:0 auto;padding:0 24px}
 .w-wide{max-width:1100px;margin:0 auto;padding:0 24px}
-.sec{padding:100px 0}
+.sec{padding:120px 0}
 .divider{height:1px;background:linear-gradient(to right,transparent,var(--border-b),transparent)}
 .sec-inner{max-width:700px}
 .w-content{max-width:760px;margin:0 auto;padding:0 48px}
@@ -82,7 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .hvc-dot.r{background:#ff5f57}.hvc-dot.y{background:#febc2e}.hvc-dot.g{background:#28c840}
 .hvc-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase}
 .hvc-body{padding:16px}
-.hvc-feed-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.hvc-feed-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px}
 .hvc-feed-item:last-child{margin-bottom:0}
 .hvc-feed-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .hvc-feed-icon.teal{background:rgba(61,122,138,0.2)}
@@ -91,7 +91,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .hvc-feed-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px}
 .hvc-feed-desc{font-size:10px;color:var(--text-dim);line-height:1.4}
 .hvc-feed-time{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-muted);margin-top:3px}
-.hvc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.hvc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);margin-top:4px}
 .hvc-stat{background:var(--bg3);padding:12px 8px;text-align:center}
 .hvc-stat-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--teal-lt);display:block;line-height:1}
 .hvc-stat-lbl{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;display:block;margin-top:3px}
@@ -106,8 +106,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 /* PAIN STRIP */
 #pain{background:var(--bg2)}
-.pain-strip{display:flex;flex-direction:column;gap:2px;margin:28px 0}
-.pain-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(224,88,88,0.04);border:1px solid rgba(224,88,88,0.1);border-left:3px solid var(--red)}
+.pain-strip{display:flex;flex-direction:column;gap:10px;margin:36px 0}
+.pain-row{display:flex;align-items:center;gap:14px;padding:18px 20px;background:rgba(224,88,88,0.04);border:1px solid rgba(224,88,88,0.1);border-left:3px solid var(--red);border-radius:0 8px 8px 0}
 .pain-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
 .pain-label{font-size:13px;color:var(--text-dim);line-height:1.4;flex:1}
 .pain-label strong{color:var(--text);font-weight:500}
@@ -123,7 +123,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 #timeline{background:var(--bg)}
 .timeline{display:flex;flex-direction:column;gap:0;margin-top:32px;position:relative}
 .timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--teal),rgba(61,122,138,0.05))}
-.t-step{display:flex;gap:20px;padding:18px 0;align-items:flex-start}
+.t-step{display:flex;gap:20px;padding:28px 0;align-items:flex-start}
 .t-num{width:38px;height:38px;border-radius:50%;background:var(--teal-bg);border:1px solid var(--border-b);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--teal-lt);flex-shrink:0;position:relative;z-index:1}
 .t-content{padding-top:6px}
 .t-day{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.16em;color:var(--teal);text-transform:uppercase;margin-bottom:4px}
@@ -132,7 +132,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 /* SYSTEMS — VISUAL CARDS */
 #systems{background:var(--bg2)}
-.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:32px}
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
 .sys-card{background:var(--bg3);border:1px solid var(--border);padding:0;overflow:hidden;position:relative}
 .sys-card-top{padding:16px 16px 12px;border-bottom:1px solid var(--border)}
 .sys-card-num{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.14em;color:var(--text-muted);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
@@ -150,7 +150,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 /* MATH SECTION */
 #math{background:var(--bg)}
-.math-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px;margin-bottom:24px}
+.math-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;margin-bottom:32px}
 .math-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:20px;text-align:center;position:relative;overflow:hidden}
 .math-card.bad::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)}
 .math-card.good::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
@@ -169,7 +169,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .roi-lbl{font-size:13px;color:var(--text-dim)}
 .roi-slider{width:100px;accent-color:var(--teal);cursor:pointer;height:3px}
 .roi-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--teal-lt);width:64px;text-align:right}
-.roi-result{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:16px}
+.roi-result{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
 .roi-res{background:var(--bg3);border:1px solid var(--border);padding:14px 8px;text-align:center}
 .roi-res-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;color:var(--teal-lt);display:block;margin-bottom:3px}
 .roi-res-lbl{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;color:var(--text-dim);text-transform:uppercase;display:block}
@@ -177,7 +177,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 /* PROOF */
 #proof{background:var(--bg2)}
-.proof-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:28px;margin-bottom:28px}
+.proof-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;margin-bottom:36px}
 .proof-stat{background:var(--bg3);border:1px solid var(--border);padding:18px 12px;text-align:center;position:relative;overflow:hidden}
 .proof-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--teal),transparent)}
 .proof-stat-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);display:block;line-height:1;margin-bottom:4px}
@@ -186,7 +186,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .proof-narrative strong{color:var(--text)}
 
 /* TESTIMONIALS */
-.testi-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+.testi-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
 .testi{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:18px}
 .testi-stars{color:var(--gold);font-size:11px;letter-spacing:2px;margin-bottom:8px;display:block}
 .testi-text{font-size:12px;color:var(--text);line-height:1.65;margin-bottom:12px;font-style:italic}
@@ -200,7 +200,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .offer-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff}
 .offer-badge{background:rgba(90,170,122,0.15);border:1px solid rgba(90,170,122,0.3);color:var(--green);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;padding:5px 12px;border-radius:3px;text-transform:uppercase}
 .offer-body{padding:24px}
-.offer-prices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.offer-prices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
 .offer-price{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px 14px;text-align:center}
 .offer-price-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:40px;color:var(--teal-lt);display:block;line-height:1;margin-bottom:4px}
 .offer-price-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.1em;color:var(--text-dim);text-transform:uppercase;display:block}
@@ -847,7 +847,7 @@ button,a,[onclick]{touch-action:manipulation;}
   /* Layout containers */
   .w,.w-wide{padding:0 18px;max-width:100%}
   .w-content{padding:0 18px;max-width:100%}
-  .sec{padding:64px 0}
+  .sec{padding:72px 0}
 
   /* Nav */
   nav{padding:0 18px;height:52px}
@@ -865,7 +865,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .hero-trust{gap:4px;margin-top:16px;flex-wrap:nowrap;overflow:hidden;}.hero-trust-item{font-size:8px;letter-spacing:0.08em;white-space:nowrap;}.hero-trust-sep{font-size:9px;flex-shrink:0;}
 
   /* Pain section */
-  .pain-row{padding:11px 12px;gap:10px}
+  .pain-row{padding:14px 16px;gap:10px;border-radius:0 6px 6px 0}
   .pain-icon{font-size:15px;width:22px}
   .pain-label{font-size:12px}
   .pain-cost{font-size:10px}
@@ -873,14 +873,15 @@ button,a,[onclick]{touch-action:manipulation;}
   .big-number-box{padding:22px 18px}
 
   /* Timeline */
-  .t-step{padding:14px 0;gap:14px}
+  .t-step{padding:20px 0;gap:14px}
   .t-num{width:32px;height:32px;font-size:10px}
   .t-title{font-size:13px}
   .t-desc{font-size:11px}
 
-  /* System cards — 2 col on 390px — cards ~172px wide */
-  .sys-cards-grid{grid-template-columns:1fr 1fr;gap:7px}
-  .syscard{padding:13px 11px 11px}
+  /* System cards — 1 col on mobile for breathing room */
+  .sys-cards-grid{grid-template-columns:1fr;gap:14px}
+  .sys-grid{grid-template-columns:1fr;gap:14px}
+  .syscard{padding:16px 14px}
   .syscard-name{font-size:14px}
   .syscard-icon{width:32px;height:32px}
   .syscard-bad,.syscard-good{font-size:10px;gap:6px}
@@ -898,12 +899,13 @@ button,a,[onclick]{touch-action:manipulation;}
   .bld-upsell-hint{font-size:7.5px}
 
   /* Proof */
-  .proof-bar{grid-template-columns:1fr 1fr}
+  .math-grid{grid-template-columns:1fr;gap:14px}
+  .proof-bar{grid-template-columns:1fr;gap:14px}
   .proof-stat-val{font-size:26px}
   .proof-stat-lbl{font-size:6.5px}
   .proof-narrative{font-size:12px;padding:13px 14px}
-  .testi-row{grid-template-columns:1fr}
-  .testi{padding:14px}
+  .testi-row{grid-template-columns:1fr;gap:14px}
+  .testi{padding:16px}
   .testi-text{font-size:11px}
 
   /* Offer + Booking */
@@ -918,6 +920,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .vs-price-val{font-size:22px}
   .guarantee{padding:13px;gap:10px}
   .guarantee-text{font-size:11px}
+  .offer-prices{grid-template-columns:1fr;gap:12px}
   .booking-preview{padding:12px 14px;margin-bottom:12px}
   .booking-body{padding:16px}
   .booking-card{margin-top:0}
@@ -935,9 +938,7 @@ button,a,[onclick]{touch-action:manipulation;}
   /* Final CTA */
   .final-box{padding:32px 18px}
 
-  /* Misc */
-  .proof-bar{grid-template-columns:1fr 1fr}
-  .testi-row{grid-template-columns:1fr}
+  /* Misc — handled above */
   .ba-scroll-hint{font-size:8px}
   .sys-grid{grid-template-columns:1fr}
   .f-row{grid-template-columns:1fr}
@@ -1033,7 +1034,6 @@ button,a,[onclick]{touch-action:manipulation;}
 }
 
 @media(max-width:390px){
-
   body{font-size:14px;}
   h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
@@ -1042,12 +1042,12 @@ button,a,[onclick]{touch-action:manipulation;}
   .hero-trust{flex-wrap:wrap;gap:3px;}
   .hero-trust-item{font-size:7px;}
   .hero-trust-sep{display:none;}
-}
-
-
-@media(max-width:768px){
-  [class*="grid"]{grid-template-columns:1fr!important;}
-    [class*="col"]{width:100%!important;}
+  .sys-cards-grid{grid-template-columns:1fr;gap:12px}
+  .sys-grid{grid-template-columns:1fr;gap:12px}
+  .proof-bar{grid-template-columns:1fr;gap:12px}
+  .math-grid{grid-template-columns:1fr;gap:12px}
+  .testi-row{grid-template-columns:1fr;gap:12px}
+  .offer-prices{grid-template-columns:1fr;gap:10px}
 }
 </style>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
