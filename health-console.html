@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proximity Health Console</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07090c;--bg2:#0d1117;--bg3:#111820;--bg4:#161e28;
+  --teal:#3d8a7a;--teal2:#5aada0;--teal3:#7dcabd;
+  --gold:#c8a96e;--amber:#e09a3d;--red:#e05555;--green:#4a9a6e;--green2:#6ac98a;
+  --text:#e8ddc8;--muted:rgba(232,220,200,.35);--muted2:rgba(232,220,200,.55);--muted3:rgba(232,220,200,.75);
+  --border:rgba(61,138,122,.12);--border2:rgba(61,138,122,.25);
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);}
+
+/* LOCK */
+#lock{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.lock-logo{font-family:var(--mono);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--teal2);}
+.lock-title{font-size:22px;font-weight:600;color:var(--text);}
+.lock-input{width:280px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:13px 16px;font-size:15px;border-radius:8px;text-align:center;font-family:var(--mono);letter-spacing:2px;outline:none;}
+.lock-input:focus{border-color:var(--teal2);}
+.lock-btn{width:280px;background:var(--teal);color:#fff;padding:13px;border:none;border-radius:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.lock-btn:hover{background:var(--teal2);}
+.lock-err{font-family:var(--mono);font-size:11px;color:var(--red);opacity:0;transition:opacity .3s;}
+.lock-err.show{opacity:1;}
+
+/* APP */
+#app{display:none;height:100vh;flex-direction:column;}
+#app.visible{display:flex;}
+
+/* TOPBAR */
+.topbar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(7,9,12,.97);border-bottom:1px solid var(--border);flex-shrink:0;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{width:26px;height:26px;border-radius:5px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:500;color:#fff;}
+.brand-name{font-size:13px;font-weight:600;}
+.brand-tag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-left:4px;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.global-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid;transition:all .3s;}
+.global-pill.idle{background:var(--bg3);color:var(--muted2);border-color:var(--border);}
+.global-pill.running{background:rgba(61,138,122,.1);color:var(--teal2);border-color:var(--border2);}
+.global-pill.ok{background:rgba(74,154,110,.1);color:var(--green2);border-color:rgba(74,154,110,.3);}
+.global-pill.warn{background:rgba(224,154,61,.1);color:var(--amber);border-color:rgba(224,154,61,.3);}
+.global-pill.crit{background:rgba(224,85,85,.1);color:var(--red);border-color:rgba(224,85,85,.3);}
+.gdot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.gdot.live{animation:blink 1s infinite;}
+.run-btn{padding:7px 16px;border-radius:6px;border:1px solid var(--border2);background:rgba(61,138,122,.08);color:var(--teal2);font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.run-btn:hover{background:rgba(61,138,122,.15);border-color:var(--teal2);}
+.run-btn:disabled{opacity:.4;pointer-events:none;}
+.timer{font-family:var(--mono);font-size:9px;color:var(--muted2);}
+
+/* LAYOUT */
+.layout{flex:1;display:grid;grid-template-columns:1fr 300px;overflow:hidden;}
+.main-col{overflow-y:auto;padding:16px 20px;}
+.side-col{border-left:1px solid var(--border);overflow-y:auto;background:var(--bg2);display:flex;flex-direction:column;}
+
+/* SUMMARY */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+.sum-card{background:var(--bg2);padding:12px 14px;text-align:center;}
+.sum-val{font-family:var(--mono);font-size:26px;font-weight:500;line-height:1;}
+.sum-val.n{color:var(--teal2);}
+.sum-val.g{color:var(--green2);}
+.sum-val.w{color:var(--amber);}
+.sum-val.r{color:var(--red);}
+.sum-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+
+/* OP SELECTOR */
+.op-row{display:flex;gap:6px;margin-bottom:16px;}
+.op-btn{padding:5px 14px;border-radius:5px;border:1px solid var(--border);background:var(--bg3);color:var(--muted2);font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.op-btn.active{border-color:var(--teal2);color:var(--teal2);background:rgba(61,138,122,.08);}
+
+/* GROUPS */
+.group{margin-bottom:14px;}
+.group-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.check-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;margin-bottom:3px;transition:border-color .15s;}
+.check-row.ok{border-left:3px solid var(--green);}
+.check-row.warn{border-left:3px solid var(--amber);background:rgba(224,154,61,.03);}
+.check-row.crit{border-left:3px solid var(--red);background:rgba(224,85,85,.04);}
+.check-row.running{border-left:3px solid var(--teal2);}
+.check-row.pending{border-left:3px solid var(--border);}
+.ci{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.ci.ok{background:rgba(74,154,110,.12);}
+.ci.warn{background:rgba(224,154,61,.12);}
+.ci.crit{background:rgba(224,85,85,.12);}
+.ci.running{background:rgba(61,138,122,.12);}
+.ci.pending{background:var(--bg3);}
+.cb{flex:1;min-width:0;}
+.cn{font-size:12px;font-weight:500;color:var(--text);}
+.cd{font-family:var(--mono);font-size:10px;color:var(--muted2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cr{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.cl{font-family:var(--mono);font-size:9px;color:var(--muted);}
+.cbadge{font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:100px;border:1px solid;}
+.cbadge.ok{color:var(--green2);border-color:rgba(74,154,110,.3);}
+.cbadge.warn{color:var(--amber);border-color:rgba(224,154,61,.3);}
+.cbadge.crit{color:var(--red);border-color:rgba(224,85,85,.3);}
+.cbadge.running{color:var(--teal2);border-color:var(--border2);}
+.cbadge.pending{color:var(--muted2);border-color:var(--border);}
+
+/* SIDE LOG */
+.log-hdr{padding:12px 14px 8px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);flex-shrink:0;}
+.log-body{flex:1;overflow-y:auto;padding:8px;}
+.log-entry{padding:7px 9px;border-radius:4px;margin-bottom:3px;border-left:2px solid;}
+.log-entry.ok{border-color:var(--green);background:rgba(74,154,110,.04);}
+.log-entry.warn{border-color:var(--amber);background:rgba(224,154,61,.04);}
+.log-entry.crit{border-color:var(--red);background:rgba(224,85,85,.04);}
+.log-entry.info{border-color:var(--teal2);background:rgba(61,138,122,.04);}
+.log-msg{font-family:var(--mono);font-size:10px;color:var(--muted3);line-height:1.5;}
+.log-msg.warn{color:var(--amber);}
+.log-msg.crit{color:var(--red);}
+.log-msg.info{color:var(--teal2);}
+.log-time{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px;}
+
+/* LATENCY */
+.lat-section{padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0;}
+.lat-title{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;}
+.lat-bars{display:flex;align-items:flex-end;gap:3px;height:36px;}
+.lat-bar{flex:1;border-radius:2px 2px 0 0;min-height:2px;background:var(--teal);transition:height .3s;}
+.lat-bar.slow{background:var(--amber);}
+.lat-bar.bad{background:var(--red);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+.spin{display:inline-block;animation:spin .6s linear infinite;}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .side-col{display:none;}
+  .summary{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lock">
+  <div class="lock-logo">Proximity Systems</div>
+  <div class="lock-title">Health Console</div>
+  <input class="lock-input" id="lock-pin" type="password" placeholder="Watchdog PIN" autocomplete="off" onkeydown="if(event.key==='Enter')unlock()">
+  <button class="lock-btn" onclick="unlock()">Access Console</button>
+  <div class="lock-err" id="lock-err">Incorrect PIN</div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">PH</div>
+      <span class="brand-name">Proximity</span>
+      <span class="brand-tag">Health Console</span>
+    </div>
+    <div class="topbar-right">
+      <span class="timer" id="timer-label"></span>
+      <div class="global-pill idle" id="global-pill">
+        <div class="gdot" id="gdot"></div>
+        <span id="gtext">Ready</span>
+      </div>
+      <button class="run-btn" id="run-btn" onclick="runTests()">▶ Run Tests</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="main-col">
+      <div class="op-row">
+        <button class="op-btn active" onclick="setOp('proximity-care',this)">Proximity Care</button>
+        <button class="op-btn" onclick="setOp('lcm-experts',this)">LCM Experts</button>
+        <button class="op-btn" onclick="setOp('proximity-systems',this)">PS Systems</button>
+      </div>
+      <div class="summary">
+        <div class="sum-card"><div class="sum-val n" id="s-total">—</div><div class="sum-lbl">Checks</div></div>
+        <div class="sum-card"><div class="sum-val g" id="s-ok">—</div><div class="sum-lbl">Passing</div></div>
+        <div class="sum-card"><div class="sum-val w" id="s-warn">—</div><div class="sum-lbl">Warnings</div></div>
+        <div class="sum-card"><div class="sum-val r" id="s-crit">—</div><div class="sum-lbl">Critical</div></div>
+      </div>
+      <div id="results"></div>
+    </div>
+    <div class="side-col">
+      <div class="log-hdr">Event Log</div>
+      <div class="log-body" id="log-body"><div style="padding:20px;font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center;letter-spacing:1px;">Run tests to see events</div></div>
+      <div class="lat-section">
+        <div class="lat-title">Overview latency (last 20)</div>
+        <div class="lat-bars" id="lat-bars"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://proximity-agent-production.up.railway.app';
+const WATCHDOG_PIN = 'proximity-watchdog-2026'; // matches server WATCHDOG_PIN env default
+
+let currentOp = 'proximity-care';
+let enteredPin = '';
+let running = false;
+let autoTimer = null;
+let autoCountdown = 120;
+let results = {}; // id -> result
+let eventLog = [];
+let latHistory = [];
+
+// ── LOCK ──
+function unlock() {
+  const pin = document.getElementById('lock-pin').value.trim();
+  enteredPin = pin;
+  // Validate by attempting a run immediately
+  document.getElementById('lock').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  runTests();
+}
+
+// ── OP SELECTOR ──
+function setOp(op, btn) {
+  currentOp = op;
+  document.querySelectorAll('.op-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  results = {};
+  renderAll();
+  runTests();
+}
+
+// ── ICON MAP ──
+const icons = {
+  'Infrastructure': '⚡', 'Websites': '🌐',
+  'S01 Lead Capture': '📥', 'S02 Client Onboarding': '🤝',
+  'S03 PSW Onboarding': '👤', 'S04 Scheduling': '📅',
+  'S05 GPS + Visits': '📍', 'S06 Family Portal': '👨‍👩‍👧',
+  'S08 Billing': '💰', 'S09 Crons': '⏱',
+  'S10 Security': '🔒', 'meta': '🔧'
+};
+
+// ── RENDER ──
+function renderAll() {
+  // Group results
+  const groups = {};
+  const order = ['Infrastructure','Websites','S01 Lead Capture','S02 Client Onboarding',
+    'S03 PSW Onboarding','S04 Scheduling','S05 GPS + Visits','S06 Family Portal',
+    'S08 Billing','S09 Crons','S10 Security'];
+
+  // Add any groups we have results for
+  Object.values(results).forEach(r => {
+    if (r.group === 'meta') return;
+    if (!groups[r.group]) groups[r.group] = [];
+    if (!groups[r.group].find(x => x.id === r.id)) groups[r.group].push(r);
+  });
+
+  // Sort by defined order, then alpha
+  const sortedGroups = [...new Set([...order, ...Object.keys(groups)])].filter(g => groups[g]);
+
+  let html = '';
+  for (const group of sortedGroups) {
+    const items = groups[group] || [];
+    if (!items.length) continue;
+    const icon = icons[group] || '•';
+    html += `<div class="group"><div class="group-title">${icon} ${group}</div>`;
+    items.forEach(r => {
+      const st = r.status || 'pending';
+      const badge = {ok:'OK',warn:'WARN',crit:'CRIT',running:'…',pending:'—'}[st] || st;
+      const latStr = r.latency != null ? `${r.latency}ms` : '';
+      html += `<div class="check-row ${st}" id="row-${r.id}">
+        <div class="ci ${st}">${getEmoji(r.id, st)}</div>
+        <div class="cb">
+          <div class="cn">${r.name}</div>
+          <div class="cd" title="${r.detail||''}">${r.detail||'Checking...'}</div>
+        </div>
+        <div class="cr">
+          ${latStr ? `<span class="cl">${latStr}</span>` : ''}
+          <span class="cbadge ${st}">${badge}</span>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  document.getElementById('results').innerHTML = html || '<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Run tests to see results</div>';
+  updateSummary();
+}
+
+function getEmoji(id, status) {
+  const map = {
+    'infra-railway':'⚡','infra-supabase':'🗄','infra-anthropic':'🤖','infra-resend':'📧',
+    'infra-stripe':'💳','infra-github':'🔧','infra-sentry':'👁',
+    'web-hq':'🏠','web-psw':'📱','web-systems':'🌐',
+    'lead-intake':'📥','lead-overview':'📋','lead-followup':'📨',
+    'client-portal':'👤','client-careplan':'📄','client-family':'👨‍👩‍👧',
+    'psw-record':'🪪','psw-cert-expiry':'📋',
+    'sched-bookings':'📅','sched-conflicts':'⚠️',
+    'visit-checkin':'✅','visit-gps-coords':'📍','visit-checkout':'🏁','visit-cleanup':'🗑','visit-stuck':'🚨',
+    'family-portal-data':'👨‍👩‍👧','family-messages':'💬','family-daily-digest':'📰',
+    'billing-ar':'🧾','billing-stripe':'💳','billing-auto-invoice':'🔄',
+    'rls-check':'🔒','rls-operator':'🏢',
+  };
+  const icons = {ok:'✓',warn:'⚠',crit:'✗',running:'…',pending:'○'};
+  return map[id] || icons[status] || '•';
+}
+
+function updateRow(r) {
+  results[r.id] = r;
+  const el = document.getElementById('row-'+r.id);
+  if (el) {
+    const st = r.status || 'pending';
+    el.className = `check-row ${st}`;
+    el.querySelector('.ci').className = `ci ${st}`;
+    el.querySelector('.ci').textContent = getEmoji(r.id, st);
+    el.querySelector('.cd').textContent = r.detail || '';
+    el.querySelector('.cd').title = r.detail || '';
+    const badge = {ok:'OK',warn:'WARN',crit:'CRIT',running:'…',pending:'—'}[st] || st;
+    const latStr = r.latency != null ? `<span class="cl">${r.latency}ms</span>` : '';
+    el.querySelector('.cr').innerHTML = `${latStr}<span class="cbadge ${st}">${badge}</span>`;
+    updateSummary();
+  } else {
+    // New result — re-render
+    renderAll();
+  }
+}
+
+function updateSummary() {
+  const vals = Object.values(results).filter(r => r.group !== 'meta');
+  const total = vals.length;
+  const ok = vals.filter(r => r.status === 'ok').length;
+  const warn = vals.filter(r => r.status === 'warn').length;
+  const crit = vals.filter(r => r.status === 'crit').length;
+  document.getElementById('s-total').textContent = total || '—';
+  document.getElementById('s-ok').textContent = total ? ok : '—';
+  document.getElementById('s-warn').textContent = total ? warn : '—';
+  document.getElementById('s-crit').textContent = total ? crit : '—';
+}
+
+function addLog(level, msg) {
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-CA', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: false });
+  eventLog.unshift({ level, msg, time });
+  if (eventLog.length > 60) eventLog.pop();
+  const body = document.getElementById('log-body');
+  body.innerHTML = eventLog.map(e =>
+    `<div class="log-entry ${e.level}">
+      <div class="log-msg ${e.level}">${e.msg}</div>
+      <div class="log-time">${e.time}</div>
+    </div>`
+  ).join('');
+}
+
+function setGlobalStatus(state, text) {
+  const pill = document.getElementById('global-pill');
+  const dot = document.getElementById('gdot');
+  const gtext = document.getElementById('gtext');
+  pill.className = `global-pill ${state}`;
+  dot.className = `gdot ${state === 'running' ? 'live' : ''}`;
+  gtext.textContent = text;
+}
+
+// ── RUN TESTS ──
+async function runTests() {
+  if (running) return;
+  running = true;
+  results = {};
+  renderAll();
+  document.getElementById('run-btn').disabled = true;
+  document.getElementById('run-btn').textContent = '⟳ Running';
+  setGlobalStatus('running', 'Scanning');
+  addLog('info', `Test run started · ${currentOp}`);
+  stopAutoTimer();
+
+  try {
+    const response = await fetch(`${API}/system/run-tests`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin: enteredPin || WATCHDOG_PIN, operator_id: currentOp }),
+      signal: AbortSignal.timeout(120000)
+    });
+
+    if (response.status === 401) {
+      addLog('crit', 'Invalid watchdog PIN — check WATCHDOG_PIN env var on Railway');
+      setGlobalStatus('crit', 'Auth Failed');
+      running = false;
+      document.getElementById('run-btn').disabled = false;
+      document.getElementById('run-btn').textContent = '▶ Run Tests';
+      return;
+    }
+
+    // Stream NDJSON
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // keep incomplete line
+
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        try {
+          const r = JSON.parse(line);
+          if (r.id === '__start') {
+            addLog('info', r.detail);
+            continue;
+          }
+          if (r.id === '__done') {
+            // Record latency for the overview check
+            const overviewResult = results['endpoint-overview'] || results['sched-bookings'];
+            if (overviewResult?.latency) {
+              latHistory.push(overviewResult.latency);
+              if (latHistory.length > 20) latHistory.shift();
+              renderLatency();
+            }
+            addLog('info', `Done · ${r.detail}`);
+            continue;
+          }
+          // Regular result — add running state first if not there
+          if (!results[r.id]) {
+            results[r.id] = { id: r.id, group: r.group, name: r.name, status: 'running', detail: 'Checking...' };
+            renderAll(); // only re-render when new group appears
+          }
+          updateRow(r);
+          if (r.status === 'crit') addLog('crit', `CRITICAL: ${r.name} — ${r.detail}`);
+          else if (r.status === 'warn') addLog('warn', `Warning: ${r.name} — ${r.detail}`);
+        } catch(e) { /* malformed line, skip */ }
+      }
+    }
+  } catch(e) {
+    if (e.name === 'TimeoutError') {
+      addLog('crit', 'Test run timed out after 120s');
+      setGlobalStatus('crit', 'Timeout');
+    } else {
+      addLog('crit', `Run failed: ${e.message}`);
+      setGlobalStatus('crit', 'Failed');
+    }
+  }
+
+  // Final status
+  const vals = Object.values(results).filter(r => r.group !== 'meta');
+  const crit = vals.filter(r => r.status === 'crit').length;
+  const warn = vals.filter(r => r.status === 'warn').length;
+
+  if (crit > 0) {
+    setGlobalStatus('crit', `${crit} Critical`);
+    addLog('crit', `Scan complete — ${crit} critical issues need attention`);
+  } else if (warn > 0) {
+    setGlobalStatus('warn', `${warn} Warnings`);
+    addLog('warn', `Scan complete — ${warn} warnings`);
+  } else if (vals.length > 0) {
+    setGlobalStatus('ok', 'All Clear');
+    addLog('ok', `All ${vals.length} checks passing`);
+  }
+
+  running = false;
+  document.getElementById('run-btn').disabled = false;
+  document.getElementById('run-btn').textContent = '▶ Run Tests';
+  startAutoTimer();
+}
+
+// ── AUTO TIMER ──
+function startAutoTimer() {
+  autoCountdown = 120;
+  updateTimerLabel();
+  autoTimer = setInterval(() => {
+    autoCountdown--;
+    updateTimerLabel();
+    if (autoCountdown <= 0) runTests();
+  }, 1000);
+}
+function stopAutoTimer() {
+  if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  document.getElementById('timer-label').textContent = '';
+}
+function updateTimerLabel() {
+  document.getElementById('timer-label').textContent = `Next scan ${autoCountdown}s`;
+}
+
+// ── LATENCY CHART ──
+function renderLatency() {
+  const max = Math.max(...latHistory, 1000);
+  document.getElementById('lat-bars').innerHTML = latHistory.map(v => {
+    const pct = Math.max(4, (v/max)*100);
+    const cls = v > 4000 ? 'bad' : v > 2000 ? 'slow' : '';
+    return `<div class="lat-bar ${cls}" style="height:${pct}%" title="${v}ms"></div>`;
+  }).join('');
+}
+
+// ── ENTER KEY ON LOCK ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && running) {
+    // Can't abort server-side, just note it
+    addLog('warn', 'Run in progress — cannot abort server-side tests');
+  }
+});
+</script>
+</body>
+</html>
