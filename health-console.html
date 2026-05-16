@@ -232,7 +232,7 @@ const icons = {
   'S03 PSW Onboarding': '👤', 'S04 Scheduling': '📅',
   'S05 GPS + Visits': '📍', 'S06 Family Portal': '👨‍👩‍👧',
   'S08 Billing': '💰', 'S09 Crons': '⏱',
-  'S10 Security': '🔒', 'meta': '🔧'
+  'S10 Security': '🔒', 'Notifications': '📬', 'meta': '🔧'
 };
 
 // ── RENDER ──
@@ -241,7 +241,7 @@ function renderAll() {
   const groups = {};
   const order = ['Infrastructure','Websites','S01 Lead Capture','S02 Client Onboarding',
     'S03 PSW Onboarding','S04 Scheduling','S05 GPS + Visits','S06 Family Portal',
-    'S08 Billing','S09 Crons','S10 Security'];
+    'S08 Billing','S09 Crons','S10 Security','Notifications'];
 
   // Add any groups we have results for
   Object.values(results).forEach(r => {
@@ -459,7 +459,7 @@ async function runTests() {
 
 // ── AUTO TIMER ──
 function startAutoTimer() {
-  autoCountdown = 120;
+  autoCountdown = 3600;
   updateTimerLabel();
   autoTimer = setInterval(() => {
     autoCountdown--;
