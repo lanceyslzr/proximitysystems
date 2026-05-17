@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#07090c">
+<link rel="manifest" href="/hq-manifest.json">
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>Proximity HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#07090c;--bg2:#0d1117;--bg3:#111820;--bg4:#161e28;
+  --border:rgba(61,138,122,.12);--border2:rgba(61,138,122,.25);--border3:rgba(61,138,122,.4);
+  --gold:#c8a96e;--teal:#3d8a7a;--teal2:#5aada0;--teal3:#7dccc0;
+  --red:#e05555;--amber:#e09a3d;--green:#4a9a6e;--green2:#6ac98a;
+  --blue:#3d7ab5;--blue2:#6aacf0;--purple:#a060e0;--purple2:#c080f0;
+  --text:#e8e4dc;--muted:rgba(232,228,220,.35);--muted2:rgba(232,228,220,.55);--muted3:rgba(232,228,220,.75);
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--serif:'Cormorant Garamond',serif;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+html{height:100%;background:var(--bg);}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;padding-bottom:calc(64px + var(--safe-bottom));}
+button{font-family:var(--sans);cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:var(--sans);font-size:16px;}
+a{color:inherit;text-decoration:none;}
+
+/* LOCK */
+#lock{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;}
+.lock-logo{font-family:var(--serif);font-size:30px;color:var(--text);font-weight:300;letter-spacing:2px;}
+.lock-logo em{color:var(--teal2);font-style:italic;}
+.lock-sub{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);}
+.lock-dots{display:flex;gap:14px;}
+.lock-dot{width:13px;height:13px;border-radius:50%;border:1px solid var(--border2);background:transparent;transition:background .15s;}
+.lock-dot.filled{background:var(--teal2);border-color:var(--teal2);}
+.lock-pad{display:grid;grid-template-columns:repeat(3,72px);gap:10px;}
+.lock-key{width:72px;height:72px;border-radius:50%;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:22px;font-weight:300;display:flex;align-items:center;justify-content:center;transition:background .12s;user-select:none;}
+.lock-key:active{background:var(--bg3);border-color:var(--teal2);}
+.lock-key.del{font-size:16px;color:var(--muted2);}
+.lock-key.empty{background:none;border:none;pointer-events:none;}
+.lock-err{font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:1px;opacity:0;transition:opacity .3s;}
+.lock-err.show{opacity:1;}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:rgba(7,9,12,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+.tl{display:flex;align-items:center;gap:10px;}
+.logo{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:300;letter-spacing:1px;}
+.logo em{color:var(--teal2);font-style:italic;}
+.op-pill{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);padding:5px 10px;border-radius:100px;cursor:pointer;min-height:32px;}
+.op-live{width:6px;height:6px;border-radius:50%;background:var(--teal2);animation:livepulse 2s infinite;}
+@keyframes livepulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(90,173,160,.4);}50%{opacity:.7;box-shadow:0 0 0 5px rgba(90,173,160,0);}}
+.op-name-text{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--teal2);}
+.icon-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--muted2);font-size:17px;cursor:pointer;transition:all .2s;}
+.icon-btn:active{background:var(--bg4);color:var(--teal2);}
+.refresh-spin{animation:spin .6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* STATS */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
+.stat-card{background:var(--bg2);padding:12px 6px;text-align:center;}
+.stat-val{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--text);line-height:1;}
+.stat-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.stat-card.hi .stat-val{color:var(--teal2);}
+
+/* CRM KANBAN */
+.crm-board{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);min-height:400px;}
+.crm-col{background:var(--bg2);display:flex;flex-direction:column;min-height:400px;}
+.crm-col-head{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:54px;background:var(--bg2);z-index:2;}
+.crm-col-name{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);}
+.crm-col-count{font-family:var(--mono);font-size:9px;color:var(--muted);background:var(--bg3);border:1px solid var(--border);border-radius:100px;padding:1px 6px;}
+.crm-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.crm-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px 10px 8px;transition:border-color .2s;}
+.crm-card:hover{border-color:var(--border2);}
+.crm-card.closed{opacity:.5;}
+.crm-card-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.crm-card-agency{font-size:10px;color:var(--muted2);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.crm-card-meta{font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:8px;}
+.crm-card-acts{display:flex;gap:4px;flex-wrap:wrap;}
+.crm-card-btn{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 7px;border:1px solid var(--border2);color:var(--muted2);background:none;border-radius:3px;cursor:pointer;white-space:nowrap;min-height:28px;display:inline-flex;align-items:center;}
+.crm-card-btn:hover,.crm-card-btn:active{border-color:var(--teal2);color:var(--teal2);}
+.crm-card-btn.call{color:var(--teal3);border-color:rgba(90,173,160,.3);}
+.crm-card-btn.demo{color:var(--blue2);border-color:rgba(106,172,240,.3);}
+.crm-empty{padding:16px 10px;font-size:10px;color:var(--muted);text-align:center;font-family:var(--mono);}
+@media(max-width:768px){
+  .crm-board{grid-template-columns:1fr;}
+  .crm-col{min-height:auto;}
+  .crm-col-head{position:static;}
+}
+
+/* CREATE OPERATOR */
+.op-form{padding:12px;}
+.op-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.op-form-full{margin-bottom:8px;}
+.op-flabel{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:4px;display:block;}
+.op-finput,.op-fselect{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:9px 11px;font-family:var(--sans);font-size:16px;outline:none;border-radius:4px;box-sizing:border-box;}
+.op-finput:focus,.op-fselect:focus{border-color:var(--teal2);}
+.op-color-row{display:flex;align-items:center;gap:10px;}
+.op-color-preview{width:32px;height:32px;border-radius:4px;border:1px solid var(--border2);flex-shrink:0;}
+@media(max-width:600px){.op-form-grid{grid-template-columns:1fr;}}
+
+/* NAV TABS */
+.nav-tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex-shrink:0;padding:11px 14px;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;min-height:44px;display:flex;align-items:center;gap:5px;}
+.nav-tab.active{color:var(--teal2);border-bottom-color:var(--teal2);}
+.nbadge{background:var(--teal);color:#fff;border-radius:100px;font-size:8px;min-width:15px;height:15px;padding:0 3px;display:inline-flex;align-items:center;justify-content:center;}
+
+/* SECTIONS */
+.section{display:none;padding-bottom:8px;}
+.section.active{display:block;}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px;}
+.section-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);}
+.sect-action{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--teal2);padding:7px 12px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;min-height:34px;display:flex;align-items:center;}
+
+/* CARDS */
+.card{margin:0 12px 8px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.card-header{padding:13px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.card-name{font-size:14px;font-weight:500;color:var(--text);}
+.card-sub{font-family:var(--mono);font-size:11px;color:var(--muted2);margin-top:3px;}
+.card-meta{font-size:11px;color:var(--muted);margin-top:3px;}
+.card-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.card-age{font-family:var(--mono);font-size:10px;color:var(--muted);}
+.card-actions{display:flex;border-top:1px solid var(--border);}
+.card-act{flex:1;padding:10px 6px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);border-right:1px solid var(--border);cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;gap:3px;transition:background .12s,color .12s;}
+.card-act:last-child{border-right:none;}
+.card-act:active{background:var(--bg3);}
+.card-act.call{color:var(--teal2);}
+.card-act.call:active{color:var(--teal3);background:rgba(61,138,122,.08);}
+.card-act.ok{color:var(--green2);}
+.card-act.ok:active{color:var(--green2);background:rgba(74,154,110,.08);}
+.card-act.warn{color:var(--amber);}
+.card-act.warn:active{color:var(--gold);background:rgba(224,154,61,.08);}
+
+/* BADGES */
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:100px;display:inline-block;}
+.b-new{background:rgba(61,138,122,.15);color:var(--teal2);border:1px solid rgba(61,138,122,.3);}
+.b-contacted{background:rgba(61,122,181,.15);color:var(--blue2);border:1px solid rgba(61,122,181,.3);}
+.b-booked{background:rgba(200,169,110,.15);color:var(--gold);border:1px solid rgba(200,169,110,.3);}
+.b-converted{background:rgba(74,154,110,.15);color:var(--green2);border:1px solid rgba(74,154,110,.3);}
+.b-dead{background:rgba(80,80,80,.1);color:#555;border:1px solid rgba(80,80,80,.2);}
+.b-active{background:rgba(74,154,110,.15);color:var(--green2);border:1px solid rgba(74,154,110,.3);}
+.b-pending{background:rgba(200,169,110,.1);color:var(--gold);border:1px solid rgba(200,169,110,.25);}
+.b-scheduled{background:rgba(61,138,122,.1);color:var(--teal2);}
+.b-confirmed{background:rgba(200,169,110,.1);color:var(--gold);}
+.b-completed{background:rgba(74,154,110,.1);color:var(--green2);}
+.b-book{background:rgba(200,169,110,.1);color:var(--gold);}
+.b-course{background:rgba(61,122,181,.1);color:var(--blue2);}
+.b-consultation{background:rgba(61,138,122,.1);color:var(--teal2);}
+.b-setup_fee{background:rgba(74,154,110,.1);color:var(--green2);}
+.b-retainer{background:rgba(160,96,224,.1);color:var(--purple2);}
+.b-other{background:rgba(80,80,80,.1);color:#888;}
+
+/* SEQ DOTS */
+.seq-row{display:flex;align-items:center;gap:5px;margin-top:7px;}
+.sdot{width:8px;height:8px;border-radius:50%;}
+.sdot.done{background:var(--teal2);}
+.sdot.pending{background:var(--border2);}
+.slabel{font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:3px;}
+
+/* PSW AVATAR */
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--teal2);flex-shrink:0;}
+
+/* CAL STRIP */
+.cal-strip{display:flex;gap:8px;padding:10px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.cal-strip::-webkit-scrollbar{display:none;}
+.cal-day{flex-shrink:0;width:46px;padding:9px 0;border-radius:10px;background:var(--bg2);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:3px;}
+.cal-day.today{border-color:var(--teal2);}
+.cal-day.has-b{background:var(--bg3);}
+.cal-dow{font-family:var(--mono);font-size:9px;text-transform:uppercase;color:var(--muted);}
+.cal-num{font-size:15px;font-weight:500;color:var(--text);}
+.cal-dot{width:5px;height:5px;border-radius:50%;background:var(--teal2);}
+
+/* VISIT ROW */
+.visit-row{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;}
+.visit-date-col{flex-shrink:0;text-align:center;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;min-width:44px;}
+.vday{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text);}
+.vmon{font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--muted);}
+.visit-info{flex:1;min-width:0;}
+.vpsw{font-size:13px;font-weight:500;color:var(--text);}
+.vclient{font-size:12px;color:var(--muted2);margin-top:2px;}
+.vhours{font-family:var(--mono);font-size:11px;color:var(--teal2);margin-top:4px;}
+.vsummary{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+
+/* LOG */
+.log-row{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.log-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.li-ok{background:rgba(61,138,122,.12);}
+.li-err{background:rgba(224,85,85,.12);}
+.li-info{background:rgba(61,122,181,.12);}
+.log-info-t{flex:1;min-width:0;}
+.log-ev{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.log-ct{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px;}
+.log-tm{font-family:var(--mono);font-size:10px;color:var(--muted);flex-shrink:0;}
+
+/* SHEET */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;}
+.sheet-overlay.open{opacity:1;pointer-events:all;}
+.sheet{position:fixed;bottom:0;left:0;right:0;z-index:301;background:var(--bg2);border-top:1px solid var(--border2);border-radius:18px 18px 0 0;transform:translateY(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);max-height:92vh;overflow-y:auto;padding-bottom:calc(24px + var(--safe-bottom));}
+.sheet.open{transform:translateY(0);}
+.sheet-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0;}
+.sheet-title{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);padding:14px 18px 12px;border-bottom:1px solid var(--border);}
+.sheet-body{padding:16px 18px;}
+.sheet-row{margin-bottom:13px;}
+.slbl{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.sinput{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 13px;font-size:16px;border-radius:8px;}
+.sinput:focus{outline:none;border-color:var(--teal2);}
+.sselect{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 13px;font-size:16px;border-radius:8px;-webkit-appearance:none;}
+.srow2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px;}
+.sbtn{width:100%;background:var(--teal);color:#fff;padding:15px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;border-radius:10px;cursor:pointer;border:none;margin-top:6px;min-height:52px;transition:background .2s;}
+.sbtn:active{background:var(--teal2);}
+.sbtn.ghost{background:rgba(61,138,122,.1);color:var(--teal2);border:1px solid var(--border2);}
+.sbtn.danger{background:rgba(224,85,85,.1);color:var(--red);border:1px solid rgba(224,85,85,.25);}
+.sopt{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;cursor:pointer;margin-bottom:8px;min-height:52px;}
+.sopt:active{border-color:var(--teal2);}
+.sopt-lbl{font-size:14px;color:var(--text);}
+
+/* MSG */
+.msg-bubble{padding:10px 13px;border-radius:12px;margin-bottom:8px;max-width:84%;}
+.msg-lance{background:var(--teal);color:#fff;margin-left:auto;border-radius:12px 12px 3px 12px;}
+.msg-psw{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:12px 12px 12px 3px;}
+.msg-time{font-family:var(--mono);font-size:9px;opacity:.55;margin-top:3px;}
+.msend-wrap{position:sticky;bottom:0;background:var(--bg2);border-top:1px solid var(--border);padding:10px 12px;display:flex;gap:8px;align-items:flex-end;}
+.minput{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 13px;border-radius:18px;font-size:16px;resize:none;max-height:100px;}
+.minput:focus{outline:none;border-color:var(--teal2);}
+.msend{width:44px;height:44px;border-radius:50%;background:var(--teal);color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;border:none;}
+.msend:active{background:var(--teal2);}
+
+/* CPF */
+.cpf{padding:11px 0;border-bottom:1px solid var(--border);}
+.cpf:last-child{border-bottom:none;}
+.cpf-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.cpf-val{font-size:14px;color:var(--text);line-height:1.6;}
+.cpf-empty{font-size:13px;color:var(--muted);font-style:italic;}
+
+/* OP SHEET */
+.op-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.op-item:last-child{border-bottom:none;}
+.op-dot-big{width:10px;height:10px;border-radius:50%;background:var(--teal2);flex-shrink:0;}
+.op-item-name{font-size:15px;color:var(--text);}
+.op-item-id{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px;}
+.op-check{color:var(--teal2);font-size:16px;margin-left:auto;}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,17,23,.97);border-top:1px solid var(--border);display:flex;padding-bottom:var(--safe-bottom);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px 4px;cursor:pointer;min-height:54px;gap:3px;color:var(--muted2);transition:color .2s;position:relative;}
+.bnav-item.active{color:var(--teal2);}
+.bnav-icon{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;line-height:1;padding:3px 5px;border:1px solid currentColor;border-radius:3px;margin-bottom:1px;}
+.bnav-lbl{font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(70px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(16px);background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;letter-spacing:1px;padding:10px 18px;border-radius:100px;z-index:500;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--teal2);color:var(--teal2);}
+.toast.err{border-color:var(--red);color:var(--red);}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:44px 20px;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lock">
+  <div class="lock-logo">Proximity <em>HQ</em></div>
+  <div class="lock-sub">Operator Dashboard</div>
+  <div class="lock-dots" id="lock-dots">
+    <div class="lock-dot" id="d0"></div><div class="lock-dot" id="d1"></div>
+    <div class="lock-dot" id="d2"></div><div class="lock-dot" id="d3"></div>
+  </div>
+  <div class="lock-pad">
+    <button class="lock-key" onclick="lk('1')">1</button><button class="lock-key" onclick="lk('2')">2</button><button class="lock-key" onclick="lk('3')">3</button>
+    <button class="lock-key" onclick="lk('4')">4</button><button class="lock-key" onclick="lk('5')">5</button><button class="lock-key" onclick="lk('6')">6</button>
+    <button class="lock-key" onclick="lk('7')">7</button><button class="lock-key" onclick="lk('8')">8</button><button class="lock-key" onclick="lk('9')">9</button>
+    <div class="lock-key empty"></div><button class="lock-key" onclick="lk('0')">0</button><button class="lock-key del" onclick="ld()">⌫</button>
+  </div>
+  <div class="lock-err" id="lock-err">Incorrect PIN</div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;">
+
+<div class="topbar">
+  <div class="tl">
+    <div class="logo">Proximity <em>HQ</em></div>
+    <div class="op-pill" onclick="openSheet('op-sheet')">
+      <div class="op-live"></div>
+      <span class="op-name-text" id="op-label">Proximity Care</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <div class="icon-btn" id="refresh-btn" onclick="loadAll(true)">↻</div>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-card hi"><div class="stat-val" id="s-leads">—</div><div class="stat-lbl">Leads</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-clients">—</div><div class="stat-lbl">Clients</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-bookings">—</div><div class="stat-lbl">Upcoming</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-purchases">—</div><div class="stat-lbl">Sales</div></div>
+</div>
+
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showSect('leads')">Leads <span class="nbadge" id="leads-badge">0</span></div>
+  <div class="nav-tab" onclick="showSect('clients')">Clients</div>
+  <div class="nav-tab" onclick="showSect('psws')">PSWs</div>
+  <div class="nav-tab" onclick="showSect('onboard')">Onboard</div>
+  <div class="nav-tab" onclick="showSect('bookings')">Bookings</div>
+  <div class="nav-tab" onclick="showSect('purchases')">Purchased</div>
+  <div class="nav-tab" onclick="showSect('messages')">Messages</div>
+  <div class="nav-tab" onclick="showSect('visits')">Visits</div>
+  <div class="nav-tab" onclick="showSect('activity')">Activity</div>
+  <div class="nav-tab" onclick="showSect('schedule')">Schedule</div>
+  <div class="nav-tab" onclick="showSect('crm')">CRM <span class="nbadge" id="crm-badge">0</span></div>
+  <div class="nav-tab" onclick="showSect('applicants')">Applicants <span class="nbadge" id="app-badge">0</span></div>
+  <div class="nav-tab" onclick="showSect('operator')">+ Agency</div>
+</div>
+
+<!-- LEADS -->
+<div class="section active" id="sect-leads">
+  <div class="section-header">
+    <span class="section-title">All Leads</span>
+    <div class="sect-action" onclick="triggerFollowUp()">↻ Follow-up</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:0 12px 10px;border-radius:6px;overflow:hidden;">
+    <div style="background:var(--bg2);padding:10px 6px;text-align:center;"><div style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--teal2);" id="lmt-month">—</div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">This Month</div></div>
+    <div style="background:var(--bg2);padding:10px 6px;text-align:center;"><div style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--green2);" id="lmt-converted">—</div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Converted</div></div>
+    <div style="background:var(--bg2);padding:10px 6px;text-align:center;"><div style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--text);" id="lmt-pending">—</div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Pending</div></div>
+  </div>
+  <div id="leads-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- CLIENTS -->
+<div class="section" id="sect-clients">
+  <div class="section-header">
+    <span class="section-title">Active Clients</span>
+    <div class="sect-action" onclick="showSect('onboard')">+ Onboard</div>
+  </div>
+  <div id="clients-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- PSWs -->
+<div class="section" id="sect-psws">
+  <div class="section-header"><span class="section-title">PSW Staff</span></div>
+  <div id="psws-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- ONBOARD -->
+<div class="section" id="sect-onboard">
+  <div class="section-header"><span class="section-title">Activate Staff + Onboard Clients</span></div>
+
+  <!-- ACTIVATE PSW CARD -->
+  <div class="card" style="padding:18px 16px;">
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);">Activate PSW</div>
+    <div class="sheet-row"><div class="slbl">PSW</div>
+      <select class="sselect" id="pa-name" onchange="onPSWSelect()">
+        <option value="">Select PSW</option>
+      </select>
+    </div>
+    <div class="sheet-row" id="pa-newname-row" style="display:none;">
+      <div class="slbl">New PSW Full Name</div>
+      <input class="sinput" id="pa-newname" placeholder="First Last" oninput="onNewPSWNameInput()">
+    </div>
+    <div class="sheet-row"><div class="slbl">Email</div><input class="sinput" id="pa-email" placeholder="psw@email.com" type="email"></div>
+    <div class="sheet-row"><div class="slbl">Phone</div><input class="sinput" id="pa-phone" placeholder="647 000 0000" type="tel"></div>
+    <div class="sheet-row">
+      <div class="slbl">Portal PIN</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:var(--mono);font-size:24px;letter-spacing:6px;color:var(--teal2);" id="pa-pin">0000</span>
+        <button onclick="regenPIN('pa-pin')" style="font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);padding:7px 11px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;background:var(--bg3);min-height:34px;">Regenerate</button>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);line-height:1.6;margin:8px 0 14px;">PSW receives a branded welcome email with their PIN and direct link to psw.proximitycares.ca. They tap the link, enter the PIN, and they are in.</p>
+    <button class="sbtn" id="pa-btn" onclick="activatePSW()" disabled>Activate PSW + Send Welcome Email</button>
+  </div>
+
+  <!-- ONBOARD CLIENT CARD -->
+  <div class="card" style="padding:18px 16px;">
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);">Onboard New Client</div>
+    <div class="sheet-row"><div class="slbl">Client Full Name</div><input class="sinput" id="co-name" placeholder="First Last" oninput="autoSlug()"></div>
+    <div class="srow2">
+      <div><div class="slbl">Slug</div><input class="sinput" id="co-slug" placeholder="auto"></div>
+      <div>
+        <div class="slbl">Portal PIN</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-family:var(--mono);font-size:18px;letter-spacing:4px;color:var(--teal2);" id="co-pin">0000</span>
+          <button onclick="regenPIN('co-pin')" style="font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);padding:6px 9px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;background:var(--bg3);min-height:34px;">New</button>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-row"><div class="slbl">Family Email</div><input class="sinput" id="co-family-email" placeholder="family@email.com" type="email"></div>
+    <div class="sheet-row"><div class="slbl">Family Contact Name</div><input class="sinput" id="co-family-name" placeholder="e.g. Connie (used in welcome email greeting)"></div>
+    <div class="srow2">
+      <div><div class="slbl">Client Rate ($/hr)</div><input class="sinput" id="co-client-rate" placeholder="22" type="number" step="0.50"></div>
+      <div><div class="slbl">PSW Rate ($/hr)</div><input class="sinput" id="co-psw-rate" placeholder="19" type="number" step="0.50"></div>
+    </div>
+    <div class="sheet-row"><div class="slbl">Assigned PSW</div>
+      <select class="sselect" id="co-psw">
+        <option value="">Select PSW</option>
+      </select>
+    </div>
+    <div class="sheet-row"><div class="slbl">Start Date</div><input class="sinput" id="co-start" type="date"></div>
+    <div class="sheet-row"><div class="slbl">Care Notes</div><textarea class="sinput" id="co-notes" placeholder="Initial care requirements, schedule preferences, special instructions" rows="3" style="resize:vertical;"></textarea></div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">On Submit</div>
+      <div style="font-size:12px;color:var(--muted2);line-height:1.7;">
+        <span style="color:var(--green2);">✓</span> Client row created in Supabase<br>
+        <span style="color:var(--green2);">✓</span> Family welcome email with PIN sent<br>
+        <span style="color:var(--green2);">✓</span> Family portal link included<br>
+        <span style="color:var(--green2);">✓</span> Assigned PSW notified of new client<br>
+        <span style="color:var(--green2);">✓</span> Client appears in HQ Dashboard
+      </div>
+    </div>
+    <button class="sbtn" id="co-btn" onclick="onboardClientFull()">Onboard Client + Send Welcome Emails</button>
+  </div>
+</div>
+
+<!-- BOOKINGS -->
+<div class="section" id="sect-bookings">
+  <div class="section-header">
+    <span class="section-title">Appointments</span>
+    <div class="sect-action" onclick="openSheet('booking-sheet')">+ Add</div>
+  </div>
+  <div class="cal-strip" id="cal-strip"></div>
+  <div id="bookings-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- PURCHASES -->
+<div class="section" id="sect-purchases">
+  <div class="section-header">
+    <span class="section-title">Purchased</span>
+    <div class="sect-action" onclick="openSheet('manual-purchase-sheet')">+ Log Sale</div>
+  </div>
+  <div id="purchases-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- MESSAGES -->
+<div class="section" id="sect-messages">
+  <div class="section-header"><span class="section-title">Messages</span></div>
+  <div id="messages-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- VISITS -->
+<div class="section" id="sect-visits">
+  <div class="section-header"><span class="section-title">Visit Log</span></div>
+  <div style="display:flex;gap:6px;padding:0 12px 10px;">
+    <div id="mv-prev" onclick="setVisitMonth(-1)" style="flex:1;padding:8px 4px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--muted2);min-height:34px;display:flex;align-items:center;justify-content:center;">Last Month</div>
+    <div id="mv-curr" onclick="setVisitMonth(0)" style="flex:1;padding:8px 4px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--teal2);border-radius:6px;cursor:pointer;color:var(--teal2);min-height:34px;display:flex;align-items:center;justify-content:center;">This Month</div>
+    <div id="mv-next" onclick="setVisitMonth(1)" style="flex:1;padding:8px 4px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--muted2);min-height:34px;display:flex;align-items:center;justify-content:center;">Next Month</div>
+  </div>
+  <div id="visit-month-totals" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:0 12px 10px;border-radius:6px;overflow:hidden;">
+    <div style="background:var(--bg2);padding:10px 6px;text-align:center;"><div style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--teal2);" id="vmt-count">—</div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Visits</div></div>
+    <div style="background:var(--bg2);padding:10px 6px;text-align:center;"><div style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--text);" id="vmt-hours">—</div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Hours</div></div>
+    <div style="background:var(--bg2);padding:10px 6px;text-align:center;"><div style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--text);" id="vmt-psws">—</div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">PSWs</div></div>
+  </div>
+  <div id="visits-list"><div class="empty-state">Loading visits...</div></div>
+</div>
+
+<!-- ACTIVITY -->
+<div class="section" id="sect-activity">
+  <div class="section-header">
+    <span class="section-title">System Activity</span>
+    <div class="sect-action" onclick="triggerSequences()">↻ Sequences</div>
+  </div>
+  <div id="activity-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- CRM — Tab 9 -->
+<div class="section" id="sect-crm">
+  <div class="section-header">
+    <span class="section-title">Operator Pipeline</span>
+    <div class="sect-action" onclick="renderCRM()">↻ Refresh</div>
+  </div>
+  <div class="crm-board" id="crm-board">
+    <div class="crm-col"><div class="crm-col-head"><span class="crm-col-name">Cold</span><span class="crm-col-count" id="crm-count-cold">0</span></div><div class="crm-col-body" id="crm-cold"></div></div>
+    <div class="crm-col"><div class="crm-col-head"><span class="crm-col-name">Contacted</span><span class="crm-col-count" id="crm-count-contacted">0</span></div><div class="crm-col-body" id="crm-contacted"></div></div>
+    <div class="crm-col"><div class="crm-col-head"><span class="crm-col-name">Demo</span><span class="crm-col-count" id="crm-count-demo">0</span></div><div class="crm-col-body" id="crm-demo"></div></div>
+    <div class="crm-col"><div class="crm-col-head"><span class="crm-col-name">Call</span><span class="crm-col-count" id="crm-count-call">0</span></div><div class="crm-col-body" id="crm-call"></div></div>
+    <div class="crm-col"><div class="crm-col-head"><span class="crm-col-name">Closed</span><span class="crm-col-count" id="crm-count-closed">0</span></div><div class="crm-col-body" id="crm-closed"></div></div>
+  </div>
+</div>
+
+<!-- APPLICANTS — PSW Recruitment Pipeline -->
+<div class="section" id="sect-applicants">
+  <div class="section-header">
+    <span class="section-title">PSW Applicants</span>
+    <a href="https://proximitycares.ca/careers.html" target="_blank" class="sect-action">View Careers Page</a>
+  </div>
+  <div id="applicants-list"><div class="empty-state">Loading...</div></div>
+</div>
+
+<!-- CREATE OPERATOR — Tab 10 -->
+<!-- SCHEDULE TAB -->
+<div class="section" id="sect-schedule">
+  <div class="section-header">
+    <span class="section-title">Weekly Schedule</span>
+    <div class="sect-action" onclick="renderSchedule()">↻ Refresh</div>
+  </div>
+  <div id="schedule-board" style="overflow-x:auto;"></div>
+</div>
+
+<div class="section" id="sect-operator">
+  <div class="section-header">
+    <span class="section-title">Create New Agency</span>
+  </div>
+  <div class="op-form">
+    <div class="op-form-grid">
+      <div><label class="op-flabel">Agency Name *</label><input class="op-finput" id="op-agency" type="text" placeholder="ABC Home Care"></div>
+      <div><label class="op-flabel">Owner Name *</label><input class="op-finput" id="op-owner" type="text" placeholder="John Smith"></div>
+    </div>
+    <div class="op-form-grid">
+      <div><label class="op-flabel">Email *</label><input class="op-finput" id="op-email" type="email" placeholder="john@agency.com"></div>
+      <div><label class="op-flabel">Phone</label><input class="op-finput" id="op-phone" type="tel" placeholder="647-000-0000"></div>
+    </div>
+    <div class="op-form-grid">
+      <div><label class="op-flabel">City</label><input class="op-finput" id="op-city" type="text" placeholder="Toronto, ON"></div>
+      <div><label class="op-flabel">Tier</label>
+        <select class="op-fselect" id="op-tier">
+          <option value="tier1">Tier 1 — $3,000 setup</option>
+          <option value="tier2" selected>Tier 2 — $3,500 setup (Hero)</option>
+          <option value="tier3">Tier 3 — $5,000 setup</option>
+        </select>
+      </div>
+    </div>
+    <div class="op-form-grid">
+      <div><label class="op-flabel">Operator ID (slug)</label><input class="op-finput" id="op-id" type="text" placeholder="abc-home-care" style="font-family:var(--mono);font-size:13px;"></div>
+      <div>
+        <label class="op-flabel">Brand Color</label>
+        <div class="op-color-row">
+          <div class="op-color-preview" id="op-color-preview" style="background:#3d7a8a;"></div>
+          <input class="op-finput" id="op-color" type="text" placeholder="#3d7a8a" value="#3d7a8a" oninput="document.getElementById('op-color-preview').style.background=this.value">
+        </div>
+      </div>
+    </div>
+    <div class="op-form-full"><label class="op-flabel">Notes</label><textarea class="op-finput" id="op-notes" rows="2" style="resize:none;min-height:60px;" placeholder="Any context about this agency..."></textarea></div>
+    <button class="sbtn" id="op-create-btn" onclick="createOperator()" style="margin-top:4px">Create Agency + Send Welcome Email</button>
+    <div id="op-result" style="margin-top:10px;font-size:12px;color:var(--teal2);font-family:var(--mono);display:none;"></div>
+
+    <div style="border-top:1px solid var(--border);margin-top:20px;padding-top:16px;">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:12px;">Bulk Import</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div style="background:var(--bg3);border:1px solid var(--border2);padding:14px;">
+          <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;">Import PSWs via CSV</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:6px;">first_name, last_name, email, phone, city, languages</div>
+          <a href="psw-import-template.csv" download style="font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--teal2);text-decoration:none;border-bottom:1px solid var(--teal2);display:inline-block;margin-bottom:10px;">Download Template</a>
+          <input type="file" id="psw-csv-file" accept=".csv" style="font-size:12px;color:var(--text);width:100%;margin-bottom:8px;">
+          <button class="sbtn" onclick="importPSWs()" style="width:100%">Import PSWs</button>
+          <div id="psw-import-result" style="margin-top:8px;font-size:11px;font-family:var(--mono);color:var(--teal2);display:none;line-height:1.6;"></div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border2);padding:14px;">
+          <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;">Import Clients via CSV</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:6px;">first_name, last_name, family_email, family_phone, family_name, assigned_psw</div>
+          <a href="client-import-template.csv" download style="font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--teal2);text-decoration:none;border-bottom:1px solid var(--teal2);display:inline-block;margin-bottom:10px;">Download Template</a>
+          <input type="file" id="client-csv-file" accept=".csv" style="font-size:12px;color:var(--text);width:100%;margin-bottom:8px;">
+          <button class="sbtn" onclick="importClients()" style="width:100%">Import Clients</button>
+          <div id="client-import-result" style="margin-top:8px;font-size:11px;font-family:var(--mono);color:var(--teal2);display:none;line-height:1.6;"></div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:12px;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;">Post-Close Email Sequence</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div><label class="op-flabel">Agency Name</label><input class="op-finput" id="pc-agency" type="text" placeholder="Cedar Home Health Care"></div>
+          <div><label class="op-flabel">Owner Name</label><input class="op-finput" id="pc-owner" type="text" placeholder="Yendi Hernandez"></div>
+          <div><label class="op-flabel">Owner Email</label><input class="op-finput" id="pc-email" type="email" placeholder="info@agency.com"></div>
+        </div>
+        <button class="sbtn" onclick="firePostClose()">Fire Welcome + Config Builder Emails</button>
+        <div id="pc-result" style="margin-top:6px;font-size:11px;font-family:var(--mono);color:var(--teal2);display:none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="bnav-item active" onclick="showSect('leads')" id="bn-leads"><div class="bnav-icon">LDS</div><div class="bnav-lbl">Leads</div></div>
+  <div class="bnav-item" onclick="showSect('clients')" id="bn-clients"><div class="bnav-icon">CLI</div><div class="bnav-lbl">Clients</div></div>
+  <div class="bnav-item" onclick="showSect('bookings')" id="bn-bookings"><div class="bnav-icon">BKG</div><div class="bnav-lbl">Book</div></div>
+  <div class="bnav-item" onclick="showSect('purchases')" id="bn-purchases"><div class="bnav-icon">SAL</div><div class="bnav-lbl">Sales</div></div>
+  <div class="bnav-item" onclick="showSect('activity')" id="bn-activity"><div class="bnav-icon">ACT</div><div class="bnav-lbl">Activity</div></div>
+</div>
+
+</div><!-- /app -->
+
+<!-- SHEETS -->
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeAllSheets()"></div>
+
+<!-- OPERATOR SHEET -->
+<div class="sheet" id="op-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Switch Operator</div>
+  <div class="sheet-body">
+    <div class="op-item" onclick="switchOp('proximity-care','Proximity Care')">
+      <div class="op-dot-big"></div>
+      <div><div class="op-item-name">Proximity Care</div><div class="op-item-id">proximity-care</div></div>
+      <div class="op-check" id="oc-proximity-care">✓</div>
+    </div>
+    <div class="op-item" onclick="switchOp('lcm-experts','LCM Experts')">
+      <div class="op-dot-big" style="background:var(--gold);"></div>
+      <div><div class="op-item-name">LCM Experts</div><div class="op-item-id">lcm-experts</div></div>
+      <div class="op-check" id="oc-lcm-experts" style="display:none;">✓</div>
+    </div>
+    <div class="op-item" onclick="switchOp('proximity-systems','Proximity Systems')">
+      <div class="op-dot-big" style="background:var(--blue2);"></div>
+      <div><div class="op-item-name">Proximity Systems</div><div class="op-item-id">proximity-systems</div></div>
+      <div class="op-check" id="oc-proximity-systems" style="display:none;">✓</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS SHEET -->
+<div class="sheet" id="status-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Update Lead Status</div>
+  <div class="sheet-body">
+    <div class="sopt" onclick="setStatus('new')"><span class="sopt-lbl">New</span><span class="badge b-new">new</span></div>
+    <div class="sopt" onclick="setStatus('contacted')"><span class="sopt-lbl">Contacted</span><span class="badge b-contacted">contacted</span></div>
+    <div class="sopt" onclick="setStatus('booked')"><span class="sopt-lbl">Booked</span><span class="badge b-booked">booked</span></div>
+    <div class="sopt" onclick="setStatus('converted')"><span class="sopt-lbl">Converted — stops all follow-ups</span><span class="badge b-converted">converted</span></div>
+    <div class="sopt" onclick="setStatus('dead')"><span class="sopt-lbl">Dead</span><span class="badge b-dead">dead</span></div>
+  </div>
+</div>
+
+<!-- LEAD DETAIL SHEET -->
+<div class="sheet" id="lead-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="lead-sheet-title">Lead</div>
+  <div class="sheet-body" id="lead-sheet-body"></div>
+</div>
+
+<!-- CLIENT DETAIL SHEET -->
+<div class="sheet" id="client-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="client-sheet-title">Client</div>
+  <div class="sheet-body" id="client-sheet-body"></div>
+</div>
+
+<!-- BOOKING SHEET -->
+<div class="sheet" id="booking-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Add Appointment</div>
+  <div class="sheet-body">
+    <div class="sheet-row"><div class="slbl">Client Name</div><input class="sinput" id="bf-name" placeholder="Full name"></div>
+    <div class="srow2">
+      <div><div class="slbl">Email</div><input class="sinput" id="bf-email" placeholder="email" type="email"></div>
+      <div><div class="slbl">Phone</div><input class="sinput" id="bf-phone" placeholder="647-000-0000" type="tel"></div>
+    </div>
+    <div class="srow2">
+      <div><div class="slbl">Type</div><select class="sselect" id="bf-type"><option value="assessment">Assessment</option><option value="consultation">Consultation</option><option value="follow-up">Follow-up</option><option value="visit">Visit</option></select></div>
+      <div><div class="slbl">Date</div><input class="sinput" id="bf-date" type="date"></div>
+    </div>
+    <div class="srow2">
+      <div><div class="slbl">Time</div><input class="sinput" id="bf-time" placeholder="10:00 AM"></div>
+      <div><div class="slbl">Assigned To</div><input class="sinput" id="bf-assigned" placeholder="PSW or staff"></div>
+    </div>
+    <div class="sheet-row"><div class="slbl">Location</div><input class="sinput" id="bf-location" placeholder="Address or Virtual"></div>
+    <button class="sbtn" onclick="submitBooking()">Book Appointment</button>
+  </div>
+</div>
+
+<!-- MANUAL PURCHASE SHEET -->
+<div class="sheet" id="manual-purchase-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Log a Sale</div>
+  <div class="sheet-body">
+    <div class="sheet-row"><div class="slbl">Buyer Email</div><input class="sinput" id="mp-email" placeholder="buyer@email.com" type="email"></div>
+    <div class="sheet-row"><div class="slbl">Buyer Name</div><input class="sinput" id="mp-name" placeholder="Full name"></div>
+    <div class="sheet-row"><div class="slbl">Product Name</div><input class="sinput" id="mp-product" placeholder="e.g. 7 Steps to Long-Term Care Planning"></div>
+    <div class="srow2">
+      <div><div class="slbl">Label</div><select class="sselect" id="mp-label"><option value="book">Book</option><option value="course">Course</option><option value="consultation">Consultation</option><option value="setup_fee">Setup Fee</option><option value="retainer">Retainer</option><option value="other">Other</option></select></div>
+      <div><div class="slbl">Amount USD</div><input class="sinput" id="mp-amount" placeholder="0.00" type="number" step="0.01"></div>
+    </div>
+    <button class="sbtn" onclick="submitManualPurchase()">Log Sale</button>
+  </div>
+</div>
+
+<!-- PSW MESSAGE SHEET -->
+<div class="sheet" id="psw-msg-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="psw-msg-title">Message PSW</div>
+  <div class="sheet-body" id="psw-msg-body" style="padding-bottom:70px;min-height:200px;"></div>
+  <div class="msend-wrap">
+    <textarea class="minput" id="psw-msg-input" placeholder="Type a message..." rows="1" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';"></textarea>
+    <button class="msend" onclick="sendPSWMsg()">Send</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://proximity-agent-production.up.railway.app';
+const PIN = '0822';
+const PSWS = ['Carolina Hermida','Luz Peralta','Dorine Biney','Renay Wilson','Edna Pakiwana','Phurbu Lhamo','Mandeep Kamboj','Mellonie Richards','Harvinder Kaur','Justin Nadres','Ashalee Williams','Sandeep Bawa'];
+const PSW_EMAILS = {'Carolina Hermida':'carolha719@gmail.com'};
+let lockIn = '';
+let currentOp = 'proximity-care';
+let currentOpName = 'Proximity Care';
+let D = {};
+let activeLead = null;
+let activePSW = null;
+
+// ── LOCK ──
+function lk(k) {
+  if (lockIn.length >= 4) return;
+  lockIn += k; updateDots();
+  if (lockIn.length === 4) {
+    setTimeout(() => {
+      if (lockIn === PIN) {
+        document.getElementById('lock').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        loadAll(false);
+      } else {
+        document.getElementById('lock-err').classList.add('show');
+        for(let i=0;i<4;i++) document.getElementById('d'+i).classList.remove('filled');
+        lockIn = '';
+        setTimeout(() => document.getElementById('lock-err').classList.remove('show'), 1500);
+      }
+    }, 120);
+  }
+}
+function ld() { lockIn = lockIn.slice(0,-1); updateDots(); }
+function updateDots() { for(let i=0;i<4;i++) document.getElementById('d'+i).classList.toggle('filled', i < lockIn.length); }
+
+// ── OPERATOR ──
+function switchOp(id, name) {
+  currentOp = id; currentOpName = name;
+  document.getElementById('op-label').textContent = name;
+  ['proximity-care','lcm-experts','proximity-systems'].forEach(op => {
+    const el = document.getElementById('oc-'+op);
+    if(el) el.style.display = op===id?'block':'none';
+  });
+  closeAllSheets(); loadAll(true);
+}
+
+// ── DATA ──
+async function loadAll(spin=false) {
+  if(spin) { const b=document.getElementById('refresh-btn'); b.classList.add('refresh-spin'); setTimeout(()=>b.classList.remove('refresh-spin'),800); }
+  try {
+    const res = await fetch(`${API}/hq/overview?operator_id=${currentOp}`);
+    D = await res.json();
+    if(!D.success) throw new Error('API error');
+    renderAll();
+  } catch(err) { showToast('Failed to load data', 'err'); }
+}
+function renderAll() {
+  renderStats(); renderLeads(); renderClients(); renderPSWs();
+  renderBookings(); renderPurchases(); renderMessages(); renderActivity(); renderVisits();
+  renderCRM();
+}
+
+// ── STATS ──
+function renderStats() {
+  const c = D.counts||{};
+  document.getElementById('s-leads').textContent = c.leads||0;
+  document.getElementById('s-clients').textContent = c.clients||0;
+  document.getElementById('s-bookings').textContent = c.bookings_upcoming||0;
+  document.getElementById('s-purchases').textContent = c.purchases_total||0;
+  document.getElementById('leads-badge').textContent = c.leads||0;
+
+  // Lead monthly totals
+  const now = new Date();
+  const thisMonth = now.getMonth();
+  const thisYear = now.getFullYear();
+  const leads = D.leads || [];
+  const monthLeads = leads.filter(l => {
+    if (!l.created_at) return false;
+    const d = new Date(l.created_at);
+    return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+  });
+  const converted = monthLeads.filter(l => l.status === 'converted').length;
+  const pending = monthLeads.filter(l => !['converted','dead'].includes(l.status)).length;
+  const lmtMonth = document.getElementById('lmt-month');
+  const lmtConverted = document.getElementById('lmt-converted');
+  const lmtPending = document.getElementById('lmt-pending');
+  if(lmtMonth) lmtMonth.textContent = monthLeads.length;
+  if(lmtConverted) lmtConverted.textContent = converted;
+  if(lmtPending) lmtPending.textContent = pending;
+}
+
+// ── LEADS ──
+function renderLeads() {
+  const leads = D.leads||[];
+  const el = document.getElementById('leads-list');
+  if(!leads.length) { el.innerHTML = '<div class="empty-state">No leads yet</div>'; return; }
+  el.innerHTML = leads.map(l => {
+    const name = `${l.first_name||''} ${l.last_name||''}`.trim()||'Unknown';
+    const st = l.status||'new';
+    return `
+    <div class="card">
+      <div class="card-header" onclick="openLeadDetail('${l.id}')">
+        <div style="flex:1;min-width:0;">
+          <div class="card-name">${name}</div>
+          <div class="card-sub">${l.phone?`<a href="tel:${l.phone}" onclick="event.stopPropagation()">${l.phone}</a>`:l.email||'—'}</div>
+          <div class="card-meta">${[l.care_type_interest,l.urgency,l.city].filter(Boolean).join(' · ')}</div>
+          <div class="seq-row">
+            <div class="sdot ${l.day1_sent?'done':'pending'}"></div>
+            <div class="sdot ${l.day3_sent?'done':'pending'}"></div>
+            <div class="sdot ${l.day7_sent?'done':'pending'}"></div>
+            <span class="slabel">D1 D3 D7</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <span class="badge b-${st}">${st}</span>
+          <div class="card-age">${ago(l.created_at)}</div>
+        </div>
+      </div>
+      <div class="card-actions">
+        ${l.phone?`<div class="card-act call" onclick="window.location.href='tel:${l.phone}'">Call</div>`:''}
+        ${l.phone?`<div class="card-act" onclick="window.location.href='sms:${l.phone}'">Text</div>`:''}
+        <div class="card-act warn" onclick="openStatusSheet('${l.id}')">Status</div>
+        <div class="card-act ok" onclick="convertLead('${l.id}','${l.email||''}')">✓ Convert</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openLeadDetail(id) {
+  const l = (D.leads||[]).find(x=>x.id===id); if(!l) return;
+  const name = `${l.first_name||''} ${l.last_name||''}`.trim();
+  document.getElementById('lead-sheet-title').textContent = name;
+  document.getElementById('lead-sheet-body').innerHTML = `
+    <div class="cpf"><div class="cpf-lbl">Email</div><div class="cpf-val">${l.email?`<a href="mailto:${l.email}">${l.email}</a>`:'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Phone</div><div class="cpf-val">${l.phone?`<a href="tel:${l.phone}">${l.phone}</a>`:'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">City</div><div class="cpf-val">${l.city||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Care for</div><div class="cpf-val">${l.care_needed_for||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Care type</div><div class="cpf-val">${l.care_type_interest||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Urgency</div><div class="cpf-val">${l.urgency||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Preferred time</div><div class="cpf-val">${l.preferred_time||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Source</div><div class="cpf-val">${l.source||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Status</div><div class="cpf-val"><span class="badge b-${l.status||'new'}">${l.status||'new'}</span></div></div>
+    <div class="cpf"><div class="cpf-lbl">Follow-ups</div><div class="cpf-val" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+      <span class="badge ${l.day1_sent?'b-converted':'b-dead'}">Day 1 ${l.day1_sent?'✓':'pending'}</span>
+      <span class="badge ${l.day3_sent?'b-converted':'b-dead'}">Day 3 ${l.day3_sent?'✓':'pending'}</span>
+      <span class="badge ${l.day7_sent?'b-converted':'b-dead'}">Day 7 ${l.day7_sent?'✓':'pending'}</span>
+    </div></div>
+    <div class="cpf"><div class="cpf-lbl">Notes</div><div class="cpf-val">${l.notes||'<span class="cpf-empty">No notes</span>'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Created</div><div class="cpf-val">${fmtdt(l.created_at)}</div></div>
+    <button class="sbtn" style="margin-top:12px;" onclick="openStatusSheet('${l.id}');closeSheet('lead-sheet');">Update Status</button>
+    <button class="sbtn ghost" style="margin-top:8px;" onclick="convertLead('${l.id}','${l.email||''}');closeSheet('lead-sheet');">Mark Converted + Stop Emails</button>`;
+  openSheet('lead-sheet');
+}
+
+function openStatusSheet(id) { activeLead = id; openSheet('status-sheet'); }
+
+async function setStatus(st) {
+  closeAllSheets(); if(!activeLead) return;
+  try {
+    const r = await fetch(`${API}/hq/lead-status`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lead_id:activeLead,status:st,operator_id:currentOp})});
+    const d = await r.json(); if(!d.success) throw new Error();
+    showToast('Lead → '+st,'ok'); await loadAll(false);
+  } catch { showToast('Update failed','err'); }
+}
+
+async function convertLead(id, email) {
+  activeLead = id; await setStatus('converted');
+  if(email) await fetch(`${API}/onboarding/convert`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:currentOp,contact_email:email})}).catch(()=>{});
+}
+
+// ── CLIENTS ──
+function renderClients() {
+  const clients = D.clients||[];
+  const el = document.getElementById('clients-list');
+  if(!clients.length) { el.innerHTML='<div class="empty-state">No active clients</div>'; return; }
+  el.innerHTML = clients.map(c => {
+    const name = `${c.first_name||''} ${c.last_name||''}`.trim();
+    const ini = name.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2);
+    return `
+    <div class="card">
+      <div class="card-header" onclick="openClientDetail('${c.id}')">
+        <div style="display:flex;align-items:center;gap:11px;flex:1;">
+          <div class="avatar">${ini}</div>
+          <div><div class="card-name">${name}</div><div class="card-sub">${c.email||c.portal_slug||'—'}</div><div class="card-meta">Since ${fmtd(c.created_at)}</div></div>
+        </div>
+        <span class="badge b-active">Active</span>
+      </div>
+      <div class="card-actions">
+        <div class="card-act" onclick="genInvoice('${name}','${c.email||''}','${c.assigned_psw||''}',${c.client_rate||22},${c.psw_rate||19})">Invoice</div>
+        <div class="card-act" onclick="openClientDetail('${c.id}')">View</div>
+        <div class="card-act ok" onclick="triggerOnboardClient('${c.portal_slug||''}')">Welcome</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openClientDetail(id) {
+  const c = (D.clients||[]).find(x=>x.id===id); if(!c) return;
+  const name = `${c.first_name||''} ${c.last_name||''}`.trim();
+  const slug = c.portal_slug || '';
+  document.getElementById('client-sheet-title').textContent = name;
+  document.getElementById('client-sheet-body').innerHTML = `
+    <div class="cpf"><div class="cpf-lbl">Email</div><div class="cpf-val">${c.email?`<a href="mailto:${c.email}">${c.email}</a>`:'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Portal</div><div class="cpf-val">${slug||'—'} · PIN ${c.portal_pin||'—'}</div></div>
+    <div class="cpf"><div class="cpf-lbl">Status</div><div class="cpf-val"><span class="badge b-active">Active</span></div></div>
+    <div class="cpf"><div class="cpf-lbl">Started</div><div class="cpf-val">${fmtd(c.created_at)}</div></div>
+    <div style="margin-top:16px;font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal2);margin-bottom:10px;">Care Plan</div>
+    <div class="sheet-row"><div class="slbl">Summary</div><textarea class="sinput" id="cp-summary" rows="3" style="min-height:80px;resize:none;" placeholder="Overview of care needs..."></textarea></div>
+    <div class="sheet-row"><div class="slbl">Goals</div><textarea class="sinput" id="cp-goals" rows="2" style="min-height:60px;resize:none;" placeholder="Client goals and priorities..."></textarea></div>
+    <div class="sheet-row"><div class="slbl">Daily Routine</div><textarea class="sinput" id="cp-routine" rows="3" style="min-height:80px;resize:none;" placeholder="Morning routine, meal times, sleep schedule..."></textarea></div>
+    <div class="sheet-row"><div class="slbl">Preferences and Notes</div><textarea class="sinput" id="cp-prefs" rows="2" style="min-height:60px;resize:none;" placeholder="Likes, dislikes, communication preferences..."></textarea></div>
+    <button class="sbtn" style="margin-top:4px;" onclick="saveCarePlan('${id}','${slug}','${name}')">Save Care Plan</button>
+    <button class="sbtn" style="margin-top:8px;" onclick="genInvoice('${name}','${c.email||''}','${c.assigned_psw||''}',${c.client_rate||22},${c.psw_rate||19});closeSheet('client-sheet');">Generate This Month's Invoice</button>
+    <button class="sbtn ghost" style="margin-top:8px;" onclick="triggerOnboardClient('${slug}');closeSheet('client-sheet');">Resend Welcome Email</button>`;
+  loadCarePlan(slug);
+  openSheet('client-sheet');
+}
+
+async function loadCarePlan(slug) {
+  if (!slug) return;
+  try {
+    const res = await fetch(`${API}/family/portal/${slug}`);
+    const d = await res.json();
+    if (d.care_plan) {
+      const cp = d.care_plan;
+      const setSafe = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
+      setSafe('cp-summary', cp.summary);
+      setSafe('cp-goals', cp.goals);
+      setSafe('cp-routine', cp.daily_routine);
+      setSafe('cp-prefs', cp.preferences);
+    }
+  } catch { /* care plan may not exist yet */ }
+}
+
+async function saveCarePlan(clientId, slug, clientName) {
+  const summary = (document.getElementById('cp-summary')||{}).value || '';
+  const goals = (document.getElementById('cp-goals')||{}).value || '';
+  const daily_routine = (document.getElementById('cp-routine')||{}).value || '';
+  const preferences = (document.getElementById('cp-prefs')||{}).value || '';
+  try {
+    const res = await fetch(`${API}/client/care-plan`, {
+      method:'PATCH', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ operator_id: currentOp, client_slug: slug, client_name: clientName, summary, goals, daily_routine, preferences })
+    });
+    const d = await res.json();
+    if (!d.success) throw new Error(d.error);
+    showToast('Care plan saved','ok');
+  } catch(err) { showToast(err.message||'Save failed','err'); }
+}
+
+async function genInvoice(clientName, clientEmail, pswName, clientRate, pswRate) {
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const now=new Date();
+  if(!pswName) { showToast('No PSW assigned to this client','err'); return; }
+  showToast('Generating invoice...','ok');
+  try {
+    const r = await fetch(`${API}/invoice/generate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_name:clientName,client_email:clientEmail,psw_name:pswName,month:months[now.getMonth()],year:now.getFullYear(),client_rate:clientRate||22,psw_rate:pswRate||19})});
+    const d = await r.json();
+    if(d.error) throw new Error(d.error);
+    showToast('Invoice sent ✓','ok');
+  } catch(err) { showToast(err.message||'Invoice failed','err'); }
+}
+
+async function triggerOnboardClient(slug) {
+  if(!slug) { showToast('No slug — add client to Supabase first','err'); return; }
+  try {
+    const r = await fetch(`${API}/client/onboard`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slug})});
+    const d = await r.json();
+    if(!d.success) throw new Error(d.error);
+    showToast('Welcome email sent ✓','ok');
+  } catch(err) { showToast(err.message||'Failed','err'); }
+}
+
+// ══════════════════════════════════════════════════════════════
+// ONBOARD TAB — PSW activation + Full client onboarding
+// ══════════════════════════════════════════════════════════════
+
+function genPIN() { return String(Math.floor(1000 + Math.random() * 9000)); }
+
+function regenPIN(id) {
+  const el = document.getElementById(id);
+  if(el) el.textContent = genPIN();
+}
+
+function autoSlug() {
+  const name = document.getElementById('co-name').value.trim();
+  const slugField = document.getElementById('co-slug');
+  if(!name) { slugField.value = ''; return; }
+  const parts = name.toLowerCase().split(/\s+/);
+  let slug = parts.length >= 2 ? parts[parts.length-1].charAt(0) + parts[0] : parts[0];
+  slugField.value = slug.replace(/[^a-z0-9]/g,'');
+}
+
+function onPSWSelect() {
+  const name = document.getElementById('pa-name').value;
+  const emailField = document.getElementById('pa-email');
+  const phoneField = document.getElementById('pa-phone');
+  const newNameRow = document.getElementById('pa-newname-row');
+  const newNameField = document.getElementById('pa-newname');
+  const btn = document.getElementById('pa-btn');
+
+  if(name === '__NEW__') {
+    // Show the new-PSW name input, clear email/phone, await user typing
+    newNameRow.style.display = '';
+    if(newNameField) newNameField.focus();
+    emailField.value = '';
+    phoneField.value = '';
+    btn.disabled = true;
+    return;
+  }
+
+  // Hide the new-PSW input (in case user changed back)
+  newNameRow.style.display = 'none';
+  if(newNameField) newNameField.value = '';
+
+  if(!name) { emailField.value = ''; phoneField.value = ''; btn.disabled = true; return; }
+
+  // Lookup live PSW data (preferred) or fall back to roster email map
+  const merged = getMergedPSWList();
+  const found = merged.find(p => p.name === name);
+  if(found) {
+    if(found.email) emailField.value = found.email;
+    else emailField.value = '';
+    if(found.phone) phoneField.value = found.phone;
+    else phoneField.value = '';
+  }
+  btn.disabled = false;
+}
+
+function onNewPSWNameInput() {
+  const newName = document.getElementById('pa-newname').value.trim();
+  document.getElementById('pa-btn').disabled = !newName;
+}
+
+function getMergedPSWList() {
+  // Live PSWs from Supabase have priority. Static PSWS roster is fallback for ones not yet activated.
+  const live = (D && D.psws) ? D.psws : [];
+  const liveNames = new Set(live.map(p => p.full_name));
+  const merged = [];
+  // Add live PSWs first (with their actual data)
+  live.forEach(p => merged.push({ name: p.full_name, email: p.email || '', phone: p.phone || '', source: 'live' }));
+  // Add roster PSWs that haven't been activated yet
+  PSWS.forEach(name => {
+    if(!liveNames.has(name)) {
+      merged.push({ name, email: PSW_EMAILS[name] || '', phone: '', source: 'roster' });
+    }
+  });
+  // Sort alphabetically
+  merged.sort((a, b) => a.name.localeCompare(b.name));
+  return merged;
+}
+
+function populateOnboardSelects() {
+  const paSelect = document.getElementById('pa-name');
+  const coSelect = document.getElementById('co-psw');
+  if(!paSelect || !coSelect) return;
+
+  // Clear existing options each render so the list stays in sync with D.psws
+  paSelect.innerHTML = '<option value="">Select PSW</option><option value="__NEW__">+ Add New PSW</option>';
+  coSelect.innerHTML = '<option value="">Select PSW</option>';
+
+  const merged = getMergedPSWList();
+  merged.forEach(p => {
+    const opt1 = document.createElement('option');
+    opt1.value = p.name; opt1.textContent = p.name;
+    paSelect.appendChild(opt1);
+    const opt2 = document.createElement('option');
+    opt2.value = p.name; opt2.textContent = p.name;
+    coSelect.appendChild(opt2);
+  });
+
+  if(document.getElementById('pa-pin').textContent === '0000') regenPIN('pa-pin');
+  if(document.getElementById('co-pin').textContent === '0000') regenPIN('co-pin');
+  const startField = document.getElementById('co-start');
+  if(startField && !startField.value) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth()+1).padStart(2,'0');
+    const dd = String(today.getDate()).padStart(2,'0');
+    startField.value = yyyy+'-'+mm+'-'+dd;
+  }
+}
+
+async function activatePSW() {
+  const selectedValue = document.getElementById('pa-name').value;
+  const newName = document.getElementById('pa-newname').value.trim();
+  // Resolve actual PSW name — if "+ Add New PSW" picked, use the typed name
+  const name = (selectedValue === '__NEW__') ? newName : selectedValue;
+  const email = document.getElementById('pa-email').value.trim();
+  const phone = document.getElementById('pa-phone').value.trim();
+  const pin = document.getElementById('pa-pin').textContent;
+  if(!name) { showToast(selectedValue === '__NEW__' ? 'Enter the new PSW full name' : 'Select a PSW','err'); return; }
+  if(!email) { showToast('Enter PSW email','err'); return; }
+  const btn = document.getElementById('pa-btn');
+  btn.disabled = true; btn.textContent = 'Activating...';
+  try {
+    const r = await fetch(`${API}/psw/activate`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        operator_id: currentOp,
+        psw_name: name, psw_email: email, psw_phone: phone, psw_pin: pin
+      })
+    });
+    if(!r.ok) {
+      const e = await r.json().catch(()=>({}));
+      throw new Error(e.error || 'Activation failed');
+    }
+    showToast(name+' activated ✓','ok');
+    document.getElementById('pa-name').value = '';
+    document.getElementById('pa-newname').value = '';
+    document.getElementById('pa-newname-row').style.display = 'none';
+    document.getElementById('pa-email').value = '';
+    document.getElementById('pa-phone').value = '';
+    regenPIN('pa-pin');
+    await loadAll(false);
+    // Repopulate dropdowns so the newly-activated PSW shows up immediately
+    populateOnboardSelects();
+  } catch(e) {
+    showToast(e.message || 'Failed','err');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Activate PSW + Send Welcome Email';
+  onPSWSelect();
+}
+
+async function onboardClientFull() {
+  const name = document.getElementById('co-name').value.trim();
+  const slug = document.getElementById('co-slug').value.trim();
+  const familyEmail = document.getElementById('co-family-email').value.trim();
+  const familyContactName = document.getElementById('co-family-name').value.trim();
+  const pin = document.getElementById('co-pin').textContent;
+  const psw = document.getElementById('co-psw').value;
+  const clientRate = parseFloat(document.getElementById('co-client-rate').value) || 22;
+  const pswRate = parseFloat(document.getElementById('co-psw-rate').value) || 19;
+  const startDate = document.getElementById('co-start').value;
+  const notes = document.getElementById('co-notes').value.trim();
+  if(!name) { showToast('Enter client name','err'); return; }
+  if(!slug) { showToast('Slug is required','err'); return; }
+  if(!familyEmail) { showToast('Enter family email','err'); return; }
+  const btn = document.getElementById('co-btn');
+  btn.disabled = true; btn.textContent = 'Onboarding...';
+  try {
+    const r = await fetch(`${API}/client/onboard`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        operator_id: currentOp,
+        client_name: name, slug: slug, portal_pin: pin, family_email: familyEmail,
+        family_contact_name: familyContactName || null,
+        assigned_psw: psw, client_rate: clientRate, psw_rate: pswRate,
+        start_date: startDate, care_notes: notes
+      })
+    });
+    if(!r.ok) {
+      const e = await r.json().catch(()=>({}));
+      throw new Error(e.error || 'Onboarding failed');
+    }
+    showToast(name+' onboarded ✓','ok');
+    ['co-name','co-slug','co-family-email','co-family-name','co-psw','co-client-rate','co-psw-rate','co-notes'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.value = '';
+    });
+    regenPIN('co-pin');
+    await loadAll(false);
+  } catch(e) {
+    showToast(e.message || 'Failed','err');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Onboard Client + Send Welcome Emails';
+}
+
+// ── PSWs ──
+function renderPSWs() {
+  const el = document.getElementById('psws-list');
+  const merged = getMergedPSWList();
+  el.innerHTML = merged.map(p => {
+    const ini = p.name.split(' ').map(w=>w[0]).join('').toUpperCase();
+    const email = p.email || null;
+    const statusBadge = p.source === 'live' ? '<span class="badge b-active">Active</span>' : '<span class="badge b-pending">Not activated</span>';
+    return `
+    <div class="card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:11px;flex:1;">
+          <div class="avatar">${ini}</div>
+          <div><div class="card-name">${p.name}</div><div class="card-sub">${email||'No email on file'}</div></div>
+        </div>
+        ${statusBadge}
+      </div>
+      <div class="card-actions">
+        ${email?`<div class="card-act call" onclick="window.location.href='mailto:${email}'">Email</div>`:''}
+        <div class="card-act" onclick="openPSWMsg('${p.name}')">Message</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function openPSWMsg(name) {
+  activePSW = name;
+  document.getElementById('psw-msg-title').textContent = 'Message — '+name;
+  document.getElementById('psw-msg-body').innerHTML = '<div class="empty-state" style="padding:16px;">Loading...</div>';
+  openSheet('psw-msg-sheet');
+  try {
+    const r = await fetch(`${API}/psw/notes/${encodeURIComponent(name)}?pin=hq-operator-bypass-2026`);
+    const d = await r.json();
+    const notes = d.notes||[];
+    if(!notes.length) { document.getElementById('psw-msg-body').innerHTML='<div class="empty-state" style="padding:16px;">No messages yet</div>'; return; }
+    document.getElementById('psw-msg-body').innerHTML = notes.map(n=>`
+      <div class="msg-bubble ${n.sender==='lance'?'msg-lance':'msg-psw'}">
+        <div style="font-size:13px;line-height:1.5;">${n.message}</div>
+        <div class="msg-time">${ago(n.created_at)}</div>
+      </div>`).join('');
+    const b=document.getElementById('psw-msg-body'); b.scrollTop=b.scrollHeight;
+  } catch { document.getElementById('psw-msg-body').innerHTML='<div class="empty-state">Could not load</div>'; }
+}
+
+async function sendPSWMsg() {
+  const msg = document.getElementById('psw-msg-input').value.trim();
+  if(!msg||!activePSW) return;
+  try {
+    const r = await fetch(`${API}/psw/note`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({psw_name:activePSW,sender:'lance',message:msg})});
+    const d = await r.json(); if(!d.success) throw new Error();
+    document.getElementById('psw-msg-input').value='';
+    showToast('Sent ✓','ok'); await openPSWMsg(activePSW);
+  } catch { showToast('Send failed','err'); }
+}
+
+// ── BOOKINGS ──
+function renderBookings() {
+  renderCal();
+  const bookings = D.bookings||[];
+  const el = document.getElementById('bookings-list');
+  if(!bookings.length) { el.innerHTML='<div class="empty-state">No upcoming appointments</div>'; return; }
+  el.innerHTML = bookings.map(b=>`
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-name">${b.client_name}</div>
+          <div class="card-sub">${b.booking_type}${b.assigned_to?' · '+b.assigned_to:''}</div>
+          <div class="card-meta">${b.location||''}</div>
+        </div>
+        <div class="card-right">
+          <span class="badge b-${b.status||'scheduled'}">${b.status||'scheduled'}</span>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--teal2);">${fmtd(b.scheduled_date)}</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">${b.scheduled_time||''}</div>
+        </div>
+      </div>
+      ${b.client_phone?`<div class="card-actions"><div class="card-act call" onclick="window.location.href='tel:${b.client_phone}'">Call</div><div class="card-act" onclick="window.location.href='sms:${b.client_phone}'">Text</div></div>`:''}
+    </div>`).join('');
+}
+
+function renderCal() {
+  const strip = document.getElementById('cal-strip');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const bdates = new Set((D.bookings||[]).map(b=>b.scheduled_date));
+  let html='';
+  for(let i=0;i<14;i++) {
+    const d=new Date(today); d.setDate(today.getDate()+i);
+    const iso=d.toISOString().split('T')[0];
+    const dow=['Su','Mo','Tu','We','Th','Fr','Sa'][d.getDay()];
+    html+=`<div class="cal-day${i===0?' today':''}${bdates.has(iso)?' has-b':''}">
+      <div class="cal-dow">${dow}</div><div class="cal-num">${d.getDate()}</div>
+      ${bdates.has(iso)?'<div class="cal-dot"></div>':''}
+    </div>`;
+  }
+  strip.innerHTML=html;
+}
+
+async function submitBooking() {
+  const name=document.getElementById('bf-name').value.trim();
+  const date=document.getElementById('bf-date').value;
+  const time=document.getElementById('bf-time').value.trim();
+  const type=document.getElementById('bf-type').value;
+  if(!name||!date||!time) { showToast('Name, date and time required','err'); return; }
+  try {
+    const r=await fetch(`${API}/hq/booking`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:currentOp,client_name:name,client_email:document.getElementById('bf-email').value.trim(),client_phone:document.getElementById('bf-phone').value.trim(),booking_type:type,scheduled_date:date,scheduled_time:time,assigned_to:document.getElementById('bf-assigned').value.trim(),location:document.getElementById('bf-location').value.trim()})});
+    const d=await r.json(); if(!d.success) throw new Error(d.error);
+    showToast('Appointment booked ✓','ok'); closeAllSheets();
+    ['bf-name','bf-email','bf-phone','bf-date','bf-time','bf-assigned','bf-location'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+    await loadAll(false);
+  } catch(err) { showToast(err.message||'Booking failed','err'); }
+}
+
+// ── PURCHASES ──
+function renderPurchases() {
+  const purchases = D.purchases||[];
+  const el = document.getElementById('purchases-list');
+  if(!purchases.length) { el.innerHTML='<div class="empty-state">No purchases yet</div>'; return; }
+  el.innerHTML = purchases.map(p=>`
+    <div class="card">
+      <div class="card-header">
+        <div style="flex:1;min-width:0;">
+          <div class="card-name">${p.product_name}</div>
+          <div class="card-sub">${p.buyer_name||p.buyer_email||'—'}</div>
+          <div class="card-meta">${p.buyer_email||''}</div>
+        </div>
+        <div class="card-right">
+          <span class="badge b-${p.product_label||'other'}">${p.product_label||'other'}</span>
+          ${p.amount_usd?`<div style="font-family:var(--mono);font-size:14px;color:var(--gold);">$${parseFloat(p.amount_usd).toFixed(2)}</div>`:''}
+          <div class="card-age">${ago(p.purchased_at||p.created_at)}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+async function submitManualPurchase() {
+  const email=document.getElementById('mp-email').value.trim();
+  const product=document.getElementById('mp-product').value.trim();
+  if(!email||!product) { showToast('Email and product required','err'); return; }
+  try {
+    const r=await fetch(`${API}/webhook/purchase`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:currentOp,buyer_email:email,buyer_name:document.getElementById('mp-name').value.trim(),product_name:product,product_label:document.getElementById('mp-label').value,amount_usd:parseFloat(document.getElementById('mp-amount').value||0),source:'manual'})});
+    const d=await r.json(); if(!d.success) throw new Error(d.error);
+    showToast('Sale logged ✓','ok'); closeAllSheets();
+    ['mp-email','mp-name','mp-product','mp-amount'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+    await loadAll(false);
+  } catch(err) { showToast(err.message||'Failed','err'); }
+}
+
+// ── MESSAGES ──
+function renderMessages() {
+  const msgs = D.messages||[];
+  const el = document.getElementById('messages-list');
+  if(!msgs.length) { el.innerHTML='<div class="empty-state">No messages yet</div>'; return; }
+  el.innerHTML = msgs.map(m=>{
+    const payload=m.payload||{};
+    return `<div class="card">
+      <div class="card-header">
+        <div style="flex:1;min-width:0;">
+          <div class="card-name">${m.contact_name||'Family'}</div>
+          <div class="card-sub" style="margin-top:6px;font-size:13px;color:var(--muted2);line-height:1.5;">${payload.message||m.contact_email||'—'}</div>
+        </div>
+        <div class="card-age">${ago(m.created_at)}</div>
+      </div>
+      ${m.contact_email?`<div class="card-actions"><div class="card-act call" onclick="window.location.href='mailto:${m.contact_email}'">Reply</div></div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ── VISITS ──
+let visitMonthOffset = 0;
+
+function setVisitMonth(offset) {
+  visitMonthOffset = offset;
+  ['prev','curr','next'].forEach((k,i) => {
+    const el = document.getElementById('mv-'+k);
+    const isActive = (i-1) === offset;
+    el.style.borderColor = isActive ? 'var(--teal2)' : 'var(--border)';
+    el.style.color = isActive ? 'var(--teal2)' : 'var(--muted2)';
+  });
+  renderVisits();
+}
+
+async function renderVisits() {
+  const el = document.getElementById('visits-list');
+  el.innerHTML = '<div class="empty-state">Loading visits...</div>';
+  try {
+    const now = new Date();
+    const target = new Date(now.getFullYear(), now.getMonth() + visitMonthOffset, 1);
+    const year = target.getFullYear();
+    const month = target.getMonth() + 1;
+    const res = await fetch(`${API}/hq/visits?operator_id=${currentOp}&limit=100`);
+    const d = await res.json();
+    if (!d.visits) throw new Error('Failed');
+
+    // Filter by selected month
+    const allVisits = d.visits || [];
+    const visits = allVisits.filter(v => {
+      if (!v.visit_date) return false;
+      const vd = new Date(v.visit_date + 'T12:00:00');
+      return vd.getFullYear() === year && (vd.getMonth()+1) === month;
+    });
+
+    // Monthly totals
+    const totalHours = visits.reduce((sum,v) => sum + parseFloat(v.hours_worked||0), 0);
+    const uniquePSWs = [...new Set(visits.map(v=>v.psw_name))].length;
+    document.getElementById('vmt-count').textContent = visits.length;
+    document.getElementById('vmt-hours').textContent = totalHours.toFixed(1)+'h';
+    document.getElementById('vmt-psws').textContent = uniquePSWs;
+
+    if (!visits.length) { el.innerHTML = '<div class="empty-state">No visits this period</div>'; return; }
+
+    el.innerHTML = visits.map((v, i) => {
+      const tasks = Array.isArray(v.tasks_completed) ? v.tasks_completed.join(', ') : (v.tasks_completed || '');
+      const mood = v.client_mood || '';
+      const vid = 'v'+i;
+      return `
+      <div class="card">
+        <div class="card-header" onclick="toggleVisit('${vid}')" style="cursor:pointer;">
+          <div style="flex:1;min-width:0;">
+            <div class="card-name">${v.psw_name||'—'}</div>
+            <div class="card-sub">${v.client_name||'—'} · ${v.time_in||''} ${v.time_out?'to '+v.time_out:''}</div>
+            <div class="card-meta">${tasks ? tasks.slice(0,60)+(tasks.length>60?'...':'') : 'No tasks logged'}</div>
+            ${v.incident_reported?`<div style="font-size:11px;color:var(--red);margin-top:4px;">Incident reported</div>`:''}
+          </div>
+          <div class="card-right">
+            <div style="font-family:var(--mono);font-size:11px;color:var(--teal2);">${fmtd(v.visit_date)}</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--gold);">${v.hours_worked||0}h</div>
+            ${mood?`<div style="font-family:var(--mono);font-size:10px;color:var(--muted2);">${mood}</div>`:''}
+            <div style="font-size:10px;color:var(--muted);" id="chev-${vid}">+</div>
+          </div>
+        </div>
+        <div id="${vid}" style="display:none;padding:14px 16px;border-top:1px solid var(--border);font-size:12px;line-height:1.8;">
+          ${tasks?`<div style="margin-bottom:10px;"><div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Tasks Completed</div><div style="color:var(--muted2);">${tasks}</div></div>`:''}
+          ${mood?`<div style="margin-bottom:10px;"><div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Client Mood</div><div style="color:var(--text);">${mood}</div></div>`:''}
+          ${v.visit_summary?`<div style="margin-bottom:10px;"><div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Care Summary</div><div style="color:var(--muted2);">${v.visit_summary}</div></div>`:''}
+          ${v.incident_notes?`<div style="margin-bottom:10px;"><div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Incident Notes</div><div style="color:var(--text);">${v.incident_notes}</div></div>`:''}
+          ${v.notes?`<div style="margin-bottom:10px;"><div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Notes</div><div style="color:var(--muted2);">${v.notes}</div></div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  } catch (err) {
+    el.innerHTML = '<div class="empty-state">Could not load visits</div>';
+  }
+}
+
+function toggleVisit(id) {
+  const el = document.getElementById(id);
+  const chev = document.getElementById('chev-'+id);
+  if (!el) return;
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  if (chev) chev.textContent = open ? '+' : '−';
+}
+
+// ── ACTIVITY ──
+function renderActivity() {
+  const logs=D.recent_activity||[];
+  const el=document.getElementById('activity-list');
+  if(!logs.length) { el.innerHTML='<div class="empty-state">No activity yet</div>'; return; }
+  const icons={email_sent:'EML',webhook_received:'WBH',booking_created:'BKG',purchase:'SAL',psw_message:'MSG',family_message:'FAM',visit_log:'VIS'};
+  el.innerHTML=logs.map(l=>{
+    const icon=icons[l.event_type]||'ACT';
+    const cls=l.status==='error'?'li-err':l.status==='skipped'?'li-info':'li-ok';
+    return `<div class="log-row">
+      <div class="log-icon ${cls}">${icon}</div>
+      <div class="log-info-t">
+        <div class="log-ev">${(l.event_type||'').replace(/_/g,' ')}${l.event_source?' · '+l.event_source:''}</div>
+        <div class="log-ct">${l.contact_name||l.contact_email||'—'}</div>
+      </div>
+      <div class="log-tm">${ago(l.created_at)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── FOLLOW-UP / SEQUENCES ──
+async function triggerFollowUp() {
+  showToast('Running follow-up engine...','ok');
+  try {
+    const r=await fetch(`${API}/followup/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    const d=await r.json();
+    showToast(d.success?'Follow-up engine done ✓':'Failed','ok');
+    await loadAll(false);
+  } catch { showToast('Follow-up failed','err'); }
+}
+
+async function triggerSequences() {
+  showToast('Running sequences...','ok');
+  try {
+    await Promise.all([
+      fetch(`${API}/onboarding/run-leads`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}),
+      fetch(`${API}/onboarding/run-clients`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+    ]);
+    showToast('Sequences done ✓','ok');
+    await loadAll(false);
+  } catch { showToast('Sequences failed','err'); }
+}
+
+// ── NAV ──
+function showSect(name) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
+  const s=document.getElementById('sect-'+name); if(s) s.classList.add('active');
+  const tabs=document.querySelectorAll('.nav-tab');
+  const tm=['leads','clients','psws','onboard','bookings','purchases','messages','visits','activity','crm','applicants','schedule','operator'];
+  const ti=tm.indexOf(name); if(ti>=0&&tabs[ti]) tabs[ti].classList.add('active');
+  const bm=['leads','clients','bookings','purchases','activity'];
+  const bi=bm.indexOf(name);
+  const bnavs=document.querySelectorAll('.bnav-item');
+  if(bi>=0&&bnavs[bi]) bnavs[bi].classList.add('active');
+  if(name==='onboard') populateOnboardSelects();
+  if(name==='crm') renderCRM();
+  if(name==='applicants') loadApplicants();
+  if(name==='schedule') renderSchedule();
+  window.scrollTo(0,0);
+}
+
+// ── SHEETS ──
+function openSheet(id) {
+  document.getElementById('sheet-overlay').classList.add('open');
+  document.getElementById(id).classList.add('open');
+}
+function closeSheet(id) {
+  document.getElementById(id).classList.remove('open');
+  if(!document.querySelectorAll('.sheet.open').length) document.getElementById('sheet-overlay').classList.remove('open');
+}
+function closeAllSheets() {
+  document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('open'));
+  document.getElementById('sheet-overlay').classList.remove('open');
+}
+
+// ── HELPERS ──
+function ago(str) {
+  if(!str) return '—';
+  const d=(Date.now()-new Date(str))/1000;
+  if(d<60) return 'just now';
+  if(d<3600) return Math.floor(d/60)+'m ago';
+  if(d<86400) return Math.floor(d/3600)+'h ago';
+  if(d<604800) return Math.floor(d/86400)+'d ago';
+  return fmtd(str);
+}
+function fmtd(str) {
+  if(!str) return '—';
+  const d=new Date(str.includes('T')?str:str+'T12:00:00');
+  return d.toLocaleDateString('en-CA',{month:'short',day:'numeric'});
+}
+function fmtdt(str) {
+  if(!str) return '—';
+  const d=new Date(str);
+  return d.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+function showToast(msg,type='ok') {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show '+type;
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── CRM ──
+const CRM_STAGES = ['cold','contacted','demo','call','closed'];
+const CRM_STATUS_MAP = {
+  'new':'cold','cold':'cold','contacted':'contacted',
+  'demo':'demo','call':'call','closed':'closed','converted':'closed','dead':'closed'
+};
+const CRM_STAGE_LABELS = {cold:'Cold',contacted:'Contacted',demo:'Demo',call:'Call',closed:'Closed'};
+
+// Known pipeline — pre-seed if not in Supabase leads yet
+const CRM_SEED = [
+  {id:'holger-seed',first_name:'Holger',last_name:'Fischer',care_needed_for:'Always Best Care KW',city:'Kitchener',phone:'519-900-3303',email:'hfischer@abc-seniors.com',status:'contacted',source:'outreach',created_at:new Date(Date.now()-3*86400000).toISOString(),notes:'Called May 5, said no to $3K. Sent $0/mo until first client offer May 6. Awaiting reply.'},
+  {id:'jennifer-seed',first_name:'Jennifer',last_name:'Crowley',care_needed_for:'LCM Experts',city:'Remote',phone:'(406) 212-0620',email:'jennifer@thelifecareexperts.com',status:'call',source:'outreach',created_at:new Date(Date.now()-14*86400000).toISOString(),notes:'Said stand by. Do not chase. Hormozi rule.'},
+  {id:'sajid-seed',first_name:'Sajid',last_name:'Virani',care_needed_for:'NND Richmond South',city:'Richmond BC',phone:'',email:'',status:'cold',source:'outreach',created_at:new Date(Date.now()-7*86400000).toISOString(),notes:'Actuary. Franchise angle 400+ NND. Lead with care — grandfather has brain cancer.'},
+  {id:'douglas-seed',first_name:'Douglas',last_name:'Brown',care_needed_for:'Manage2Retain',city:'Waterloo ON',phone:'',email:'',status:'cold',source:'outreach',created_at:new Date(Date.now()-10*86400000).toISOString(),notes:'Waiting.'},
+  {id:'nancy-seed',first_name:'Nancy',last_name:'Dahdah',care_needed_for:'Ideal Caregivers 4U',city:'Ottawa / Mississauga',phone:'',email:'',status:'cold',source:'outreach',created_at:new Date(Date.now()-5*86400000).toISOString(),notes:'DM not sent yet.'},
+  {id:'matt-seed',first_name:'Matt',last_name:'Field',care_needed_for:'Right at Home Chicago',city:'Chicago IL',phone:'',email:'',status:'cold',source:'outreach',created_at:new Date(Date.now()-2*86400000).toISOString(),notes:'Multi-location. Former rabbi. Mission-led. Not yet contacted.'},
+];
+
+function renderCRM() {
+  // Merge Supabase operator leads with seed pipeline
+  const supaLeads = (D.leads||[]).filter(l => l.lead_type === 'operator' || l.operator_id === 'proximity-systems');
+  const supaIds = new Set(supaLeads.map(l => l.id));
+  const seeds = CRM_SEED.filter(s => !supaLeads.some(l =>
+    l.email && s.email && l.email.toLowerCase() === s.email.toLowerCase()
+  ));
+  const all = [...supaLeads, ...seeds];
+
+  // Group by stage
+  const cols = {cold:[],contacted:[],demo:[],call:[],closed:[]};
+  all.forEach(l => {
+    const stage = CRM_STATUS_MAP[l.status||'new'] || 'cold';
+    cols[stage].push(l);
+  });
+
+  // Update badge count
+  const total = all.length;
+  const badge = document.getElementById('crm-badge');
+  if(badge) badge.textContent = total;
+
+  // Render each column
+  CRM_STAGES.forEach(stage => {
+    const el = document.getElementById('crm-'+stage);
+    const countEl = document.getElementById('crm-count-'+stage);
+    if(!el) return;
+    const items = cols[stage];
+    if(countEl) countEl.textContent = items.length;
+    if(!items.length) { el.innerHTML = '<div class="crm-empty">Empty</div>'; return; }
+    el.innerHTML = items.map(l => {
+      const name = [l.first_name,l.last_name].filter(Boolean).join(' ') || 'Unknown';
+      const agency = l.care_needed_for || l.agency_name || '—';
+      const city = l.city || '';
+      const date = ago(l.created_at);
+      const isSeed = (l.id||'').includes('-seed');
+      const stages = CRM_STAGES;
+      const si = stages.indexOf(stage);
+      const canBack = si > 0;
+      const canFwd = si < stages.length - 1;
+      const demoSlug = (agency.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+      return `<div class="crm-card${stage==='closed'?' closed':''}">
+        <div class="crm-card-name">${name}</div>
+        <div class="crm-card-agency">${agency}${city?' · '+city:''}</div>
+        <div class="crm-card-meta">${date}${l.source?' · '+l.source:''}</div>
+        ${l.notes?`<div style="font-size:9px;color:var(--muted);margin-bottom:6px;line-height:1.4;">${l.notes.slice(0,80)}${l.notes.length>80?'...':''}</div>`:''}
+        <div class="crm-card-acts">
+          ${l.phone?`<a href="tel:${l.phone}" class="crm-card-btn call" onclick="event.stopPropagation()">📞 Call</a>`:''}
+          ${l.email?`<a href="mailto:${l.email}" class="crm-card-btn demo" onclick="event.stopPropagation()">✉ Email</a>`:''}
+          <a href="https://proximitysystems.ca/${demoSlug}-premium.html" target="_blank" class="crm-card-btn demo" onclick="event.stopPropagation()">Demo</a>
+          ${canFwd?`<button class="crm-card-btn move" onclick="crmMove('${l.id}','${isSeed?'seed':'db'}','${stages[si+1]}',event)">→ ${CRM_STAGE_LABELS[stages[si+1]]}</button>`:''}
+          ${canBack?`<button class="crm-card-btn" onclick="crmMove('${l.id}','${isSeed?'seed':'db'}','${stages[si-1]}',event)" style="font-size:8px;opacity:.5;">← Back</button>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  });
+}
+
+async function crmMove(id, type, newStage, e) {
+  if(e) e.stopPropagation();
+  if(type === 'seed') {
+    // Update seed in memory
+    const seed = CRM_SEED.find(s => s.id === id);
+    if(seed) seed.status = newStage;
+    renderCRM();
+    showToast('Moved to '+CRM_STAGE_LABELS[newStage],'ok');
+    return;
+  }
+  // Update Supabase via Railway
+  try {
+    const res = await fetch(`${API}/hq/lead-status`, {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({id, status: newStage, operator_id: currentOp})
+    });
+    if(!res.ok) throw new Error();
+    const lead = (D.leads||[]).find(l => l.id === id);
+    if(lead) lead.status = newStage;
+    renderCRM();
+    showToast('Moved to '+CRM_STAGE_LABELS[newStage],'ok');
+  } catch { showToast('Update failed','err'); }
+}
+
+// ── CREATE OPERATOR ──
+async function createOperator() {
+  const agency = document.getElementById('op-agency').value.trim();
+  const owner = document.getElementById('op-owner').value.trim();
+  const email = document.getElementById('op-email').value.trim();
+  const phone = document.getElementById('op-phone').value.trim();
+  const city = document.getElementById('op-city').value.trim();
+  const tier = document.getElementById('op-tier').value;
+  const opId = document.getElementById('op-id').value.trim();
+  const color = document.getElementById('op-color').value.trim();
+  const notes = document.getElementById('op-notes').value.trim();
+
+  if(!agency||!owner||!email) { showToast('Name, owner, and email required','err'); return; }
+
+  const btn = document.getElementById('op-create-btn');
+  btn.disabled = true; btn.textContent = 'Creating...';
+
+  try {
+    const res = await fetch(`${API}/operator/create`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        operator_id: opId || agency.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
+        agency_name: agency,
+        owner_name: owner,
+        owner_email: email,
+        owner_phone: phone,
+        territory: city,
+        brand_primary: color || '#3d7a8a',
+        tier: tier,
+        notes: notes,
+        created_by: 'hq'
+      })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.success) throw new Error(data.error||'Failed');
+    document.getElementById('op-result').style.display = 'block';
+    document.getElementById('op-result').textContent = 'Agency created. Welcome email sent to '+email+'. operator_id: '+(data.operator_id||opId);
+    showToast('Agency created ✓','ok');
+    // Clear form
+    ['op-agency','op-owner','op-email','op-phone','op-city','op-id','op-notes'].forEach(id => {
+      const el = document.getElementById(id); if(el) el.value='';
+    });
+    document.getElementById('op-color').value='#3d7a8a';
+    document.getElementById('op-color-preview').style.background='#3d7a8a';
+  } catch(err) {
+    showToast('Create failed: '+err.message,'err');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Create Agency + Send Welcome Email';
+  }
+}
+
+// ── PSW APPLICANTS ──
+async function loadApplicants() {
+  const el = document.getElementById('applicants-list');
+  if(!el) return;
+  el.innerHTML = '<div class="empty-state">Loading...</div>';
+  try {
+    const res = await fetch(`${API}/psw/applicants?operator_id=${currentOp}`);
+    const data = await res.json();
+    const apps = data.applicants || [];
+    const badge = document.getElementById('app-badge');
+    if(badge) badge.textContent = apps.filter(a => a.status === 'applied').length;
+    if(!apps.length) { el.innerHTML = '<div class="empty-state">No applications yet · <a href="https://proximitycares.ca/careers.html" target="_blank" style="color:var(--teal2)">View careers page</a></div>'; return; }
+
+    const statusColor = {applied:'var(--amber)',qualified:'var(--teal2)',rejected:'var(--red)',hired:'var(--green2)'};
+    el.innerHTML = apps.map(a => {
+      const name = [a.first_name,a.last_name].filter(Boolean).join(' ');
+      const certs = a.certifications || '—';
+      const st = a.status || 'applied';
+      return `<div class="card">
+        <div class="card-header">
+          <div style="flex:1;min-width:0">
+            <div class="card-name">${name}</div>
+            <div class="card-sub">${a.phone?`<a href="tel:${a.phone}" onclick="event.stopPropagation()">${a.phone}</a>`:a.email||'—'}</div>
+            <div class="card-meta">${[a.city,a.availability,a.years_experience?a.years_experience+' yrs exp':''].filter(Boolean).join(' · ')}</div>
+            <div class="card-meta" style="margin-top:3px;">${certs}</div>
+          </div>
+          <div class="card-right">
+            <span class="badge" style="background:${statusColor[st]||'var(--muted)'};color:#fff;border:none;">${st}</span>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px;">${ago(a.created_at)}</div>
+          </div>
+        </div>
+        ${a.message?`<div style="font-size:11px;color:var(--muted2);padding:0 0 8px;line-height:1.5;">"${a.message.slice(0,120)}${a.message.length>120?'...':''}"</div>`:''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;padding-top:4px;">
+          ${a.phone?`<a href="tel:${a.phone}" class="card-act call">Call</a>`:''}
+          ${a.email?`<a href="mailto:${a.email}" class="card-act call">Email</a>`:''}
+          ${st==='applied'?`<button class="card-act ok" onclick="qualifyApplicant('${a.id}')">Qualify →</button>`:''}
+          ${st==='qualified'?`<button class="card-act ok" onclick="initiateOnboarding('${a.id}','${a.email||''}')">Send Onboarding Link →</button>`:''}
+          ${st==='documents_complete'?`<button class="card-act ok" onclick="activateApplicantAsStaff('${a.id}','${name}','${a.email||''}','${a.phone||''}')">Activate as PSW →</button>`:''}
+          ${st==='onboarding'?`<button class="card-act ok" onclick="initiateOnboarding('${a.id}','${a.email||''}')">Resend Link</button>`:''}
+          <a href="https://proximitycares.ca/psw-onboard.html" target="_blank" class="card-act" style="font-size:8px">Preview Portal</a>
+        </div>
+      </div>`;
+    }).join('');
+  } catch { el.innerHTML = '<div class="empty-state">Failed to load applicants</div>'; }
+}
+
+async function initiateOnboarding(applicantId, email) {
+  if(!email) { showToast('No email on file for this applicant','err'); return; }
+  try {
+    const res = await fetch(`${API}/psw/onboard/init`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({applicant_id: applicantId, operator_id: currentOp})
+    });
+    const data = await res.json();
+    if(!res.ok || !data.success) throw new Error(data.error||'Failed');
+    showToast('Onboarding link sent to '+email+' ✓','ok');
+    loadApplicants();
+  } catch(e) { showToast('Failed: '+e.message,'err'); }
+}
+
+async function qualifyApplicant(id) {
+  try {
+    const res = await fetch(`${API}/psw/qualify`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({applicant_id: id, operator_id: currentOp})
+    });
+    if(!res.ok) throw new Error();
+    showToast('Qualified — interview email sent ✓','ok');
+    loadApplicants();
+  } catch { showToast('Failed to qualify','err'); }
+}
+
+async function activateApplicantAsStaff(id, name, email, phone) {
+  const nm = name.split(' ');
+  const first = nm.shift();
+  const last = nm.join(' ');
+  try {
+    const res = await fetch(`${API}/psw/activate`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        operator_id: currentOp,
+        full_name: name,
+        first_name: first,
+        last_name: last,
+        email, phone
+      })
+    });
+    if(!res.ok) throw new Error();
+    showToast(name+' activated as PSW ✓','ok');
+    loadApplicants();
+  } catch { showToast('Activation failed','err'); }
+}
+
+// ── CSV BULK IMPORT ──
+async function importPSWs() {
+  const fileInput = document.getElementById('psw-csv-file');
+  const result = document.getElementById('psw-import-result');
+  if(!fileInput.files[0]) { showToast('Select a CSV file first','err'); return; }
+  result.style.display = 'block';
+  result.textContent = 'Importing...';
+  const fd = new FormData();
+  fd.append('file', fileInput.files[0]);
+  fd.append('operator_id', currentOp);
+  try {
+    const res = await fetch(`${API}/operator/import-psws`, { method:'POST', body: fd });
+    const data = await res.json();
+    if(!res.ok || !data.success) throw new Error(data.error||'Failed');
+    result.innerHTML = `✓ ${data.activated.length} PSWs activated · ${data.failed.length} failed · ${data.skipped.length} skipped`;
+    if(data.activated.length) result.innerHTML += '<br>' + data.activated.map(p=>`${p.name} → ${p.psw_code} PIN:${p.pin}`).join('<br>');
+    showToast(data.activated.length + ' PSWs activated ✓','ok');
+    loadAll(false);
+  } catch(e) { result.textContent = 'Error: '+e.message; showToast('Import failed','err'); }
+}
+
+async function importClients() {
+  const fileInput = document.getElementById('client-csv-file');
+  const result = document.getElementById('client-import-result');
+  if(!fileInput.files[0]) { showToast('Select a CSV file first','err'); return; }
+  result.style.display = 'block';
+  result.textContent = 'Importing...';
+  const fd = new FormData();
+  fd.append('file', fileInput.files[0]);
+  fd.append('operator_id', currentOp);
+  try {
+    const res = await fetch(`${API}/operator/import-clients`, { method:'POST', body: fd });
+    const data = await res.json();
+    if(!res.ok || !data.success) throw new Error(data.error||'Failed');
+    result.innerHTML = `✓ ${data.onboarded.length} clients onboarded · ${data.failed.length} failed · ${data.skipped.length} skipped`;
+    if(data.onboarded.length) result.innerHTML += '<br>' + data.onboarded.map(c=>`${c.name} → ${c.client_code}`).join('<br>');
+    showToast(data.onboarded.length + ' clients onboarded ✓','ok');
+    loadAll(false);
+  } catch(e) { result.textContent = 'Error: '+e.message; showToast('Import failed','err'); }
+}
+
+async function firePostClose() {
+  const agency = document.getElementById('pc-agency').value.trim();
+  const owner = document.getElementById('pc-owner').value.trim();
+  const email = document.getElementById('pc-email').value.trim();
+  const result = document.getElementById('pc-result');
+  if(!agency||!owner||!email) { showToast('Fill in all 3 fields','err'); return; }
+  result.style.display = 'block';
+  result.textContent = 'Firing...';
+  try {
+    const res = await fetch(`${API}/operator/post-close`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ operator_id: currentOp, agency_name: agency, owner_name: owner, owner_email: email })
+    });
+    const data = await res.json();
+    if(!res.ok||!data.success) throw new Error(data.error||'Failed');
+    result.textContent = '✓ Welcome email sent · Config builder email scheduled for 1 hour';
+    showToast('Post-close sequence fired ✓','ok');
+  } catch(e) { result.textContent = 'Error: '+e.message; showToast('Failed','err'); }
+}
+
+// ── SCHEDULE VIEW ──
+function renderSchedule() {
+  const el = document.getElementById('schedule-board');
+  if(!el) return;
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const psws = D.psws || [];
+  const clients = D.clients || [];
+
+  if(!psws.length) { el.innerHTML = '<div class="empty-state">No active PSWs found</div>'; return; }
+
+  // Build PSW → clients map
+  const pswClients = {};
+  psws.forEach(p => { pswClients[p.full_name] = []; });
+  clients.forEach(c => {
+    if(c.assigned_psw && pswClients[c.assigned_psw] !== undefined) {
+      pswClients[c.assigned_psw].push(c);
+    }
+  });
+
+  const colW = 'min-width:90px;max-width:120px;';
+  let html = `<table style="border-collapse:collapse;width:100%;font-size:11px;">
+  <thead><tr>
+    <th style="background:var(--bg3);padding:8px 12px;text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border);min-width:140px;">PSW</th>
+    ${days.map(d=>`<th style="background:var(--bg3);padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border);${colW}">${d}</th>`).join('')}
+    <th style="background:var(--bg3);padding:8px 10px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border);">Clients</th>
+  </tr></thead><tbody>`;
+
+  psws.forEach((psw, i) => {
+    const pswCls = pswClients[psw.full_name] || [];
+    const assignedDays = pswCls.flatMap(c => {
+      const days = c.schedule_days ? c.schedule_days.split(',').map(d=>d.trim()) : [];
+      return days;
+    });
+    const bg = i%2===0 ? 'var(--bg2)' : 'var(--bg3)';
+    html += `<tr>
+      <td style="padding:9px 12px;border:1px solid var(--border);background:${bg};color:var(--text);font-weight:500;">
+        <div>${psw.full_name}</div>
+        ${psw.psw_code?`<div style="font-family:var(--mono);font-size:8px;color:var(--muted);margin-top:2px;">${psw.psw_code}</div>`:''}
+      </td>
+      ${days.map(d=>{
+        const isOn = assignedDays.some(ad=>ad.toLowerCase().startsWith(d.toLowerCase()));
+        return `<td style="padding:8px 10px;border:1px solid var(--border);background:${isOn?'rgba(61,138,122,0.12)':bg};text-align:center;">
+          ${isOn?`<span style="color:var(--teal2);font-size:13px;">●</span>`:'<span style="color:var(--border2);font-size:11px;">·</span>'}
+        </td>`;
+      }).join('')}
+      <td style="padding:8px 10px;border:1px solid var(--border);background:${bg};">
+        ${pswCls.length ? pswCls.map(c=>`<div style="color:var(--text);margin-bottom:2px;">${c.first_name||''} ${c.last_name||''}</div>`).join('') : '<span style="color:var(--muted);font-size:10px;">Unassigned</span>'}
+      </td>
+    </tr>`;
+  });
+
+  // Unassigned clients row
+  const unassigned = clients.filter(c => !c.assigned_psw || !pswClients[c.assigned_psw]);
+  if(unassigned.length) {
+    html += `<tr>
+      <td style="padding:9px 12px;border:1px solid var(--border);background:rgba(224,85,85,0.06);color:var(--red);font-weight:500;" colspan="1">Unassigned</td>
+      <td colspan="${days.length}" style="padding:9px 12px;border:1px solid var(--border);background:rgba(224,85,85,0.04);color:var(--muted);">
+        ${unassigned.map(c=>`${c.first_name||''} ${c.last_name||''}`).join(' · ')}
+      </td>
+      <td style="border:1px solid var(--border);"></td>
+    </tr>`;
+  }
+
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+setInterval(()=>loadAll(false), 90000);
+</script>
+</body>
+</html>
