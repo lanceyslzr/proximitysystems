@@ -555,6 +555,25 @@ footer { padding:40px 64px; border-top:1px solid var(--border); display:flex; al
 /* Level 20 mobile globals */
 *{-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
+@media(hover:none){
+  [class*="cursor"],[id*="cursor"],[id*="cur"],[class*="cur"]{display:none!important}
+  body{cursor:auto!important}
+  a,button{cursor:auto!important}
+}
+
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;padding:8px 10px;min-height:44px;min-width:44px;}
+.nav-hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:all .2s;}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.nav-hamburger.open span:nth-child(2){opacity:0;width:0;}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
+.nav-mobile-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--teal-bd);z-index:9999;flex-direction:column;padding:8px 0;}
+.nav-mobile-drawer.open{display:flex;}
+.nav-mobile-drawer a{padding:14px 24px;font-family:var(--font-m);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--border);min-height:44px;display:flex;align-items:center;}
+.nav-mobile-drawer a:last-child{border-bottom:none;}
+
+
 @media(max-width:1024px) {
   .nav-hamburger{display:flex;}
   .nav-links{display:none;}
@@ -586,6 +605,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .footer-stamp { font-size:32px; }
   body { padding-bottom:72px; }
 }
+
 @media(max-width:599px) {
   .md-cursor,.md-cursor-ring { display:none; }
   body { cursor:auto; }
@@ -606,23 +626,6 @@ button,a,[onclick]{touch-action:manipulation;}
   .demo-card-event { display:none; }
 }
 
-@media(hover:none){
-  [class*="cursor"],[id*="cursor"],[id*="cur"],[class*="cur"]{display:none!important}
-  body{cursor:auto!important}
-  a,button{cursor:auto!important}
-}
-
-
-/* ── HAMBURGER NAV ── */
-.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;padding:8px 10px;min-height:44px;min-width:44px;}
-.nav-hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:all .2s;}
-.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
-.nav-hamburger.open span:nth-child(2){opacity:0;width:0;}
-.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
-.nav-mobile-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--teal-bd);z-index:9999;flex-direction:column;padding:8px 0;}
-.nav-mobile-drawer.open{display:flex;}
-.nav-mobile-drawer a{padding:14px 24px;font-family:var(--font-m);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--border);min-height:44px;display:flex;align-items:center;}
-.nav-mobile-drawer a:last-child{border-bottom:none;}
 
 @media(max-width:390px){
   body{font-size:14px;}
@@ -1381,6 +1384,7 @@ if(sec){
    ============================================================ */
 const RAILWAY_URL = 'https://proximity-agent-production.up.railway.app/chat';
 const WEBHOOK_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
+const DEMO_MODE = true; // suppresses real emails — leads logged to DB only
 
 const SYSTEM_PROMPT = `You are a sales assistant for Proximity Systems, an AI automation agency that builds done-for-you back office systems for home care operators in Canada and the Philippines.
 
@@ -1680,7 +1684,7 @@ function submitModal() {
   fetch(WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+    body: JSON.stringify({ demo_mode: DEMO_MODE,
       operator_id: 'proximity-systems',
       lead_type: 'operator',
       first_name: name.split(' ')[0] || name,
@@ -1723,7 +1727,7 @@ function submitBookSection() {
   fetch(WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+    body: JSON.stringify({ demo_mode: DEMO_MODE,
       operator_id: 'proximity-systems',
       lead_type: 'operator',
       first_name: name.split(' ')[0] || name,
@@ -1941,7 +1945,7 @@ async function submitMiniDemoBooking(leadData) {
     await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      body: JSON.stringify({ demo_mode: DEMO_MODE,
         operator_id: 'proximity-systems',
         lead_type: 'operator',
         first_name: nm.shift() || fullName,
@@ -2042,7 +2046,7 @@ document.getElementById('chatInput').addEventListener('keydown', function(e) {
       fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'dwell_beacon', source: src, utm_medium: utmMed, utm_campaign: utmCamp, scroll_depth: scrollDepth, dwell_seconds: 90, page: window.location.href, timestamp: new Date().toISOString() })
+        body: JSON.stringify({ demo_mode: DEMO_MODE, type: 'dwell_beacon', source: src, utm_medium: utmMed, utm_campaign: utmCamp, scroll_depth: scrollDepth, dwell_seconds: 90, page: window.location.href, timestamp: new Date().toISOString() })
       }).catch(function(){});
     } catch(e) {}
   }, 90000);

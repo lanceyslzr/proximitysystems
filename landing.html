@@ -835,10 +835,95 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* Level 20 mobile globals */
 *{-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
+@media(hover:none){
+  [class*="cursor"],[id*="cursor"],[id*="cur"],[class*="cur"]{display:none!important}
+  body{cursor:auto!important}
+  a,button{cursor:auto!important}
+}
+
+
+@media(min-width:600px) and (max-width:1023px){
+  .sys-grid{grid-template-columns:1fr 1fr}
+  .sys-cards-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .proof-bar{grid-template-columns:repeat(3,1fr)}
+  .testi-row{grid-template-columns:1fr 1fr}
+  .w{padding:0 40px}
+  .w-wide{padding:0 40px}
+  #hero{padding:92px 0 56px}
+  .hero-wrap{padding:0 32px;gap:40px}
+  .hero-right{flex:0 0 320px}
+  .hero-inner{padding:0}
+  .h1{font-size:clamp(46px,6.5vw,60px)}
+  .h2{font-size:clamp(30px,5vw,44px)}
+  /* Builder tablet — show panel */
+  .bld-compact-wrap{grid-template-columns:1fr 280px}
+  .bld-compact-panel{display:block}
+  .bld-mobile-bar{display:none}
+  .bld-chips-grid{grid-template-columns:1fr 1fr}
+}
+
+/* DESKTOP — 1024px and above */
+
+@media(min-width:1024px){
+  nav{padding:0 48px}
+  .w{max-width:960px;padding:0 40px}
+  .w-wide{max-width:1100px;padding:0 40px}
+  #hero{padding:92px 0 60px}
+  .hero-wrap{padding:0 48px}
+  .hero-left{max-width:520px}
+  .hero-right{flex:0 0 400px}
+  .hero-inner{max-width:660px;padding:0}
+  .sys-grid{grid-template-columns:1fr 1fr}
+  .sys-cards-grid{grid-template-columns:repeat(4,1fr);gap:10px}
+  .proof-bar{grid-template-columns:repeat(3,1fr)}
+  .testi-row{grid-template-columns:1fr 1fr}
+  .sec{padding:96px 0}
+  .h1{font-size:64px;line-height:0.92}
+  .h2{font-size:46px;line-height:0.93}
+  /* Builder desktop */
+  .bld-compact-wrap{grid-template-columns:1fr 300px}
+  .bld-compact-panel{display:block}
+  .bld-mobile-bar{display:none}
+  .bld-chips-grid{grid-template-columns:1fr 1fr}
+  /* ob-package */
+  .ob-pkg-header{flex-direction:row}
+}
+
+/* HERO ENEMY */
+.hero-enemy{font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:20px;padding:12px 14px;background:rgba(224,88,88,0.04);border:1px solid rgba(224,88,88,0.12);border-left:3px solid rgba(224,88,88,0.4);border-radius:0 6px 6px 0}
+.hero-enemy strong{color:#d08080;font-weight:500}
+
+/* FINAL CTA UPGRADE */
+.final-offer-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0}
+.fos-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px 12px;text-align:center;position:relative;overflow:hidden}
+.fos-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--teal),transparent)}
+.fos-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--teal-lt);display:block;line-height:1;margin-bottom:4px}
+.fos-lbl{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;display:block}
+.final-risk{font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:20px;line-height:1.7}
+.final-risk strong{color:var(--text-dim)}
+
+/* WIDE DESKTOP — 1280px+ */
+
+@media(min-width:1280px){
+  nav{padding:0 64px}
+  .w{max-width:960px;padding:0 48px}
+  .w-wide{max-width:1120px;padding:0 48px}
+  #hero{padding:92px 0 60px}
+  .hero-wrap{padding:0 64px}
+  .hero-left{max-width:540px}
+  .hero-right{flex:0 0 420px}
+  .h1{font-size:72px;line-height:0.92}
+  .h2{font-size:50px;line-height:0.93}
+  .sys-cards-grid{grid-template-columns:repeat(5,1fr);gap:10px}
+  .bld-compact-wrap{grid-template-columns:1fr 320px}
+}
+
+
 @media(max-width:900px){
   .hero-wrap{flex-direction:column;gap:32px;}
   .hero-right{width:100%;flex:none;max-width:520px;margin:0 auto;}
 }
+
 @media(max-width:599px){
   /* Typography */
   .h1{font-size:40px;line-height:1.05}
@@ -954,85 +1039,6 @@ button,a,[onclick]{touch-action:manipulation;}
 }
 
 /* TABLET — 600px to 1023px */
-@media(min-width:600px) and (max-width:1023px){
-  .sys-grid{grid-template-columns:1fr 1fr}
-  .sys-cards-grid{grid-template-columns:repeat(3,1fr);gap:8px}
-  .proof-bar{grid-template-columns:repeat(3,1fr)}
-  .testi-row{grid-template-columns:1fr 1fr}
-  .w{padding:0 40px}
-  .w-wide{padding:0 40px}
-  #hero{padding:92px 0 56px}
-  .hero-wrap{padding:0 32px;gap:40px}
-  .hero-right{flex:0 0 320px}
-  .hero-inner{padding:0}
-  .h1{font-size:clamp(46px,6.5vw,60px)}
-  .h2{font-size:clamp(30px,5vw,44px)}
-  /* Builder tablet — show panel */
-  .bld-compact-wrap{grid-template-columns:1fr 280px}
-  .bld-compact-panel{display:block}
-  .bld-mobile-bar{display:none}
-  .bld-chips-grid{grid-template-columns:1fr 1fr}
-}
-
-/* DESKTOP — 1024px and above */
-@media(min-width:1024px){
-  nav{padding:0 48px}
-  .w{max-width:960px;padding:0 40px}
-  .w-wide{max-width:1100px;padding:0 40px}
-  #hero{padding:92px 0 60px}
-  .hero-wrap{padding:0 48px}
-  .hero-left{max-width:520px}
-  .hero-right{flex:0 0 400px}
-  .hero-inner{max-width:660px;padding:0}
-  .sys-grid{grid-template-columns:1fr 1fr}
-  .sys-cards-grid{grid-template-columns:repeat(4,1fr);gap:10px}
-  .proof-bar{grid-template-columns:repeat(3,1fr)}
-  .testi-row{grid-template-columns:1fr 1fr}
-  .sec{padding:96px 0}
-  .h1{font-size:64px;line-height:0.92}
-  .h2{font-size:46px;line-height:0.93}
-  /* Builder desktop */
-  .bld-compact-wrap{grid-template-columns:1fr 300px}
-  .bld-compact-panel{display:block}
-  .bld-mobile-bar{display:none}
-  .bld-chips-grid{grid-template-columns:1fr 1fr}
-  /* ob-package */
-  .ob-pkg-header{flex-direction:row}
-}
-
-/* HERO ENEMY */
-.hero-enemy{font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:20px;padding:12px 14px;background:rgba(224,88,88,0.04);border:1px solid rgba(224,88,88,0.12);border-left:3px solid rgba(224,88,88,0.4);border-radius:0 6px 6px 0}
-.hero-enemy strong{color:#d08080;font-weight:500}
-
-/* FINAL CTA UPGRADE */
-.final-offer-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0}
-.fos-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px 12px;text-align:center;position:relative;overflow:hidden}
-.fos-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--teal),transparent)}
-.fos-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--teal-lt);display:block;line-height:1;margin-bottom:4px}
-.fos-lbl{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;display:block}
-.final-risk{font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:20px;line-height:1.7}
-.final-risk strong{color:var(--text-dim)}
-
-/* WIDE DESKTOP — 1280px+ */
-@media(min-width:1280px){
-  nav{padding:0 64px}
-  .w{max-width:960px;padding:0 48px}
-  .w-wide{max-width:1120px;padding:0 48px}
-  #hero{padding:92px 0 60px}
-  .hero-wrap{padding:0 64px}
-  .hero-left{max-width:540px}
-  .hero-right{flex:0 0 420px}
-  .h1{font-size:72px;line-height:0.92}
-  .h2{font-size:50px;line-height:0.93}
-  .sys-cards-grid{grid-template-columns:repeat(5,1fr);gap:10px}
-  .bld-compact-wrap{grid-template-columns:1fr 320px}
-}
-
-@media(hover:none){
-  [class*="cursor"],[id*="cursor"],[id*="cur"],[class*="cur"]{display:none!important}
-  body{cursor:auto!important}
-  a,button{cursor:auto!important}
-}
 
 @media(max-width:390px){
   body{font-size:14px;}
@@ -1107,7 +1113,7 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
       <div class="hvc-body">
         <div class="hvc-feed-item">
-          <div class="hvc-feed-icon teal">📋</div>
+          <div class="hvc-feed-icon teal"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.1"/></svg></div>
           <div>
             <div class="hvc-feed-title">PSW Visit Logged</div>
             <div class="hvc-feed-desc">8.0 hrs · Auto-routed to billing</div>
@@ -1115,7 +1121,7 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
         </div>
         <div class="hvc-feed-item">
-          <div class="hvc-feed-icon green">🎯</div>
+          <div class="hvc-feed-icon green"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="3.5" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg></div>
           <div>
             <div class="hvc-feed-title">New Lead Captured</div>
             <div class="hvc-feed-desc">Day 1 follow-up sent in 60 seconds</div>
@@ -1123,7 +1129,7 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
         </div>
         <div class="hvc-feed-item">
-          <div class="hvc-feed-icon gold">🧾</div>
+          <div class="hvc-feed-icon gold"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M2 1h10v12l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5V1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/></svg></div>
           <div>
             <div class="hvc-feed-title">Invoice Sent Automatically</div>
             <div class="hvc-feed-desc">PDF delivered · PSW pay summary sent</div>
@@ -1151,11 +1157,11 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="eyebrow"><div class="eyebrow-dot"></div>What Admin Actually Costs You</div>
     <h2 class="h2">Every week<br>you lose <em>this.</em></h2>
     <div class="pain-strip">
-      <div class="pain-row"><div class="pain-icon">📋</div><div class="pain-label"><strong>Manual invoicing</strong> — 45 min per client per month</div><div class="pain-cost">~8 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon">📲</div><div class="pain-label"><strong>Chasing PSW hours</strong> — texts, follow-ups, guessing</div><div class="pain-cost">~5 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon">🔕</div><div class="pain-label"><strong>Missed leads</strong> — inquiries at 11pm, seen at 8am</div><div class="pain-cost">Lost clients</div></div>
-      <div class="pain-row"><div class="pain-icon">📞</div><div class="pain-label"><strong>Family phone calls</strong> — visit updates, care questions</div><div class="pain-cost">~6 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon">🔁</div><div class="pain-label"><strong>Manual lead follow-up</strong> — or you forget entirely</div><div class="pain-cost">~4 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>Manual invoicing</strong> — 45 min per client per month</div><div class="pain-cost">~8 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="3" y="1" width="8" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="10.5" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.1"/><polyline points="5,5 7,7 9,5" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Chasing PSW hours</strong> — texts, follow-ups, guessing</div><div class="pain-cost">~5 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M7 1a4.5 4.5 0 0 0-4.5 4.5v3H1.5v1h11v-1H11V5.5A4.5 4.5 0 0 0 7 1z" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="2" x2="12" y2="12" stroke="currentColor" stroke-width="1.3"/></svg></div><div class="pain-label"><strong>Missed leads</strong> — inquiries at 11pm, seen at 8am</div><div class="pain-cost">Lost clients</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5L10.5 8V10c-5 .5-9-4-8.5-8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Family phone calls</strong> — visit updates, care questions</div><div class="pain-cost">~6 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 6a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M10 6a4 4 0 0 1-7.5 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><polyline points="9,1 9,4 6,4" stroke="currentColor" stroke-width="1.1"/><polyline points="3,8 3,11 6,11" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>Manual lead follow-up</strong> — or you forget entirely</div><div class="pain-cost">~4 hrs/mo</div></div>
     </div>
     <div class="big-number-box">
       <span class="big-number">20 hrs</span>
@@ -1437,7 +1443,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     </div>
 
     <div class="guarantee">
-      <div class="guarantee-icon">🛡</div>
+      <div class="guarantee-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M6 1L1 3v3c0 3 2 5 5 6 3-1 5-3 5-6V3L6 1z" stroke="currentColor" stroke-width="1.2"/></svg></div>
       <div>
         <div class="guarantee-title">Zero risk. We build first.</div>
         <div class="guarantee-text">You see all 10 systems live and working before the setup invoice is sent. If it is not right, you walk away owing nothing.</div>
