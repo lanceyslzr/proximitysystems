@@ -257,7 +257,7 @@
   .offer-cta.solid:hover { background: var(--teal); }
   .offer-note { font-size: 9px; color: rgba(255,255,255,0.2); text-align: center; margin-top: 14px; line-height: 1.7; }
   .urgency-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; color: rgba(255,200,100,0.7); letter-spacing: 1px; margin-bottom: 16px; }
-  .urgency-tag::before { content: '⚡'; font-size: 12px; }
+  .urgency-tag::before { content: ''; font-size: 12px; }
   .btn-primary { display: inline-block; background: var(--dark); color: #fff; padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; border: 1px solid var(--dark); }
   .btn-primary:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
   .btn-primary.light { background: #fff; color: var(--dark); border-color: #fff; }
@@ -1436,11 +1436,11 @@ if(sec){
   <div class="inner" style="max-width:960px;">
     <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#13181c;"></div><div class="eyebrow-tag" style="color:#13181c;border-color:rgba(19,24,28,.2);">Pricing</div></div>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,68px);font-weight:300;line-height:1.05;color:#13181c;margin-bottom:8px;" class="reveal">Simple. Transparent.</h2>
-    <p style="font-size:13px;color:#7a7a72;text-align:center;margin-bottom:48px;" class="reveal">All tiers go live in 7 days. We build first. You pay after.</p>
+    <p style="font-size:13px;color:#7a7a72;text-align:center;margin-bottom:48px;" class="reveal">Built in 7 days. You see it live before you pay a dollar.</p>
     <div style="display:grid;grid-template-columns:repeat(3,minmax(0,340px));gap:16px;align-items:start;justify-content:center;margin:0 auto;width:fit-content;width:-webkit-fit-content;max-width:100%;" class="reveal">
       <div style="background:#fff;border:1px solid #e2ddd4;border-radius:12px;padding:28px 24px;">
         <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:8px;">Core Stack</div>
-        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">The Essentials</div>
+        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">Start Here</div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#13181c;line-height:1;margin-bottom:4px;">$3,000</div>
         <div style="font-size:11px;color:#7a7a72;margin-bottom:24px;">setup &middot; $500/mo after</div>
         <div style="border-top:1px solid #e2ddd4;padding-top:18px;margin-bottom:24px;">
@@ -1457,7 +1457,7 @@ if(sec){
       <div style="background:#13181c;border-radius:12px;padding:28px 24px;position:relative;box-shadow:0 8px 32px rgba(14,32,56,.3);">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#3d8a7a;color:#fff;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;">Most Popular</div>
         <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Full Stack</div>
-        <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:16px;">Done For You</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:16px;">The Full Build</div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#fff;line-height:1;margin-bottom:4px;">$3,500</div>
         <div style="font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;">setup &middot; $500/mo after</div>
         <div style="font-size:11px;color:#5aada0;margin-bottom:24px;">Month 1 free</div>
@@ -1472,7 +1472,7 @@ if(sec){
       </div>
       <div style="background:#fff;border:1px solid #e2ddd4;border-radius:12px;padding:28px 24px;">
         <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:8px;">Growth Partner</div>
-        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">Scale With Me</div>
+        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">Growth Partner</div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#13181c;line-height:1;margin-bottom:4px;">$5,000</div>
         <div style="font-size:11px;color:#7a7a72;margin-bottom:24px;">setup &middot; $750/mo after</div>
         <div style="border-top:1px solid #e2ddd4;padding-top:18px;margin-bottom:24px;">
@@ -1491,7 +1491,7 @@ if(sec){
 <div id="reviews">
   <div class="inner">
     <div class="rv-eyebrow reveal">Verified Clients</div>
-    <h2 class="rv-title reveal">Real Families. Real <em>Results.</em></h2>
+    <h2 class="rv-title reveal">Real Operators. Real <em>Agencies.</em></h2>
     <div class="rv-grid">
       <div class="rv-card reveal">
         <div class="rv-stars">★★★★★</div>
@@ -1536,10 +1536,10 @@ if(sec){
 <div id="cta">
   <div class="inner">
     <div class="cta-pre reveal">Within Reach</div>
-    <h2 class="cta-title reveal">Are you ready to stop running<br>your agency <em>manually?</em></h2>
-    <p class="cta-sub reveal">Book a free 20-minute call. We will show you exactly what we would build for your business. <strong>No pressure. No obligation.</strong> Just clarity.<br>Live in 7 days or you do not pay.<br>We need 60 minutes from you on Day 1. That is it.</p>
+    <h2 class="cta-title reveal">Still running your agency<br>on <em>spreadsheets?</em></h2>
+    <p class="cta-sub reveal">Book a 20-minute call. I will show you the exact system I built and what it would look like for your agency. <strong>No pressure. No obligation.</strong> Just clarity.<br>Live in 7 days or you do not pay.<br>We need 60 minutes from you on Day 1. That is it.</p>
     <div class="cta-btns reveal">
-      <a href="#builder" class="btn-primary">Yes — Show Me How It Works</a>
+      <a href="#builder" class="btn-primary">Show Me What You Built</a>
       <a href="mailto:lancesalazar56@gmail.com" class="btn-secondary">Email Us Directly</a>
     </div>
   </div>
@@ -1569,8 +1569,8 @@ if(sec){
     <div>
       <div class="footer-col-title">Markets</div>
       <div class="footer-markets">
-        <div class="market-item"><div class="market-flag">🇨🇦</div><div><div class="market-name">Canada — Ontario</div><div class="market-status">● Active</div></div></div>
-        <div class="market-item"><div class="market-flag">🇵🇭</div><div><div class="market-name">Philippines</div><div class="market-status" style="color:var(--teal)">● Expanding 2026</div></div></div>
+        <div class="market-item"><div class="market-flag"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="white"/><rect width="5.5" height="16" fill="#D52B1E"/><rect x="16.5" width="5.5" height="16" fill="#D52B1E"/><text x="11" y="11" text-anchor="middle" font-size="9" fill="#D52B1E">✦</text></svg></div><div><div class="market-name">Canada — Ontario</div><div class="market-status">● Active</div></div></div>
+        <div class="market-item"><div class="market-flag"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="8" fill="#0038A8"/><rect y="8" width="22" height="8" fill="#CE1126"/><polygon points="0,0 10,8 0,16" fill="#FCD116"/></svg></div><div><div class="market-name">Philippines</div><div class="market-status" style="color:var(--teal)">● Expanding 2026</div></div></div>
       </div>
     </div>
   </div>
