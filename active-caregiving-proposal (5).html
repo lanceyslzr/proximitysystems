@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proximity Systems — Proposal for Active Caregiving Inc</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07090c;
+  --bg2:#0d1117;
+  --bg3:#111820;
+  --bg4:#161e28;
+  --text:#f0ede8;
+  --muted:#a8bfc4;
+  --border:rgba(201,169,110,.14);
+  --border2:rgba(201,169,110,.28);
+  --gold:#c9a96e;
+  --gold2:#e8c88a;
+  --teal:#6dbdd4;
+  --green:#6db974;
+  --red:#e05555;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+  --serif:'Cormorant Garamond',serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:999;}
+
+/* PAGE CONTAINER */
+.page{max-width:900px;margin:0 auto;padding:0 24px;}
+
+/* ── HERO ── */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--border);padding:60px 0 52px;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.hbg-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(201,169,110,.07) 1px,transparent 1px);background-size:30px 30px;}
+.hbg-blob1{position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.07) 0%,transparent 70%);top:-180px;right:-60px;animation:b1 14s ease-in-out infinite alternate;}
+.hbg-blob2{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(109,189,212,.05) 0%,transparent 70%);bottom:-100px;left:-60px;animation:b2 18s ease-in-out infinite alternate;}
+@keyframes b1{from{transform:translate(0,0) scale(1)}to{transform:translate(22px,14px) scale(1.06)}}
+@keyframes b2{from{transform:translate(0,0) scale(1)}to{transform:translate(-14px,20px) scale(1.04)}}
+.hero-inner{position:relative;z-index:1;}
+.live-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 12px 5px 8px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.22);border-radius:20px;margin-bottom:22px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(201,169,110,.55);animation:ep 2s ease-in-out infinite;}
+@keyframes ep{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.live-text{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.hero-title{font-family:var(--serif);font-size:clamp(32px,6vw,58px);font-weight:300;line-height:1.1;color:var(--text);margin-bottom:16px;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:15px;color:var(--muted);max-width:540px;line-height:1.75;margin-bottom:28px;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:20px 40px;}
+.hm-item{display:flex;flex-direction:column;gap:3px;}
+.hm-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.hm-value{font-size:13px;color:var(--text);}
+
+/* ── STATS BAR ── */
+.stats-bar{background:var(--bg2);border-bottom:1px solid var(--border);}
+.stats-inner{max-width:900px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-col{display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 12px;border-right:1px solid var(--border);}
+.stat-col:last-child{border-right:none;}
+.stat-num{font-family:var(--mono);font-size:26px;font-weight:500;color:var(--gold);line-height:1;}
+.stat-label{font-size:11px;color:var(--muted);text-align:center;line-height:1.4;}
+
+/* ── TICKER ── */
+.ticker{overflow:hidden;border-bottom:1px solid var(--border);background:var(--bg2);padding:9px 0;}
+.ticker-track{display:flex;width:max-content;animation:tick 35s linear infinite;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti{display:flex;align-items:center;gap:10px;padding:0 28px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.td{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.5;}
+
+/* ── SECTIONS ── */
+.sec{padding:52px 0;border-bottom:1px solid var(--border);}
+.sec:last-child{border-bottom:none;}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px;font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--border);}
+.sec-title{font-family:var(--serif);font-size:clamp(24px,4vw,36px);font-weight:300;line-height:1.2;margin-bottom:14px;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-body{font-size:15px;color:var(--muted);line-height:1.8;max-width:640px;}
+.sec-body strong{color:var(--text);font-weight:500;}
+
+/* ── PAIN GRID ── */
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px;}
+.pain-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:18px;position:relative;overflow:hidden;}
+.pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.pain-card-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+.pain-card-text{font-size:13px;color:var(--muted);line-height:1.6;}
+.pain-card-text strong{color:var(--text);}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:28px;}
+.step{display:grid;grid-template-columns:56px 1fr;gap:0;}
+.step-num-col{display:flex;flex-direction:column;align-items:center;}
+.step-num{width:38px;height:38px;border-radius:50%;border:1px solid var(--border2);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--gold);flex-shrink:0;z-index:1;}
+.step-line{flex:1;width:1px;background:var(--border);margin:3px 0;}
+.step:last-child .step-line{display:none;}
+.step-content{padding:6px 0 28px 18px;}
+.step-tag{display:inline-block;margin-top:8px;padding:3px 10px;background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.18);border-radius:4px;font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:1px;}
+.step-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.step-stitle{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--text);margin-bottom:6px;}
+.step-body{font-size:13px;color:var(--muted);line-height:1.7;}
+.step-body strong{color:var(--text);}
+
+/* ── FLOW ── */
+.flow{margin-top:28px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:24px;}
+.flow-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.flow-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.flow-row:last-child{margin-bottom:0;}
+.fn{padding:9px 14px;background:var(--bg4);border:1px solid var(--border2);border-radius:6px;font-size:12px;color:var(--text);white-space:nowrap;}
+.fn.gold{background:rgba(201,169,110,.09);border-color:rgba(201,169,110,.35);color:var(--gold);}
+.fn.teal{background:rgba(109,189,212,.07);border-color:rgba(109,189,212,.28);color:var(--teal);}
+.fn.green{background:rgba(109,185,116,.07);border-color:rgba(109,185,116,.28);color:var(--green);}
+.fa{font-family:var(--mono);font-size:11px;color:var(--muted);}
+
+/* ── BEFORE / AFTER ── */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px;}
+.ba-col{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.ba-col.before{border-color:rgba(224,85,85,.2);}
+.ba-col.after{border-color:rgba(109,185,116,.22);}
+.ba-head{padding:16px 18px;border-bottom:1px solid var(--border);}
+.ba-col.before .ba-head{background:rgba(224,85,85,.05);border-color:rgba(224,85,85,.14);}
+.ba-col.after .ba-head{background:rgba(109,185,116,.05);border-color:rgba(109,185,116,.14);}
+.ba-head-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.ba-col.before .ba-head-label{color:var(--red);}
+.ba-col.after .ba-head-label{color:var(--green);}
+.ba-head-sub{font-size:12px;color:var(--muted);}
+.ba-items{background:var(--bg3);padding:12px;}
+.ba-item{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);}
+.ba-item:last-child{border-bottom:none;}
+.ba-ic{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.ba-col.before .ba-ic{background:rgba(224,85,85,.1);}
+.ba-col.after .ba-ic{background:rgba(109,185,116,.1);}
+.ba-text{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── AUTO GRID ── */
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px;}
+.auto-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:8px;}
+.auto-now-label,.auto-after-label{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.auto-now-label{color:var(--muted);}
+.auto-after-label{color:var(--gold);}
+.auto-now-text{font-size:12px;color:var(--muted);line-height:1.6;padding:9px 11px;background:rgba(224,85,85,.04);border:1px solid rgba(224,85,85,.1);border-radius:5px;}
+.auto-arrow-row{display:flex;justify-content:center;padding:2px 0;}
+.auto-after-text{font-size:12px;color:var(--text);line-height:1.6;padding:9px 11px;background:rgba(109,185,116,.05);border:1px solid rgba(109,185,116,.13);border-radius:5px;}
+.auto-note{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:15px 18px;background:rgba(201,169,110,.05);border:1px solid rgba(201,169,110,.14);border-radius:8px;font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* ── PORTAL CARDS ── */
+.portal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;}
+.pc{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:18px;}
+.pc-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.pc-icon.gold{background:rgba(201,169,110,.1);}
+.pc-icon.teal{background:rgba(109,189,212,.1);}
+.pc-icon.green{background:rgba(109,185,116,.1);}
+.pc-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.pc-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:7px;}
+.pc-body{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── SECURITY CARDS ── */
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;}
+.sc{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:18px;position:relative;overflow:hidden;}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(201,169,110,.35),transparent);}
+.sc-icon{width:34px;height:34px;border-radius:7px;background:rgba(201,169,110,.07);display:flex;align-items:center;justify-content:center;margin-bottom:11px;}
+.sc-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:7px;line-height:1.3;}
+.sc-body{font-size:12px;color:var(--muted);line-height:1.65;}
+
+/* ── PRICING ── */
+.pricing-box{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:32px;margin-top:28px;position:relative;overflow:hidden;animation:float 7s ease-in-out infinite;}
+.pricing-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent 60%);}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.pr-row{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--border);}
+.pr-row:last-of-type{border-bottom:none;}
+.pr-label{font-size:14px;color:var(--muted);max-width:560px;padding-right:20px;}
+.pr-value{font-family:var(--mono);font-size:18px;color:var(--gold);font-weight:500;white-space:nowrap;}
+.pr-note{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.6;border-left:2px solid var(--border2);padding-left:15px;}
+
+/* ── TIMELINE ── */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px;}
+.tl-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.tl-day{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+.tl-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;}
+.tl-body{font-size:11px;color:var(--muted);line-height:1.6;}
+
+/* ── WHO ── */
+.who-body{font-size:15px;color:var(--muted);line-height:1.8;max-width:640px;}
+.who-body strong{color:var(--text);font-weight:500;}
+
+/* ── LEAD FORM ── */
+.lc-wrap{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-top:28px;position:relative;}
+.lc-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent 60%);}
+.lc-head{padding:28px 28px 0;}
+.lc-title{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--text);margin-bottom:7px;}
+.lc-title em{font-style:italic;color:var(--gold);}
+.lc-sub{font-size:14px;color:var(--muted);margin-bottom:24px;}
+.lc-fields{padding:0 28px;}
+.lc-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lc-row.full{grid-template-columns:1fr;}
+.lc-field{display:flex;flex-direction:column;gap:5px;}
+.lc-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.lc-input{background:var(--bg4);border:1px solid var(--border);border-radius:6px;padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--text);outline:none;transition:border-color .2s;width:100%;resize:none;}
+.lc-input::placeholder{color:rgba(168,191,196,.3);}
+.lc-input:focus{border-color:rgba(201,169,110,.5);}
+.lc-footer{padding:16px 28px 28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.lc-btn{display:flex;align-items:center;gap:8px;padding:12px 26px;background:var(--gold);color:#07090c;border:none;border-radius:6px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .15s;flex-shrink:0;}
+.lc-btn:hover{opacity:.88;transform:translateY(-1px);}
+.lc-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.lc-privacy{font-size:11px;color:var(--muted);line-height:1.5;max-width:300px;}
+.lc-success{padding:44px 28px;text-align:center;display:none;}
+.lc-success-title{font-family:var(--serif);font-size:24px;font-weight:300;color:var(--text);margin:14px 0 8px;}
+.lc-success-body{font-size:14px;color:var(--muted);line-height:1.7;}
+.lc-success-body strong{color:var(--text);}
+.lc-err{font-size:12px;color:var(--red);width:100%;}
+
+/* ── FOOTER ── */
+.footer{padding:36px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-top:1px solid var(--border);}
+.footer-brand{font-family:var(--serif);font-size:18px;color:var(--text);}
+.footer-brand em{font-style:italic;color:var(--gold);}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MEDIA — descending order ── */
+@media(max-width:900px){
+  .sec-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .pain-grid{grid-template-columns:1fr;}
+  .portal-grid{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr 1fr;}
+  .auto-grid{grid-template-columns:1fr;}
+  .ba-grid{grid-template-columns:1fr;}
+  .hero{padding:44px 0 40px;}
+  .hero-meta{gap:16px 28px;}
+  .pr-row{flex-direction:column;gap:6px;}
+  .pr-value{font-size:20px;}
+}
+@media(max-width:600px){
+  .page{padding:0 16px;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat-col{border-right:none;border-bottom:1px solid var(--border);}
+  .stat-col:nth-child(odd){border-right:1px solid var(--border);}
+  .stat-col:last-child,.stat-col:nth-last-child(2):nth-child(odd){border-bottom:none;}
+  .sec-grid{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr;}
+  .lc-row{grid-template-columns:1fr;}
+  .lc-head{padding:22px 18px 0;}
+  .lc-fields{padding:0 18px;}
+  .lc-footer{padding:14px 18px 22px;flex-direction:column;align-items:flex-start;}
+  .lc-success{padding:32px 18px;}
+  .pricing-box{padding:22px 18px;}
+  .flow{padding:18px;}
+  .step{grid-template-columns:44px 1fr;}
+  .flow-row{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:390px){
+  .hero-title{font-size:28px;}
+  .sec-title{font-size:22px;}
+  .stat-num{font-size:22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hbg-dots"></div>
+    <div class="hbg-blob1"></div>
+    <div class="hbg-blob2"></div>
+  </div>
+  <div class="page hero-inner">
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      <span class="live-text">Proximity Systems — Confidential Proposal</span>
+    </div>
+    <div class="hero-title">Built for <em>Active Caregiving.</em><br>Not for agencies your size.</div>
+    <div class="hero-sub">A done-for-you AI operating system built exclusively for small private pay home care agencies in Canada. Everything you need to run a professional, scalable operation — without the enterprise price tag.</div>
+    <div class="hero-meta">
+      <div class="hm-item"><div class="hm-label">Prepared for</div><div class="hm-value">Lorien Bellamy, Active Caregiving Inc</div></div>
+      <div class="hm-item"><div class="hm-label">Region</div><div class="hm-value">Waterloo Region &amp; Wellington County</div></div>
+      <div class="hm-item"><div class="hm-label">Prepared by</div><div class="hm-value">Lance Salazar, Proximity Systems</div></div>
+      <div class="hm-item"><div class="hm-label">Date</div><div class="hm-value">May 2026</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-col"><div class="stat-num">127</div><div class="stat-label">Live health checks</div></div>
+    <div class="stat-col"><div class="stat-num">164</div><div class="stat-label">API endpoints</div></div>
+    <div class="stat-col"><div class="stat-num">&lt;2m</div><div class="stat-label">New client spin-up</div></div>
+    <div class="stat-col"><div class="stat-num">$0</div><div class="stat-label">Per-user fees</div></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ti"><div class="td"></div>Lead capture</div><div class="ti"><div class="td"></div>AI follow-up</div><div class="ti"><div class="td"></div>GPS check-in</div><div class="ti"><div class="td"></div>Care planning</div><div class="ti"><div class="td"></div>Family portal</div><div class="ti"><div class="td"></div>Auto-invoicing</div><div class="ti"><div class="td"></div>PHIPA-conscious</div><div class="ti"><div class="td"></div>CASL-compliant</div><div class="ti"><div class="td"></div>Compliance tracking</div><div class="ti"><div class="td"></div>Chief of Staff AI</div><div class="ti"><div class="td"></div>Done-for-you setup</div>
+    <div class="ti"><div class="td"></div>Lead capture</div><div class="ti"><div class="td"></div>AI follow-up</div><div class="ti"><div class="td"></div>GPS check-in</div><div class="ti"><div class="td"></div>Care planning</div><div class="ti"><div class="td"></div>Family portal</div><div class="ti"><div class="td"></div>Auto-invoicing</div><div class="ti"><div class="td"></div>PHIPA-conscious</div><div class="ti"><div class="td"></div>CASL-compliant</div><div class="ti"><div class="td"></div>Compliance tracking</div><div class="ti"><div class="td"></div>Chief of Staff AI</div><div class="ti"><div class="td"></div>Done-for-you setup</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page">
+
+<!-- 01 THE PROBLEM -->
+<div class="sec">
+  <div class="eyebrow">01 — The Problem</div>
+  <div class="sec-title">Running a home care agency on<br><em>tools that weren't built for it.</em></div>
+  <div class="sec-body">You built Active Caregiving to serve your community well. You know your clients. You know your caregivers. But the systems holding it all together — the scheduling, the documentation, the follow-up, the invoicing — were never designed for an owner-operator running a lean, high-quality private pay agency in Waterloo Region. They're either too expensive, too complex, or too basic to grow with you.</div>
+  <div class="pain-grid">
+    <div class="pain-card reveal"><div class="pain-card-label">Lead Management</div><div class="pain-card-text">Families call or email. You follow up manually. <strong>Warm leads go cold</strong> while you're running the operation.</div></div>
+    <div class="pain-card reveal"><div class="pain-card-label">Caregiver Oversight</div><div class="pain-card-text">No real-time visibility into check-ins, visit notes, or compliance docs. <strong>You find out about problems after the fact.</strong></div></div>
+    <div class="pain-card reveal"><div class="pain-card-label">Family Communication</div><div class="pain-card-text">Families want updates. You're the one sending them. <strong>Every message is manual effort</strong> that compounds as you grow.</div></div>
+    <div class="pain-card reveal"><div class="pain-card-label">Billing &amp; Invoicing</div><div class="pain-card-text">Private pay invoices are calculated manually, sent manually, tracked manually. <strong>Cash flow suffers when the process is you.</strong></div></div>
+  </div>
+</div>
+
+<!-- 02 THE SYSTEM -->
+<div class="sec">
+  <div class="eyebrow">02 — The System</div>
+  <div class="sec-title">The Proximity OS — <em>your entire agency, automated.</em></div>
+  <div class="sec-body">Proximity Systems is a done-for-you AI operating system built exclusively for small private pay home care agencies in Canada. We don't sell software — we set up and run the entire system for you.</div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-num-col"><div class="step-num">01</div><div class="step-line"></div></div><div class="step-content"><div class="step-label">Lead Capture</div><div class="step-stitle">A family finds Active Caregiving.</div><div class="step-body">Whether they land on your website, fill a care assessment form, or call in — every inquiry is <strong>automatically captured into your CRM</strong>. The lead is tagged by urgency (hot, warm, cold), source, and care type. You see it instantly in your HQ dashboard.</div><span class="step-tag">AI-scored lead intake</span></div></div>
+    <div class="step reveal"><div class="step-num-col"><div class="step-num">02</div><div class="step-line"></div></div><div class="step-content"><div class="step-label">Automated Follow-Up</div><div class="step-stitle">The system follows up for you.</div><div class="step-body">A <strong>14-email AI follow-up sequence</strong> fires automatically — Day 1, Day 3, Day 7, and beyond. Each email is personalized with the family's name, care type, and urgency. Your name is on it. You didn't write it. No leads fall through.</div><span class="step-tag">S04 Email Engine — 14 templates, 4 tracks</span></div></div>
+    <div class="step reveal"><div class="step-num-col"><div class="step-num">03</div><div class="step-line"></div></div><div class="step-content"><div class="step-label">Client Onboarding</div><div class="step-stitle">New client. Two minutes to set up.</div><div class="step-body">When a family says yes — you enter their details in HQ and the system does the rest. <strong>AI generates the care plan, assigns the caregiver, creates the family portal, and sends the welcome package</strong> — all in under 2 minutes.</div><span class="step-tag">Client Portal + Family PIN access</span></div></div>
+    <div class="step reveal"><div class="step-num-col"><div class="step-num">04</div><div class="step-line"></div></div><div class="step-content"><div class="step-label">Caregiver Operations</div><div class="step-stitle">Your caregivers run on the PSW portal.</div><div class="step-body">Every caregiver gets a mobile-optimized portal. They <strong>check in and out via GPS</strong>, complete visit checklists, submit AI-generated progress notes, flag incidents, and see their schedule — all without paper, calls, or texts to you.</div><span class="step-tag">GPS checkin · AI notes · Live dashboard</span></div></div>
+    <div class="step reveal"><div class="step-num-col"><div class="step-num">05</div><div class="step-line"></div></div><div class="step-content"><div class="step-label">Billing &amp; Payroll</div><div class="step-stitle">Invoices and pay summaries — automatic.</div><div class="step-body">At the end of each month, the system <strong>auto-generates client invoices and caregiver pay summaries</strong> based on actual logged hours. Invoices go to families by email. Overdue invoices trigger automated follow-up. You review and approve.</div><span class="step-tag">Auto-invoice · Overdue cron · Payroll CSV</span></div></div>
+    <div class="step reveal"><div class="step-num-col"><div class="step-num">06</div></div><div class="step-content"><div class="step-label">Compliance &amp; Oversight</div><div class="step-stitle">You see everything. In one place.</div><div class="step-body">Your HQ tracks <strong>caregiver compliance documents</strong> (PSW cert, police check, CPR, First Aid) with expiry alerts, open incidents, visit patterns, care signals, and a daily digest. The AI Chief of Staff surfaces your top priorities every morning.</div><span class="step-tag">Chief of Staff · Health Console · 127 live checks</span></div></div>
+  </div>
+</div>
+
+<!-- 03 LEAD FLOW -->
+<div class="sec">
+  <div class="eyebrow">03 — Lead Flow</div>
+  <div class="sec-title">From first inquiry to <em>active client.</em></div>
+  <div class="sec-body">This is the exact flow every new lead goes through in your Proximity OS.</div>
+  <div class="flow reveal">
+    <div class="flow-label">Lead to Client — Automated Flow</div>
+    <div class="flow-row"><div class="fn">Family submits inquiry</div><div class="fa">→</div><div class="fn gold">AI scores urgency</div><div class="fa">→</div><div class="fn">Lead logged to CRM</div><div class="fa">→</div><div class="fn">You notified instantly</div></div>
+    <div class="flow-row"><div class="fn">Day 1 follow-up sent</div><div class="fa">→</div><div class="fn gold">AI-personalized email</div><div class="fa">→</div><div class="fn">Day 3, 7, 14 sequences</div><div class="fa">→</div><div class="fn teal">Family books assessment</div></div>
+    <div class="flow-row"><div class="fn">Assessment complete</div><div class="fa">→</div><div class="fn gold">AI builds care plan</div><div class="fa">→</div><div class="fn">Caregiver assigned</div><div class="fa">→</div><div class="fn green">Client active — care begins</div></div>
+  </div>
+</div>
+
+<!-- 04 BEFORE / AFTER -->
+<div class="sec">
+  <div class="eyebrow">04 — Before &amp; After</div>
+  <div class="sec-title">Active Caregiving <em>today</em> vs.<br>Active Caregiving <em>on Proximity.</em></div>
+  <div class="sec-body">The same day. The same operation. Before and after Proximity OS.</div>
+  <div class="ba-grid">
+    <div class="ba-col before reveal">
+      <div class="ba-head"><div class="ba-head-label">Before Proximity</div><div class="ba-head-sub">Active Caregiving today</div></div>
+      <div class="ba-items">
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="2" y1="2" x2="9" y2="9" stroke="#e05555" stroke-width="1.5"/><line x1="9" y1="2" x2="2" y2="9" stroke="#e05555" stroke-width="1.5"/></svg></div><div class="ba-text">A family emails. You respond when you get a chance. By the time you follow up, they've already chosen another agency.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="2" y1="2" x2="9" y2="9" stroke="#e05555" stroke-width="1.5"/><line x1="9" y1="2" x2="2" y2="9" stroke="#e05555" stroke-width="1.5"/></svg></div><div class="ba-text">You text caregivers their schedule. They confirm by text. You manually track who showed up and when.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="2" y1="2" x2="9" y2="9" stroke="#e05555" stroke-width="1.5"/><line x1="9" y1="2" x2="2" y2="9" stroke="#e05555" stroke-width="1.5"/></svg></div><div class="ba-text">A family calls asking how the visit went. You call the caregiver. They call you back. You relay the update.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="2" y1="2" x2="9" y2="9" stroke="#e05555" stroke-width="1.5"/><line x1="9" y1="2" x2="2" y2="9" stroke="#e05555" stroke-width="1.5"/></svg></div><div class="ba-text">End of month. You calculate hours manually, build invoices in a spreadsheet, email each family, and chase the ones who don't pay.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="2" y1="2" x2="9" y2="9" stroke="#e05555" stroke-width="1.5"/><line x1="9" y1="2" x2="2" y2="9" stroke="#e05555" stroke-width="1.5"/></svg></div><div class="ba-text">A caregiver's CPR cert expires. You find out when a client asks. You scramble to cover it.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="2" y1="2" x2="9" y2="9" stroke="#e05555" stroke-width="1.5"/><line x1="9" y1="2" x2="2" y2="9" stroke="#e05555" stroke-width="1.5"/></svg></div><div class="ba-text">You start every morning not sure what needs attention. You find out reactively, as things break.</div></div>
+      </div>
+    </div>
+    <div class="ba-col after reveal">
+      <div class="ba-head"><div class="ba-head-label">After Proximity</div><div class="ba-head-sub">Active Caregiving on Proximity OS</div></div>
+      <div class="ba-items">
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4,8.5 9.5,2.5" stroke="#6db974" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba-text">The family submits a form. Within minutes they receive a personalized email from you — written by AI, sent automatically. The follow-up runs for 14 days without you touching it.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4,8.5 9.5,2.5" stroke="#6db974" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba-text">Caregivers see their schedule in the app. They check in via GPS when they arrive. You see it live in HQ. No texts needed.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4,8.5 9.5,2.5" stroke="#6db974" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba-text">The family opens their portal and reads the AI-generated visit note the caregiver submitted at checkout. No calls. No relay. Full transparency, automatic.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4,8.5 9.5,2.5" stroke="#6db974" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba-text">The system calculates hours, generates invoices, and sends them on the 1st. Overdue accounts get automated follow-up. You review and collect.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4,8.5 9.5,2.5" stroke="#6db974" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba-text">HQ flags the expiring cert 30 days out. You upload the renewal in one click. The caregiver gets notified. Compliance never lapses.</div></div>
+        <div class="ba-item"><div class="ba-ic"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4,8.5 9.5,2.5" stroke="#6db974" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ba-text">Your AI Chief of Staff surfaces your top priorities every morning. You open one screen and know exactly what needs you today.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 THREE PORTALS -->
+<div class="sec">
+  <div class="eyebrow">05 — Your Three Portals</div>
+  <div class="sec-title">Every stakeholder has <em>their own window</em> into the operation.</div>
+  <div class="sec-body">Proximity OS runs three connected portals — one for you, one for your caregivers, one for families. All branded to Active Caregiving. All live on day one.</div>
+  <div class="portal-grid">
+    <div class="pc reveal"><div class="pc-icon gold"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="#c9a96e" stroke-width="1.3"/><line x1="1" y1="5" x2="15" y2="5" stroke="#c9a96e" stroke-width="1.3"/><rect x="3" y="7.5" width="4" height="2" rx="0.5" fill="#c9a96e" opacity=".6"/><rect x="3" y="10.5" width="6" height="2" rx="0.5" fill="#c9a96e" opacity=".4"/></svg></div><div class="pc-label">HQ Portal</div><div class="pc-title">Your command centre</div><div class="pc-body">Leads, clients, caregivers, scheduling, billing, compliance, and AI insights — all in one dashboard. PIN-protected. Mobile-ready.</div></div>
+    <div class="pc reveal"><div class="pc-icon teal"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="4" y="1" width="8" height="14" rx="1.5" stroke="#6dbdd4" stroke-width="1.3"/><line x1="6" y1="12.5" x2="10" y2="12.5" stroke="#6dbdd4" stroke-width="1.2"/></svg></div><div class="pc-label">PSW Portal</div><div class="pc-title">Your caregiver app</div><div class="pc-body">GPS check-in and checkout, AI progress notes, visit checklists, shift schedule, messaging — everything a PSW needs, on their phone.</div></div>
+    <div class="pc reveal"><div class="pc-icon green"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="#6db974" stroke-width="1.3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#6db974" stroke-width="1.3"/></svg></div><div class="pc-label">Family Portal</div><div class="pc-title">Peace of mind for families</div><div class="pc-body">PIN-protected access to visit logs, caregiver notes, care plans, and direct messaging. Builds trust on autopilot.</div></div>
+  </div>
+</div>
+
+<!-- 06 AUTOMATION FRAMING -->
+<div class="sec">
+  <div class="eyebrow">06 — What We're Actually Doing</div>
+  <div class="sec-title">We are not replacing<br><em>how you run your agency.</em></div>
+  <div class="sec-body">Everything Proximity OS does — you are already doing it. We are taking the exact workflow you already have and automating every manual step of it — so the same quality of care you deliver today happens without you doing the operational work by hand every single time.</div>
+  <div class="auto-grid">
+    <div class="auto-card reveal"><div class="auto-now-label">You do this now</div><div class="auto-now-text">Follow up with leads by email or phone — manually, one at a time, when you remember.</div><div class="auto-arrow-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="4,8 12,8" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round"/><polyline points="9,5 12,8 9,11" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="auto-after-label">On Proximity</div><div class="auto-after-text">The same follow-up — personalized, on schedule, every time — sent automatically the moment a lead comes in.</div></div>
+    <div class="auto-card reveal"><div class="auto-now-label">You do this now</div><div class="auto-now-text">Text caregivers their schedule. Wait for confirmation. Track who showed up by calling or texting.</div><div class="auto-arrow-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="4,8 12,8" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round"/><polyline points="9,5 12,8 9,11" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="auto-after-label">On Proximity</div><div class="auto-after-text">Caregivers see their schedule in the app. They check in via GPS. You see it in HQ the moment it happens.</div></div>
+    <div class="auto-card reveal"><div class="auto-now-label">You do this now</div><div class="auto-now-text">Call or message families with visit updates. Relay information back and forth.</div><div class="auto-arrow-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="4,8 12,8" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round"/><polyline points="9,5 12,8 9,11" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="auto-after-label">On Proximity</div><div class="auto-after-text">Families log into their portal and read the visit note directly. The caregiver submitted it at checkout. Nothing goes through you unless it needs to.</div></div>
+    <div class="auto-card reveal"><div class="auto-now-label">You do this now</div><div class="auto-now-text">Calculate hours, build invoices, send them to each family individually, and follow up on late payments.</div><div class="auto-arrow-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="4,8 12,8" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round"/><polyline points="9,5 12,8 9,11" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="auto-after-label">On Proximity</div><div class="auto-after-text">The system calculates hours from logged visits, generates invoices, sends them on the 1st, and follows up on overdue accounts. You approve and collect.</div></div>
+    <div class="auto-card reveal"><div class="auto-now-label">You do this now</div><div class="auto-now-text">Track compliance documents in a folder or spreadsheet. Notice expiries when someone mentions it.</div><div class="auto-arrow-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="4,8 12,8" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round"/><polyline points="9,5 12,8 9,11" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="auto-after-label">On Proximity</div><div class="auto-after-text">Every compliance document is in HQ. Expiry dates tracked automatically. You get an alert 30 days before anything lapses.</div></div>
+    <div class="auto-card reveal"><div class="auto-now-label">You do this now</div><div class="auto-now-text">Start each day reacting — checking texts, voicemails, emails — piecing together what needs your attention.</div><div class="auto-arrow-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="4,8 12,8" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round"/><polyline points="9,5 12,8 9,11" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="auto-after-label">On Proximity</div><div class="auto-after-text">Your AI Chief of Staff surfaces your top priorities every morning. You open one screen and know exactly what needs you today.</div></div>
+  </div>
+  <div class="auto-note reveal">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="7" cy="7" r="6" stroke="#c9a96e" stroke-width="1.2"/><line x1="7" y1="5" x2="7" y2="9" stroke="#c9a96e" stroke-width="1.3"/><circle cx="7" cy="3.5" r="0.7" fill="#c9a96e"/></svg>
+    <div>Your caregivers work the same way. Your clients are cared for the same way. Your relationships stay yours. The only thing that changes is that you stop doing the operations by hand.</div>
+  </div>
+</div>
+
+<!-- 07 SECURITY -->
+<div class="sec">
+  <div class="eyebrow">07 — Security &amp; Compliance</div>
+  <div class="sec-title">Your clients' data is<br><em>treated like it belongs to them.</em></div>
+  <div class="sec-body">You are dealing with some of the most sensitive information that exists — elderly clients, health conditions, home addresses, family contacts. Proximity OS was built with that responsibility in mind from day one.</div>
+  <div class="sec-grid">
+    <div class="sc reveal"><div class="sc-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M8.5 1.5L2 4.5v4c0 4 2.5 6.5 6.5 7.5 4-1 6.5-3.5 6.5-7.5v-4L8.5 1.5z" stroke="#c9a96e" stroke-width="1.3"/><polyline points="5.5,8.5 7.5,10.5 11.5,6.5" stroke="#c9a96e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-title">PHIPA-Conscious Design</div><div class="sc-body">All AI processing anonymizes client data before it leaves your system. Names, addresses, and health details are stripped from AI calls. Raw PHI never touches third-party models.</div></div>
+    <div class="sc reveal"><div class="sc-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><rect x="3" y="8" width="11" height="8" rx="1.5" stroke="#c9a96e" stroke-width="1.3"/><path d="M5.5 8V6a3 3 0 0 1 6 0v2" stroke="#c9a96e" stroke-width="1.3"/><circle cx="8.5" cy="12" r="1.2" fill="#c9a96e"/></svg></div><div class="sc-title">Session-Based Authentication</div><div class="sc-body">Every portal requires secure authentication. HQ uses server-side session tokens. Family and PSW portals use PIN-based access. No shared passwords.</div></div>
+    <div class="sc reveal"><div class="sc-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="7" stroke="#c9a96e" stroke-width="1.2"/><ellipse cx="8.5" cy="8.5" rx="3.5" ry="7" stroke="#c9a96e" stroke-width="1"/><line x1="1.5" y1="8.5" x2="15.5" y2="8.5" stroke="#c9a96e" stroke-width="1"/></svg></div><div class="sc-title">Canadian Data Hosting</div><div class="sc-body">Data stored in Supabase with Canadian data residency options. Each operator's data is fully isolated — your clients are never visible to other agencies on the platform.</div></div>
+    <div class="sc reveal"><div class="sc-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><rect x="1.5" y="4" width="14" height="10" rx="1.5" stroke="#c9a96e" stroke-width="1.3"/><polyline points="1.5,7 8.5,11 15.5,7" stroke="#c9a96e" stroke-width="1.2"/></svg></div><div class="sc-title">CASL-Compliant Email</div><div class="sc-body">Every email includes the required CASL footer, unsubscribe link, and your physical business address. Automated follow-up stays on the right side of Canadian anti-spam law.</div></div>
+    <div class="sc reveal"><div class="sc-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M8.5 2L2 5v3.5C2 13 5 15.5 8.5 16.5 12 15.5 15 13 15 8.5V5L8.5 2z" stroke="#c9a96e" stroke-width="1.2"/><line x1="5.5" y1="8.5" x2="11.5" y2="8.5" stroke="#c9a96e" stroke-width="1" opacity=".5"/><line x1="8.5" y1="5.5" x2="8.5" y2="11.5" stroke="#c9a96e" stroke-width="1" opacity=".5"/></svg></div><div class="sc-title">Rate Limiting &amp; Bot Protection</div><div class="sc-body">All public endpoints are rate-limited and honeypot-protected. Brute force attempts are blocked automatically. Security headers are A-rated on independent testing.</div></div>
+    <div class="sc reveal"><div class="sc-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="7" stroke="#c9a96e" stroke-width="1.2"/><polyline points="5,8.5 7.5,11 12,6" stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-title">127-Point Live Health Console</div><div class="sc-body">The system monitors itself continuously — 127 active health checks running at all times. If anything fails, it surfaces immediately. You are never the last to know.</div></div>
+  </div>
+</div>
+
+<!-- 08 PRICING -->
+<div class="sec">
+  <div class="eyebrow">08 — Investment</div>
+  <div class="sec-title">Simple pricing. <em>No surprises.</em></div>
+  <div class="sec-body">One setup fee. One monthly rate. Everything included — setup, configuration, training, and ongoing system operation. No per-user fees, no module upsells.</div>
+  <div class="pricing-box">
+    <div class="pr-row"><div class="pr-label">One-time setup — Full system configuration, branded portals, data migration, staff onboarding</div><div class="pr-value">$3,500</div></div>
+    <div class="pr-row"><div class="pr-label">Monthly — Unlimited clients, unlimited caregivers, all AI features, support</div><div class="pr-value">$500/mo</div></div>
+    <div class="pr-row"><div class="pr-label">Pilot offer — First 3 agencies. Ask Lance.</div><div class="pr-value">Let's talk</div></div>
+    <div class="pr-note">Compare: AlayaCare starts at $5,000+/month. ShiftCare at $300+/month with no AI and no done-for-you setup. Proximity is built specifically for agencies your size — and we set it up for you.</div>
+  </div>
+</div>
+
+<!-- 09 TIMELINE -->
+<div class="sec">
+  <div class="eyebrow">09 — Go-Live Timeline</div>
+  <div class="sec-title">Live in <em>7 days.</em></div>
+  <div class="sec-body">From signed agreement to fully operational system. No lengthy implementation. No IT project. We do the setup.</div>
+  <div class="timeline">
+    <div class="tl-item reveal"><div class="tl-day">Day 1</div><div class="tl-title">Kickoff Call</div><div class="tl-body">30 min with Lance. We map your current operation, collect agency details, and configure your system.</div></div>
+    <div class="tl-item reveal"><div class="tl-day">Days 2–3</div><div class="tl-title">System Build</div><div class="tl-body">HQ, PSW portal, and family portal configured and branded to Active Caregiving. Your data imported.</div></div>
+    <div class="tl-item reveal"><div class="tl-day">Days 4–5</div><div class="tl-title">Team Onboarding</div><div class="tl-body">You and your caregivers trained on the system. Walkthrough, Q&amp;A, and your first live shift in the system.</div></div>
+    <div class="tl-item reveal"><div class="tl-day">Day 7</div><div class="tl-title">Go Live</div><div class="tl-body">Active Caregiving is fully operational on Proximity OS. Every lead, visit, and invoice running through the system.</div></div>
+  </div>
+</div>
+
+<!-- 10 WHO -->
+<div class="sec">
+  <div class="eyebrow">10 — Who Built This</div>
+  <div class="sec-title">Built by a PSW who <em>ran the operation.</em></div>
+  <div class="who-body">Lance Salazar is the founder of Proximity Care Services in Mississauga — a live private pay home care agency he built from scratch and still operates today. He works PSW shifts alongside the caregivers on his team. Proximity Systems was built because he needed it himself and nothing on the market was designed for agencies like his.<br><br><strong>This isn't a tech company that consulted home care operators.</strong> It's a home care operator who built the tech. That distinction matters when you're trusting someone with your clients' data and your business operations.</div>
+</div>
+
+<!-- 11 NEXT STEP -->
+<div class="sec">
+  <div class="eyebrow">11 — Next Step</div>
+  <div class="sec-title">Let's talk about <em>Active Caregiving.</em></div>
+  <div class="sec-body" style="margin-bottom:0;">A 20-minute call is all it takes to see if Proximity is the right fit. No pitch deck. No sales process. Lance walks you through the live system and you decide.</div>
+
+  <div class="lc-wrap">
+    <div class="lc-head">
+      <div class="lc-title">Book a <em>20-minute demo</em> with Lance.</div>
+      <div class="lc-sub">See the full system live. Ask every question. Walk away knowing exactly what Active Caregiving looks like on Proximity OS.</div>
+    </div>
+    <div id="lcFormBody">
+      <div class="lc-fields">
+        <div class="lc-row">
+          <div class="lc-field"><label class="lc-label">First Name</label><input class="lc-input" type="text" id="lcFirst" placeholder="Lorien" autocomplete="off"></div>
+          <div class="lc-field"><label class="lc-label">Last Name</label><input class="lc-input" type="text" id="lcLast" placeholder="Bellamy" autocomplete="off"></div>
+        </div>
+        <div class="lc-row">
+          <div class="lc-field"><label class="lc-label">Email</label><input class="lc-input" type="email" id="lcEmail" placeholder="lorien@activecaregiving.ca" autocomplete="off"></div>
+          <div class="lc-field"><label class="lc-label">Phone</label><input class="lc-input" type="tel" id="lcPhone" placeholder="226-646-7281" autocomplete="off"></div>
+        </div>
+        <div class="lc-row full">
+          <div class="lc-field"><label class="lc-label">Agency Name</label><input class="lc-input" type="text" id="lcAgency" placeholder="Active Caregiving Inc" autocomplete="off"></div>
+        </div>
+        <div class="lc-row full">
+          <div class="lc-field"><label class="lc-label">Biggest operational challenge right now?</label><textarea class="lc-input" id="lcChallenge" placeholder="e.g. Following up on leads, caregiver scheduling, invoicing families..." rows="3"></textarea></div>
+        </div>
+        <input type="text" id="lcHp" style="display:none;" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="lc-footer">
+        <button class="lc-btn" id="lcBtn" onclick="submitLCForm()"><span id="lcBtnText">Book My Demo Call</span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polyline points="3,6.5 10,6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><polyline points="7.5,4 10,6.5 7.5,9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="lc-privacy">Your information is never shared. Lance will reach out within 24 hours to confirm a time.</div>
+      </div>
+    </div>
+    <div class="lc-success" id="lcSuccess">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#6db974" stroke-width="1.5"/><polyline points="8,14 12,18 20,10" stroke="#6db974" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="lc-success-title">You're on Lance's list.</div>
+      <div class="lc-success-body">Expect an email from <strong>lancesalazar56@gmail.com</strong> within 24 hours. If it's urgent, call directly: <strong>647-382-8047</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">Proximity <em>Systems</em></div>
+  <div class="footer-meta">Confidential · Prepared for Active Caregiving Inc · May 2026</div>
+</div>
+
+</div><!-- /page -->
+
+<script>
+const API = 'https://proximity-agent-production.up.railway.app';
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 55);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+async function submitLCForm() {
+  const first = document.getElementById('lcFirst').value.trim();
+  const last  = document.getElementById('lcLast').value.trim();
+  const email = document.getElementById('lcEmail').value.trim();
+  const phone = document.getElementById('lcPhone').value.trim();
+  const agency = document.getElementById('lcAgency').value.trim();
+  const challenge = document.getElementById('lcChallenge').value.trim();
+  const hp = document.getElementById('lcHp').value;
+  if (hp) return;
+  if (!first || !email) { showErr('Please enter your first name and email.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showErr('Please enter a valid email address.'); return; }
+  const btn = document.getElementById('lcBtn');
+  const btnText = document.getElementById('lcBtnText');
+  btn.disabled = true; btnText.textContent = 'Sending...';
+  try {
+    const r = await fetch(`${API}/webhook/lead`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operator_id: 'proximity-care', lead_type: 'operator',
+        first_name: first, last_name: last, email, phone,
+        city: 'Kitchener',
+        care_needed_for: agency || 'Active Caregiving Inc',
+        care_type_interest: challenge || 'Demo request via proposal',
+        urgency: 'hot', source: 'proposal-active-caregiving',
+        utm_source: 'proposal', utm_medium: 'email', utm_campaign: 'active-caregiving', _hp: hp
+      })
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Submission failed');
+    document.getElementById('lcFormBody').style.display = 'none';
+    document.querySelector('.lc-head').style.display = 'none';
+    document.getElementById('lcSuccess').style.display = 'block';
+  } catch(e) {
+    btn.disabled = false; btnText.textContent = 'Book My Demo Call';
+    showErr('Something went wrong. Email Lance directly: lancesalazar56@gmail.com');
+  }
+}
+
+function showErr(msg) {
+  let err = document.getElementById('lcErrMsg');
+  if (!err) { err = document.createElement('div'); err.id = 'lcErrMsg'; err.className = 'lc-err'; document.querySelector('.lc-footer').prepend(err); }
+  err.textContent = msg;
+}
+</script>
+</body>
+</html>
