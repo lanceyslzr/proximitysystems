@@ -65,7 +65,35 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
   .nav-cta::after { display: none !important; }
   .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%); }
-  #hero { min-height: 100vh; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center; padding: 0 48px 0 64px; position: relative; overflow: hidden; gap: 80px; }
+  /* ── HERO — Particle canvas + gradient orb + editorial typography ── */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #07090c; padding: 120px 48px 80px; }
+  #hero-particle-canvas { position: absolute; inset: 0; z-index: 0; pointer-events: none; width: 100%; height: 100%; }
+  .hero-orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-54%); width: clamp(360px,55vw,700px); height: clamp(360px,55vw,700px); border-radius: 50%; background: radial-gradient(ellipse at 38% 36%, rgba(30,125,150,.22) 0%, rgba(61,138,122,.1) 42%, rgba(184,112,16,.07) 72%, transparent 100%); animation: heroorb 6s ease-in-out infinite; pointer-events: none; z-index: 1; }
+  .hero-orb-ring { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(30,125,150,.07); animation: heroRing 6s ease-in-out infinite; pointer-events: none; z-index: 1; }
+  .hero-orb-ring-1 { width: clamp(280px,44vw,560px); height: clamp(280px,44vw,560px); transform: translate(-50%,-54%); }
+  .hero-orb-ring-2 { width: clamp(200px,33vw,420px); height: clamp(200px,33vw,420px); transform: translate(-50%,-54%); animation-delay: 1.2s; border-color: rgba(61,138,122,.05); }
+  @keyframes heroorb { 0%,100%{transform:translate(-50%,-54%) scale(1);opacity:.7} 50%{transform:translate(-50%,-54%) scale(1.05);opacity:1} }
+  @keyframes heroRing { 0%,100%{transform:translate(-50%,-54%) scale(1);opacity:.5} 50%{transform:translate(-50%,-54%) scale(1.04);opacity:.9} }
+  .hero-inner { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; max-width: 780px; }
+  .hero-eyebrow-new { display: flex; align-items: center; gap: 8px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #3d8a7a; margin-bottom: 22px; font-family: var(--mono); }
+  .hero-live-dot { width: 5px; height: 5px; border-radius: 50%; background: #3d8a7a; animation: heroLive 2s infinite; flex-shrink: 0; }
+  @keyframes heroLive { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,138,122,.5)} 50%{opacity:.6;box-shadow:0 0 0 5px rgba(61,138,122,0)} }
+  .hero-h1-new { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px,6.5vw,86px); font-weight: 300; color: #faf8f4; line-height: 1.0; margin-bottom: 18px; letter-spacing: -.5px; opacity: 0; animation: fadeUp .9s ease forwards .15s; }
+  .hero-h1-new em { color: #1e7d96; font-style: italic; display: block; }
+  .hero-sub-new { font-size: 12px; color: rgba(250,248,244,.42); line-height: 1.95; max-width: 460px; margin-bottom: 34px; letter-spacing: .3px; opacity: 0; animation: fadeUp .9s ease forwards .35s; }
+  .hero-ctas-new { display: flex; gap: 12px; justify-content: center; margin-bottom: 52px; opacity: 0; animation: fadeUp .9s ease forwards .55s; flex-wrap: wrap; }
+  .hero-btn-primary { padding: 14px 32px; background: #1e7d96; color: #faf8f4; font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: background .2s; }
+  .hero-btn-primary:hover { background: #2a8fa6; }
+  .hero-btn-secondary { padding: 14px 32px; background: transparent; color: rgba(250,248,244,.4); font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid rgba(250,248,244,.14); cursor: pointer; text-decoration: none; display: inline-block; transition: all .2s; }
+  .hero-btn-secondary:hover { color: #faf8f4; border-color: rgba(250,248,244,.38); }
+  .hero-stats-band { display: flex; gap: 0; border-top: 1px solid rgba(250,248,244,.08); padding-top: 34px; width: 100%; max-width: 680px; opacity: 0; animation: fadeUp .9s ease forwards .75s; }
+  .hero-stat-new { flex: 1; padding: 0 18px; border-right: 1px solid rgba(250,248,244,.07); text-align: center; }
+  .hero-stat-new:first-child { padding-left: 0; }
+  .hero-stat-new:last-child { border: none; }
+  .hsn-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: #faf8f4; line-height: 1; }
+  .hsn-num em { color: #1e7d96; font-style: italic; }
+  .hsn-label { font-family: var(--mono); font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(250,248,244,.3); margin-top: 4px; }
+  .hsn-sub { font-family: var(--mono); font-size: 8px; color: #3d8a7a; margin-top: 3px; }
   .hero-bg-text { position: absolute; bottom: -20px; right: -20px; font-family: 'Cormorant Garamond', serif; font-size: 280px; font-weight: 300; color: rgba(106,158,170,0.05); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -10px; }
   .hero-left { position: relative; z-index: 2; padding-top: 100px; }
   .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
@@ -626,9 +654,9 @@ button,a,[onclick]{touch-action:manipulation;}
 
 @media (max-width: 1024px) {
     nav { padding: 18px 24px; } nav.scrolled { padding: 14px 24px; }
-    #hero { grid-template-columns: 1fr; padding: 100px 24px 48px; gap: 32px; min-height:auto; }
-    .hero-right { padding-top: 0; }
-    .hero-left { padding-top: 0; }
+    #hero { padding: 100px 20px 60px; min-height:auto; }
+    .hero-stats-band { flex-wrap:wrap; gap:16px; }
+    .hero-stat-new { flex:0 0 calc(50% - 8px); padding:0 0 0 0; border-right:none; }
     .section-wrap { padding: 80px 24px; }
     .hero-bg-text { display: none; }
     .problem-cols,.solution-cols,.proof-cols { grid-template-columns: 1fr; gap: 48px; }
@@ -823,12 +851,74 @@ button,a,[onclick]{touch-action:manipulation;}
   
 
 @media(max-width:390px){.osn-icon{width:28px;height:28px;}.osn-label{display:none;}}
+
+  /* ── THREE.JS CANVAS ── */
+  #three-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+  .site-content{position:relative;z-index:1;}
+
+  /* ── HERO UPGRADE ── */
+  /* #hero background handled above */
+  .hero-card{background:rgba(11,15,20,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(61,122,138,.2);border-radius:14px;overflow:hidden;position:relative;}
+  .hero-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(61,122,138,.06) 0%,transparent 60%);pointer-events:none;}
+  .hero-card-header{background:rgba(61,122,138,.08);border-bottom:1px solid rgba(61,122,138,.15);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+  .hch-dots{display:flex;gap:5px;}
+  .hch-dot{width:8px;height:8px;border-radius:50%;}
+  .hch-dot:nth-child(1){background:rgba(192,80,80,.7);}
+  .hch-dot:nth-child(2){background:rgba(200,134,58,.7);}
+  .hch-dot:nth-child(3){background:rgba(90,138,90,.7);}
+
+  /* ── PROBLEM SECTION ── */
+  #problem{position:relative;overflow:hidden;}
+  .prob-item{position:relative;overflow:hidden;transition:border-color .3s,background .3s;}
+  .prob-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--red);transform:scaleY(0);transform-origin:bottom;transition:transform .4s cubic-bezier(.16,1,.3,1);}
+  .prob-item:hover::after{transform:scaleY(1);}
+  .prob-item:hover{background:rgba(192,80,80,.04);border-color:rgba(192,80,80,.2);}
+
+  /* ── SYS CHIPS UPGRADE ── */
+  .sys-chip{position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);}
+  .sys-chip:hover{transform:translateY(-2px);border-color:rgba(61,122,138,.4);box-shadow:0 8px 24px rgba(61,122,138,.12);}
+
+  /* ── TIMELINE ── */
+  .tl-card{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;}
+  .tl-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(61,122,138,.12);}
+
+  /* ── PRICING GLOW ── */
+  .pricing-featured{position:relative;overflow:hidden;}
+  .pricing-featured::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(61,122,138,.1) 0%,transparent 70%);animation:priceGlow 4s ease-in-out infinite;pointer-events:none;}
+  @keyframes priceGlow{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.05);opacity:1;}}
+
+  /* ── REVIEWS ── */
+  #reviews{background:linear-gradient(180deg,#0b0f14 0%,#111820 100%);}
+  .rv-card{position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s;}
+  .rv-card::before{content:'"';position:absolute;top:-10px;left:16px;font-family:'Cormorant Garamond',serif;font-size:120px;color:rgba(61,122,138,.06);line-height:1;pointer-events:none;}
+  .rv-card:hover{transform:translateY(-4px);border-color:rgba(61,122,138,.3);}
+
+  /* ── FOOTER TERMINAL ── */
+  .footer-terminal{background:#070b0f;border-top:1px solid rgba(61,122,138,.1);padding:48px 64px;}
+  .ft-line{font-family:'DM Mono',monospace;font-size:12px;line-height:2.2;color:rgba(221,217,208,.4);}
+  .ft-cmd::before{content:'> ';color:#b87010;}
+  .ft-output{color:#3d8a7a;}
+  .ft-cursor{display:inline-block;width:8px;height:14px;background:#b87010;vertical-align:middle;animation:ftBlink 1s infinite;margin-left:2px;}
+  @keyframes ftBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+  /* ── SCROLL PROGRESS BAR ── */
+  .scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal-dark),#b87010);z-index:9999;transform-origin:left;transform:scaleX(0);}
+
+  /* ── SECTION WATERMARKS ── */
+  .section-num-bg{position:absolute;font-family:'Cormorant Garamond',serif;font-size:220px;font-weight:300;line-height:1;pointer-events:none;user-select:none;z-index:0;opacity:.025;color:inherit;}
+
+  /* ── GSAP WILL CHANGE ── */
+  .nav-cta,.btn-primary{will-change:transform;}
+
 </style>
 </head>
 <body>
+<canvas id="three-canvas"></canvas>
+<div class="scroll-progress" id="scrollProgress"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<div class="site-content">
 <nav id="nav">
   <a href="#hero" class="nav-brand" style="display:flex;align-items:center;gap:11px;text-decoration:none;">
     <svg viewBox="0 0 100 100" width="34" height="34" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
@@ -867,52 +957,64 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
 <div id="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow reveal">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-tag">Done For You · Canadian Home Care</span>
-      </div>
-      <h1 class="hero-h1 reveal">
-        We install your<br>
-        AI operating system<br>
-        in <em>7 days.</em>
-      </h1>
-      <p class="hero-sub reveal">
-        By week 2 your agency runs itself. Visits log automatically. Invoices send automatically. Leads follow up automatically. You stop doing admin and start running a business.
-      </p>
-      <div class="hero-ctas reveal">
-        <a href="#builder" class="btn-primary">Build My Package</a>
-        <a href="/demo.html" class="btn-secondary">Watch Live Demo →</a>
-      </div>
-      <div class="hero-meta reveal">
-        <span><strong>$3,500</strong> setup + $500/mo</span>
-        <span class="hero-meta-sep">·</span>
-        <span>We build first. You pay after.</span>
-        <span class="hero-meta-sep">·</span>
-        <span>Live in 7 days or it's free.</span>
-      </div>
+  <!-- Particle canvas -->
+  <canvas id="hero-particle-canvas"></canvas>
+  <!-- Orb + rings -->
+  <div class="hero-orb" aria-hidden="true"></div>
+  <div class="hero-orb-ring hero-orb-ring-1" aria-hidden="true"></div>
+  <div class="hero-orb-ring hero-orb-ring-2" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="hero-inner">
+    <div class="hero-eyebrow-new">
+      <div class="hero-live-dot"></div>
+      Running live · Mississauga, ON · Proximity Care Services
     </div>
-    <div class="hero-right reveal">
-      <div class="hero-card">
-        <div class="hero-card-head">
-          <div class="hero-card-title">
-            <div class="hero-card-dot"></div>
-            <span>Proximity OS · Live Activity</span>
-          </div>
-          <div class="hero-card-time" id="osFeedTime">Real-time</div>
-        </div>
-        <div class="hero-card-body" style="padding:12px 16px;">
-          <div id="osFeed" style="display:flex;flex-direction:column;gap:8px;min-height:220px;"></div>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-val">1K+</div><div class="hero-stat-label">Visits Logged</div></div>
-          <div class="hero-stat"><div class="hero-stat-val">100+</div><div class="hero-stat-label">Invoices Sent</div></div>
-          <div class="hero-stat"><div class="hero-stat-val">12</div><div class="hero-stat-label">PSWs Active</div></div>
-          <div class="hero-stat"><div class="hero-stat-val">$0</div><div class="hero-stat-label">Admin Staff</div></div>
-        </div>
+
+    <h1 class="hero-h1-new">
+      Your agency<br>
+      runs itself.<br>
+      <em>While you sleep.</em>
+    </h1>
+
+    <p class="hero-sub-new">
+      Done-for-you AI operating system for Ontario private-pay home care agencies.
+      PHIPA-compliant. Installed in 7 days. We build first — you pay after we're live.
+    </p>
+
+    <div class="hero-ctas-new">
+      <a href="#builder" class="hero-btn-primary">Build My Package →</a>
+      <a href="/demo.html" class="hero-btn-secondary">Watch Live Demo</a>
+    </div>
+
+    <div class="hero-stats-band">
+      <div class="hero-stat-new">
+        <div class="hsn-num"><em id="hStat1">0</em></div>
+        <div class="hsn-label">Visits logged</div>
+        <div class="hsn-sub">↑ running since launch</div>
+      </div>
+      <div class="hero-stat-new">
+        <div class="hsn-num" id="hStat2">0</div>
+        <div class="hsn-label">Invoices auto-generated</div>
+        <div class="hsn-sub">↑ zero manual entry</div>
+      </div>
+      <div class="hero-stat-new">
+        <div class="hsn-num">12</div>
+        <div class="hsn-label">PSWs active</div>
+        <div class="hsn-sub">● all on portal</div>
+      </div>
+      <div class="hero-stat-new">
+        <div class="hsn-num">$0</div>
+        <div class="hsn-label">Admin staff needed</div>
+        <div class="hsn-sub">∅ system handles it</div>
       </div>
     </div>
   </div>
+
+  <!-- osFeed preserved for JS compatibility -->
+  <div id="osFeed" style="display:none;"></div>
+  <div id="osFeedTime" style="display:none;"></div>
+</div>
 
 <div class="trust-bar">
   <div class="trust-item">Built in Canada</div>
@@ -922,44 +1024,109 @@ button,a,[onclick]{touch-action:manipulation;}
   <div class="trust-item">100% Remote Setup</div>
 </div>
 
-<div id="problem" class="section-wrap" style="background:#1c2228;">
-  <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#c05050"></div><div class="eyebrow-tag" style="color:#c05050">The Truth</div></div>
-    <h2 class="s-title light reveal">You didn't start this agency<br><em>to waste your life on admin.</em></h2>
-    <p style="font-size:15px;color:#b8cfd4;line-height:1.8;max-width:680px;margin:0 auto 48px;text-align:center;" class="reveal">
-      You started it to take care of people. To build something that mattered. To stop working for someone else. But here's what running a 5 to 20 PSW agency actually looks like right now:
+<div id="problem" style="background:#0f1318;position:relative;padding:96px 0 80px;overflow:hidden;">
+  <!-- Subtle grid texture -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(30,125,150,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(30,125,150,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;"></div>
+
+  <div style="max-width:960px;margin:0 auto;padding:0 48px;position:relative;z-index:2;">
+
+    <!-- Eyebrow -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;" class="reveal">
+      <div style="width:24px;height:1px;background:#c05050;"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c05050;">The Truth</div>
+    </div>
+
+    <!-- Headline -->
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,68px);font-weight:300;color:#faf8f4;line-height:1.0;margin-bottom:16px;text-align:left;" class="reveal">
+      You didn't start this agency<br><em style="color:#c05050;font-style:italic;">to waste your life on admin.</em>
+    </h2>
+    <p style="font-size:14px;color:rgba(250,248,244,.45);line-height:1.9;max-width:560px;margin-bottom:56px;font-family:'DM Mono',monospace;" class="reveal">
+      You started it to take care of people. But here's what running a 5–20 PSW agency actually looks like right now.
     </p>
-    <div class="problem-cols">
-      <div class="problem-items reveal">
-        <div class="prob-item ps-reveal">
-          <div class="prob-strike">Friday night invoices in Excel</div>
-          <div class="prob-why">Six hours every week, every week, fixing formulas while your family eats dinner without you.</div>
+
+    <!-- Two-column: pain list left, counter right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+
+      <!-- Pain items -->
+      <div style="display:flex;flex-direction:column;gap:0;" class="reveal">
+        <div class="prob-item" style="padding:16px 20px;border-left:2px solid #c05050;background:rgba(192,80,80,.04);border-radius:0 6px 6px 0;margin-bottom:3px;">
+          <div class="prob-strike" style="font-size:13px;font-weight:500;color:rgba(250,248,244,.5);text-decoration:line-through;text-decoration-color:rgba(192,80,80,.5);margin-bottom:4px;">Friday night invoices in Excel</div>
+          <div style="font-size:11px;color:rgba(250,248,244,.3);line-height:1.6;font-family:'DM Mono',monospace;">Six hours every week. Family eats dinner without you.</div>
         </div>
-        <div class="prob-item ps-reveal">
-          <div class="prob-strike">2am texts from no-show PSWs</div>
-          <div class="prob-why">You wake up, you scramble, you call three people. The client thinks you don't care.</div>
+        <div class="prob-item" style="padding:16px 20px;border-left:2px solid rgba(192,80,80,.4);background:rgba(192,80,80,.02);border-radius:0 6px 6px 0;margin-bottom:3px;">
+          <div class="prob-strike" style="font-size:13px;font-weight:500;color:rgba(250,248,244,.5);text-decoration:line-through;text-decoration-color:rgba(192,80,80,.5);margin-bottom:4px;">2am texts from no-show PSWs</div>
+          <div style="font-size:11px;color:rgba(250,248,244,.3);line-height:1.6;font-family:'DM Mono',monospace;">You scramble. Call three people. Client thinks you don't care.</div>
         </div>
-        <div class="prob-item ps-reveal">
-          <div class="prob-strike">Leads that go cold in your inbox</div>
-          <div class="prob-why">You see the email Tuesday. You reply Friday. They booked with someone else Wednesday.</div>
+        <div class="prob-item" style="padding:16px 20px;border-left:2px solid rgba(192,80,80,.3);background:rgba(192,80,80,.02);border-radius:0 6px 6px 0;margin-bottom:3px;">
+          <div class="prob-strike" style="font-size:13px;font-weight:500;color:rgba(250,248,244,.5);text-decoration:line-through;text-decoration-color:rgba(192,80,80,.5);margin-bottom:4px;">Leads going cold in your inbox</div>
+          <div style="font-size:11px;color:rgba(250,248,244,.3);line-height:1.6;font-family:'DM Mono',monospace;">You see it Tuesday. Reply Friday. They booked Wednesday.</div>
         </div>
-        <div class="prob-item ps-reveal">
-          <div class="prob-strike">Families calling you at 9pm</div>
-          <div class="prob-why">"Did mom take her medication?" You don't know. You weren't there. Now you're a 24/7 help desk.</div>
+        <div class="prob-item" style="padding:16px 20px;border-left:2px solid rgba(192,80,80,.2);background:rgba(192,80,80,.01);border-radius:0 6px 6px 0;margin-bottom:3px;">
+          <div class="prob-strike" style="font-size:13px;font-weight:500;color:rgba(250,248,244,.5);text-decoration:line-through;text-decoration-color:rgba(192,80,80,.5);margin-bottom:4px;">Families calling you at 9pm</div>
+          <div style="font-size:11px;color:rgba(250,248,244,.3);line-height:1.6;font-family:'DM Mono',monospace;">"Did mom take her meds?" You don't know. You're now the help desk.</div>
         </div>
-        <div class="prob-item ps-reveal">
-          <div class="prob-strike">Scheduling on a whiteboard</div>
-          <div class="prob-why">Two PSWs double-booked. One client gets nobody. You find out from the family, not the system.</div>
+        <div class="prob-item" style="padding:16px 20px;border-left:2px solid rgba(192,80,80,.15);background:rgba(192,80,80,.01);border-radius:0 6px 6px 0;margin-bottom:3px;">
+          <div class="prob-strike" style="font-size:13px;font-weight:500;color:rgba(250,248,244,.5);text-decoration:line-through;text-decoration-color:rgba(192,80,80,.5);margin-bottom:4px;">Scheduling on a whiteboard</div>
+          <div style="font-size:11px;color:rgba(250,248,244,.3);line-height:1.6;font-family:'DM Mono',monospace;">Two PSWs double-booked. You find out from the family.</div>
         </div>
-        <div class="prob-item ps-reveal">
-          <div class="prob-strike">$40K/year coordinators you can't afford</div>
-          <div class="prob-why">Or you ARE the coordinator. Either way you're not running a business, you're trapped in one.</div>
+        <div class="prob-item" style="padding:16px 20px;border-left:2px solid rgba(192,80,80,.1);background:rgba(192,80,80,.01);border-radius:0 6px 6px 0;">
+          <div class="prob-strike" style="font-size:13px;font-weight:500;color:rgba(250,248,244,.5);text-decoration:line-through;text-decoration-color:rgba(192,80,80,.5);margin-bottom:4px;">$40K/year coordinators you can't afford</div>
+          <div style="font-size:11px;color:rgba(250,248,244,.3);line-height:1.6;font-family:'DM Mono',monospace;">Or you ARE the coordinator. You're trapped in a job, not running a business.</div>
         </div>
       </div>
+
+      <!-- Right: what the OS eliminates -->
+      <div class="reveal" style="position:sticky;top:120px;">
+        <div style="background:rgba(30,125,150,.06);border:1px solid rgba(30,125,150,.15);border-radius:10px;padding:28px 24px;margin-bottom:12px;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#1e7d96;margin-bottom:16px;">What the OS eliminates</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#3d8a7a;flex-shrink:0;">✓</div>
+              <div style="font-size:11px;color:rgba(250,248,244,.6);font-family:'DM Mono',monospace;">Manual invoicing — gone</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#3d8a7a;flex-shrink:0;">✓</div>
+              <div style="font-size:11px;color:rgba(250,248,244,.6);font-family:'DM Mono',monospace;">2am scramble calls — gone</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#3d8a7a;flex-shrink:0;">✓</div>
+              <div style="font-size:11px;color:rgba(250,248,244,.6);font-family:'DM Mono',monospace;">Cold lead follow-up — gone</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#3d8a7a;flex-shrink:0;">✓</div>
+              <div style="font-size:11px;color:rgba(250,248,244,.6);font-family:'DM Mono',monospace;">9pm family calls — gone</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#3d8a7a;flex-shrink:0;">✓</div>
+              <div style="font-size:11px;color:rgba(250,248,244,.6);font-family:'DM Mono',monospace;">Scheduling conflicts — gone</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#3d8a7a;flex-shrink:0;">✓</div>
+              <div style="font-size:11px;color:rgba(250,248,244,.6);font-family:'DM Mono',monospace;">$40K coordinator salary — gone</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live proof -->
+        <div style="background:rgba(250,248,244,.03);border:1px solid rgba(250,248,244,.07);border-radius:10px;padding:20px 24px;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:14px;">Proven inside our own agency</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="text-align:center;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#faf8f4;line-height:1;">1,847</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Visits logged</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#3d8a7a;line-height:1;">$0</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Admin staff</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:rgba(250,248,244,.5);margin-top:20px;line-height:1.6;text-align:center;">
+          Every hour you spend on this<br>is an hour you're not growing.
+        </p>
+      </div>
     </div>
-    <p style="font-size:18px;color:#fff;font-family:'Cormorant Garamond',serif;font-style:italic;text-align:center;margin:48px auto 0;max-width:640px;line-height:1.5;" class="reveal">
-      Every hour you spend on this is an hour you're not growing.
-    </p>
   </div>
 </div>
 
@@ -1046,15 +1213,7 @@ button,a,[onclick]{touch-action:manipulation;}
 </div>
 
 <!-- ── SYSTEM BUILDER ── -->
-<div id="features" class="section-wrap" style="background:#f6f3ee;">
-  <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">The Stack</div></div>
-    <h2 class="s-title dark reveal">Everything you'd build<br>if you had <em>three engineers and a year.</em></h2>
-    <p style="font-size:15px;color:#3a4a42;line-height:1.8;max-width:680px;margin:0 auto 48px;text-align:center;" class="reveal">
-      Most operators stitch this together from 5 different tools that don't talk to each other. We installed all of it as one connected system, then ran it inside a real home care agency for 6 months before we sold a single license.
-    </p>
-  </div>
-</div>
+
 
 <div id="builder">
   <div class="bld-inner">
@@ -1295,145 +1454,505 @@ button,a,[onclick]{touch-action:manipulation;}
     <style>@media(max-width:700px){#roi-calc .reveal[style*="220px"]{grid-template-columns:1fr!important;}}</style>
   </div>
 </div>
-<!-- ── OS FLOW ANIMATION ── -->
-<section id="os-flow" style="padding:56px 0 48px;background:var(--bg);overflow:hidden;">
-  <div style="max-width:960px;margin:0 auto;padding:0 20px;">
-    <div style="text-align:center;margin-bottom:36px;">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#3d7a8a;margin-bottom:8px;">The OS in motion</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:#1e2420;line-height:1.1;">Every visit. Automatic.</div>
+<div id="portal-showcase" style="background:#060a0e;padding:72px 0 80px;position:relative;overflow:hidden;">
+
+  <!-- Section header -->
+  <div style="text-align:center;padding:0 24px 48px;">
+    <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#3d8a7a;margin-bottom:16px;">
+      <div style="width:5px;height:5px;border-radius:50%;background:#3d8a7a;animation:psDot 2s infinite;"></div>
+      The Operating System · Live
     </div>
-    <div id="os-flow-wrap" style="position:relative;">
-      <svg id="os-flow-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;" preserveAspectRatio="none">
-        <path id="os-flow-path" fill="none" stroke="#3d7a8a" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.35"/>
-        <circle id="os-flow-dot" r="4" fill="var(--teal)" opacity="0">
-          <animateMotion id="os-dot-anim" dur="5s" repeatCount="indefinite" begin="indefinite">
-            <mpath href="#os-flow-path"/>
-          </animateMotion>
-        </circle>
-      </svg>
-      <div id="os-nodes" style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;position:relative;z-index:2;flex-wrap:nowrap;"></div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:300;color:#faf8f4;line-height:1.05;margin-bottom:12px;">See exactly what you're buying.<br><em style="color:#1e7d96;font-style:italic;">Before you book a call.</em></h2>
+    <p style="font-size:12px;color:rgba(250,248,244,.4);max-width:480px;margin:0 auto;line-height:1.8;letter-spacing:.3px;">Three portals. Real UI. Real triggers. This is what runs inside your agency on day 8.</p>
+  </div>
+
+  <!-- Portal nav tabs -->
+  <div style="max-width:860px;margin:0 auto;padding:0 16px;">
+    <div id="ps-nav" style="display:flex;gap:1px;background:rgba(250,248,244,.04);border:1px solid rgba(250,248,244,.06);border-radius:8px 8px 0 0;overflow:hidden;">
+      <div class="ps-tab ps-active" onclick="psShow('hq',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#1e7d96;cursor:pointer;background:rgba(30,125,150,.08);border-bottom:2px solid #1e7d96;transition:all .2s;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3d8a7a;margin-right:5px;animation:psDot 2s infinite;vertical-align:middle;"></span>HQ Dashboard
+      </div>
+      <div class="ps-tab" onclick="psShow('psw',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.4);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3d8a7a;margin-right:5px;animation:psDot 2.3s infinite;vertical-align:middle;"></span>PSW Portal
+      </div>
+      <div class="ps-tab" onclick="psShow('family',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.4);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#b87010;margin-right:5px;animation:psDot 1.8s infinite;vertical-align:middle;"></span>Family Portal
+      </div>
+      <div class="ps-tab" onclick="psShow('chain',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.4);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
+        ⚡ Trigger Chain
+      </div>
     </div>
-    <div style="text-align:center;margin-top:24px;min-height:44px;">
-      <div id="os-flow-desc-text" style="font-size:13px;color:var(--muted);line-height:1.6;max-width:500px;margin:0 auto;transition:opacity .25s;"></div>
+
+    <!-- ── HQ FRAME ───────────────────────────────────────────── -->
+    <div class="ps-frame" id="ps-frame-hq" style="background:#0c1018;border:1px solid rgba(250,248,244,.07);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.3);">proximitycares.ca/hq.html · Coordinator View</div>
+        <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(30,125,150,.1);color:#1e7d96;border:1px solid rgba(30,125,150,.2);">HQ</div>
+      </div>
+      <!-- HQ inner tabs -->
+      <div style="display:flex;gap:1px;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(250,248,244,.05);overflow-x:auto;" id="hq2-tabs">
+        <div class="hq2-tab hq2-on" onclick="hq2Tab('overview',this)" style="padding:8px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#1e7d96;white-space:nowrap;cursor:pointer;border-bottom:1px solid #1e7d96;">Overview</div>
+        <div class="hq2-tab" onclick="hq2Tab('schedule',this)" style="padding:8px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Schedule</div>
+        <div class="hq2-tab" onclick="hq2Tab('clients',this)" style="padding:8px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Clients</div>
+        <div class="hq2-tab" onclick="hq2Tab('psws',this)" style="padding:8px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">PSWs</div>
+        <div class="hq2-tab" onclick="hq2Tab('revenue',this)" style="padding:8px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Revenue</div>
+      </div>
+
+      <!-- Overview -->
+      <div id="hq2-overview" style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#1e7d96;" id="hq2-kv">8</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Visits today</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ 3 live</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#3d8a7a;">312</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Invoices</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ auto</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#b87010;">89</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Leads</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ AI 24/7</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;">$18.4K</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Month rev</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ 12%</div></div>
+        </div>
+        <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(250,248,244,.05);"><div style="width:6px;height:6px;border-radius:50%;background:#3d8a7a;animation:psDot 2s infinite;"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);">Live activity · Proximity Care Services · Mississauga</div></div>
+          <div id="hq2-feed" style="display:flex;flex-direction:column;"></div>
+        </div>
+      </div>
+
+      <!-- Schedule -->
+      <div id="hq2-schedule" style="padding:14px;display:none;">
+        <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:72px repeat(7,1fr);gap:2px;background:rgba(0,0,0,.2);padding:6px 10px;border-bottom:1px solid rgba(250,248,244,.05);">
+            <div></div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Mon</div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Tue</div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Wed</div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Thu</div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Fri</div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Sat</div>
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);text-align:center;">Sun</div>
+          </div>
+          <div id="hq2-sched-rows" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;"></div>
+        </div>
+      </div>
+
+      <!-- Clients -->
+      <div id="hq2-clients" style="padding:14px;display:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="hq2-client-cards"></div>
+      </div>
+
+      <!-- PSWs -->
+      <div id="hq2-psws" style="padding:14px;display:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="hq2-psw-cards"></div>
+      </div>
+
+      <!-- Revenue -->
+      <div id="hq2-revenue" style="padding:14px;display:none;flex-direction:column;gap:10px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#1e7d96;">$18.4K</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">This month</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ 12%</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf8f4;">$16.4K</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Last month</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#b87010;">$2.0K</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Margin</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#3d8a7a;">0</div><div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-top:3px;">Vacant</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:2px;">all covered ✓</div></div>
+        </div>
+        <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:12px;" id="hq2-rev-bars"></div>
+      </div>
+    </div>
+
+    <!-- ── PSW FRAME ──────────────────────────────────────────── -->
+    <div class="ps-frame" id="ps-frame-psw" style="display:none;background:#0c1018;border:1px solid rgba(250,248,244,.07);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.3);">proximitycares.ca/psw-portal.html · PSW View</div>
+        <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">GPS Active</div>
+      </div>
+      <div id="psw2-body" style="padding:14px;display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <!-- ── FAMILY FRAME ───────────────────────────────────────── -->
+    <div class="ps-frame" id="ps-frame-family" style="display:none;background:#0c1018;border:1px solid rgba(250,248,244,.07);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.3);">proximitycares.ca/family.html · Family View</div>
+        <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(184,112,16,.1);color:#c9940f;border:1px solid rgba(184,112,16,.2);">PIN Protected</div>
+      </div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:1px;border-bottom:1px solid rgba(250,248,244,.06);margin-bottom:4px;" id="fam2-tabs">
+          <div class="fam2-tab fam2-on" onclick="fam2Tab('visits',this)" style="padding:7px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#b87010;cursor:pointer;border-bottom:2px solid #b87010;">Visits</div>
+          <div class="fam2-tab" onclick="fam2Tab('team',this)" style="padding:7px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);cursor:pointer;border-bottom:2px solid transparent;">Care Team</div>
+          <div class="fam2-tab" onclick="fam2Tab('ask',this)" style="padding:7px 14px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);cursor:pointer;border-bottom:2px solid transparent;">Ask AI</div>
+        </div>
+        <div id="fam2-visits">
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;margin-bottom:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(250,248,244,.05);cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+              <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf8f4;">Today · May 24</div><div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);margin-top:2px;">Sarah Mitchell</div></div>
+              <div style="font-family:var(--mono);font-size:10px;color:#1e7d96;">4.3h ↗</div>
+            </div>
+            <div style="padding:10px 12px;">
+              <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:5px;">AI Care Summary</div>
+              <div style="font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.7);line-height:1.7;margin-bottom:8px;">Sarah provided comprehensive care for Dorothy. Personal hygiene completed, all 3 medications administered on schedule, breakfast and lunch prepared. Dorothy was in good spirits.</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
+                <span style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">Personal care ✓</span>
+                <span style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">Meds given ✓</span>
+                <span style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(30,125,150,.1);color:#1e7d96;border:1px solid rgba(30,125,150,.2);">Summary emailed ✓</span>
+              </div>
+              <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:5px;">Rate this visit</div>
+              <div style="display:flex;gap:4px;align-items:center;" id="fam2-stars">
+                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(1)">★</span>
+                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(2)">★</span>
+                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(3)">★</span>
+                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(4)">★</span>
+                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(5)">★</span>
+                <span id="fam2-rate-label" style="font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.4);margin-left:4px;">5 stars</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+              <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf8f4;">May 22</div><div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);margin-top:2px;">Sarah Mitchell</div></div>
+              <div style="font-family:var(--mono);font-size:10px;color:#1e7d96;">4.0h ↗</div>
+            </div>
+            <div style="display:none;padding:10px 12px;font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.6);line-height:1.7;">Routine care completed. Dorothy in good mood. No concerns noted.</div>
+          </div>
+        </div>
+        <div id="fam2-team" style="display:none;">
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:12px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(30,125,150,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:#1e7d96;flex-shrink:0;">SM</div>
+              <div><div style="font-size:12px;color:#faf8f4;">Sarah Mitchell</div><div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);">PSW · 4.9 ★ avg · 12 visits</div></div>
+            </div>
+            <div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);line-height:1.7;">Mon / Wed / Fri · Mornings · Personal care specialist</div>
+          </div>
+        </div>
+        <div id="fam2-ask" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:6px;" id="fam2-chat">
+            <div style="padding:8px 10px;background:rgba(255,255,255,.05);border-radius:6px;font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.7);line-height:1.6;max-width:85%;">Hi — I'm your care coordinator AI. Ask me anything about Dorothy's care plan, visits, or medications.</div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <div style="flex:1;background:#111820;border:1px solid rgba(250,248,244,.08);border-radius:5px;padding:8px 10px;font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.3);">Ask about Dorothy's care...</div>
+            <div style="padding:8px 14px;background:#1e7d96;border-radius:5px;font-family:var(--mono);font-size:9px;color:#fff;cursor:pointer;" onclick="fam2Ask()">Send</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAIN FRAME ───────────────────────────────────────── -->
+    <div class="ps-frame" id="ps-frame-chain" style="display:none;background:#0c1018;border:1px solid rgba(250,248,244,.07);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.3);">Live Trigger Chain · Railway Backend</div>
+        <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">Real webhooks</div>
+      </div>
+      <div style="padding:14px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;" id="chain2-btns">
+          <div style="padding:8px 16px;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(30,125,150,.3);background:rgba(30,125,150,.15);color:#1e7d96;cursor:pointer;" onclick="runChain2('checkin',this)">PSW Signs In</div>
+          <div style="padding:8px 16px;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(250,248,244,.1);background:transparent;color:rgba(250,248,244,.4);cursor:pointer;" onclick="runChain2('checkout',this)">PSW Signs Out</div>
+          <div style="padding:8px 16px;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(250,248,244,.1);background:transparent;color:rgba(250,248,244,.4);cursor:pointer;" onclick="runChain2('lead',this)">Lead Captured</div>
+          <div style="padding:8px 16px;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(250,248,244,.1);background:transparent;color:rgba(250,248,244,.4);cursor:pointer;" onclick="runChain2('invoice',this)">Invoice Generated</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;gap:4px;align-items:center;margin-bottom:12px;">
+          <div id="chain2-left" style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;transition:all .4s;">
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:6px;" id="c2ll">PSW Portal</div>
+            <div style="font-size:11px;color:#faf8f4;margin-bottom:2px;" id="c2le">Sarah signs in</div>
+            <div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.3);" id="c2ls">GPS · DNR · 09:01am</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;"><div style="width:100%;height:1px;transition:background .5s;" id="c2a1"></div></div>
+          <div id="chain2-mid" style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;transition:all .4s;">
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:6px;" id="c2ml">Railway API</div>
+            <div style="font-size:11px;color:#faf8f4;margin-bottom:2px;font-family:var(--mono);" id="c2me">POST /visit/checkin</div>
+            <div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.3);" id="c2ms">6ms · 200 OK</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;"><div style="width:100%;height:1px;transition:background .5s;" id="c2a2"></div></div>
+          <div id="chain2-right" style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;transition:all .4s;">
+            <div style="font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:6px;" id="c2rl">Family Portal</div>
+            <div style="font-size:11px;color:#faf8f4;margin-bottom:2px;" id="c2re">Notification sent</div>
+            <div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.3);" id="c2rs">Sarah has arrived ✓</div>
+          </div>
+        </div>
+        <div style="background:#030508;border:1px solid rgba(250,248,244,.05);border-radius:6px;padding:10px 12px;margin-bottom:10px;">
+          <div style="font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.2);margin-bottom:8px;">Webhook log · Railway · auto-generated</div>
+          <div id="chain2-wh" style="display:flex;flex-direction:column;gap:0;"></div>
+        </div>
+        <div id="chain2-events" style="display:flex;flex-direction:column;gap:4px;"></div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- Bottom CTA -->
+  <div style="text-align:center;margin-top:40px;padding:0 16px;">
+    <p style="font-family:var(--mono);font-size:10px;color:rgba(250,248,244,.3);margin-bottom:16px;">This is what runs inside your agency on day 8. Want it installed by next week?</p>
+    <a href="#pricing" style="display:inline-block;padding:14px 36px;background:#1e7d96;color:#faf8f4;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#2a8fa6'" onmouseout="this.style.background='#1e7d96'">See Pricing →</a>
+  </div>
+</div>
+
 <style>
-.osn-icon{width:42px;height:42px;border-radius:10px;background:rgba(61,122,138,.08);border:1.5px solid rgba(61,122,138,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0;color:rgba(232,228,220,.35);}
-.osn-label{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(232,228,220,.25);text-align:center;line-height:1.35;transition:color .3s;margin-top:5px;word-break:break-word;max-width:62px;}
-@media(max-width:599px){.osn-icon{width:34px;height:34px;}.osn-icon svg{width:14px;height:14px;}.osn-label{font-size:6px;max-width:48px;}}
-
-@media(max-width:390px){.osn-icon{width:28px;height:28px;}.osn-label{display:none;}}
-
-/* ═══ MOBILE FIXES — KPI grid and pricing tier ═══ */
-@media(max-width:768px){
-  /* "Tested on Real" section — stack text and stats vertically */
-  .real-section-grid{grid-template-columns:1fr !important;gap:24px !important;}
-  /* KPI 2x2 grid — shrink font and padding so it fits */
-  .kpi-grid-mobile > div{padding:18px 10px !important;}
-  .kpi-grid-mobile > div > div:first-child{font-size:32px !important;}
-  .kpi-grid-mobile > div > div:last-child{font-size:9px !important;letter-spacing:1.5px !important;}
-  /* Pricing tiers — stack vertically full width */
-  .pricing-tier-grid{grid-template-columns:1fr !important;width:100% !important;max-width:420px !important;padding:0 4px;}
-  .pricing-tier-grid > div{width:100% !important;max-width:100% !important;}
-}
-@media(max-width:480px){
-  .kpi-grid-mobile > div{padding:14px 8px !important;}
-  .kpi-grid-mobile > div > div:first-child{font-size:28px !important;}
-  .kpi-grid-mobile > div > div:last-child{font-size:8.5px !important;}
-}
-/* ═══ END MOBILE FIXES ═══ */
-
-
-/* ── HERO POLISH (Hormozi rebuild) ── */
-.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
-.hero-eyebrow .eyebrow-line{width:32px;height:1px;background:#3d7a8a;}
-.hero-eyebrow .eyebrow-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#3d7a8a;}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,76px);font-weight:300;line-height:1.05;color:#13181c;margin:0 0 24px;letter-spacing:-0.02em;}
-.hero-h1 em{font-style:italic;color:#3d7a8a;font-weight:400;}
-.hero-sub{font-size:17px;line-height:1.7;color:#3a4a42;margin:0 0 32px;max-width:520px;}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
-.hero-meta{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:#7a7a72;font-family:'DM Mono',monospace;letter-spacing:0.5px;}
-.hero-meta strong{color:#13181c;font-weight:600;}
-.hero-meta-sep{color:rgba(122,122,114,0.5);}
-@media(max-width:768px){
-  .hero-h1{font-size:38px;}
-  .hero-sub{font-size:15px;}
-  .hero-meta{font-size:11px;}
-  .hero-meta-sep{display:none;}
-  .hero-meta{flex-direction:column;gap:6px;}
-}
-
+@keyframes psDot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,138,122,.5)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(61,138,122,0)}}
+.ps-tab:hover{color:#faf8f4!important;background:rgba(255,255,255,.03)!important;}
+.hq2-tab{font-family:var(--mono);transition:all .2s;}
+.hq2-tab:hover{color:rgba(250,248,244,.7)!important;}
 </style>
+
 <script>
 (function(){
-var STEPS=[
-  {"label":"Lead Captured","icon":"M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z","desc":"Chatbot captures the lead. Call booking link fires in the confirmation email. 24-hour and 5-hour reminders schedule automatically."},
-  {"label":"Client Onboarded","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z","desc":"Assessment uploaded in HQ. AI drafts care plan from referral notes. Family signs digitally. Portal goes live. Day 0 welcome fires."},
-  {"label":"Shift Scheduled","icon":"M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z","desc":"HQ drag-and-drop calendar assigns the right PSW. Conflict detection and capacity bars built in."},
-  {"label":"PSW Checks In","icon":"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z","desc":"GPS coordinates captured. DNR acknowledgement confirmed. Family notified. Visit starts — fully logged in real time."},
-  {"label":"Meds Recorded","icon":"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z","desc":"Structured MAR at checkout — given, not given, refused per medication. Missed doses flag automatically to HQ."},
-  {"label":"AI Summary Sent","icon":"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z","desc":"Care signal detection runs on checkout notes. HIGH severity alerts fire to Lance. AI summary emails family within seconds."},
-  {"label":"Family Rates Visit","icon":"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z","desc":"One-tap satisfaction rating in the family portal. Score above 8 triggers a referral ask. Score below 5 alerts HQ immediately."},
-  {"label":"Invoice Generated","icon":"M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8zm0-4h5v2H8z","desc":"Dual PDF invoicing fires — client invoice and PSW pay stub. Accounts receivable updated. Payroll CSV ready for ADP."}
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+var FEED=[
+  {t:'Visit complete · Sarah M. · Dorothy Chen · 4.3h',time:'09:01',type:'live'},
+  {t:'Invoice PDF generated · $1,248.00',time:'auto',type:'auto'},
+  {t:'Lead captured · 2:14am · AI qualified · call booked',time:'02:14',type:'live'},
+  {t:'PSW signed in · James O. · GPS confirmed',time:'08:30',type:'live'},
+  {t:'Care summary sent → family portal',time:'13:18',type:'auto'},
+  {t:'Cert expiry alert · Sarah M. · VSC 28 days',time:'alert',type:'auto'},
 ];
-var TEAL='var(--teal)';
-var cur=0,tmr=null,rdy=false;
-function buildNodes(){
-  var w=document.getElementById('os-nodes');if(!w)return;
-  w.innerHTML=STEPS.map(function(s,i){return'<div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;" onclick="osGo('+i+')"><div class="osn-icon" id="osni-'+i+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="'+s.icon+'"/></svg></div><div class="osn-label" id="osnl-'+i+'">'+s.label+'</div></div>';}).join('');
-}
-function drawPath(){
-  var svg=document.getElementById('os-flow-svg');
-  var path=document.getElementById('os-flow-path');
-  var w=document.getElementById('os-nodes');
-  if(!svg||!path||!w)return;
-  var sr=svg.getBoundingClientRect();
-  var icons=w.querySelectorAll('.osn-icon');
-  if(!icons.length)return;
-  var pts=[];
-  icons.forEach(function(el){var r=el.getBoundingClientRect();pts.push({x:r.left-sr.left+r.width/2,y:r.top-sr.top+r.height/2});});
-  if(pts.length<2)return;
-  var d='M '+pts[0].x+' '+pts[0].y;
-  for(var i=1;i<pts.length;i++){var mx=(pts[i-1].x+pts[i].x)/2;d+=' C '+mx+' '+pts[i-1].y+' '+mx+' '+pts[i].y+' '+pts[i].x+' '+pts[i].y;}
-  path.setAttribute('d',d);
-  var dot=document.getElementById('os-flow-dot');
-  var anim=document.getElementById('os-dot-anim');
-  if(dot&&anim){dot.setAttribute('opacity','0.9');anim.setAttribute('path',d);try{anim.beginElement();}catch(e){}}
-}
-window.osGo=function(i){
-  cur=i;
-  STEPS.forEach(function(_,idx){
-    var ic=document.getElementById('osni-'+idx);
-    var lb=document.getElementById('osnl-'+idx);
-    if(!ic||!lb)return;
-    if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor=TEAL;ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color=TEAL;lb.style.color=TEAL;}
-    else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='#7a7a72';lb.style.color='#7a7a72';}
-    else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(30,36,32,.3)';lb.style.color='rgba(30,36,32,.3)';}
-  });
-  var dt=document.getElementById('os-flow-desc-text');
-  if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}
+var SCHED=[
+  {name:'Sarah M.',s:[1,0,1,1,1,0,0]},
+  {name:'James O.',s:[0,1,0,1,0,1,0]},
+  {name:'Luz P.',s:[1,0,0,1,1,0,1]},
+  {name:'Angela B.',s:[0,1,1,0,0,1,0]},
+];
+var CLIENTS=[
+  {name:'Dorothy Chen',ini:'DC',psw:'Sarah M.',v:8,mood:'Good',rate:22},
+  {name:'Harold West',ini:'HW',psw:'James O.',v:6,mood:'Stable',rate:22},
+  {name:'Eleanor Brooks',ini:'EB',psw:'Luz P.',v:5,mood:'Great',rate:24},
+  {name:'Margaret Lin',ini:'ML',psw:'Angela B.',v:4,mood:'Good',rate:22},
+];
+var PSWS=[
+  {name:'Sarah Mitchell',code:'SM',v:12,h:48.2,r:'4.9',cert:'All valid'},
+  {name:'James Okafor',code:'JO',v:9,h:36.0,r:'4.7',cert:'All valid'},
+  {name:'Luz Perez',code:'LP',v:7,h:28.5,r:'5.0',cert:'VSC exp 28d'},
+  {name:'Angela Brooks',code:'AB',v:5,h:20.0,r:'4.8',cert:'All valid'},
+];
+var REV=[
+  {name:'Dorothy Chen',rev:1248,pct:100},
+  {name:'Harold West',rev:924,pct:74},
+  {name:'Eleanor Brooks',rev:840,pct:67},
+  {name:'Margaret Lin',rev:704,pct:56},
+  {name:'Others',rev:6684,pct:85},
+];
+var CHAINS={
+  checkin:{ll:'PSW Portal',le:'Sarah signs in',ls:'GPS · DNR · 09:01am',ml:'Railway API',me:'POST /visit/checkin',ms:'6ms · 200 OK',rl:'Family Portal',re:'Notification sent',rs:'Sarah has arrived ✓',color:'green',
+    wh:[{m:'POST',p:'/visit/checkin',t:'6ms',c:'green'},{m:'POST',p:'/hq/visit-log',t:'7ms',c:'green'},{m:'POST',p:'/family/notify',t:'9ms',c:'green'}],
+    ev:[{icon:'📍',t:'GPS coordinates logged · Supabase',c:'g'},{icon:'✓',t:'DNR acknowledged by PSW',c:'g'},{icon:'📧',t:'Family email · Sarah has arrived',c:'t'},{icon:'🖥',t:'HQ visit log updated · In progress',c:'t'}]},
+  checkout:{ll:'PSW Portal',le:'Sarah signs out',ls:'Checkout · 13:18pm',ml:'Claude AI',me:'POST /ai/care-summary',ms:'820ms · generated',rl:'Family Portal',re:'Summary delivered',rs:'Email + portal updated',color:'teal',
+    wh:[{m:'POST',p:'/visit/checkout',t:'5ms',c:'teal'},{m:'POST',p:'/ai/care-summary',t:'820ms',c:'teal'},{m:'POST',p:'/family/visit-complete',t:'825ms',c:'teal'},{m:'POST',p:'/hq/hours-log',t:'826ms',c:'teal'}],
+    ev:[{icon:'🤖',t:'Claude generates AI care summary',c:'t'},{icon:'📧',t:'Family email fired with summary',c:'t'},{icon:'⏱',t:'Hours logged · 4.28h recorded',c:'g'},{icon:'📋',t:'MAR submitted · 3/3 meds logged',c:'g'},{icon:'🖥',t:'HQ updated · Visit complete',c:'t'}]},
+  lead:{ll:'Agency Website',le:'Lead captured · 2:14am',ls:'Chatbot · AI qualified',ml:'Railway API',me:'POST /webhook/lead',ms:'12ms · 200 OK',rl:'HQ Dashboard',re:'Lead in CRM',rs:'Day 1 follow-up queued',color:'teal',
+    wh:[{m:'POST',p:'/webhook/lead',t:'12ms',c:'teal'},{m:'POST',p:'/followup/run',t:'14ms',c:'teal'},{m:'POST',p:'/calendar/book-slot',t:'18ms',c:'teal'}],
+    ev:[{icon:'👤',t:'Lead saved · name, phone, needs',c:'t'},{icon:'📅',t:'Call slot booked · Thu 9am',c:'t'},{icon:'📧',t:'Day 1 follow-up email queued',c:'g'},{icon:'🖥',t:'HQ CRM updated · New Lead',c:'t'}]},
+  invoice:{ll:'HQ Dashboard',le:'Invoice triggered',ls:'Month end · auto-run',ml:'Railway API',me:'POST /invoice/generate-pdf',ms:'340ms · generated',rl:'Family + PSW',re:'Dual PDF sent',rs:'Email + pay stub',color:'gold',
+    wh:[{m:'POST',p:'/invoice/generate-pdf',t:'340ms',c:'gold'},{m:'POST',p:'/invoice/email-family',t:'345ms',c:'gold'},{m:'POST',p:'/psw/send-paystub',t:'350ms',c:'gold'},{m:'POST',p:'/hq/ar-update',t:'351ms',c:'gold'}],
+    ev:[{icon:'📄',t:'Client invoice PDF generated · $1,248',c:'o'},{icon:'📧',t:'Invoice emailed to family',c:'o'},{icon:'💰',t:'PSW pay stub PDF generated',c:'g'},{icon:'📧',t:'Pay stub emailed to Sarah Mitchell',c:'g'},{icon:'📊',t:'AR updated · outstanding: $1,248',c:'o'}]},
 };
-function tick(){osGo(cur);cur=(cur+1)%STEPS.length;}
-function init(){
-  if(rdy)return;rdy=true;
-  buildNodes();
-  setTimeout(function(){drawPath();osGo(0);tmr=setInterval(tick,2400);},120);
-  window.addEventListener('resize',function(){clearTimeout(window._osRT);window._osRT=setTimeout(drawPath,200);});
+
+// ── PORTAL SWITCHING ──────────────────────────────────────────────────────────
+window.psShow=function(name,el){
+  document.querySelectorAll('.ps-tab').forEach(function(t){
+    t.style.color='rgba(250,248,244,.4)';t.style.background='transparent';t.style.borderBottom='2px solid transparent';
+  });
+  el.style.color=name==='family'?'#b87010':name==='chain'?'#faf8f4':'#1e7d96';
+  el.style.background=name==='family'?'rgba(184,112,16,.06)':name==='chain'?'rgba(255,255,255,.03)':'rgba(30,125,150,.08)';
+  el.style.borderBottom='2px solid '+(name==='family'?'#b87010':name==='chain'?'rgba(250,248,244,.2)':'#1e7d96');
+  document.querySelectorAll('.ps-frame').forEach(function(f){f.style.display='none';});
+  var frame=document.getElementById('ps-frame-'+name);
+  if(frame)frame.style.display='block';
+  if(name==='psw')initPSW2();
+  if(name==='chain')setTimeout(function(){runChain2('checkin',document.querySelector('#chain2-btns div'));},100);
+};
+
+// ── HQ TABS ───────────────────────────────────────────────────────────────────
+window.hq2Tab=function(name,el){
+  document.querySelectorAll('.hq2-tab').forEach(function(t){t.style.color='rgba(250,248,244,.3)';t.style.borderBottom='1px solid transparent';});
+  el.style.color='#1e7d96';el.style.borderBottom='1px solid #1e7d96';
+  var tabs=['overview','schedule','clients','psws','revenue'];
+  tabs.forEach(function(id){
+    var e=document.getElementById('hq2-'+id);
+    if(e)e.style.display=id===name?(id==='overview'||id==='revenue'?'flex':'block'):'none';
+  });
+  if(name==='schedule')buildSched2();
+  if(name==='clients')buildClients2();
+  if(name==='psws')buildPSWCards2();
+  if(name==='revenue')buildRev2();
+};
+
+// ── HQ INIT ───────────────────────────────────────────────────────────────────
+function initHQ2(){
+  var feed=document.getElementById('hq2-feed');
+  if(!feed)return;
+  FEED.forEach(function(e,i){
+    setTimeout(function(){
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid rgba(250,248,244,.04);font-family:var(--mono);font-size:9px;';
+      row.innerHTML='<span style="color:rgba(250,248,244,.55);">'+e.t+'</span><span style="color:rgba(250,248,244,.25);flex-shrink:0;margin-left:8px;">'+e.time+' <span style="font-size:7px;padding:1px 5px;border-radius:2px;background:'+(e.type==='live'?'rgba(61,138,122,.1)':'rgba(184,112,16,.1)')+';color:'+(e.type==='live'?'#3d8a7a':'#c9940f')+';">'+e.type+'</span></span>';
+      feed.appendChild(row);
+    },i*100);
+  });
 }
-var sec=document.getElementById('os-flow');
-if(sec){
-  if('IntersectionObserver' in window){var ob=new IntersectionObserver(function(e){if(e[0].isIntersecting){init();ob.disconnect();}},{threshold:0.15});ob.observe(sec);}
-  else{init();}
+function buildSched2(){
+  var cont=document.getElementById('hq2-sched-rows');if(!cont||cont.children.length)return;
+  SCHED.forEach(function(p){
+    var row=document.createElement('div');
+    row.style.cssText='display:grid;grid-template-columns:72px repeat(7,1fr);gap:2px;align-items:center;';
+    var nm=document.createElement('div');nm.style.cssText='font-family:var(--mono);font-size:9px;color:#faf8f4;';nm.textContent=p.name;row.appendChild(nm);
+    p.s.forEach(function(s){
+      var cell=document.createElement('div');
+      cell.style.cssText='height:22px;border-radius:3px;'+(s?'background:rgba(30,125,150,.15);border:1px solid rgba(30,125,150,.3);':'background:#111820;border:1px solid rgba(250,248,244,.05);');
+      if(s){var l=document.createElement('div');l.style.cssText='font-family:var(--mono);font-size:6px;color:#1e7d96;padding:2px 3px;line-height:1.2;overflow:hidden;';l.textContent=p.name.split(' ')[0];cell.appendChild(l);}
+      row.appendChild(cell);
+    });
+    cont.appendChild(row);
+  });
 }
+function buildClients2(){
+  var cont=document.getElementById('hq2-client-cards');if(!cont||cont.children.length)return;
+  CLIENTS.forEach(function(c){
+    var el=document.createElement('div');
+    el.style.cssText='background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(30,125,150,.15);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:#1e7d96;">'+c.ini+'</div><div><div style="font-size:10px;color:#faf8f4;">'+c.name+'</div><div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);">'+c.psw+'</div></div></div><div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);"><span>'+c.v+' visits</span><span style="color:#3d8a7a;">'+c.mood+'</span><span>$'+c.rate+'/h</span></div>';
+    cont.appendChild(el);
+  });
+}
+function buildPSWCards2(){
+  var cont=document.getElementById('hq2-psw-cards');if(!cont||cont.children.length)return;
+  PSWS.forEach(function(p){
+    var el=document.createElement('div');
+    el.style.cssText='background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;';
+    var certColor=p.cert==='All valid'?'#3d8a7a':'#c9940f';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:#3d8a7a;">'+p.code+'</div><div><div style="font-size:10px;color:#faf8f4;">'+p.name+'</div><div style="font-family:var(--mono);font-size:8px;color:rgba(250,248,244,.4);">'+p.r+' ★ · '+p.v+' visits</div></div></div><div style="font-family:var(--mono);font-size:8px;display:flex;justify-content:space-between;"><span style="color:rgba(250,248,244,.4);">'+p.h+'h this month</span><span style="color:'+certColor+';">'+p.cert+'</span></div>';
+    cont.appendChild(el);
+  });
+}
+function buildRev2(){
+  var cont=document.getElementById('hq2-rev-bars');if(!cont)return;
+  if(cont.children.length)return;
+  var lbl=document.createElement('div');lbl.style.cssText='font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:10px;';lbl.textContent='Revenue by client';cont.appendChild(lbl);
+  REV.forEach(function(c){
+    var el=document.createElement('div');el.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:6px;font-family:var(--mono);font-size:9px;';
+    el.innerHTML='<div style="width:80px;color:rgba(250,248,244,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+c.name+'</div><div style="flex:1;height:10px;background:rgba(250,248,244,.06);border-radius:2px;overflow:hidden;"><div style="height:100%;width:0;background:#1e7d96;border-radius:2px;transition:width 1.2s ease;" data-w="'+c.pct+'"></div></div><div style="width:40px;text-align:right;color:#faf8f4;">$'+(c.rev/1000).toFixed(1)+'K</div>';
+    cont.appendChild(el);
+  });
+  setTimeout(function(){cont.querySelectorAll('[data-w]').forEach(function(b){b.style.width=b.dataset.w+'%';});},150);
+}
+
+// ── PSW PORTAL ────────────────────────────────────────────────────────────────
+function initPSW2(){
+  var body=document.getElementById('psw2-body');if(!body||body.children.length)return;
+  body.innerHTML='<div style="background:rgba(30,125,150,.08);border:1px solid rgba(30,125,150,.25);border-radius:8px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;color:#faf8f4;margin-bottom:2px;">Dorothy Chen</div><div style="font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.4);">09:01am — In progress</div><div style="font-family:var(--mono);font-size:8px;color:#3d8a7a;margin-top:3px;">● GPS verified · 43.59°N 79.64°W</div></div><div style="display:flex;flex-direction:column;gap:5px;"><button style="padding:6px 12px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:rgba(192,80,80,.15);color:#c05050;border:1px solid rgba(192,80,80,.3);cursor:pointer;">⚠ Incident</button><button style="padding:6px 12px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:#1e7d96;color:#fff;border:none;cursor:pointer;" onclick="psw2Checkout()">Check Out</button></div></div><div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;"><div style="padding:8px 12px;border-bottom:1px solid rgba(250,248,244,.05);font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.3);">Today\'s Tasks — Dorothy Chen</div><div id="psw2-tasks" style="padding:8px 12px;display:flex;flex-direction:column;gap:0;"></div></div><div id="psw2-ai" style="background:rgba(30,125,150,.06);border:1px solid rgba(30,125,150,.2);border-radius:6px;padding:10px 12px;opacity:0;transition:opacity .5s;"><div style="font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#1e7d96;margin-bottom:6px;">● Claude · AI Care Summary</div><div style="font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.8);line-height:1.7;" id="psw2-ai-text"></div></div>';
+  var tasks=['Personal hygiene','Medication reminder','Breakfast preparation','Light housekeeping','Documentation'];
+  var tc=document.getElementById('psw2-tasks');
+  tasks.forEach(function(t,i){
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(250,248,244,.05);font-family:var(--mono);font-size:9px;color:'+(i<3?'#faf8f4':'rgba(250,248,244,.4)')+';';
+    row.id='psw2t'+i;
+    var box=document.createElement('div');
+    box.style.cssText='width:13px;height:13px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;'+(i<3?'background:#3d8a7a;border:1px solid #3d8a7a;color:#fff;':'border:1px solid rgba(250,248,244,.2);');
+    box.id='psw2b'+i;box.textContent=i<3?'✓':'';
+    row.appendChild(box);row.appendChild(document.createTextNode(t));
+    tc.appendChild(row);
+  });
+}
+window.psw2Checkout=function(){
+  [3,4].forEach(function(i,j){
+    setTimeout(function(){
+      var t=document.getElementById('psw2t'+i);var b=document.getElementById('psw2b'+i);
+      if(t){t.style.color='#faf8f4';}
+      if(b){b.style.background='#3d8a7a';b.style.borderColor='#3d8a7a';b.style.color='#fff';b.textContent='✓';}
+    },j*400);
+  });
+  setTimeout(function(){
+    var ai=document.getElementById('psw2-ai');var txt=document.getElementById('psw2-ai-text');
+    if(ai)ai.style.opacity='1';
+    if(txt){var s='Sarah provided comprehensive care for Dorothy. All tasks completed. 3/3 medications given on schedule. Dorothy in good spirits throughout.';var i=0;var go=function(){txt.textContent=s.slice(0,i+1);i++;if(i<s.length)setTimeout(go,18);};go();}
+  },1000);
+};
+
+// ── FAMILY TABS ───────────────────────────────────────────────────────────────
+window.fam2Tab=function(name,el){
+  document.querySelectorAll('.fam2-tab').forEach(function(t){t.style.color='rgba(250,248,244,.3)';t.style.borderBottom='2px solid transparent';});
+  el.style.color='#b87010';el.style.borderBottom='2px solid #b87010';
+  ['fam2-visits','fam2-team','fam2-ask'].forEach(function(id){
+    var e=document.getElementById(id);if(e)e.style.display=id==='fam2-'+name?'block':'none';
+  });
+};
+window.fam2Rate=function(v){
+  var stars=document.querySelectorAll('#fam2-stars span:not(#fam2-rate-label)');
+  stars.forEach(function(s,i){s.style.color=i<v?'#b87010':'rgba(250,248,244,.15)';});
+  var lbl=document.getElementById('fam2-rate-label');
+  if(lbl){var ls=['','1 star','2 stars','3 stars','4 stars — great!','5 stars — thank you!'];lbl.textContent=ls[v]||'';}
+};
+window.fam2Ask=function(){
+  var chat=document.getElementById('fam2-chat');if(!chat)return;
+  var q=document.createElement('div');
+  q.style.cssText='padding:8px 10px;background:rgba(184,112,16,.15);border:1px solid rgba(184,112,16,.2);border-radius:6px;font-family:var(--mono);font-size:9px;color:#faf8f4;line-height:1.6;max-width:85%;align-self:flex-end;';
+  q.textContent='Did Dorothy take her medications today?';chat.appendChild(q);
+  setTimeout(function(){
+    var a=document.createElement('div');
+    a.style.cssText='padding:8px 10px;background:rgba(255,255,255,.05);border-radius:6px;font-family:var(--mono);font-size:9px;color:rgba(250,248,244,.7);line-height:1.6;max-width:85%;';
+    a.textContent='Yes — Sarah recorded 3 of 3 medications administered at 9:22am. All on schedule, no concerns noted.';
+    chat.appendChild(a);
+  },1200);
+};
+
+// ── TRIGGER CHAIN ─────────────────────────────────────────────────────────────
+window.runChain2=function(type,btnEl){
+  document.querySelectorAll('#chain2-btns div').forEach(function(b){
+    b.style.background='transparent';b.style.color='rgba(250,248,244,.4)';b.style.borderColor='rgba(250,248,244,.1)';
+  });
+  btnEl.style.background='rgba(30,125,150,.15)';btnEl.style.color='#1e7d96';btnEl.style.borderColor='rgba(30,125,150,.3)';
+  var c=CHAINS[type];
+  var cc=c.color==='gold'?'#b87010':c.color==='green'?'#3d8a7a':'#1e7d96';
+  ['ll','le','ls','ml','me','ms','rl','re','rs'].forEach(function(k){
+    var el=document.getElementById('c2'+k);if(el)el.textContent=c[k];
+  });
+  ['chain2-left','chain2-mid','chain2-right'].forEach(function(id){
+    var el=document.getElementById(id);if(el){el.style.borderColor='rgba(250,248,244,.07)';el.style.boxShadow='none';}
+  });
+  var a1=document.getElementById('c2a1'),a2=document.getElementById('c2a2');
+  if(a1)a1.style.background='rgba(250,248,244,.08)';
+  if(a2)a2.style.background='rgba(250,248,244,.08)';
+  document.getElementById('chain2-wh').innerHTML='';
+  document.getElementById('chain2-events').innerHTML='';
+
+  setTimeout(function(){var el=document.getElementById('chain2-left');if(el){el.style.borderColor=cc;el.style.boxShadow='0 0 14px rgba(30,125,150,.08)';}},200);
+  setTimeout(function(){if(a1)a1.style.background=cc;},500);
+  setTimeout(function(){var el=document.getElementById('chain2-mid');if(el){el.style.borderColor=cc;el.style.boxShadow='0 0 14px rgba(30,125,150,.08)';}},800);
+  setTimeout(function(){if(a2)a2.style.background=cc;},1100);
+  setTimeout(function(){var el=document.getElementById('chain2-right');if(el){el.style.borderColor=cc;el.style.boxShadow='0 0 14px rgba(30,125,150,.08)';}},1400);
+
+  var we=document.getElementById('chain2-wh');
+  c.wh.forEach(function(w,i){
+    setTimeout(function(){
+      var wc=w.c==='gold'?'#c9940f':w.c==='green'?'#3d8a7a':'#1e7d96';
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;padding:4px 0;border-bottom:1px solid rgba(250,248,244,.03);opacity:0;transition:opacity .3s;';
+      row.innerHTML='<span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(30,125,150,.15);color:'+wc+';flex-shrink:0;">'+w.m+'</span><span style="color:rgba(250,248,244,.45);flex:1;">'+w.p+'</span><span style="color:rgba(250,248,244,.2);">'+w.t+'</span><span style="font-size:7px;padding:1px 4px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;flex-shrink:0;">200</span>';
+      we.appendChild(row);setTimeout(function(){row.style.opacity='1';},30);
+    },800+i*200);
+  });
+
+  var ce=document.getElementById('chain2-events');
+  c.ev.forEach(function(ev,i){
+    setTimeout(function(){
+      var ec=ev.c==='t'?'#1e7d96':ev.c==='g'?'#3d8a7a':'#c9940f';
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 10px;background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:5px;font-family:var(--mono);font-size:9px;opacity:0;border-left:2px solid '+ec+';transition:opacity .3s;';
+      row.innerHTML='<span>'+ev.icon+'</span><span style="color:rgba(250,248,244,.65);flex:1;">'+ev.t+'</span><span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(30,125,150,.1);color:'+ec+';">auto</span>';
+      ce.appendChild(row);setTimeout(function(){row.style.opacity='1';},30);
+    },1200+i*220);
+  });
+};
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+var sec=document.getElementById('portal-showcase');
+if('IntersectionObserver' in window){
+  var psObs=new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){initHQ2();psObs.disconnect();}
+  },{threshold:0.05});
+  psObs.observe(sec);
+} else { initHQ2(); }
+
 })();
 </script>
 
 
-<div id="real" class="section-wrap" style="background:#fff;">
+
+<div id="real" class="section-wrap" style="background:#fff;position:relative;"><div class="section-num-bg" style="top:32px;left:32px;color:#3d7a8a;">03</div>
   <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#3d7a8a;"></div><div class="eyebrow-tag" style="color:#3d7a8a;border-color:rgba(61,122,138,.3);">The Proof</div></div>
-    <h2 class="s-title dark reveal" style="margin-bottom:20px;">We tested this for 6 months<br><em>inside a real agency.</em></h2>
+    <div class="section-eyebrow reveal" style="justify-content:center;"><div class="eyebrow-line" style="background:#3d7a8a;"></div><div class="eyebrow-tag" style="color:#3d7a8a;border-color:rgba(61,122,138,.3);">The Proof</div></div>
+    <h2 class="s-title dark reveal" style="margin-bottom:12px;text-align:center;">We tested this for 6 months<br><em>inside a real agency.</em></h2>
+    <p style="font-size:13px;color:#7a7a72;text-align:center;max-width:560px;margin:0 auto 48px;line-height:1.7;font-family:'DM Mono',monospace;" class="reveal">Before we offered Proximity OS to anyone, we ran it inside our own agency. Real PSWs. Real clients. Real billing. 6 months. Zero admin staff.</p>
     <div class="real-section-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;max-width:900px;margin:0 auto 56px;">
       <div>
         <p style="font-size:15px;color:#3a4a42;line-height:1.8;margin:0 0 20px;">Before we offered Proximity OS to anyone else, we installed it inside <strong style="color:#1e2420;">Proximity Care Services in Mississauga</strong>. A real home care agency. Real PSWs. Real clients. Real billing.</p>
@@ -1449,67 +1968,129 @@ if(sec){
     </div>
   </div>
 </div>
-<div id="pricing" style="background:#f0ede8;padding:72px 0 64px;border-top:1px solid #e2ddd4;">
-  <div class="inner" style="max-width:960px;">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:#13181c;"></div><div class="eyebrow-tag" style="color:#13181c;border-color:rgba(19,24,28,.2);">Pricing</div></div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,68px);font-weight:300;line-height:1.05;color:#13181c;margin-bottom:8px;" class="reveal">Pick what you need.<br>Pay <em style="color:#3d7a8a;">after</em> we deliver.</h2>
-    <p style="font-size:14px;color:#5a6a62;text-align:center;margin:0 auto 48px;max-width:560px;line-height:1.6;" class="reveal">We build first. You pay after. Live in 7 days or you owe us nothing. <strong style="color:#13181c;">First month is free on Full Build.</strong></p>
-    <div class="pricing-tier-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,340px));gap:16px;align-items:start;justify-content:center;margin:0 auto;width:fit-content;width:-webkit-fit-content;max-width:100%;">
-      <div style="background:#fff;border:1px solid #e2ddd4;border-radius:12px;padding:28px 24px;">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:8px;">Core Stack</div>
-        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">Start Here</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#13181c;line-height:1;margin-bottom:4px;">$3,000</div>
-        <div style="font-size:11px;color:#7a7a72;margin-bottom:24px;">setup &middot; $500/mo after</div>
-        <div style="border-top:1px solid #e2ddd4;padding-top:18px;margin-bottom:24px;">
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Visit Logging + GPS + AI notes</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Auto Invoicing + payroll CSV</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Lead Capture + AI chat 24/7</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Family Portal + satisfaction ratings</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>HQ Dashboard + scheduling board</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>PSW portal + broadcast messaging</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Converting agency website</div>
-        </div>
-        <a href="#builder" style="display:block;text-align:center;border:1.5px solid #c8c3ba;color:#13181c;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
+<div id="pricing" style="background:#07090c;padding:96px 0 80px;position:relative;overflow:hidden;border-top:1px solid rgba(250,248,244,.06);">
+
+  <!-- Subtle grid -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(30,125,150,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(30,125,150,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;"></div>
+
+  <div style="max-width:1020px;margin:0 auto;padding:0 48px;position:relative;z-index:2;">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:64px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#1e7d96;margin-bottom:18px;" class="reveal">
+        <span style="width:24px;height:1px;background:#1e7d96;display:inline-block;"></span>
+        Pricing
+        <span style="width:24px;height:1px;background:#1e7d96;display:inline-block;"></span>
       </div>
-      <div style="background:#13181c;border-radius:12px;padding:28px 24px;position:relative;box-shadow:0 8px 32px rgba(14,32,56,.3);">
-        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#3d8a7a;color:#fff;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;">Most Popular</div>
-        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Full Stack</div>
-        <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:16px;">The Full Build</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#fff;line-height:1;margin-bottom:4px;">$3,500</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;">setup &middot; $500/mo after</div>
-        <div style="font-size:11px;color:#5aada0;margin-bottom:24px;">Month 1 free</div>
-        <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:18px;margin-bottom:24px;">
-          <div style="font-size:12px;color:rgba(255,255,255,.85);padding:4px 0;display:flex;gap:8px;"><span style="color:#5aada0;flex-shrink:0;">✓</span>Everything in The Essentials</div>
-          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Client Onboarding — AI care plan auto-generated</div>
-          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>PSW Onboarding — portal live on hire</div>
-          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>Follow-Up Engine — Day 1/3/7 automatic</div>
-          <div style="font-size:12px;color:#7dccc0;padding:4px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">+</span>PSW Onboarding — portal live on hire, interview scheduling</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,66px);font-weight:300;color:#faf8f4;line-height:1.04;margin-bottom:14px;" class="reveal">Pick what you need.<br><em style="color:#1e7d96;font-style:italic;">Pay after we deliver.</em></h2>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(250,248,244,.38);max-width:480px;margin:0 auto;line-height:1.9;" class="reveal">We build first. You pay after. Live in 7 days or you owe us nothing.<br><strong style="color:rgba(250,248,244,.6);">First month free on Full Build.</strong></p>
+    </div>
+
+    <!-- Three cards -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(250,248,244,.07);border:1px solid rgba(250,248,244,.07);border-radius:12px;overflow:hidden;" class="reveal">
+
+      <!-- Card 1: Start Here -->
+      <div style="background:#0c1018;padding:36px 32px;display:flex;flex-direction:column;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:12px;">Core Stack</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;margin-bottom:20px;">Start Here</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#faf8f4;line-height:1;">$3,000</div>
         </div>
-        <a href="#builder" style="display:block;text-align:center;background:#3d8a7a;color:#fff;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.3);margin-bottom:32px;">setup &middot; $500/mo after</div>
+        <div style="height:1px;background:rgba(250,248,244,.07);margin-bottom:24px;"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Visit Logging + GPS + AI notes</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Auto Invoicing + payroll CSV</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Lead Capture + AI chat 24/7</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Family Portal + satisfaction ratings</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">HQ Dashboard + scheduling board</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">PSW portal + broadcast messaging</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Converting agency website</span></div>
+        </div>
+        <div style="height:1px;background:rgba(250,248,244,.07);margin:28px 0 24px;"></div>
+        <a href="#builder" style="display:block;text-align:center;border:1px solid rgba(250,248,244,.2);color:rgba(250,248,244,.7);padding:12px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;">Book a Free Call →</a>
       </div>
-      <div style="background:#fff;border:1px solid #e2ddd4;border-radius:12px;padding:28px 24px;">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a7a72;margin-bottom:8px;">Growth Partner</div>
-        <div style="font-size:20px;font-weight:700;color:#13181c;margin-bottom:16px;">Growth Partner</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#13181c;line-height:1;margin-bottom:4px;">$5,000</div>
-        <div style="font-size:11px;color:#7a7a72;margin-bottom:24px;">setup &middot; $750/mo after</div>
-        <div style="border-top:1px solid #e2ddd4;padding-top:18px;margin-bottom:24px;">
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Everything in Done For You</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>New systems added monthly</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Monthly 1-on-1 strategy call with Lance</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>Pipeline review + priority support</div>
-          <div style="font-size:12px;color:#3a4a42;padding:4px 0;display:flex;gap:8px;"><span style="color:#3d8a7a;flex-shrink:0;">✓</span>First access to every new system</div>
+
+      <!-- Card 2: Full Build — featured -->
+      <div style="background:#0d1e2a;padding:36px 32px;display:flex;flex-direction:column;position:relative;border-left:1px solid rgba(30,125,150,.3);border-right:1px solid rgba(30,125,150,.3);">
+        <!-- Top accent bar -->
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#1e7d96,transparent);"></div>
+        <!-- Badge -->
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#1e7d96;color:#fff;font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;white-space:nowrap;">Most Popular</div>
+
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#1e7d96;margin-bottom:12px;margin-top:8px;">Full Stack</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;margin-bottom:20px;">The Full Build</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#faf8f4;line-height:1;">$3,500</div>
         </div>
-        <a href="#builder" style="display:block;text-align:center;border:1.5px solid #c8c3ba;color:#13181c;padding:11px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;">Book a Free Call →</a>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.3);margin-bottom:4px;">setup &middot; $500/mo after</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#3d8a7a;margin-bottom:32px;">Month 1 free</div>
+        <div style="height:1px;background:rgba(30,125,150,.2);margin-bottom:24px;"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.7);line-height:1.5;">Everything in Core Stack</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1e7d96;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:#7dccc0;line-height:1.5;">Client Onboarding — AI care plan</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1e7d96;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:#7dccc0;line-height:1.5;">PSW Onboarding — portal live on hire</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1e7d96;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:#7dccc0;line-height:1.5;">Follow-Up Engine — Day 1/3/7 auto</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1e7d96;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:#7dccc0;line-height:1.5;">Interview scheduling system</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1e7d96;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:#7dccc0;line-height:1.5;">PSW cert expiry + incident reports</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1e7d96;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:#7dccc0;line-height:1.5;">Revenue dashboard + AR tracking</span></div>
+        </div>
+        <div style="height:1px;background:rgba(30,125,150,.2);margin:28px 0 24px;"></div>
+        <a href="#builder" style="display:block;text-align:center;background:#1e7d96;color:#fff;padding:13px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s;">Book a Free Call →</a>
+      </div>
+
+      <!-- Card 3: Growth Partner -->
+      <div style="background:#0c1018;padding:36px 32px;display:flex;flex-direction:column;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:12px;">Growth Partner</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;margin-bottom:20px;">Growth Partner</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#faf8f4;line-height:1;">$5,000</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.3);margin-bottom:32px;">setup &middot; $750/mo after</div>
+        <div style="height:1px;background:rgba(250,248,244,.07);margin-bottom:24px;"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#3d8a7a;font-size:11px;flex-shrink:0;margin-top:1px;">✓</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Everything in Full Build</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#b87010;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">New systems added monthly</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#b87010;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Monthly 1-on-1 with Lance</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#b87010;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Pipeline review + priority support</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#b87010;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">First access to every new system</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#b87010;font-size:11px;flex-shrink:0;margin-top:1px;">+</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(250,248,244,.55);line-height:1.5;">Philippines expansion Aug 2026</span></div>
+        </div>
+        <div style="height:1px;background:rgba(250,248,244,.07);margin:28px 0 24px;"></div>
+        <a href="#builder" style="display:block;text-align:center;border:1px solid rgba(184,112,16,.4);color:#c9940f;padding:12px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;">Book a Free Call →</a>
       </div>
     </div>
-    <div style="text-align:center;margin-top:24px;font-family:'DM Mono',monospace;font-size:10px;color:#7a7a72;" class="reveal">Currently onboarding 3 operators &nbsp;&middot;&nbsp; <strong>7-day live guarantee</strong> &nbsp;&middot;&nbsp; We build first. You pay after.</div>
+
+    <!-- Guarantee band -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:40px;margin-top:32px;padding:20px;border:1px solid rgba(250,248,244,.06);border-radius:8px;flex-wrap:wrap;" class="reveal">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:#3d8a7a;font-size:14px;">✓</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(250,248,244,.4);letter-spacing:1px;">We build first</span>
+      </div>
+      <div style="width:1px;height:20px;background:rgba(250,248,244,.08);"></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:#3d8a7a;font-size:14px;">✓</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(250,248,244,.4);letter-spacing:1px;">7-day live guarantee</span>
+      </div>
+      <div style="width:1px;height:20px;background:rgba(250,248,244,.08);"></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:#3d8a7a;font-size:14px;">✓</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(250,248,244,.4);letter-spacing:1px;">You pay after we're live</span>
+      </div>
+      <div style="width:1px;height:20px;background:rgba(250,248,244,.08);"></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:#1e7d96;font-size:14px;">●</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(250,248,244,.4);letter-spacing:1px;">Currently onboarding 3 operators</span>
+      </div>
+    </div>
   </div>
 </div>
+
 <div id="reviews">
   <div class="inner">
-    <div class="rv-eyebrow reveal">Verified Google Reviews</div>
-    <h2 class="rv-title reveal">The operator we built this for —<br><em>and the families they serve.</em></h2>
-    <p style="font-size:14px;color:#b8cfd4;line-height:1.8;max-width:640px;margin:0 auto 48px;text-align:center;" class="reveal">
+    <div class="rv-eyebrow reveal" style="text-align:center;">Verified Google Reviews</div>
+    <h2 class="rv-title reveal" style="text-align:center;">The operator we built this for —<br><em>and the families they serve.</em></h2>
+    <p style="font-size:14px;color:#b8cfd4;line-height:1.8;max-width:600px;margin:0 auto 48px;text-align:center;" class="reveal">
       These are real reviews of Proximity Care Services — the Mississauga home care agency running Proximity OS in production. Every family below was served by the system we install for you.
     </p>
     <div class="rv-grid">
@@ -1568,6 +2149,13 @@ if(sec){
   </div>
 </div>
 
+<div class="footer-terminal" id="footer-terminal">
+  <div class="ft-line ft-cmd" id="ft1"></div>
+  <div class="ft-line ft-output" id="ft2" style="opacity:0"></div>
+  <div class="ft-line ft-output" id="ft3" style="opacity:0"></div>
+  <div class="ft-line" id="ft4" style="opacity:0;color:rgba(221,217,208,.3);">proximity-os v2.0 · PHIPA-compliant · Built and run in Mississauga, Ontario<span class="ft-cursor"></span></div>
+</div>
+
 <footer>
   <div class="footer-top">
     <div class="footer-brand-block">
@@ -1605,6 +2193,8 @@ if(sec){
 Built and led by Lance Salazar · Founder, Proximity Systems · Mississauga, Ontario
 </div>
 </footer>
+
+</div><!-- end site-content -->
 
 <div class="mobile-cta">
   <a href="#builder" class="btn-primary light full">Book a Free Discovery Call</a>
@@ -2431,6 +3021,121 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 }
 // ── END SLOT PICKER ───────────────────────────────────────────────────────
 
+</script>
+
+
+
+<script>
+// ── HERO PARTICLE CANVAS ─────────────────────────────────────────────────────
+(function(){
+  var canvas = document.getElementById('hero-particle-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var hero = document.getElementById('hero');
+
+  function resize(){
+    canvas.width = hero.offsetWidth || window.innerWidth;
+    canvas.height = hero.offsetHeight || window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  var COUNT = 45;
+  var pts = [];
+  for(var i=0;i<COUNT;i++){
+    pts.push({
+      x: Math.random() * (canvas.width||1200),
+      y: Math.random() * (canvas.height||800),
+      vx: (Math.random()-.5)*.16,
+      vy: (Math.random()-.5)*.16,
+      r: .5 + Math.random()*.7
+    });
+  }
+
+  var CONNECT_DIST = 100;
+
+  (function draw(){
+    var W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(90,173,160,.16)';
+      ctx.fill();
+    }
+
+    for(var i=0;i<pts.length;i++){
+      for(var j=i+1;j<pts.length;j++){
+        var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        var d=Math.sqrt(dx*dx+dy*dy);
+        if(d<CONNECT_DIST){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle='rgba(61,138,122,'+(0.055*(1-d/CONNECT_DIST)).toFixed(3)+')';
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  })();
+})();
+
+// ── HERO STAT COUNTERS ────────────────────────────────────────────────────────
+(function(){
+  function animCount(el, target, dur){
+    if(!el) return;
+    var start = Date.now();
+    (function tick(){
+      var p = Math.min((Date.now()-start)/dur, 1);
+      var ease = 1-Math.pow(1-p,3);
+      el.textContent = Math.round(target*ease).toLocaleString();
+      if(p<1) requestAnimationFrame(tick);
+    })();
+  }
+  var hero = document.getElementById('hero');
+  if(!hero) return;
+  var obs = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      obs.disconnect();
+      setTimeout(function(){
+        animCount(document.getElementById('hStat1'), 1847, 2400);
+        animCount(document.getElementById('hStat2'), 312, 2800);
+      }, 600);
+    }
+  }, {threshold:.2});
+  obs.observe(hero);
+})();
+
+// ── SCROLL PROGRESS BAR ───────────────────────────────────────────────────────
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if(!bar) return;
+  window.addEventListener('scroll', function(){
+    var pct = window.scrollY / (document.body.offsetHeight - window.innerHeight);
+    bar.style.transform = 'scaleX('+Math.min(1,pct).toFixed(4)+')';
+  }, {passive:true});
+})();
+
+// ── HERO MOBILE RESPONSIVE ───────────────────────────────────────────────────
+(function(){
+  function checkMobile(){
+    var hero = document.getElementById('hero');
+    if(!hero) return;
+    if(window.innerWidth < 600){
+      hero.style.padding = '100px 20px 60px';
+    }
+  }
+  checkMobile();
+  window.addEventListener('resize', checkMobile, {passive:true});
+})();
 </script>
 </body>
 </html>
