@@ -62,7 +62,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .cta-stack{display:flex;flex-direction:column;gap:9px;max-width:420px}
 
 /* HERO */
-#hero{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:92px 0 60px;position:relative}
+#hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0 40px;position:relative}
 .hero-wrap{display:flex;flex-direction:row;align-items:center;gap:64px;max-width:1200px;margin:0 auto;width:100%;padding:0 48px}
 .hero-left{position:relative;z-index:1;flex:1;min-width:0;max-width:560px}
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
@@ -1056,6 +1056,221 @@ button,a,[onclick]{touch-action:manipulation;}
   .testi-row{grid-template-columns:1fr;gap:12px}
   .offer-prices{grid-template-columns:1fr;gap:10px}
 }
+
+/* ── LP FLOW DEMO — embedded hero animation ── */
+@keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
+@keyframes lp-glow-t{0%,100%{box-shadow:0 0 6px #5aada0}50%{box-shadow:0 0 16px #5aada0}}
+@keyframes lp-pulse-r{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.8);opacity:0}}
+@keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
+@keyframes lp-slide-down{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-slide-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-slide-right{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+@keyframes lp-modal-up{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes lp-ping{0%{transform:scale(1);opacity:1}70%{transform:scale(2.2);opacity:0}100%{transform:scale(2.2);opacity:0}}
+@keyframes lp-draw-line{from{width:0;opacity:0}to{width:100%;opacity:1}}
+@keyframes lp-dot-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+@keyframes lp-notif-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes lp-count-up{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-conn-dot{0%{left:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes lp-btn-confirm{0%{background:rgba(90,173,160,.15)}50%{background:rgba(63,185,80,.3)}100%{background:rgba(63,185,80,.15)}}
+@keyframes lp-spin{to{transform:rotate(360deg)}}
+
+/* Phone mockup */
+.lp-phone{width:182px;flex-shrink:0;background:#0a0d12;border:1px solid rgba(90,173,160,.2);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;height:360px;box-shadow:0 4px 24px rgba(0,0,0,.7)}
+.lp-hq{width:194px}
+.lp-notch{height:14px;flex-shrink:0;background:#07090c;display:flex;align-items:center;justify-content:center}
+.lp-notch-bar{width:36px;height:3px;border-radius:2px;background:rgba(255,255,255,.1)}
+.lp-time{position:absolute;top:3px;left:8px;font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4)}
+.lp-status{position:absolute;top:3px;right:8px;font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.3)}
+.lp-label{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,220,200,.2);text-align:center;padding:4px 0 3px;border-bottom:1px solid rgba(90,173,160,.07);flex-shrink:0;background:#07090c}
+.lp-body{flex:1;overflow:hidden;position:relative}
+
+/* HQ internals */
+.lp-hq-head{background:#0d1117;padding:5px 6px;border-bottom:1px solid rgba(90,173,160,.1);flex-shrink:0}
+.lp-brand{font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;color:#e8ddc8;display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.lp-brand em{color:#5aada0;font-style:italic}
+.lp-stats{display:flex;gap:0;border:1px solid rgba(90,173,160,.1)}
+.lphs{flex:1;text-align:center;padding:3px 0;border-right:1px solid rgba(90,173,160,.1)}
+.lphs:last-child{border:none}
+.lphs-n{font-family:'DM Mono',monospace;font-size:9px;font-weight:600;color:#5aada0;line-height:1}
+.lphs-n.lp-g{color:#3fb950}.lphs-n.lp-amber{color:#c8a96e}
+.lphs-l{font-family:'DM Mono',monospace;font-size:4px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);margin-top:1px}
+.lp-osc{margin:4px 6px;background:rgba(63,185,80,.05);border:1px solid rgba(63,185,80,.15);padding:4px 6px;display:flex;align-items:center;justify-content:space-between}
+.lp-osc-l{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1px;text-transform:uppercase;color:rgba(63,185,80,.5)}
+.lp-osc-v{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:#3fb950;line-height:1}
+.lp-sec-lbl{font-family:'DM Mono',monospace;font-size:4.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(232,220,200,.2);padding:4px 6px 2px;flex-shrink:0}
+
+/* Shift rows */
+.lp-shift-row{display:flex;align-items:center;gap:5px;padding:5px 6px;border-bottom:1px solid rgba(90,173,160,.06)}
+.lp-sr-time{font-family:'DM Mono',monospace;font-size:7px;color:#5aada0;width:22px;flex-shrink:0}
+.lp-sr-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.lp-dot-on{background:#3fb950;box-shadow:0 0 5px #3fb950;animation:lp-glow-g 2s infinite}
+.lp-dot-sc{background:rgba(90,173,160,.4)}
+.lp-dot-new{background:#c8a96e;box-shadow:0 0 5px #c8a96e}
+.lp-sr-info{flex:1}
+.lp-sr-name{font-size:7.5px;font-weight:600;color:#e8ddc8;line-height:1.2}
+.lp-sr-client{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.3)}
+.lp-sr-badge{font-family:'DM Mono',monospace;font-size:5px;padding:1px 4px;border-radius:100px;border:1px solid}
+.lp-badge-sc{color:rgba(232,220,200,.3);border-color:rgba(232,220,200,.1)}
+.lp-badge-new{color:#c8a96e;border-color:rgba(200,169,110,.3);background:rgba(200,169,110,.08)}
+.lp-badge-on{color:#3fb950;border-color:rgba(63,185,80,.3)}
+
+/* Add shift btn */
+.lp-add-btn{display:flex;align-items:center;gap:4px;margin:5px 6px;padding:5px 7px;background:rgba(90,173,160,.08);border:1px solid rgba(90,173,160,.2)}
+.lp-add-btn.active{background:rgba(90,173,160,.18);border-color:rgba(90,173,160,.4)}
+.lp-add-icon{width:12px;height:12px;border-radius:50%;background:rgba(90,173,160,.2);display:flex;align-items:center;justify-content:center;font-size:8px;color:#5aada0;font-weight:700}
+.lp-add-txt{font-family:'DM Mono',monospace;font-size:6.5px;color:#5aada0}
+
+/* Activity */
+.lp-act-row{display:flex;align-items:center;gap:5px;padding:4px 6px;border-bottom:1px solid rgba(90,173,160,.05)}
+.lp-act-badge{font-family:'DM Mono',monospace;font-size:5px;padding:1px 4px;border:1px solid rgba(90,173,160,.2);color:rgba(90,173,160,.6);border-radius:2px;flex-shrink:0}
+.lp-act-txt{font-size:6.5px;color:rgba(232,220,200,.5);flex:1}
+.lp-act-time{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.2)}
+
+/* Modal */
+.lp-modal{position:absolute;inset:0;background:rgba(7,9,12,.92);display:flex;align-items:flex-end;z-index:20;opacity:0;pointer-events:none}
+.lp-modal.show{opacity:1;pointer-events:all}
+.lp-modal-sheet{width:100%;background:#0d1117;border-top:1px solid rgba(90,173,160,.25);padding:10px;animation:lp-modal-up .4s ease}
+.lp-modal-title{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:#e8ddc8;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.lp-modal-title em{color:#5aada0;font-style:italic}
+.lp-mf{margin-bottom:6px}
+.lp-mf-label{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
+.lp-mf-val{padding:5px 7px;background:rgba(90,173,160,.07);border:1px solid rgba(90,173,160,.2);font-size:8px;font-weight:600;color:#e8ddc8;display:flex;align-items:center;gap:5px}
+.lp-mf-dot{width:5px;height:5px;border-radius:50%;background:#5aada0;flex-shrink:0}
+.lp-confirm-btn{width:100%;padding:7px;background:rgba(90,173,160,.15);border:1px solid rgba(90,173,160,.3);color:#5aada0;font-family:'DM Mono',monospace;font-size:7.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-align:center}
+.lp-confirm-btn.confirming{animation:lp-btn-confirm .6s ease}
+.lp-confirm-btn.confirmed{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.3);color:#3fb950}
+
+/* Connector */
+.lp-conn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:22px;position:relative}
+.lp-conn-line{width:100%;height:1px;background:rgba(90,173,160,.2);position:relative;overflow:hidden}
+.lp-conn-fill{position:absolute;top:0;left:0;height:100%;width:0;background:linear-gradient(90deg,#5aada0,#3fb950);opacity:0}
+.lp-conn-dot{position:absolute;top:-3px;width:6px;height:6px;border-radius:50%;background:#5aada0;box-shadow:0 0 8px #5aada0;opacity:0}
+.lp-conn-lbl{font-family:'DM Mono',monospace;font-size:4.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(90,173,160,.4);text-align:center;line-height:1.4;white-space:nowrap}
+
+/* PSW portal */
+.lp-psw-head{background:#0d1117;padding:6px 7px;border-bottom:1px solid rgba(90,173,160,.1);display:flex;align-items:center;gap:5px;flex-shrink:0}
+.lp-psw-av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;color:#fff;flex-shrink:0}
+.lp-psw-name{font-size:8px;font-weight:600;color:#e8ddc8}
+.lp-psw-role{font-family:'DM Mono',monospace;font-size:5px;color:rgba(90,173,160,.5)}
+.lp-psw-earn{margin-left:auto;text-align:right}
+.lp-psw-earn-n{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#c8a96e;line-height:1}
+.lp-psw-earn-l{font-family:'DM Mono',monospace;font-size:4.5px;color:rgba(232,220,200,.2)}
+
+/* Notification banner */
+.lp-notif-banner{margin:4px 6px;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);border-left:2px solid #c8a96e;padding:5px 7px;opacity:0;transform:translateX(20px)}
+.lp-notif-banner.show{animation:lp-notif-in .5s cubic-bezier(.4,0,.2,1) forwards}
+.lp-nb-title{font-size:7.5px;font-weight:700;color:#c8a96e;margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.lp-nb-dot{width:4px;height:4px;border-radius:50%;background:#c8a96e;animation:lp-dot-pulse 1s ease infinite}
+.lp-nb-body{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);line-height:1.4}
+
+/* Next visit */
+.lp-next-visit{margin:4px 6px;background:rgba(90,173,160,.06);border:1px solid rgba(90,173,160,.18);padding:7px 8px}
+.lp-nv-label{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.45);margin-bottom:3px}
+.lp-nv-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:#e8ddc8;line-height:1.1;margin-bottom:1px}
+.lp-nv-time{font-family:'DM Mono',monospace;font-size:7px;color:#5aada0}
+.lp-nv-btns{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px}
+.lp-nv-btn{padding:4px;border:1px solid;text-align:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.lp-nv-nav{color:rgba(90,173,160,.6);border-color:rgba(90,173,160,.2)}
+.lp-nv-signin{color:#3fb950;border-color:rgba(63,185,80,.35);background:rgba(63,185,80,.08)}
+.lp-nv-signin.active{background:rgba(63,185,80,.2);border-color:#3fb950}
+
+/* GPS */
+.lp-gps-status{margin:4px 6px;padding:5px 7px;border:1px solid rgba(90,173,160,.15);background:rgba(13,17,23,.5);opacity:0}
+.lp-gps-title{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
+.lp-spinner{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(90,173,160,.3);border-top-color:#5aada0;animation:lp-spin .8s linear infinite;flex-shrink:0}
+
+/* On shift status */
+.lp-oss{margin:4px 6px;background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.2);padding:5px 7px;opacity:0}
+.lp-oss-dot{width:5px;height:5px;border-radius:50%;background:#3fb950;animation:lp-glow-g 2s infinite;flex-shrink:0}
+.lp-oss-label{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1px;text-transform:uppercase;color:#3fb950}
+.lp-oss-name{font-size:8.5px;font-weight:700;color:#e8ddc8}
+.lp-oss-sub{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.3)}
+
+/* Family portal */
+.lp-push{position:absolute;top:14px;left:5px;right:5px;z-index:30;background:rgba(13,17,23,.96);border:1px solid rgba(90,173,160,.3);border-radius:6px;padding:5px 7px;display:flex;align-items:flex-start;gap:5px;opacity:0;transform:translateY(-8px);box-shadow:0 3px 16px rgba(0,0,0,.5)}
+.lp-push.show{animation:lp-slide-down .4s cubic-bezier(.4,0,.2,1) forwards}
+.lp-push-icon{width:15px;height:15px;border-radius:3px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0}
+.lp-push-title{font-size:7.5px;font-weight:700;color:#3fb950;margin-bottom:1px}
+.lp-push-body{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.6);line-height:1.3}
+.lp-push-time{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.2);margin-left:auto;flex-shrink:0}
+
+.lp-fam-head{background:#0d1117;padding:6px 7px;border-bottom:1px solid rgba(90,173,160,.1);text-align:center;flex-shrink:0}
+.lp-fam-brand{font-size:9px;font-weight:700;color:#e8ddc8}
+.lp-fam-brand span{color:#5aada0}
+.lp-fam-sub{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.25);letter-spacing:.8px}
+
+.lp-rosetta{margin:6px;background:linear-gradient(135deg,rgba(61,138,122,.22),rgba(30,90,80,.1));border:1px solid rgba(90,173,160,.25);padding:7px}
+.lp-rc-label{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
+.lp-rc-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#e8ddc8;line-height:1.1;margin-bottom:2px}
+.lp-rc-last{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);display:flex;align-items:center;gap:4px}
+.lp-rc-ldot{width:4px;height:4px;border-radius:50%;background:#3fb950;box-shadow:0 0 5px #3fb950}
+
+.lp-fam-notif{margin:0 6px 4px;background:#0d1117;border:1px solid rgba(90,173,160,.12);padding:5px 7px;opacity:0}
+.lp-fnc-title{font-size:8px;font-weight:700;color:#3fb950;margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.lp-fnc-dot{width:4px;height:4px;border-radius:50%;background:#3fb950;animation:lp-glow-g 2s infinite}
+.lp-fnc-body{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.5);line-height:1.4}
+.lp-fnc-time{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.2);margin-top:2px}
+
+/* Bottom steps */
+.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.3);transition:color .3s}
+.lp-step.active{color:#5aada0}
+.lp-step.done{color:#3fb950}
+
+
+/* ── MAP PHONE ── */
+.lp-map-phone{width:0;overflow:hidden;flex-shrink:0;background:#0a0d12;border:1px solid rgba(90,173,160,.2);border-radius:12px;display:flex;flex-direction:column;height:360px;box-shadow:0 4px 24px rgba(0,0,0,.7);transition:width .6s cubic-bezier(.4,0,.2,1),opacity .6s;opacity:0;}
+.lp-map-phone.show{width:182px;opacity:1;}
+.lp-map-head{background:#0d1117;padding:5px 7px;border-bottom:1px solid rgba(90,173,160,.1);flex-shrink:0;}
+.lp-map-title{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.55);margin-bottom:1px;display:flex;align-items:center;gap:4px;}
+.lp-map-title-dot{width:4px;height:4px;border-radius:50%;background:#3fb950;animation:lp-glow-g 2s infinite;}
+.lp-map-sub{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.2);}
+.lp-map-area{flex:1;background:#070c10;position:relative;overflow:hidden;}
+.lp-map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(90,173,160,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(90,173,160,.04) 1px,transparent 1px);background-size:14px 14px;}
+.lp-road{position:absolute;background:rgba(90,173,160,.08);}
+.lp-road-h{height:1px;left:0;right:0;}
+.lp-road-v{width:1px;top:0;bottom:0;}
+.lp-map-city{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(90,173,160,.12);pointer-events:none;}
+.lp-client-pin{position:absolute;opacity:0;animation:lp-fade-in .4s ease .2s forwards;}
+.lp-client-circle{width:16px;height:16px;border-radius:50%;background:rgba(90,173,160,.15);border:1px solid #5aada0;display:flex;align-items:center;justify-content:center;font-size:8px;}
+.lp-psw-pin{position:absolute;opacity:0;}
+.lp-psw-pin.show{animation:lp-map-pin .5s cubic-bezier(.34,1.56,.64,1) forwards;}
+@keyframes lp-map-pin{from{opacity:0;transform:translate(-50%,-50%) scale(0) translateY(-8px)}to{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
+.lp-pin-circle{width:20px;height:20px;border-radius:50%;background:rgba(63,185,80,.2);border:1.5px solid #3fb950;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;color:#3fb950;position:relative;}
+.lp-pin-ring{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(63,185,80,.4);animation:lp-ping 2s ease-out infinite;}
+.lp-pin-ring2{position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(63,185,80,.2);animation:lp-ping 2s ease-out infinite;animation-delay:.4s;}
+.lp-pin-label{position:absolute;top:24px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:5.5px;color:#3fb950;white-space:nowrap;background:rgba(7,9,12,.9);padding:1px 5px;border:1px solid rgba(63,185,80,.25);}
+.lp-gps-strip{padding:5px 7px;border-top:1px solid rgba(90,173,160,.1);background:#0d1117;flex-shrink:0;opacity:0;}
+.lp-gis-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
+.lp-gis-label{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.3);}
+.lp-gis-val{font-family:'DM Mono',monospace;font-size:7.5px;font-weight:600;}
+.lp-gis-val.g{color:#3fb950;}.lp-gis-val.t{color:#5aada0;}
+.lp-gis-updated{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.15);text-align:right;}
+
+
+/* ── Mobile: flow demo phones scroll horizontally ── */
+@media(max-width:700px){
+  #flow-demo-wrap #main{
+    overflow-x:auto;
+    justify-content:flex-start;
+    padding:12px 16px 10px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  #flow-demo-wrap #main::-webkit-scrollbar{display:none;}
+  .lp-phone{width:160px!important;height:300px!important;border-radius:10px!important;}
+  .lp-hq{width:172px!important;}
+  .lp-map-phone.show{width:160px!important;}
+  .lp-conn{width:20px!important;}
+  #flow-demo-wrap{border-radius:10px!important;}
+}
+@media(max-width:480px){
+  .lp-phone{width:148px!important;height:280px!important;}
+  .lp-hq{width:158px!important;}
+  .lp-map-phone.show{width:148px!important;}
+}
+
 </style>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 </head>
@@ -1074,79 +1289,227 @@ button,a,[onclick]{touch-action:manipulation;}
 <div class="ann"><strong>First month free.</strong> We build everything first. You pay after it is live. &nbsp;·&nbsp; We onboard <strong>3 agencies at a time</strong> to guarantee 7-day delivery. <strong>3 spots open.</strong></div>
 
 <!-- ── HERO ── -->
-<section id="hero">
-  <div class="hero-wrap">
+<section id="hero" style="min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:88px 24px 48px;position:relative;overflow:hidden;">
 
-  <!-- LEFT COLUMN -->
-  <div class="hero-left">
-    <div class="hero-pills">
+  <!-- Centered headline block -->
+  <div style="text-align:center;max-width:760px;margin:0 auto 24px;position:relative;z-index:2;">
+    <div class="hero-pills" style="justify-content:center;margin-bottom:20px;">
       <div class="pill" id="heroEyebrow"><div class="pill-dot"></div>Live in Mississauga, ON</div>
       <div class="pill"><div class="pill-dot"></div>10 systems running</div>
     </div>
-    <h1 class="h1">Get <em>20 hours</em><br>back. We automate<br>your agency in <em>7 days.</em></h1>
-    <p class="sub" id="heroSub">10 systems built for your agency — GPS visit logging with structured medication records, AI care summaries, automated dual invoicing, accounts receivable, payroll CSV, family portal, lead capture with call booking, client and PSW onboarding with e-signature. Done for you. Live in 7 days.</p>
-    <div class="hero-enemy">Right now you are stitching together <strong style="color:var(--red)">spreadsheets, group chats, and tools that were never built for home care</strong>. That stack costs you 20 hours a week, loses leads overnight, and has no medication records, no care signals, and no family visibility.</div>
-    <div class="hero-proof-quote">
-      <div class="hpq-stars">✓ &nbsp;Running live right now</div>
-      <div class="hpq-text">"We built this on our own agency first. 12 PSWs. 11 clients. Thousands of hours logged. Zero admin hours."</div>
-      <div class="hpq-name">Lance Salazar · Founder · Proximity Care Services · Mississauga, ON</div>
-    </div>
-    <div class="cta-stack">
-      <a href="#booking" class="btn">Get My 7-Day Automation Plan</a>
+    <h1 class="h1" style="font-size:clamp(44px,6vw,76px);text-align:center;margin-bottom:16px;">Get <em>20 hours</em><br>back. We automate<br>your agency in <em>7 days.</em></h1>
+    <p class="sub" id="heroSub" style="text-align:center;max-width:520px;margin:0 auto 24px;font-size:14px;line-height:1.6;">GPS logging. AI invoicing. Family portal. Lead capture. 10 systems built for your agency. Live in 7 days. $500/mo.</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <a href="#booking" class="btn" style="max-width:380px;width:100%;">Get My 7-Day Automation Plan</a>
       <div class="btn-note">Free 20-min call · No obligation · Built in 7 days</div>
     </div>
-    <div class="hero-trust">
-      <span class="hero-trust-item"><span class="hero-trust-dot"></span>10 systems built</span>
-      <span class="hero-trust-sep">·</span>
-      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days</span>
-      <span class="hero-trust-sep">·</span>
-      <span class="hero-trust-item"><span class="hero-trust-dot"></span>$500/mo all in</span>
-    </div>
   </div>
 
-  <!-- RIGHT COLUMN — LIVE SYSTEM FEED -->
-  <div class="hero-right">
-    <div class="hero-visual-card">
-      <div class="hvc-header">
-        <div class="hvc-dots"><div class="hvc-dot r"></div><div class="hvc-dot y"></div><div class="hvc-dot g"></div></div>
-        <div class="hvc-label">Live System Feed</div>
+  <!-- FULL-WIDTH FLOW DEMO -->
+  <div id="flow-demo-wrap" style="position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
+
+    <!-- Particle canvas -->
+    <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
+
+    <!-- Top bar: logo + stage label + live badge -->
+    <div style="position:relative;z-index:10;height:38px;background:rgba(7,9,12,.98);border-bottom:1px solid rgba(90,173,160,.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
+      <div style="display:flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#e8ddc8;">
+        <div style="width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;">PH</div>
+        Proximity<span style="color:#5aada0;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15px;">HQ</span>
       </div>
-      <div class="hvc-body">
-        <div class="hvc-feed-item">
-          <div class="hvc-feed-icon teal"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.1"/></svg></div>
-          <div>
-            <div class="hvc-feed-title">PSW Visit Logged</div>
-            <div class="hvc-feed-desc">8.0 hrs · Auto-routed to billing</div>
-            <div class="hvc-feed-time">Just now · <span class="hvc-live-dot"></span> Live</div>
-          </div>
-        </div>
-        <div class="hvc-feed-item">
-          <div class="hvc-feed-icon green"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="3.5" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg></div>
-          <div>
-            <div class="hvc-feed-title">New Lead Captured</div>
-            <div class="hvc-feed-desc">Day 1 follow-up sent in 60 seconds</div>
-            <div class="hvc-feed-time">2 min ago · <span class="hvc-live-dot"></span> Live</div>
-          </div>
-        </div>
-        <div class="hvc-feed-item">
-          <div class="hvc-feed-icon gold"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M2 1h10v12l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5V1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/></svg></div>
-          <div>
-            <div class="hvc-feed-title">Invoice Sent Automatically</div>
-            <div class="hvc-feed-desc">PDF delivered · PSW pay summary sent</div>
-            <div class="hvc-feed-time">5 min ago · <span class="hvc-live-dot"></span> Live</div>
-          </div>
-        </div>
+      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(90,173,160,.65);transition:opacity .3s;">Initializing...</div>
+      <div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#5aada0;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px #3fb950;animation:lp-glow-g 2s infinite;"></div>Running Live
       </div>
-      <div class="hvc-stats">
-        <div class="hvc-stat"><span class="hvc-stat-val">1,000s</span><span class="hvc-stat-lbl">Hrs logged</span></div>
-        <div class="hvc-stat"><span class="hvc-stat-val">100s</span><span class="hvc-stat-lbl">Invoices sent</span></div>
-        <div class="hvc-stat"><span class="hvc-stat-val">12</span><span class="hvc-stat-lbl">PSWs</span></div>
-        <div class="hvc-stat"><span class="hvc-stat-val">0</span><span class="hvc-stat-lbl">Admin hrs</span></div>
-      </div>
+      <div id="stageProgress" style="position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#5aada0,#3fb950);width:0%;transition:width .1s linear;"></div>
     </div>
+
+    <!-- Phone trio — full width, bigger phones -->
+    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;gap:8px;padding:16px 20px 12px;background:rgba(7,9,12,.6);position:relative;z-index:1;">
+
+      <!-- HQ PHONE — larger -->
+      <div class="lp-phone lp-hq" id="hqPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">4:33</div>
+        <div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">HQ · Operator Dashboard</div>
+        <div class="lp-body" id="hqBody">
+          <div class="lp-hq-head">
+            <div class="lp-brand">Proximity <em>HQ</em></div>
+            <div class="lp-stats">
+              <div class="lphs"><div class="lphs-n">50</div><div class="lphs-l">Leads</div></div>
+              <div class="lphs"><div class="lphs-n">11</div><div class="lphs-l">Clients</div></div>
+              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">On Shift</div></div>
+              <div class="lphs"><div class="lphs-n lp-amber">$1,942</div><div class="lphs-l">Billed</div></div>
+            </div>
+          </div>
+          <div class="lp-osc"><div class="lp-osc-l">On Shift Now</div><div class="lp-osc-v" id="onShiftCard">0</div></div>
+          <div class="lp-sec-lbl">Today&#39;s Shifts</div>
+          <div class="lp-shift-row" id="newShiftRow" style="opacity:0;">
+            <div class="lp-sr-time">08:00</div>
+            <div class="lp-sr-dot lp-dot-new" id="newDot"></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">Carolina Hermida</div><div class="lp-sr-client">Rosetta Ferrari</div></div>
+            <div class="lp-sr-badge lp-badge-new" id="newBadge">+ Added</div>
+          </div>
+          <div class="lp-shift-row">
+            <div class="lp-sr-time">10:00</div>
+            <div class="lp-sr-dot lp-dot-sc"></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">James Okafor</div><div class="lp-sr-client">Robert Liang</div></div>
+            <div class="lp-sr-badge lp-badge-sc">Scheduled</div>
+          </div>
+          <div class="lp-add-btn" id="addShiftBtn"><div class="lp-add-icon">+</div><div class="lp-add-txt">Book New Shift</div></div>
+          <div class="lp-sec-lbl">Recent Activity</div>
+          <div class="lp-act-row" id="actRow1" style="opacity:0;"><div class="lp-act-badge">SCH</div><div class="lp-act-txt">Shift booked · Carolina · Rosetta Ferrari · 08:00</div><div class="lp-act-time">Just now</div></div>
+          <div class="lp-act-row" id="actRow2" style="opacity:0;"><div class="lp-act-badge">GPS</div><div class="lp-act-txt">Carolina checked in · 12m · Rosetta Ferrari</div><div class="lp-act-time">08:02</div></div>
+          <div class="lp-modal" id="shiftModal">
+            <div class="lp-modal-sheet">
+              <div class="lp-modal-title">Book <em>Shift</em></div>
+              <div class="lp-mf"><div class="lp-mf-label">Client</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Rosetta Ferrari<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">11 clients</span></div></div>
+              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Carolina Hermida<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">Available</span></div></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px;">
+                <div class="lp-mf"><div class="lp-mf-label">Start</div><div class="lp-mf-val" style="font-size:8px;">08:00 AM</div></div>
+                <div class="lp-mf"><div class="lp-mf-label">End</div><div class="lp-mf-val" style="font-size:8px;">04:00 PM</div></div>
+              </div>
+              <div class="lp-confirm-btn" id="confirmBtn">Confirm Shift</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 1 -->
+      <div class="lp-conn" id="conn1" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill1"></div><div class="lp-conn-dot" id="connDot1"></div></div>
+        <div class="lp-conn-lbl" id="connLabel1">Shift<br>fires</div>
+      </div>
+
+      <!-- PSW PHONE -->
+      <div class="lp-phone" id="pswPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">4:33</div>
+        <div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">PSW Portal · Carolina</div>
+        <div class="lp-body" id="pswBody">
+          <div class="lp-psw-head">
+            <div class="lp-psw-av">CH</div>
+            <div><div class="lp-psw-name">Carolina Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
+            <div class="lp-psw-earn"><div class="lp-psw-earn-n">$1,677</div><div class="lp-psw-earn-l">Earned</div></div>
+          </div>
+          <div class="lp-notif-banner" id="pswNotif">
+            <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
+            <div class="lp-nb-body">Your shift on May 18 at 08:00 has been updated (8h). Check your schedule.</div>
+          </div>
+          <div class="lp-next-visit" id="nextVisitCard">
+            <div class="lp-nv-label">Next Visit</div>
+            <div class="lp-nv-name">Rosetta Ferrari</div>
+            <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
+            <div class="lp-nv-btns">
+              <div class="lp-nv-btn lp-nv-nav">Navigate</div>
+              <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+            </div>
+          </div>
+          <div class="lp-gps-status" id="gpsStatus">
+            <div class="lp-gps-title">GPS Verification</div>
+            <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
+            <div id="gpsVerified" style="display:none;font-family:'DM Mono',monospace;font-size:7px;color:#3fb950;">✓ Verified · 12m from address</div>
+          </div>
+          <div class="lp-oss" id="onShiftStatus">
+            <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
+            <div class="lp-oss-name">Rosetta Ferrari</div>
+            <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 2 -->
+      <div class="lp-conn" id="conn2" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill2"></div><div class="lp-conn-dot" id="connDot2"></div></div>
+        <div class="lp-conn-lbl" id="connLabel2">Notif<br>fires</div>
+      </div>
+
+      <!-- FAMILY PHONE -->
+      <div class="lp-phone" id="famPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">8:02</div>
+        <div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">Family Portal · Connie</div>
+        <div class="lp-body" id="famBody" style="position:relative;">
+          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Carolina has arrived</div><div class="lp-push-body">Rosetta Ferrari · GPS confirmed</div></div><div class="lp-push-time">08:02</div></div>
+          <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
+          <div class="lp-rosetta"><div class="lp-rc-label">Your Loved One</div><div class="lp-rc-name">Rosetta Ferrari</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
+          <div class="lp-fam-notif" id="famNotifCard">
+            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Carolina has arrived</div>
+            <div class="lp-fnc-body">Visit started 08:02. GPS confirmed on site. All care tasks underway.</div>
+            <div class="lp-fnc-time">08:02 AM · automated notification</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 3 -->
+      <div class="lp-conn" id="conn3" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill3"></div><div class="lp-conn-dot" id="connDot3"></div></div>
+        <div class="lp-conn-lbl" id="connLabel3">GPS<br>live</div>
+      </div>
+
+      <!-- MAP PHONE -->
+      <div class="lp-map-phone" id="mapPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time" style="position:absolute;top:3px;left:8px;font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);">8:02</div>
+        <div class="lp-label">Live GPS · Mississauga</div>
+        <div class="lp-map-head">
+          <div class="lp-map-title"><div class="lp-map-title-dot"></div>Live PSW Locations</div>
+          <div class="lp-map-sub" id="mapUpdated">Updated 08:02 AM</div>
+        </div>
+        <div class="lp-map-area" id="mapArea">
+          <div class="lp-map-grid"></div>
+          <div class="lp-road lp-road-h" style="top:30%"></div>
+          <div class="lp-road lp-road-h" style="top:50%"></div>
+          <div class="lp-road lp-road-h" style="top:70%"></div>
+          <div class="lp-road lp-road-v" style="left:25%"></div>
+          <div class="lp-road lp-road-v" style="left:50%"></div>
+          <div class="lp-road lp-road-v" style="left:75%"></div>
+          <div class="lp-map-city">MISSISSAUGA</div>
+          <div class="lp-client-pin" id="clientPin" style="top:42%;left:44%;transform:translate(-50%,-50%);"><div class="lp-client-circle">🏠</div></div>
+          <div class="lp-psw-pin" id="pswPin" style="top:38%;left:50%;transform:translate(-50%,-50%);">
+            <div class="lp-pin-circle">CH<div class="lp-pin-ring"></div><div class="lp-pin-ring2"></div></div>
+            <div class="lp-pin-label">On site · 12m</div>
+          </div>
+        </div>
+        <div class="lp-gps-strip" id="gpsInfoStrip">
+          <div class="lp-gis-row"><div class="lp-gis-label">Carolina Hermida</div><div class="lp-gis-val g">On Site · 12m</div></div>
+          <div class="lp-gis-row"><div class="lp-gis-label">Client: Rosetta Ferrari</div><div class="lp-gis-val t">Verified</div></div>
+          <div class="lp-gis-updated">Fraud detection: Clean · All operators</div>
+        </div>
+      </div>
+    </div><!-- /main -->
+
+    <!-- Bottom step bar -->
+    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;">
+      <span class="lp-step" id="step1">HQ Books</span>
+      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step" id="step2">PSW Notified</span>
+      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step" id="step3">GPS Checkin</span>
+      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step" id="step4">Family Alert</span>
+      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step" id="step5">Map Live</span>
+      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);">proximitysystems.ca · $500/mo · 7 days</span>
+    </div>
+
+  </div><!-- /flow-demo-wrap -->
+
+  <!-- Trust bar below demo -->
+  <div class="hero-trust" style="margin-top:24px;justify-content:center;">
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>10 systems built</span>
+    <span class="hero-trust-sep">·</span>
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days</span>
+    <span class="hero-trust-sep">·</span>
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>$500/mo all in</span>
+    <span class="hero-trust-sep">·</span>
+    <span class="hero-trust-item"><span class="hero-trust-dot"></span>We build first. You pay after.</span>
   </div>
 
-  </div><!-- /hero-wrap -->
 </section>
 
 <div class="divider"></div>
@@ -1240,7 +1603,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="sec w-wide">
     <div class="eyebrow"><div class="eyebrow-dot"></div>10 Done-For-You Systems</div>
     <h2 class="h2">Less time on admin.<br>More time on <em>care.</em></h2>
-    <p class="sub" style="margin-bottom:36px">Every system replaces hours of manual work. Built for your agency. Nothing shared.</p>
+    <p class="sub" style="margin-bottom:28px;font-size:14px;">Every system replaces hours of manual work. Built for your agency. Nothing shared.</p>
 
     <div class="sys-cards-grid">
 
@@ -1378,34 +1741,21 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 <div class="divider"></div>
 
 <!-- ── PROOF ── -->
-<section id="proof" style="background:var(--bg2)">
-  <div class="sec w">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>Real Numbers · Live Agency</div>
-    <h2 class="h2">1,000s of hours.<br>100s of invoices.<br><em>0 admin hours.</em></h2>
-    <div class="proof-bar">
-      <div class="proof-stat"><span class="proof-stat-val">1,000s</span><span class="proof-stat-lbl">Hours logged</span></div>
-      <div class="proof-stat"><span class="proof-stat-val">100s</span><span class="proof-stat-lbl">Invoices sent</span></div>
-      <div class="proof-stat"><span class="proof-stat-val">12</span><span class="proof-stat-lbl">PSWs active</span></div>
-      <div class="proof-stat"><span class="proof-stat-val">11</span><span class="proof-stat-lbl">Active clients</span></div>
-      <div class="proof-stat"><span class="proof-stat-val">1</span><span class="proof-stat-lbl">Automated system</span></div>
-      <div class="proof-stat"><span class="proof-stat-val">0</span><span class="proof-stat-lbl">Admin hours</span></div>
-    </div>
-    <div class="proof-narrative">One button pressed at month end. Invoice to client. Pay summary to PSW. AI care note written automatically. <strong>Total time: 30 seconds.</strong> No spreadsheet. No chasing. No manual anything. This is running live right now.</div>
-    <div class="testi-row">
-      <div class="testi"><span class="testi-stars">What Happened When We Ran This On Our Own Agency</span><p class="testi-text">Before: manual invoices taking 45 minutes per client, PSW hours tracked by text, leads seen hours after they came in. After: April 2026 — 20 visits logged from PSW phones, one button triggered the invoice, PDF sent to client in under 30 seconds. Zero manual work. Total admin time that month: under 2 hours. This is Proximity Care running on the same system we build for you.</p><span class="testi-name">Lance Salazar</span><span class="testi-role">Founder · Proximity Care Services · Mississauga, ON</span></div>
-      <div class="testi"><span class="testi-stars">✓ &nbsp;Real Numbers — Not a Demo</span><p class="testi-text">12 PSWs logging visits from their phones. 11 active clients. Day 1, Day 3, and Day 7 follow-ups firing automatically. Leads captured at 2am and replied to before we wake up. Families checking visit logs from their own portal instead of calling. This is live right now and has been for months.</p><span class="testi-name">Proximity Care Services</span><span class="testi-role">Mississauga · Brampton · Caledon · proximitycares.com</span></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- ── OFFER + BOOKING ── -->
 <section id="offer" style="background:var(--bg)">
   <div class="sec w">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>The Offer</div>
-    <h2 class="h2">Built first.<br>You pay after<br>it is <em>live.</em></h2>
-    <p class="sub">One call. Seven days. Ten systems running on your agency. You see everything working before you pay a cent.</p>
+    <div class="eyebrow"><div class="eyebrow-dot"></div>Built First. You Pay After.</div>
+    <h2 class="h2">The same system<br>running in our agency<br><em>is yours in 7 days.</em></h2>
+    <p class="sub">One call. Seven days. Ten systems live on your agency. You see everything working before you pay a cent.</p>
+
+    <!-- Inline proof stats — moved from separate section -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin:24px 0 28px;">
+      <div style="background:var(--bg3);padding:16px 12px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">1,000s</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Hours logged</div></div>
+      <div style="background:var(--bg3);padding:16px 12px;text-align:center;border-left:1px solid var(--border);"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">12</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">PSWs active</div></div>
+      <div style="background:var(--bg3);padding:16px 12px;text-align:center;border-left:1px solid var(--border);"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">11</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Active clients</div></div>
+      <div style="background:var(--bg3);padding:16px 12px;text-align:center;border-left:1px solid var(--border);"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">0</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Admin hours</div></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border-b);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:14px 18px;margin-bottom:28px;font-size:13px;color:var(--text-dim);line-height:1.7;">One button pressed at month end. Invoice to client. Pay summary to PSW. AI care note written automatically. <strong style="color:var(--text);">Total time: 30 seconds.</strong> No spreadsheet. No chasing. This is running live right now.</div>
 
     <div class="ob-package-card" style="margin:28px 0">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px">
@@ -1808,5 +2158,216 @@ var lpBooked=false;
 
 
 </script>
+
+<script>
+/* ── LP FLOW DEMO ANIMATION ── */
+(function(){
+
+// Particle canvas
+var bgc=document.getElementById('bg');
+if(!bgc)return;
+var bgx=bgc.getContext('2d');
+function resizeBg(){bgc.width=bgc.offsetWidth||480;bgc.height=bgc.offsetHeight||340;}
+resizeBg();
+window.addEventListener('resize',resizeBg,{passive:true});
+var pts=[];
+for(var i=0;i<30;i++){pts.push({x:Math.random()*(bgc.width||480),y:Math.random()*(bgc.height||340),vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12});}
+(function drawBg(){
+  var W=bgc.width,H=bgc.height;
+  bgx.clearRect(0,0,W,H);
+  pts.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    bgx.beginPath();bgx.arc(p.x,p.y,.7,0,Math.PI*2);
+    bgx.fillStyle='rgba(90,173,160,.15)';bgx.fill();
+  });
+  for(var i=0;i<pts.length;i++)for(var j=i+1;j<pts.length;j++){
+    var d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<60){bgx.beginPath();bgx.moveTo(pts[i].x,pts[i].y);bgx.lineTo(pts[j].x,pts[j].y);
+      bgx.strokeStyle='rgba(61,138,122,'+(0.05*(1-d/60)).toFixed(3)+')';bgx.lineWidth=.5;bgx.stroke();}
+  }
+  requestAnimationFrame(drawBg);
+})();
+
+// Helpers
+function show(el){if(el){el.style.opacity='1';el.style.animation='lp-fade-up .4s ease forwards';}}
+function hide(el){if(el)el.style.opacity='0';}
+function addClass(el,cls){if(el)el.classList.add(cls);}
+function removeClass(el,cls){if(el)el.classList.remove(cls);}
+
+function setStage(label){
+  var el=document.getElementById('stageLabel');
+  if(!el)return;
+  el.style.opacity='0';
+  setTimeout(function(){el.textContent=label;el.style.opacity='1';el.style.animation='lp-fade-in .3s ease forwards';},200);
+}
+
+function setStep(n){
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('step'+i);
+    if(!el)continue;
+    if(i<n)el.className='lp-step done';
+    else if(i===n)el.className='lp-step active';
+    else el.className='lp-step';
+  }
+}
+
+function fireConnector(n){
+  var fill=document.getElementById('connFill'+n);
+  var dot=document.getElementById('connDot'+n);
+  var label=document.getElementById('connLabel'+n);
+  if(fill){fill.style.animation='lp-draw-line .8s ease forwards';fill.style.opacity='1';}
+  if(dot){
+    dot.style.opacity='0';dot.style.animation='none';
+    void dot.offsetWidth;
+    dot.style.animation='lp-conn-dot 1s ease-in-out forwards';
+  }
+  if(label)label.style.color='rgba(90,173,160,.8)';
+}
+
+function resetAll(){
+  var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
+  var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
+  var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn';conf.textContent='Confirm Shift';}
+  var nsr=document.getElementById('newShiftRow');if(nsr)nsr.style.opacity='0';
+  var nb=document.getElementById('newBadge');if(nb){nb.textContent='+ Added';nb.className='lp-sr-badge lp-badge-new';}
+  for(var n=1;n<=2;n++){
+    var f=document.getElementById('connFill'+n);
+    var d=document.getElementById('connDot'+n);
+    var l=document.getElementById('connLabel'+n);
+    if(f){f.style.animation='none';f.style.opacity='0';}
+    if(d){d.style.animation='none';d.style.opacity='0';}
+    if(l)l.style.color='rgba(90,173,160,.4)';
+  }
+  var pswN=document.getElementById('pswNotif');
+  if(pswN){pswN.classList.remove('show');pswN.style.opacity='0';pswN.style.transform='translateX(20px)';}
+  var signIn=document.getElementById('signInBtn');if(signIn)signIn.classList.remove('active');
+  var gpsS=document.getElementById('gpsStatus');if(gpsS)gpsS.style.opacity='0';
+  var gpsC=document.getElementById('gpsChecking');if(gpsC)gpsC.style.display='flex';
+  var gpsV=document.getElementById('gpsVerified');if(gpsV)gpsV.style.display='none';
+  var oss=document.getElementById('onShiftStatus');if(oss)oss.style.opacity='0';
+  var push=document.getElementById('pushNotif');
+  if(push){push.classList.remove('show');push.style.opacity='0';}
+  var fnc=document.getElementById('famNotifCard');if(fnc)fnc.style.opacity='0';
+  var a1=document.getElementById('actRow1');if(a1)a1.style.opacity='0';
+  var a2=document.getElementById('actRow2');if(a2)a2.style.opacity='0';
+  var osn=document.getElementById('onShiftN');if(osn)osn.textContent='0';
+  var osc=document.getElementById('onShiftCard');if(osc)osc.textContent='0';
+  // Reset map phone
+  var mp=document.getElementById('mapPhone');if(mp)mp.classList.remove('show');
+  var pswPin=document.getElementById('pswPin');if(pswPin)pswPin.classList.remove('show');
+  var gpsInfo=document.getElementById('gpsInfoStrip');if(gpsInfo)gpsInfo.style.opacity='0';
+  // Reset connector 3
+  var f3=document.getElementById('connFill3');
+  var d3=document.getElementById('connDot3');
+  var l3=document.getElementById('connLabel3');
+  if(f3){f3.style.animation='none';f3.style.opacity='0';}
+  if(d3){d3.style.animation='none';d3.style.opacity='0';}
+  if(l3)l3.style.color='rgba(90,173,160,.4)';
+  setStep(1);
+  setStage('Operator opens HQ — booking a shift');
+}
+
+var TOTAL=22000;
+var startTime=null;
+
+function buildTimeline(base){
+  return [
+    [base+400,function(){setStage('Operator taps Book New Shift');setStep(1);var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.add('active');}],
+    [base+1200,function(){var modal=document.getElementById('shiftModal');if(modal)modal.classList.add('show');}],
+    [base+2800,function(){setStage('Shift confirmed — notification firing to PSW');var conf=document.getElementById('confirmBtn');if(conf){conf.classList.add('confirming');conf.textContent='Confirming...';}}],
+    [base+3600,function(){
+      var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
+      var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn confirmed';conf.textContent='✓ Shift Confirmed';}
+      var nsr=document.getElementById('newShiftRow');if(nsr){nsr.style.animation='lp-slide-right .4s ease forwards';nsr.style.opacity='1';}
+      var a1=document.getElementById('actRow1');if(a1){a1.style.animation='lp-fade-in .4s ease forwards';a1.style.opacity='1';}
+      var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
+    }],
+    [base+4400,function(){setStage('Shift notification sent to Carolina&#39;s portal');setStep(2);fireConnector(1);}],
+    [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
+    [base+6800,function(){setStage('Carolina taps Sign In — GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
+    [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
+    [base+9200,function(){
+      var c=document.getElementById('gpsChecking');if(c)c.style.display='none';
+      var v=document.getElementById('gpsVerified');if(v)v.style.display='flex';
+    }],
+    [base+10200,function(){
+      var o=document.getElementById('onShiftStatus');if(o){o.style.animation='lp-slide-up .4s ease forwards';o.style.opacity='1';}
+      var osn=document.getElementById('onShiftN');if(osn)osn.textContent='1';
+      var osc=document.getElementById('onShiftCard');if(osc){osc.style.animation='lp-count-up .3s ease forwards';osc.textContent='1';}
+    }],
+    [base+11000,function(){setStage('GPS confirmed — family notification firing');setStep(4);fireConnector(2);}],
+    [base+12000,function(){var p=document.getElementById('pushNotif');if(p)p.classList.add('show');}],
+    [base+13200,function(){var f=document.getElementById('famNotifCard');if(f){f.style.animation='lp-slide-down .4s ease forwards';f.style.opacity='1';}}],
+    [base+13800,function(){var a2=document.getElementById('actRow2');if(a2){a2.style.animation='lp-fade-in .4s ease forwards';a2.style.opacity='1';}}],
+    // BEAT 15: Connector 3 fires to map
+    [base+14800,function(){fireConnector(3);}],
+    // BEAT 16: Map phone slides in
+    [base+15200,function(){
+      setStage('Live GPS map activated — Connie sees the location');
+      setStep(5);
+      var mp=document.getElementById('mapPhone');if(mp)mp.classList.add('show');
+    }],
+    // BEAT 17: Client pin appears
+    [base+16000,function(){
+      var cp=document.getElementById('clientPin');if(cp)cp.style.opacity='1';
+    }],
+    // BEAT 18: PSW pin appears
+    [base+16600,function(){
+      var pp=document.getElementById('pswPin');if(pp)pp.classList.add('show');
+    }],
+    // BEAT 19: GPS info strip
+    [base+17400,function(){
+      var g=document.getElementById('gpsInfoStrip');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}
+    }],
+    [base+18800,function(){setStage('All systems connected — operator never touched it');}],
+    [base+TOTAL,function(){
+      resetAll();
+      var nextBase=Date.now();
+      buildTimeline(nextBase).forEach(function(beat){
+        var delay=beat[0]-Date.now();
+        if(delay>=0)setTimeout(beat[1],delay);
+      });
+    }],
+  ];
+}
+
+function updateProgress(){
+  if(!startTime)startTime=Date.now();
+  var elapsed=(Date.now()-startTime)%TOTAL;
+  var pct=(elapsed/TOTAL)*100;
+  var bar=document.getElementById('stageProgress');
+  if(bar)bar.style.width=pct+'%';
+  requestAnimationFrame(updateProgress);
+}
+
+function boot(){
+  resetAll();
+  startTime=Date.now();
+  var now=Date.now();
+  buildTimeline(now).forEach(function(beat){
+    var delay=beat[0]-now;
+    if(delay>=0)setTimeout(beat[1],delay);
+  });
+  updateProgress();
+}
+
+// Start after fonts load
+var wrap=document.getElementById('flow-demo-wrap');
+if(wrap){
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){obs.disconnect();setTimeout(boot,800);}
+    },{threshold:0.2});
+    obs.observe(wrap);
+  } else {
+    setTimeout(boot,1200);
+  }
+}
+
+})();
+</script>
+
 </body>
 </html>
