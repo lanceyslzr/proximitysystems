@@ -847,7 +847,7 @@ button,a,[onclick]{touch-action:manipulation;}
 <section id="os-flow" style="padding:56px 0 48px;background:var(--bg);overflow:hidden;">
   <div style="max-width:960px;margin:0 auto;padding:0 20px;">
     <div style="text-align:center;margin-bottom:36px;">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">The OS in motion</div>
+      <div style="font-family:\"DM Mono\",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">The OS in motion</div>
       <div style="font-size:clamp(1.3rem,2.8vw,1.9rem);font-weight:600;color:var(--text);line-height:1.3;">Every visit. Automatic.</div>
     </div>
     <div id="os-flow-wrap" style="position:relative;">
@@ -868,7 +868,7 @@ button,a,[onclick]{touch-action:manipulation;}
 </section>
 <style>
 .osn-icon{width:42px;height:42px;border-radius:10px;background:rgba(61,122,138,.08);border:1.5px solid rgba(61,122,138,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0;color:rgba(232,228,220,.35);}
-.osn-label{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(232,228,220,.25);text-align:center;line-height:1.35;transition:color .3s;margin-top:5px;word-break:break-word;max-width:62px;}
+.osn-label{font-family:\"DM Mono\",monospace;font-size:7.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(232,228,220,.25);text-align:center;line-height:1.35;transition:color .3s;margin-top:5px;word-break:break-word;max-width:62px;}
 @media(max-width:599px){.osn-icon{width:34px;height:34px;}.osn-icon svg{width:14px;height:14px;}.osn-label{font-size:6px;max-width:48px;}}
 @media(max-width:390px){.osn-icon{width:28px;height:28px;}.osn-label{display:none;}}
 </style>
@@ -926,6 +926,437 @@ if(sec){
 }
 })();
 </script>
+
+
+<!-- ── PORTAL SHOWCASE ── -->
+<section style="background:var(--bg2);padding:72px 0 80px;position:relative;overflow:hidden;" id="portal-showcase">
+
+  <div style="text-align:center;padding:0 20px;margin-bottom:40px;">
+    <div style="font-family:\"DM Mono\",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:inline-flex;align-items:center;gap:8px;">
+      <span style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite;"></span>
+      The Portals · Live UI · Click to explore
+    </div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--text);line-height:1.05;margin-bottom:10px;">See exactly what you're buying.<br><em style="color:var(--teal);font-style:italic;">Before you book a call.</em></h2>
+    <p style="font-family:\"DM Mono\",monospace;font-size:10px;color:var(--muted);max-width:440px;margin:0 auto;line-height:1.8;">Three portals. Real UI. Real triggers. This is what runs inside your agency on day 8.</p>
+  </div>
+
+  <div style="max-width:860px;margin:0 auto;padding:0 16px;">
+
+    <!-- Tab nav -->
+    <div id="md-ps-nav" style="display:flex;gap:1px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px 8px 0 0;overflow:hidden;">
+      <div class="md-ps-tab" onclick="mdPsShow('hq',this)" style="flex:1;padding:12px 8px;text-align:center;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);cursor:pointer;background:rgba(61,138,122,.08);border-bottom:2px solid var(--teal);transition:all .2s;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-right:5px;animation:pulse 2s infinite;vertical-align:middle;"></span>HQ Dashboard
+      </div>
+      <div class="md-ps-tab" onclick="mdPsShow('psw',this)" style="flex:1;padding:12px 8px;text-align:center;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-right:5px;animation:pulse 2.3s infinite;vertical-align:middle;"></span>PSW Portal
+      </div>
+      <div class="md-ps-tab" onclick="mdPsShow('family',this)" style="flex:1;padding:12px 8px;text-align:center;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#c8a96e;margin-right:5px;animation:pulse 1.8s infinite;vertical-align:middle;"></span>Family Portal
+      </div>
+      <div class="md-ps-tab" onclick="mdPsShow('chain',this)" style="flex:1;padding:12px 8px;text-align:center;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
+        ⚡ Trigger Chain
+      </div>
+    </div>
+
+    <!-- HQ FRAME -->
+    <div class="md-ps-frame" id="md-frame-hq" style="background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:rgba(0,0,0,.2);border-bottom:1px solid rgba(255,255,255,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">proximitycares.ca/hq.html · Coordinator View</div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,122,138,.15);color:var(--teal);border:1px solid rgba(61,122,138,.25);">HQ</div>
+      </div>
+      <!-- HQ inner tabs -->
+      <div style="display:flex;gap:1px;background:rgba(0,0,0,.15);border-bottom:1px solid rgba(255,255,255,.05);overflow-x:auto;" id="md-hq2-tabs">
+        <div class="md-hq2-tab md-hq2-on" onclick="mdHqTab('overview',this)" style="padding:8px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--teal);white-space:nowrap;cursor:pointer;border-bottom:1px solid var(--teal);">Overview</div>
+        <div class="md-hq2-tab" onclick="mdHqTab('schedule',this)" style="padding:8px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Schedule</div>
+        <div class="md-hq2-tab" onclick="mdHqTab('clients',this)" style="padding:8px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Clients</div>
+        <div class="md-hq2-tab" onclick="mdHqTab('psws',this)" style="padding:8px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">PSWs</div>
+        <div class="md-hq2-tab" onclick="mdHqTab('revenue',this)" style="padding:8px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Revenue</div>
+      </div>
+      <div id="md-hq-overview" style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--teal);" id="md-kv">8</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Visits today</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:2px;">↑ 3 live</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--green);">312</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Invoices</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:2px;">↑ auto</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:#c8a96e;">89</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Leads</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:2px;">↑ AI 24/7</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--text);">$18.4K</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Month rev</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:2px;">↑ 12%</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.05);"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;"></div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Live activity · Proximity Care Services · Mississauga</div></div>
+          <div id="md-hq2-feed" style="display:flex;flex-direction:column;"></div>
+        </div>
+      </div>
+      <div id="md-hq-schedule" style="padding:14px;display:none;">
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:72px repeat(7,1fr);gap:2px;background:rgba(0,0,0,.15);padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.05);">
+            <div></div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Mon</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Tue</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Wed</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Thu</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Fri</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Sat</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;">Sun</div>
+          </div>
+          <div id="md-hq2-sched" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;"></div>
+        </div>
+      </div>
+      <div id="md-hq-clients" style="padding:14px;display:none;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="md-hq2-clients"></div></div>
+      <div id="md-hq-psws" style="padding:14px;display:none;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="md-hq2-psws"></div></div>
+      <div id="md-hq-revenue" style="padding:14px;display:none;flex-direction:column;gap:10px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--teal);">$18.4K</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">This month</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:2px;">↑ 12%</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--text);">$16.4K</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Last month</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#c8a96e;">$2.0K</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Margin</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--green);">0</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Vacant</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:2px;">all covered ✓</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:12px;" id="md-rev-bars"></div>
+      </div>
+    </div>
+
+    <!-- PSW FRAME -->
+    <div class="md-ps-frame" id="md-frame-psw" style="display:none;background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:rgba(0,0,0,.2);border-bottom:1px solid rgba(255,255,255,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">proximitycares.ca/psw-portal.html · PSW View</div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.12);color:var(--green);border:1px solid rgba(61,138,122,.25);">GPS Active</div>
+      </div>
+      <div id="md-psw2-body" style="padding:14px;display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <!-- FAMILY FRAME -->
+    <div class="md-ps-frame" id="md-frame-family" style="display:none;background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:rgba(0,0,0,.2);border-bottom:1px solid rgba(255,255,255,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">proximitycares.ca/family.html · Family View</div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(200,169,110,.1);color:#c8a96e;border:1px solid rgba(200,169,110,.25);">PIN Protected</div>
+      </div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:1px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:4px;" id="md-fam2-tabs">
+          <div class="md-fam2-tab md-fam2-on" onclick="mdFam2Tab('visits',this)" style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#c8a96e;cursor:pointer;border-bottom:2px solid #c8a96e;">Visits</div>
+          <div class="md-fam2-tab" onclick="mdFam2Tab('team',this)" style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;">Care Team</div>
+          <div class="md-fam2-tab" onclick="mdFam2Tab('ask',this)" style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;">Ask AI</div>
+        </div>
+        <div id="md-fam2-visits">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;overflow:hidden;margin-bottom:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+              <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--text);">Today · May 24</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);margin-top:2px;">Sarah Mitchell</div></div>
+              <div style="font-family:\"DM Mono\",monospace;font-size:10px;color:var(--teal);">4.3h ↗</div>
+            </div>
+            <div style="padding:10px 12px;">
+              <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;">AI Care Summary</div>
+              <div style="font-family:\"DM Mono\",monospace;font-size:9px;color:rgba(232,228,220,.6);line-height:1.7;margin-bottom:8px;">Sarah provided comprehensive care for Dorothy. Personal hygiene completed, all 3 medications administered on schedule, breakfast and lunch prepared. Dorothy was in good spirits.</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
+                <span style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:var(--green);border:1px solid rgba(61,138,122,.2);">Personal care ✓</span>
+                <span style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:var(--green);border:1px solid rgba(61,138,122,.2);">Meds given ✓</span>
+                <span style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,122,138,.1);color:var(--teal);border:1px solid rgba(61,122,138,.2);">Summary emailed ✓</span>
+              </div>
+              <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;">Rate this visit</div>
+              <div style="display:flex;gap:4px;align-items:center;">
+                <span style="font-size:16px;color:#c8a96e;cursor:pointer;" onclick="mdFam2Rate(1,this)">★</span><span style="font-size:16px;color:#c8a96e;cursor:pointer;" onclick="mdFam2Rate(2,this)">★</span><span style="font-size:16px;color:#c8a96e;cursor:pointer;" onclick="mdFam2Rate(3,this)">★</span><span style="font-size:16px;color:#c8a96e;cursor:pointer;" onclick="mdFam2Rate(4,this)">★</span><span style="font-size:16px;color:#c8a96e;cursor:pointer;" onclick="mdFam2Rate(5,this)">★</span>
+                <span id="md-rate-lbl" style="font-family:\"DM Mono\",monospace;font-size:9px;color:var(--muted);margin-left:4px;">5 stars</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+              <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--text);">May 22</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);margin-top:2px;">Sarah Mitchell</div></div>
+              <div style="font-family:\"DM Mono\",monospace;font-size:10px;color:var(--teal);">4.0h ↗</div>
+            </div>
+            <div style="display:none;padding:10px 12px;font-family:\"DM Mono\",monospace;font-size:9px;color:rgba(232,228,220,.5);line-height:1.7;">Routine care completed. Dorothy in good mood. No concerns noted.</div>
+          </div>
+        </div>
+        <div id="md-fam2-team" style="display:none;">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:12px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(61,122,138,.2);display:flex;align-items:center;justify-content:center;font-family:\"DM Mono\",monospace;font-size:11px;color:var(--teal);flex-shrink:0;">SM</div>
+              <div><div style="font-size:12px;color:var(--text);">Sarah Mitchell</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);">PSW · 4.9 ★ avg · 12 visits</div></div>
+            </div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);line-height:1.7;">Mon / Wed / Fri · Mornings · Personal care specialist</div>
+          </div>
+        </div>
+        <div id="md-fam2-ask" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:6px;" id="md-fam2-chat">
+            <div style="padding:8px 10px;background:rgba(255,255,255,.05);border-radius:6px;font-family:\"DM Mono\",monospace;font-size:9px;color:rgba(232,228,220,.65);line-height:1.6;max-width:85%;">Hi — I'm your care coordinator AI. Ask me anything about Dorothy's care plan, visits, or medications.</div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:8px 10px;font-family:\"DM Mono\",monospace;font-size:9px;color:var(--muted);">Ask about Dorothy's care...</div>
+            <div style="padding:8px 14px;background:var(--teal-dk);border-radius:5px;font-family:\"DM Mono\",monospace;font-size:9px;color:#fff;cursor:pointer;" onclick="mdFam2Ask()">Send</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAIN FRAME -->
+    <div class="md-ps-frame" id="md-frame-chain" style="display:none;background:var(--bg3);border:1px solid rgba(255,255,255,.06);border-top:none;border-radius:0 0 8px 8px;">
+      <div style="background:rgba(0,0,0,.2);border-bottom:1px solid rgba(255,255,255,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Live Trigger Chain · Railway Backend</div>
+        <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:var(--green);border:1px solid rgba(61,138,122,.2);">Real webhooks</div>
+      </div>
+      <div style="padding:14px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;" id="md-chain2-btns">
+          <div style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(61,122,138,.35);background:rgba(61,122,138,.15);color:var(--teal);cursor:pointer;" onclick="mdRunChain('checkin',this)">PSW Signs In</div>
+          <div style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);cursor:pointer;" onclick="mdRunChain('checkout',this)">PSW Signs Out</div>
+          <div style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);cursor:pointer;" onclick="mdRunChain('lead',this)">Lead Captured</div>
+          <div style="padding:7px 14px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);cursor:pointer;" onclick="mdRunChain('invoice',this)">Invoice Generated</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;gap:4px;align-items:center;margin-bottom:12px;">
+          <div id="md-c2-left" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;transition:all .4s;">
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;" id="md-c2ll">PSW Portal</div>
+            <div style="font-size:11px;color:var(--text);margin-bottom:2px;" id="md-c2le">Sarah signs in</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);" id="md-c2ls">GPS · DNR · 09:01am</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;"><div style="width:100%;height:1px;transition:background .5s;" id="md-c2a1" style="background:rgba(255,255,255,.08);"></div></div>
+          <div id="md-c2-mid" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;transition:all .4s;">
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;" id="md-c2ml">Railway API</div>
+            <div style="font-size:11px;color:var(--text);margin-bottom:2px;font-family:\"DM Mono\",monospace;" id="md-c2me">POST /visit/checkin</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);" id="md-c2ms">6ms · 200 OK</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;"><div style="width:100%;height:1px;transition:background .5s;" id="md-c2a2" style="background:rgba(255,255,255,.08);"></div></div>
+          <div id="md-c2-right" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;transition:all .4s;">
+            <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;" id="md-c2rl">Family Portal</div>
+            <div style="font-size:11px;color:var(--text);margin-bottom:2px;" id="md-c2re">Notification sent</div>
+            <div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);" id="md-c2rs">Sarah has arrived ✓</div>
+          </div>
+        </div>
+        <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.05);border-radius:6px;padding:10px 12px;margin-bottom:10px;">
+          <div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.2);margin-bottom:8px;">Webhook log · Railway · auto-generated</div>
+          <div id="md-chain2-wh" style="display:flex;flex-direction:column;gap:0;"></div>
+        </div>
+        <div id="md-chain2-events" style="display:flex;flex-direction:column;gap:4px;"></div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div style="text-align:center;margin-top:32px;">
+      <p style="font-family:\"DM Mono\",monospace;font-size:10px;color:var(--muted);margin-bottom:14px;">This is what runs inside your agency on day 8.</p>
+      <a href="#configurator" style="display:inline-block;padding:12px 32px;background:var(--teal-dk);color:#fff;font-family:\"DM Mono\",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">Build My Package →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+var MD_FEED=[
+  {t:'Visit complete · Sarah M. · Dorothy Chen · 4.3h',time:'09:01',type:'live'},
+  {t:'Invoice PDF generated · $1,248.00',time:'auto',type:'auto'},
+  {t:'Lead captured · 2:14am · AI qualified · call booked',time:'02:14',type:'live'},
+  {t:'PSW signed in · James O. · GPS confirmed',time:'08:30',type:'live'},
+  {t:'Care summary sent → family portal',time:'13:18',type:'auto'},
+  {t:'Cert expiry alert · Sarah M. · VSC 28 days',time:'alert',type:'auto'},
+];
+var MD_SCHED=[
+  {name:'Sarah M.',s:[1,0,1,1,1,0,0]},
+  {name:'James O.',s:[0,1,0,1,0,1,0]},
+  {name:'Luz P.',s:[1,0,0,1,1,0,1]},
+  {name:'Angela B.',s:[0,1,1,0,0,1,0]},
+];
+var MD_CLIENTS=[
+  {name:'Dorothy Chen',ini:'DC',psw:'Sarah M.',v:8,mood:'Good',rate:22},
+  {name:'Harold West',ini:'HW',psw:'James O.',v:6,mood:'Stable',rate:22},
+  {name:'Eleanor Brooks',ini:'EB',psw:'Luz P.',v:5,mood:'Great',rate:24},
+  {name:'Margaret Lin',ini:'ML',psw:'Angela B.',v:4,mood:'Good',rate:22},
+];
+var MD_PSWS=[
+  {name:'Sarah Mitchell',code:'SM',v:12,h:48.2,r:'4.9',cert:'All valid'},
+  {name:'James Okafor',code:'JO',v:9,h:36.0,r:'4.7',cert:'All valid'},
+  {name:'Luz Perez',code:'LP',v:7,h:28.5,r:'5.0',cert:'VSC exp 28d'},
+  {name:'Angela Brooks',code:'AB',v:5,h:20.0,r:'4.8',cert:'All valid'},
+];
+var MD_CHAINS={
+  checkin:{ll:'PSW Portal',le:'Sarah signs in',ls:'GPS · DNR · 09:01am',ml:'Railway API',me:'POST /visit/checkin',ms:'6ms · 200 OK',rl:'Family Portal',re:'Notification sent',rs:'Sarah has arrived ✓',color:'#3d8a7a',wh:[{m:'POST',p:'/visit/checkin',t:'6ms'},{m:'POST',p:'/hq/visit-log',t:'7ms'},{m:'POST',p:'/family/notify',t:'9ms'}],ev:[{i:'📍',t:'GPS logged · Supabase'},{i:'✓',t:'DNR acknowledged'},{i:'📧',t:'Family email · Sarah arrived'},{i:'🖥',t:'HQ updated · In progress'}]},
+  checkout:{ll:'PSW Portal',le:'Sarah signs out',ls:'Checkout · 13:18pm',ml:'Claude AI',me:'POST /ai/care-summary',ms:'820ms · generated',rl:'Family Portal',re:'Summary delivered',rs:'Email + portal updated',color:'#5aada0',wh:[{m:'POST',p:'/visit/checkout',t:'5ms'},{m:'POST',p:'/ai/care-summary',t:'820ms'},{m:'POST',p:'/family/visit-complete',t:'825ms'},{m:'POST',p:'/hq/hours-log',t:'826ms'}],ev:[{i:'🤖',t:'Claude generates care summary'},{i:'📧',t:'Family email fired'},{i:'⏱',t:'Hours logged · 4.28h'},{i:'📋',t:'MAR submitted · 3/3 meds'},{i:'🖥',t:'HQ · Visit complete'}]},
+  lead:{ll:'Agency Website',le:'Lead captured · 2:14am',ls:'Chatbot · AI qualified',ml:'Railway API',me:'POST /webhook/lead',ms:'12ms · 200 OK',rl:'HQ Dashboard',re:'Lead in CRM',rs:'Day 1 follow-up queued',color:'#5aada0',wh:[{m:'POST',p:'/webhook/lead',t:'12ms'},{m:'POST',p:'/followup/run',t:'14ms'},{m:'POST',p:'/calendar/book-slot',t:'18ms'}],ev:[{i:'👤',t:'Lead saved · name, phone, needs'},{i:'📅',t:'Call slot booked · Thu 9am'},{i:'📧',t:'Day 1 follow-up queued'},{i:'🖥',t:'HQ CRM · New Lead'}]},
+  invoice:{ll:'HQ Dashboard',le:'Invoice triggered',ls:'Month end · auto-run',ml:'Railway API',me:'POST /invoice/generate-pdf',ms:'340ms · PDF generated',rl:'Family + PSW',re:'Dual PDF sent',rs:'Email + pay stub',color:'#c8a96e',wh:[{m:'POST',p:'/invoice/generate-pdf',t:'340ms'},{m:'POST',p:'/invoice/email-family',t:'345ms'},{m:'POST',p:'/psw/send-paystub',t:'350ms'},{m:'POST',p:'/hq/ar-update',t:'351ms'}],ev:[{i:'📄',t:'Client invoice PDF · $1,248'},{i:'📧',t:'Invoice emailed to family'},{i:'💰',t:'PSW pay stub generated'},{i:'📧',t:'Pay stub emailed to Sarah'},{i:'📊',t:'AR updated'}]},
+};
+
+window.mdPsShow=function(name,el){
+  document.querySelectorAll('.md-ps-tab').forEach(function(t){t.style.color='';t.style.background='transparent';t.style.borderBottom='2px solid transparent';});
+  var color=name==='family'?'#c8a96e':name==='chain'?'rgba(232,228,220,.7)':'var(--teal)';
+  el.style.color=color;el.style.background='rgba(255,255,255,.03)';el.style.borderBottom='2px solid '+color;
+  document.querySelectorAll('.md-ps-frame').forEach(function(f){f.style.display='none';});
+  var frame=document.getElementById('md-frame-'+name);if(frame)frame.style.display='block';
+  if(name==='psw')mdInitPSW();
+  if(name==='chain')setTimeout(function(){mdRunChain('checkin',document.querySelector('#md-chain2-btns div'));},100);
+};
+
+window.mdHqTab=function(name,el){
+  document.querySelectorAll('.md-hq2-tab').forEach(function(t){t.style.color='';t.style.borderBottom='1px solid transparent';});
+  el.style.color='var(--teal)';el.style.borderBottom='1px solid var(--teal)';
+  ['overview','schedule','clients','psws','revenue'].forEach(function(id){
+    var e=document.getElementById('md-hq-'+id);if(e)e.style.display=id===name?(id==='overview'||id==='revenue'?'flex':'block'):'none';
+  });
+  if(name==='schedule')mdBuildSched();
+  if(name==='clients')mdBuildClients();
+  if(name==='psws')mdBuildPSWs();
+  if(name==='revenue')mdBuildRev();
+};
+
+function mdInitHQ(){
+  var feed=document.getElementById('md-hq2-feed');if(!feed)return;
+  MD_FEED.forEach(function(e,i){
+    setTimeout(function(){
+      var row=document.createElement('div');
+      row.style.cssText="display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.04);font-family:\"DM Mono\",monospace;font-size:9px;";
+      row.innerHTML='<span style="color:rgba(232,228,220,.5);">'+e.t+'</span><span style="color:rgba(232,228,220,.2);flex-shrink:0;margin-left:8px;">'+e.time+' <span style="font-size:7px;padding:1px 5px;border-radius:2px;background:'+(e.type==='live'?'rgba(61,138,122,.1)':'rgba(200,169,110,.1)')+';color:'+(e.type==='live'?'var(--green)':'#c8a96e')+';">'+e.type+'</span></span>';
+      feed.appendChild(row);
+    },i*100);
+  });
+}
+
+function mdBuildSched(){
+  var cont=document.getElementById('md-hq2-sched');if(!cont||cont.children.length)return;
+  MD_SCHED.forEach(function(p){
+    var row=document.createElement('div');row.style.cssText='display:grid;grid-template-columns:72px repeat(7,1fr);gap:2px;align-items:center;';
+    var nm=document.createElement('div');nm.style.cssText='font-family:\"DM Mono\",monospace;font-size:9px;color:var(--text);';nm.textContent=p.name;row.appendChild(nm);
+    p.s.forEach(function(s){
+      var cell=document.createElement('div');cell.style.cssText='height:22px;border-radius:3px;'+(s?'background:rgba(61,122,138,.2);border:1px solid rgba(61,122,138,.35);':'background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);');
+      if(s){var l=document.createElement('div');l.style.cssText='font-family:\"DM Mono\",monospace;font-size:6px;color:var(--teal);padding:2px 3px;line-height:1.2;overflow:hidden;';l.textContent=p.name.split(' ')[0];cell.appendChild(l);}
+      row.appendChild(cell);
+    });
+    cont.appendChild(row);
+  });
+}
+
+function mdBuildClients(){
+  var cont=document.getElementById('md-hq2-clients');if(!cont||cont.children.length)return;
+  MD_CLIENTS.forEach(function(c){
+    var el=document.createElement('div');el.style.cssText='background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(61,122,138,.15);display:flex;align-items:center;justify-content:center;font-family:\"DM Mono\",monospace;font-size:9px;color:var(--teal);">'+c.ini+'</div><div><div style="font-size:10px;color:var(--text);">'+c.name+'</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);">'+c.psw+'</div></div></div><div style="display:flex;justify-content:space-between;font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);"><span>'+c.v+' visits</span><span style="color:var(--green);">'+c.mood+'</span><span>$'+c.rate+'/h</span></div>';
+    cont.appendChild(el);
+  });
+}
+
+function mdBuildPSWs(){
+  var cont=document.getElementById('md-hq2-psws');if(!cont||cont.children.length)return;
+  MD_PSWS.forEach(function(p){
+    var el=document.createElement('div');el.style.cssText='background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;';
+    var cc=p.cert==='All valid'?'var(--green)':'#c8a96e';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-family:\"DM Mono\",monospace;font-size:9px;color:var(--green);">'+p.code+'</div><div><div style="font-size:10px;color:var(--text);">'+p.name+'</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--muted);">'+p.r+' ★ · '+p.v+' visits</div></div></div><div style="font-family:\"DM Mono\",monospace;font-size:8px;display:flex;justify-content:space-between;"><span style="color:var(--muted);">'+p.h+'h this month</span><span style="color:'+cc+';">'+p.cert+'</span></div>';
+    cont.appendChild(el);
+  });
+}
+
+function mdBuildRev(){
+  var cont=document.getElementById('md-rev-bars');if(!cont||cont.children.length)return;
+  var lbl=document.createElement('div');lbl.style.cssText='font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;';lbl.textContent='Revenue by client';cont.appendChild(lbl);
+  [{name:'Dorothy Chen',rev:1248,pct:100},{name:'Harold West',rev:924,pct:74},{name:'Eleanor Brooks',rev:840,pct:67},{name:'Others',rev:6684,pct:85}].forEach(function(c){
+    var el=document.createElement('div');el.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:6px;font-family:\"DM Mono\",monospace;font-size:9px;';
+    el.innerHTML='<div style="width:80px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+c.name+'</div><div style="flex:1;height:10px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;"><div style="height:100%;width:0;background:var(--teal);border-radius:2px;transition:width 1.2s ease;" data-w="'+c.pct+'"></div></div><div style="width:40px;text-align:right;color:var(--text);">$'+(c.rev/1000).toFixed(1)+'K</div>';
+    cont.appendChild(el);
+  });
+  setTimeout(function(){cont.querySelectorAll('[data-w]').forEach(function(b){b.style.width=b.dataset.w+'%';});},150);
+}
+
+function mdInitPSW(){
+  var body=document.getElementById('md-psw2-body');if(!body||body.children.length)return;
+  body.innerHTML='<div style="background:rgba(61,122,138,.08);border:1px solid rgba(61,122,138,.25);border-radius:8px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;color:var(--text);margin-bottom:2px;">Dorothy Chen</div><div style="font-family:\"DM Mono\",monospace;font-size:9px;color:var(--muted);">09:01am — In progress</div><div style="font-family:\"DM Mono\",monospace;font-size:8px;color:var(--green);margin-top:3px;">● GPS verified · 43.59°N 79.64°W</div></div><div style="display:flex;flex-direction:column;gap:5px;"><button style="padding:6px 12px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:rgba(192,80,80,.15);color:#e05050;border:1px solid rgba(192,80,80,.3);cursor:pointer;">⚠ Incident</button><button style="padding:6px 12px;font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:var(--teal-dk);color:#fff;border:none;cursor:pointer;" onclick="mdPswCheckout()">Check Out</button></div></div><div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:6px;overflow:hidden;"><div style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.05);font-family:\"DM Mono\",monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);">Today&#39;s Tasks — Dorothy Chen</div><div id="md-psw2-tasks" style="padding:8px 12px;display:flex;flex-direction:column;gap:0;"></div></div><div id="md-psw2-ai" style="background:rgba(61,122,138,.06);border:1px solid rgba(61,122,138,.2);border-radius:6px;padding:10px 12px;opacity:0;transition:opacity .5s;"><div style="font-family:\"DM Mono\",monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">● Claude · AI Care Summary</div><div style="font-family:\"DM Mono\",monospace;font-size:9px;color:rgba(232,228,220,.7);line-height:1.7;" id="md-psw2-ai-txt"></div></div>';
+  var tasks=['Personal hygiene','Medication reminder','Breakfast preparation','Light housekeeping','Documentation'];
+  var tc=document.getElementById('md-psw2-tasks');
+  tasks.forEach(function(t,i){
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-family:\"DM Mono\",monospace;font-size:9px;color:'+(i<3?'var(--text)':'rgba(232,228,220,.35)')+';';
+    row.id='md-psw2t'+i;
+    var box=document.createElement('div');
+    box.style.cssText='width:13px;height:13px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;'+(i<3?'background:var(--green);border:1px solid var(--green);color:#fff;':'border:1px solid rgba(255,255,255,.2);');
+    box.id='md-psw2b'+i;box.textContent=i<3?'✓':'';
+    row.appendChild(box);row.appendChild(document.createTextNode(t));
+    tc.appendChild(row);
+  });
+}
+
+window.mdPswCheckout=function(){
+  [3,4].forEach(function(i,j){
+    setTimeout(function(){
+      var t=document.getElementById('md-psw2t'+i),b=document.getElementById('md-psw2b'+i);
+      if(t)t.style.color='var(--text)';
+      if(b){b.style.background='var(--green)';b.style.borderColor='var(--green)';b.style.color='#fff';b.textContent='✓';}
+    },j*400);
+  });
+  setTimeout(function(){
+    var ai=document.getElementById('md-psw2-ai'),txt=document.getElementById('md-psw2-ai-txt');
+    if(ai)ai.style.opacity='1';
+    if(txt){var s='Sarah provided comprehensive care for Dorothy. All tasks completed. 3/3 medications given on schedule. Dorothy in good spirits throughout.';var i=0;var go=function(){txt.textContent=s.slice(0,i+1);i++;if(i<s.length)setTimeout(go,18);};go();}
+  },1000);
+};
+
+window.mdFam2Tab=function(name,el){
+  document.querySelectorAll('.md-fam2-tab').forEach(function(t){t.style.color='var(--muted)';t.style.borderBottom='2px solid transparent';});
+  el.style.color='#c8a96e';el.style.borderBottom='2px solid #c8a96e';
+  ['md-fam2-visits','md-fam2-team','md-fam2-ask'].forEach(function(id){
+    var e=document.getElementById(id);if(e)e.style.display=id==='md-fam2-'+name?'block':'none';
+  });
+};
+
+window.mdFam2Rate=function(v,star){
+  var stars=star.parentElement.querySelectorAll('span[onclick]');
+  stars.forEach(function(s,i){s.style.color=i<v?'#c8a96e':'rgba(232,228,220,.15)';});
+  var lbl=document.getElementById('md-rate-lbl');
+  if(lbl){var ls=['','1 star','2 stars','3 stars','4 stars — great!','5 stars — thank you!'];lbl.textContent=ls[v]||'';}
+};
+
+window.mdFam2Ask=function(){
+  var chat=document.getElementById('md-fam2-chat');if(!chat)return;
+  var q=document.createElement('div');
+  q.style.cssText='padding:8px 10px;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.2);border-radius:6px;font-family:\"DM Mono\",monospace;font-size:9px;color:var(--text);line-height:1.6;max-width:85%;align-self:flex-end;margin-top:4px;';
+  q.textContent='Did Dorothy take her medications today?';chat.appendChild(q);
+  setTimeout(function(){
+    var a=document.createElement('div');
+    a.style.cssText='padding:8px 10px;background:rgba(255,255,255,.05);border-radius:6px;font-family:\"DM Mono\",monospace;font-size:9px;color:rgba(232,228,220,.65);line-height:1.6;max-width:85%;margin-top:4px;';
+    a.textContent='Yes — Sarah recorded 3 of 3 medications administered at 9:22am. All on schedule, no concerns noted.';
+    chat.appendChild(a);
+  },1200);
+};
+
+window.mdRunChain=function(type,btnEl){
+  document.querySelectorAll('#md-chain2-btns div').forEach(function(b){b.style.background='transparent';b.style.color='var(--muted)';b.style.borderColor='rgba(255,255,255,.1)';});
+  btnEl.style.background='rgba(61,122,138,.15)';btnEl.style.color='var(--teal)';btnEl.style.borderColor='rgba(61,122,138,.35)';
+  var c=MD_CHAINS[type];
+  ['ll','le','ls','ml','me','ms','rl','re','rs'].forEach(function(k){var el=document.getElementById('md-c2'+k);if(el)el.textContent=c[k];});
+  ['md-c2-left','md-c2-mid','md-c2-right'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.borderColor='rgba(255,255,255,.07)';el.style.boxShadow='none';}});
+  var a1=document.getElementById('md-c2a1'),a2=document.getElementById('md-c2a2');
+  if(a1)a1.style.background='rgba(255,255,255,.08)';if(a2)a2.style.background='rgba(255,255,255,.08)';
+  document.getElementById('md-chain2-wh').innerHTML='';document.getElementById('md-chain2-events').innerHTML='';
+
+  setTimeout(function(){var el=document.getElementById('md-c2-left');if(el){el.style.borderColor=c.color;el.style.boxShadow='0 0 12px rgba(90,173,160,.08)';}},200);
+  setTimeout(function(){if(a1)a1.style.background=c.color;},500);
+  setTimeout(function(){var el=document.getElementById('md-c2-mid');if(el){el.style.borderColor=c.color;el.style.boxShadow='0 0 12px rgba(90,173,160,.08)';}},800);
+  setTimeout(function(){if(a2)a2.style.background=c.color;},1100);
+  setTimeout(function(){var el=document.getElementById('md-c2-right');if(el){el.style.borderColor=c.color;el.style.boxShadow='0 0 12px rgba(90,173,160,.08)';}},1400);
+
+  var we=document.getElementById('md-chain2-wh');
+  c.wh.forEach(function(w,i){
+    setTimeout(function(){
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:6px;font-family:\"DM Mono\",monospace;font-size:9px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transition:opacity .3s;';
+      row.innerHTML='<span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(61,122,138,.15);color:var(--teal);flex-shrink:0;">'+w.m+'</span><span style="color:rgba(232,228,220,.4);flex:1;">'+w.p+'</span><span style="color:rgba(232,228,220,.2);">'+w.t+'</span><span style="font-size:7px;padding:1px 4px;border-radius:2px;background:rgba(61,138,122,.1);color:var(--green);flex-shrink:0;">200</span>';
+      we.appendChild(row);setTimeout(function(){row.style.opacity='1';},30);
+    },800+i*200);
+  });
+
+  var ce=document.getElementById('md-chain2-events');
+  c.ev.forEach(function(ev,i){
+    setTimeout(function(){
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:5px;font-family:\"DM Mono\",monospace;font-size:9px;opacity:0;border-left:2px solid '+c.color+';transition:opacity .3s;';
+      row.innerHTML='<span>'+ev.i+'</span><span style="color:rgba(232,228,220,.6);flex:1;">'+ev.t+'</span><span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(61,122,138,.1);color:var(--teal);">auto</span>';
+      ce.appendChild(row);setTimeout(function(){row.style.opacity='1';},30);
+    },1200+i*220);
+  });
+};
+
+// Boot
+var sec=document.getElementById('portal-showcase');
+if(sec){
+  var obs=new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){mdInitHQ();obs.disconnect();}
+  },{threshold:0.05});
+  obs.observe(sec);
+}
+setTimeout(function(){mdRunChain('checkin',document.querySelector('#md-chain2-btns div'));},300);
+})();
+</script>
+
 
 
 <!-- SYSTEMS -->
