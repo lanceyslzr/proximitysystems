@@ -98,24 +98,34 @@ nav.scrolled { padding:12px 48px; }
 .sec-title { font-family:var(--font-d); font-weight:300; font-size:clamp(36px,5vw,62px); line-height:1.05; color:var(--text); margin-bottom:16px; }
 .sec-title em { font-style:italic; color:var(--teal); }
 .sec-sub { font-size:14px; color:var(--dim); max-width:520px; line-height:1.75; margin-bottom:48px; }
+/* ── Centered composition across all sections ── */
+.sec-tag { justify-content:center; }
+.section .sec-tag,
+.section .sec-title,
+.section .sec-sub { text-align:center; margin-left:auto; margin-right:auto; }
+.section .sec-tag { justify-content:center; }
+.section-full .sec-tag,
+.section-full .sec-title,
+.section-full .sec-sub { text-align:center; margin-left:auto; margin-right:auto; }
+.section-full .sec-tag { justify-content:center; }
 .divider { height:1px; background:linear-gradient(to right,transparent,var(--border2),transparent); margin:0; }
 
 /* ============================================================
    HERO
    ============================================================ */
-#hero { min-height:100vh; display:flex; align-items:center; padding:100px 64px 60px; position:relative; z-index:1; overflow:hidden; }
-.hero-content { max-width:640px; }
-.hero-pill { display:inline-flex; align-items:center; gap:8px; padding:5px 14px; background:var(--bg3); border:1px solid var(--border2); font-family:var(--font-m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:28px; }
+#hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:88px 24px 48px; position:relative; z-index:1; overflow:hidden; }
+.hero-content { max-width:700px; text-align:center; margin:0 auto 28px; }
+.hero-pill { display:inline-flex; align-items:center; gap:8px; padding:5px 14px; background:var(--bg3); border:1px solid var(--border2); font-family:var(--font-m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:28px; margin-left:auto; margin-right:auto; }
 .hero-pill::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
 .hero-h1 { font-family:var(--font-d); font-size:clamp(52px,7vw,92px); font-weight:300; line-height:0.97; color:var(--text); margin-bottom:12px; }
 .hero-h1 em { font-style:italic; color:var(--teal); display:block; }
 .hero-sub { font-size:15px; color:var(--dim); line-height:1.7; margin-bottom:40px; max-width:460px; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
 .hero-btn-primary { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-m); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:14px 28px; background:var(--teal-dk); color:#fff; min-height:44px; clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%); transition:background 0.2s,clip-path 0.2s,transform 0.15s; }
 .hero-btn-primary:hover { background:var(--teal); clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%); transform:translateY(-2px); }
 .hero-btn-secondary { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-m); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:14px 28px; background:transparent; color:var(--teal); border:1px solid var(--teal-bd); min-height:44px; clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%); transition:background 0.2s,clip-path 0.2s; }
 .hero-btn-secondary:hover { background:var(--teal-bg); clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%); }
-.hero-stats { display:flex; gap:40px; margin-top:56px; padding-top:40px; border-top:1px solid var(--border); }
+.hero-stats { display:flex; gap:40px; margin-top:40px; padding-top:32px; border-top:1px solid var(--border); justify-content:center; }
 .hero-stat-num { font-family:var(--font-d); font-size:36px; font-weight:300; color:var(--gold); line-height:1; }
 .hero-stat-lbl { font-family:var(--font-m); font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--dim); margin-top:4px; }
 .hero-bg-word { position:absolute; right:-20px; bottom:-40px; font-family:var(--font-d); font-size:280px; font-weight:300; color:rgba(106,168,184,0.04); line-height:1; pointer-events:none; user-select:none; letter-spacing:-8px; }
@@ -633,6 +643,179 @@ button,a,[onclick]{touch-action:manipulation;}
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
 }
+
+/* ── LP FLOW DEMO — 4-phone animation ── */
+@keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #5aaa7a}50%{box-shadow:0 0 16px #5aaa7a}}
+@keyframes lp-glow-t{0%,100%{box-shadow:0 0 6px #6aa8b8}50%{box-shadow:0 0 14px #6aa8b8}}
+@keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
+@keyframes lp-slide-down{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-slide-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-slide-right{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+@keyframes lp-modal-up{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes lp-ping{0%{transform:scale(1);opacity:1}70%{transform:scale(2.2);opacity:0}100%{transform:scale(2.2);opacity:0}}
+@keyframes lp-draw-line{from{width:0;opacity:0}to{width:100%;opacity:1}}
+@keyframes lp-dot-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+@keyframes lp-notif-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes lp-count-up{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lp-conn-dot{0%{left:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes lp-btn-confirm{0%{background:rgba(106,168,184,.15)}50%{background:rgba(90,170,122,.3)}100%{background:rgba(90,170,122,.15)}}
+@keyframes lp-spin{to{transform:rotate(360deg)}}
+@keyframes lp-map-pin{from{opacity:0;transform:translate(-50%,-50%) scale(0)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.lp-phone{width:182px;flex-shrink:0;background:#0a0d12;border:1px solid rgba(106,168,184,.2);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;height:360px;box-shadow:0 4px 24px rgba(0,0,0,.7)}
+.lp-hq{width:194px}
+.lp-notch{height:14px;flex-shrink:0;background:#07090c;display:flex;align-items:center;justify-content:center}
+.lp-notch-bar{width:36px;height:3px;border-radius:2px;background:rgba(255,255,255,.1)}
+.lp-time{position:absolute;top:3px;left:8px;font-family:var(--font-m);font-size:6px;color:rgba(232,220,200,.4)}
+.lp-status{position:absolute;top:3px;right:8px;font-family:var(--font-m);font-size:5px;color:rgba(232,220,200,.3)}
+.lp-label{font-family:var(--font-m);font-size:5.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,220,200,.2);text-align:center;padding:4px 0 3px;border-bottom:1px solid rgba(106,168,184,.07);flex-shrink:0;background:#07090c}
+.lp-body{flex:1;overflow:hidden;position:relative}
+.lp-hq-head{background:#0d1117;padding:5px 6px;border-bottom:1px solid rgba(106,168,184,.1);flex-shrink:0}
+.lp-brand{font-family:var(--font-d);font-size:10px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.lp-brand em{color:var(--teal);font-style:italic}
+.lp-stats{display:flex;gap:0;border:1px solid rgba(106,168,184,.1)}
+.lphs{flex:1;text-align:center;padding:3px 0;border-right:1px solid rgba(106,168,184,.1)}
+.lphs:last-child{border:none}
+.lphs-n{font-family:var(--font-m);font-size:9px;font-weight:600;color:var(--teal);line-height:1}
+.lphs-n.lp-g{color:var(--green)}.lphs-n.lp-amber{color:var(--gold)}
+.lphs-l{font-family:var(--font-m);font-size:4px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);margin-top:1px}
+.lp-osc{margin:4px 6px;background:rgba(90,170,122,.05);border:1px solid rgba(90,170,122,.15);padding:4px 6px;display:flex;align-items:center;justify-content:space-between}
+.lp-osc-l{font-family:var(--font-m);font-size:5px;letter-spacing:1px;text-transform:uppercase;color:rgba(90,170,122,.5)}
+.lp-osc-v{font-family:var(--font-m);font-size:12px;font-weight:600;color:var(--green);line-height:1}
+.lp-sec-lbl{font-family:var(--font-m);font-size:4.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(232,220,200,.2);padding:4px 6px 2px;flex-shrink:0}
+.lp-shift-row{display:flex;align-items:center;gap:5px;padding:5px 6px;border-bottom:1px solid rgba(106,168,184,.06)}
+.lp-sr-time{font-family:var(--font-m);font-size:7px;color:var(--teal);width:22px;flex-shrink:0}
+.lp-sr-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.lp-dot-on{background:var(--green);animation:lp-glow-g 2s infinite}
+.lp-dot-sc{background:rgba(106,168,184,.4)}
+.lp-dot-new{background:var(--gold)}
+.lp-sr-info{flex:1}
+.lp-sr-name{font-size:7.5px;font-weight:600;color:var(--text);line-height:1.2}
+.lp-sr-client{font-family:var(--font-m);font-size:5.5px;color:rgba(232,220,200,.3)}
+.lp-sr-badge{font-family:var(--font-m);font-size:5px;padding:1px 4px;border-radius:100px;border:1px solid}
+.lp-badge-sc{color:rgba(232,220,200,.3);border-color:rgba(232,220,200,.1)}
+.lp-badge-new{color:var(--gold);border-color:rgba(200,169,110,.3);background:rgba(200,169,110,.08)}
+.lp-add-btn{display:flex;align-items:center;gap:4px;margin:5px 6px;padding:5px 7px;background:rgba(106,168,184,.08);border:1px solid rgba(106,168,184,.2)}
+.lp-add-btn.active{background:rgba(106,168,184,.18);border-color:rgba(106,168,184,.4)}
+.lp-add-icon{width:12px;height:12px;border-radius:50%;background:rgba(106,168,184,.2);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--teal);font-weight:700}
+.lp-add-txt{font-family:var(--font-m);font-size:6.5px;color:var(--teal)}
+.lp-act-row{display:flex;align-items:center;gap:5px;padding:4px 6px;border-bottom:1px solid rgba(106,168,184,.05)}
+.lp-act-badge{font-family:var(--font-m);font-size:5px;padding:1px 4px;border:1px solid rgba(106,168,184,.2);color:rgba(106,168,184,.6);border-radius:2px;flex-shrink:0}
+.lp-act-txt{font-size:6.5px;color:rgba(232,220,200,.5);flex:1}
+.lp-act-time{font-family:var(--font-m);font-size:5.5px;color:rgba(232,220,200,.2)}
+.lp-modal{position:absolute;inset:0;background:rgba(7,9,12,.92);display:flex;align-items:flex-end;z-index:20;opacity:0;pointer-events:none}
+.lp-modal.show{opacity:1;pointer-events:all}
+.lp-modal-sheet{width:100%;background:#0d1117;border-top:1px solid rgba(106,168,184,.25);padding:10px;animation:lp-modal-up .4s ease}
+.lp-modal-title{font-family:var(--font-d);font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.lp-modal-title em{color:var(--teal);font-style:italic}
+.lp-mf{margin-bottom:6px}
+.lp-mf-label{font-family:var(--font-m);font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(106,168,184,.5);margin-bottom:2px}
+.lp-mf-val{padding:5px 7px;background:rgba(106,168,184,.07);border:1px solid rgba(106,168,184,.2);font-size:8px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:5px}
+.lp-mf-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.lp-confirm-btn{width:100%;padding:7px;background:rgba(106,168,184,.15);border:1px solid rgba(106,168,184,.3);color:var(--teal);font-family:var(--font-m);font-size:7.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-align:center}
+.lp-confirm-btn.confirming{animation:lp-btn-confirm .6s ease}
+.lp-confirm-btn.confirmed{background:rgba(90,170,122,.15);border-color:rgba(90,170,122,.3);color:var(--green)}
+.lp-conn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:22px;position:relative}
+.lp-conn-line{width:100%;height:1px;background:rgba(106,168,184,.2);position:relative;overflow:hidden}
+.lp-conn-fill{position:absolute;top:0;left:0;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--green));opacity:0}
+.lp-conn-dot{position:absolute;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px rgba(106,168,184,.6);opacity:0}
+.lp-conn-lbl{font-family:var(--font-m);font-size:4.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(106,168,184,.4);text-align:center;line-height:1.4;white-space:nowrap}
+.lp-psw-head{background:#0d1117;padding:6px 7px;border-bottom:1px solid rgba(106,168,184,.1);display:flex;align-items:center;gap:5px;flex-shrink:0}
+.lp-psw-av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dk),var(--teal));display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:6px;font-weight:600;color:#fff;flex-shrink:0}
+.lp-psw-name{font-size:8px;font-weight:600;color:var(--text)}
+.lp-psw-role{font-family:var(--font-m);font-size:5px;color:rgba(106,168,184,.5)}
+.lp-psw-earn{margin-left:auto;text-align:right}
+.lp-psw-earn-n{font-family:var(--font-m);font-size:10px;font-weight:600;color:var(--gold);line-height:1}
+.lp-psw-earn-l{font-family:var(--font-m);font-size:4.5px;color:rgba(232,220,200,.2)}
+.lp-notif-banner{margin:4px 6px;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);border-left:2px solid var(--gold);padding:5px 7px;opacity:0;transform:translateX(20px)}
+.lp-notif-banner.show{animation:lp-notif-in .5s cubic-bezier(.4,0,.2,1) forwards}
+.lp-nb-title{font-size:7.5px;font-weight:700;color:var(--gold);margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.lp-nb-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);animation:lp-dot-pulse 1s ease infinite}
+.lp-nb-body{font-family:var(--font-m);font-size:6px;color:rgba(232,220,200,.4);line-height:1.4}
+.lp-next-visit{margin:4px 6px;background:rgba(106,168,184,.06);border:1px solid rgba(106,168,184,.18);padding:7px 8px}
+.lp-nv-label{font-family:var(--font-m);font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(106,168,184,.45);margin-bottom:3px}
+.lp-nv-name{font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--text);line-height:1.1;margin-bottom:1px}
+.lp-nv-time{font-family:var(--font-m);font-size:7px;color:var(--teal)}
+.lp-nv-btns{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px}
+.lp-nv-btn{padding:4px;border:1px solid;text-align:center;font-family:var(--font-m);font-size:6px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.lp-nv-nav{color:rgba(106,168,184,.6);border-color:rgba(106,168,184,.2)}
+.lp-nv-signin{color:var(--green);border-color:rgba(90,170,122,.35);background:rgba(90,170,122,.08)}
+.lp-nv-signin.active{background:rgba(90,170,122,.2);border-color:var(--green)}
+.lp-gps-status{margin:4px 6px;padding:5px 7px;border:1px solid rgba(106,168,184,.15);background:rgba(13,17,23,.5);opacity:0}
+.lp-gps-title{font-family:var(--font-m);font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(106,168,184,.5);margin-bottom:2px}
+.lp-spinner{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(106,168,184,.3);border-top-color:var(--teal);animation:lp-spin .8s linear infinite;flex-shrink:0}
+.lp-oss{margin:4px 6px;background:rgba(90,170,122,.06);border:1px solid rgba(90,170,122,.2);padding:5px 7px;opacity:0}
+.lp-oss-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:lp-glow-g 2s infinite;flex-shrink:0}
+.lp-oss-label{font-family:var(--font-m);font-size:5.5px;letter-spacing:1px;text-transform:uppercase;color:var(--green)}
+.lp-oss-name{font-size:8.5px;font-weight:700;color:var(--text)}
+.lp-oss-sub{font-family:var(--font-m);font-size:5.5px;color:rgba(232,220,200,.3)}
+.lp-push{position:absolute;top:14px;left:5px;right:5px;z-index:30;background:rgba(13,17,23,.96);border:1px solid rgba(106,168,184,.3);border-radius:6px;padding:5px 7px;display:flex;align-items:flex-start;gap:5px;opacity:0;transform:translateY(-8px);box-shadow:0 3px 16px rgba(0,0,0,.5)}
+.lp-push.show{animation:lp-slide-down .4s cubic-bezier(.4,0,.2,1) forwards}
+.lp-push-icon{width:15px;height:15px;border-radius:3px;background:linear-gradient(135deg,var(--teal-dk),var(--teal));display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0}
+.lp-push-title{font-size:7.5px;font-weight:700;color:var(--green);margin-bottom:1px}
+.lp-push-body{font-family:var(--font-m);font-size:5.5px;color:rgba(232,220,200,.6);line-height:1.3}
+.lp-push-time{font-family:var(--font-m);font-size:5px;color:rgba(232,220,200,.2);margin-left:auto;flex-shrink:0}
+.lp-fam-head{background:#0d1117;padding:6px 7px;border-bottom:1px solid rgba(106,168,184,.1);text-align:center;flex-shrink:0}
+.lp-fam-brand{font-size:9px;font-weight:700;color:var(--text)}
+.lp-fam-brand span{color:var(--teal)}
+.lp-fam-sub{font-family:var(--font-m);font-size:5px;color:rgba(232,220,200,.25);letter-spacing:.8px}
+.lp-rosetta{margin:6px;background:linear-gradient(135deg,rgba(61,122,138,.22),rgba(30,90,80,.1));border:1px solid rgba(106,168,184,.25);padding:7px}
+.lp-rc-label{font-family:var(--font-m);font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(106,168,184,.5);margin-bottom:2px}
+.lp-rc-name{font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--text);line-height:1.1;margin-bottom:2px}
+.lp-rc-last{font-family:var(--font-m);font-size:6px;color:rgba(232,220,200,.4);display:flex;align-items:center;gap:4px}
+.lp-rc-ldot{width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 5px rgba(90,170,122,.6)}
+.lp-fam-notif{margin:0 6px 4px;background:#0d1117;border:1px solid rgba(106,168,184,.12);padding:5px 7px;opacity:0}
+.lp-fnc-title{font-size:8px;font-weight:700;color:var(--green);margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.lp-fnc-dot{width:4px;height:4px;border-radius:50%;background:var(--green);animation:lp-glow-g 2s infinite}
+.lp-fnc-body{font-family:var(--font-m);font-size:6px;color:rgba(232,220,200,.5);line-height:1.4}
+.lp-fnc-time{font-family:var(--font-m);font-size:5px;color:rgba(232,220,200,.2);margin-top:2px}
+.lp-step{font-family:var(--font-m);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.3);transition:color .3s}
+.lp-step.active{color:var(--teal)}
+.lp-step.done{color:var(--green)}
+.lp-map-phone{width:0;overflow:hidden;flex-shrink:0;background:#0a0d12;border:1px solid rgba(106,168,184,.2);border-radius:12px;display:flex;flex-direction:column;height:360px;box-shadow:0 4px 24px rgba(0,0,0,.7);transition:width .6s cubic-bezier(.4,0,.2,1),opacity .6s;opacity:0}
+.lp-map-phone.show{width:182px;opacity:1}
+.lp-map-head{background:#0d1117;padding:5px 7px;border-bottom:1px solid rgba(106,168,184,.1);flex-shrink:0}
+.lp-map-title{font-family:var(--font-m);font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(106,168,184,.55);margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.lp-map-title-dot{width:4px;height:4px;border-radius:50%;background:var(--green);animation:lp-glow-g 2s infinite}
+.lp-map-sub{font-family:var(--font-m);font-size:5px;color:rgba(232,220,200,.2)}
+.lp-map-area{flex:1;background:#070c10;position:relative;overflow:hidden}
+.lp-map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(106,168,184,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(106,168,184,.04) 1px,transparent 1px);background-size:14px 14px}
+.lp-road{position:absolute;background:rgba(106,168,184,.08)}
+.lp-road-h{height:1px;left:0;right:0}
+.lp-road-v{width:1px;top:0;bottom:0}
+.lp-map-city{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-m);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(106,168,184,.12);pointer-events:none}
+.lp-client-pin{position:absolute;opacity:0;animation:lp-fade-in .4s ease .2s forwards}
+.lp-client-circle{width:16px;height:16px;border-radius:50%;background:rgba(106,168,184,.15);border:1px solid var(--teal);display:flex;align-items:center;justify-content:center;font-size:8px}
+.lp-psw-pin{position:absolute;opacity:0}
+.lp-psw-pin.show{animation:lp-map-pin .5s cubic-bezier(.34,1.56,.64,1) forwards}
+.lp-pin-circle{width:20px;height:20px;border-radius:50%;background:rgba(90,170,122,.2);border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:6px;font-weight:600;color:var(--green);position:relative}
+.lp-pin-ring{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(90,170,122,.4);animation:lp-ping 2s ease-out infinite}
+.lp-pin-ring2{position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(90,170,122,.2);animation:lp-ping 2s ease-out infinite;animation-delay:.4s}
+.lp-pin-label{position:absolute;top:24px;left:50%;transform:translateX(-50%);font-family:var(--font-m);font-size:5.5px;color:var(--green);white-space:nowrap;background:rgba(7,9,12,.9);padding:1px 5px;border:1px solid rgba(90,170,122,.25)}
+.lp-gps-strip{padding:5px 7px;border-top:1px solid rgba(106,168,184,.1);background:#0d1117;flex-shrink:0;opacity:0}
+.lp-gis-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.lp-gis-label{font-family:var(--font-m);font-size:5.5px;color:rgba(232,220,200,.3)}
+.lp-gis-val{font-family:var(--font-m);font-size:7.5px;font-weight:600}
+.lp-gis-val.g{color:var(--green)}.lp-gis-val.t{color:var(--teal)}
+.lp-gis-updated{font-family:var(--font-m);font-size:5px;color:rgba(232,220,200,.15);text-align:right}
+/* Mobile: single cycling phone */
+@media(max-width:700px){
+  #flow-demo-wrap #main{position:relative;overflow:hidden;padding:14px 0 10px;justify-content:center;height:400px;min-height:400px;}
+  .lp-conn{display:none!important;}
+  #flow-demo-wrap .lp-phone,#flow-demo-wrap .lp-map-phone{display:none!important;}
+  #flow-demo-wrap .lp-mob-active{display:flex!important;width:200px!important;height:360px!important;border-radius:14px!important;position:absolute!important;left:50%!important;transform:translateX(-50%)!important;animation:lp-mob-fadein .35s ease forwards!important;}
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{width:200px!important;opacity:1!important;}
+  @keyframes lp-mob-fadein{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+  .lp-desktop-step{display:none!important;}
+  #lp-mob-steps{display:flex!important;}
+  #stageLabel{font-size:7px!important;letter-spacing:1.5px!important;max-width:180px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;}
+}
+@media(max-width:480px){
+  #flow-demo-wrap .lp-mob-active{width:180px!important;height:340px!important;}
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{width:180px!important;}
+  #flow-demo-wrap #main{height:370px!important;min-height:370px!important;}
+}
+
 </style>
 </head>
 <body>
@@ -681,40 +864,199 @@ button,a,[onclick]{touch-action:manipulation;}
       <div><div class="hero-stat-num">$0</div><div class="hero-stat-lbl">Admin Staff Needed</div></div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="demo-card">
-      <div class="demo-card-head">
-        <div class="demo-card-dots">
-          <div class="demo-dot" style="background:#ff5f57"></div>
-          <div class="demo-dot" style="background:#febc2e"></div>
-          <div class="demo-dot" style="background:#28c840"></div>
+  <div style="position:relative;width:100%;max-width:900px;margin:0 auto;" id="flow-demo-wrap">
+
+    <!-- Particle canvas -->
+    <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;border-radius:12px;"></canvas>
+
+    <!-- Top bar -->
+    <div style="position:relative;z-index:10;height:36px;background:rgba(7,9,12,.98);border:1px solid rgba(90,173,160,.18);border-bottom:1px solid rgba(90,173,160,.15);border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--font-d);font-size:13px;color:var(--text);">
+        <div style="width:18px;height:18px;border-radius:3px;background:linear-gradient(135deg,var(--teal-dk),var(--teal));display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:6px;color:#fff;">PH</div>
+        Proximity<em style="color:var(--teal);margin-left:2px;font-style:italic;">HQ</em>
+      </div>
+      <div id="stageLabel" style="font-family:var(--font-m);font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(106,168,184,.6);transition:opacity .3s;">Initializing...</div>
+      <div style="display:flex;align-items:center;gap:4px;font-family:var(--font-m);font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);">
+        <div style="width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(90,170,122,.8);animation:lp-glow-g 2s infinite;"></div>Running Live
+      </div>
+      <div id="stageProgress" style="position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--green));width:0%;transition:width .1s linear;border-radius:0 0 0 0;"></div>
+    </div>
+
+    <!-- Phone trio -->
+    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;gap:8px;padding:14px 16px 10px;background:rgba(7,9,12,.55);border-left:1px solid rgba(90,173,160,.18);border-right:1px solid rgba(90,173,160,.18);position:relative;z-index:1;">
+
+      <!-- HQ PHONE -->
+      <div class="lp-phone lp-hq" id="hqPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">4:33</div><div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">HQ · Operator Dashboard</div>
+        <div class="lp-body" id="hqBody">
+          <div class="lp-hq-head">
+            <div class="lp-brand">Proximity <em>HQ</em></div>
+            <div class="lp-stats">
+              <div class="lphs"><div class="lphs-n">50</div><div class="lphs-l">Leads</div></div>
+              <div class="lphs"><div class="lphs-n">11</div><div class="lphs-l">Clients</div></div>
+              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">On Shift</div></div>
+              <div class="lphs"><div class="lphs-n lp-amber">$1,942</div><div class="lphs-l">Billed</div></div>
+            </div>
+          </div>
+          <div class="lp-osc"><div class="lp-osc-l">On Shift Now</div><div class="lp-osc-v" id="onShiftCard">0</div></div>
+          <div class="lp-sec-lbl">Today&#39;s Shifts</div>
+          <div class="lp-shift-row" id="newShiftRow" style="opacity:0;">
+            <div class="lp-sr-time">08:00</div><div class="lp-sr-dot lp-dot-new" id="newDot"></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">Carolina Hermida</div><div class="lp-sr-client">Rosetta Ferrari</div></div>
+            <div class="lp-sr-badge lp-badge-new" id="newBadge">+ Added</div>
+          </div>
+          <div class="lp-shift-row">
+            <div class="lp-sr-time">10:00</div><div class="lp-sr-dot lp-dot-sc"></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">James Okafor</div><div class="lp-sr-client">Robert Liang</div></div>
+            <div class="lp-sr-badge lp-badge-sc">Scheduled</div>
+          </div>
+          <div class="lp-add-btn" id="addShiftBtn"><div class="lp-add-icon">+</div><div class="lp-add-txt">Book New Shift</div></div>
+          <div class="lp-sec-lbl">Recent Activity</div>
+          <div class="lp-act-row" id="actRow1" style="opacity:0;"><div class="lp-act-badge">SCH</div><div class="lp-act-txt">Shift booked · Carolina · 08:00</div><div class="lp-act-time">Just now</div></div>
+          <div class="lp-act-row" id="actRow2" style="opacity:0;"><div class="lp-act-badge">GPS</div><div class="lp-act-txt">Carolina checked in · 12m</div><div class="lp-act-time">08:02</div></div>
+          <div class="lp-modal" id="shiftModal">
+            <div class="lp-modal-sheet">
+              <div class="lp-modal-title">Book <em>Shift</em></div>
+              <div class="lp-mf"><div class="lp-mf-label">Client</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Rosetta Ferrari</div></div>
+              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Carolina Hermida</div></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px;">
+                <div class="lp-mf"><div class="lp-mf-label">Start</div><div class="lp-mf-val" style="font-size:8px;">08:00 AM</div></div>
+                <div class="lp-mf"><div class="lp-mf-label">End</div><div class="lp-mf-val" style="font-size:8px;">04:00 PM</div></div>
+              </div>
+              <div class="lp-confirm-btn" id="confirmBtn">Confirm Shift</div>
+            </div>
+          </div>
         </div>
-        <div class="demo-card-label">HQ Dashboard · Live</div>
-        <div class="demo-card-badge"><span class="demo-badge-dot"></span>All Systems Active</div>
       </div>
-      <div class="demo-card-body">
-        <div class="demo-sys-row"><span class="demo-sys-num">S01</span><span class="demo-sys-name">Visit Logging</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S02</span><span class="demo-sys-name">Auto Invoicing</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S03</span><span class="demo-sys-name">Lead Capture</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S04</span><span class="demo-sys-name">Follow-Up Engine</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S05</span><span class="demo-sys-name">Family Portal</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S06</span><span class="demo-sys-name">AI Chat + Voice</span><span class="demo-status gold">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S07</span><span class="demo-sys-name">Client + PSW Onboarding</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S08</span><span class="demo-sys-name">HQ Dashboard + Scheduling Board</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S09</span><span class="demo-sys-name">PSW Portal — Sign In/Out + Pay</span><span class="demo-status green">●</span></div>
-        <div class="demo-sys-row"><span class="demo-sys-num">S10</span><span class="demo-sys-name">Converting Website</span><span class="demo-status green">●</span></div>
+
+      <!-- CONNECTOR 1 -->
+      <div class="lp-conn" id="conn1" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill1"></div><div class="lp-conn-dot" id="connDot1"></div></div>
+        <div class="lp-conn-lbl" id="connLabel1">Shift<br>fires</div>
       </div>
-      <div class="demo-card-metrics">
-        <div class="demo-metric"><span class="demo-metric-val">12</span><span class="demo-metric-lbl">PSWs</span></div>
-        <div class="demo-metric"><span class="demo-metric-val">11</span><span class="demo-metric-lbl">Clients</span></div>
-        <div class="demo-metric"><span class="demo-metric-val">100s</span><span class="demo-metric-lbl">Invoices</span></div>
-        <div class="demo-metric"><span class="demo-metric-val">$0</span><span class="demo-metric-lbl">Admin hrs</span></div>
+
+      <!-- PSW PHONE -->
+      <div class="lp-phone" id="pswPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">4:33</div><div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">PSW Portal · Carolina</div>
+        <div class="lp-body" id="pswBody">
+          <div class="lp-psw-head">
+            <div class="lp-psw-av">CH</div>
+            <div><div class="lp-psw-name">Carolina Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
+            <div class="lp-psw-earn"><div class="lp-psw-earn-n">$1,677</div><div class="lp-psw-earn-l">Earned</div></div>
+          </div>
+          <div class="lp-notif-banner" id="pswNotif">
+            <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
+            <div class="lp-nb-body">Your shift on May 18 at 08:00. Check schedule.</div>
+          </div>
+          <div class="lp-next-visit" id="nextVisitCard">
+            <div class="lp-nv-label">Next Visit</div>
+            <div class="lp-nv-name">Rosetta Ferrari</div>
+            <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
+            <div class="lp-nv-btns">
+              <div class="lp-nv-btn lp-nv-nav">Navigate</div>
+              <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+            </div>
+          </div>
+          <div class="lp-gps-status" id="gpsStatus">
+            <div class="lp-gps-title">GPS Verification</div>
+            <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:var(--font-m);font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
+            <div id="gpsVerified" style="display:none;font-family:var(--font-m);font-size:7px;color:var(--green);">✓ Verified · 12m from address</div>
+          </div>
+          <div class="lp-oss" id="onShiftStatus">
+            <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
+            <div class="lp-oss-name">Rosetta Ferrari</div>
+            <div class="lp-oss-sub">Checked in 08:02 · 12m · DNR acknowledged</div>
+          </div>
+        </div>
       </div>
-      <div class="demo-card-event">
-        <span class="demo-event-dot"></span>
-        <span class="demo-event-text">PSW Visit Logged · 8.0 hrs · Just now</span>
+
+      <!-- CONNECTOR 2 -->
+      <div class="lp-conn" id="conn2" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill2"></div><div class="lp-conn-dot" id="connDot2"></div></div>
+        <div class="lp-conn-lbl" id="connLabel2">Notif<br>fires</div>
+      </div>
+
+      <!-- FAMILY PHONE -->
+      <div class="lp-phone" id="famPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">8:02</div><div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">Family Portal · Connie</div>
+        <div class="lp-body" id="famBody" style="position:relative;">
+          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Carolina has arrived</div><div class="lp-push-body">Rosetta Ferrari · GPS confirmed</div></div><div class="lp-push-time">08:02</div></div>
+          <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
+          <div class="lp-rosetta"><div class="lp-rc-label">Your Loved One</div><div class="lp-rc-name">Rosetta Ferrari</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
+          <div class="lp-fam-notif" id="famNotifCard">
+            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Carolina has arrived</div>
+            <div class="lp-fnc-body">Visit started 08:02. GPS confirmed. All care tasks underway.</div>
+            <div class="lp-fnc-time">08:02 AM · automated notification</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 3 -->
+      <div class="lp-conn" id="conn3" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill3"></div><div class="lp-conn-dot" id="connDot3"></div></div>
+        <div class="lp-conn-lbl" id="connLabel3">GPS<br>live</div>
+      </div>
+
+      <!-- MAP PHONE -->
+      <div class="lp-map-phone" id="mapPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time" style="position:absolute;top:3px;left:8px;font-family:var(--font-m);font-size:6px;color:rgba(232,220,200,.4);">8:02</div>
+        <div class="lp-label">Live GPS · Mississauga</div>
+        <div class="lp-map-head">
+          <div class="lp-map-title"><div class="lp-map-title-dot"></div>Live PSW Locations</div>
+          <div class="lp-map-sub" id="mapUpdated">Updated 08:02 AM</div>
+        </div>
+        <div class="lp-map-area" id="mapArea">
+          <div class="lp-map-grid"></div>
+          <div class="lp-road lp-road-h" style="top:30%"></div><div class="lp-road lp-road-h" style="top:50%"></div><div class="lp-road lp-road-h" style="top:70%"></div>
+          <div class="lp-road lp-road-v" style="left:25%"></div><div class="lp-road lp-road-v" style="left:50%"></div><div class="lp-road lp-road-v" style="left:75%"></div>
+          <div class="lp-map-city">MISSISSAUGA</div>
+          <div class="lp-client-pin" id="clientPin" style="top:42%;left:44%;transform:translate(-50%,-50%);"><div class="lp-client-circle">🏠</div></div>
+          <div class="lp-psw-pin" id="pswPin" style="top:38%;left:50%;transform:translate(-50%,-50%);">
+            <div class="lp-pin-circle">CH<div class="lp-pin-ring"></div><div class="lp-pin-ring2"></div></div>
+            <div class="lp-pin-label">On site · 12m</div>
+          </div>
+        </div>
+        <div class="lp-gps-strip" id="gpsInfoStrip">
+          <div class="lp-gis-row"><div class="lp-gis-label">Carolina Hermida</div><div class="lp-gis-val g">On Site · 12m</div></div>
+          <div class="lp-gis-row"><div class="lp-gis-label">Client: Rosetta Ferrari</div><div class="lp-gis-val t">Verified</div></div>
+          <div class="lp-gis-updated">Fraud detection: Clean</div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+
+    <!-- Bottom step bar -->
+    <div style="height:38px;background:rgba(7,9,12,.98);border:1px solid rgba(90,173,160,.18);border-top:1px solid rgba(90,173,160,.12);border-radius:0 0 12px 12px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
+      <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.12);font-size:9px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step2">PSW Notified</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.12);font-size:9px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step3">GPS Checkin</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.12);font-size:9px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step4">Family Alert</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.12);font-size:9px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step5">Map Live</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.12);font-size:9px;">→</span>
+      <span class="lp-desktop-step" style="font-family:var(--font-m);font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.18);">proximitysystems.ca · $500/mo</span>
+      <!-- Mobile dots -->
+      <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
+        <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:7px;color:rgba(106,168,184,.4);transition:all .3s;flex-shrink:0;">HQ</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.18);"></div>
+        <div id="lp-mob-dot2" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:7px;color:rgba(106,168,184,.4);transition:all .3s;flex-shrink:0;">PSW</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.18);"></div>
+        <div id="lp-mob-dot3" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:7px;color:rgba(106,168,184,.4);transition:all .3s;flex-shrink:0;">FAM</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.18);"></div>
+        <div id="lp-mob-dot4" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:7px;color:rgba(106,168,184,.4);transition:all .3s;flex-shrink:0;">MAP</div>
       </div>
     </div>
+
   </div>
   <div class="hero-bg-word">PS</div>
 </section>
@@ -2511,5 +2853,179 @@ document.addEventListener('click',function(e){
 });
 
 </script>
+
+<script>
+/* ── LP FLOW DEMO — mini-demo ── */
+(function(){
+var bgc=document.getElementById('bg');
+if(!bgc)return;
+var bgx=bgc.getContext('2d');
+function resizeBg(){bgc.width=bgc.offsetWidth||480;bgc.height=bgc.offsetHeight||340;}
+resizeBg();
+window.addEventListener('resize',resizeBg,{passive:true});
+var pts=[];
+for(var i=0;i<28;i++){pts.push({x:Math.random()*(bgc.width||480),y:Math.random()*(bgc.height||340),vx:(Math.random()-.5)*.1,vy:(Math.random()-.5)*.1});}
+(function drawBg(){
+  var W=bgc.width,H=bgc.height;
+  bgx.clearRect(0,0,W,H);
+  pts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;bgx.beginPath();bgx.arc(p.x,p.y,.6,0,Math.PI*2);bgx.fillStyle='rgba(106,168,184,.12)';bgx.fill();});
+  for(var i=0;i<pts.length;i++)for(var j=i+1;j<pts.length;j++){var d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<55){bgx.beginPath();bgx.moveTo(pts[i].x,pts[i].y);bgx.lineTo(pts[j].x,pts[j].y);bgx.strokeStyle='rgba(61,122,138,'+(0.05*(1-d/55)).toFixed(3)+')';bgx.lineWidth=.5;bgx.stroke();}}
+  requestAnimationFrame(drawBg);
+})();
+
+function isMobile(){return window.innerWidth<=700;}
+
+function setMobDot(active){
+  for(var i=1;i<=4;i++){
+    var d=document.getElementById('lp-mob-dot'+i);
+    if(!d)continue;
+    if(i===active){d.style.borderColor='#6aa8b8';d.style.background='rgba(106,168,184,.15)';d.style.color='#6aa8b8';}
+    else if(i<active){d.style.borderColor='rgba(90,170,122,.4)';d.style.background='rgba(90,170,122,.08)';d.style.color='#5aaa7a';}
+    else{d.style.borderColor='rgba(106,168,184,.22)';d.style.background='transparent';d.style.color='rgba(106,168,184,.3)';}
+  }
+}
+
+function showMobileView(phoneId){
+  if(!isMobile())return;
+  var phones=['hqPhone','pswPhone','famPhone','mapPhone'];
+  phones.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('lp-mob-active');});
+  var target=document.getElementById(phoneId);
+  if(target){setTimeout(function(){target.classList.add('lp-mob-active');},50);}
+}
+
+function setStage(label){
+  var el=document.getElementById('stageLabel');
+  if(!el)return;
+  el.style.opacity='0';
+  setTimeout(function(){el.textContent=label;el.style.opacity='1';el.style.animation='lp-fade-in .3s ease forwards';},200);
+}
+
+function setStep(n){
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('step'+i);
+    if(!el)continue;
+    if(i<n)el.className='lp-step done';
+    else if(i===n)el.className='lp-step active';
+    else el.className='lp-step';
+  }
+}
+
+function fireConnector(n){
+  var fill=document.getElementById('connFill'+n);
+  var dot=document.getElementById('connDot'+n);
+  var label=document.getElementById('connLabel'+n);
+  if(fill){fill.style.animation='lp-draw-line .8s ease forwards';fill.style.opacity='1';}
+  if(dot){dot.style.opacity='0';dot.style.animation='none';void dot.offsetWidth;dot.style.animation='lp-conn-dot 1s ease-in-out forwards';}
+  if(label)label.style.color='rgba(106,168,184,.8)';
+}
+
+function resetAll(){
+  var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
+  var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
+  var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn';conf.textContent='Confirm Shift';}
+  var nsr=document.getElementById('newShiftRow');if(nsr)nsr.style.opacity='0';
+  for(var n=1;n<=3;n++){
+    var f=document.getElementById('connFill'+n);var d=document.getElementById('connDot'+n);var l=document.getElementById('connLabel'+n);
+    if(f){f.style.animation='none';f.style.opacity='0';}
+    if(d){d.style.animation='none';d.style.opacity='0';}
+    if(l)l.style.color='rgba(106,168,184,.4)';
+  }
+  var pswN=document.getElementById('pswNotif');if(pswN){pswN.classList.remove('show');pswN.style.opacity='0';pswN.style.transform='translateX(20px)';}
+  var signIn=document.getElementById('signInBtn');if(signIn)signIn.classList.remove('active');
+  var gpsS=document.getElementById('gpsStatus');if(gpsS)gpsS.style.opacity='0';
+  var gpsC=document.getElementById('gpsChecking');if(gpsC)gpsC.style.display='flex';
+  var gpsV=document.getElementById('gpsVerified');if(gpsV)gpsV.style.display='none';
+  var oss=document.getElementById('onShiftStatus');if(oss)oss.style.opacity='0';
+  var push=document.getElementById('pushNotif');if(push){push.classList.remove('show');push.style.opacity='0';}
+  var fnc=document.getElementById('famNotifCard');if(fnc)fnc.style.opacity='0';
+  var a1=document.getElementById('actRow1');if(a1)a1.style.opacity='0';
+  var a2=document.getElementById('actRow2');if(a2)a2.style.opacity='0';
+  var osn=document.getElementById('onShiftN');if(osn)osn.textContent='0';
+  var osc=document.getElementById('onShiftCard');if(osc)osc.textContent='0';
+  var mp=document.getElementById('mapPhone');if(mp)mp.classList.remove('show');
+  var pswPin=document.getElementById('pswPin');if(pswPin)pswPin.classList.remove('show');
+  var gpsInfo=document.getElementById('gpsInfoStrip');if(gpsInfo)gpsInfo.style.opacity='0';
+  var cp=document.getElementById('clientPin');if(cp)cp.style.opacity='0';
+  if(isMobile()){var phones=['hqPhone','pswPhone','famPhone','mapPhone'];phones.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('lp-mob-active');});setMobDot(0);}
+  setStep(1);
+  setStage('Operator opens HQ — booking a shift');
+}
+
+var TOTAL=22000;
+var startTime=null;
+
+function buildTimeline(base){
+  return [
+    [base+400,function(){setStage('Operator taps Book New Shift');setStep(1);var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.add('active');if(isMobile()){showMobileView('hqPhone');setMobDot(1);}}],
+    [base+1200,function(){var modal=document.getElementById('shiftModal');if(modal)modal.classList.add('show');}],
+    [base+2800,function(){setStage('Shift confirmed — firing to PSW');var conf=document.getElementById('confirmBtn');if(conf){conf.classList.add('confirming');conf.textContent='Confirming...';}}],
+    [base+3600,function(){
+      var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
+      var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn confirmed';conf.textContent='✓ Shift Confirmed';}
+      var nsr=document.getElementById('newShiftRow');if(nsr){nsr.style.animation='lp-slide-right .4s ease forwards';nsr.style.opacity='1';}
+      var a1=document.getElementById('actRow1');if(a1){a1.style.animation='lp-fade-in .4s ease forwards';a1.style.opacity='1';}
+      var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
+    }],
+    [base+4400,function(){setStage('Shift fires to PSW portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
+    [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
+    [base+6800,function(){setStage('Carolina taps Sign In — GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
+    [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
+    [base+9200,function(){var c=document.getElementById('gpsChecking');if(c)c.style.display='none';var v=document.getElementById('gpsVerified');if(v)v.style.display='flex';}],
+    [base+10200,function(){
+      var o=document.getElementById('onShiftStatus');if(o){o.style.animation='lp-slide-up .4s ease forwards';o.style.opacity='1';}
+      var osn=document.getElementById('onShiftN');if(osn)osn.textContent='1';
+      var osc=document.getElementById('onShiftCard');if(osc){osc.style.animation='lp-count-up .3s ease forwards';osc.textContent='1';}
+    }],
+    [base+11000,function(){setStage('GPS confirmed — family notification firing');setStep(4);fireConnector(2);if(isMobile()){showMobileView('famPhone');setMobDot(3);}}],
+    [base+12000,function(){var p=document.getElementById('pushNotif');if(p)p.classList.add('show');}],
+    [base+13200,function(){var f=document.getElementById('famNotifCard');if(f){f.style.animation='lp-slide-down .4s ease forwards';f.style.opacity='1';}}],
+    [base+13800,function(){var a2=document.getElementById('actRow2');if(a2){a2.style.animation='lp-fade-in .4s ease forwards';a2.style.opacity='1';}}],
+    [base+14800,function(){fireConnector(3);}],
+    [base+15200,function(){
+      setStage('Live GPS map — Connie sees the location');
+      setStep(5);
+      var mp=document.getElementById('mapPhone');if(mp)mp.classList.add('show');
+      if(isMobile()){showMobileView('mapPhone');setMobDot(4);}
+    }],
+    [base+16000,function(){var cp=document.getElementById('clientPin');if(cp)cp.style.opacity='1';}],
+    [base+16600,function(){var pp=document.getElementById('pswPin');if(pp)pp.classList.add('show');}],
+    [base+17400,function(){var g=document.getElementById('gpsInfoStrip');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
+    [base+18800,function(){setStage('All systems connected — operator never touched it');}],
+    [base+TOTAL,function(){
+      resetAll();
+      var nextBase=Date.now();
+      buildTimeline(nextBase).forEach(function(beat){var delay=beat[0]-Date.now();if(delay>=0)setTimeout(beat[1],delay);});
+    }],
+  ];
+}
+
+function updateProgress(){
+  if(!startTime)startTime=Date.now();
+  var elapsed=(Date.now()-startTime)%TOTAL;
+  var pct=(elapsed/TOTAL)*100;
+  var bar=document.getElementById('stageProgress');
+  if(bar)bar.style.width=pct+'%';
+  requestAnimationFrame(updateProgress);
+}
+
+function boot(){
+  resetAll();
+  startTime=Date.now();
+  var now=Date.now();
+  if(isMobile()){showMobileView('hqPhone');setMobDot(1);}
+  buildTimeline(now).forEach(function(beat){var delay=beat[0]-now;if(delay>=0)setTimeout(beat[1],delay);});
+  updateProgress();
+}
+
+var wrap=document.getElementById('flow-demo-wrap');
+if(wrap){
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){if(entries[0].isIntersecting){obs.disconnect();setTimeout(boot,600);}},{threshold:0.15});
+    obs.observe(wrap);
+  } else {setTimeout(boot,1000);}
+}
+})();
+</script>
+
 </body>
 </html>
