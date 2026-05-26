@@ -1249,26 +1249,53 @@ button,a,[onclick]{touch-action:manipulation;}
 .lp-gis-updated{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.15);text-align:right;}
 
 
-/* ── Mobile: flow demo phones scroll horizontally ── */
+/* ── Mobile: single-phone cycling view ── */
 @media(max-width:700px){
   #flow-demo-wrap #main{
-    overflow-x:auto;
-    justify-content:flex-start;
-    padding:12px 16px 10px;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
+    position:relative;
+    overflow:hidden;
+    padding:16px 0 12px;
+    justify-content:center;
+    height:400px;
+    min-height:400px;
   }
-  #flow-demo-wrap #main::-webkit-scrollbar{display:none;}
-  .lp-phone{width:160px!important;height:300px!important;border-radius:10px!important;}
-  .lp-hq{width:172px!important;}
-  .lp-map-phone.show{width:160px!important;}
-  .lp-conn{width:20px!important;}
-  #flow-demo-wrap{border-radius:10px!important;}
+  .lp-conn{display:none!important;}
+  #flow-demo-wrap .lp-phone,
+  #flow-demo-wrap .lp-map-phone{display:none!important;}
+  #flow-demo-wrap .lp-mob-active{
+    display:flex!important;
+    width:200px!important;
+    height:360px!important;
+    border-radius:14px!important;
+    position:absolute!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    animation:lp-mob-fadein .35s ease forwards!important;
+  }
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{
+    width:200px!important;
+    opacity:1!important;
+  }
+  @keyframes lp-mob-fadein{
+    from{opacity:0;transform:translateX(-50%) translateY(6px)}
+    to{opacity:1;transform:translateX(-50%) translateY(0)}
+  }
+  .lp-desktop-step{display:none!important;}
+  #lp-mob-steps{display:flex!important;}
+  #stageLabel{
+    font-size:7px!important;
+    letter-spacing:1.5px!important;
+    max-width:190px!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+  }
+  #flow-demo-wrap > div:first-child{padding:0 12px!important;}
 }
 @media(max-width:480px){
-  .lp-phone{width:148px!important;height:280px!important;}
-  .lp-hq{width:158px!important;}
-  .lp-map-phone.show{width:148px!important;}
+  #flow-demo-wrap .lp-mob-active{width:180px!important;height:340px!important;}
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{width:180px!important;}
+  #flow-demo-wrap #main{height:370px!important;min-height:370px!important;}
 }
 
 </style>
@@ -1483,18 +1510,27 @@ button,a,[onclick]{touch-action:manipulation;}
     </div><!-- /main -->
 
     <!-- Bottom step bar -->
-    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;">
-      <span class="lp-step" id="step1">HQ Books</span>
-      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step" id="step2">PSW Notified</span>
-      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step" id="step3">GPS Checkin</span>
-      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step" id="step4">Family Alert</span>
-      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step" id="step5">Map Live</span>
-      <span style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);">proximitysystems.ca · $500/mo · 7 days</span>
+    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
+      <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step2">PSW Notified</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step3">GPS Checkin</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step4">Family Alert</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step5">Map Live</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-desktop-step" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);">proximitysystems.ca · $500/mo · 7 days</span>
+      <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
+        <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">HQ</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot2" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">PSW</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot3" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">FAM</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot4" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">MAP</div>
+      </div>
     </div>
 
   </div><!-- /flow-demo-wrap -->
@@ -1516,19 +1552,22 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <!-- ── PAIN ── -->
 <section id="pain" style="background:var(--bg2)">
-  <div class="sec w">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>What Admin Actually Costs You</div>
-    <h2 class="h2">Every week<br>you lose <em>this.</em></h2>
-    <div class="pain-strip">
-      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>Manual invoicing</strong> — 45 min per client per month</div><div class="pain-cost">~8 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="3" y="1" width="8" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="10.5" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.1"/><polyline points="5,5 7,7 9,5" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Chasing PSW hours</strong> — texts, follow-ups, guessing</div><div class="pain-cost">~5 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M7 1a4.5 4.5 0 0 0-4.5 4.5v3H1.5v1h11v-1H11V5.5A4.5 4.5 0 0 0 7 1z" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="2" x2="12" y2="12" stroke="currentColor" stroke-width="1.3"/></svg></div><div class="pain-label"><strong>Missed leads</strong> — inquiries at 11pm, seen at 8am</div><div class="pain-cost">Lost clients</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5L10.5 8V10c-5 .5-9-4-8.5-8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Family phone calls</strong> — visit updates, care questions</div><div class="pain-cost">~6 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 6a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M10 6a4 4 0 0 1-7.5 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><polyline points="9,1 9,4 6,4" stroke="currentColor" stroke-width="1.1"/><polyline points="3,8 3,11 6,11" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>Manual lead follow-up</strong> — or you forget entirely</div><div class="pain-cost">~4 hrs/mo</div></div>
+  <div class="sec w" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">
+      <div class="eyebrow-dot"></div>What Running a Home Care Agency Actually Looks Like
     </div>
-    <div class="big-number-box">
+    <h2 class="h2">Every week<br>you lose <em>this.</em></h2>
+    <p class="sub" style="max-width:520px;margin:0 auto 32px;">You started this agency to take care of people — not to spend your evenings doing spreadsheets. Here is where your time actually goes.</p>
+    <div class="pain-strip" style="text-align:left;max-width:720px;margin:0 auto 32px;">
+      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>Manual invoicing</strong> — Excel, per client, every month. No payroll CSV, no AR tracking.</div><div class="pain-cost">~8 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="3" y="1" width="8" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="10.5" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.1"/><polyline points="5,5 7,7 9,5" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Chasing PSW hours</strong> — texts back and forth, guessing who worked what, manually entering hours.</div><div class="pain-cost">~5 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M7 1a4.5 4.5 0 0 0-4.5 4.5v3H1.5v1h11v-1H11V5.5A4.5 4.5 0 0 0 7 1z" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="2" x2="12" y2="12" stroke="currentColor" stroke-width="1.3"/></svg></div><div class="pain-label"><strong>Leads going cold overnight</strong> — family inquires at 11pm, calls 3 agencies, books whoever replies first.</div><div class="pain-cost">Lost clients</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5L10.5 8V10c-5 .5-9-4-8.5-8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Family calls at 9pm</strong> — "Did mom take her meds? How was the visit?" You don't know. You weren't there.</div><div class="pain-cost">~6 hrs/mo</div></div>
+      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 6a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M10 6a4 4 0 0 1-7.5 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><polyline points="9,1 9,4 6,4" stroke="currentColor" stroke-width="1.1"/><polyline points="3,8 3,11 6,11" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>No follow-up system</strong> — leads go cold on day 2 because you forgot, or never had time to call back.</div><div class="pain-cost">~4 hrs/mo</div></div>
+    </div>
+    <div class="big-number-box" style="max-width:640px;margin:0 auto;">
       <span class="big-number">20 hrs</span>
-      <p class="big-number-lbl">Lost every single week to admin. At $50/hr that is <strong>$4,000/month</strong> of your time doing work a computer should handle in seconds.</p>
+      <p class="big-number-lbl">Lost every single week to admin tasks a computer should handle. At $50/hr that is <strong>$4,000/month</strong> of your time — and none of it grows your agency.</p>
     </div>
   </div>
 </section>
@@ -1537,15 +1576,15 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <!-- ── 7-DAY TIMELINE ── -->
 <section id="timeline" style="background:var(--bg)">
-  <div class="sec w">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>How We Do It</div>
-    <h2 class="h2">Live in<br><em>7 days.</em></h2>
-    <p class="sub">We handle the entire setup. One call, then we build. You do not touch any code.</p>
-    <div class="timeline">
-      <div class="t-step"><div class="t-num">01</div><div class="t-content"><div class="t-day">Day 1</div><div class="t-title">20-minute discovery call</div><div class="t-desc">You tell us about your agency. PSW roster, clients, rates, branding. We take notes. You do nothing else.</div></div></div>
-      <div class="t-step"><div class="t-num">02</div><div class="t-content"><div class="t-day">Days 2 — 6</div><div class="t-title">We build all 10 systems</div><div class="t-desc">Visit forms, invoice templates, chatbot, family portal, HQ dashboard — all configured for your agency. Nothing generic.</div></div></div>
-      <div class="t-step"><div class="t-num">03</div><div class="t-content"><div class="t-day">Day 7</div><div class="t-title">You go live</div><div class="t-desc">We hand over live links and walk you through everything. PSWs log their first visit that day. Leads start capturing immediately.</div></div></div>
-      <div class="t-step"><div class="t-num">04</div><div class="t-content"><div class="t-day">Month 2+</div><div class="t-title">We stay running beside you</div><div class="t-desc">$500/mo covers all 10 systems, updates, and support. Everything stays running. You focus on care.</div></div></div>
+  <div class="sec w" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>How It Works</div>
+    <h2 class="h2">One call.<br>Live in <em>7 days.</em></h2>
+    <p class="sub" style="max-width:520px;margin:0 auto 40px;">We handle 100% of the setup. You tell us about your agency on a 20-minute call. We build everything. You go live on day 7 — GPS logging, invoicing, family portal, lead capture, all of it.</p>
+    <div class="timeline" style="max-width:620px;margin:0 auto;text-align:left;">
+      <div class="t-step"><div class="t-num">01</div><div class="t-content"><div class="t-day">Day 1 · 20 minutes</div><div class="t-title">One discovery call</div><div class="t-desc">You tell us your PSW roster, client list, billing rates, and branding. We take every note. You touch nothing after this call until you go live.</div></div></div>
+      <div class="t-step"><div class="t-num">02</div><div class="t-content"><div class="t-day">Days 2 – 6 · We build</div><div class="t-title">We configure all 10 systems for your agency</div><div class="t-desc">GPS visit logging, AI care summaries, dual-PDF invoicing, payroll CSV, family portal with your clients loaded, HQ scheduling dashboard, AI chatbot on your site, PSW onboarding flow, lead capture — all wired together. Nothing generic.</div></div></div>
+      <div class="t-step"><div class="t-num">03</div><div class="t-content"><div class="t-day">Day 7 · You go live</div><div class="t-title">Your agency runs itself from day one</div><div class="t-desc">We walk you through everything live. Your PSWs log their first GPS visit that day. Your site starts capturing leads immediately. Your first automated invoice is ready at month end.</div></div></div>
+      <div class="t-step"><div class="t-num">04</div><div class="t-content"><div class="t-day">Month 2+ · $500/mo</div><div class="t-title">We stay beside you — forever</div><div class="t-desc">Every system stays running. New features ship to you automatically. You never touch code. You never call a developer. $500/mo covers everything — all 10 systems, all updates, all support.</div></div></div>
     </div>
   </div>
 </section>
@@ -1600,137 +1639,315 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
 <!-- ── 10 SYSTEMS ── -->
 <section id="systems" style="background:var(--bg2)">
-  <div class="sec w-wide">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>10 Done-For-You Systems</div>
-    <h2 class="h2">Less time on admin.<br>More time on <em>care.</em></h2>
-    <p class="sub" style="margin-bottom:28px;font-size:14px;">Every system replaces hours of manual work. Built for your agency. Nothing shared.</p>
+  <div class="sec w-wide" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>10 Done-For-You Systems · All Connected · All Live</div>
+    <h2 class="h2">Everything your agency needs.<br><em>Nothing you have to build.</em></h2>
+    <p class="sub" style="margin-bottom:32px;font-size:14px;max-width:540px;margin-left:auto;margin-right:auto;">Built for Ontario private-pay home care. Every system wired together from day one.</p>
 
-    <div class="sys-cards-grid">
+    <style>
+/* ── ANIMATED SYSTEM CARDS ── */
+.asc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:4px;}
+.asc{background:#0c1018;border:1px solid rgba(250,248,244,.07);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default;}
+.asc:hover{border-color:rgba(30,125,150,.35);transform:translateY(-2px);}
+.asc-head{padding:11px 14px 8px;display:flex;align-items:center;justify-content:space-between;}
+.asc-num{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(250,248,244,.2);}
+.asc-badge{font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;}
+.asc-badge.live{background:rgba(61,138,122,.12);color:#3d8a7a;border:1px solid rgba(61,138,122,.25);}
+.asc-badge.free{background:rgba(184,112,16,.1);color:#c9940f;border:1px solid rgba(184,112,16,.25);}
+.asc-anim{height:82px;position:relative;overflow:hidden;margin:0 14px;border-radius:6px;background:rgba(0,0,0,.25);}
+.asc-name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;color:rgba(250,248,244,.75);padding:10px 14px 3px;}
+.asc-desc{font-size:9px;color:rgba(250,248,244,.3);padding:0 14px 13px;line-height:1.65;}
+/* keyframes */
+@keyframes ascFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes ascSlideR{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
+@keyframes ascSlideU{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ascPop{0%{opacity:0;transform:scale(0)}60%{transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
+@keyframes ascPulse{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes ascDraw{from{width:0}to{width:100%}}
+@keyframes ascPing{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+@keyframes ascBar{from{height:0;opacity:0}to{opacity:1}}
+@keyframes ascBlink{0%,100%{opacity:1}45%,55%{opacity:0}}
+@keyframes ascTyping{0%,100%{opacity:.2}50%{opacity:.8}}
+</style>
 
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4M7 16h2M11 16h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="syscard-num">01</div>
-        <div class="syscard-name">Visit Logging</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>Chase PSWs. Paper timesheets. No medication record.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>GPS checkin, structured MAR, care signals. 60 seconds.</div>
+    <div class="asc-grid">
+
+<!-- ────────────────────────────────── S01 VISIT LOGGING ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">01</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <!-- Phone silhouette -->
+    <div style="position:absolute;left:10px;top:9px;width:26px;height:52px;border-radius:4px;border:1.5px solid rgba(30,125,150,.4);background:#07090c;display:flex;flex-direction:column;align-items:center;padding-top:8px;">
+      <!-- GPS dot + ping ring -->
+      <div style="position:relative;width:6px;height:6px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:#3d8a7a;animation:ascPulse 1.4s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:-4px;left:-4px;width:14px;height:14px;border-radius:50%;border:1px solid rgba(61,138,122,.4);animation:ascPing 1.4s ease-out infinite;"></div>
       </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 3h12v16l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8h6M8 11h6M8 14h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="syscard-num">02</div>
-        <div class="syscard-name">Auto Invoicing</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>45 min per client. No payroll CSV. No AR tracking.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dual PDF, payroll CSV, AR updated. 30 seconds.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="1" fill="currentColor"/></svg>
-        </div>
-        <div class="syscard-num">03</div>
-        <div class="syscard-name">Lead Capture</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>Lead waits. Calls 3 agencies. Goes with whoever answers first.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Caught, replied, call slot booked, 24h reminder armed. Automatic.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6l8 5 8-5M3 6v10a1 1 0 001 1h14a1 1 0 001-1V6M3 6l8-3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="syscard-num">04</div>
-        <div class="syscard-name">Follow-Up Engine</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>You forget. Leads go cold after day one.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>14 templates. Call reminders. Interview reminders. Zero manual sends.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 11a3 3 0 100-6 3 3 0 000 6zM5 19a6 6 0 0112 0M16 9a2 2 0 100-4M19 13a4 4 0 00-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="syscard-num">05</div>
-        <div class="syscard-name">Family Portal</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>Families call at 9pm for updates. No visibility.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>PIN portal. Visits, MAR, mood chart, AI ask tab, ratings.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="6" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="14" cy="11" r="1.2" fill="currentColor"/><path d="M11 3v3M7 17l-1.5 2M15 17l1.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="syscard-num">06</div>
-        <div class="syscard-name">AI Chat</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>Questions and calls ignored at night.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Chat and phone answer 24/7. Books calls.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7M9 9l-2-3-2 1M13 9l2-3 2 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
-        </div>
-        <div class="syscard-num">07</div>
-        <div class="syscard-name">Client Onboarding</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>You manually send welcome info.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Day 0 fires PIN, portal, care plan.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="syscard-num">08</div>
-        <div class="syscard-name">HQ Dashboard</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>Spreadsheets. Always behind.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>One screen. Real-time. Always live.</div>
-      </div>
-
-      <div class="syscard">
-        <div class="syscard-glow"></div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="syscard-num">09</div>
-        <div class="syscard-name">PSW Management</div>
-        <div class="syscard-tag">Live</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>Records in WhatsApp and paper.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything central. Searchable.</div>
-      </div>
-
-      <div class="syscard syscard-addon">
-        <div class="syscard-glow"></div>
-        <div class="syscard-addon-ribbon">Free Add-on</div>
-        <div class="syscard-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h16M6 6h.01M9 6h.01M12 6h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 13h2M11 13h4M7 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg>
-        </div>
-        <div class="syscard-num">10</div>
-        <div class="syscard-name">Converting Website</div>
-        <div class="syscard-tag bonus">Free</div>
-        <div class="syscard-bad"><span class="syscard-mark bad"><svg viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>No site or one that does not convert.</div>
-        <div class="syscard-good"><span class="syscard-mark good"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l1.8 1.8L7 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Built free where all systems plug in.</div>
-      </div>
-
+      <div style="margin-top:6px;width:12px;height:2px;border-radius:1px;background:rgba(30,125,150,.3);"></div>
+      <div style="margin-top:3px;width:8px;height:2px;border-radius:1px;background:rgba(30,125,150,.2);"></div>
     </div>
+    <!-- Lines appearing = MAR + AI note -->
+    <div style="position:absolute;left:44px;top:12px;display:flex;flex-direction:column;gap:5px;">
+      <div style="height:5px;border-radius:2px;background:rgba(30,125,150,.35);opacity:0;animation:ascDraw .45s ease .15s forwards;"></div>
+      <div style="height:5px;border-radius:2px;background:rgba(30,125,150,.25);width:80%;opacity:0;animation:ascDraw .45s ease .4s forwards;"></div>
+      <div style="height:5px;border-radius:2px;background:rgba(30,125,150,.2);width:60%;opacity:0;animation:ascDraw .45s ease .65s forwards;"></div>
+      <div style="display:flex;gap:4px;margin-top:2px;">
+        <div style="height:5px;width:18px;border-radius:2px;background:rgba(61,138,122,.25);opacity:0;animation:ascFadeIn .3s ease .9s forwards;"></div>
+        <div style="height:5px;width:28px;border-radius:2px;background:rgba(61,138,122,.2);opacity:0;animation:ascFadeIn .3s ease 1s forwards;"></div>
+      </div>
+    </div>
+    <!-- Check -->
+    <div style="position:absolute;right:10px;top:10px;width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#3d8a7a;opacity:0;animation:ascPop .4s ease 1.1s forwards;">✓</div>
+    <!-- Label -->
+    <div style="position:absolute;bottom:5px;left:10px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.2);letter-spacing:.8px;">GPS · MAR · AI note</div>
+  </div>
+  <div class="asc-name">Visit Logging</div>
+  <div class="asc-desc">GPS check-in · Medication record · AI visit note · 60s</div>
+</div>
 
-    <div class="ba-scroll-hint">
+<!-- ────────────────────────────────── S02 AUTO INVOICING ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">02</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <!-- Doc -->
+    <div style="position:absolute;left:10px;top:8px;width:32px;height:52px;border-radius:3px;background:#0d1520;border:1px solid rgba(30,125,150,.3);">
+      <div style="height:3px;border-radius:1px;background:rgba(30,125,150,.4);margin:5px 4px 3px;"></div>
+      <div style="height:3px;border-radius:1px;background:rgba(30,125,150,.25);margin:0 4px 3px;width:70%;opacity:0;animation:ascDraw .4s ease .2s forwards;"></div>
+      <div style="height:3px;border-radius:1px;background:rgba(30,125,150,.2);margin:0 4px 3px;width:85%;opacity:0;animation:ascDraw .4s ease .4s forwards;"></div>
+      <div style="height:3px;border-radius:1px;background:rgba(30,125,150,.15);margin:0 4px 3px;width:55%;opacity:0;animation:ascDraw .4s ease .6s forwards;"></div>
+    </div>
+    <!-- Amount -->
+    <div style="position:absolute;left:50px;top:10px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:300;color:#c9940f;opacity:0;animation:ascPop .4s ease .8s forwards;">$1,248</div>
+    <!-- Arrow + sent -->
+    <div style="position:absolute;left:50px;bottom:14px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(30,125,150,.6);opacity:0;animation:ascFadeIn .3s ease 1.1s forwards;">→</div>
+    <div style="position:absolute;right:10px;bottom:14px;font-family:'DM Mono',monospace;font-size:8px;color:#3d8a7a;letter-spacing:.5px;opacity:0;animation:ascFadeIn .3s ease 1.3s forwards;">Sent ✓</div>
+    <div style="position:absolute;bottom:5px;left:10px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.2);letter-spacing:.8px;">30 seconds · one click</div>
+  </div>
+  <div class="asc-name">Auto Invoicing</div>
+  <div class="asc-desc">Invoice PDF · Pay stub · Payroll CSV · AR updated</div>
+</div>
+
+<!-- ────────────────────────────────── S03 LEAD CAPTURE ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">03</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <!-- Chat bubbles -->
+    <div style="position:absolute;inset:6px;display:flex;flex-direction:column;gap:4px;justify-content:center;">
+      <div style="max-width:85%;padding:4px 8px;border-radius:5px;background:rgba(255,255,255,.05);font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.5);opacity:0;animation:ascSlideR .3s ease .15s forwards;">Need care for my mom…</div>
+      <!-- typing -->
+      <div style="display:flex;gap:3px;padding:5px 8px;background:rgba(255,255,255,.04);border-radius:5px;align-self:flex-start;width:36px;opacity:0;animation:ascFadeIn .3s ease .55s forwards;">
+        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.3);animation:ascTyping .9s ease infinite;animation-delay:0s;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.3);animation:ascTyping .9s ease infinite;animation-delay:.15s;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.3);animation:ascTyping .9s ease infinite;animation-delay:.3s;"></div>
+      </div>
+      <div style="max-width:88%;padding:4px 8px;border-radius:5px;background:rgba(30,125,150,.18);font-family:'DM Mono',monospace;font-size:8px;color:#7dccc0;align-self:flex-end;opacity:0;animation:ascSlideR .3s ease .9s forwards;">Hi! I can help right now.</div>
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(61,138,122,.6);text-align:right;opacity:0;animation:ascFadeIn .3s ease 1.35s forwards;">Call booked ✓ · 2:14am</div>
+    </div>
+  </div>
+  <div class="asc-name">Lead Capture</div>
+  <div class="asc-desc">AI chatbot · Replies in 60s · Books calls 24/7</div>
+</div>
+
+<!-- ────────────────────────────────── S04 FOLLOW-UP ENGINE ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">04</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <!-- Vertical timeline -->
+    <div style="position:absolute;left:18px;top:8px;bottom:8px;width:1.5px;background:rgba(30,125,150,.15);"></div>
+    <div style="position:absolute;left:16px;top:8px;bottom:8px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#3d8a7a;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Day 1 · Replied ✓</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .4s forwards;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#3d8a7a;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Day 3 · Follow-up ✓</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .7s forwards;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#3d8a7a;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Day 7 · Check-in ✓</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease 1s forwards;">
+        <div style="width:7px;height:7px;border-radius:50%;border:1.5px solid rgba(30,125,150,.4);background:#0c1018;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.3);">Day 30 · Review ask</span>
+      </div>
+    </div>
+  </div>
+  <div class="asc-name">Follow-Up Engine</div>
+  <div class="asc-desc">14 templates · Day 1/3/7/30 automatic · Zero manual</div>
+</div>
+
+<!-- ────────────────────────────────── S05 FAMILY PORTAL ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">05</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <!-- Phone -->
+    <div style="position:absolute;right:10px;top:6px;width:28px;height:52px;border-radius:5px;border:1.5px solid rgba(184,112,16,.3);background:#0a0d12;overflow:hidden;">
+      <div style="height:7px;background:rgba(184,112,16,.12);display:flex;align-items:center;padding:0 3px;"><div style="width:3px;height:3px;border-radius:50%;background:#c9940f;"></div></div>
+      <div style="padding:3px;display:flex;flex-direction:column;gap:2px;">
+        <div style="height:3px;border-radius:1px;background:rgba(250,248,244,.08);"></div>
+        <div style="height:3px;border-radius:1px;background:rgba(250,248,244,.06);width:80%;"></div>
+        <div style="height:3px;border-radius:1px;background:rgba(250,248,244,.05);"></div>
+      </div>
+    </div>
+    <!-- Push notif -->
+    <div style="position:absolute;left:8px;top:10px;right:46px;background:rgba(61,138,122,.08);border:1px solid rgba(61,138,122,.22);border-radius:5px;padding:5px 7px;opacity:0;animation:ascSlideU .4s ease .5s forwards;">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:#3d8a7a;margin-bottom:2px;display:flex;align-items:center;gap:4px;"><div style="width:4px;height:4px;border-radius:50%;background:#3d8a7a;animation:ascPulse 1.5s ease-in-out infinite;"></div>Sarah has arrived</div>
+      <div style="font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(250,248,244,.35);">Dorothy · 09:01am · GPS ✓</div>
+    </div>
+    <!-- Stars -->
+    <div style="position:absolute;left:8px;bottom:7px;font-size:11px;color:#c9940f;letter-spacing:1px;opacity:0;animation:ascFadeIn .4s ease 1.2s forwards;">★★★★★</div>
+    <div style="position:absolute;right:10px;bottom:7px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.2);">PIN login</div>
+  </div>
+  <div class="asc-name">Family Portal</div>
+  <div class="asc-desc">Visit history · AI summaries · Ratings · No more 9pm calls</div>
+</div>
+
+<!-- ────────────────────────────────── S06 AI CHAT ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">06</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <!-- Browser chrome -->
+    <div style="position:absolute;inset:5px;border-radius:5px;border:1px solid rgba(250,248,244,.08);overflow:hidden;">
+      <div style="height:13px;background:rgba(0,0,0,.35);display:flex;align-items:center;padding:0 6px;gap:3px;flex-shrink:0;">
+        <div style="width:4px;height:4px;border-radius:50%;background:#c05050aa;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:#b87010aa;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:#3d8a7aaa;"></div>
+        <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.05);margin:0 5px;"></div>
+        <div style="font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(250,248,244,.2);">2:14am</div>
+      </div>
+      <div style="padding:5px 7px;display:flex;flex-direction:column;gap:3px;">
+        <div style="padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(250,248,244,.45);max-width:88%;opacity:0;animation:ascSlideR .3s ease .25s forwards;">Hi, can you help me?</div>
+        <div style="padding:3px 6px;border-radius:4px;background:rgba(30,125,150,.15);font-family:'DM Mono',monospace;font-size:7.5px;color:#7dccc0;align-self:flex-end;max-width:88%;opacity:0;animation:ascSlideR .3s ease .85s forwards;">Of course! What do you need?</div>
+        <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(61,138,122,.55);text-align:right;opacity:0;animation:ascFadeIn .3s ease 1.3s forwards;">Call booked ✓</div>
+      </div>
+    </div>
+  </div>
+  <div class="asc-name">AI Chat</div>
+  <div class="asc-desc">Website chatbot · Answers 24/7 · Books calls automatically</div>
+</div>
+
+<!-- ────────────────────────────────── S07 CLIENT ONBOARDING ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">07</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
+        <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#3d8a7a;flex-shrink:0;">✓</div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Agreement signed digitally</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .4s forwards;">
+        <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#3d8a7a;flex-shrink:0;">✓</div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Family portal activated</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .7s forwards;">
+        <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#3d8a7a;flex-shrink:0;">✓</div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Care plan pre-populated</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease 1s forwards;">
+        <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#3d8a7a;flex-shrink:0;">✓</div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Welcome email sent</span>
+      </div>
+    </div>
+  </div>
+  <div class="asc-name">Client Onboarding</div>
+  <div class="asc-desc">Sign → portal live → care plan ready · Nothing manual</div>
+</div>
+
+<!-- ────────────────────────────────── S08 HQ DASHBOARD ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">08</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <div style="position:absolute;inset:6px;">
+      <!-- KPI row -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:5px;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .1s forwards;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;font-weight:300;color:#1e7d96;line-height:1;">8</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Shifts</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .2s forwards;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;font-weight:300;color:#3d8a7a;line-height:1;">11</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Clients</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .3s forwards;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;font-weight:300;color:#c9940f;line-height:1;">$18k</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Revenue</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .4s forwards;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;font-weight:300;color:rgba(250,248,244,.6);line-height:1;">0</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Admin</div>
+        </div>
+      </div>
+      <!-- Bar chart -->
+      <div style="display:flex;align-items:flex-end;gap:3px;height:30px;">
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.35);height:55%;opacity:0;animation:ascBar .4s ease .35s forwards;"></div>
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.45);height:78%;opacity:0;animation:ascBar .4s ease .45s forwards;"></div>
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.35);height:48%;opacity:0;animation:ascBar .4s ease .55s forwards;"></div>
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.55);height:92%;opacity:0;animation:ascBar .4s ease .65s forwards;"></div>
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.4);height:68%;opacity:0;animation:ascBar .4s ease .75s forwards;"></div>
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.6);height:100%;opacity:0;animation:ascBar .4s ease .85s forwards;"></div>
+        <div style="flex:1;border-radius:2px 2px 0 0;background:rgba(30,125,150,.45);height:82%;opacity:0;animation:ascBar .4s ease .95s forwards;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="asc-name">HQ Dashboard</div>
+  <div class="asc-desc">Scheduling · Revenue · PSW compliance · Chief of Staff AI</div>
+</div>
+
+<!-- ────────────────────────────────── S09 PSW MANAGEMENT ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">09</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-anim">
+    <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
+        <div style="width:18px;height:18px;border-radius:50%;background:rgba(30,125,150,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;flex-shrink:0;">SM</div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Sarah Mitchell</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.3);">12 visits · 4.9★</div></div>
+        <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.22);">Active</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .35s forwards;">
+        <div style="width:18px;height:18px;border-radius:50%;background:rgba(61,138,122,.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;flex-shrink:0;">JO</div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">James Okafor</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.3);">9 visits · 4.7★</div></div>
+        <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.22);">Active</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .6s forwards;">
+        <div style="width:18px;height:18px;border-radius:50%;background:rgba(184,112,16,.25);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;flex-shrink:0;">LP</div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Luz Perez</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.3);">VSC expires 28d</div></div>
+        <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(184,112,16,.1);color:#c9940f;border:1px solid rgba(184,112,16,.2);">Alert</div>
+      </div>
+    </div>
+  </div>
+  <div class="asc-name">PSW Management</div>
+  <div class="asc-desc">Digital profiles · Cert expiry alerts · Performance scores</div>
+</div>
+
+<!-- ────────────────────────────────── S10 CONVERTING WEBSITE ── -->
+<div class="asc">
+  <div class="asc-head"><span class="asc-num">10</span><span class="asc-badge free">Free add-on</span></div>
+  <div class="asc-anim">
+    <div style="position:absolute;inset:5px;border-radius:5px;border:1px solid rgba(250,248,244,.08);overflow:hidden;">
+      <div style="height:13px;background:rgba(0,0,0,.35);display:flex;align-items:center;padding:0 5px;gap:3px;">
+        <div style="width:4px;height:4px;border-radius:50%;background:#c05050aa;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:#b87010aa;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:#3d8a7aaa;"></div>
+        <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.05);margin:0 4px;"></div>
+      </div>
+      <div style="padding:6px 7px;display:flex;flex-direction:column;gap:3px;">
+        <div style="height:7px;border-radius:2px;background:rgba(30,125,150,.28);width:0;animation:ascDraw .5s ease .3s forwards;"></div>
+        <div style="height:4px;border-radius:1px;background:rgba(255,255,255,.06);width:0;animation:ascDraw .4s ease .55s forwards;"></div>
+        <div style="height:4px;border-radius:1px;background:rgba(255,255,255,.05);width:0;animation:ascDraw .4s ease .75s forwards;"></div>
+        <div style="height:14px;border-radius:3px;background:rgba(30,125,150,.22);border:1px solid rgba(30,125,150,.4);width:55%;opacity:0;animation:ascPop .3s ease 1s forwards;"></div>
+      </div>
+    </div>
+    <!-- New lead badge -->
+    <div style="position:absolute;right:8px;bottom:8px;background:rgba(61,138,122,.12);border:1px solid rgba(61,138,122,.28);border-radius:4px;padding:3px 7px;font-family:'DM Mono',monospace;font-size:7px;color:#3d8a7a;opacity:0;animation:ascSlideU .4s ease 1.45s forwards;">New lead ✓</div>
+  </div>
+  <div class="asc-name">Converting Website</div>
+  <div class="asc-desc">AI chatbot · Lead capture wired to HQ · Built free</div>
+</div>
+
+    </div><!-- /asc-grid -->
+
+    <div class="ba-scroll-hint" style="margin-top:32px;">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Get your 7-day plan
     </div>
@@ -1740,71 +1957,14 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
 <div class="divider"></div>
 
+
 <!-- ── PROOF ── -->
 <!-- ── OFFER + BOOKING ── -->
 <section id="offer" style="background:var(--bg)">
-  <div class="sec w">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>Built First. You Pay After.</div>
-    <h2 class="h2">The same system<br>running in our agency<br><em>is yours in 7 days.</em></h2>
-    <p class="sub">One call. Seven days. Ten systems live on your agency. You see everything working before you pay a cent.</p>
-
-    <!-- Inline proof stats — moved from separate section -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin:24px 0 28px;">
-      <div style="background:var(--bg3);padding:16px 12px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">1,000s</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Hours logged</div></div>
-      <div style="background:var(--bg3);padding:16px 12px;text-align:center;border-left:1px solid var(--border);"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">12</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">PSWs active</div></div>
-      <div style="background:var(--bg3);padding:16px 12px;text-align:center;border-left:1px solid var(--border);"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">11</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Active clients</div></div>
-      <div style="background:var(--bg3);padding:16px 12px;text-align:center;border-left:1px solid var(--border);"><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;color:var(--teal-lt);line-height:1;">0</div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;margin-top:3px;">Admin hours</div></div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border-b);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:14px 18px;margin-bottom:28px;font-size:13px;color:var(--text-dim);line-height:1.7;">One button pressed at month end. Invoice to client. Pay summary to PSW. AI care note written automatically. <strong style="color:var(--text);">Total time: 30 seconds.</strong> No spreadsheet. No chasing. This is running live right now.</div>
-
-    <div class="ob-package-card" style="margin:28px 0">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px">
-        <div style="background:var(--bg3);padding:20px 16px;text-align:center">
-          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);line-height:1">$3,500</div>
-          <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-top:4px">Setup fee</div>
-        </div>
-        <div style="background:var(--bg3);padding:20px 16px;text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)">
-          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);line-height:1">$0</div>
-          <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-top:4px">Until first client</div>
-        </div>
-        <div style="background:var(--bg3);padding:20px 16px;text-align:center">
-          <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:var(--teal-lt);line-height:1">$500</div>
-          <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-top:4px">Per month after</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px">
-        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
-          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">10 systems built and configured for your agency in 7 days</div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
-          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">First month free — $0/mo until your first paying client comes through the system</div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
-          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">Your domain. Your branding. Your phone number. Nothing generic.</div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px">
-          <div style="color:var(--teal);font-size:14px;flex-shrink:0;margin-top:1px">✓</div>
-          <div style="font-size:12px;color:var(--text-dim);line-height:1.5">90-day guarantee. No paying client in 90 days, we keep building free until you do.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="guarantee">
-      <div class="guarantee-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M6 1L1 3v3c0 3 2 5 5 6 3-1 5-3 5-6V3L6 1z" stroke="currentColor" stroke-width="1.2"/></svg></div>
-      <div>
-        <div class="guarantee-title">Zero risk. We build first.</div>
-        <div class="guarantee-text">You see all 10 systems live and working before the setup invoice is sent. If it is not right, you walk away owing nothing.</div>
-      </div>
-    </div>
-
-    <div class="ob-divider" style="margin:32px 0 28px"></div>
-
-    <div class="eyebrow"><div class="eyebrow-dot"></div>20 Minutes. We Show You Everything.</div>
-    <h2 class="h2" style="margin-bottom:10px">Tell us about<br>your agency.<br><em>We handle the rest.</em></h2>
-    <p class="sub">No pitch. Just the exact plan for your agency. Lance will reach out within a few hours.</p>
+  <div class="sec w" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>Book Your Free Call</div>
+    <h2 class="h2">Tell us about<br>your agency.<br><em>We handle the rest.</em></h2>
+    <p class="sub" style="max-width:480px;margin:0 auto 28px;">20-minute call with Lance. No pitch. Just the exact plan for your agency. We build first — you pay after we are live.</p>
 
     <div class="booking-card" id="booking">
       <div class="booking-head">
@@ -1854,8 +2014,8 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 <!-- ── FAQ ── -->
 <section id="faq" style="background:var(--bg2)">
   <div class="sec w">
-    <div class="eyebrow"><div class="eyebrow-dot"></div>Your Questions Answered</div>
-    <h2 class="h2">Every objection.<br><em>Answered.</em></h2>
+    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>Your Questions Answered</div>
+    <h2 class="h2" style="text-align:center;">Every objection.<br><em>Answered.</em></h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Do I need to know anything about tech?<span class="faq-icon">+</span></button>
@@ -2213,6 +2373,43 @@ function setStep(n){
   }
 }
 
+function isMobile(){return window.innerWidth<=700;}
+
+function setMobDot(active){
+  for(var i=1;i<=4;i++){
+    var d=document.getElementById('lp-mob-dot'+i);
+    if(!d)continue;
+    if(i===active){
+      d.style.borderColor='#5aada0';
+      d.style.background='rgba(90,173,160,.15)';
+      d.style.color='#5aada0';
+    } else if(i<active){
+      d.style.borderColor='rgba(63,185,80,.4)';
+      d.style.background='rgba(63,185,80,.08)';
+      d.style.color='#3fb950';
+    } else {
+      d.style.borderColor='rgba(90,173,160,.25)';
+      d.style.background='transparent';
+      d.style.color='rgba(90,173,160,.35)';
+    }
+  }
+}
+
+function showMobileView(phoneId){
+  if(!isMobile())return;
+  // Remove active class from all phones
+  var phones=['hqPhone','pswPhone','famPhone','mapPhone'];
+  phones.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.classList.remove('lp-mob-active');
+  });
+  var target=document.getElementById(phoneId);
+  if(target){
+    // Small delay so animation replays
+    setTimeout(function(){target.classList.add('lp-mob-active');},50);
+  }
+}
+
 function fireConnector(n){
   var fill=document.getElementById('connFill'+n);
   var dot=document.getElementById('connDot'+n);
@@ -2267,6 +2464,11 @@ function resetAll(){
   if(l3)l3.style.color='rgba(90,173,160,.4)';
   setStep(1);
   setStage('Operator opens HQ — booking a shift');
+  if(isMobile()){
+    var phones=['hqPhone','pswPhone','famPhone','mapPhone'];
+    phones.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('lp-mob-active');});
+    setMobDot(0);
+  }
 }
 
 var TOTAL=22000;
@@ -2274,7 +2476,7 @@ var startTime=null;
 
 function buildTimeline(base){
   return [
-    [base+400,function(){setStage('Operator taps Book New Shift');setStep(1);var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.add('active');}],
+    [base+400,function(){setStage('Operator taps Book New Shift');setStep(1);var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.add('active');if(isMobile()){showMobileView('hqPhone');setMobDot(1);}}],
     [base+1200,function(){var modal=document.getElementById('shiftModal');if(modal)modal.classList.add('show');}],
     [base+2800,function(){setStage('Shift confirmed — notification firing to PSW');var conf=document.getElementById('confirmBtn');if(conf){conf.classList.add('confirming');conf.textContent='Confirming...';}}],
     [base+3600,function(){
@@ -2284,7 +2486,7 @@ function buildTimeline(base){
       var a1=document.getElementById('actRow1');if(a1){a1.style.animation='lp-fade-in .4s ease forwards';a1.style.opacity='1';}
       var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
     }],
-    [base+4400,function(){setStage('Shift notification sent to Carolina&#39;s portal');setStep(2);fireConnector(1);}],
+    [base+4400,function(){setStage('Shift notification sent to Carolina&#39;s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
     [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
     [base+6800,function(){setStage('Carolina taps Sign In — GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
     [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
@@ -2297,7 +2499,7 @@ function buildTimeline(base){
       var osn=document.getElementById('onShiftN');if(osn)osn.textContent='1';
       var osc=document.getElementById('onShiftCard');if(osc){osc.style.animation='lp-count-up .3s ease forwards';osc.textContent='1';}
     }],
-    [base+11000,function(){setStage('GPS confirmed — family notification firing');setStep(4);fireConnector(2);}],
+    [base+11000,function(){setStage('GPS confirmed — family notification firing');setStep(4);fireConnector(2);if(isMobile()){showMobileView('famPhone');setMobDot(3);}}],
     [base+12000,function(){var p=document.getElementById('pushNotif');if(p)p.classList.add('show');}],
     [base+13200,function(){var f=document.getElementById('famNotifCard');if(f){f.style.animation='lp-slide-down .4s ease forwards';f.style.opacity='1';}}],
     [base+13800,function(){var a2=document.getElementById('actRow2');if(a2){a2.style.animation='lp-fade-in .4s ease forwards';a2.style.opacity='1';}}],
@@ -2308,6 +2510,7 @@ function buildTimeline(base){
       setStage('Live GPS map activated — Connie sees the location');
       setStep(5);
       var mp=document.getElementById('mapPhone');if(mp)mp.classList.add('show');
+      if(isMobile()){showMobileView('mapPhone');setMobDot(4);}
     }],
     // BEAT 17: Client pin appears
     [base+16000,function(){
@@ -2345,6 +2548,7 @@ function updateProgress(){
 function boot(){
   resetAll();
   startTime=Date.now();
+  if(isMobile()){showMobileView('hqPhone');setMobDot(1);}
   var now=Date.now();
   buildTimeline(now).forEach(function(beat){
     var delay=beat[0]-now;
