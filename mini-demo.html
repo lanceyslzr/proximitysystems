@@ -113,19 +113,19 @@ nav.scrolled { padding:12px 48px; }
 /* ============================================================
    HERO
    ============================================================ */
-#hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:88px 24px 48px; position:relative; z-index:1; overflow:hidden; }
-.hero-content { max-width:700px; text-align:center; margin:0 auto 28px; }
+#hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:88px 32px 56px; position:relative; z-index:1; overflow:hidden; }
+.hero-content { max-width:640px; text-align:center; margin:0 auto 20px; }
 .hero-pill { display:inline-flex; align-items:center; gap:8px; padding:5px 14px; background:var(--bg3); border:1px solid var(--border2); font-family:var(--font-m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:28px; margin-left:auto; margin-right:auto; }
 .hero-pill::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
-.hero-h1 { font-family:var(--font-d); font-size:clamp(52px,7vw,92px); font-weight:300; line-height:0.97; color:var(--text); margin-bottom:12px; }
+.hero-h1 { font-family:var(--font-d); font-size:clamp(40px,5.5vw,72px); font-weight:300; line-height:1.0; color:var(--text); margin-bottom:12px; }
 .hero-h1 em { font-style:italic; color:var(--teal); display:block; }
-.hero-sub { font-size:15px; color:var(--dim); line-height:1.7; margin-bottom:40px; max-width:460px; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+.hero-sub { font-size:14px; color:var(--dim); line-height:1.7; margin-bottom:24px; max-width:520px; margin-left:auto; margin-right:auto; }
+.hero-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
 .hero-btn-primary { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-m); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:14px 28px; background:var(--teal-dk); color:#fff; min-height:44px; clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%); transition:background 0.2s,clip-path 0.2s,transform 0.15s; }
 .hero-btn-primary:hover { background:var(--teal); clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%); transform:translateY(-2px); }
 .hero-btn-secondary { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-m); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:14px 28px; background:transparent; color:var(--teal); border:1px solid var(--teal-bd); min-height:44px; clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%); transition:background 0.2s,clip-path 0.2s; }
 .hero-btn-secondary:hover { background:var(--teal-bg); clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%); }
-.hero-stats { display:flex; gap:40px; margin-top:40px; padding-top:32px; border-top:1px solid var(--border); justify-content:center; }
+.hero-stats { display:flex; gap:32px; margin-top:24px; padding-top:20px; border-top:1px solid var(--border); justify-content:center; }
 .hero-stat-num { font-family:var(--font-d); font-size:36px; font-weight:300; color:var(--gold); line-height:1; }
 .hero-stat-lbl { font-family:var(--font-m); font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--dim); margin-top:4px; }
 .hero-bg-word { position:absolute; right:-20px; bottom:-40px; font-family:var(--font-d); font-size:280px; font-weight:300; color:rgba(106,168,184,0.04); line-height:1; pointer-events:none; user-select:none; letter-spacing:-8px; }
@@ -864,7 +864,7 @@ button,a,[onclick]{touch-action:manipulation;}
       <div><div class="hero-stat-num">$0</div><div class="hero-stat-lbl">Admin Staff Needed</div></div>
     </div>
   </div>
-  <div style="position:relative;width:100%;max-width:900px;margin:0 auto;" id="flow-demo-wrap">
+  <div style="position:relative;width:100%;max-width:960px;margin:0 auto;" id="flow-demo-wrap">
 
     <!-- Particle canvas -->
     <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;border-radius:12px;"></canvas>
@@ -883,7 +883,7 @@ button,a,[onclick]{touch-action:manipulation;}
     </div>
 
     <!-- Phone trio -->
-    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;gap:8px;padding:14px 16px 10px;background:rgba(7,9,12,.55);border-left:1px solid rgba(90,173,160,.18);border-right:1px solid rgba(90,173,160,.18);position:relative;z-index:1;">
+    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;gap:6px;padding:12px 12px 8px;background:rgba(7,9,12,.55);border-left:1px solid rgba(90,173,160,.18);border-right:1px solid rgba(90,173,160,.18);position:relative;z-index:1;">
 
       <!-- HQ PHONE -->
       <div class="lp-phone lp-hq" id="hqPhone">
@@ -932,7 +932,7 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
 
       <!-- CONNECTOR 1 -->
-      <div class="lp-conn" id="conn1" style="padding-top:140px;">
+      <div class="lp-conn" id="conn1" style="padding-top:120px;">
         <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill1"></div><div class="lp-conn-dot" id="connDot1"></div></div>
         <div class="lp-conn-lbl" id="connLabel1">Shift<br>fires</div>
       </div>
@@ -975,7 +975,7 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
 
       <!-- CONNECTOR 2 -->
-      <div class="lp-conn" id="conn2" style="padding-top:140px;">
+      <div class="lp-conn" id="conn2" style="padding-top:120px;">
         <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill2"></div><div class="lp-conn-dot" id="connDot2"></div></div>
         <div class="lp-conn-lbl" id="connLabel2">Notif<br>fires</div>
       </div>
@@ -998,7 +998,7 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
 
       <!-- CONNECTOR 3 -->
-      <div class="lp-conn" id="conn3" style="padding-top:140px;">
+      <div class="lp-conn" id="conn3" style="padding-top:120px;">
         <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill3"></div><div class="lp-conn-dot" id="connDot3"></div></div>
         <div class="lp-conn-lbl" id="connLabel3">GPS<br>live</div>
       </div>
