@@ -2560,6 +2560,18 @@ function hideTyping() {
   var el = document.getElementById('chatTyping');
   if (el) el.remove();
 }
+function getSmartChips(turnCount, lastBotReply, leadCaptured) {
+  if (leadCaptured) return ['What happens on the call?','How fast can you build?','What is in Tier 2?','Skip ahead and book'];
+  var r = (lastBotReply || '').toLowerCase();
+  if (r.includes('name') || turnCount === 0) return ['I run a home care agency','How does this work?','What does it cost?'];
+  if (r.includes('agency') || r.includes('city') || turnCount === 1) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+  if (r.includes('admin') || r.includes('pain') || r.includes('problem') || r.includes('biggest') || turnCount === 2) return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time','Skip ahead and book'];
+  if (r.includes('client') || r.includes('how many') || turnCount === 2) return ['Under 10 clients','10 to 30 clients','30 to 100 clients','Skip ahead and book'];
+  if (r.includes('phone') || r.includes('email') || r.includes('reach') || r.includes('contact') || turnCount === 3) return ['Use my email','Use my phone number','Either works for me','Skip ahead and book'];
+  if (r.includes('500') || r.includes('pricing') || r.includes('cost') || r.includes('tier')) return ['What is in Tier 2?','Is first month free?','How long to go live?','Skip ahead and book'];
+  if (r.includes('7 days') || r.includes('live') || r.includes('build')) return ['What does setup include?','Do I touch any code?','What happens day 7?','Skip ahead and book'];
+  return ['Tell me more','What does $500/mo include?','Skip ahead and book'];
+}
 function renderChips(chips) {
   var container = document.getElementById('chatChips');
   container.innerHTML = '';
@@ -2639,6 +2651,11 @@ async function sendChat(text) {
 
     chatHistory.push({ role: 'assistant', content: reply });
     appendMsg('assistant', reply);
+    // Regenerate chips contextually
+    if (!leadCaptured) {
+      var _mdTurns = chatHistory.filter(function(m){return m.role==='user';}).length;
+      renderChips(getSmartChips(_mdTurns, reply, false));
+    }
 
     if (leadData && !leadCaptured) {
       leadCaptured = true;
