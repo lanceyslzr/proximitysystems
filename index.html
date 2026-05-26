@@ -2298,6 +2298,18 @@ function ixAddM(role, text) {
   el.scrollTop = el.scrollHeight;
 }
 
+function getSmartChips(turnCount, lastBotReply, leadCaptured) {
+  if (leadCaptured) return ['How fast can you build?','What does $500/mo include?','What happens on the call?'];
+  const r = (lastBotReply || '').toLowerCase();
+  if (r.includes('name') || turnCount === 0) return ['I run a home care agency','How does this work?','What does it cost?'];
+  if (r.includes('agency') || r.includes('city') || turnCount === 1) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+  if (r.includes('admin') || r.includes('pain') || r.includes('problem') || r.includes('biggest') || turnCount === 2) return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
+  if (r.includes('phone') || r.includes('email') || r.includes('reach') || r.includes('contact') || turnCount === 3) return ['Use my email','Use my phone number','Either works for me'];
+  if (r.includes('500') || r.includes('pricing') || r.includes('cost') || r.includes('tier')) return ['What is in Tier 2?','Is first month free?','How long to go live?'];
+  if (r.includes('7 days') || r.includes('live') || r.includes('build')) return ['What does setup include?','Do I touch any code?','What happens day 7?'];
+  if (r.includes('system') || r.includes('portal') || r.includes('dashboard') || r.includes('invoice')) return ['Tell me about the family portal','How does invoicing work?','What does HQ look like?'];
+  return ['Tell me more','What does $500/mo include?','How long to go live?'];
+}
 function ixChips(chips) {
   const el = document.getElementById('ixChatChips');
   if (!el) return;
@@ -2354,6 +2366,9 @@ async function ixSendText(text) {
     const reply = raw.replace(/<!--[\s\S]*?-->/g, '').trim();
     ixAddM('bot', reply);
     ixH.push({ role: 'assistant', content: reply });
+    // Regenerate chips contextually after every response
+    const _ixTurns = ixH.filter(m => m.role === 'user').length;
+    ixChips(getSmartChips(_ixTurns, reply, ixD));
     if (ixD) {
       const inp = document.getElementById('ixChatInp');
       if (inp) inp.placeholder = 'Lance will be in touch — keep chatting if you have questions.';
