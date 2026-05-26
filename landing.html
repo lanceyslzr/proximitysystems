@@ -2170,7 +2170,19 @@ function toggleChat(){const w=document.getElementById('chatWin');w.classList.tog
 function addM(role,text){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg '+role;d.innerHTML='<div class="cmsg-bub">'+text.replace(/\n/g,'<br>')+'</div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}
 function showT(){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg bot';d.id='cT';d.innerHTML='<div class="typing-ind"><div class="td"></div><div class="td"></div><div class="td"></div></div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}
 function hideT(){const e=document.getElementById('cT');if(e)e.remove();}
-function showChips(chips){const el=document.getElementById('chatChips');el.innerHTML='';chips.forEach(t=>{const b=document.createElement('button');b.className='cchip';b.textContent=t;b.onclick=()=>{el.innerHTML='';sendC(t);};el.appendChild(b);});}
+function getSmartChips(turnCount, lastBotReply, leadCaptured) {
+  if (leadCaptured) return ['How fast can you build?','What does $500/mo include?','What happens on the call?'];
+  const r = (lastBotReply || '').toLowerCase();
+  if (r.includes('name') || turnCount === 0) return ['I run a home care agency','How does this work?','What does it cost?'];
+  if (r.includes('agency') || r.includes('city') || turnCount === 1) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+  if (r.includes('admin') || r.includes('pain') || r.includes('problem') || r.includes('biggest') || turnCount === 2) return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
+  if (r.includes('phone') || r.includes('email') || r.includes('reach') || r.includes('contact') || turnCount === 3) return ['Use my email','Use my phone number','Either works for me'];
+  if (r.includes('500') || r.includes('pricing') || r.includes('cost') || r.includes('tier')) return ['What is in Tier 2?','Is first month free?','How long to go live?'];
+  if (r.includes('7 days') || r.includes('live') || r.includes('build')) return ['What does setup include?','Do I touch any code?','What happens day 7?'];
+  if (r.includes('system') || r.includes('portal') || r.includes('dashboard') || r.includes('invoice')) return ['Tell me about the family portal','How does invoicing work?','What does HQ look like?'];
+  return ['Tell me more','What does $500/mo include?','How long to go live?'];
+}
+function showChips(chips){const el=document.getElementById('chatChips');if(!el)return;el.innerHTML='';chips.forEach(t=>{const b=document.createElement('button');b.className='cchip';b.textContent=t;b.onclick=()=>{el.innerHTML='';sendC(t);};el.appendChild(b);});}
 function doSend(){const inp=document.getElementById('chatInp');const t=inp.value.trim();if(!t)return;inp.value='';sendC(t);}
 async function sendC(text){
   if(!text||cB)return;
@@ -2185,7 +2197,10 @@ async function sendC(text){
     if(lm){try{const lead=JSON.parse(lm[1]);await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:(lead.name||'').split(' ')[0]||'',last_name:(lead.name||'').split(' ').slice(1).join(' ')||'',phone:lead.contact||'',email:'',city:lead.city||'',care_needed_for:lead.agency||'',urgency:'warm',pain_point:lead.pain||'',source:'Proximity Systems Website Chatbot'})});cD=true;}catch(e){console.error(e);}}
     const reply=raw.replace(/<!--\s*LEAD_DATA\s*:\s*\{[\s\S]*?\}\s*-->\n?/,'').trim();
     addM('bot',reply);cH.push({role:'assistant',content:reply});
-    if(cD)document.getElementById('chatInp').placeholder='Lance will be in touch — keep chatting if you have questions.';
+    // Regenerate chips after every bot response
+    var _lTurns = cH.filter(function(m){return m.role==='user';}).length;
+    showChips(getSmartChips(_lTurns, reply, cD));
+    if(cD){var _inp=document.getElementById('chatInp');if(_inp)_inp.placeholder='Lance will be in touch — keep chatting if you have questions.';}
   }catch(e){hideT();addM('bot','Something went wrong. Reach Lance at 647-382-8047.');}
   finally{cB=false;document.getElementById('chatSendBtn').disabled=false;}
 }
