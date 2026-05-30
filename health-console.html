@@ -208,8 +208,13 @@ let latHistory = [];
 // ── LOCK ──
 function unlock() {
   const pin = document.getElementById('lock-pin').value.trim();
+  if (!pin) {
+    const err = document.getElementById('lock-err');
+    err.textContent = 'Enter your watchdog PIN';
+    err.classList.add('show');
+    return;
+  }
   enteredPin = pin;
-  // Validate by attempting a run immediately
   document.getElementById('lock').style.display = 'none';
   document.getElementById('app').classList.add('visible');
   runTests();
@@ -371,12 +376,20 @@ async function runTests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ pin: enteredPin || WATCHDOG_PIN, operator_id: currentOp }),
-      signal: AbortSignal.timeout(120000)
+      signal: AbortSignal.timeout(300000) // 5 min — 80+ checks can run 90-180s on Railway
     });
 
     if (response.status === 401) {
       addLog('crit', 'Invalid watchdog PIN — check WATCHDOG_PIN env var on Railway');
       setGlobalStatus('crit', 'Auth Failed');
+      // Re-show lock screen so user can retry without a page reload
+      document.getElementById('app').classList.remove('visible');
+      const lock = document.getElementById('lock');
+      lock.style.display = 'flex';
+      const err = document.getElementById('lock-err');
+      err.textContent = 'Incorrect PIN — try again';
+      err.classList.add('show');
+      document.getElementById('lock-pin').value = '';
       running = false;
       document.getElementById('run-btn').disabled = false;
       document.getElementById('run-btn').textContent = '▶ Run Tests';
@@ -387,6 +400,7 @@ async function runTests() {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = '';
+    addLog('info', `Connected to Railway · streaming ${currentOp} checks...`);
 
     while (true) {
       const { done, value } = await reader.read();
@@ -427,8 +441,11 @@ async function runTests() {
     }
   } catch(e) {
     if (e.name === 'TimeoutError') {
-      addLog('crit', 'Test run timed out after 120s');
+      addLog('crit', 'Test run timed out after 300s — Railway may be under heavy load, or many checks are failing slowly');
       setGlobalStatus('crit', 'Timeout');
+    } else if (e.name === 'TypeError' && e.message.includes('fetch')) {
+      addLog('crit', `Cannot reach Railway server — check ${API} is deployed and running`);
+      setGlobalStatus('crit', 'Unreachable');
     } else {
       addLog('crit', `Run failed: ${e.message}`);
       setGlobalStatus('crit', 'Failed');
