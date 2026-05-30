@@ -94,21 +94,72 @@ nav.scrolled { padding:12px 48px; }
 .section { padding:120px 64px; max-width:1200px; margin:0 auto; position:relative; z-index:1; }
 .section-full { padding:120px 0; position:relative; z-index:1; }
 .section-inner { max-width:1200px; margin:0 auto; padding:0 64px; }
+
+/* ── SECTION COUNTER HEADER — left-aligned, product-document feel ── */
+.sec-counter {
+  display:flex;
+  align-items:flex-start;
+  gap:40px;
+  margin-bottom:64px;
+}
+.sec-counter-num {
+  font-family:var(--font-m);
+  font-size:9px;
+  letter-spacing:0.22em;
+  color:var(--muted);
+  text-transform:uppercase;
+  padding-top:6px;
+  flex-shrink:0;
+  min-width:40px;
+}
+.sec-counter-body { flex:1; }
+.sec-counter-tag {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--font-m);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:14px;
+}
+.sec-counter-tag::before {
+  content:'';
+  width:5px;height:5px;border-radius:50%;
+  background:var(--teal);
+  box-shadow:0 0 8px rgba(106,168,184,0.5);
+  animation:pulse 2s infinite;
+  flex-shrink:0;
+}
+.sec-counter-title {
+  font-family:var(--font-d);
+  font-weight:300;
+  font-size:clamp(32px,4vw,54px);
+  line-height:1.0;
+  color:var(--text);
+  margin-bottom:14px;
+  letter-spacing:-0.01em;
+}
+.sec-counter-title em { font-style:italic; color:var(--teal); }
+.sec-counter-sub {
+  font-size:14px;
+  color:var(--dim);
+  max-width:480px;
+  line-height:1.7;
+}
+
+/* Legacy centered tags — kept for book section */
 .sec-tag { display:flex; align-items:center; gap:8px; font-family:var(--font-m); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:20px; }
 .sec-tag::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px rgba(106,168,184,0.5); animation:pulse 2s infinite; flex-shrink:0; }
 .sec-title { font-family:var(--font-d); font-weight:300; font-size:clamp(36px,5vw,62px); line-height:1.05; color:var(--text); margin-bottom:16px; }
 .sec-title em { font-style:italic; color:var(--teal); }
 .sec-sub { font-size:14px; color:var(--dim); max-width:520px; line-height:1.75; margin-bottom:48px; }
-/* ── Centered composition across all sections ── */
-.sec-tag { justify-content:center; }
-.section .sec-tag,
-.section .sec-title,
-.section .sec-sub { text-align:center; margin-left:auto; margin-right:auto; }
+/* ── Centered composition — book section only ── */
 .section .sec-tag { justify-content:center; }
-.section-full .sec-tag,
-.section-full .sec-title,
-.section-full .sec-sub { text-align:center; margin-left:auto; margin-right:auto; }
+.section .sec-tag, .section .sec-title, .section .sec-sub { text-align:center; margin-left:auto; margin-right:auto; }
 .section-full .sec-tag { justify-content:center; }
+.section-full .sec-tag, .section-full .sec-title, .section-full .sec-sub { text-align:center; margin-left:auto; margin-right:auto; }
 .divider { height:1px; background:linear-gradient(to right,transparent,var(--border2),transparent); margin:0; }
 
 /* ============================================================
@@ -143,30 +194,107 @@ nav.scrolled { padding:12px 48px; }
 @keyframes ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 
 /* ============================================================
-   FEED SECTION
+   FEED SECTION — terminal event stream
    ============================================================ */
-.feed-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-.feed-card { background:var(--bg2); border:1px solid var(--border); padding:20px 22px; display:flex; align-items:flex-start; gap:14px; opacity:0; transform:translateY(8px); transition:opacity 0.5s ease,transform 0.5s ease,border-color 0.3s; }
-.feed-card.fc-visible { opacity:1; transform:none; }
-.feed-card.fc-active { border-color:var(--teal-bd); background:var(--bg3); }
-.feed-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
-.feed-body { flex:1; min-width:0; }
-.feed-name { font-size:13px; font-weight:500; color:var(--text); margin-bottom:4px; }
-.feed-detail { font-size:11px; color:var(--dim); line-height:1.5; }
-.feed-meta { display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
-.feed-badge { font-family:var(--font-m); font-size:8px; letter-spacing:1.5px; text-transform:uppercase; padding:2px 8px; border:1px solid; }
-.feed-badge.live { color:var(--green); border-color:rgba(90,170,122,0.3); background:rgba(90,170,122,0.06); }
-.feed-badge.auto { color:var(--teal); border-color:var(--border2); background:var(--teal-bg); }
-.feed-badge.gold { color:var(--gold); border-color:var(--gold-bd); background:var(--gold-bg); }
-.feed-time { font-family:var(--font-m); font-size:9px; color:var(--muted); letter-spacing:1px; flex-shrink:0; margin-top:2px; }
+.feed-terminal {
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  overflow:hidden;
+}
+.feed-terminal-bar {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  background:var(--bg3);
+  border-bottom:1px solid var(--border);
+}
+.feed-terminal-dots { display:flex; gap:5px; }
+.feed-terminal-dot { width:8px; height:8px; border-radius:50%; }
+.feed-terminal-label {
+  font-family:var(--font-m);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--teal);
+  flex:1;
+  text-align:center;
+}
+.feed-terminal-live {
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-family:var(--font-m);
+  font-size:8px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--green);
+  flex-shrink:0;
+}
+.feed-terminal-live::before {
+  content:'';
+  width:5px;height:5px;border-radius:50%;
+  background:var(--green);
+  animation:pulse 2s infinite;
+}
+.feed-log {
+  padding:0;
+  display:flex;
+  flex-direction:column;
+}
+.feed-log-row {
+  display:grid;
+  grid-template-columns:72px 1fr 80px;
+  align-items:center;
+  padding:12px 16px;
+  border-bottom:1px solid rgba(106,168,184,0.06);
+  opacity:0;
+  transform:translateX(8px);
+  transition:opacity 0.4s ease, transform 0.4s ease, background 0.2s;
+  cursor:default;
+}
+.feed-log-row.fl-visible { opacity:1; transform:none; }
+.feed-log-row:last-child { border-bottom:none; }
+.feed-log-row:hover { background:rgba(106,168,184,0.04); }
+.feed-log-row.fl-active { background:rgba(106,168,184,0.05); border-left:2px solid var(--teal); padding-left:14px; }
+.fl-time {
+  font-family:var(--font-m);
+  font-size:9px;
+  color:var(--muted);
+  letter-spacing:0.5px;
+  flex-shrink:0;
+}
+.fl-text {
+  font-family:var(--font-m);
+  font-size:10px;
+  color:var(--dim);
+  letter-spacing:0.3px;
+  line-height:1.4;
+  padding:0 12px;
+}
+.fl-badge {
+  font-family:var(--font-m);
+  font-size:7px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border:1px solid;
+  text-align:center;
+  justify-self:end;
+}
+.fl-badge.live { color:var(--green); border-color:rgba(90,170,122,0.3); background:rgba(90,170,122,0.06); }
+.fl-badge.auto { color:var(--teal); border-color:var(--border2); background:var(--teal-bg); }
+.fl-badge.gold { color:var(--gold); border-color:var(--gold-bd); background:var(--gold-bg); }
 
 /* ============================================================
-   SYSTEMS SECTION
+   SYSTEMS SECTION — split list + live hover preview
    ============================================================ */
+.sys-split { display:grid; grid-template-columns:1fr 360px; gap:2px; align-items:stretch; }
 .sys-list { background:var(--bg2); border:1px solid var(--border); }
-.sys-row { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); transition:background 0.2s; }
+.sys-row { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); transition:background 0.2s, border-left 0.2s; border-left:2px solid transparent; cursor:default; }
 .sys-row:last-child { border-bottom:none; }
-.sys-row:hover { background:var(--teal-bg); }
+.sys-row:hover { background:var(--teal-bg); border-left-color:var(--teal); }
+.sys-row.sys-active { background:rgba(106,168,184,0.08); border-left-color:var(--teal); }
 .sys-left { display:flex; align-items:center; gap:12px; }
 .sys-num { font-family:var(--font-m); font-size:8px; letter-spacing:0.1em; color:var(--muted); min-width:20px; }
 .sys-dot { width:5px; height:5px; border-radius:50%; background:var(--teal); box-shadow:0 0 6px rgba(106,168,184,0.5); flex-shrink:0; }
@@ -175,6 +303,85 @@ nav.scrolled { padding:12px 48px; }
 .sys-tag { font-family:var(--font-m); font-size:7.5px; letter-spacing:0.12em; text-transform:uppercase; padding:2px 8px; border:1px solid; }
 .sys-tag.live { background:rgba(90,170,122,0.08); border-color:rgba(90,170,122,0.18); color:var(--green); }
 .sys-tag.free { background:var(--gold-bg); border-color:var(--gold-bd); color:var(--gold); }
+
+/* Preview panel */
+.sys-preview-panel {
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-left:none;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  position:relative;
+}
+.sys-preview-head {
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+}
+.sys-preview-title {
+  font-family:var(--font-m);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--teal);
+}
+.sys-preview-badge {
+  font-family:var(--font-m);
+  font-size:7px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border:1px solid rgba(90,170,122,0.25);
+  background:rgba(90,170,122,0.07);
+  color:var(--green);
+}
+.sys-preview-content {
+  flex:1;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  position:relative;
+}
+/* Preview snippet items */
+.sys-pv-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  opacity:0;
+  transform:translateY(6px);
+  transition:opacity 0.35s ease, transform 0.35s ease;
+}
+.sys-pv-item.pv-show { opacity:1; transform:none; }
+.sys-pv-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.sys-pv-text { font-family:var(--font-m); font-size:9px; color:var(--dim); flex:1; line-height:1.4; }
+.sys-pv-val { font-family:var(--font-m); font-size:9px; color:var(--teal); flex-shrink:0; }
+.sys-pv-bar-wrap { background:rgba(255,255,255,0.04); border:1px solid var(--border); padding:10px 12px; }
+.sys-pv-bar-label { font-family:var(--font-m); font-size:7.5px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.sys-pv-bar { height:3px; background:var(--border); overflow:hidden; }
+.sys-pv-bar-fill { height:100%; background:linear-gradient(to right,var(--teal),var(--green)); width:0%; transition:width 0.6s ease 0.2s; }
+.sys-preview-idle {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  opacity:1;
+  transition:opacity 0.2s;
+  pointer-events:none;
+}
+.sys-preview-idle.hidden { opacity:0; }
+.sys-preview-idle-text { font-family:var(--font-m); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
 
 /* ============================================================
    CONFIGURATOR SECTION
@@ -188,13 +395,15 @@ nav.scrolled { padding:12px 48px; }
 .conf-agency-input:focus { border-color:var(--teal); }
 .conf-agency-input::placeholder { color:var(--muted); }
 .conf-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
-.conf-card { background:var(--bg2); border:1px solid var(--border); padding:20px; cursor:none; transition:border-color 0.2s,background 0.2s; position:relative; user-select:none; }
-.conf-card:hover { background:var(--bg3); border-color:var(--teal-bd); }
-.conf-card.sel { background:rgba(61,122,138,0.08); border-color:var(--teal-dk); }
-.conf-card.sel::after { content:'✓'; position:absolute; top:12px; right:14px; font-size:11px; color:var(--teal); font-family:var(--font-m); }
-.conf-card-num { font-family:var(--font-m); font-size:8px; letter-spacing:2px; color:var(--muted); margin-bottom:8px; }
-.conf-card-name { font-size:13px; color:var(--text); font-weight:500; margin-bottom:4px; }
-.conf-card-desc { font-family:var(--font-m); font-size:10px; color:var(--dim); line-height:1.5; }
+.conf-card { background:var(--bg2); border:1px solid var(--border); border-left:2px solid transparent; padding:18px 18px 18px 16px; cursor:none; transition:border-color 0.2s, background 0.2s, border-left-color 0.2s; position:relative; user-select:none; }
+.conf-card:hover { background:var(--bg3); border-color:var(--teal-bd); border-left-color:rgba(106,168,184,0.4); }
+.conf-card.sel { background:rgba(61,122,138,0.07); border-color:var(--teal-dk); border-left-color:var(--teal); }
+.conf-card.sel::after { content:''; position:absolute; top:12px; right:12px; width:16px; height:16px; border-radius:50%; background:var(--teal); background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4,8 6.5,10.5 12,5' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size:cover; }
+.conf-card-num { font-family:var(--font-m); font-size:8px; letter-spacing:2px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.conf-card-num::after { content:''; flex:1; height:1px; background:var(--border); }
+.conf-card-name { font-family:var(--font-d); font-size:17px; font-weight:300; color:var(--text); margin-bottom:6px; line-height:1.2; }
+.conf-card.sel .conf-card-name { color:var(--teal); }
+.conf-card-desc { font-family:var(--font-m); font-size:9.5px; color:var(--dim); line-height:1.6; }
 /* Sticky summary panel */
 .conf-summary { background:var(--bg2); border:1px solid var(--border2); padding:28px; position:sticky; top:100px; }
 .conf-summary-title { font-family:var(--font-d); font-size:18px; font-weight:400; color:var(--text); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
@@ -276,12 +485,90 @@ nav.scrolled { padding:12px 48px; }
 .pc-guarantee { padding:16px 20px; border-top:1px solid var(--border); font-family:var(--font-m); font-size:9px; color:var(--dim); letter-spacing:0.5px; display:flex; gap:8px; align-items:flex-start; line-height:1.5; }
 
 /* ============================================================
-   PROOF SECTION
+   PROOF SECTION — terminal readout band
    ============================================================ */
-.proof-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
-.proof-stat { background:var(--bg2); border:1px solid var(--border); padding:28px 20px; text-align:center; }
-.proof-val { font-family:var(--font-d); font-size:40px; font-weight:300; color:var(--gold); display:block; line-height:1; }
-.proof-lbl { font-family:var(--font-m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--dim); margin-top:6px; display:block; }
+.proof-band {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background-color:var(--border);
+  overflow:hidden;
+}
+.proof-cell {
+  background:var(--bg2);
+  padding:32px 24px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  position:relative;
+  overflow:hidden;
+}
+.proof-cell::before {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(to right,var(--teal),transparent);
+}
+.proof-cell-val {
+  font-family:var(--font-d);
+  font-size:42px;
+  font-weight:300;
+  color:var(--teal);
+  line-height:1;
+  letter-spacing:-0.01em;
+}
+.proof-cell-label {
+  font-family:var(--font-m);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.proof-cell-sub {
+  font-family:var(--font-m);
+  font-size:8px;
+  color:var(--green);
+  letter-spacing:0.5px;
+  margin-top:2px;
+}
+/* Terminal readout strip below the cells */
+.proof-terminal-strip {
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-top:none;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  overflow-x:auto;
+}
+.proof-terminal-strip::-webkit-scrollbar { height:2px; }
+.proof-terminal-strip::-webkit-scrollbar-thumb { background:var(--border2); }
+.pts-entry {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
+  font-family:var(--font-m);
+  font-size:9px;
+  color:var(--dim);
+  letter-spacing:0.5px;
+}
+.pts-dot {
+  width:5px;height:5px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 5px rgba(90,170,122,0.5);
+  animation:pulse 2s infinite;
+  flex-shrink:0;
+}
+.pts-sep {
+  width:1px;height:12px;
+  background:var(--border2);
+  flex-shrink:0;
+}
 
 /* ============================================================
    BOOKING SECTION
@@ -605,16 +892,24 @@ button,a,[onclick]{touch-action:manipulation;}
   .conf-summary { display:none; }
   .conf-bottom-bar { display:flex; }
   .conf-grid { grid-template-columns:1fr; }
-  .feed-grid { grid-template-columns:1fr; }
+  /* Feed terminal full-width */
+  .feed-log-row { grid-template-columns:56px 1fr 70px; }
+  /* Systems split — stack on tablet */
+  .sys-split { grid-template-columns:1fr; }
+  .sys-preview-panel { display:none; }
   .pc-grid { grid-template-columns:1fr; gap:2px; }
   .preview-grid { grid-template-columns:1fr; }
-  .proof-grid { grid-template-columns:1fr 1fr; }
+  /* Proof band — 2 col */
+  .proof-band { grid-template-columns:1fr 1fr; }
   .mf-row { grid-template-columns:1fr; }
   .chat-win { width:calc(100vw - 32px); right:16px; }
   footer { flex-direction:column; gap:16px; padding:32px 24px; text-align:center; }
   .footer-meta { text-align:center; }
   .footer-stamp { font-size:32px; }
   body { padding-bottom:72px; }
+  /* Section counter — compact */
+  .sec-counter { gap:24px; margin-bottom:40px; }
+  .sec-counter-num { display:none; }
 }
 
 @media(max-width:599px) {
@@ -624,17 +919,28 @@ button,a,[onclick]{touch-action:manipulation;}
   .hero-btns { flex-direction:column; }
   .hero-btn-primary,.hero-btn-secondary { width:100%; justify-content:center; }
   .hero-stats { gap:24px; flex-wrap:wrap; }
-  .proof-grid { grid-template-columns:1fr 1fr; }
+  .proof-band { grid-template-columns:1fr 1fr; }
+  .proof-cell { padding:20px 16px; }
+  .proof-cell-val { font-size:32px; }
+  .proof-terminal-strip { gap:6px; padding:8px 12px; }
   .book-card { margin:0; }
   .bf-row { grid-template-columns:1fr; }
   .conf-agency-input { max-width:100%; }
   .chat-win { bottom:0; left:0; right:0; width:100%; max-height:80dvh; border-radius:12px 12px 0 0; }
   .chat-bubble { bottom:84px; right:16px; width:50px; height:50px; }
-
   .hero-right { width:100%; max-width:100%; margin:0; }
   .demo-sys-row { padding:6px 12px; }
   .demo-sys-name { font-size:10px; }
   .demo-card-event { display:none; }
+  /* Feed terminal — tighter on mobile */
+  .feed-log-row { grid-template-columns:44px 1fr 60px; padding:10px 12px; }
+  .fl-time { font-size:8px; }
+  .fl-text { font-size:9px; padding:0 8px; }
+  .fl-badge { font-size:6.5px; padding:2px 5px; }
+  /* Sec counter mobile */
+  .sec-counter { flex-direction:column; gap:8px; }
+  .sec-counter-num { display:none; }
+  .sec-counter-title { font-size:30px; }
 }
 
 
@@ -854,15 +1160,24 @@ button,a,[onclick]{touch-action:manipulation;}
   <div class="hero-content">
     <div class="hero-pill" id="heroPill">Built inside a real agency · Running live · 7 days to yours</div>
     <h1 class="hero-h1">The operating system<br><em>for home care.</em></h1>
-    <p class="hero-sub" id="heroSub">Most home care operators are running on spreadsheets, group chats, and gut instinct. This replaces all of it. Scheduling board. PSW sign in/out. AI care summaries. Family portal. Automated invoicing. Lead capture. One done-for-you system. Built inside our own agency. Live in 7 days. $500/month.</p>
+    <p class="hero-sub" id="heroSub">10 done-for-you systems — scheduling, GPS visits, AI invoicing, family portal, lead capture. Built on our own live agency in Mississauga. Handed to you running in 7 days.</p>
     <div class="hero-btns">
       <a href="#configurator" class="hero-btn-primary">Build Your System ↓</a>
       <button class="hero-btn-secondary" id="heroCtaBtn">Talk to Lance →</button>
     </div>
-    <div class="hero-stats">
-      <div><div class="hero-stat-num">10</div><div class="hero-stat-lbl">Systems Live</div></div>
-      <div><div class="hero-stat-num">7</div><div class="hero-stat-lbl">Days to Go Live</div></div>
-      <div><div class="hero-stat-num">$0</div><div class="hero-stat-lbl">Admin Staff Needed</div></div>
+    <div class="hero-stats" style="border-top:1px solid var(--border);padding-top:20px;margin-top:28px;gap:0;justify-content:flex-start;">
+      <div style="padding:0 28px 0 0;border-right:1px solid var(--border);margin-right:28px;">
+        <div class="hero-stat-num" style="font-size:28px;">10</div>
+        <div class="hero-stat-lbl">Systems live</div>
+      </div>
+      <div style="padding:0 28px 0 0;border-right:1px solid var(--border);margin-right:28px;">
+        <div class="hero-stat-num" style="font-size:28px;">7</div>
+        <div class="hero-stat-lbl">Days to live</div>
+      </div>
+      <div>
+        <div class="hero-stat-num" style="font-size:28px;color:var(--green);">$0</div>
+        <div class="hero-stat-lbl">Admin staff</div>
+      </div>
     </div>
   </div>
   <div style="position:relative;width:100%;max-width:960px;margin:0 auto;" id="flow-demo-wrap">
@@ -1089,96 +1404,64 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <!-- LIVE FEED -->
 <section class="section" id="feed">
-  <div class="sec-tag reveal">What's Happening Right Now</div>
-  <h2 class="sec-title reveal reveal-d1">This is what<br><em>done looks like.</em></h2>
-  <p class="sec-sub reveal reveal-d2">Every event below used to be a phone call, a spreadsheet entry, or something that fell through the cracks. This is what it looks like when the whole thing runs itself.</p>
-  <div class="feed-grid reveal reveal-d3" id="feedTrack">
-    <div class="feed-card" data-feed="0">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="2" width="12" height="14" rx="2" stroke="#6dbdd4" stroke-width="1.5"/><line x1="6" y1="6" x2="12" y2="6" stroke="#6dbdd4" stroke-width="1.2"/><line x1="6" y1="9" x2="12" y2="9" stroke="#6dbdd4" stroke-width="1.2"/><line x1="6" y1="12" x2="10" y2="12" stroke="#6dbdd4" stroke-width="1.2"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">PSW Visit Logged</div>
-        <div class="feed-detail">Maria C. · 8.0 hrs · Auto-routed to billing</div>
-        <div class="feed-meta">
-          <span class="feed-badge live">Live</span>
-          <span class="feed-time">Just now</span>
-        </div>
-      </div>
+  <div class="sec-counter reveal">
+    <div class="sec-counter-num">01 ·</div>
+    <div class="sec-counter-body">
+      <div class="sec-counter-tag">What's happening right now</div>
+      <div class="sec-counter-title">This is what<br><em>done looks like.</em></div>
+      <div class="sec-counter-sub">Every event below used to be a phone call, a spreadsheet entry, or something that fell through the cracks.</div>
     </div>
-    <div class="feed-card" data-feed="1">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="7" stroke="#6dbdd4" stroke-width="1.5"/><circle cx="9" cy="9" r="4" stroke="#6dbdd4" stroke-width="1.2"/><circle cx="9" cy="9" r="1.5" fill="#6dbdd4"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">New Lead Captured</div>
-        <div class="feed-detail">Family inquiry · Day 1 follow-up sent in 60 seconds</div>
-        <div class="feed-meta">
-          <span class="feed-badge auto">Auto</span>
-          <span class="feed-time">2 min ago</span>
-        </div>
+  </div>
+  <div class="feed-terminal reveal reveal-d2" id="feedTrack">
+    <div class="feed-terminal-bar">
+      <div class="feed-terminal-dots">
+        <div class="feed-terminal-dot" style="background:#ff5f57"></div>
+        <div class="feed-terminal-dot" style="background:#febc2e"></div>
+        <div class="feed-terminal-dot" style="background:#28c840"></div>
       </div>
+      <div class="feed-terminal-label">Proximity OS · Event Stream · Live</div>
+      <div class="feed-terminal-live">Live</div>
     </div>
-    <div class="feed-card" data-feed="2">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h12v14l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5V2z" stroke="#6dbdd4" stroke-width="1.5" stroke-linejoin="round"/><line x1="6" y1="6" x2="12" y2="6" stroke="#6dbdd4" stroke-width="1.2"/><line x1="6" y1="9" x2="12" y2="9" stroke="#6dbdd4" stroke-width="1.2"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">Invoice Sent Automatically</div>
-        <div class="feed-detail">PDF delivered to client · PSW pay summary sent</div>
-        <div class="feed-meta">
-          <span class="feed-badge auto">Auto</span>
-          <span class="feed-time">5 min ago</span>
-        </div>
+    <div class="feed-log">
+      <div class="feed-log-row" data-feed="0">
+        <div class="fl-time">09:01</div>
+        <div class="fl-text">PSW visit complete · Maria C. · 8.0 hrs · care summary generated · auto-routed to billing</div>
+        <div class="fl-badge live">live</div>
       </div>
-    </div>
-    <div class="feed-card" data-feed="3">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="14" height="10" rx="1.5" stroke="#6dbdd4" stroke-width="1.5"/><polyline points="2,4 9,11 16,4" stroke="#6dbdd4" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">Follow-Up Email Fired</div>
-        <div class="feed-detail">Day 3 sequence · Lead from Tuesday · No reply yet</div>
-        <div class="feed-meta">
-          <span class="feed-badge auto">Auto</span>
-          <span class="feed-time">12 min ago</span>
-        </div>
+      <div class="feed-log-row" data-feed="1">
+        <div class="fl-time">auto</div>
+        <div class="fl-text">Invoice PDF generated · Eleanor Brooks · $1,248.00 · emailed to family</div>
+        <div class="fl-badge auto">auto</div>
       </div>
-    </div>
-    <div class="feed-card" data-feed="4">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="2.5" stroke="#6dbdd4" stroke-width="1.3"/><circle cx="12" cy="6" r="2.5" stroke="#6dbdd4" stroke-width="1.3"/><circle cx="9" cy="13" r="2" stroke="#c9a96e" stroke-width="1.3"/><path d="M2 16c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4" stroke="#6dbdd4" stroke-width="1.3"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">Family Portal Viewed</div>
-        <div class="feed-detail">Eleanor B. · Tab: Visit History · 2:47 AM</div>
-        <div class="feed-meta">
-          <span class="feed-badge gold">Portal</span>
-          <span class="feed-time">18 min ago</span>
-        </div>
+      <div class="feed-log-row" data-feed="2">
+        <div class="fl-time">02:14</div>
+        <div class="fl-text">Lead captured · family inquiry · 2:14am · AI qualified · discovery call booked</div>
+        <div class="fl-badge live">live</div>
       </div>
-    </div>
-    <div class="feed-card" data-feed="5">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="14" height="11" rx="1" stroke="#6dbdd4" stroke-width="1.5"/><path d="M6 5V3h6v2" stroke="#6dbdd4" stroke-width="1.3"/><line x1="9" y1="8" x2="9" y2="13" stroke="#6dbdd4" stroke-width="1.5"/><line x1="6.5" y1="10.5" x2="11.5" y2="10.5" stroke="#6dbdd4" stroke-width="1.5"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">PSW Signed In · Checklist Active</div>
-        <div class="feed-detail">Maria Chen · Eleanor Brooks · 8:02 AM · Family notified</div>
-        <div class="feed-meta">
-          <span class="feed-badge live">Live</span>
-          <span class="feed-time">34 min ago</span>
-        </div>
+      <div class="feed-log-row" data-feed="3">
+        <div class="fl-time">08:30</div>
+        <div class="fl-text">PSW signed in · James O. · GPS confirmed 14m · family notification fired</div>
+        <div class="fl-badge live">live</div>
       </div>
-    </div>
-    <div class="feed-card" data-feed="6">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="3" height="6" fill="#6dbdd4" rx="0.5"/><rect x="7" y="6" width="3" height="10" fill="#6dbdd4" rx="0.5"/><rect x="12" y="3" width="3" height="13" fill="#6dbdd4" rx="0.5" opacity="0.7"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">Scheduling Board Updated</div>
-        <div class="feed-detail">Shift dragged · Maria reassigned · Conflict resolved</div>
-        <div class="feed-meta">
-          <span class="feed-badge live">Live</span>
-          <span class="feed-time">1 hr ago</span>
-        </div>
+      <div class="feed-log-row" data-feed="4">
+        <div class="fl-time">auto</div>
+        <div class="fl-text">Care summary sent → family portal · AI narrative generated · mood: stable</div>
+        <div class="fl-badge auto">auto</div>
       </div>
-    </div>
-    <div class="feed-card" data-feed="7">
-      <div class="feed-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="12" height="9" rx="2" stroke="#6dbdd4" stroke-width="1.5"/><circle cx="6.5" cy="10" r="1.2" fill="#6dbdd4"/><circle cx="11.5" cy="10" r="1.2" fill="#6dbdd4"/><line x1="7.5" y1="13" x2="10.5" y2="13" stroke="#6dbdd4" stroke-width="1.2"/><line x1="9" y1="3" x2="9" y2="6" stroke="#6dbdd4" stroke-width="1.5"/><circle cx="9" cy="2.5" r="1" fill="#6dbdd4"/></svg></div>
-      <div class="feed-body">
-        <div class="feed-name">AI Chat Answered After Hours</div>
-        <div class="feed-detail">Inquiry at 11:42 PM · Qualified lead · Discovery call booked</div>
-        <div class="feed-meta">
-          <span class="feed-badge auto">Auto</span>
-          <span class="feed-time">2 hrs ago</span>
-        </div>
+      <div class="feed-log-row" data-feed="5">
+        <div class="fl-time">alert</div>
+        <div class="fl-text">Cert expiry alert · Sarah M. · VSC expires in 28 days · HQ flagged</div>
+        <div class="fl-badge gold">alert</div>
+      </div>
+      <div class="feed-log-row" data-feed="6">
+        <div class="fl-time">2:47am</div>
+        <div class="fl-text">Family portal viewed · Eleanor B. · visit history · PSW care notes read</div>
+        <div class="fl-badge gold">portal</div>
+      </div>
+      <div class="feed-log-row" data-feed="7">
+        <div class="fl-time">auto</div>
+        <div class="fl-text">Day 3 follow-up fired · lead from Tue · no reply yet · next: day 7 sequence</div>
+        <div class="fl-badge auto">auto</div>
       </div>
     </div>
   </div>
@@ -1697,6 +1980,172 @@ if(sec){
   obs.observe(sec);
 }
 setTimeout(function(){mdRunChain('checkin',document.querySelector('#md-chain2-btns div'));},300);
+
+// ── SYSTEMS PREVIEW PANEL ──────────────────────────────────────
+var SYS_PREVIEWS = {
+  '01': {
+    title:'Visit Logging',
+    badge:'● GPS Active',
+    items:[
+      {dot:'#5aaa7a',text:'Maria C. signed in · GPS confirmed · 14m from address',val:'08:02'},
+      {dot:'#5aaa7a',text:'All 3 meds administered · MAR submitted',val:'✓'},
+      {dot:'#6aa8b8',text:'AI care summary generated · 4 sentences',val:'auto'},
+      {dot:'#c8a96e',text:'Hours logged · 8.0h · routed to billing',val:'13:02'},
+    ]
+  },
+  '02': {
+    title:'Auto Invoicing',
+    badge:'● PDF Ready',
+    items:[
+      {dot:'#c8a96e',text:'Invoice generated · Eleanor Brooks · $1,936.00',val:'auto'},
+      {dot:'#c8a96e',text:'PDF emailed to family · read receipt',val:'sent'},
+      {dot:'#6aa8b8',text:'PSW pay stub generated · $1,672.00',val:'auto'},
+      {dot:'#5aaa7a',text:'AR updated · awaiting e-transfer',val:'open'},
+    ]
+  },
+  '03': {
+    title:'Lead Capture',
+    badge:'● 24/7 Active',
+    items:[
+      {dot:'#5aaa7a',text:'Family inquiry · 2:14am · AI chatbot qualified',val:'live'},
+      {dot:'#6aa8b8',text:'Day 1 follow-up queued · fires in 60s',val:'auto'},
+      {dot:'#c8a96e',text:'Discovery call slot booked · Thu 9am',val:'auto'},
+      {dot:'#6aa8b8',text:'Lead logged in HQ CRM · status: warm',val:'crm'},
+    ]
+  },
+  '04': {
+    title:'Follow-Up Engine',
+    badge:'● 14 Templates',
+    items:[
+      {dot:'#6aa8b8',text:'Day 1 email · intro + next steps',val:'sent'},
+      {dot:'#6aa8b8',text:'Day 3 email · care plan overview',val:'sent'},
+      {dot:'#c8a96e',text:'Day 7 email · check-in + referral ask',val:'queued'},
+      {dot:'#5aaa7a',text:'PSW Day 1 onboarding sequence',val:'active'},
+    ]
+  },
+  '05': {
+    title:'Family Portal',
+    badge:'● PIN Protected',
+    items:[
+      {dot:'#5aaa7a',text:'Visit history · AI care summaries',val:'live'},
+      {dot:'#6aa8b8',text:'Medication records · mood chart',val:'live'},
+      {dot:'#c8a96e',text:'AI Ask tab · care coordinator bot',val:'live'},
+      {dot:'#5aaa7a',text:'Satisfaction ratings per visit',val:'live'},
+    ]
+  },
+  '06': {
+    title:'AI Chat + Voice',
+    badge:'● Trained On You',
+    items:[
+      {dot:'#c8a96e',text:'Chatbot answers families 24/7',val:'live'},
+      {dot:'#c8a96e',text:'Qualifies leads in 4 turns',val:'auto'},
+      {dot:'#6aa8b8',text:'Books discovery calls automatically',val:'auto'},
+      {dot:'#5aaa7a',text:'Voice AI on Telnyx — Phase 2',val:'soon'},
+    ]
+  },
+  '07': {
+    title:'Onboarding',
+    badge:'● E-Signature',
+    items:[
+      {dot:'#5aaa7a',text:'Assessment upload → AI care plan draft',val:'auto'},
+      {dot:'#5aaa7a',text:'Digital e-signature · PHIPA compliant',val:'live'},
+      {dot:'#6aa8b8',text:'Family portal goes live instantly',val:'auto'},
+      {dot:'#c8a96e',text:'Welcome email sent to family',val:'auto'},
+    ]
+  },
+  '08': {
+    title:'HQ Dashboard',
+    badge:'● 14 Tabs',
+    items:[
+      {dot:'#6aa8b8',text:'Drag-to-assign scheduling board',val:'live'},
+      {dot:'#c8a96e',text:'AR tracking · overdue flags',val:'live'},
+      {dot:'#5aaa7a',text:'Payroll CSV export for ADP',val:'live'},
+      {dot:'#6aa8b8',text:'Chief of Staff AI · risk alerts',val:'live'},
+    ]
+  },
+  '09': {
+    title:'PSW Portal',
+    badge:'● GPS Active',
+    items:[
+      {dot:'#5aaa7a',text:'GPS check-in · offline queue',val:'live'},
+      {dot:'#6aa8b8',text:'AI care summary on sign-out',val:'auto'},
+      {dot:'#c8a96e',text:'2-week schedule · earnings view',val:'live'},
+      {dot:'#5aaa7a',text:'Biometric unlock · PIN fallback',val:'live'},
+    ]
+  },
+  '10': {
+    title:'Converting Website',
+    badge:'Free Add-On',
+    items:[
+      {dot:'#c8a96e',text:'Built for your agency · branded',val:'free'},
+      {dot:'#6aa8b8',text:'AI chatbot wired to lead capture',val:'live'},
+      {dot:'#5aaa7a',text:'Leads pipe to HQ CRM instantly',val:'auto'},
+      {dot:'#c8a96e',text:'Live in 7 days alongside your OS',val:'incl'},
+    ]
+  },
+};
+
+var _sysPvTimer = null;
+window.sysHover = function(row, id) {
+  document.querySelectorAll('.sys-row').forEach(function(r){ r.classList.remove('sys-active'); });
+  row.classList.add('sys-active');
+  var pv = SYS_PREVIEWS[id];
+  if (!pv) return;
+  var title = document.getElementById('sysPvTitle');
+  var badge = document.getElementById('sysPvBadge');
+  var cont = document.getElementById('sysPvContent');
+  var idle = document.getElementById('sysPvIdle');
+  if (!cont) return;
+  if (title) title.textContent = pv.title;
+  if (badge) badge.textContent = pv.badge;
+  if (idle) idle.classList.add('hidden');
+  // Clear old preview items
+  var old = cont.querySelectorAll('.sys-pv-item,.sys-pv-bar-wrap');
+  old.forEach(function(el){ el.remove(); });
+  // Inject new items with staggered reveal
+  pv.items.forEach(function(item, i) {
+    var el = document.createElement('div');
+    el.className = 'sys-pv-item';
+    el.innerHTML = '<div class="sys-pv-dot" style="background:'+item.dot+';box-shadow:0 0 5px '+item.dot+'66;"></div>'
+      + '<div class="sys-pv-text">'+item.text+'</div>'
+      + '<div class="sys-pv-val">'+item.val+'</div>';
+    cont.appendChild(el);
+    setTimeout(function(){ el.classList.add('pv-show'); }, i * 80);
+  });
+};
+window.sysUnhover = function() {
+  document.querySelectorAll('.sys-row').forEach(function(r){ r.classList.remove('sys-active'); });
+  var idle = document.getElementById('sysPvIdle');
+  if (idle) idle.classList.remove('hidden');
+  var cont = document.getElementById('sysPvContent');
+  if (cont) {
+    var old = cont.querySelectorAll('.sys-pv-item,.sys-pv-bar-wrap');
+    old.forEach(function(el){ el.remove(); });
+  }
+};
+
+// ── FEED LOG ANIMATION ────────────────────────────────────────
+(function animateFeedLog(){
+  var rows = document.querySelectorAll('.feed-log-row');
+  if (!rows.length) return;
+  var io = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      rows.forEach(function(row, i){
+        setTimeout(function(){ row.classList.add('fl-visible'); }, i * 90);
+      });
+      // Cycle active row highlight
+      var activeIdx = 0;
+      setInterval(function(){
+        rows.forEach(function(r){ r.classList.remove('fl-active'); });
+        rows[activeIdx % rows.length].classList.add('fl-active');
+        activeIdx++;
+      }, 1800);
+      io.disconnect();
+    }
+  }, {threshold:0.1});
+  io.observe(document.getElementById('feedTrack') || rows[0]);
+}());
+
 })();
 </script>
 
@@ -1704,20 +2153,41 @@ setTimeout(function(){mdRunChain('checkin',document.querySelector('#md-chain2-bt
 
 <!-- SYSTEMS -->
 <section class="section" id="systems">
-  <div class="sec-tag reveal">10 Systems</div>
-  <h2 class="sec-title reveal reveal-d1">10 systems.<br><em>Zero DIY.</em></h2>
-  <p class="sec-sub reveal reveal-d2">We build everything. We configure it for your PSWs, your clients, your rates. You do nothing except show up for a 60-minute call on Day 1. We hand it back running.</p>
-  <div class="sys-list reveal reveal-d3">
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">01</span><div class="sys-dot"></div><span class="sys-name">Visit Logging</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">02</span><div class="sys-dot"></div><span class="sys-name">Auto Invoicing + Pay Summary</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">03</span><div class="sys-dot"></div><span class="sys-name">Lead Capture + PSW Recruitment</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">04</span><div class="sys-dot"></div><span class="sys-name">Follow-Up Engine</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">05</span><div class="sys-dot"></div><span class="sys-name">Family Portal</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">06</span><div class="sys-dot gold"></div><span class="sys-name">AI Chat + Voice — Trained On You</span></div><span class="sys-tag free">Included</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">07</span><div class="sys-dot"></div><span class="sys-name">Client + PSW Onboarding</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">08</span><div class="sys-dot"></div><span class="sys-name">HQ Dashboard — Scheduling Board + 14 Tabs</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">09</span><div class="sys-dot"></div><span class="sys-name">PSW Portal — Sign In/Out, AI Care Summary, Pay, Availability</span></div><span class="sys-tag live">Live</span></div>
-    <div class="sys-row"><div class="sys-left"><span class="sys-num">10</span><div class="sys-dot gold"></div><span class="sys-name">Converting Website</span></div><span class="sys-tag free">Free Add-On</span></div>
+  <div class="sec-counter reveal">
+    <div class="sec-counter-num">02 ·</div>
+    <div class="sec-counter-body">
+      <div class="sec-counter-tag">10 Systems</div>
+      <div class="sec-counter-title">10 systems.<br><em>Zero DIY.</em></div>
+      <div class="sec-counter-sub">We build everything. We configure it for your PSWs, your clients, your rates. Hover any row to see it in action.</div>
+    </div>
+  </div>
+  <div class="sys-split reveal reveal-d2">
+    <div class="sys-list" id="sysListEl">
+      <div class="sys-row" data-sys="01" onmouseenter="sysHover(this,'01')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">01</span><div class="sys-dot"></div><span class="sys-name">Visit Logging</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="02" onmouseenter="sysHover(this,'02')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">02</span><div class="sys-dot"></div><span class="sys-name">Auto Invoicing + Pay Summary</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="03" onmouseenter="sysHover(this,'03')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">03</span><div class="sys-dot"></div><span class="sys-name">Lead Capture + PSW Recruitment</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="04" onmouseenter="sysHover(this,'04')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">04</span><div class="sys-dot"></div><span class="sys-name">Follow-Up Engine</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="05" onmouseenter="sysHover(this,'05')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">05</span><div class="sys-dot"></div><span class="sys-name">Family Portal</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="06" onmouseenter="sysHover(this,'06')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">06</span><div class="sys-dot gold"></div><span class="sys-name">AI Chat + Voice — Trained On You</span></div><span class="sys-tag free">Included</span></div>
+      <div class="sys-row" data-sys="07" onmouseenter="sysHover(this,'07')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">07</span><div class="sys-dot"></div><span class="sys-name">Client + PSW Onboarding</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="08" onmouseenter="sysHover(this,'08')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">08</span><div class="sys-dot"></div><span class="sys-name">HQ Dashboard — Scheduling Board + 14 Tabs</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="09" onmouseenter="sysHover(this,'09')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">09</span><div class="sys-dot"></div><span class="sys-name">PSW Portal — Sign In/Out, AI Summary, Pay</span></div><span class="sys-tag live">Live</span></div>
+      <div class="sys-row" data-sys="10" onmouseenter="sysHover(this,'10')" onmouseleave="sysUnhover()"><div class="sys-left"><span class="sys-num">10</span><div class="sys-dot gold"></div><span class="sys-name">Converting Website</span></div><span class="sys-tag free">Free Add-On</span></div>
+    </div>
+    <!-- Preview panel — right column, hidden on mobile -->
+    <div class="sys-preview-panel" id="sysPreviewPanel">
+      <div class="sys-preview-head">
+        <div class="sys-preview-title" id="sysPvTitle">System Preview</div>
+        <div class="sys-preview-badge" id="sysPvBadge">● Live</div>
+      </div>
+      <div class="sys-preview-content" id="sysPvContent">
+        <!-- Idle state -->
+        <div class="sys-preview-idle" id="sysPvIdle">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="opacity:0.2"><path d="M10 2L2 6v8l8 4 8-4V6L10 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          <div class="sys-preview-idle-text">Hover a system to preview</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1726,9 +2196,14 @@ setTimeout(function(){mdRunChain('checkin',document.querySelector('#md-chain2-bt
 <!-- CONFIGURATOR -->
 <section id="configurator" class="section-full">
   <div class="conf-header">
-    <div class="sec-tag reveal">Build Your System</div>
-    <h2 class="sec-title reveal reveal-d1">Pick what your<br><em>agency needs.</em></h2>
-    <p class="sec-sub reveal reveal-d2">Select the systems that matter to you. The price updates in real time. Book your build call when you are ready — we send you a summary before the call.</p>
+    <div class="sec-counter reveal">
+      <div class="sec-counter-num">03 ·</div>
+      <div class="sec-counter-body">
+        <div class="sec-counter-tag">Build Your System</div>
+        <div class="sec-counter-title">Pick what your<br><em>agency needs.</em></div>
+        <div class="sec-counter-sub">Select the systems. The price updates live. Book when you're ready — we send a summary before the call.</div>
+      </div>
+    </div>
     <div class="conf-agency-row reveal reveal-d3">
       <label class="conf-agency-label" for="confAgency">Your agency name (optional — personalises the preview below)</label>
       <input class="conf-agency-input" id="confAgency" type="text" placeholder="e.g. Sunrise Home Care" autocomplete="off">
@@ -1986,14 +2461,44 @@ setTimeout(function(){mdRunChain('checkin',document.querySelector('#md-chain2-bt
 
 <!-- PROOF -->
 <section class="section" id="proof">
-  <div class="sec-tag reveal">Real Numbers</div>
-  <h2 class="sec-title reveal reveal-d1">Built on a real<br><em>agency first.</em></h2>
-  <p class="sec-sub reveal reveal-d2">This is Proximity Care Services — our own agency in Mississauga. 12 PSWs. 11 clients. Thousands of visits logged. Every number below is live.</p>
-  <div class="proof-grid reveal reveal-d3">
-    <div class="proof-stat"><span class="proof-val">1,000s</span><span class="proof-lbl">Hours Logged</span></div>
-    <div class="proof-stat"><span class="proof-val">100s</span><span class="proof-lbl">Invoices Sent</span></div>
-    <div class="proof-stat"><span class="proof-val">12</span><span class="proof-lbl">PSWs Active</span></div>
-    <div class="proof-stat"><span class="proof-val">$0</span><span class="proof-lbl">Admin Staff</span></div>
+  <div class="sec-counter reveal">
+    <div class="sec-counter-num">04 ·</div>
+    <div class="sec-counter-body">
+      <div class="sec-counter-tag">Real Numbers</div>
+      <div class="sec-counter-title">Built on a real<br><em>agency first.</em></div>
+      <div class="sec-counter-sub">Proximity Care Services — our own agency in Mississauga. 12 PSWs. 11 clients. Every number is live.</div>
+    </div>
+  </div>
+  <div class="proof-band reveal reveal-d2">
+    <div class="proof-cell">
+      <div class="proof-cell-val">1,000s</div>
+      <div class="proof-cell-label">Hours Logged</div>
+      <div class="proof-cell-sub">↑ growing daily</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-cell-val">100s</div>
+      <div class="proof-cell-label">Invoices Sent</div>
+      <div class="proof-cell-sub">auto-generated</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-cell-val">12</div>
+      <div class="proof-cell-label">PSWs Active</div>
+      <div class="proof-cell-sub">GPS-verified</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-cell-val" style="color:var(--green);">$0</div>
+      <div class="proof-cell-label">Admin Staff</div>
+      <div class="proof-cell-sub">zero overhead</div>
+    </div>
+  </div>
+  <div class="proof-terminal-strip reveal reveal-d3">
+    <div class="pts-entry"><div class="pts-dot"></div>Mississauga, ON · live since 2024</div>
+    <div class="pts-sep"></div>
+    <div class="pts-entry"><div class="pts-dot"></div>proximitycares.ca · public proof of concept</div>
+    <div class="pts-sep"></div>
+    <div class="pts-entry"><div class="pts-dot"></div>12 PSWs · 11 active clients · Peel Region</div>
+    <div class="pts-sep"></div>
+    <div class="pts-entry"><div class="pts-dot"></div>Lance works shifts alongside building</div>
   </div>
 </section>
 
