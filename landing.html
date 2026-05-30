@@ -106,31 +106,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .hvc-feed-item:nth-child(2){animation:feedIn 0.5s ease forwards 0.8s;opacity:0}
 .hvc-feed-item:nth-child(3){animation:feedIn 0.5s ease forwards 1.3s;opacity:0}
 
-/* PAIN STRIP */
+/* PAIN GRID */
 #pain{background:var(--bg2)}
-.pain-strip{display:flex;flex-direction:column;gap:10px;margin:36px 0}
-.pain-row{display:flex;align-items:center;gap:14px;padding:18px 20px;background:rgba(224,88,88,0.04);border:1px solid rgba(224,88,88,0.1);border-left:3px solid var(--red);border-radius:0 8px 8px 0}
-.pain-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
-.pain-label{font-size:13px;color:var(--text-dim);line-height:1.4;flex:1}
-.pain-label strong{color:var(--text);font-weight:500}
-.pain-cost{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);flex-shrink:0;white-space:nowrap}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:32px 0 24px}
+.pain-card{background:rgba(224,88,88,0.03);border:1px solid rgba(224,88,88,0.1);border-top:2px solid rgba(224,88,88,0.35);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;transition:border-color 0.2s}
+.pain-card:hover{border-color:rgba(224,88,88,0.28);border-top-color:var(--red)}
+.pain-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pain-card-icon{width:30px;height:30px;border-radius:7px;background:rgba(224,88,88,0.08);border:1px solid rgba(224,88,88,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pain-card-cost{font-family:'DM Mono',monospace;font-size:10px;color:var(--red);letter-spacing:0.04em;flex-shrink:0}
+.pain-card-title{font-size:12px;font-weight:600;color:var(--text);line-height:1.2}
+.pain-card-desc{font-size:11px;color:var(--text-muted);line-height:1.5}
 
-/* BIG NUMBER */
-.big-number-box{background:rgba(224,88,88,0.05);border:1px solid rgba(224,88,88,0.18);border-radius:10px;padding:48px 40px;text-align:center;margin-top:40px;margin-bottom:8px;max-width:680px;margin-left:auto;margin-right:auto}
-.big-number{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:80px;color:var(--red);line-height:1;display:block;margin-bottom:4px}
-.big-number-lbl{font-size:14px;color:var(--text-dim);line-height:1.5}
-.big-number-lbl strong{color:var(--text)}
+/* TOTAL STRIP */
+.pain-total-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(224,88,88,0.15);border:1px solid rgba(224,88,88,0.2);border-radius:8px;overflow:hidden;margin:0 auto;max-width:560px}
+.pts-cell{background:rgba(224,88,88,0.04);padding:18px 12px;text-align:center}
+.pts-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:36px;color:var(--red);line-height:1;display:block}
+.pts-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.14em;color:var(--text-muted);text-transform:uppercase;display:block;margin-top:4px}
 
-/* TIMELINE — 7 DAYS */
+/* TIMELINE HORIZONTAL RAIL */
 #timeline{background:var(--bg)}
-.timeline{display:flex;flex-direction:column;gap:0;margin-top:32px;position:relative}
-.timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--teal),rgba(61,122,138,0.05))}
-.t-step{display:flex;gap:20px;padding:28px 0;align-items:flex-start}
-.t-num{width:38px;height:38px;border-radius:50%;background:var(--teal-bg);border:1px solid var(--border-b);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--teal-lt);flex-shrink:0;position:relative;z-index:1}
-.t-content{padding-top:6px}
-.t-day{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.16em;color:var(--teal);text-transform:uppercase;margin-bottom:4px}
-.t-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
-.t-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
+.timeline-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;position:relative}
+.timeline-rail::before{content:'';position:absolute;top:19px;left:calc(12.5% + 19px);right:calc(12.5% + 19px);height:1px;background:linear-gradient(to right,var(--teal),rgba(61,122,138,0.2));z-index:0}
+.tr-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 10px;position:relative;z-index:1}
+.tr-num{width:38px;height:38px;border-radius:50%;background:var(--teal-bg);border:1px solid var(--border-b);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--teal-lt);flex-shrink:0;margin-bottom:16px;position:relative;z-index:1}
+.tr-num::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(61,122,138,0.15)}
+.tr-day{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.18em;color:var(--teal);text-transform:uppercase;margin-bottom:6px}
+.tr-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.25}
+.tr-desc{font-size:11px;color:var(--text-dim);line-height:1.55}
 
 /* SYSTEMS — VISUAL CARDS */
 #systems{background:var(--bg2)}
@@ -785,9 +787,6 @@ nav .nav-logo { letter-spacing: 4px; }
 .btn { background: var(--teal) !important; }
 .btn:hover { background: var(--teal-lt) !important; }
 
-/* Pain row cost — red to reinforce urgency */
-.pain-cost { color: var(--red) !important; }
-
 
 /* ASYMMETRIC CUT — brand signature */
 .btn {
@@ -951,19 +950,21 @@ button,a,[onclick]{touch-action:manipulation;}
   .cta-stack{max-width:100%}
   .hero-trust{gap:4px;margin-top:16px;flex-wrap:nowrap;overflow:hidden;}.hero-trust-item{font-size:8px;letter-spacing:0.08em;white-space:nowrap;}.hero-trust-sep{font-size:9px;flex-shrink:0;}
 
-  /* Pain section */
-  .pain-row{padding:14px 16px;gap:10px;border-radius:0 6px 6px 0}
-  .pain-icon{font-size:15px;width:22px}
-  .pain-label{font-size:12px}
-  .pain-cost{font-size:10px}
-  .big-number{font-size:60px}
-  .big-number-box{padding:22px 18px}
+  /* Pain grid — 2 col on mobile */
+  .pain-grid{grid-template-columns:1fr 1fr;gap:8px;margin:24px 0 20px}
+  .pain-card{padding:12px}
+  .pain-card-title{font-size:11px}
+  .pain-card-desc{font-size:10px}
+  .pain-total-strip{grid-template-columns:repeat(3,1fr)}
+  .pts-val{font-size:28px}
 
-  /* Timeline */
-  .t-step{padding:20px 0;gap:14px}
-  .t-num{width:32px;height:32px;font-size:10px}
-  .t-title{font-size:13px}
-  .t-desc{font-size:11px}
+  /* Timeline — 2 col on mobile, stack to 1 */
+  .timeline-rail{grid-template-columns:1fr 1fr;gap:20px}
+  .timeline-rail::before{display:none}
+  .tr-step{padding:0}
+  .tr-num{margin-bottom:12px}
+  .tr-title{font-size:12px}
+  .tr-desc{font-size:11px}
 
   /* System cards — 1 col on mobile for breathing room */
   .sys-cards-grid{grid-template-columns:1fr;gap:14px}
@@ -1056,6 +1057,12 @@ button,a,[onclick]{touch-action:manipulation;}
   .math-grid{grid-template-columns:1fr;gap:12px}
   .testi-row{grid-template-columns:1fr;gap:12px}
   .offer-prices{grid-template-columns:1fr;gap:10px}
+  /* Pain grid — single col on very small screens */
+  .pain-grid{grid-template-columns:1fr}
+  /* Timeline — single col on very small screens */
+  .timeline-rail{grid-template-columns:1fr;gap:16px}
+  .tr-step{flex-direction:row;text-align:left;gap:14px;align-items:flex-start}
+  .tr-num{flex-shrink:0;margin-bottom:0}
 }
 
 /* ── LP FLOW DEMO — embedded hero animation ── */
@@ -1559,17 +1566,81 @@ button,a,[onclick]{touch-action:manipulation;}
     </div>
     <h2 class="h2">Every week<br>you lose <em>this.</em></h2>
     <p class="sub" style="max-width:520px;margin:0 auto 32px;">You started this agency to take care of people — not to spend your evenings doing spreadsheets. Here is where your time actually goes.</p>
-    <div class="pain-strip" style="text-align:left;max-width:720px;margin:0 auto 32px;">
-      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="1" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.1"/><line x1="4.5" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>Manual invoicing</strong> — Excel, per client, every month. No payroll CSV, no AR tracking.</div><div class="pain-cost">~8 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="3" y="1" width="8" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="6" y1="10.5" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.1"/><polyline points="5,5 7,7 9,5" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Chasing PSW hours</strong> — texts back and forth, guessing who worked what, manually entering hours.</div><div class="pain-cost">~5 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M7 1a4.5 4.5 0 0 0-4.5 4.5v3H1.5v1h11v-1H11V5.5A4.5 4.5 0 0 0 7 1z" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="2" x2="12" y2="12" stroke="currentColor" stroke-width="1.3"/></svg></div><div class="pain-label"><strong>Leads going cold overnight</strong> — family inquires at 11pm, calls 3 agencies, books whoever replies first.</div><div class="pain-cost">Lost clients</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5L10.5 8V10c-5 .5-9-4-8.5-8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div class="pain-label"><strong>Family calls at 9pm</strong> — "Did mom take her meds? How was the visit?" You don't know. You weren't there.</div><div class="pain-cost">~6 hrs/mo</div></div>
-      <div class="pain-row"><div class="pain-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M2 6a4 4 0 0 1 7.5-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M10 6a4 4 0 0 1-7.5 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><polyline points="9,1 9,4 6,4" stroke="currentColor" stroke-width="1.1"/><polyline points="3,8 3,11 6,11" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="pain-label"><strong>No follow-up system</strong> — leads go cold on day 2 because you forgot, or never had time to call back.</div><div class="pain-cost">~4 hrs/mo</div></div>
+
+    <div class="pain-grid">
+      <!-- Manual invoicing -->
+      <div class="pain-card">
+        <div class="pain-card-top">
+          <div class="pain-card-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--red)" stroke-width="1.2"><rect x="2" y="1" width="10" height="12" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7" y2="10"/></svg>
+          </div>
+          <span class="pain-card-cost">~8 hrs/mo</span>
+        </div>
+        <div class="pain-card-title">Manual invoicing</div>
+        <div class="pain-card-desc">Excel, per client, every month. No payroll CSV, no AR tracking.</div>
+      </div>
+      <!-- Chasing PSW hours -->
+      <div class="pain-card">
+        <div class="pain-card-top">
+          <div class="pain-card-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--red)" stroke-width="1.2"><rect x="3" y="1" width="8" height="12" rx="1.5"/><line x1="6" y1="10.5" x2="8" y2="10.5"/><polyline points="5,5 7,7 9,5" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="pain-card-cost">~5 hrs/mo</span>
+        </div>
+        <div class="pain-card-title">Chasing PSW hours</div>
+        <div class="pain-card-desc">Texts back and forth, guessing who worked what, entering manually.</div>
+      </div>
+      <!-- Leads going cold -->
+      <div class="pain-card">
+        <div class="pain-card-top">
+          <div class="pain-card-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--red)" stroke-width="1.2"><path d="M7 1a4.5 4.5 0 0 0-4.5 4.5v3H1.5v1h11v-1H11V5.5A4.5 4.5 0 0 0 7 1z"/><line x1="2" y1="2" x2="12" y2="12" stroke-width="1.3"/></svg>
+          </div>
+          <span class="pain-card-cost" style="color:var(--red);">Lost clients</span>
+        </div>
+        <div class="pain-card-title">Leads going cold overnight</div>
+        <div class="pain-card-desc">Family calls at 11pm, books whoever replies first. That is not you.</div>
+      </div>
+      <!-- Family calls -->
+      <div class="pain-card">
+        <div class="pain-card-top">
+          <div class="pain-card-icon">
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke="var(--red)" stroke-width="1.2"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5L10.5 8V10c-5 .5-9-4-8.5-8z" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="pain-card-cost">~6 hrs/mo</span>
+        </div>
+        <div class="pain-card-title">Family calls at 9pm</div>
+        <div class="pain-card-desc">"Did mom take her meds?" You don't know. You weren't there.</div>
+      </div>
+      <!-- No follow-up -->
+      <div class="pain-card">
+        <div class="pain-card-top">
+          <div class="pain-card-icon">
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke="var(--red)" stroke-width="1.2"><path d="M2 6a4 4 0 0 1 7.5-2" stroke-linecap="round"/><path d="M10 6a4 4 0 0 1-7.5 2" stroke-linecap="round"/><polyline points="9,1 9,4 6,4"/><polyline points="3,8 3,11 6,11"/></svg>
+          </div>
+          <span class="pain-card-cost">~4 hrs/mo</span>
+        </div>
+        <div class="pain-card-title">No follow-up system</div>
+        <div class="pain-card-desc">Leads go cold on day 2 because you forgot, or never had time.</div>
+      </div>
     </div>
-    <div class="big-number-box" style="max-width:640px;margin:0 auto;">
-      <span class="big-number">20 hrs</span>
-      <p class="big-number-lbl">Lost every single week to admin tasks a computer should handle. At $50/hr that is <strong>$4,000/month</strong> of your time — and none of it grows your agency.</p>
+
+    <!-- Compact total strip — 3 KPIs in one row -->
+    <div class="pain-total-strip">
+      <div class="pts-cell">
+        <span class="pts-val">20</span>
+        <span class="pts-lbl">Hours lost / week</span>
+      </div>
+      <div class="pts-cell">
+        <span class="pts-val">$4k</span>
+        <span class="pts-lbl">Your time / month</span>
+      </div>
+      <div class="pts-cell">
+        <span class="pts-val">0</span>
+        <span class="pts-lbl">Growth from any of it</span>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -1581,11 +1652,32 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>How It Works</div>
     <h2 class="h2">One call.<br>Live in <em>7 days.</em></h2>
     <p class="sub" style="max-width:520px;margin:0 auto 40px;">We handle 100% of the setup. You tell us about your agency on a 20-minute call. We build everything. You go live on day 7 — GPS logging, invoicing, family portal, lead capture, all of it.</p>
-    <div class="timeline" style="max-width:620px;margin:0 auto;text-align:left;">
-      <div class="t-step"><div class="t-num">01</div><div class="t-content"><div class="t-day">Day 1 · 20 minutes</div><div class="t-title">One discovery call</div><div class="t-desc">You tell us your PSW roster, client list, billing rates, and branding. We take every note. You touch nothing after this call until you go live.</div></div></div>
-      <div class="t-step"><div class="t-num">02</div><div class="t-content"><div class="t-day">Days 2 – 6 · We build</div><div class="t-title">We configure all 10 systems for your agency</div><div class="t-desc">GPS visit logging, AI care summaries, dual-PDF invoicing, payroll CSV, family portal with your clients loaded, HQ scheduling dashboard, AI chatbot on your site, PSW onboarding flow, lead capture — all wired together. Nothing generic.</div></div></div>
-      <div class="t-step"><div class="t-num">03</div><div class="t-content"><div class="t-day">Day 7 · You go live</div><div class="t-title">Your agency runs itself from day one</div><div class="t-desc">We walk you through everything live. Your PSWs log their first GPS visit that day. Your site starts capturing leads immediately. Your first automated invoice is ready at month end.</div></div></div>
-      <div class="t-step"><div class="t-num">04</div><div class="t-content"><div class="t-day">Month 2+ · $500/mo</div><div class="t-title">We stay beside you — forever</div><div class="t-desc">Every system stays running. New features ship to you automatically. You never touch code. You never call a developer. $500/mo covers everything — all 10 systems, all updates, all support.</div></div></div>
+
+    <div class="timeline-rail">
+      <div class="tr-step">
+        <div class="tr-num">01</div>
+        <div class="tr-day">Day 1 · 20 minutes</div>
+        <div class="tr-title">One discovery call</div>
+        <div class="tr-desc">Your roster, client list, billing rates, and branding. You touch nothing after this call.</div>
+      </div>
+      <div class="tr-step">
+        <div class="tr-num">02</div>
+        <div class="tr-day">Days 2 – 6 · We build</div>
+        <div class="tr-title">We configure all 10 systems</div>
+        <div class="tr-desc">GPS logging, invoicing, family portal, HQ dashboard, AI chat — all wired together for your agency.</div>
+      </div>
+      <div class="tr-step">
+        <div class="tr-num">03</div>
+        <div class="tr-day">Day 7 · You go live</div>
+        <div class="tr-title">Your agency runs itself</div>
+        <div class="tr-desc">PSWs log their first GPS visit that day. Leads start capturing immediately.</div>
+      </div>
+      <div class="tr-step">
+        <div class="tr-num">04</div>
+        <div class="tr-day">Month 2+ · $500/mo</div>
+        <div class="tr-title">We stay beside you</div>
+        <div class="tr-desc">Every system stays running. New features ship automatically. You never touch code.</div>
+      </div>
     </div>
   </div>
 </section>
