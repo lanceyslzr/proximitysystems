@@ -1040,6 +1040,23 @@ footer{background:rgba(3,6,4,1);border-top:1px solid var(--bd);padding:40px 64px
 .ev-star-3{animation-delay:2.2s;}
 @keyframes evTwinkle{0%,100%{opacity:.25;transform:scale(.8);}50%{opacity:1;transform:scale(1.15);}}
 
+
+/* ── CHATBOT BOOKING FORM ── */
+.ixb-card{display:flex;flex-direction:column;gap:8px;max-width:88% !important;}
+.ixb-title{font-family:var(--mono);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:#9fc4a8;margin-bottom:2px;}
+.ixb-inp{width:100%;background:rgba(7,14,10,.5);border:1px solid rgba(253,251,244,.14);color:var(--s0);font-family:var(--body);font-size:.78rem;padding:10px 12px;outline:none;transition:border-color .15s;}
+.ixb-inp:focus{border-color:rgba(156,175,136,.6);}
+.ixb-inp::placeholder{color:rgba(244,240,232,.4);}
+.ixb-row{display:flex;gap:8px;}
+.ixb-row .ixb-inp{flex:1;min-width:0;}
+select.ixb-inp{appearance:none;-webkit-appearance:none;cursor:pointer;}
+input[type="date"].ixb-inp{color-scheme:dark;}
+.ixb-btn{width:100%;background:var(--sage);color:var(--f1);border:none;font-family:var(--mono);font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;padding:12px;cursor:pointer;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);transition:background .18s;}
+.ixb-btn:hover{background:var(--sage-lt);}
+.ixb-btn:disabled{opacity:.6;cursor:default;}
+.ixb-err{font-size:.68rem;color:#e08a8a;min-height:0;}
+.ixb-err:empty{display:none;}
+
 /* ── RESPONSIVE — new elements ── */
 @media(max-width:900px){
   .feel-grid{grid-template-columns:1fr;gap:1px;background:rgba(156,175,136,.09) !important;}
@@ -1983,28 +2000,31 @@ async function submitCareForm(){
 <script>
 var IX_RAIL='https://proximity-agent-production.up.railway.app/chat';
 var IX_LEAD='https://proximity-agent-production.up.railway.app/webhook/lead';
-var IX_SYS=`You are a care coordinator assistant for Ever Green Home Health Care — a compassionate home health care agency serving Calgary, Edmonton, and all of Alberta.
+var IX_SYS=`You are the front desk assistant for Ever Green Home Health Care, a compassionate home health care agency serving Calgary, Edmonton, and all of Alberta.
 
-YOUR JOB: Understand the family's or individual's care situation in 4 short, warm exchanges. Then capture their contact information to book a care consultation.
+YOUR ONLY JOB: warmly greet, learn two things, then hand off to the booking step. You are a receptionist, NOT a care assessor. A human care coordinator handles every care detail on the scheduled call. You never assess needs.
 
-Collect these ONE QUESTION AT A TIME in natural conversation:
-1. Who needs care and what kind of support they are looking for
-2. Where they are located (city or area in Alberta)
-3. How urgent the need is and when they are hoping to start
-4. Their name and best way to reach them — phone or email
+YOU ASK EXACTLY TWO QUESTIONS, one per message, in this order:
+Q1. Which city or area in Alberta are they in?
+Q2. When are they hoping to start? Right away, this week, or planning ahead?
 
-THE FOUR-TURNS RULE:
-After the 4th response, output the LEAD block then say exactly:
-"Thank you. Someone from our team will call you within a few hours. If you need to reach us directly, call (403) 360-7042."
+RULES THAT OVERRIDE EVERYTHING:
+- Their first message usually tells you the care type. NEVER ask follow-up questions about care details: no questions about tasks, frequency, schedules, times of day, or conditions. The coordinator covers all of that on the call.
+- If a message already answers an upcoming question, skip it. Never re-ask anything.
+- NEVER ask for their name, phone, or email in conversation. The booking step collects those.
+- Maximum two questions from you, total, ever.
 
-OUTPUT BLOCK FORMAT (on its own line):
-<!--LEAD_DATA:{"name":"[name]","city":"[city]","care_type":"[care type]","urgency":"[urgency]","contact":"[phone or email]"}-->
+HANDOFF: the moment both questions are answered (or after your second question is answered, whichever comes first), output the marker on its own line, then say exactly:
+"Wonderful. Let me grab a few quick details and we will book your care call right now."
 
-SERVICES: Companionship care for seniors, Specialized foot care, Palliative and hospice care, Nursing relief to hospitals and care facilities, Home care visits for seniors, Assisted care for individuals with disabilities.
+MARKER FORMAT (on its own line):
+<!--BOOK_NOW:{"city":"[city or Alberta if unknown]","care_type":"[care type from their messages or general care]","urgency":"[urgent if right away or today, otherwise warm]"}-->
 
-TONE: Warm, calm, unhurried. Two sentences max per reply. No bullets. No dashes.`;
+SERVICES if asked: Companionship care for seniors, Specialized foot care, Palliative and hospice care, Nursing relief to hospitals and care facilities, Home care visits for seniors, Assisted care for individuals with disabilities.
 
-var ixH=[],ixBusy=false,ixDone=false;
+TONE: Warm, calm, brief. Two sentences max per reply. No bullets. No dashes.`;
+
+var ixH=[],ixBusy=false,ixDone=false,ixFormShown=false,ixCtx={};
 function ixInit(){ixAdd('bot','Hello. How can Ever Green help you or your family today?');ixChips(['I need care for a family member','I need nursing staff','What services do you offer?','It is urgent']);}
 function ixAdd(role,text){var el=document.getElementById('ixChatMsgs');if(!el)return;var d=document.createElement('div');d.className='ix-msg ix-msg-'+role;d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight;}
 function ixChips(chips){var el=document.getElementById('ixChatChips');if(!el)return;el.innerHTML=chips.map(function(c){return'<button class="ix-chip" onclick="ixSendText(this.textContent)">'+c+'</button>';}).join('');}
@@ -2019,15 +2039,73 @@ async function ixSendText(text){
     var r=await fetch(IX_RAIL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'evergreen-home-health',system_override:IX_SYS,messages:ixH})});
     var data=await r.json();ixHideTyping();
     var raw=data.response||'Something went wrong. Please call (403) 360-7042.';
+    var bm=raw.match(/<!--\s*BOOK_NOW\s*:\s*(\{[\s\S]*?\})\s*-->/);
+    if(bm&&!ixDone&&!ixFormShown){try{ixCtx=JSON.parse(bm[1])||{};}catch(e){ixCtx={};}}
     var lm=raw.match(/<!--\s*LEAD_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
     if(lm&&!ixDone){ixDone=true;try{var lead=JSON.parse(lm[1]);await fetch(IX_LEAD,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'evergreen-home-health',lead_type:'family',first_name:(lead.name||'').split(' ')[0]||'',last_name:(lead.name||'').split(' ').slice(1).join(' ')||'',phone:(lead.contact&&lead.contact.indexOf('@')===-1)?lead.contact:'',email:(lead.contact&&lead.contact.indexOf('@')!==-1)?lead.contact:'',city:lead.city||'',care_needed_for:lead.care_type||'',urgency:lead.urgency||'warm',pain_point:'',source:'Ever Green Website Chatbot'})});}catch(e){console.warn(e);}}
     var reply=raw.replace(/<!--[\s\S]*?-->/g,'').trim();
     ixAdd('bot',reply);ixH.push({role:'assistant',content:reply});
     var turns=ixH.filter(function(m){return m.role==='user';}).length;
-    ixChips(ixDone?['What happens next?','Tell me about palliative care','What areas do you serve?']:turns===1?['Calgary','Edmonton','Surrounding area']:turns===2?['As soon as possible','Within the next week','Planning ahead']:['Use my phone number','Use my email','Either works']);
+    if(!ixFormShown&&!ixDone&&(bm||turns>=4)){ixShowBookingForm();}
+    ixChips(ixFormShown?[]:ixDone?['What happens next?','Tell me about palliative care','What areas do you serve?']:turns===1?['Calgary','Edmonton','Surrounding area']:turns===2?['As soon as possible','Within the next week','Planning ahead']:[]);
     if(ixDone){var inp=document.getElementById('ixChatInp');if(inp)inp.placeholder='Our team will call you shortly.';}
   }catch(e){ixHideTyping();ixAdd('bot','Something went wrong. Please call us at (403) 360-7042.');}
   finally{ixBusy=false;if(send)send.disabled=false;}
+}
+function ixShowBookingForm(){
+  if(ixFormShown)return;ixFormShown=true;
+  var el=document.getElementById('ixChatMsgs');if(!el)return;
+  var today=new Date();var pad=function(n){return String(n).padStart(2,'0');};
+  var todayStr=today.getFullYear()+'-'+pad(today.getMonth()+1)+'-'+pad(today.getDate());
+  var d=document.createElement('div');d.className='ix-msg ix-msg-bot ixb-card';d.id='ixbCard';
+  d.innerHTML='<div class="ixb-title">Book your care call</div>'
+    +'<input class="ixb-inp" id="ixb-name" type="text" placeholder="Your name" autocomplete="name">'
+    +'<input class="ixb-inp" id="ixb-phone" type="tel" placeholder="Phone number" autocomplete="tel">'
+    +'<input class="ixb-inp" id="ixb-email" type="email" placeholder="Email (optional)" autocomplete="email">'
+    +'<div class="ixb-row"><input class="ixb-inp" id="ixb-date" type="date" min="'+todayStr+'" value="'+todayStr+'">'
+    +'<select class="ixb-inp" id="ixb-window"><option value="Morning">Morning 9 to 12</option><option value="Afternoon">Afternoon 12 to 4</option><option value="Evening">Evening 4 to 7</option></select></div>'
+    +'<div class="ixb-err" id="ixb-err"></div>'
+    +'<button class="ixb-btn" onclick="ixSubmitBooking(this)">Book my care call</button>';
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
+  var inp=document.getElementById('ixChatInp');if(inp){inp.disabled=true;inp.placeholder='Complete the form above';}
+  var send=document.getElementById('ixChatSend');if(send)send.disabled=true;
+}
+async function ixSubmitBooking(btn){
+  var name=(document.getElementById('ixb-name')||{}).value||'';name=name.trim();
+  var phone=(document.getElementById('ixb-phone')||{}).value||'';phone=phone.trim();
+  var email=(document.getElementById('ixb-email')||{}).value||'';email=email.trim();
+  var dateV=(document.getElementById('ixb-date')||{}).value||'';
+  var winV=(document.getElementById('ixb-window')||{}).value||'Morning';
+  var err=document.getElementById('ixb-err');
+  if(!name||(!phone&&!email)||!dateV){if(err)err.textContent='Please add your name, a phone or email, and a date.';return;}
+  if(err)err.textContent='';
+  if(btn){btn.disabled=true;btn.textContent='Booking...';}
+  var parts=dateV.split('-');
+  var dObj=new Date(parseInt(parts[0],10),parseInt(parts[1],10)-1,parseInt(parts[2],10));
+  var dateLabel=dObj.toLocaleDateString('en-CA',{weekday:'short',month:'short',day:'numeric'});
+  var hr=winV==='Morning'?10:winV==='Afternoon'?13:17;
+  var apptISO=new Date(dateV+'T'+String(hr).padStart(2,'0')+':00:00-06:00').toISOString();
+  try{
+    var r=await fetch(IX_LEAD,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      operator_id:'evergreen-home-health',lead_type:'family',
+      first_name:name.split(' ')[0]||'',last_name:name.split(' ').slice(1).join(' ')||'',
+      phone:phone,email:email,city:ixCtx.city||'',
+      care_needed_for:(ixCtx.care_type||'general care')+' · call requested '+dateLabel+' '+winV,
+      urgency:ixCtx.urgency||'warm',pain_point:'',
+      preferred_time:dateLabel+' '+winV,appointment_at:apptISO,
+      source:'Ever Green Website Chatbot'})});
+    var dd=await r.json();
+    if(!r.ok||dd.success===false)throw new Error(dd.error||'failed');
+    ixDone=true;
+    var card=document.getElementById('ixbCard');if(card)card.remove();
+    ixAdd('bot','Booked. We will call you '+dateLabel+' in the '+winV.toLowerCase()+'. If anything changes before then, call (403) 360-7042.');
+    var inp=document.getElementById('ixChatInp');if(inp){inp.disabled=false;inp.placeholder='Our team will call you '+dateLabel+'.';}
+    var send=document.getElementById('ixChatSend');if(send)send.disabled=false;
+    ixChips(['What happens next?','Tell me about palliative care','What areas do you serve?']);
+  }catch(e){
+    if(err)err.textContent='Could not book right now. Please call (403) 360-7042.';
+    if(btn){btn.disabled=false;btn.textContent='Book my care call';}
+  }
 }
 function ixShowTyping(){var el=document.getElementById('ixChatMsgs');if(!el||document.getElementById('ixTyping'))return;var d=document.createElement('div');d.className='ix-msg ix-msg-bot ix-typing';d.id='ixTyping';d.innerHTML='<span></span><span></span><span></span>';el.appendChild(d);el.scrollTop=el.scrollHeight;}
 function ixHideTyping(){var t=document.getElementById('ixTyping');if(t)t.remove();}
