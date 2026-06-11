@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ever Green Home Health Care — Calgary, Alberta</title>
+<meta name="description" content="Compassionate GPS-verified home health care for families across Calgary and Alberta.">
+<link rel="canonical" href="https://evergreenhhc.ca">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<!-- Three.js r128 — no ES modules, works in any browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+
+<style>
+/* ══════════════════════════════════════════
+   RESET
+══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+button{font:inherit;cursor:pointer;border:none;background:none;}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ══════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════ */
+:root{
+  /* Forest-dark stack */
+  --f0:#04090607;  /* deepest */
+  --f1:#070e0a;
+  --f2:#0b1a10;
+  --f3:#0f2015;
+  --f4:#162c1c;
+  --f5:#1e3c27;
+
+  /* Warm light stack */
+  --s0:#fdfbf4;
+  --s1:#f4f0e8;
+  --s2:#e8e3d8;
+
+  /* Sage — rationed to ONE accent per viewport */
+  --sage:   #9caf88;
+  --sage-lt:#c4d8b0;
+  --sage-dk:#5a7848;
+  --sage-900:#2d5236;
+
+  /* Gold — trust markers only */
+  --gold:#c4923a;
+
+  /* Text on dark */
+  --ti: rgba(244,248,240,.92);
+  --ti2:rgba(244,248,240,.66);
+  --ti3:rgba(244,248,240,.45);
+
+  /* Text on light */
+  --tb: #292824;
+  --tb2:#4a5542;
+  --tb3:#7a8a72;
+
+  /* Borders */
+  --bd:  rgba(156,175,136,.14);
+  --bd2: rgba(156,175,136,.26);
+  --bds: #dde8d4;
+  --bds2:#c8d8bc;
+
+  /* Type */
+  --serif:'Fraunces',Georgia,serif;
+  --sans: 'Plus Jakarta Sans',system-ui,sans-serif;
+  --mono: 'DM Mono','SF Mono',monospace;
+
+  /* Easing */
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ══════════════════════════════════════════
+   BASE
+══════════════════════════════════════════ */
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans);
+  background:var(--f1);
+  color:var(--tb);
+  font-size:16px;line-height:1.6;
+  overflow-x:hidden;
+}
+@media(pointer:fine){body{cursor:none;}}
+
+/* Film grain overlay */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  opacity:.32;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+}
+
+/* ══════════════════════════════════════════
+   CURSOR
+══════════════════════════════════════════ */
+#cur,#cur-r{position:fixed;pointer-events:none;border-radius:50%;z-index:99999;}
+#cur{width:8px;height:8px;background:var(--sage-dk);transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s,opacity .15s;}
+#cur-r{width:32px;height:32px;border:1px solid rgba(156,175,136,.4);transform:translate(-50%,-50%);transition:width .2s var(--ease),height .2s var(--ease),opacity .2s;}
+body.on-cta #cur{width:18px;height:18px;background:var(--sage);opacity:.7;}
+body.on-cta #cur-r{width:52px;height:52px;opacity:.18;}
+
+/* ══════════════════════════════════════════
+   PROGRESS
+══════════════════════════════════════════ */
+#prog{
+  position:fixed;top:0;left:0;height:2px;width:0;
+  background:linear-gradient(90deg,var(--sage-dk),var(--sage));
+  z-index:9997;pointer-events:none;
+}
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 64px;
+  transition:padding .35s var(--ease),background .35s,border-color .35s;
+}
+#nav.scrolled{
+  background:rgba(7,14,10,.96);
+  border-bottom:1px solid var(--bd);
+  padding:14px 64px;
+}
+.nav-brand{display:flex;flex-direction:column;gap:3px;}
+.nav-logo{
+  font-family:var(--serif);font-size:1.05rem;font-weight:300;
+  color:var(--ti);letter-spacing:-.01em;line-height:1;
+}
+.nav-logo em{font-style:italic;color:var(--sage-lt);}
+.nav-tag{
+  font-family:var(--mono);font-size:.44rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ti3);
+}
+.nav-r{display:flex;align-items:center;gap:32px;}
+.nav-phone{
+  font-family:var(--mono);font-size:.52rem;
+  letter-spacing:.05em;color:var(--ti2);transition:color .2s;
+}
+.nav-phone:hover{color:var(--ti);}
+.nav-cta{
+  font-family:var(--mono);font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:10px 20px;background:var(--sage);color:var(--f1);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+  transition:background .2s var(--ease),clip-path .18s var(--ease);
+}
+.nav-cta:hover{background:var(--sage-lt);clip-path:polygon(0 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%);}
+#ham{display:none;flex-direction:column;gap:5px;padding:4px;}
+#ham span{display:block;width:20px;height:1px;background:var(--ti);transition:all .25s;}
+#mob{display:none;position:fixed;inset:0;background:var(--f2);z-index:700;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
+#mob.open{display:flex;}
+#mob-x{position:absolute;top:28px;right:28px;font-size:18px;color:var(--ti2);padding:4px;}
+#mob a{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--ti);letter-spacing:-.02em;transition:color .2s;}
+#mob a:hover{color:var(--sage-lt);}
+#mob .nav-cta{font-size:.65rem;padding:14px 28px;margin-top:8px;}
+
+/* ══════════════════════════════════════════
+   HERO — Full viewport, centered, WebGL orb fills it
+══════════════════════════════════════════ */
+#hero{
+  position:relative;
+  width:100%;height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+#leaf-canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+
+
+
+/* Vignette: radial darkening so centered text is readable */
+#hero::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 65% 65% at 50% 50%,transparent 18%,rgba(7,14,10,.52) 68%,rgba(7,14,10,.88) 100%),
+    radial-gradient(ellipse 100% 45% at 50% 100%,rgba(7,14,10,.95) 0%,transparent 55%),
+    radial-gradient(ellipse 100% 32% at 50% 0%,rgba(7,14,10,.75) 0%,transparent 50%);
+}
+
+/* Text lives in left column — always readable */
+.h-content{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  max-width:820px;
+  padding:0 32px;
+}
+
+.h-eye{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.5rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:28px;
+}
+.h-eye-dot{
+  width:4px;height:4px;border-radius:50%;background:var(--sage);
+  animation:edot 3s ease-in-out infinite;
+}
+@keyframes edot{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* The headline — mix-blend-mode:overlay so orb glows through it */
+.h-hed{
+  font-family:var(--serif);
+  font-size:clamp(2.8rem,5.5vw,5.5rem);
+  font-weight:200;
+  color:var(--ti);
+  line-height:1.02;letter-spacing:-.03em;
+  margin-bottom:24px;
+  /* blend: headline becomes part of the orb */
+  mix-blend-mode:normal; /* override per-word below */
+}
+.h-hed .w{
+  display:inline-block;
+  will-change:transform,opacity;
+}
+.h-hed .w.acc{
+  font-style:italic;color:var(--sage-lt);
+  /* clean italic — no blend mode, text is now separated from orb */
+}
+.h-hed .nl{display:block;height:.05em;}
+
+.h-sub{
+  font-family:var(--sans);font-size:1rem;font-weight:300;
+  color:rgba(244,248,240,.72);line-height:1.8;
+  max-width:460px;margin:0 auto 44px;
+}
+.h-acts{
+  display:flex;align-items:center;justify-content:center;
+  gap:24px;flex-wrap:wrap;margin-bottom:48px;
+}
+
+/* THE ONE SAGE BUTTON */
+.btn-sage{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 36px;background:var(--sage);color:var(--f1);
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);
+  transition:background .2s var(--ease),clip-path .18s var(--ease);
+  will-change:transform;position:relative;overflow:hidden;
+}
+.btn-sage::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.1);opacity:0;transition:opacity .2s;}
+.btn-sage:hover::after{opacity:1;}
+.btn-sage:hover{background:var(--sage-lt);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);}
+.btn-sage:active{transform:scale(.97);}
+
+.h-tel{
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.05em;
+  color:var(--ti3);display:flex;align-items:center;gap:8px;transition:color .2s;
+}
+.h-tel::before{content:'';width:16px;height:1px;background:rgba(244,248,240,.28);}
+.h-tel:hover{color:var(--ti);}
+
+/* Stats strip at bottom of hero */
+.h-stats{
+  position:absolute;bottom:40px;left:0;right:0;z-index:10;
+  display:flex;align-items:center;justify-content:center;gap:0;
+}
+.hs{display:flex;flex-direction:column;align-items:center;padding:0 32px;}
+.hs+.hs{border-left:1px solid rgba(244,248,240,.07);}
+.hs-n{
+  font-family:var(--serif);font-size:2rem;font-weight:300;
+  color:var(--ti);line-height:1;letter-spacing:-.02em;
+}
+.hs-n em{color:var(--sage);font-style:italic;}
+.hs-l{
+  font-family:var(--mono);font-size:.42rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ti3);margin-top:4px;
+}
+
+/* Scroll hint */
+.h-scroll{
+  position:absolute;bottom:32px;left:64px;z-index:10;
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.42rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ti3);
+}
+.h-sc-line{width:24px;height:1px;background:rgba(244,248,240,.28);}
+
+/* ══════════════════════════════════════════
+   LIVE TICKER BAND — between hero and truth
+   CSS marquee — no JS needed
+══════════════════════════════════════════ */
+/* ── PHOTO MOSAIC STRIP ── */
+#mosaic-strip{
+  background:var(--f1);
+  overflow:hidden;
+  position:relative;
+  z-index:10;
+}
+.ms-inner{
+  display:flex;
+  height:280px;
+  gap:2px;
+}
+.ms-photo{
+  position:relative;
+  overflow:hidden;
+  flex:1;
+  /* Main (first) photo gets 1.5x flex — slightly bigger */
+  cursor:pointer;
+}
+.ms-main{flex:1.5;}
+.ms-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  /* Dark green grade — matches brand palette */
+  filter:brightness(.72) saturate(.68) contrast(1.05);
+  transform:scale(1.06);
+  transition:transform 6s cubic-bezier(.22,1,.36,1),filter .4s;
+}
+.ms-photo:hover img{
+  transform:scale(1.0);
+  filter:brightness(.88) saturate(.85) contrast(1.02);
+}
+/* Label overlay — sits at bottom of each photo */
+.ms-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:36px 18px 16px;
+  background:linear-gradient(to top,rgba(7,14,10,.88) 0%,rgba(7,14,10,.45) 50%,transparent 100%);
+  transform:translateY(8px);
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.ms-photo:hover .ms-overlay{transform:translateY(0);}
+.ms-label{
+  font-family:var(--sans);
+  font-size:.88rem;
+  font-weight:600;
+  color:rgba(244,248,240,.92);
+  margin-bottom:3px;
+}
+.ms-sub{
+  font-family:var(--mono);
+  font-size:.42rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(156,175,136,.7);
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .3s .05s,transform .3s .05s;
+}
+.ms-photo:hover .ms-sub{opacity:1;transform:translateY(0);}
+/* Top fade — bleeds into hero bottom */
+#mosaic-strip::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:60px;
+  background:linear-gradient(to bottom,var(--f1),transparent);
+  z-index:2;pointer-events:none;
+}
+/* Bottom border line */
+#mosaic-strip::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:var(--bd);
+  z-index:2;
+}
+/* Reveal on load — stagger each photo */
+.ms-photo{opacity:0;animation:msIn .8s cubic-bezier(.22,1,.36,1) forwards;}
+.ms-photo:nth-child(1){animation-delay:.1s;}
+.ms-photo:nth-child(2){animation-delay:.22s;}
+.ms-photo:nth-child(3){animation-delay:.34s;}
+.ms-photo:nth-child(4){animation-delay:.46s;}
+.ms-photo:nth-child(5){animation-delay:.58s;}
+@keyframes msIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1.06)}}
+
+/* Responsive */
+@media(max-width:900px){
+  .ms-inner{height:200px;}
+  .ms-photo:nth-child(4),.ms-photo:nth-child(5){display:none;}
+  .ms-main{flex:1;}
+}
+@media(max-width:600px){
+  .ms-inner{height:160px;gap:1px;}
+  .ms-photo:nth-child(3){display:none;}
+  .ms-label{font-size:.78rem;}
+}
+
+/* ══════════════════════════════════════════
+   SHARED SECTION STYLES
+══════════════════════════════════════════ */
+.sec-eye{
+  font-family:var(--mono);font-size:.48rem;
+  letter-spacing:.25em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:16px;
+}
+.sec-eye::before{content:'';width:20px;height:1px;}
+.sec-h2{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,2.8vw,2.8rem);
+  font-weight:300;line-height:1.1;letter-spacing:-.025em;
+  margin-bottom:16px;
+}
+.sec-h2 em{font-style:italic;}
+
+/* ══════════════════════════════════════════
+   TRUTH
+══════════════════════════════════════════ */
+/* ── SECTION INNER WRAPPER — consistent composition ── */
+.sec-wrap{
+  max-width:1200px;
+  margin:0 auto;
+  width:100%;
+}
+#truth{background:var(--s0);padding:128px 64px;}
+.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1200px;margin:0 auto;width:100%;}
+.t-left .sec-eye{color:var(--sage-dk);}
+.t-left .sec-eye::before{background:var(--sage-dk);}
+.t-left .sec-h2{color:var(--tb);}
+.t-left .sec-h2 em{color:var(--sage-900);}
+.t-body{font-family:var(--sans);font-size:.95rem;font-weight:300;line-height:1.85;color:var(--tb2);}
+.t-body+.t-body{margin-top:12px;}
+.t-link{
+  display:inline-flex;align-items:center;gap:8px;margin-top:24px;
+  font-family:var(--mono);font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sage-900);transition:gap .2s var(--ease);
+}
+.t-link::after{content:'→';}
+.t-link:hover{gap:14px;}
+.t-right{display:flex;flex-direction:column;}
+.t-fact{display:flex;gap:18px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--bds);}
+.t-fact:first-child{padding-top:0;}
+.t-fact:last-child{border-bottom:none;}
+.t-ico{width:34px;height:34px;flex-shrink:0;border:1px solid var(--bds2);display:flex;align-items:center;justify-content:center;color:var(--sage-dk);margin-top:2px;}
+.t-ft{font-family:var(--sans);font-size:.84rem;font-weight:600;color:var(--tb);margin-bottom:4px;}
+.t-fd{font-family:var(--sans);font-size:.875rem;font-weight:300;color:var(--tb2);line-height:1.72;}
+
+/* ══════════════════════════════════════════
+   PATHS
+══════════════════════════════════════════ */
+#paths{background:var(--s1);padding:128px 64px;}
+.paths-eye{color:var(--tb3);margin-bottom:48px;max-width:1200px;margin-left:auto;margin-right:auto;}
+.paths-eye::before{background:var(--bds2);}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bds);max-width:1200px;margin:0 auto;width:100%;}
+.p-card{
+  background:var(--s0);padding:52px 44px 44px;
+  position:relative;overflow:hidden;
+  transform-style:preserve-3d;
+  transition:background .2s var(--ease),transform .25s var(--ease);
+}
+.p-card::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle 300px at var(--mx,50%) var(--my,50%),rgba(156,175,136,.09) 0%,transparent 65%);
+  opacity:0;transition:opacity .3s;
+}
+.p-card:hover::before{opacity:1;}
+.p-card:hover{background:#f8f5ee;}
+.p-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--sage),var(--sage-lt));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);
+}
+.p-card:hover::after{transform:scaleX(1);}
+.p-inner{position:relative;z-index:1;}
+.p-tag{font-family:var(--mono);font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tb3);margin-bottom:16px;}
+.p-h3{font-family:var(--serif);font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:300;color:var(--tb);line-height:1.1;letter-spacing:-.02em;margin-bottom:12px;}
+.p-h3 em{font-style:italic;color:var(--sage-900);}
+.p-desc{font-family:var(--sans);font-size:.9rem;font-weight:300;color:var(--tb2);line-height:1.8;margin-bottom:24px;}
+.p-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.p-li{display:flex;align-items:center;gap:11px;font-family:var(--sans);font-size:.875rem;font-weight:300;color:var(--tb2);}
+.p-li::before{content:'';width:13px;height:1px;background:var(--sage);flex-shrink:0;}
+.p-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-900);transition:gap .2s var(--ease);}
+.p-cta::after{content:'→';}
+.p-cta:hover{gap:14px;}
+
+/* ══════════════════════════════════════════
+   FEEL
+══════════════════════════════════════════ */
+#feel{background:var(--f3);padding:128px 64px;}
+.feel-eye{color:rgba(156,175,136,.45);margin-bottom:48px;max-width:1200px;margin-left:auto;margin-right:auto;}
+.feel-eye::before{background:rgba(156,175,136,.25);}
+.feel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(156,175,136,.09);max-width:1200px;margin:0 auto;width:100%;}
+.feel-step{
+  background:var(--f3);padding:44px 36px 48px;
+  position:relative;overflow:hidden;
+  border:1px solid transparent;
+  transform-style:preserve-3d;
+  transition:border-color .2s,transform .25s var(--ease);
+  will-change:transform;
+}
+.feel-step:hover{border-color:rgba(156,175,136,.16);}
+.feel-step::before{
+  content:attr(data-n);position:absolute;top:20px;right:20px;
+  font-family:var(--serif);font-size:5.5rem;font-weight:300;font-style:italic;
+  color:rgba(156,175,136,.05);line-height:1;pointer-events:none;
+}
+.feel-step::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),rgba(156,175,136,.07) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.feel-step:hover::after{opacity:1;}
+.fs-in{position:relative;z-index:1;}
+.fs-t{
+  font-family:var(--mono);font-size:.45rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(156,175,136,.62);margin-bottom:14px;
+  opacity:0;transform:translateX(-10px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.fs-h{
+  font-family:var(--serif);font-size:1.15rem;font-weight:300;
+  color:rgba(244,248,240,.88);letter-spacing:-.01em;line-height:1.2;margin-bottom:10px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .5s var(--ease) .08s,transform .5s var(--ease) .08s;
+}
+.fs-d{
+  font-family:var(--sans);font-size:.875rem;font-weight:300;
+  color:rgba(244,248,240,.62);line-height:1.75;
+  opacity:0;transition:opacity .5s var(--ease) .16s;
+}
+.feel-step.fi .fs-t,.feel-step.fi .fs-h,.feel-step.fi .fs-d{opacity:1;transform:none;}
+
+/* ══════════════════════════════════════════
+   VOICES — full-width editorial, not cards
+══════════════════════════════════════════ */
+#voices{background:var(--s0);padding:80px 64px;}
+.v-inner{max-width:1200px;margin:0 auto;}
+.v-eye{color:var(--tb3);margin-bottom:40px;}
+.v-eye::before{background:var(--bds2);}
+.v-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bds);}
+.v-card{background:var(--s0);padding:36px 32px 32px;display:flex;flex-direction:column;transition:background .2s;}
+.v-card:hover{background:var(--s1);}
+.v-card-featured{background:var(--sage-900);}
+.v-card-featured:hover{background:var(--sage-900);}
+.v-card-featured .v-card-q{color:rgba(244,248,240,.88);}
+.v-card-featured .v-card-name{color:rgba(244,248,240,.9);}
+.v-card-featured .v-card-role{color:rgba(244,248,240,.42);}
+.v-card-featured .v-stars{color:var(--sage-lt);}
+.v-stars{font-size:.72rem;color:var(--gold);letter-spacing:2px;margin-bottom:16px;}
+.v-card-q{font-family:var(--serif);font-size:1rem;font-weight:300;font-style:italic;color:var(--tb);line-height:1.68;letter-spacing:-.01em;flex:1;margin-bottom:24px;}
+.v-card-foot{border-top:1px solid var(--bds);padding-top:16px;}
+.v-card-featured .v-card-foot{border-top-color:rgba(156,175,136,.2);}
+.v-card-name{font-family:var(--sans);font-size:.84rem;font-weight:600;color:var(--tb);margin-bottom:3px;}
+.v-card-role{font-family:var(--mono);font-size:.42rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tb3);}
+
+/* ══════════════════════════════════════════
+   CALL
+══════════════════════════════════════════ */
+#call{background:var(--sage-900);padding:96px 64px;}
+
+.call-eye{color:rgba(244,248,240,.38);margin-bottom:12px;}
+.call-eye::before{background:rgba(244,248,240,.2);}
+.call-h2{
+  font-family:var(--serif);font-size:clamp(1.6rem,2.8vw,2.5rem);
+  font-weight:300;color:rgba(244,248,240,.9);
+  line-height:1.15;letter-spacing:-.025em;margin-bottom:12px;
+}
+.call-h2 em{font-style:italic;color:var(--sage-lt);}
+.call-p{font-family:var(--sans);font-size:.9rem;font-weight:300;color:rgba(244,248,240,.42);line-height:1.75;margin-bottom:16px;}
+.call-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:.44rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--sage-lt);border:1px solid rgba(156,175,136,.22);padding:7px 13px;
+}
+.call-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--sage-lt);flex-shrink:0;}
+
+
+
+/* ══════════════════════════════════════════
+   FORM
+══════════════════════════════════════════ */
+#form-sec{background:var(--f2);padding:128px 64px;}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start;max-width:1200px;margin:0 auto;width:100%;}
+.f-eye{color:rgba(156,175,136,.45);}
+.f-eye::before{background:rgba(156,175,136,.25);}
+.f-h2{
+  font-family:var(--serif);font-size:clamp(1.8rem,2.8vw,2.6rem);
+  font-weight:300;color:rgba(244,248,240,.9);
+  line-height:1.12;letter-spacing:-.025em;margin-bottom:12px;
+}
+.f-h2 em{font-style:italic;color:var(--sage-lt);}
+.f-p{font-family:var(--sans);font-size:.9rem;font-weight:300;color:rgba(244,248,240,.35);line-height:1.8;margin-bottom:32px;}
+.f-info{display:flex;flex-direction:column;}
+.f-row{display:flex;align-items:flex-start;gap:13px;padding:15px 0;border-bottom:1px solid var(--bd);}
+.f-row:first-child{padding-top:0;}
+.f-row:last-child{border-bottom:none;}
+.f-ico{width:26px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--sage);margin-top:1px;}
+.f-l{font-family:var(--mono);font-size:.42rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,248,240,.26);margin-bottom:3px;}
+.f-v{font-family:var(--sans);font-size:.875rem;font-weight:300;color:rgba(244,248,240,.58);}
+.f-v a{color:rgba(244,248,240,.58);transition:color .2s;}
+.f-v a:hover{color:var(--sage-lt);}
+.cf-wrap{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:44px;}
+.cf-h{font-family:var(--serif);font-size:1.3rem;font-weight:300;color:rgba(244,248,240,.88);letter-spacing:-.02em;margin-bottom:6px;}
+.cf-s{font-family:var(--sans);font-size:.84rem;font-weight:300;color:rgba(244,248,240,.34);margin-bottom:24px;line-height:1.65;}
+.cf-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.cf-f{margin-bottom:12px;}
+.cf-l{font-family:var(--mono);font-size:.42rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,248,240,.26);display:block;margin-bottom:6px;}
+.cf-i,.cf-sl,.cf-ta{
+  width:100%;background:rgba(255,255,255,.04);
+  border:1px solid var(--bd);border-radius:0;-webkit-appearance:none;
+  padding:11px 13px;font-family:var(--sans);font-size:.9rem;
+  color:rgba(244,248,240,.76);outline:none;transition:border-color .2s;
+}
+.cf-i:focus,.cf-sl:focus,.cf-ta:focus{border-color:rgba(156,175,136,.4);}
+.cf-i::placeholder,.cf-ta::placeholder{color:rgba(244,248,240,.17);}
+.cf-ta{min-height:86px;resize:vertical;line-height:1.6;}
+.cf-sl{
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(156,175,136,.4)'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;background-size:9px;padding-right:30px;
+}
+.cf-sl option{background:#0b1a0f;color:rgba(244,248,240,.8);}
+.cf-btn{
+  width:100%;padding:14px;margin-top:6px;
+  background:var(--sage);color:var(--f1);
+  font-family:var(--mono);font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+  transition:background .2s var(--ease);
+}
+.cf-btn:hover{background:var(--sage-lt);}
+.cf-btn:disabled{opacity:.5;cursor:not-allowed;}
+.cf-ok{display:none;padding:52px 20px;text-align:center;}
+.cf-ok-ico{width:42px;height:42px;margin:0 auto 18px;border:1px solid rgba(156,175,136,.28);display:flex;align-items:center;justify-content:center;}
+.cf-ok-h{font-family:var(--serif);font-size:1.25rem;font-weight:300;color:rgba(244,248,240,.88);letter-spacing:-.02em;margin-bottom:7px;}
+.cf-ok-b{font-family:var(--sans);font-size:.84rem;font-weight:300;color:rgba(244,248,240,.34);line-height:1.7;}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{background:rgba(3,6,4,1);border-top:1px solid var(--bd);padding:40px 64px;}
+.ft{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.ft-links{display:flex;gap:24px;}
+.ft-links a{font-family:var(--mono);font-size:.42rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,248,240,.2);transition:color .2s;}
+.ft-links a:hover{color:var(--sage);}
+.ft-copy{font-family:var(--mono);font-size:.4rem;letter-spacing:.05em;color:rgba(244,248,240,.14);}
+
+/* ══════════════════════════════════════════
+   CHATBOT
+══════════════════════════════════════════ */
+#cb{
+  position:fixed;bottom:28px;right:28px;width:46px;height:46px;
+  background:var(--sage-900);border:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;z-index:900;
+  transition:background .2s;
+}
+#cb:hover{background:var(--sage-dk);}
+#co{display:none;position:fixed;inset:0;background:rgba(4,8,5,.65);backdrop-filter:blur(8px);z-index:910;align-items:flex-end;justify-content:flex-end;padding:28px;}
+#co.open{display:flex;}
+#cbox{width:354px;max-height:505px;background:var(--f3);border:1px solid var(--bd);display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.75);}
+#chdr{background:rgba(156,175,136,.05);border-bottom:1px solid var(--bd);padding:12px 15px;display:flex;align-items:center;gap:8px;}
+.cd{width:5px;height:5px;border-radius:50%;background:var(--sage);animation:cpulse 2.5s infinite;}
+@keyframes cpulse{0%,100%{opacity:1}50%{opacity:.28}}
+.cn{font-family:var(--sans);font-size:.8rem;font-weight:600;color:rgba(244,248,240,.8);flex:1;}
+.cs{font-family:var(--mono);font-size:.41rem;letter-spacing:.07em;color:rgba(244,248,240,.26);}
+#cclose{color:rgba(244,248,240,.26);font-size:14px;padding:0 0 0 8px;transition:color .2s;}
+#cclose:hover{color:rgba(244,248,240,.6);}
+#ixChatMsgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px;scrollbar-width:thin;scrollbar-color:rgba(156,175,136,.14) transparent;}
+.ix-msg{max-width:85%;padding:9px 12px;font-family:var(--sans);font-size:.82rem;line-height:1.55;word-break:break-word;}
+.ix-msg-bot{background:rgba(156,175,136,.07);border:1px solid var(--bd);color:rgba(244,248,240,.78);align-self:flex-start;}
+.ix-msg-user{background:var(--f5);color:rgba(244,248,240,.88);align-self:flex-end;}
+.ix-typing{display:flex;gap:4px;align-items:center;padding:10px 12px;}
+.ix-typing span{width:4px;height:4px;border-radius:50%;background:rgba(156,175,136,.42);animation:it 1s ease-in-out infinite;}
+.ix-typing span:nth-child(2){animation-delay:.18s;}
+.ix-typing span:nth-child(3){animation-delay:.36s;}
+@keyframes it{0%,100%{opacity:.28;transform:none}50%{opacity:1;transform:translateY(-2px)}}
+#ixChatChips{padding:7px 13px;display:flex;flex-wrap:wrap;gap:5px;border-top:1px solid var(--bd);}
+.ix-chip{background:transparent;border:1px solid var(--bd);padding:5px 10px;font-family:var(--mono);font-size:.42rem;letter-spacing:.05em;color:rgba(244,248,240,.48);transition:all .14s;}
+.ix-chip:hover{background:rgba(156,175,136,.08);color:rgba(244,248,240,.82);border-color:var(--bd2);}
+#cinp-row{display:flex;border-top:1px solid var(--bd);}
+#ixChatInp{flex:1;background:none;border:none;padding:12px 13px;font-family:var(--sans);font-size:.83rem;color:rgba(244,248,240,.72);outline:none;}
+#ixChatInp::placeholder{color:rgba(244,248,240,.18);}
+#ixChatSend{border:none;border-left:1px solid var(--bd);padding:0 13px;color:var(--sage);transition:color .2s;}
+#ixChatSend:hover{color:var(--sage-lt);}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:1024px){
+  #nav{padding:20px 40px;}
+  #nav.scrolled{padding:14px 40px;}
+  #truth,#paths,#feel,#voices,#call,#form-sec{padding:96px 40px;}
+  .t-grid,.call-grid,.f-grid{gap:48px;}
+  .feel-grid{grid-template-columns:1fr 1fr;}
+  .h-stats{padding:0 40px;bottom:32px;}
+  .h-scroll{left:40px;bottom:32px;}
+  footer{padding:36px 40px;}
+}
+@media(max-width:900px){
+  #nav{padding:18px 28px;}
+  #nav.scrolled{padding:13px 28px;}
+  .nav-phone{display:none;}
+  .h-stats{display:none;}
+  .h-scroll{left:28px;}
+  #truth,#paths,#feel,#voices,#call,#form-sec{padding:80px 28px;}
+  .t-grid,.call-grid,.f-grid{grid-template-columns:1fr;}
+  .call-r{text-align:left;}
+  .p-grid{grid-template-columns:1fr;}
+  .feel-grid{grid-template-columns:1fr;}
+  .voice{grid-template-columns:1fr;gap:20px;}
+  .voice:nth-child(even){grid-template-columns:1fr;direction:ltr;}
+  .voice::before{left:-28px;}
+  footer{padding:32px 28px;}
+}
+@media(max-width:768px){
+  #nav{padding:16px 20px;}
+  #nav.scrolled{padding:12px 20px;}
+  .nav-cta{display:none;}
+  #ham{display:flex;}
+  .h-scroll{left:20px;display:none;}
+  #truth,#paths,#feel,#voices,#call,#form-sec{padding:64px 20px;}
+  .cf-2{grid-template-columns:1fr;}
+  .cf-wrap{padding:28px 20px;}
+  .voice::before{display:none;}
+  footer{padding:28px 20px;}
+  .ft{flex-direction:column;align-items:flex-start;gap:12px;}
+}
+@media(max-width:600px){
+  .h-acts{flex-direction:column;align-items:center;}
+  #cb{bottom:20px;right:20px;}
+  #co{padding:0;}
+  #cbox{width:100%;max-height:100dvh;}
+}
+@media(max-width:390px){
+  body{font-size:15px;}
+  input,select,textarea{font-size:16px!important;}
+  #nav{padding:14px 16px;}
+
+  #truth,#paths,#feel,#voices,#call,#form-sec{padding:56px 16px;}
+  footer{padding:24px 16px;}
+}
+@media(min-width:901px){
+  #ham{display:none!important;}
+  #mob{display:none!important;}
+  .nav-phone,.nav-cta{display:flex!important;}
+  .nav-cta{display:inline-flex!important;}
+}
+@media(hover:none){
+  .p-card::before,.p-card::after,.feel-step::after{display:none;}
+}
+
+/* ── POWERED BY STRIP ── */
+#powered{
+  background:var(--f1);
+  border-top:1px solid var(--bd2);
+  border-bottom:1px solid var(--bd2);
+  padding:22px 64px;
+}
+.pw-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;gap:40px;
+  flex-wrap:wrap;
+}
+.pw-badge{
+  display:flex;align-items:center;gap:10px;
+  flex-shrink:0;
+}
+.pw-label{
+  font-family:var(--mono);font-size:.5rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(244,248,240,.45);
+}
+.pw-name{
+  font-family:var(--mono);font-size:.58rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--sage-lt);font-weight:400;
+}
+.pw-divider{
+  width:1px;height:24px;background:var(--bd);flex-shrink:0;
+}
+.pw-features{
+  display:flex;align-items:center;gap:28px;flex-wrap:wrap;flex:1;
+}
+.pw-feat{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:.5rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(244,248,240,.55);
+  white-space:nowrap;
+}
+.pw-feat svg{color:var(--sage-lt);flex-shrink:0;}
+
+/* ── CALL SECTION — process steps ── */
+#call{background:var(--sage-900);padding:96px 64px;}
+.call-top{
+  max-width:1200px;margin:0 auto 64px;
+}
+.call-h2{
+  font-family:var(--serif);font-size:clamp(1.6rem,2.8vw,2.5rem);
+  font-weight:300;color:rgba(244,248,240,.9);
+  line-height:1.15;letter-spacing:-.025em;margin-top:8px;
+}
+.call-h2 em{font-style:italic;color:var(--sage-lt);}
+.call-steps{
+  max-width:1200px;margin:0 auto 56px;
+  display:flex;align-items:flex-start;gap:0;
+}
+.call-step{
+  flex:1;
+  padding:0 32px 0 0;
+}
+.call-step:last-child{padding-right:0;}
+.call-step-n{
+  font-family:var(--mono);font-size:.46rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(156,175,136,.4);margin-bottom:12px;
+}
+.call-step-title{
+  font-family:var(--serif);font-size:1.1rem;font-weight:300;
+  color:rgba(244,248,240,.88);letter-spacing:-.01em;
+  margin-bottom:8px;line-height:1.2;
+}
+.call-step-desc{
+  font-family:var(--sans);font-size:.85rem;font-weight:300;
+  color:rgba(244,248,240,.68);line-height:1.7;
+}
+.call-step-div{
+  font-family:var(--mono);font-size:1.2rem;
+  color:rgba(156,175,136,.3);
+  padding:18px 16px 0;
+  flex-shrink:0;
+}
+.call-bottom{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;gap:24px;
+  padding-top:48px;
+  border-top:1px solid rgba(156,175,136,.15);
+}
+.call-phone-link{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.52rem;
+  letter-spacing:.05em;color:rgba(244,248,240,.4);
+  transition:color .2s;
+}
+.call-phone-link:hover{color:rgba(244,248,240,.75);}
+
+/* ── PATHS — service buttons ── */
+.p-services{
+  display:flex;flex-direction:column;gap:6px;
+  margin-bottom:28px;
+}
+.p-svc-btn{
+  display:flex;align-items:center;gap:10px;
+  background:transparent;
+  border:1px solid var(--bds);
+  padding:10px 14px;
+  font-family:var(--sans);font-size:.85rem;font-weight:400;
+  color:var(--tb2);text-align:left;cursor:pointer;
+  transition:all .18s var(--ease);
+}
+.p-svc-btn::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--sage);flex-shrink:0;}
+.p-svc-btn:hover{
+  background:var(--sage);color:var(--f1);
+  border-color:var(--sage);
+}
+.p-svc-btn:hover::before{background:var(--f1);}
+.p-cta-btn{
+  width:100%;
+  justify-content:center;
+  margin-top:4px;
+}
+
+/* ── RESPONSIVE — new sections ── */
+@media(max-width:1024px){
+  .call-steps{flex-direction:column;gap:32px;}
+  .call-step-div{display:none;}
+  .call-step{padding:0;}
+  #powered{padding:24px 40px;}
+}
+@media(max-width:900px){
+  #powered{padding:20px 28px;}
+  .pw-divider{display:none;}
+  .pw-features{gap:16px;}
+  #call{padding:80px 28px;}
+}
+@media(max-width:768px){
+  #powered{padding:18px 20px;}
+  .pw-feat{font-size:.42rem;}
+  #call{padding:64px 20px;}
+  .call-bottom{flex-direction:column;align-items:flex-start;gap:16px;}
+}
+@media(max-width:600px){
+  .pw-features{display:none;}
+  #svc-modal{padding:36px 20px 28px;}
+}
+
+/* ── SERVICE ACCORDION ── */
+.p-acc-item{margin-bottom:1px;}
+.p-svc-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;background:transparent;
+  border:1px solid var(--bds);
+  padding:12px 16px;
+  font-family:var(--sans);font-size:.875rem;font-weight:400;
+  color:var(--tb);text-align:left;cursor:pointer;
+  transition:all .18s var(--ease);
+}
+.p-svc-btn:hover,.p-acc-item.open .p-svc-btn{
+  background:var(--f4);color:rgba(244,248,240,.9);
+  border-color:var(--sage-dk);
+}
+.p-acc-arrow{
+  font-size:1.1rem;line-height:1;color:var(--sage-dk);
+  transition:transform .25s var(--ease);flex-shrink:0;
+}
+.p-acc-item.open .p-acc-arrow{transform:rotate(45deg);}
+.p-acc-body{
+  display:none;
+  padding:14px 16px 16px;
+  background:var(--s1);
+  border:1px solid var(--bds);border-top:none;
+  font-family:var(--sans);font-size:.85rem;font-weight:300;
+  color:var(--tb2);line-height:1.75;
+}
+.p-acc-item.open .p-acc-body{display:block;}
+.p-acc-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:10px;
+  font-family:var(--mono);font-size:.46rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--sage-dk);background:none;border:none;
+  cursor:pointer;padding:0;
+  transition:gap .2s var(--ease);
+}
+.p-acc-cta:hover{gap:10px;}
+
+/* ── FEEL SECTION — workflow ── */
+.feel-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:rgba(156,175,136,.08);
+  max-width:1200px;margin:0 auto;width:100%;
+  position:relative;
+}
+/* Connecting arrows between steps */
+.feel-grid::before,.feel-grid::after{
+  content:'→';
+  position:absolute;top:56px;
+  font-family:var(--mono);font-size:1rem;
+  color:rgba(156,175,136,.3);
+  z-index:2;
+}
+.feel-grid::before{left:calc(33.33% - 10px);}
+.feel-grid::after{left:calc(66.66% - 10px);}
+
+.fs-icon{
+  width:36px;height:36px;margin-bottom:20px;
+}
+.fs-detail{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;
+}
+.fs-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:.42rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(156,175,136,.7);
+  background:rgba(156,175,136,.08);
+  border:1px solid rgba(156,175,136,.15);
+  padding:4px 9px;
+}
+.fs-chip-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--sage);flex-shrink:0;
+}
+.fs-chip-dot.warn{background:var(--gold);}
+.fs-chip-warn{color:rgba(196,146,58,.8);background:rgba(196,146,58,.08);border-color:rgba(196,146,58,.2);}
+
+
+/* ── AUDIENCE SPLIT — family (warm light) vs facilities (deep forest) ── */
+.p-svc-l{display:flex;align-items:center;gap:12px;min-width:0;}
+.p-ico{width:30px;height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid rgba(90,120,72,.22);background:rgba(156,175,136,.1);color:var(--sage-dk);transition:all .18s var(--ease);}
+.p-ico svg{width:15px;height:15px;}
+.p-svc-btn:hover .p-ico,.p-acc-item.open .p-svc-btn .p-ico{border-color:rgba(196,216,176,.4);background:rgba(156,175,136,.18);color:var(--sage-lt);}
+.p-tag{display:flex;align-items:center;gap:8px;}
+.p-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;}
+.p-card--facility{background:var(--f2);}
+.p-card--facility:hover{background:var(--f3);}
+.p-card--facility::before{background:radial-gradient(circle 300px at var(--mx,50%) var(--my,50%),rgba(196,146,58,.1) 0%,transparent 65%);}
+.p-card--facility::after{background:linear-gradient(90deg,var(--gold),#e0c98f);}
+.p-card--facility .p-tag{color:#e0c98f;}
+.p-card--facility .p-tag::before{background:var(--gold);}
+.p-card--facility .p-h3{color:var(--s0);}
+.p-card--facility .p-h3 em{color:#e0c98f;}
+.p-card--facility .p-desc{color:rgba(244,240,232,.55);}
+.p-card--facility .p-svc-btn{border-color:rgba(253,251,244,.1);color:rgba(244,240,232,.88);}
+.p-card--facility .p-svc-btn:hover,.p-card--facility .p-acc-item.open .p-svc-btn{background:rgba(196,146,58,.08);border-color:rgba(196,146,58,.35);color:var(--s0);}
+.p-card--facility .p-acc-arrow{color:var(--gold);}
+.p-card--facility .p-acc-body{background:rgba(7,14,10,.35);border-color:rgba(253,251,244,.08);color:rgba(244,240,232,.55);}
+.p-card--facility .p-acc-cta{color:#e0c98f;}
+.p-card--facility .p-ico{border-color:rgba(196,146,58,.3);background:rgba(196,146,58,.08);color:#e0c98f;}
+.p-card--facility .p-svc-btn:hover .p-ico,.p-card--facility .p-acc-item.open .p-svc-btn .p-ico{border-color:rgba(224,201,143,.5);background:rgba(196,146,58,.16);color:#edd9a8;}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;background:var(--gold);color:var(--f1);font-family:var(--mono);font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);transition:background .2s var(--ease),clip-path .18s var(--ease);will-change:transform;position:relative;overflow:hidden;}
+.btn-gold::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);opacity:0;transition:opacity .2s;}
+.btn-gold:hover::after{opacity:1;}
+.btn-gold:hover{background:#e0c98f;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);}
+.btn-gold:active{transform:scale(.97);}
+
+
+/* ── DAY-IN-THE-LIFE — animated workflow ── */
+/* kill the static arrows; the flow line replaces them */
+.feel-grid::before,.feel-grid::after{content:none;}
+.feel-flow{
+  position:absolute;top:76px;left:calc(16.66% + 22px);right:calc(16.66% + 22px);
+  height:1px;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(156,175,136,.35) 0 5px,transparent 5px 11px);
+}
+.feel-flow::before,.feel-flow::after{
+  content:'';position:absolute;top:-2.5px;width:6px;height:6px;border-radius:50%;
+  background:rgba(156,175,136,.5);
+}
+.feel-flow::before{left:-3px;}
+.feel-flow::after{right:-3px;}
+.feel-flow-dot{
+  position:absolute;top:-2px;left:0;width:5px;height:5px;border-radius:50%;
+  background:var(--sage-lt);box-shadow:0 0 8px 2px rgba(196,216,176,.45);
+  animation:evTravel 5.5s cubic-bezier(.45,.05,.55,.95) infinite;
+}
+@keyframes evTravel{
+  0%{left:0;opacity:0;}8%{opacity:1;}
+  46%{left:calc(50% - 3px);opacity:1;}54%{left:calc(50% - 3px);opacity:1;}
+  92%{opacity:1;}100%{left:calc(100% - 5px);opacity:0;}
+}
+/* step 1 — arrival */
+.ev-ring{transform-box:fill-box;transform-origin:center;animation:evPulse 2.8s ease-out infinite;}
+.ev-ring-b{animation-delay:1.4s;}
+@keyframes evPulse{0%{transform:scale(.4);opacity:.7;}70%{opacity:.15;}100%{transform:scale(2.1);opacity:0;}}
+.ev-pin{transform-box:fill-box;transform-origin:center bottom;animation:evSettle 5.6s var(--ease) infinite;}
+@keyframes evSettle{0%,90%,100%{transform:translateY(0);}94%{transform:translateY(-2.5px);}}
+.ev-notif{transform-box:fill-box;transform-origin:center;animation:evNotif 5.6s ease-out infinite;}
+@keyframes evNotif{0%,55%{transform:scale(0);opacity:0;}62%{transform:scale(1.35);opacity:1;}68%{transform:scale(1);}92%{transform:scale(1);opacity:1;}100%{transform:scale(0);opacity:0;}}
+/* step 2 — summary writes itself */
+.ev-line{stroke-dasharray:20;stroke-dashoffset:20;animation:evWrite 6s ease-out infinite;}
+.ev-line-2{animation-delay:.45s;}
+.ev-line-3{animation-delay:.9s;}
+@keyframes evWrite{0%{stroke-dashoffset:20;}18%{stroke-dashoffset:0;}88%{stroke-dashoffset:0;opacity:1;}96%,100%{stroke-dashoffset:20;opacity:0;}}
+.ev-check{transform-box:fill-box;transform-origin:center;animation:evPop 6s var(--ease) infinite;}
+@keyframes evPop{0%,24%{transform:scale(0);opacity:0;}32%{transform:scale(1.18);opacity:1;}38%{transform:scale(1);}88%{transform:scale(1);opacity:1;}96%,100%{transform:scale(0);opacity:0;}}
+.ev-send{transform-box:fill-box;transform-origin:center;animation:evSend 6s ease-out infinite;}
+@keyframes evSend{0%,36%{transform:scale(1);opacity:0;}42%{opacity:.6;}70%{transform:scale(2.6);opacity:0;}100%{opacity:0;}}
+/* step 3 — evening */
+.ev-moon{transform-box:fill-box;transform-origin:center;animation:evGlow 5s ease-in-out infinite;}
+@keyframes evGlow{0%,100%{opacity:.75;transform:scale(1);}50%{opacity:1;transform:scale(1.04);}}
+.ev-star{transform-box:fill-box;transform-origin:center;animation:evTwinkle 3.4s ease-in-out infinite;}
+.ev-star-2{animation-delay:1.1s;}
+.ev-star-3{animation-delay:2.2s;}
+@keyframes evTwinkle{0%,100%{opacity:.25;transform:scale(.8);}50%{opacity:1;transform:scale(1.15);}}
+
+/* ── RESPONSIVE — new elements ── */
+@media(max-width:900px){
+  .feel-grid{grid-template-columns:1fr;gap:1px;background:rgba(156,175,136,.09) !important;}
+  .feel-flow{display:none;}
+  .feel-step{padding:36px 24px;}
+}
+@media(max-width:768px){
+  .p-acc-body{padding:12px 14px 14px;}
+}
+
+@media(max-width:900px){.v-cards{grid-template-columns:1fr;}.v-card-featured{order:-1;}}
+@media(max-width:768px){#voices{padding:60px 20px;}}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">Ever <em>Green</em></div>
+    <div class="nav-tag">Home Health Care · Calgary</div>
+  </a>
+  <div class="nav-r">
+    <a class="nav-phone" href="tel:4033607042">(403) 360-7042</a>
+    <a class="nav-cta" href="#form-sec">Book a care call</a>
+    <button id="ham" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mob">
+  <button id="mob-x">✕</button>
+  <a href="#truth" onclick="closeMob()">About</a>
+  <a href="#paths" onclick="closeMob()">Services</a>
+  <a href="#voices" onclick="closeMob()">Stories</a>
+  <a class="nav-cta" href="#form-sec" onclick="closeMob()">Book a care call</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO — Three.js morphing particle orb, full viewport
+══════════════════════════════════════════ -->
+<section id="hero">
+
+  <!-- LEAF PARTICLES — subtle ambient animation -->
+  <canvas id="leaf-canvas" aria-hidden="true"></canvas>
+
+  <div class="h-content">
+    <div class="h-eye"><span class="h-eye-dot"></span>Calgary · Alberta · GPS-verified care</div>
+
+    <h1 class="h-hed" aria-label="Your parent deserves care that reaches them before you have to ask.">
+      <span class="w">Your</span> <span class="w">parent</span> <span class="w">deserves</span>
+      <span class="nl"></span>
+      <span class="w">care</span> <span class="w">that</span> <span class="w">reaches</span> <span class="w">them</span>
+      <span class="nl"></span>
+      <span class="w acc">before</span> <span class="w acc">you</span> <span class="w acc">have</span> <span class="w acc">to</span> <span class="w acc">ask.</span>
+    </h1>
+
+    <p class="h-sub">Ever Green sends certified caregivers across Calgary and Alberta — GPS-verified on arrival, AI care summary sent to your family portal after every visit.</p>
+
+    <div class="h-acts">
+      <a class="btn-sage" href="#form-sec">Book a free care call</a>
+      <a class="h-tel" href="tel:4033607042">(403) 360-7042</a>
+    </div>
+  </div>
+
+  <div class="h-stats">
+    <div class="hs"><div class="hs-n" id="hN1">47</div><div class="hs-l">Families served</div></div>
+    <div class="hs"><div class="hs-n"><em>24/7</em></div><div class="hs-l">Care coordination</div></div>
+    <div class="hs"><div class="hs-n" id="hN2">12</div><div class="hs-l">Certified caregivers</div></div>
+  </div>
+
+  <div class="h-scroll" aria-hidden="true"><div class="h-sc-line"></div>Scroll</div>
+</section>
+
+<!-- PHOTO MOSAIC STRIP — horizontal, below hero -->
+<section id="voices">
+  <div class="v-inner">
+    <div class="sec-eye v-eye">What families say</div>
+    <div class="v-cards">
+      <div class="v-card">
+        <div class="v-stars">★★★★★</div>
+        <p class="v-card-q">They transformed my recovery. The nurses were expert and the companions made every day warmer. Their support was a beacon on my journey back.</p>
+        <div class="v-card-foot">
+          <div class="v-card-name">Margaret K.</div>
+          <div class="v-card-role">Post-surgery care · Calgary</div>
+        </div>
+      </div>
+      <div class="v-card v-card-featured">
+        <div class="v-stars">★★★★★</div>
+        <p class="v-card-q">Navigating my father's palliative care felt overwhelming. Ever Green's team made all the difference — their respect for his dignity let us focus on precious time together.</p>
+        <div class="v-card-foot">
+          <div class="v-card-name">Rajiv P.</div>
+          <div class="v-card-role">Palliative care family · Edmonton</div>
+        </div>
+      </div>
+      <div class="v-card">
+        <div class="v-stars">★★★★★</div>
+        <p class="v-card-q">Finding reliable nursing staff is never easy. Ever Green has been a godsend — skilled professionals who fit seamlessly into our team and never leave us short.</p>
+        <div class="v-card-foot">
+          <div class="v-card-name">Sarah D.</div>
+          <div class="v-card-role">Hospital administrator · Calgary</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="mosaic-strip">
+  <div class="ms-inner">
+
+    <div class="ms-photo ms-main">
+      <img src="https://evergreenhhc.ca/wp-content/uploads/2024/02/Companionship-2.jpg"
+           alt="Companion care for seniors" loading="lazy">
+      <div class="ms-overlay">
+        <div class="ms-label">Companion care</div>
+        <div class="ms-sub">Warmth, connection, daily presence</div>
+      </div>
+    </div>
+
+    <div class="ms-photo">
+      <img src="https://evergreenhhc.ca/wp-content/uploads/2024/02/Home-Care-Visit-To-Seniors-1.jpg"
+           alt="Home care visit to seniors" loading="lazy">
+      <div class="ms-overlay">
+        <div class="ms-label">Home care visits</div>
+        <div class="ms-sub">GPS-verified · every visit documented</div>
+      </div>
+    </div>
+
+    <div class="ms-photo">
+      <img src="https://evergreenhhc.ca/wp-content/uploads/2024/02/Palliative-Care-Hospice-Care-1.jpg"
+           alt="Palliative and hospice care" loading="lazy">
+      <div class="ms-overlay">
+        <div class="ms-label">Palliative care</div>
+        <div class="ms-sub">Dignity, comfort, peace of mind</div>
+      </div>
+    </div>
+
+    <div class="ms-photo">
+      <img src="https://evergreenhhc.ca/wp-content/uploads/2024/03/About-Ever-Green-Home-Health-Care.jpg"
+           alt="Ever Green care team" loading="lazy">
+      <div class="ms-overlay">
+        <div class="ms-label">Our team</div>
+        <div class="ms-sub">Certified · background checked · insured</div>
+      </div>
+    </div>
+
+    <div class="ms-photo">
+      <img src="https://evergreenhhc.ca/wp-content/uploads/2024/02/Nursing-Relief-To-Facilities-And-Hospitals-1.jpg"
+           alt="Nursing relief to facilities" loading="lazy">
+      <div class="ms-overlay">
+        <div class="ms-label">Nursing relief</div>
+        <div class="ms-sub">RNs, LPNs &amp; HCAs · same-day placement</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TRUTH -->
+<!-- POWERED BY — Proximity Systems signature strip -->
+<section id="powered">
+  <div class="pw-inner">
+    <div class="pw-badge">
+      <span class="pw-label">Powered by</span>
+      <span class="pw-name">Proximity Systems</span>
+    </div>
+    <div class="pw-divider" aria-hidden="true"></div>
+    <div class="pw-features">
+      <div class="pw-feat">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+        GPS-verified visits
+      </div>
+      <div class="pw-feat">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 12h6M9 16h4M9 8h6M5 20h14a2 2 0 002-2V6l-3-3H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5"/></svg>
+        AI care summaries
+      </div>
+      <div class="pw-feat">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.5"/></svg>
+        Family portal
+      </div>
+      <div class="pw-feat">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Auto invoicing
+      </div>
+      <div class="pw-feat">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        24/7 AI assistant
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATHS -->
+<section id="paths">
+  <div class="sec-eye paths-eye">Our services</div>
+  <div class="p-grid">
+    <div class="p-card">
+      <div class="p-inner">
+        <div class="p-tag">For families</div>
+        <h3 class="p-h3">Care for your <em>parent or loved one</em></h3>
+        <p class="p-desc">Safe, comfortable, genuinely cared for — by someone you can trust, documented in a way you can actually read.</p>
+        <div class="p-services">
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C7.2 16.2 3.5 12.6 3.5 9.1a4.3 4.3 0 018.5-1.1A4.3 4.3 0 0120.5 9c0 3.6-3.7 7.2-8.5 11z"/></svg></span><span>Companion care</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Warm, engaging presence keeping your parent socially connected and mentally active. Scheduled visits, meaningful conversation, light assistance with daily routines. <button class="p-acc-cta" onclick="openServiceModal('Companion care')">Book this service →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5c1.7 2 1.7 5 0 7-1.7-2-1.7-5 0-7z"/><path d="M6.5 8.5c.2 4.2 2.4 6.8 5.5 7.8 3.1-1 5.3-3.6 5.5-7.8"/><path d="M4 12.5c1.2 3.4 4.3 5.5 8 5.5s6.8-2.1 8-5.5"/></svg></span><span>Palliative &amp; hospice care</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Compassionate end-of-life support at home — focused on comfort, dignity, and pain management. We work alongside your family doctor and palliative team to ensure your loved one is never alone. <button class="p-acc-cta" onclick="openServiceModal('Palliative / hospice care')">Book this service →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 4l8.5 6.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M12 16.5c-1.6-1.2-2.6-2.3-2.6-3.5A1.6 1.6 0 0112 11.8a1.6 1.6 0 012.6 1.2c0 1.2-1 2.3-2.6 3.5z"/></svg></span><span>Home care for seniors</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Regular scheduled visits for personal care, medication reminders, mobility assistance, and wellness checks. Every visit GPS-verified and documented with an AI care summary sent to your family. <button class="p-acc-cta" onclick="openServiceModal('Home care for seniors')">Book this service →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12.5" cy="4.2" r="1.7"/><path d="M12.5 6.5v5.5h4.5l2 5"/><path d="M13.5 9.5h3"/><circle cx="10" cy="16.5" r="3.8"/></svg></span><span>Disability support</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Personalized daily living support for individuals with physical or cognitive disabilities — mobility assistance, community engagement, routine support, and respite care for family caregivers. <button class="p-acc-cta" onclick="openServiceModal('Disability support')">Book this service →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3.5c2.4 0 3.9 2.1 3.9 4.9 0 2.4-1.1 3.9-1.5 5.8-.3 1.6-1.1 2.6-2.4 2.6-1.4 0-2.2-1.1-2.5-2.7-.3-1.9-1.4-3.3-1.4-5.7 0-2.8 1.5-4.9 3.9-4.9z"/><circle cx="8.2" cy="19.6" r="1.1"/><circle cx="12.2" cy="20.4" r="1.1"/></svg></span><span>Specialized foot care</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Expert foot care for seniors and diabetic patients — nail trimming, callus treatment, circulation checks, and wound monitoring. Essential for preventing falls and managing chronic conditions. <button class="p-acc-cta" onclick="openServiceModal('Foot care')">Book this service →</button></div>
+          </div>
+        </div>
+        <button class="p-cta-btn btn-sage" onclick="openServiceModal('')">Get care for my family</button>
+      </div>
+    </div>
+    <div class="p-card p-card--facility">
+      <div class="p-inner">
+        <div class="p-tag">For healthcare facilities</div>
+        <h3 class="p-h3">Nursing relief when <em>your team needs it</em></h3>
+        <p class="p-desc">Qualified staff available same-day. No full-time overhead. RNs, LPNs, and HCAs placed directly.</p>
+        <div class="p-services">
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v5.5a4.5 4.5 0 009 0V4"/><path d="M10.5 14v2.5a4 4 0 008 0v-2"/><circle cx="18.5" cy="12" r="1.8"/></svg></span><span>Registered nurses (RN)</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Fully licensed RNs available for acute care, post-surgical monitoring, wound care, IV therapy, and complex patient management. Available for single shifts or ongoing coverage. <button class="p-acc-cta" onclick="openServiceModal('Nursing relief to facility')">Request RN staff →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4.5" width="12" height="16" rx="1.5"/><path d="M9.5 4.5h5V7h-5z"/><path d="M12 10.5v6M9 13.5h6"/></svg></span><span>Licensed practical nurses (LPN)</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">LPNs for medication administration, patient assessments, wound care, and supporting RN-led care teams. Cost-effective skilled nursing for long-term and sub-acute settings. <button class="p-acc-cta" onclick="openServiceModal('Nursing relief to facility')">Request LPN staff →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.6 4.6c.8-1 2.3-1 3.1 0 .8.9.7 2.3-.3 3.2L12.6 10.5 9.8 7.8c-1-.9-1.1-2.3-.3-3.2.8-1 2.3-1 3.1 0z"/><path d="M4 15.5c2.6 2.1 5.5 3.2 8 3.2s5.4-1.1 8-3.2"/><path d="M5.5 19c2 1.3 4.2 2 6.5 2s4.5-.7 6.5-2"/></svg></span><span>Health care aides (HCA)</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Certified HCAs for personal care, ADL support, mobility assistance, and resident engagement in long-term care, assisted living, and hospital settings. <button class="p-acc-cta" onclick="openServiceModal('Nursing relief to facility')">Request HCA staff →</button></div>
+          </div>
+          <div class="p-acc-item">
+            <button class="p-svc-btn" onclick="toggleAcc(this)">
+              <span class="p-svc-l"><span class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.3"/><path d="M13 7.5l-3.2 5.2h4L11 17.5"/></svg></span><span>Emergency same-day placement</span></span><span class="p-acc-arrow">+</span>
+            </button>
+            <div class="p-acc-body">Called-out sick? Sudden census surge? We place qualified staff same-day across all roles. Available 24/7 with a 2-hour response target. <button class="p-acc-cta" onclick="openServiceModal('Nursing relief to facility')">Request emergency staff →</button></div>
+          </div>
+        </div>
+        <button class="p-cta-btn btn-gold" onclick="openServiceModal('Nursing relief to facility')">Request nursing staff</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEEL -->
+<section id="feel">
+  <div class="sec-eye feel-eye">A day in the life — what your family experiences</div>
+  <div class="feel-grid">
+    <div class="feel-flow" aria-hidden="true"><span class="feel-flow-dot"></span></div>
+    <!-- STEP 1 -->
+    <div class="feel-step" data-n="1">
+      <div class="fs-in">
+        <div class="fs-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="21" stroke="rgba(156,175,136,.25)" stroke-width="1"/>
+            <circle class="ev-ring ev-ring-a" cx="22" cy="21" r="7" stroke="rgba(156,175,136,.55)" stroke-width="1" fill="none"/>
+            <circle class="ev-ring ev-ring-b" cx="22" cy="21" r="7" stroke="rgba(156,175,136,.55)" stroke-width="1" fill="none"/>
+            <g class="ev-pin"><path d="M22 12c-4.4 0-8 3.6-8 8 0 6 8 12.5 8 12.5s8-6.5 8-12.5c0-4.4-3.6-8-8-8z" stroke="rgba(196,216,176,.9)" stroke-width="1.5" fill="rgba(156,175,136,.08)"/>
+            <circle cx="22" cy="20" r="2.4" fill="rgba(196,216,176,.95)"/></g>
+            <circle class="ev-notif" cx="33" cy="12" r="3" fill="var(--gold)"/>
+          </svg>
+        </div>
+        <div class="fs-t">8:02 AM</div>
+        <h3 class="fs-h">Caregiver arrived</h3>
+        <p class="fs-d">GPS confirmed. 0.8km from the address. You receive an automatic notification — you didn't have to call or check.</p>
+        <div class="fs-detail">
+          <div class="fs-chip"><span class="fs-chip-dot"></span>GPS verified · 0.8km</div>
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Arrival confirmed</div>
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Family notified</div>
+        </div>
+      </div>
+    </div>
+    <!-- STEP 2 -->
+    <div class="feel-step" data-n="2">
+      <div class="fs-in">
+        <div class="fs-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="21" stroke="rgba(156,175,136,.25)" stroke-width="1"/>
+            <path class="ev-line ev-line-1" d="M13 15h18" stroke="rgba(196,216,176,.85)" stroke-width="1.5" stroke-linecap="round"/>
+            <path class="ev-line ev-line-2" d="M13 21h12" stroke="rgba(196,216,176,.85)" stroke-width="1.5" stroke-linecap="round"/>
+            <path class="ev-line ev-line-3" d="M13 27h8" stroke="rgba(196,216,176,.85)" stroke-width="1.5" stroke-linecap="round"/>
+            <g class="ev-check"><circle cx="29.5" cy="28" r="4.5" fill="rgba(156,175,136,.18)" stroke="rgba(196,216,176,.85)" stroke-width="1.3"/>
+            <path d="M27.6 28l1.3 1.3 2.6-2.6" stroke="rgba(196,216,176,.95)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+            <circle class="ev-send" cx="29.5" cy="28" r="4.5" stroke="rgba(196,216,176,.6)" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+        <div class="fs-t">12:48 PM</div>
+        <h3 class="fs-h">Care summary sent</h3>
+        <p class="fs-d">Medications given. Lunch eaten. Mood noted. One concern flagged and photographed. Sent to your family portal automatically.</p>
+        <div class="fs-detail">
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Meds logged</div>
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Mood: good</div>
+          <div class="fs-chip fs-chip-warn"><span class="fs-chip-dot warn"></span>1 concern flagged</div>
+        </div>
+      </div>
+    </div>
+    <!-- STEP 3 -->
+    <div class="feel-step" data-n="3">
+      <div class="fs-in">
+        <div class="fs-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="21" stroke="rgba(156,175,136,.25)" stroke-width="1"/>
+            <path class="ev-moon" d="M27.5 13.5a10 10 0 11-11 14.8 8 8 0 1011-14.8z" stroke="rgba(196,216,176,.85)" stroke-width="1.4" fill="rgba(156,175,136,.08)" stroke-linejoin="round"/>
+            <path class="ev-star ev-star-1" d="M29 16.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z" fill="rgba(224,201,143,.85)"/>
+            <path class="ev-star ev-star-2" d="M31.5 24l.5 1.1 1.1.5-1.1.5-.5 1.1-.5-1.1-1.1-.5 1.1-.5z" fill="rgba(196,216,176,.7)"/>
+            <circle class="ev-star ev-star-3" cx="26.5" cy="11.5" r="1" fill="rgba(224,201,143,.75)"/>
+          </svg>
+        </div>
+        <div class="fs-t">Evening</div>
+        <h3 class="fs-h">You sleep without worry</h3>
+        <p class="fs-d">You know what happened today. Who was there. That your parent was cared for with dignity. No guessing, no calling around.</p>
+        <div class="fs-detail">
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Visit complete</div>
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Report on file</div>
+          <div class="fs-chip"><span class="fs-chip-dot"></span>Family portal updated</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICES -->
+<!-- CALL -->
+<section id="call">
+  <div class="call-top">
+    <div class="sec-eye call-eye">How it works</div>
+    <h2 class="call-h2">Care in place within <em>48 hours.</em></h2>
+  </div>
+  <div class="call-steps">
+    <div class="call-step">
+      <div class="call-step-n">01</div>
+      <div class="call-step-title">Tell us what you need</div>
+      <div class="call-step-desc">Fill out a short form or call us directly. Five minutes, no obligation.</div>
+    </div>
+    <div class="call-step-div" aria-hidden="true">→</div>
+    <div class="call-step">
+      <div class="call-step-n">02</div>
+      <div class="call-step-title">We match your caregiver</div>
+      <div class="call-step-desc">We pair you with a certified caregiver suited to your family's specific needs.</div>
+    </div>
+    <div class="call-step-div" aria-hidden="true">→</div>
+    <div class="call-step">
+      <div class="call-step-n">03</div>
+      <div class="call-step-title">Care starts</div>
+      <div class="call-step-desc">GPS-verified visits, AI care summaries, family portal — all live from day one.</div>
+    </div>
+  </div>
+  <div class="call-bottom">
+    <button class="btn-sage" onclick="openServiceModal('')">Book a free care call</button>
+    <a class="call-phone-link" href="tel:4033607042">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.48 12 19.79 19.79 0 011.41 3.38 2 2 0 013.38 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      (403) 360-7042
+    </a>
+  </div>
+</section>
+
+<!-- FORM -->
+<section id="form-sec">
+  <div class="f-grid">
+    <div>
+      <div class="sec-eye f-eye">Or send us a message</div>
+      <h2 class="f-h2">We will call you <em>within a few hours.</em></h2>
+      <p class="f-p">No obligation. Just an honest conversation about what your family needs.</p>
+      <div class="f-info">
+        <div class="f-row">
+          <div class="f-ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.48 12 19.79 19.79 0 011.41 3.38 2 2 0 013.38 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div><div class="f-l">Phone</div><div class="f-v"><a href="tel:4033607042">(403) 360-7042</a></div></div>
+        </div>
+        <div class="f-row">
+          <div class="f-ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.5"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="1.5"/></svg></div>
+          <div><div class="f-l">Email</div><div class="f-v"><a href="mailto:evergreenhhce@gmail.com">evergreenhhce@gmail.com</a></div></div>
+        </div>
+        <div class="f-row">
+          <div class="f-ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg></div>
+          <div><div class="f-l">Location</div><div class="f-v">Calgary, AB · Serving all of Alberta</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="cf-wrap">
+        <div id="cfFields">
+          <div class="cf-h">Tell us about your situation</div>
+          <div class="cf-s">No pressure. Every question answered before any commitment.</div>
+          <div class="cf-2">
+            <div class="cf-f"><label class="cf-l" for="cfFirst">First name</label><input class="cf-i" type="text" id="cfFirst" placeholder="Your first name" autocomplete="given-name"></div>
+            <div class="cf-f"><label class="cf-l" for="cfLast">Last name</label><input class="cf-i" type="text" id="cfLast" placeholder="Your last name" autocomplete="family-name"></div>
+          </div>
+          <div class="cf-f"><label class="cf-l" for="cfEmail">Email</label><input class="cf-i" type="email" id="cfEmail" placeholder="your@email.com" autocomplete="email"></div>
+          <div class="cf-f"><label class="cf-l" for="cfPhone">Phone</label><input class="cf-i" type="tel" id="cfPhone" placeholder="(403) 000-0000" autocomplete="tel"></div>
+          <div class="cf-f">
+            <label class="cf-l" for="cfType">Type of care needed</label>
+            <select class="cf-sl" id="cfType">
+              <option value="">Select a service</option>
+              <option>Companion care</option><option>Foot care</option>
+              <option>Palliative / hospice care</option><option>Nursing relief to facility</option>
+              <option>Home care for seniors</option><option>Disability support</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="cf-f"><label class="cf-l" for="cfMsg">Anything else we should know</label><textarea class="cf-ta" id="cfMsg" placeholder="Who needs care, when, any important details..."></textarea></div>
+          <button class="cf-btn" onclick="submitCareForm()">Request a care call →</button>
+        </div>
+        <div class="cf-ok" id="cfSuccess">
+          <div class="cf-ok-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#9caf88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="cf-ok-h">We will be in touch shortly.</div>
+          <div class="cf-ok-b">A member of the Ever Green team will call you within a few hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div><div class="nav-logo" style="font-size:.9rem">Ever <em>Green</em></div><div class="nav-tag" style="margin-top:3px">Home Health Care · Calgary, AB</div></div>
+    <div class="ft-links"><a href="#truth">About</a><a href="#paths">Services</a><a href="#voices">Stories</a><a href="#form-sec">Contact</a></div>
+    <div class="ft-copy">&copy; 2026 Ever Green Home Health Care</div>
+  </div>
+</footer>
+
+
+<!-- CHATBOT -->
+<button id="cb" aria-label="Chat with Ever Green">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="rgba(244,248,240,.88)" stroke-width="1.6"/></svg>
+</button>
+<div id="co">
+  <div id="cbox">
+    <div id="chdr"><div class="cd"></div><div class="cn">Ever Green Care Assistant</div><div class="cs">Usually replies instantly</div><button id="cclose">✕</button></div>
+    <div id="ixChatMsgs" role="log" aria-live="polite"></div>
+    <div id="ixChatChips"></div>
+    <div id="cinp-row">
+      <input type="text" id="ixChatInp" placeholder="Ask about our services..." aria-label="Message">
+      <button id="ixChatSend"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ══════════════════════════════════════════
+     CORE INTERACTIONS (no GSAP dependency)
+══════════════════════════════════════════ -->
+<script>
+(function() {
+'use strict';
+
+function closeMob(){document.getElementById('mob').classList.remove('open');document.body.style.overflow='';}
+window.closeMob = closeMob;
+
+/* Nav, hamburger */
+var nav = document.getElementById('nav');
+var ham = document.getElementById('ham');
+var mob = document.getElementById('mob');
+var mobX = document.getElementById('mob-x');
+window.addEventListener('scroll', function(){if(nav)nav.classList.toggle('scrolled',window.scrollY>50);},{passive:true});
+if(ham)ham.addEventListener('click',function(){mob.classList.add('open');document.body.style.overflow='hidden';});
+if(mobX)mobX.addEventListener('click',closeMob);
+
+/* Progress */
+window.addEventListener('scroll', function(){
+  var d=document.documentElement;
+  var p=Math.min((d.scrollTop||document.body.scrollTop)/((d.scrollHeight||document.body.scrollHeight)-d.clientHeight)*100,100);
+  var el=document.getElementById('prog');if(el)el.style.width=p+'%';
+},{passive:true});
+
+/* Cursor */
+if(window.matchMedia('(pointer:fine)').matches){
+  var cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}
+  });
+  (function aR(){if(ring){ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';}rx+=(mx-rx)*.1;ry+=(my-ry)*.1;requestAnimationFrame(aR);})();
+  document.querySelectorAll('a,button,.p-card,.feel-step,.btn-sage').forEach(function(el){
+    el.addEventListener('mouseenter',function(){document.body.classList.add('on-cta');});
+    el.addEventListener('mouseleave',function(){document.body.classList.remove('on-cta');});
+  });
+}
+
+/* Flashlight on p-cards + feel-steps */
+if(window.matchMedia('(pointer:fine)').matches){
+  function fl(sel){document.querySelectorAll(sel).forEach(function(el){el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');el.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');});});}
+  fl('.p-card');fl('.feel-step');
+}
+
+/* 3D tilt */
+if(window.matchMedia('(pointer:fine)').matches){
+  function tilt(sel,mx2){document.querySelectorAll(sel).forEach(function(el){el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();var rx2=((e.clientY-(r.top+r.height/2))/r.height)*-mx2;var ry2=((e.clientX-(r.left+r.width/2))/r.width)*mx2;el.style.transform='perspective(700px) rotateX('+rx2+'deg) rotateY('+ry2+'deg) translateZ(4px)';});el.addEventListener('mouseleave',function(){el.style.transform='';});});}
+  tilt('.p-card',4);tilt('.feel-step',5);
+}
+
+/* Magnetic CTA */
+if(window.matchMedia('(pointer:fine)').matches){
+  document.querySelectorAll('.btn-sage').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect();btn.style.transform='translate('+((e.clientX-(r.left+r.width/2))*.28)+'px,'+((e.clientY-(r.top+r.height/2))*.28)+'px)';});
+    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+  });
+}
+
+/* Voice border + feel step reveals */
+// vObs removed — .vi class no longer used
+// .voice observer removed — voices rebuilt as .v-card
+var fObs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){var i=Array.from(document.querySelectorAll('.feel-step')).indexOf(x.target);setTimeout(function(){x.target.classList.add('fi');},Math.max(0,i)*140);}});},{threshold:.25});
+document.querySelectorAll('.feel-step').forEach(function(s){fObs.observe(s);});
+
+/* Counters */
+function count(el,target,dur){if(!el)return;var start=performance.now();(function t(now){var p=Math.min((now-start)/dur,1);var e2=1-Math.pow(1-p,3);el.textContent=Math.floor(e2*target);if(p<1)requestAnimationFrame(t);else el.textContent=target;})(start);}
+var counted=false;
+new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting&&!counted){counted=true;count(document.getElementById('hN1'),47,1800);count(document.getElementById('hN2'),12,1400);}});},{threshold:.3}).observe(document.getElementById('call')||document.body);
+
+/* Chat */
+var cb=document.getElementById('cb'),co=document.getElementById('co'),cc=document.getElementById('cclose');
+if(cb)cb.addEventListener('click',function(){co.classList.add('open');cb.style.display='none';if(!window._cI){window._cI=true;ixInit();}});
+if(cc)cc.addEventListener('click',function(){co.classList.remove('open');cb.style.display='flex';});
+if(co)co.addEventListener('click',function(e){if(e.target===co){co.classList.remove('open');cb.style.display='flex';}});
+document.addEventListener('keydown',function(e){if(e.key==='Enter'){var i=document.getElementById('ixChatInp');if(i&&document.activeElement===i)ixSend();}});
+
+})();
+</script>
+
+<!-- GSAP + LENIS — purely additive, content visible without -->
+
+<!-- LEAF PARTICLE SYSTEM — subtle ambient floating leaves -->
+<script>
+(function(){
+'use strict';
+
+var canvas = document.getElementById('leaf-canvas');
+if (!canvas) return;
+
+var ctx = canvas.getContext('2d');
+var W = 0, H = 0;
+var leaves = [];
+var RAF;
+
+/* ── RESIZE ── */
+function resize() {
+  var hero = canvas.parentElement;
+  W = canvas.width  = hero ? hero.offsetWidth  : window.innerWidth;
+  H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize, { passive: true });
+
+/* ── LEAF SHAPES — 3 types drawn as canvas paths ── */
+/* Each is a small organic shape centered at (0,0), sized ~1 */
+var shapes = [
+  /* Type A: simple elongated leaf */
+  function(c, s) {
+    c.beginPath();
+    c.moveTo(0, -s);
+    c.bezierCurveTo( s*.55, -s*.55,  s*.55,  s*.55, 0,  s);
+    c.bezierCurveTo(-s*.55,  s*.55, -s*.55, -s*.55, 0, -s);
+    c.closePath();
+  },
+  /* Type B: asymmetric leaf with pointed tip */
+  function(c, s) {
+    c.beginPath();
+    c.moveTo(0, -s);
+    c.bezierCurveTo( s*.7, -s*.3,  s*.5,  s*.6, 0,  s);
+    c.bezierCurveTo(-s*.3,  s*.4, -s*.5, -s*.2, 0, -s);
+    c.closePath();
+  },
+  /* Type C: small oval — seed-like */
+  function(c, s) {
+    c.beginPath();
+    c.ellipse(0, 0, s * .38, s * .65, 0, 0, Math.PI * 2);
+    c.closePath();
+  }
+];
+
+/* ── COLOR PALETTE — sage greens + one gold ── */
+var palette = [
+  'rgba(92,120,72,',    /* sage-dk */
+  'rgba(88,110,68,',    /* darker sage */
+  'rgba(108,138,84,',   /* mid sage */
+  'rgba(156,175,136,',  /* sage */
+  'rgba(124,152,100,',  /* light sage */
+  'rgba(196,146,58,',   /* gold — occasional warmth */
+];
+
+/* ── CREATE LEAF ── */
+function mkLeaf(fromTop) {
+  var size = 4 + Math.random() * 9;        /* 4–13px */
+  var col  = palette[Math.floor(Math.random() * palette.length)];
+  var alpha = 0.06 + Math.random() * 0.16; /* very subtle: 6–22% opacity */
+  return {
+    x:     Math.random() * W,
+    y:     fromTop ? -20 : Math.random() * H,
+    vx:    (Math.random() - 0.5) * 0.55,   /* gentle horizontal drift */
+    vy:    0.25 + Math.random() * 0.45,    /* slow fall: 0.25–0.7 px/frame */
+    rot:   Math.random() * Math.PI * 2,
+    vrot:  (Math.random() - 0.5) * 0.008, /* almost imperceptible spin */
+    size:  size,
+    type:  Math.floor(Math.random() * shapes.length),
+    col:   col,
+    alpha: alpha,
+    /* gentle sway: sine wave on x */
+    swayAmp:   8 + Math.random() * 14,
+    swaySpeed: 0.003 + Math.random() * 0.004,
+    swayOff:   Math.random() * Math.PI * 2,
+    born:  0,
+  };
+}
+
+/* ── INIT — scatter leaves across the full viewport ── */
+function init() {
+  leaves = [];
+  var count = Math.min(38, Math.floor(W * H / 22000));
+  for (var i = 0; i < count; i++) {
+    leaves.push(mkLeaf(false)); /* start at random positions */
+    leaves[i].born = -Math.random() * 600; /* stagger birth times */
+  }
+}
+init();
+
+/* ── DRAW ── */
+var tick = 0;
+function draw() {
+  RAF = requestAnimationFrame(draw);
+  ctx.clearRect(0, 0, W, H);
+  tick++;
+
+  for (var i = 0; i < leaves.length; i++) {
+    var l = leaves[i];
+    l.born++;
+
+    /* Drift */
+    l.x += l.vx + Math.sin(tick * l.swaySpeed + l.swayOff) * 0.18;
+    l.y += l.vy;
+    l.rot += l.vrot;
+
+    /* Recycle when off-screen */
+    if (l.y > H + 20 || l.x < -30 || l.x > W + 30) {
+      leaves[i] = mkLeaf(true);
+      leaves[i].x = Math.random() * W;
+      continue;
+    }
+
+    /* Fade in over first 80 ticks */
+    var fadeIn = l.born < 0 ? 0 : Math.min(1, l.born / 80);
+
+    ctx.save();
+    ctx.translate(l.x, l.y);
+    ctx.rotate(l.rot);
+
+    /* Slight scale pulse — barely noticeable */
+    var pulse = 1 + 0.03 * Math.sin(tick * 0.018 + l.swayOff);
+    ctx.scale(pulse, pulse);
+
+    ctx.fillStyle = l.col + (l.alpha * fadeIn).toFixed(3) + ')';
+    shapes[l.type](ctx, l.size);
+    ctx.fill();
+
+    /* Subtle stem line on type A and B */
+    if (l.type < 2 && l.alpha * fadeIn > 0.04) {
+      ctx.strokeStyle = l.col + (l.alpha * fadeIn * 0.5).toFixed(3) + ')';
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(0, -l.size);
+      ctx.lineTo(0,  l.size);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+}
+
+/* ── START ── */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+draw();
+
+/* ── PAUSE when tab hidden ── */
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    cancelAnimationFrame(RAF);
+  } else {
+    tick = 0; draw();
+  }
+});
+
+})();
+</script>
+
+<script>
+(function(){
+  if(typeof gsap==='undefined')return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.update; // native scroll
+
+  /* HERO words — gsap.set then gsap.to (no from conflicts) */
+  var words=document.querySelectorAll('.h-hed .w');
+  gsap.set(words,{opacity:0,y:28});
+  gsap.to(words,{opacity:1,y:0,duration:.7,ease:'power3.out',stagger:.055,delay:.2});
+  gsap.set('.h-eye',{opacity:0,y:10});
+  gsap.to('.h-eye',{opacity:1,y:0,duration:.65,ease:'power3.out',delay:.1});
+  gsap.set('.h-sub',{opacity:0,y:14});
+  gsap.to('.h-sub',{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.75});
+  gsap.set('.h-acts',{opacity:0,y:12});
+  gsap.to('.h-acts',{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.9});
+  gsap.set('.h-stats',{opacity:0,y:10});
+  gsap.to('.h-stats',{opacity:1,y:0,duration:.7,ease:'power3.out',delay:1.05});
+  gsap.set('.h-scroll',{opacity:0});
+  gsap.to('.h-scroll',{opacity:1,duration:1,delay:1.4});
+
+  /* Section reveals */
+  function rev(target,props,trigger){
+    gsap.set(target,Object.assign({opacity:0},props.from||{}));
+    gsap.to(target,Object.assign({opacity:1,duration:.75,ease:'power3.out'},props.to||{},{scrollTrigger:{trigger:trigger||target,start:'top 85%'}}));
+  }
+
+  // t-left removed — section replaced by #powered
+  // t-fact removed — section replaced by #powered
+
+  rev('.paths-eye',{from:{x:-12},to:{x:0}},'#paths');
+  document.querySelectorAll('.p-card').forEach(function(el,i){gsap.set(el,{opacity:0,y:22,scale:.98});gsap.to(el,{opacity:1,y:0,scale:1,duration:.8,ease:'power3.out',delay:i*.14,scrollTrigger:{trigger:el,start:'top 87%'}});});
+
+  rev('.feel-eye',{from:{y:10},to:{y:0}},'#feel');
+  document.querySelectorAll('.feel-step').forEach(function(el,i){gsap.set(el,{opacity:0,y:20});gsap.to(el,{opacity:1,y:0,duration:.7,ease:'power3.out',delay:i*.12,scrollTrigger:{trigger:el,start:'top 87%'}});});
+
+  rev('.v-eye',{from:{y:10},to:{y:0}},'#voices');
+  document.querySelectorAll('.v-card').forEach(function(el,i){gsap.set(el,{opacity:0,y:16});gsap.to(el,{opacity:1,y:0,duration:.7,ease:'power3.out',delay:i*.1,scrollTrigger:{trigger:'#voices',start:'top 85%'}});});
+
+  gsap.set(['.call-eye','.call-h2','.call-p','.call-badge'],{opacity:0,y:14});
+  gsap.to(['.call-eye','.call-h2','.call-p','.call-badge'],{opacity:1,y:0,duration:.7,ease:'power3.out',stagger:.08,scrollTrigger:{trigger:'#call',start:'top 82%'}});
+  // call-r removed — call section rebuilt with process steps
+
+  gsap.set(['.f-eye','.f-h2','.f-p','.f-info'],{opacity:0,x:-16});
+  gsap.to(['.f-eye','.f-h2','.f-p','.f-info'],{opacity:1,x:0,duration:.7,ease:'power3.out',stagger:.08,scrollTrigger:{trigger:'#form-sec',start:'top 82%'}});
+  gsap.set('.cf-wrap',{opacity:0,y:18});
+  gsap.to('.cf-wrap',{opacity:1,y:0,duration:.8,ease:'power3.out',delay:.12,scrollTrigger:{trigger:'#form-sec',start:'top 82%'}});
+
+  window.addEventListener('load',function(){ScrollTrigger.refresh();});
+  /* Native scroll — ScrollTrigger reads window.scrollY directly */
+})();
+</script>
+<script>
+/* ── SERVICE ACCORDION ── */
+function toggleAcc(btn) {
+  var item = btn.closest('.p-acc-item');
+  if (!item) return;
+  var isOpen = item.classList.contains('open');
+  // Close all others in same card
+  var card = btn.closest('.p-services');
+  if (card) {
+    card.querySelectorAll('.p-acc-item.open').forEach(function(el) {
+      el.classList.remove('open');
+    });
+  }
+  if (!isOpen) item.classList.add('open');
+}
+
+</script>
+<script>
+/* ── SERVICE MODAL ── */
+function openServiceModal(service) {
+  var overlay = document.getElementById('svc-overlay');
+  var modal = document.getElementById('svc-modal');
+  var sel = document.getElementById('smService');
+  var tag = document.getElementById('svc-modal-tag');
+  var title = document.getElementById('svc-modal-title');
+  if (!overlay || !modal) return;
+
+  // Pre-select the service
+  if (service && sel) {
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === service || sel.options[i].text === service) {
+        sel.selectedIndex = i;
+        break;
+      }
+    }
+  } else if (sel) {
+    sel.selectedIndex = 0;
+  }
+
+  // Update modal title based on service
+  if (service && service !== '') {
+    if (tag) tag.textContent = service;
+    if (title) title.textContent = 'Book a care call';
+  } else {
+    if (tag) tag.textContent = 'Get started';
+    if (title) title.textContent = 'Tell us about your situation';
+  }
+
+  // Reset form state
+  var fields = document.getElementById('svc-form-fields');
+  var ok = document.getElementById('svc-form-ok');
+  if (fields) fields.style.display = 'block';
+  if (ok) ok.style.display = 'none';
+  var btn = document.querySelector('#svc-modal .cf-btn');
+  if (btn) { btn.textContent = 'Request a care call →'; btn.disabled = false; }
+
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      modal.style.transform = 'translateY(0)';
+    });
+  });
+}
+
+function closeServiceModal() {
+  var overlay = document.getElementById('svc-overlay');
+  var modal = document.getElementById('svc-modal');
+  if (!overlay || !modal) return;
+  modal.style.transform = 'translateY(100%)';
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 420);
+}
+
+async function submitServiceModal() {
+  var first = (document.getElementById('smFirst').value || '').trim();
+  var last  = (document.getElementById('smLast').value || '').trim();
+  var phone = (document.getElementById('smPhone').value || '').trim();
+  var svc   = (document.getElementById('smService').value || '').trim();
+  var msg   = (document.getElementById('smMsg').value || '').trim();
+  if (!first) { document.getElementById('smFirst').focus(); return; }
+  if (!phone) { document.getElementById('smPhone').focus(); return; }
+  var btn = document.querySelector('#svc-modal .cf-btn');
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+  try {
+    await fetch('https://proximity-agent-production.up.railway.app/webhook/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operator_id: 'evergreen-home-health',
+        lead_type: 'family',
+        first_name: first, last_name: last,
+        phone: phone, email: '',
+        care_needed_for: svc, pain_point: msg,
+        urgency: 'warm',
+        source: 'Ever Green Website — Service Modal'
+      })
+    });
+  } catch(e) { console.warn(e); }
+  var fields = document.getElementById('svc-form-fields');
+  var ok = document.getElementById('svc-form-ok');
+  if (fields) fields.style.display = 'none';
+  if (ok) ok.style.display = 'block';
+}
+
+/* Close modal on Escape */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeServiceModal();
+});
+
+</script>
+
+<!-- FORM -->
+<script>
+var CF_LEAD='https://proximity-agent-production.up.railway.app/webhook/lead';
+async function submitCareForm(){
+  var first=(document.getElementById('cfFirst').value||'').trim();
+  var last=(document.getElementById('cfLast').value||'').trim();
+  var email=(document.getElementById('cfEmail').value||'').trim();
+  var phone=(document.getElementById('cfPhone').value||'').trim();
+  var type=(document.getElementById('cfType').value||'').trim();
+  var msg=(document.getElementById('cfMsg').value||'').trim();
+  if(!first){document.getElementById('cfFirst').focus();return;}
+  if(!email&&!phone){document.getElementById('cfEmail').focus();return;}
+  var btn=document.querySelector('.cf-btn');if(btn){btn.textContent='Sending…';btn.disabled=true;}
+  try{await fetch(CF_LEAD,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'evergreen-home-health',lead_type:'family',first_name:first,last_name:last,email:email,phone:phone,care_needed_for:type,pain_point:msg,urgency:'warm',source:'Ever Green Website Contact Form'})});}catch(e){console.warn(e);}
+  document.getElementById('cfFields').style.display='none';
+  document.getElementById('cfSuccess').style.display='block';
+}
+</script>
+
+
+<!-- SERVICE MODAL — opens when any service button is tapped -->
+<div id="svc-overlay" style="display:none;position:fixed;inset:0;background:rgba(7,14,10,.75);backdrop-filter:blur(8px);z-index:800;align-items:flex-end;justify-content:center;" onclick="if(event.target===this)closeServiceModal()">
+  <div id="svc-modal" style="background:var(--f2);border:1px solid var(--bd);border-bottom:none;width:100%;max-width:560px;padding:48px 44px 44px;position:relative;transform:translateY(100%);transition:transform .4s var(--ease);">
+    <button onclick="closeServiceModal()" style="position:absolute;top:20px;right:20px;background:none;border:none;font-size:18px;color:var(--ti2);cursor:pointer;">✕</button>
+    <div style="font-family:var(--mono);font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(156,175,136,.5);margin-bottom:8px;" id="svc-modal-tag">Get started</div>
+    <div style="font-family:var(--serif);font-size:1.5rem;font-weight:300;color:rgba(244,248,240,.9);letter-spacing:-.02em;margin-bottom:28px;" id="svc-modal-title">Tell us about your situation</div>
+    <div id="svc-form-fields">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div><label class="cf-l" for="smFirst">First name</label><input class="cf-i" type="text" id="smFirst" placeholder="Your first name" autocomplete="given-name"></div>
+        <div><label class="cf-l" for="smLast">Last name</label><input class="cf-i" type="text" id="smLast" placeholder="Your last name" autocomplete="family-name"></div>
+      </div>
+      <div style="margin-bottom:12px;"><label class="cf-l" for="smPhone">Phone</label><input class="cf-i" type="tel" id="smPhone" placeholder="(403) 000-0000" autocomplete="tel"></div>
+      <div style="margin-bottom:12px;">
+        <label class="cf-l" for="smService">Service needed</label>
+        <select class="cf-sl" id="smService">
+          <option value="">Select a service</option>
+          <option>Companion care</option>
+          <option>Foot care</option>
+          <option>Palliative / hospice care</option>
+          <option>Nursing relief to facility</option>
+          <option>Home care for seniors</option>
+          <option>Disability support</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div style="margin-bottom:20px;"><label class="cf-l" for="smMsg">Anything else</label><textarea class="cf-ta" id="smMsg" placeholder="Who needs care, when, any important details..." style="min-height:72px;"></textarea></div>
+      <button class="cf-btn" onclick="submitServiceModal()">Request a care call →</button>
+    </div>
+    <div id="svc-form-ok" style="display:none;text-align:center;padding:32px 0;">
+      <div style="font-family:var(--serif);font-size:1.3rem;font-weight:300;color:rgba(244,248,240,.88);margin-bottom:8px;">We will call you shortly.</div>
+      <div style="font-family:var(--sans);font-size:.85rem;font-weight:300;color:rgba(244,248,240,.38);">A member of the Ever Green team will be in touch within a few hours.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<script>
+var IX_RAIL='https://proximity-agent-production.up.railway.app/chat';
+var IX_LEAD='https://proximity-agent-production.up.railway.app/webhook/lead';
+var IX_SYS=`You are a care coordinator assistant for Ever Green Home Health Care — a compassionate home health care agency serving Calgary, Edmonton, and all of Alberta.
+
+YOUR JOB: Understand the family's or individual's care situation in 4 short, warm exchanges. Then capture their contact information to book a care consultation.
+
+Collect these ONE QUESTION AT A TIME in natural conversation:
+1. Who needs care and what kind of support they are looking for
+2. Where they are located (city or area in Alberta)
+3. How urgent the need is and when they are hoping to start
+4. Their name and best way to reach them — phone or email
+
+THE FOUR-TURNS RULE:
+After the 4th response, output the LEAD block then say exactly:
+"Thank you. Someone from our team will call you within a few hours. If you need to reach us directly, call (403) 360-7042."
+
+OUTPUT BLOCK FORMAT (on its own line):
+<!--LEAD_DATA:{"name":"[name]","city":"[city]","care_type":"[care type]","urgency":"[urgency]","contact":"[phone or email]"}-->
+
+SERVICES: Companionship care for seniors, Specialized foot care, Palliative and hospice care, Nursing relief to hospitals and care facilities, Home care visits for seniors, Assisted care for individuals with disabilities.
+
+TONE: Warm, calm, unhurried. Two sentences max per reply. No bullets. No dashes.`;
+
+var ixH=[],ixBusy=false,ixDone=false;
+function ixInit(){ixAdd('bot','Hello. How can Ever Green help you or your family today?');ixChips(['I need care for a family member','I need nursing staff','What services do you offer?','It is urgent']);}
+function ixAdd(role,text){var el=document.getElementById('ixChatMsgs');if(!el)return;var d=document.createElement('div');d.className='ix-msg ix-msg-'+role;d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight;}
+function ixChips(chips){var el=document.getElementById('ixChatChips');if(!el)return;el.innerHTML=chips.map(function(c){return'<button class="ix-chip" onclick="ixSendText(this.textContent)">'+c+'</button>';}).join('');}
+function ixSend(){var i=document.getElementById('ixChatInp');if(!i)return;var t=i.value.trim();i.value='';if(t)ixSendText(t);}
+async function ixSendText(text){
+  if(!text||ixBusy)return;
+  document.getElementById('ixChatChips').innerHTML='';
+  ixAdd('user',text);ixH.push({role:'user',content:text});ixBusy=true;
+  var send=document.getElementById('ixChatSend');if(send)send.disabled=true;
+  ixShowTyping();
+  try{
+    var r=await fetch(IX_RAIL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'evergreen-home-health',system_override:IX_SYS,messages:ixH})});
+    var data=await r.json();ixHideTyping();
+    var raw=data.response||'Something went wrong. Please call (403) 360-7042.';
+    var lm=raw.match(/<!--\s*LEAD_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
+    if(lm&&!ixDone){ixDone=true;try{var lead=JSON.parse(lm[1]);await fetch(IX_LEAD,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'evergreen-home-health',lead_type:'family',first_name:(lead.name||'').split(' ')[0]||'',last_name:(lead.name||'').split(' ').slice(1).join(' ')||'',phone:(lead.contact&&lead.contact.indexOf('@')===-1)?lead.contact:'',email:(lead.contact&&lead.contact.indexOf('@')!==-1)?lead.contact:'',city:lead.city||'',care_needed_for:lead.care_type||'',urgency:lead.urgency||'warm',pain_point:'',source:'Ever Green Website Chatbot'})});}catch(e){console.warn(e);}}
+    var reply=raw.replace(/<!--[\s\S]*?-->/g,'').trim();
+    ixAdd('bot',reply);ixH.push({role:'assistant',content:reply});
+    var turns=ixH.filter(function(m){return m.role==='user';}).length;
+    ixChips(ixDone?['What happens next?','Tell me about palliative care','What areas do you serve?']:turns===1?['Calgary','Edmonton','Surrounding area']:turns===2?['As soon as possible','Within the next week','Planning ahead']:['Use my phone number','Use my email','Either works']);
+    if(ixDone){var inp=document.getElementById('ixChatInp');if(inp)inp.placeholder='Our team will call you shortly.';}
+  }catch(e){ixHideTyping();ixAdd('bot','Something went wrong. Please call us at (403) 360-7042.');}
+  finally{ixBusy=false;if(send)send.disabled=false;}
+}
+function ixShowTyping(){var el=document.getElementById('ixChatMsgs');if(!el||document.getElementById('ixTyping'))return;var d=document.createElement('div');d.className='ix-msg ix-msg-bot ix-typing';d.id='ixTyping';d.innerHTML='<span></span><span></span><span></span>';el.appendChild(d);el.scrollTop=el.scrollHeight;}
+function ixHideTyping(){var t=document.getElementById('ixTyping');if(t)t.remove();}
+</script>
+
+</body>
+</html>
