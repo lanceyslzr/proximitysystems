@@ -457,6 +457,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .chat-modal-close:hover { background: rgba(0,0,0,0.7); }
   .chat-modal-close svg { width: 16px; height: 16px; fill: #fff; pointer-events: none; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
+  .hsn-num, .hsn-num em, .roi-num, [data-roi-out] { font-variant-numeric: tabular-nums; }
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-2 { transition-delay: 0.2s; }
@@ -1063,7 +1064,7 @@ button,a,[onclick]{touch-action:manipulation;}
     </div>
 
     <div class="hero-guarantee">
-      <div class="hg-icon">🛡</div>
+      <div class="hg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:-2px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
       <div class="hg-text"><strong>Build first · Pay after · Live in 7 days</strong> — or you owe us nothing</div>
     </div>
 
@@ -1805,7 +1806,7 @@ button,a,[onclick]{touch-action:manipulation;}
 </style>
 
 <script>
-(function(){
+(function(){try{
 
 // ── DATA ──────────────────────────────────────────────────────────────────────
 var FEED=[
@@ -1844,16 +1845,16 @@ var REV=[
 var CHAINS={
   checkin:{ll:'PSW Portal',le:'Sarah signs in',ls:'GPS · DNR · 09:01am',ml:'Railway API',me:'POST /visit/checkin',ms:'6ms · 200 OK',rl:'Family Portal',re:'Notification sent',rs:'Sarah has arrived ✓',color:'green',
     wh:[{m:'POST',p:'/visit/checkin',t:'6ms',c:'green'},{m:'POST',p:'/hq/visit-log',t:'7ms',c:'green'},{m:'POST',p:'/family/notify',t:'9ms',c:'green'}],
-    ev:[{icon:'📍',t:'GPS coordinates logged · Supabase',c:'g'},{icon:'✓',t:'DNR acknowledged by PSW',c:'g'},{icon:'📧',t:'Family email · Sarah has arrived',c:'t'},{icon:'🖥',t:'HQ visit log updated · In progress',c:'t'}]},
+    ev:[{icon:'◉',t:'GPS coordinates logged · Supabase',c:'g'},{icon:'✓',t:'DNR acknowledged by PSW',c:'g'},{icon:'✉',t:'Family email · Sarah has arrived',c:'t'},{icon:'▣',t:'HQ visit log updated · In progress',c:'t'}]},
   checkout:{ll:'PSW Portal',le:'Sarah signs out',ls:'Checkout · 13:18pm',ml:'Claude AI',me:'POST /ai/care-summary',ms:'820ms · generated',rl:'Family Portal',re:'Summary delivered',rs:'Email + portal updated',color:'teal',
     wh:[{m:'POST',p:'/visit/checkout',t:'5ms',c:'teal'},{m:'POST',p:'/ai/care-summary',t:'820ms',c:'teal'},{m:'POST',p:'/family/visit-complete',t:'825ms',c:'teal'},{m:'POST',p:'/hq/hours-log',t:'826ms',c:'teal'}],
-    ev:[{icon:'🤖',t:'Claude generates AI care summary',c:'t'},{icon:'📧',t:'Family email fired with summary',c:'t'},{icon:'⏱',t:'Hours logged · 4.28h recorded',c:'g'},{icon:'📋',t:'MAR submitted · 3/3 meds logged',c:'g'},{icon:'🖥',t:'HQ updated · Visit complete',c:'t'}]},
+    ev:[{icon:'✦',t:'Claude generates AI care summary',c:'t'},{icon:'✉',t:'Family email fired with summary',c:'t'},{icon:'◷',t:'Hours logged · 4.28h recorded',c:'g'},{icon:'☰',t:'MAR submitted · 3/3 meds logged',c:'g'},{icon:'▣',t:'HQ updated · Visit complete',c:'t'}]},
   lead:{ll:'Agency Website',le:'Lead captured · 2:14am',ls:'Chatbot · AI qualified',ml:'Railway API',me:'POST /webhook/lead',ms:'12ms · 200 OK',rl:'HQ Dashboard',re:'Lead in CRM',rs:'Day 1 follow-up queued',color:'teal',
     wh:[{m:'POST',p:'/webhook/lead',t:'12ms',c:'teal'},{m:'POST',p:'/followup/run',t:'14ms',c:'teal'},{m:'POST',p:'/calendar/book-slot',t:'18ms',c:'teal'}],
-    ev:[{icon:'👤',t:'Lead saved · name, phone, needs',c:'t'},{icon:'📅',t:'Call slot booked · Thu 9am',c:'t'},{icon:'📧',t:'Day 1 follow-up email queued',c:'g'},{icon:'🖥',t:'HQ CRM updated · New Lead',c:'t'}]},
+    ev:[{icon:'○',t:'Lead saved · name, phone, needs',c:'t'},{icon:'▦',t:'Call slot booked · Thu 9am',c:'t'},{icon:'✉',t:'Day 1 follow-up email queued',c:'g'},{icon:'▣',t:'HQ CRM updated · New Lead',c:'t'}]},
   invoice:{ll:'HQ Dashboard',le:'Invoice triggered',ls:'Month end · auto-run',ml:'Railway API',me:'POST /invoice/generate-pdf',ms:'340ms · generated',rl:'Family + PSW',re:'Dual PDF sent',rs:'Email + pay stub',color:'gold',
     wh:[{m:'POST',p:'/invoice/generate-pdf',t:'340ms',c:'gold'},{m:'POST',p:'/invoice/email-family',t:'345ms',c:'gold'},{m:'POST',p:'/psw/send-paystub',t:'350ms',c:'gold'},{m:'POST',p:'/hq/ar-update',t:'351ms',c:'gold'}],
-    ev:[{icon:'📄',t:'Client invoice PDF generated · $1,248',c:'o'},{icon:'📧',t:'Invoice emailed to family',c:'o'},{icon:'💰',t:'PSW pay stub PDF generated',c:'g'},{icon:'📧',t:'Pay stub emailed to Sarah Mitchell',c:'g'},{icon:'📊',t:'AR updated · outstanding: $1,248',c:'o'}]},
+    ev:[{icon:'▤',t:'Client invoice PDF generated · $1,248',c:'o'},{icon:'✉',t:'Invoice emailed to family',c:'o'},{icon:'$',t:'PSW pay stub PDF generated',c:'g'},{icon:'✉',t:'Pay stub emailed to Sarah Mitchell',c:'g'},{icon:'▥',t:'AR updated · outstanding: $1,248',c:'o'}]},
 };
 
 // ── PORTAL SWITCHING ──────────────────────────────────────────────────────────
@@ -2062,7 +2063,7 @@ if('IntersectionObserver' in window){
   psObs.observe(sec);
 } else { initHQ2(); }
 
-})();
+}catch(e){console.warn('init section isolated:',e);}})();
 </script>
 
 
@@ -2762,6 +2763,7 @@ document.addEventListener('keydown', function(e) {
 (function initLenis() {
   if(typeof Lenis === 'undefined') return;
   document.documentElement.style.scrollBehavior = 'auto';
+  if (typeof Lenis === 'undefined') return; // CDN guard — degrade to native scroll
   const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
   function lenisRaf(time) { lenis.raf(time); requestAnimationFrame(lenisRaf); }
   requestAnimationFrame(lenisRaf);
@@ -3179,7 +3181,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 
 <script>
 // ── HERO PARTICLE CANVAS ─────────────────────────────────────────────────────
-(function(){
+(function(){try{
   var canvas = document.getElementById('hero-particle-canvas');
   if(!canvas) return;
   var ctx = canvas.getContext('2d');
@@ -3238,10 +3240,10 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 
     requestAnimationFrame(draw);
   })();
-})();
+}catch(e){console.warn('init section isolated:',e);}})();
 
 // ── HERO STAT COUNTERS ────────────────────────────────────────────────────────
-(function(){
+(function(){try{
   function animCount(el, target, dur){
     if(!el) return;
     var start = Date.now();
@@ -3264,20 +3266,20 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
     }
   }, {threshold:.2});
   obs.observe(hero);
-})();
+}catch(e){console.warn('init section isolated:',e);}})();
 
 // ── SCROLL PROGRESS BAR ───────────────────────────────────────────────────────
-(function(){
+(function(){try{
   var bar = document.getElementById('scrollProgress');
   if(!bar) return;
   window.addEventListener('scroll', function(){
     var pct = window.scrollY / (document.body.offsetHeight - window.innerHeight);
     bar.style.transform = 'scaleX('+Math.min(1,pct).toFixed(4)+')';
   }, {passive:true});
-})();
+}catch(e){console.warn('init section isolated:',e);}})();
 
 // ── HERO MOBILE RESPONSIVE ───────────────────────────────────────────────────
-(function(){
+(function(){try{
   function checkMobile(){
     var hero = document.getElementById('hero');
     if(!hero) return;
@@ -3287,7 +3289,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   }
   checkMobile();
   window.addEventListener('resize', checkMobile, {passive:true});
-})();
+}catch(e){console.warn('init section isolated:',e);}})();
 
 // ── OS PANEL — command center animation ──────────────────────────────────────
 (function initOSPanel() {
@@ -3348,6 +3350,48 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   }, { threshold: 0.1 });
   ospObs.observe(hero);
 }());
+</script>
+
+<script>
+/* ── CINEMATIC LAYER — commercial scroll motion (guarded, reduced-motion aware) ── */
+(function(){try{
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 1. HERO ZOOM-OUT — device column starts large, settles as you scroll (ad-style pull-back)
+  var rc = document.querySelector('.hero-right-col');
+  if (rc) gsap.fromTo(rc, {scale:1.13, y:26, transformOrigin:'50% 20%'}, {scale:1, y:0, ease:'none',
+    scrollTrigger:{trigger:'#hero', start:'top top', end:'+=520', scrub:0.6}});
+
+  // 2. ORB PARALLAX — depth layers drift at different rates
+  [['.hero-orb',-12],['.hero-orb-ring-1',-22],['.hero-orb-ring-2',-34]].forEach(function(p){
+    var el = document.querySelector(p[0]);
+    if (el) gsap.to(el, {yPercent:p[1], ease:'none', scrollTrigger:{trigger:'#hero', start:'top top', end:'bottom top', scrub:0.8}});
+  });
+
+  // 3. HERO STATS BAND — staggered rise on load
+  var stats = document.querySelectorAll('.hero-stat-new');
+  if (stats.length) gsap.from(stats, {y:18, opacity:0, duration:.7, stagger:.1, delay:.45, ease:'power2.out'});
+
+  // 4. PORTAL THEATER AUTOPLAY — the visit chain runs itself when scrolled into view
+  var chainBtns = document.getElementById('chain2-btns');
+  if (chainBtns && typeof window.runChain2 === 'function') {
+    var played = false;
+    new IntersectionObserver(function(es, obs){
+      if (es[0].isIntersecting && !played) {
+        played = true; obs.disconnect();
+        setTimeout(function(){ try { window.runChain2('checkin', chainBtns.querySelector('div')); } catch(e){} }, 500);
+      }
+    }, {threshold:.45}).observe(chainBtns);
+  }
+
+  // 5. SECTION HEADERS — gentle scrub-rise for any h2 not already in the reveal system
+  document.querySelectorAll('h2:not(.reveal):not(.rv-title)').forEach(function(h){
+    gsap.from(h, {y:24, opacity:0, duration:.8, ease:'power2.out',
+      scrollTrigger:{trigger:h, start:'top 86%', once:true}});
+  });
+}catch(e){console.warn('cinematic layer isolated:', e);}})();
 </script>
 </body>
 </html>
