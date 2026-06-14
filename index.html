@@ -3933,15 +3933,40 @@ function ixAddM(role, text) {
 }
 
 function getSmartChips(turnCount, lastBotReply, leadCaptured) {
+  // After lead is captured, show post-capture questions.
   if (leadCaptured) return ['How fast can you build?','What does $500/mo include?','What happens on the call?'];
+
   const r = (lastBotReply || '').toLowerCase();
-  if (r.includes('name') || turnCount === 0) return ['I run a home care agency','How does this work?','What does it cost?'];
-  if (r.includes('agency') || r.includes('city') || turnCount === 1) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
-  if (r.includes('admin') || r.includes('pain') || r.includes('problem') || r.includes('biggest') || turnCount === 2) return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
-  if (r.includes('phone') || r.includes('email') || r.includes('reach') || r.includes('contact') || turnCount === 3) return ['Use my email','Use my phone number','Either works for me'];
-  if (r.includes('500') || r.includes('pricing') || r.includes('cost') || r.includes('tier')) return ['What is in Tier 2?','Is first month free?','How long to go live?'];
-  if (r.includes('7 days') || r.includes('live') || r.includes('build')) return ['What does setup include?','Do I touch any code?','What happens day 7?'];
-  if (r.includes('system') || r.includes('portal') || r.includes('dashboard') || r.includes('invoice')) return ['Tell me about the family portal','How does invoicing work?','What does HQ look like?'];
+
+  // PRIORITY 1: pricing/product detours — if the bot just answered one of these,
+  // offer relevant follow-ups REGARDLESS of turn (user asked off-script).
+  if (r.includes('$500') || r.includes('3,500') || r.includes('pricing') || r.includes('cost') || r.includes('setup'))
+    return ['Is the first month really free?','How long to go live?','What do I get for $500/mo?'];
+  if (r.includes('7 day') || r.includes('go live') || r.includes('we build first'))
+    return ['Do I have to touch any code?','What happens on day 7?','What do you need from me?'];
+  if (r.includes('family portal') || r.includes('hq dashboard') || r.includes('psw portal') || r.includes('invoicing') || r.includes('care summar'))
+    return ['Tell me about the family portal','How does invoicing work?','What does the HQ look like?'];
+
+  // PRIORITY 2: the qualification flow — keyed to the QUESTION THE BOT JUST ASKED.
+  // The server asks 4 questions in order: name -> agency/city -> pain -> contact.
+  // Match the bot's question wording first; fall back to turn position only if no match.
+  const asksName    = r.includes('your name') || r.includes("what's your name") || r.includes('who am i');
+  const asksAgency  = r.includes('agency') || r.includes('what city') || r.includes('where are you') || r.includes('located') || r.includes('where do you');
+  const asksPain    = r.includes('biggest') || r.includes('challenge') || r.includes('pain') || r.includes('struggle') || r.includes('frustrat') || r.includes('hardest') || r.includes('what slows');
+  const asksContact = r.includes('reach you') || r.includes('phone or email') || r.includes('best way') || r.includes('get in touch') || r.includes('contact');
+
+  if (asksContact) return ['Use my email','Use my phone number','Either works'];
+  if (asksPain)    return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
+  if (asksAgency)  return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+  if (asksName)    return ['I run a home care agency','How does this work?','What does it cost?'];
+
+  // PRIORITY 3: turn-based fallback (only if the bot's wording matched nothing above).
+  // turnCount = number of user messages sent so far (1 after first reply).
+  if (turnCount <= 1) return ['Yes, I run an agency','How does this work?','What does it cost?'];
+  if (turnCount === 2) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+  if (turnCount === 3) return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
+  if (turnCount >= 4) return ['Use my email','Use my phone number','Either works'];
+
   return ['Tell me more','What does $500/mo include?','How long to go live?'];
 }
 function ixChips(chips) {
