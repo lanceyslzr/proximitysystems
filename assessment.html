@@ -651,7 +651,7 @@
     host.scrollIntoView({behavior:'smooth', block:'start'});
   }
 
-  async function submitLead(pct, arch, weakSys, weakNames, cost){
+  function submitLead(pct, arch, weakSys, weakNames, cost){
     var first=(el('fFirst').value||'').trim();
     var last=(el('fLast').value||'').trim();
     var agency=(el('fAgency').value||'').trim();
@@ -659,20 +659,29 @@
     var city=(el('fCity').value||'').trim();
     var email=(el('fEmail').value||'').trim();
     if(!first || !agency || !email){ alert('Please add your first name, agency, and email so we can open and send your report.'); return; }
-    var btn=el('submitBtn'); btn.disabled=true; btn.textContent='Opening your report...';
+    var btn=el('submitBtn'); if(btn){ btn.disabled=true; btn.textContent='Opening your report...'; }
     var pain='Systemization quiz: '+pct+'% ('+arch.name+'). Weakest systems: '+weakNames.join(', ')+'.';
-    try{
-      var r=await fetch(LEAD_URL,{ method:'POST', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({ operator_id:'proximity-systems', lead_type:'operator', first_name:first, last_name:last, phone:phone, email:email, city:city, care_needed_for:agency, urgency: pct<=64 ? 'hot' : 'warm', pain_point:pain, source:'Proximity Systems, Systemization Quiz' }) });
-      if(!r.ok) throw new Error('bad status');
-      var card = el('leadForm').parentNode; card.classList.remove('gate');
-      card.innerHTML =
-        '<div class="success"><div class="success-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div>'
-        +'<h3>Unlocked, '+esc(first)+'</h3>'
-        +'<p>Your full report is open below, yours to keep. Lance will send your copy and reach out within 24 hours.</p></div>';
-      var lk=scResult.querySelector('.locked'); if(lk) lk.style.display='none';
-      renderFull(pct, arch, weakSys, weakNames, cost);
-    }catch(e){ btn.disabled=false; btn.textContent='Unlock my full report'; alert('Something went wrong. Please call Lance at 647 382 8047 and we will sort it out.'); }
+    var payload={ operator_id:'proximity-systems', lead_type:'operator', first_name:first, last_name:last, phone:phone, email:email, city:city, care_needed_for:agency, urgency: pct<=64 ? 'hot' : 'warm', pain_point:pain, source:'Proximity Systems, Systemization Quiz' };
+
+    // Best-effort lead capture. The report unlocks no matter what, so a backend
+    // cold start or a cross-origin block never traps the user without their report.
+    postLead(payload, 1);
+
+    var card = el('leadForm').parentNode; card.classList.remove('gate');
+    card.innerHTML =
+      '<div class="success"><div class="success-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div>'
+      +'<h3>Unlocked, '+esc(first)+'</h3>'
+      +'<p>Your full report is open below, yours to keep. Lance will send your copy and reach out within 24 hours.</p></div>';
+    var lk=scResult.querySelector('.locked'); if(lk) lk.style.display='none';
+    renderFull(pct, arch, weakSys, weakNames, cost);
+  }
+
+  function postLead(payload, attempt){
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var to = ctrl ? setTimeout(function(){ try{ ctrl.abort(); }catch(e){} }, 12000) : null;
+    fetch(LEAD_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload), signal: ctrl?ctrl.signal:undefined })
+      .then(function(r){ if(to) clearTimeout(to); if(!r.ok && attempt<3){ setTimeout(function(){ postLead(payload, attempt+1); }, 1500); } })
+      .catch(function(){ if(to) clearTimeout(to); if(attempt<3){ setTimeout(function(){ postLead(payload, attempt+1); }, 1500); } else { try{ console.warn('Proximity: lead post did not confirm after retries'); }catch(e){} } });
   }
 })();
 </script>
