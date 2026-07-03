@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How Systemized Is Your Agency? | Proximity Systems</title>
+<meta name="description" content="A 2 minute assessment for home care agency owners. Score your agency across the 10 systems that run a home care business, watch your agency map build as you answer, see the exact leaks in your operation and the systems that close them."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#f6f3ee; --bg2:#eeeae3; --card:#faf8f4; --card2:#f2eee7;
+    --text:#1e2420; --ink:#13181c; --muted:#7a7a72; --faint:#a09a8e;
+    --border:#e2ddd4; --border2:#d8d2c6;
+    --teal:#3d7a8a; --teal-lt:#6a9eaa; --teal-soft:#c8dde2; --teal-tint:rgba(61,122,138,.08);
+    --gold:#b87010; --amber:#c8863a; --red:#c05050; --green:#4a8a6a;
+    --serif:'Cormorant Garamond',serif; --sans:'Space Grotesk',sans-serif; --mono:'DM Mono',monospace;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+    --shadow:0 1px 2px rgba(30,36,32,.04),0 8px 30px -12px rgba(30,36,32,.14);
+    --shadow-lg:0 2px 4px rgba(30,36,32,.05),0 24px 60px -20px rgba(30,36,32,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans); background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh; position:relative;}
+  body::before{content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");}
+  .orb{position:fixed; z-index:0; border-radius:50%; filter:blur(70px); opacity:.5; pointer-events:none;}
+  .orb1{width:420px; height:420px; background:radial-gradient(circle,rgba(61,122,138,.22),transparent 70%); top:-140px; right:-120px;}
+  .orb2{width:360px; height:360px; background:radial-gradient(circle,rgba(184,112,16,.14),transparent 70%); bottom:-120px; left:-140px;}
+  .wrap{position:relative; z-index:2; max-width:640px; margin:0 auto; padding:0 22px; min-height:100vh; display:flex; flex-direction:column;}
+
+  .brand{display:flex; align-items:center; gap:10px; padding:26px 0 0; opacity:0; animation:fadeDown .7s var(--ease) forwards;}
+  .brand-dot{width:9px; height:9px; border-radius:50%; background:var(--teal); animation:pulse 2.6s infinite;}
+  .brand-name{font-family:var(--mono); font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted);}
+  .brand-name b{color:var(--text); font-weight:500;}
+
+  /* segmented system tracker */
+  .track-shell{margin:20px 0 0; display:flex; gap:4px; opacity:0; transition:opacity .4s;}
+  .track-shell.on{opacity:1;}
+  .seg{flex:1; height:5px; border-radius:3px; background:var(--border); position:relative; overflow:hidden; transition:background .3s;}
+  .seg::after{content:''; position:absolute; inset:0; width:0; border-radius:3px; transition:width .5s var(--ease); background:var(--sc,var(--teal));}
+  .seg.done::after{width:100%;}
+  .seg.cur{box-shadow:0 0 0 2px rgba(61,122,138,.18);}
+
+  .screen{flex:1; display:none; flex-direction:column; justify-content:center; padding:30px 0 44px;}
+  .screen.active{display:flex; animation:screenIn .55s var(--ease);}
+
+  .eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--teal); margin-bottom:20px; display:flex; align-items:center; gap:10px;}
+  .eyebrow .ln{flex:0 0 26px; height:1px; background:var(--teal); opacity:.4;}
+
+  /* intro */
+  .intro-h1{font-family:var(--serif); font-weight:300; font-size:clamp(42px,8.5vw,68px); line-height:1.02; letter-spacing:-.5px; color:var(--ink); margin-bottom:18px;}
+  .intro-h1 em{font-style:italic; color:var(--teal);}
+  .intro-sub{font-size:15px; line-height:1.85; color:var(--muted); max-width:460px; margin-bottom:26px;}
+  .name-field{display:flex; flex-direction:column; gap:10px; max-width:420px; margin-bottom:14px;}
+  .name-field label{font-family:var(--mono); font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--faint);}
+  .name-row{display:flex; gap:10px;}
+  .name-row input{flex:1; background:var(--card); border:1px solid var(--border2); border-radius:9px; padding:15px 16px; font-family:var(--sans); font-size:16px; color:var(--text); outline:none; transition:border-color .2s, box-shadow .2s; min-height:52px;}
+  .name-row input:focus{border-color:var(--teal); box-shadow:0 0 0 3px rgba(61,122,138,.1);}
+  .name-row input::placeholder{color:var(--faint);}
+  .intro-meta{display:flex; gap:26px; margin:24px 0 0; flex-wrap:wrap;}
+  .intro-meta div{font-family:var(--mono); font-size:11px; letter-spacing:1px; color:var(--faint); text-transform:uppercase;}
+  .intro-meta b{display:block; font-family:var(--serif); font-size:24px; letter-spacing:0; color:var(--text); text-transform:none; font-weight:400; margin-bottom:2px;}
+  .intro-trust{margin-top:22px; font-family:var(--mono); font-size:10.5px; letter-spacing:1px; color:var(--faint); text-transform:uppercase; display:flex; align-items:center; gap:8px;}
+  .intro-trust .dot{width:5px; height:5px; border-radius:50%; background:var(--green);}
+
+  .btn{font-family:var(--sans); font-size:14px; font-weight:500; letter-spacing:.3px; border:none; border-radius:9px; padding:16px 26px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:11px; transition:transform .25s var(--ease), box-shadow .25s, background .25s;}
+  .btn-primary{background:var(--ink); color:var(--card); box-shadow:0 10px 26px -12px rgba(19,24,28,.6); white-space:nowrap;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px -12px rgba(19,24,28,.65);}
+  .btn-primary svg{transition:transform .25s var(--ease);}
+  .btn-primary:hover svg{transform:translateX(4px);}
+  .btn-ghost{background:transparent; color:var(--muted); padding:14px 8px; font-size:13px;}
+  .btn-ghost:hover{color:var(--text);}
+
+  /* question */
+  .q-sys{display:flex; align-items:center; gap:13px; margin-bottom:20px;}
+  .q-sys-ic{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid var(--qc,var(--border2)); position:relative; transition:all .3s var(--ease);}
+  .q-sys-ic svg{width:24px; height:24px;}
+  .q-sys-meta .n{font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--faint);}
+  .q-sys-meta .t{font-family:var(--sans); font-size:14px; font-weight:600; color:var(--text); letter-spacing:.2px;}
+  .q-title{font-family:var(--serif); font-weight:400; font-size:clamp(27px,5.6vw,38px); line-height:1.16; color:var(--ink); margin-bottom:26px; letter-spacing:-.2px;}
+  .answers{display:flex; flex-direction:column; gap:11px;}
+  .ans{text-align:left; background:var(--card); border:1px solid var(--border); border-radius:13px; padding:17px 18px; cursor:pointer; font-family:var(--sans); font-size:14.5px; color:var(--text); display:flex; align-items:center; gap:15px; transition:border-color .2s, transform .2s var(--ease), box-shadow .2s, background .2s; line-height:1.4;}
+  .ans:hover{border-color:var(--qc,var(--teal-lt)); transform:translateX(4px); box-shadow:var(--shadow);}
+  .ans-mark{width:24px; height:24px; border-radius:50%; border:1.5px solid var(--border2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all .2s var(--ease);}
+  .ans-mark svg{width:11px; height:11px; opacity:0; transform:scale(.4); transition:all .2s var(--ease);}
+  .ans.sel{border-color:var(--qc,var(--teal)); background:var(--qt,var(--teal-tint)); box-shadow:var(--shadow);}
+  .ans.sel .ans-mark{background:var(--qc,var(--teal)); border-color:var(--qc,var(--teal));}
+  .ans.sel .ans-mark svg{opacity:1; transform:scale(1);}
+  .q-nav{margin-top:24px; display:flex; align-items:center; justify-content:space-between;}
+  .q-count{font-family:var(--mono); font-size:11px; letter-spacing:1.5px; color:var(--faint);}
+
+  /* calc */
+  .calc-wrap{align-items:center; text-align:center;}
+  .calc-ring{width:78px; height:78px; margin:0 auto 28px; position:relative;}
+  .calc-ring svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .calc-ring .track{fill:none; stroke:var(--border); stroke-width:3;}
+  .calc-ring .run{fill:none; stroke:var(--teal); stroke-width:3; stroke-linecap:round; stroke-dasharray:220; stroke-dashoffset:220; animation:ringRun 1.9s var(--ease) forwards;}
+  .calc-t{font-family:var(--serif); font-size:28px; color:var(--ink); margin-bottom:8px; font-weight:400;}
+  .calc-s{font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); min-height:16px;}
+
+  /* result */
+  .reveal-badge{width:96px; height:96px; margin:0 auto 20px; border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative; background:var(--card); box-shadow:var(--shadow); animation:badgePop .8s var(--ease) both;}
+  .reveal-badge::before{content:''; position:absolute; inset:-6px; border-radius:50%; border:1px solid var(--ac,var(--teal)); opacity:.3;}
+  .reveal-badge svg{width:46px; height:46px; color:var(--ac,var(--teal));}
+  .res-arch-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); text-align:center; margin-bottom:12px;}
+  .res-arch-eyebrow b{color:var(--ac,var(--teal)); font-weight:500;}
+  .res-arch{font-family:var(--serif); font-weight:400; font-size:clamp(42px,9vw,68px); line-height:1; color:var(--ink); text-align:center; margin-bottom:16px; letter-spacing:-.5px;}
+  .res-arch em{font-style:italic; color:var(--ac,var(--teal));}
+  .res-tag{text-align:center; font-size:15px; color:var(--muted); max-width:450px; margin:0 auto 32px; line-height:1.75;}
+
+  /* score gauge */
+  .gauge-card{display:flex; align-items:center; gap:24px; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:26px; box-shadow:var(--shadow); margin-bottom:20px;}
+  .gauge{width:132px; height:132px; flex-shrink:0; position:relative;}
+  .gauge svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .gauge .g-track{fill:none; stroke:var(--bg2); stroke-width:11;}
+  .gauge .g-fill{fill:none; stroke:var(--ac,var(--teal)); stroke-width:11; stroke-linecap:round; stroke-dasharray:396; stroke-dashoffset:396; transition:stroke-dashoffset 1.3s var(--ease);}
+  .gauge-ctr{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .gauge-num{font-family:var(--serif); font-size:48px; line-height:1; color:var(--ink); font-weight:400;}
+  .gauge-num small{font-size:17px; color:var(--faint);}
+  .gauge-lbl{font-family:var(--mono); font-size:8.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-top:2px;}
+  .gauge-side .gs-h{font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--faint); margin-bottom:6px;}
+  .gauge-side .gs-t{font-family:var(--serif); font-size:22px; color:var(--ink); line-height:1.25; font-weight:400;}
+  .gauge-side .gs-p{font-size:12.5px; color:var(--muted); line-height:1.6; margin-top:6px;}
+
+  .panel{background:var(--card); border:1px solid var(--border); border-radius:18px; padding:26px 22px 20px; box-shadow:var(--shadow); margin-bottom:20px;}
+  .card-h{font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--faint); text-align:center; margin-bottom:16px;}
+  .radar-svg{display:block; width:100%; max-width:340px; margin:0 auto; height:auto;}
+  .radar-poly{fill:rgba(61,122,138,.15); stroke:var(--teal); stroke-width:2; stroke-linejoin:round; opacity:0; transform:scale(.2); transform-origin:center; transition:opacity .8s var(--ease), transform .9s var(--ease);}
+  .radar-poly.draw{opacity:1; transform:scale(1);}
+  .radar-dot{opacity:0; transition:opacity .5s;}
+  .radar-dot.draw{opacity:1;}
+  .radar-grid{fill:none; stroke:var(--border2); stroke-width:1;}
+  .radar-axis{stroke:var(--border2); stroke-width:1;}
+
+  .bd-row{display:flex; align-items:center; gap:13px; padding:11px 0; border-bottom:1px solid var(--border);}
+  .bd-row:last-child{border-bottom:none;}
+  .bd-ic{width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .bd-ic svg{width:17px; height:17px;}
+  .bd-mid{flex:1; min-width:0;}
+  .bd-name{font-size:13px; font-weight:500; color:var(--text); margin-bottom:5px; letter-spacing:.2px; display:flex; justify-content:space-between;}
+  .bd-name .st{font-family:var(--mono); font-size:9.5px; letter-spacing:.5px; text-transform:uppercase; color:var(--faint);}
+  .bd-track{height:6px; background:var(--bg2); border-radius:4px; overflow:hidden;}
+  .bd-bar{height:100%; width:0; border-radius:4px; transition:width .9s var(--ease);}
+  .bd-pct{font-family:var(--mono); font-size:11px; color:var(--muted); flex-shrink:0; width:34px; text-align:right;}
+
+  .cost-card{background:var(--ink); color:var(--card); border-radius:18px; padding:30px 24px; margin-bottom:20px; box-shadow:var(--shadow-lg); overflow:hidden; position:relative;}
+  .cost-eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--teal-lt); margin-bottom:14px;}
+  .cost-lead{font-family:var(--serif); font-size:clamp(23px,5vw,29px); line-height:1.28; font-weight:300;}
+  .cost-lead b{color:var(--amber); font-weight:400; font-style:italic;}
+  .cost-sub{font-size:13px; color:rgba(250,248,244,.6); line-height:1.7;}
+  .cost-cmp{display:flex; flex-direction:column; gap:14px; margin:22px 0 0;}
+  .cost-item .cl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; letter-spacing:1px; text-transform:uppercase; color:rgba(250,248,244,.6); margin-bottom:7px;}
+  .cost-item .cl b{color:var(--card); font-weight:500;}
+  .cost-track{height:9px; background:rgba(250,248,244,.08); border-radius:5px; overflow:hidden;}
+  .cost-bar{height:100%; width:0; border-radius:5px; transition:width 1s var(--ease) .3s;}
+  .cost-bar.manual{background:linear-gradient(90deg,#c86a4a,#c05050);}
+  .cost-bar.prox{background:linear-gradient(90deg,var(--teal-lt),var(--teal));}
+  .cost-note{font-family:var(--mono); font-size:9.5px; letter-spacing:.8px; color:rgba(250,248,244,.35); text-transform:uppercase; margin-top:18px;}
+
+  /* proof */
+  .proof{display:flex; align-items:center; gap:14px; background:var(--card2); border:1px solid var(--border); border-radius:14px; padding:16px 18px; margin-bottom:20px;}
+  .proof-stars{color:var(--gold); font-size:13px; letter-spacing:2px; flex-shrink:0;}
+  .proof-t{font-size:12.5px; color:var(--muted); line-height:1.6;}
+  .proof-t b{color:var(--text); font-weight:600;}
+
+  .lead-card{background:var(--card); border:1px solid var(--border); border-radius:18px; padding:28px 22px; box-shadow:var(--shadow); margin-bottom:14px;}
+  .lead-h{font-family:var(--serif); font-size:28px; color:var(--ink); font-weight:400; line-height:1.2; margin-bottom:8px;}
+  .lead-p{font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:22px;}
+  .frm{display:flex; flex-direction:column; gap:13px;}
+  .frm-row{display:flex; gap:13px;}
+  .frm-row .fg{flex:1;}
+  .fg label{display:block; font-family:var(--mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:6px;}
+  .fg input{width:100%; background:var(--bg); border:1px solid var(--border2); border-radius:8px; padding:13px 14px; font-family:var(--sans); font-size:16px; color:var(--text); outline:none; transition:border-color .2s; min-height:46px;}
+  .fg input:focus{border-color:var(--teal);}
+  .fg input::placeholder{color:var(--faint);}
+  .frm .btn-primary{width:100%; margin-top:6px;}
+  .scarcity{font-family:var(--mono); font-size:10px; letter-spacing:1px; color:var(--gold); text-align:center; text-transform:uppercase; margin-top:12px; display:flex; align-items:center; justify-content:center; gap:8px;}
+  .scarcity .dot{width:5px; height:5px; border-radius:50%; background:var(--gold); animation:pulse 2.6s infinite;}
+  .frm-fine{font-family:var(--mono); font-size:9.5px; letter-spacing:.6px; color:var(--faint); text-align:center; text-transform:uppercase; margin-top:4px;}
+
+  .success{text-align:center; padding:20px 6px;}
+  .success-ic{width:64px; height:64px; border-radius:50%; background:var(--teal-tint); border:1px solid var(--teal-soft); display:flex; align-items:center; justify-content:center; margin:0 auto 22px; animation:badgePop .7s var(--ease) both;}
+  .success-ic svg{width:28px; height:28px; stroke:var(--teal);}
+  .success h3{font-family:var(--serif); font-size:32px; color:var(--ink); font-weight:400; margin-bottom:12px;}
+  .success p{font-size:14px; color:var(--muted); line-height:1.75; max-width:410px; margin:0 auto 22px;}
+  .success a{color:var(--teal); text-decoration:none; font-weight:500; font-size:13px; font-family:var(--mono); letter-spacing:1px; text-transform:uppercase;}
+  .res-foot{text-align:center; padding:8px 0 30px;}
+
+  .leak{background:var(--card); border:1px solid var(--border); border-left:3px solid var(--lc,var(--red)); border-radius:14px; padding:18px; margin-bottom:12px;}
+  .leak-head{display:flex; align-items:center; gap:11px; margin-bottom:12px;}
+  .leak-ic{width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .leak-ic svg{width:18px; height:18px;}
+  .leak-rank{font-family:var(--mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--faint);}
+  .leak-name{font-family:var(--sans); font-weight:600; font-size:14px; color:var(--text); letter-spacing:.2px;}
+  .leak-block{display:flex; gap:12px; padding:8px 0;}
+  .leak-tag{font-family:var(--mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; flex:0 0 54px; padding-top:2px;}
+  .leak-tag.bad{color:var(--red);}
+  .leak-tag.fix{color:var(--teal);}
+  .leak-txt{font-size:13px; color:var(--muted); line-height:1.6; flex:1;}
+  .leak-txt b{color:var(--text); font-weight:600;}
+  .leak-div{height:1px; background:var(--border); margin:2px 0;}
+  .r-stagger{opacity:0; animation:fadeUp .6s var(--ease) forwards;}
+
+  .scIntro-c{align-items:center; text-align:center;}
+  .scIntro-c .intro-inner{width:100%; max-width:580px; margin:0 auto; display:flex; flex-direction:column; align-items:center;}
+  .scIntro-c .eyebrow{justify-content:center; margin-bottom:22px;}
+  .scIntro-c .intro-sub{margin-left:auto; margin-right:auto;}
+  .scIntro-c .name-field{margin:0 auto 4px; align-items:center; width:100%; max-width:440px;}
+  .scIntro-c .name-field label{text-align:center;}
+  .scIntro-c .intro-trust{justify-content:center;}
+  .sys-ring{width:86px; height:86px; margin-bottom:26px; opacity:0; animation:fadeUp .7s var(--ease) .1s both;}
+  .sys-ring svg{display:block; animation:spin 70s linear infinite;}
+  .intro-line{display:flex; align-items:center; justify-content:center; gap:12px; margin-top:22px; font-family:var(--mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--faint);}
+  .intro-line i{width:3px; height:3px; border-radius:50%; background:var(--faint); opacity:.7; display:inline-block;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  @keyframes screenIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,122,138,.45)}50%{box-shadow:0 0 0 6px rgba(61,122,138,0)}}
+  @keyframes ringRun{to{stroke-dashoffset:24}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes badgePop{0%{opacity:0;transform:scale(.6)}60%{transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+
+  @media(max-width:560px){
+    .frm-row,.name-row{flex-direction:column; gap:12px;}
+    .name-row .btn-primary{width:100%;}
+    .gauge-card{flex-direction:column; text-align:center; gap:18px;}
+    .intro-meta{gap:20px;}
+    .cost-card,.lead-card,.panel,.gauge-card{padding-left:20px; padding-right:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="orb orb1"></div><div class="orb orb2"></div>
+<div class="wrap">
+  <div class="brand"><span class="brand-dot"></span><span class="brand-name">Proximity <b>Systems</b></span></div>
+  <div class="track-shell" id="track"></div>
+
+  <!-- INTRO -->
+  <section class="screen scIntro-c active" id="scIntro">
+    <div class="intro-inner">
+      <div class="sys-ring" id="sysRing"></div>
+      <div class="eyebrow"><span class="ln"></span>Agency Assessment<span class="ln"></span></div>
+      <h1 class="intro-h1">Are you ready to stop<br>doing admin <em>manually?</em></h1>
+      <p class="intro-sub">Answer 10 quick questions and get a free, personalized assessment report for your agency. The exact spots you are leaking time, and the systems that close them.</p>
+      <div class="name-field">
+        <label>First, what should we call you?</label>
+        <div class="name-row">
+          <input id="introName" type="text" placeholder="Your first name" autocomplete="given-name" maxlength="24"/>
+          <button class="btn btn-primary" id="startBtn">Begin
+            <svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="intro-line"><span>2 minutes</span><i></i><span>10 questions</span><i></i><span>instant report</span></div>
+      <div class="intro-trust"><span class="dot"></span>Built and proven inside a real Mississauga agency</div>
+    </div>
+  </section>
+
+  <!-- QUESTION -->
+  <section class="screen" id="scQ">
+    <div class="q-sys"><div class="q-sys-ic" id="qIc"></div><div class="q-sys-meta"><div class="n" id="qN"></div><div class="t" id="qT"></div></div></div>
+    <h2 class="q-title" id="qTitle"></h2>
+    <div class="answers" id="qAnswers"></div>
+    <div class="q-nav"><button class="btn btn-ghost" id="backBtn">Back</button><div class="q-count" id="qCount"></div></div>
+  </section>
+
+  <!-- CALC -->
+  <section class="screen calc-wrap" id="scCalc">
+    <div class="calc-ring"><svg viewBox="0 0 78 78"><circle class="track" cx="39" cy="39" r="35"/><circle class="run" cx="39" cy="39" r="35"/></svg></div>
+    <div class="calc-t" id="calcTitle">Reading your agency</div>
+    <div class="calc-s" id="calcMsg">Scoring your systems</div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="scResult"></section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var LEAD_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
+  var SITE = 'https://proximitysystems.ca';
+
+  function ic(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  var ICONS = {
+    lead: ic('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/>'),
+    onboard: ic('<path d="M5 20c1.5-3.5 4-5 7-5"/><circle cx="12" cy="8" r="3.2"/><path d="M16.5 17.5h5M19 15v5"/>'),
+    schedule: ic('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4M8 13h2M11 13h5M8 16h2"/>'),
+    visits: ic('<path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"/><path d="M9 10l2 2 4-4"/>'),
+    family: ic('<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M12 12.5c-1.4-1.3-3-2-3-3.4A1.6 1.6 0 0112 8a1.6 1.6 0 013 1.1c0 1.4-1.6 2.1-3 3.4z"/>'),
+    billing: ic('<path d="M6 3h9l3 3v15l-2.5-1.5L13 21l-2.5-1.5L8 21l-2-1.5V3z"/><path d="M9 8h6M9 11.5h6M9 15h4"/>'),
+    psw: ic('<circle cx="8" cy="8" r="3"/><path d="M2.5 19a5.5 5.5 0 0111 0"/><circle cx="17" cy="9" r="2.6"/><path d="M14 19a4 4 0 017.5-2"/>'),
+    brain: ic('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 12h6M9 15h3"/>'),
+    ai: ic('<rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="9" cy="12" r="1.1" fill="currentColor"/><circle cx="15" cy="12" r="1.1" fill="currentColor"/><path d="M12 3v3M9 21h6"/>'),
+    updates: ic('<path d="M18 8A6 6 0 006 8c0 7-3 8-3 8h18s-3-1-3-8z"/><path d="M10.5 20a2 2 0 003 0"/><circle cx="17.5" cy="6" r="3" fill="currentColor" stroke="none"/>')
+  };
+  var SYS = [
+    {k:'lead',    n:'Lead Capture',      c:'#c0654a',
+      q:'A family finds you online or a discharge planner sends a referral. What happens to that lead?',
+      a:['If I miss the call or email, it can slip away','I follow up myself when I get a free moment','It sits in a spreadsheet or inbox for later','It is captured, answered, and booked automatically, day or night'],
+      wrong:'Leads slip through after hours, and slow follow up hands them to the agency that called back first.',
+      fix:'A 24/7 capture and reply system books inquiries the moment they land, so none go cold.'},
+    {k:'onboard', n:'Onboarding',        c:'#3d7a8a',
+      q:'A new client signs on. What does getting them fully set up look like?',
+      a:['A pile of forms and back and forth that drags on for days','I hand fill everything myself, a few hours per client','I have templates, but I still stitch it together by hand','Intake, care plan, and first schedule are done in a day'],
+      wrong:'Manual intake drags new clients out for days and burns your time before care even starts.',
+      fix:'Guided intake builds the client, care plan, and first schedule in a day.'},
+    {k:'schedule',n:'Scheduling',        c:'#7d6ba8',
+      q:'It is Sunday and two caregivers just called off for Monday. What now?',
+      a:['I start texting and calling people until something sticks','I scan my spreadsheet and work the phones','My software shows the gap but I still fill it by hand','The system flags it and offers the shift to the best available PSWs'],
+      wrong:'Every call off becomes an hour of texting, and gaps get filled by whoever answers, not who fits.',
+      fix:'Smart scheduling flags the gap and offers it to the best matched, available PSWs instantly.'},
+    {k:'visits',  n:'Visits',            c:'#4a8a6a',
+      q:'How do you know a caregiver arrived, on time, and did what was needed?',
+      a:['I assume it happened unless someone complains','The caregiver texts me when they remember','They fill a log or timesheet after the shift','GPS verified in and out with task notes, every visit'],
+      wrong:'With no proof of visit, late and missed shifts slip by until a family complains and trust is gone.',
+      fix:'GPS verified check in and out with notes means every visit is proven, not assumed.'},
+    {k:'family',  n:'Family Portal',     c:'#5a9aaa',
+      q:'When a daughter wants to know how her mom did today, how does she find out?',
+      a:['She calls me and I find out, then call her back','I send an update when I get a chance','I email a recap now and then','She opens a portal and sees visits, notes, and photos herself'],
+      wrong:'Families call you for updates you have to chase, and silence starts to read as neglect.',
+      fix:'A live family portal shows visits, notes, and photos, so families feel looped in without a call.'},
+    {k:'billing', n:'Billing',           c:'#b87010',
+      q:'How do client invoices and caregiver pay get produced each cycle?',
+      a:['I build them by hand from notes and timesheets','I fill the same templates every single time','Software helps, but I reconcile it all myself','Invoices and pay generate straight from verified visits'],
+      wrong:'Hand built invoices and payroll swallow days each cycle, and small errors cost money and trust.',
+      fix:'Invoices and pay generate straight from verified visits, reconciled and ready to send.'},
+    {k:'psw',     n:'PSW Management',     c:'#4a7a9a',
+      q:'A caregiver certification or police check is about to expire. How do you catch it?',
+      a:['I usually find out when it is already a problem','I keep a binder or spreadsheet I try to check','Some software holds it, but I chase the updates','One place tracks it all and warns me before anything lapses'],
+      wrong:'Expired documents surface as compliance problems instead of reminders, and that is real liability.',
+      fix:'One roster tracks every certificate and check and warns you before anything lapses.'},
+    {k:'brain',   n:'Client Brain',      c:'#a86a3a',
+      q:'A caregiver on shift needs a client meds, allergies, or routine right now. Where is it?',
+      a:['In my head or a note I have to dig up','In a document somewhere I have to search for','In a shared folder the team can sort of find','In one client record anyone can pull up in seconds'],
+      wrong:'Client details live in your head and scattered notes, so care quietly depends on you being reachable.',
+      fix:'One client record holds meds, routines, and preferences that any caregiver can pull up in seconds.'},
+    {k:'ai',      n:'AI Agent',          c:'#3d8a7a',
+      q:'A call or message comes in after hours or while you are on a visit. Who handles it?',
+      a:['It waits for me, and some callers give up','I get back to them eventually','An answering service takes a message','An AI answers, screens, and books, day or night'],
+      wrong:'After hours calls go unanswered, and callers move on to the next agency in the search results.',
+      fix:'An AI agent answers, screens, and books around the clock, so you never miss a caller.'},
+    {k:'updates', n:'24/7 Daily Updates',c:'#8a6a4a',
+      q:'At the end of the day, how much do you really know about how every client did?',
+      a:['Only what I hear when something goes wrong','Whatever I remember to ask caregivers about','What I can piece together from logs if I dig','An automatic daily summary lands for every client'],
+      wrong:'You only learn how a client did when something goes wrong, which is too late to get ahead of it.',
+      fix:'An automatic daily summary for every client puts you ahead of problems instead of behind them.'}
+  ];
+  // archetype: emblem + accent color
+  var ARCHES = [
+    {min:0,  max:39, name:'The Firefighter', ac:'#c0654a', em:ic('<path d="M12 3c1 3-2 4-2 7a2 2 0 004 0c0-1 0-2-.5-3 2 1.5 3.5 4 3.5 7a5 5 0 01-10 0c0-4 4-5 5-8z"/>'),
+      tag:'You run on yourself. Every day is reactive, and the agency stops the moment you do. There is a calmer way to run this.'},
+    {min:40, max:64, name:'The Juggler',     ac:'#b87010', em:ic('<circle cx="12" cy="5" r="2.2"/><circle cx="5.5" cy="16" r="2.2"/><circle cx="18.5" cy="16" r="2.2"/><path d="M10 6.5L7 14M14 6.5l3 7.5M7.5 16h9"/>'),
+      tag:'You are holding it together with patched tools and willpower. It works, but the seams cost you evenings and the odd dropped ball.'},
+    {min:65, max:84, name:'The Operator',    ac:'#3d7a8a', em:ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'),
+      tag:'You are mostly systemized with a few real leaks. Close them and the business starts running without leaning on you.'},
+    {min:85, max:100,name:'The Machine',     ac:'#4a8a6a', em:ic('<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="12" r="2.4"/><path d="M7.5 7.5l3 3M16.5 7.5l-3 3M7.5 16.5l3-3M16.5 16.5l-3-3"/>'),
+      tag:'You are systemized. You could add clients or a second location without adding chaos. Rare air for a small agency.'}
+  ];
+
+  var answers = new Array(SYS.length).fill(-1);
+  var idx = 0;
+  var userName = '';
+  var el = function(id){ return document.getElementById(id); };
+  var scIntro=el('scIntro'), scQ=el('scQ'), scCalc=el('scCalc'), scResult=el('scResult');
+
+  // build segmented tracker
+  (function(){
+    var t=el('track');
+    for(var i=0;i<SYS.length;i++){
+      var seg=document.createElement('div'); seg.className='seg'; seg.id='seg-'+i;
+      seg.style.setProperty('--sc', SYS[i].c);
+      t.appendChild(seg);
+    }
+  })();
+
+  // custom system ring on the intro (ten systems in their colors)
+  (function(){
+    var r=el('sysRing'); if(!r) return;
+    var cx=43, cy=43, rad=33;
+    var out='<svg viewBox="0 0 86 86" width="86" height="86"><circle cx="43" cy="43" r="33" fill="none" stroke="var(--border2)" stroke-width="1"/>';
+    for(var i=0;i<SYS.length;i++){
+      var a=(-90+i*36)*Math.PI/180;
+      out+='<circle cx="'+(cx+rad*Math.cos(a)).toFixed(1)+'" cy="'+(cy+rad*Math.sin(a)).toFixed(1)+'" r="3.4" fill="'+SYS[i].c+'"/>';
+    }
+    out+='<circle cx="43" cy="43" r="3" fill="var(--teal)"/></svg>';
+    r.innerHTML=out;
+  })();
+
+  function show(node){ [scIntro,scQ,scCalc,scResult].forEach(function(s){ s.classList.remove('active'); }); node.classList.add('active'); window.scrollTo(0,0); }
+  function updateTracker(){
+    for(var i=0;i<SYS.length;i++){
+      var seg=el('seg-'+i);
+      seg.classList.toggle('done', answers[i]>=0);
+      seg.classList.toggle('cur', i===idx);
+    }
+  }
+  function hexToRgba(h,a){ var n=parseInt(h.slice(1),16); return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
+  function esc(x){ return (x||'').replace(/[<>&"]/g,function(m){return{'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[m];}); }
+
+  el('introName').addEventListener('keydown', function(e){ if(e.key==='Enter') el('startBtn').click(); });
+  el('startBtn').addEventListener('click', function(){
+    userName = esc((el('introName').value||'').trim().split(' ')[0]);
+    el('track').classList.add('on');
+    idx = 0; renderQ(); updateTracker(); show(scQ);
+  });
+
+  function renderQ(){
+    var s = SYS[idx];
+    var box = el('qIc');
+    box.innerHTML = ICONS[s.k];
+    box.style.color = s.c;
+    box.style.background = hexToRgba(s.c,.10);
+    box.style.setProperty('--qc', s.c);
+    el('qN').textContent = 'System '+String(idx+1).padStart(2,'0')+' of 10';
+    el('qT').textContent = s.n;
+    el('qTitle').textContent = s.q;
+    el('qCount').textContent = (idx+1)+' / '+SYS.length;
+    el('backBtn').style.visibility = idx===0 ? 'hidden' : 'visible';
+    var ans = el('qAnswers'); ans.innerHTML='';
+    ans.style.setProperty('--qc', s.c);
+    ans.style.setProperty('--qt', hexToRgba(s.c,.08));
+    s.a.forEach(function(text, score){
+      var b=document.createElement('button');
+      b.className='ans'+(answers[idx]===score?' sel':'');
+      b.style.animation='fadeUp .4s var(--ease) '+(score*0.05)+'s both';
+      b.innerHTML='<span class="ans-mark"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2l2.6 2.6L10 3.2" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>'+text+'</span>';
+      b.addEventListener('click', function(){ pick(score); });
+      ans.appendChild(b);
+    });
+  }
+  function pick(score){
+    answers[idx]=score;
+    var kids=el('qAnswers').children;
+    for(var i=0;i<kids.length;i++){ kids[i].classList.toggle('sel', i===score); }
+    updateTracker();
+    setTimeout(function(){
+      if(idx < SYS.length-1){ idx++; renderQ(); updateTracker(); scQ.classList.remove('active'); void scQ.offsetWidth; scQ.classList.add('active'); }
+      else { runCalc(); }
+    }, 280);
+  }
+  el('backBtn').addEventListener('click', function(){
+    if(idx>0){ idx--; renderQ(); updateTracker(); scQ.classList.remove('active'); void scQ.offsetWidth; scQ.classList.add('active'); }
+  });
+
+  function runCalc(){
+    show(scCalc);
+    el('calcTitle').textContent = userName ? ('Reading '+userName+"'s agency") : 'Reading your agency';
+    var msgs=['Scoring your systems','Finding your leaks','Mapping your agency','Building your report'];
+    var i=0; var m=el('calcMsg');
+    var t=setInterval(function(){ i++; if(i<msgs.length){ m.textContent=msgs[i]; } }, 470);
+    setTimeout(function(){ clearInterval(t); renderResult(); show(scResult); }, 2000);
+  }
+
+  function computeCost(pct){ var hrs=Math.round(24-(pct/100)*20); return { hrs:hrs, annual:hrs*52*40 }; }
+
+  function radarSVG(){
+    var cx=170, cy=150, R=118, N=SYS.length;
+    function pt(i,r){ var a=(-90+i*(360/N))*Math.PI/180; return [cx+r*Math.cos(a), cy+r*Math.sin(a)]; }
+    var svg='<svg class="radar-svg" viewBox="0 0 340 300">';
+    [0.25,0.5,0.75,1].forEach(function(f){ var p=[]; for(var i=0;i<N;i++){var q=pt(i,R*f);p.push(q[0].toFixed(1)+','+q[1].toFixed(1));} svg+='<polygon class="radar-grid" points="'+p.join(' ')+'"/>'; });
+    for(var i=0;i<N;i++){ var p=pt(i,R); svg+='<line class="radar-axis" x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'"/>'; }
+    var dpts=[], dots='';
+    for(var j=0;j<N;j++){ var v=(answers[j]+1)/4; var pp=pt(j,R*Math.max(v,0.12)); dpts.push(pp[0].toFixed(1)+','+pp[1].toFixed(1)); dots+='<circle class="radar-dot" cx="'+pp[0].toFixed(1)+'" cy="'+pp[1].toFixed(1)+'" r="3.4" fill="'+SYS[j].c+'"/>'; }
+    svg+='<polygon class="radar-poly" points="'+dpts.join(' ')+'"/>'+dots;
+    for(var k=0;k<N;k++){ var pv=pt(k,R+12); svg+='<circle cx="'+pv[0].toFixed(1)+'" cy="'+pv[1].toFixed(1)+'" r="2.8" fill="'+SYS[k].c+'"/>'; }
+    svg+='</svg>'; return svg;
+  }
+
+  function renderResult(){
+    var raw = answers.reduce(function(a,b){return a+Math.max(b,0);},0);
+    var pct = Math.round(raw/(SYS.length*3)*100);
+    var arch = ARCHES.find(function(x){ return pct>=x.min && pct<=x.max; }) || ARCHES[0];
+    var ranked = SYS.map(function(s,i){ return {s:s, v:answers[i]}; }).sort(function(a,b){ return a.v-b.v; });
+    var weakSys = ranked.slice(0,3);
+    var weak = weakSys.map(function(w){return w.s.n;});
+    var leaks = weakSys.map(function(w,i){ var s=w.s;
+      return '<div class="leak" style="--lc:'+s.c+'"><div class="leak-head"><div class="leak-ic" style="color:'+s.c+';background:'+hexToRgba(s.c,.10)+'">'+ICONS[s.k]+'</div><div><div class="leak-rank">Leak 0'+(i+1)+'</div><div class="leak-name">'+s.n+'</div></div></div>'
+        +'<div class="leak-block"><div class="leak-tag bad">Problem</div><div class="leak-txt">'+s.wrong+'</div></div>'
+        +'<div class="leak-div"></div>'
+        +'<div class="leak-block"><div class="leak-tag fix">The fix</div><div class="leak-txt"><b>'+s.n+'.</b> '+s.fix+'</div></div></div>';
+    }).join('');
+    var cost = computeCost(pct);
+    var hi = userName ? (userName+', your') : 'Your';
+
+    var readLine = pct>=85
+      ? hi+' systems are tight across the board. The only edges left are '+weak[0]+' and '+weak[1]+', polish more than gaps.'
+      : hi+' three biggest leaks are '+weak[0]+', '+weak[1]+', and '+weak[2]+'. That is where your hours and dropped balls are hiding.';
+
+    var bd = SYS.map(function(s,i){
+      var p=Math.round((answers[i]+1)/4*100);
+      var lbl = p<=25?'Manual':p<=50?'Patchy':p<=75?'Getting there':'Automated';
+      return '<div class="bd-row"><div class="bd-ic" style="color:'+s.c+';background:'+hexToRgba(s.c,.10)+'">'+ICONS[s.k]+'</div>'
+        +'<div class="bd-mid"><div class="bd-name"><span>'+s.n+'</span><span class="st">'+lbl+'</span></div>'
+        +'<div class="bd-track"><div class="bd-bar" data-w="'+p+'" style="background:'+s.c+'"></div></div></div>'
+        +'<div class="bd-pct">'+p+'%</div></div>';
+    }).join('');
+
+    var manualPct=Math.min(100,Math.round(cost.annual/12000*100));
+    var proxPct=Math.round(6000/12000*100);
+    var saving=Math.max(0,cost.annual-6000);
+    var circ=396, off=circ*(1-pct/100);
+
+    scResult.innerHTML =
+      '<div class="reveal-badge r-stagger" style="--ac:'+arch.ac+';animation-delay:.05s">'+arch.em+'</div>'
+      +'<div class="res-arch-eyebrow r-stagger" style="animation-delay:.1s">'+(userName?esc(userName)+', your agency is':'Your agency is')+'</div>'
+      +'<div class="res-arch r-stagger" style="--ac:'+arch.ac+';animation-delay:.16s"><em>'+arch.name+'</em></div>'
+      +'<p class="res-tag r-stagger" style="animation-delay:.22s">'+arch.tag+'</p>'
+      +'<div class="gauge-card r-stagger" style="--ac:'+arch.ac+';animation-delay:.28s">'
+        +'<div class="gauge"><svg viewBox="0 0 144 144"><circle class="g-track" cx="72" cy="72" r="63"/><circle class="g-fill" id="gFill" cx="72" cy="72" r="63" style="stroke-dasharray:'+circ+'"/></svg>'
+        +'<div class="gauge-ctr"><div class="gauge-num"><span id="scoreN">0</span><small>/100</small></div><div class="gauge-lbl">Systemization</div></div></div>'
+        +'<div class="gauge-side"><div class="gs-h">The read</div><div class="gs-t">'+arch.name+'</div><div class="gs-p">'+(pct>=65?'Strong foundation. A few systems away from running itself.':'A lot is riding on you. The right systems give the week back.')+'</div></div>'
+      +'</div>'
+      +'<div class="panel r-stagger" style="animation-delay:.34s"><div class="card-h">Your systemization shape</div>'+radarSVG()+'</div>'
+      +'<div class="panel r-stagger" style="animation-delay:.4s"><div class="card-h">System by system</div>'+bd+'</div>'
+      +'<div class="panel r-stagger" style="animation-delay:.44s"><div class="card-h">Your biggest leaks, and how we close them</div>'+leaks+'</div>'
+      +'<div class="cost-card r-stagger" style="animation-delay:.46s"><div class="cost-eyebrow">What the gaps cost</div>'
+        +'<div class="cost-lead">'+readLine+'</div>'
+        +'<p class="cost-sub" style="margin-top:14px">At roughly <b style="color:#fff;font-style:normal">'+cost.hrs+' hours a week</b> on manual admin, that is about <b>$'+cost.annual.toLocaleString()+' a year</b> of your own time.</p>'
+        +'<div class="cost-cmp">'
+          +'<div class="cost-item"><div class="cl"><span>Running it manually</span><b>$'+cost.annual.toLocaleString()+' / yr</b></div><div class="cost-track"><div class="cost-bar manual" data-w="'+manualPct+'"></div></div></div>'
+          +'<div class="cost-item"><div class="cl"><span>With Proximity</span><b>$500 / mo</b></div><div class="cost-track"><div class="cost-bar prox" data-w="'+proxPct+'"></div></div></div>'
+        +'</div>'
+        +(saving>0?'<p class="cost-sub" style="margin:16px 0 0">That is about <b style="color:#fff;font-style:normal">$'+saving.toLocaleString()+' a year</b> and your evenings back.</p>':'')
+        +'<div class="cost-note">Estimate based on your answers</div></div>'
+      +'<div class="proof r-stagger" style="animation-delay:.5s"><div class="proof-stars">' + '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>'.repeat(5) + '</div><div class="proof-t"><b>Proven in production.</b> The same system runs a live Mississauga agency, 12 PSWs, 11 clients, thousands of visits logged, zero admin staff.</div></div>'
+      +'<div class="lead-card r-stagger" style="animation-delay:.54s">'
+        +'<div class="lead-h">'+(userName?'Send my full report, '+esc(userName):'Get your full report')+'</div>'
+        +'<p class="lead-p">We will send your system by system breakdown and walk you through your three biggest leaks and what it takes to close them. No pressure, no demo wizardry.</p>'
+        +'<div class="frm" id="leadForm">'
+          +'<div class="frm-row"><div class="fg"><label>First name</label><input id="fFirst" type="text" placeholder="First name" autocomplete="given-name" value="'+(userName?esc(userName):'')+'"></div><div class="fg"><label>Last name</label><input id="fLast" type="text" placeholder="Last name" autocomplete="family-name"></div></div>'
+          +'<div class="fg"><label>Agency name</label><input id="fAgency" type="text" placeholder="Your agency"></div>'
+          +'<div class="frm-row"><div class="fg"><label>Phone</label><input id="fPhone" type="tel" placeholder="647 000 0000" autocomplete="tel"></div><div class="fg"><label>City</label><input id="fCity" type="text" placeholder="City, Province"></div></div>'
+          +'<div class="fg"><label>Email</label><input id="fEmail" type="email" placeholder="you@agency.com" autocomplete="email"></div>'
+          +'<button class="btn btn-primary" id="submitBtn">Send my report and book my call'
+            +'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+          +'<div class="scarcity"><span class="dot"></span>We build for a handful of Ontario agencies at a time</div>'
+          +'<div class="frm-fine">We reply within 24 hours</div>'
+        +'</div></div>'
+      +'<div class="res-foot"><button class="btn btn-ghost" id="retakeBtn">Retake the assessment</button></div>';
+
+    animateCount(el('scoreN'), pct, 1200);
+    requestAnimationFrame(function(){ setTimeout(function(){
+      var g=el('gFill'); if(g) g.style.strokeDashoffset=off;
+      var poly=scResult.querySelector('.radar-poly'); if(poly) poly.classList.add('draw');
+      scResult.querySelectorAll('.radar-dot').forEach(function(d,i){ setTimeout(function(){ d.classList.add('draw'); }, 300+i*40); });
+      scResult.querySelectorAll('.bd-bar').forEach(function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
+      scResult.querySelectorAll('.cost-bar').forEach(function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
+    }, 260); });
+
+    el('submitBtn').addEventListener('click', function(){ submitLead(pct, arch.name, weak); });
+    el('retakeBtn').addEventListener('click', function(){
+      answers=new Array(SYS.length).fill(-1); idx=0; updateTracker();
+      el('track').classList.remove('on'); show(scIntro);
+    });
+  }
+
+  function animateCount(node, target, dur){
+    var start=null;
+    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1); var e=1-Math.pow(1-p,3); node.textContent=Math.round(e*target); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+
+  async function submitLead(pct, archName, weakNames){
+    var first=(el('fFirst').value||'').trim();
+    var last=(el('fLast').value||'').trim();
+    var agency=(el('fAgency').value||'').trim();
+    var phone=(el('fPhone').value||'').trim();
+    var city=(el('fCity').value||'').trim();
+    var email=(el('fEmail').value||'').trim();
+    if(!first || !agency || (!phone && !email)){ alert('Please add your first name, agency, and a phone or email so we can send the report.'); return; }
+    var btn=el('submitBtn'); btn.disabled=true; btn.textContent='Sending...';
+    var pain='Systemization quiz: '+pct+'% ('+archName+'). Weakest systems: '+weakNames.join(', ')+'.';
+    try{
+      var r=await fetch(LEAD_URL,{ method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ operator_id:'proximity-systems', lead_type:'operator', first_name:first, last_name:last, phone:phone, email:email, city:city, care_needed_for:agency, urgency: pct<=64 ? 'hot' : 'warm', pain_point:pain, source:'Proximity Systems, Systemization Quiz' }) });
+      if(!r.ok) throw new Error('bad status');
+      el('leadForm').parentNode.innerHTML =
+        '<div class="success"><div class="success-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div>'
+        +'<h3>Your report is locked in</h3>'
+        +'<p>Thanks '+esc(first)+'. Lance will reach out within 24 hours to walk you through your biggest leaks and what it takes to close them.</p>'
+        +'<a href="'+SITE+'" target="_blank" rel="noopener">See the full system</a></div>';
+    }catch(e){ btn.disabled=false; btn.textContent='Send my report and book my call'; alert('Something went wrong. Please call Lance at 647 382 8047 and we will sort it out.'); }
+  }
+})();
+</script>
+</body>
+</html>
