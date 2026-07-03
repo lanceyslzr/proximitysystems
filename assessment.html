@@ -215,6 +215,45 @@
   .intro-line{display:flex; align-items:center; justify-content:center; gap:12px; margin-top:22px; font-family:var(--mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--faint);}
   .intro-line i{width:3px; height:3px; border-radius:50%; background:var(--faint); opacity:.7; display:inline-block;}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .locked{background:var(--card2); border:1px dashed var(--border2); border-radius:16px; padding:22px; margin-bottom:18px;}
+  .locked-head{display:flex; align-items:center; gap:10px; font-family:var(--sans); font-weight:600; font-size:14px; color:var(--text); margin-bottom:12px;}
+  .locked-ic{width:30px; height:30px; border-radius:8px; background:var(--teal-tint); color:var(--teal); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .locked-ic svg{width:16px; height:16px;}
+  .lock-row{display:flex; align-items:flex-start; gap:11px; padding:7px 0; font-size:13.5px; color:var(--muted); line-height:1.5;}
+  .lock-check{width:18px; height:18px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;}
+  .lock-check svg{width:10px; height:10px;}
+  .lead-card.gate{border:1px solid var(--teal-soft); box-shadow:0 2px 4px rgba(30,36,32,.05),0 20px 50px -18px rgba(61,122,138,.32);}
+  .unlock-note{display:flex; align-items:center; gap:10px; justify-content:center; font-family:var(--mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); margin:8px 0 22px;}
+  .unlock-ic{width:22px; height:22px; border-radius:50%; background:var(--teal-tint); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .unlock-ic svg{width:13px; height:13px;}
+  .reveal-up{opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease);}
+  .reveal-up.in{opacity:1; transform:none;}
+  .fixcard{background:var(--card); border:1px solid var(--border); border-left:3px solid var(--fc,var(--teal)); border-radius:14px; padding:20px; margin-bottom:14px;}
+  .fix-head{display:flex; align-items:center; gap:11px; margin-bottom:14px;}
+  .fix-ic{width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .fix-ic svg{width:19px; height:19px;}
+  .fix-rank{font-family:var(--mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--fc,var(--teal));}
+  .fix-name{font-family:var(--sans); font-weight:600; font-size:15px; color:var(--text); letter-spacing:.2px;}
+  .fix-line{display:flex; gap:11px; padding:4px 0;}
+  .fix-line.gain{margin-top:4px;}
+  .fix-tag{font-family:var(--mono); font-size:8.5px; letter-spacing:1.2px; text-transform:uppercase; flex:0 0 50px; padding-top:3px;}
+  .fix-tag.bad{color:var(--red);}
+  .fix-tag.good{color:var(--teal);}
+  .fix-txt{font-size:13px; color:var(--muted); line-height:1.6; flex:1;}
+  .fix-txt b{color:var(--text); font-weight:600;}
+  .fix-flow-h{font-family:var(--mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--faint); margin:16px 0 4px;}
+  .flow{position:relative; padding:6px 0 2px;}
+  .flow-step{display:flex; gap:14px; padding-bottom:16px; position:relative; opacity:0; transform:translateX(-8px); transition:opacity .45s var(--ease), transform .45s var(--ease);}
+  .flow-step:last-child{padding-bottom:0;}
+  .flow-step::before{content:''; position:absolute; left:12px; top:26px; bottom:2px; width:1.5px; background:var(--border2);}
+  .flow-step:last-child::before{display:none;}
+  .flow-step.lit{opacity:1; transform:none;}
+  .flow-num{width:26px; height:26px; border-radius:50%; border:1.5px solid var(--fc,var(--teal)); color:var(--fc,var(--teal)); font-family:var(--mono); font-size:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--card); z-index:1; transition:background .3s, color .3s;}
+  .flow-step.lit .flow-num{background:var(--fc,var(--teal)); color:#fff;}
+  .flow-txt{font-size:13.5px; color:var(--text); padding-top:3px; line-height:1.4;}
+  .final-cta{text-align:center; padding:28px 20px; background:var(--card); border:1px solid var(--border); border-radius:16px; margin-bottom:20px; box-shadow:var(--shadow);}
+  .fc-h{font-family:var(--serif); font-size:26px; color:var(--ink); font-weight:400; margin-bottom:8px;}
+  .fc-p{font-size:13.5px; color:var(--muted); line-height:1.7; max-width:400px; margin:0 auto 18px;}
   @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
   @keyframes screenIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,122,138,.45)}50%{box-shadow:0 0 0 6px rgba(61,122,138,0)}}
@@ -360,6 +399,31 @@
       tag:'You are systemized. You could add clients or a second location without adding chaos. Rare air for a small agency.'}
   ];
 
+  var FLOW = {
+    lead:['New inquiry lands','AI replies in seconds','Call or visit booked','Lead in your pipeline'],
+    onboard:['Client says yes','Guided intake runs','Care plan and schedule built','Live and in care in a day'],
+    schedule:['Call-off detected','Best-fit PSW matched','Shift offered to their phone','Gap filled, no texting'],
+    visits:['Caregiver arrives','GPS check in and out','Tasks and notes logged','Visit proven, not assumed'],
+    family:['Visit wraps up','Notes and photos sync','Portal updates live','Family sees it themselves'],
+    billing:['Visits get verified','Invoice builds itself','Pay is calculated','Sent and reconciled'],
+    psw:['Document on file','Expiry date tracked','Reminder fires early','Roster stays compliant'],
+    brain:['Detail captured once','Saved to the client record','Any caregiver pulls it up','Care never drops'],
+    ai:['Call comes in','AI answers and screens','Booked or routed to you','Caller never lost'],
+    updates:['Care day logged','AI writes the summary','Daily update sent out','You are already ahead']
+  };
+  var GAIN = {
+    lead:'You stop losing after hours inquiries to whoever called back first.',
+    onboard:'A signed client becomes active care in a day, not a dragged out week.',
+    schedule:'The Sunday night texting marathon disappears.',
+    visits:'A late or missed shift never blindsides you in front of a family again.',
+    family:'Families feel looped in without a single call to you.',
+    billing:'You get days back every cycle and stop chasing your own numbers.',
+    psw:'An expired document never catches you off guard again.',
+    brain:'Your agency stops depending on you being reachable.',
+    ai:'Every caller gets answered, even at 2am, without you lifting a finger.',
+    updates:'You get ahead of problems instead of hearing about them too late.'
+  };
+
   var answers = new Array(SYS.length).fill(-1);
   var idx = 0;
   var userName = '';
@@ -476,31 +540,7 @@
     var ranked = SYS.map(function(s,i){ return {s:s, v:answers[i]}; }).sort(function(a,b){ return a.v-b.v; });
     var weakSys = ranked.slice(0,3);
     var weak = weakSys.map(function(w){return w.s.n;});
-    var leaks = weakSys.map(function(w,i){ var s=w.s;
-      return '<div class="leak" style="--lc:'+s.c+'"><div class="leak-head"><div class="leak-ic" style="color:'+s.c+';background:'+hexToRgba(s.c,.10)+'">'+ICONS[s.k]+'</div><div><div class="leak-rank">Leak 0'+(i+1)+'</div><div class="leak-name">'+s.n+'</div></div></div>'
-        +'<div class="leak-block"><div class="leak-tag bad">Problem</div><div class="leak-txt">'+s.wrong+'</div></div>'
-        +'<div class="leak-div"></div>'
-        +'<div class="leak-block"><div class="leak-tag fix">The fix</div><div class="leak-txt"><b>'+s.n+'.</b> '+s.fix+'</div></div></div>';
-    }).join('');
     var cost = computeCost(pct);
-    var hi = userName ? (userName+', your') : 'Your';
-
-    var readLine = pct>=85
-      ? hi+' systems are tight across the board. The only edges left are '+weak[0]+' and '+weak[1]+', polish more than gaps.'
-      : hi+' three biggest leaks are '+weak[0]+', '+weak[1]+', and '+weak[2]+'. That is where your hours and dropped balls are hiding.';
-
-    var bd = SYS.map(function(s,i){
-      var p=Math.round((answers[i]+1)/4*100);
-      var lbl = p<=25?'Manual':p<=50?'Patchy':p<=75?'Getting there':'Automated';
-      return '<div class="bd-row"><div class="bd-ic" style="color:'+s.c+';background:'+hexToRgba(s.c,.10)+'">'+ICONS[s.k]+'</div>'
-        +'<div class="bd-mid"><div class="bd-name"><span>'+s.n+'</span><span class="st">'+lbl+'</span></div>'
-        +'<div class="bd-track"><div class="bd-bar" data-w="'+p+'" style="background:'+s.c+'"></div></div></div>'
-        +'<div class="bd-pct">'+p+'%</div></div>';
-    }).join('');
-
-    var manualPct=Math.min(100,Math.round(cost.annual/12000*100));
-    var proxPct=Math.round(6000/12000*100);
-    var saving=Math.max(0,cost.annual-6000);
     var circ=396, off=circ*(1-pct/100);
 
     scResult.innerHTML =
@@ -513,10 +553,81 @@
         +'<div class="gauge-ctr"><div class="gauge-num"><span id="scoreN">0</span><small>/100</small></div><div class="gauge-lbl">Systemization</div></div></div>'
         +'<div class="gauge-side"><div class="gs-h">The read</div><div class="gs-t">'+arch.name+'</div><div class="gs-p">'+(pct>=65?'Strong foundation. A few systems away from running itself.':'A lot is riding on you. The right systems give the week back.')+'</div></div>'
       +'</div>'
-      +'<div class="panel r-stagger" style="animation-delay:.34s"><div class="card-h">Your systemization shape</div>'+radarSVG()+'</div>'
-      +'<div class="panel r-stagger" style="animation-delay:.4s"><div class="card-h">System by system</div>'+bd+'</div>'
-      +'<div class="panel r-stagger" style="animation-delay:.44s"><div class="card-h">Your biggest leaks, and how we close them</div>'+leaks+'</div>'
-      +'<div class="cost-card r-stagger" style="animation-delay:.46s"><div class="cost-eyebrow">What the gaps cost</div>'
+      +'<div class="locked r-stagger" style="animation-delay:.34s">'
+        +'<div class="locked-head"><span class="locked-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span>Your full report is ready to open</div>'
+        +lockRow('Your systemization shape across all ten systems')
+        +lockRow('Your three biggest leaks, ranked by what they cost')
+        +lockRow('The exact Proximity workflow that closes each one, animated step by step')
+        +lockRow('What running it by hand costs you every year')
+      +'</div>'
+      +'<div class="lead-card gate r-stagger" style="animation-delay:.4s">'
+        +'<div class="lead-h">'+(userName?esc(userName)+', open your full report':'Open your full report')+'</div>'
+        +'<p class="lead-p">Drop your details and your full breakdown opens right here, yours to keep. Lance will send your copy and reach out within 24 hours.</p>'
+        +'<div class="frm" id="leadForm">'
+          +'<div class="frm-row"><div class="fg"><label>First name</label><input id="fFirst" type="text" placeholder="First name" autocomplete="given-name" value="'+(userName?esc(userName):'')+'"></div><div class="fg"><label>Last name</label><input id="fLast" type="text" placeholder="Last name" autocomplete="family-name"></div></div>'
+          +'<div class="fg"><label>Agency name</label><input id="fAgency" type="text" placeholder="Your agency"></div>'
+          +'<div class="frm-row"><div class="fg"><label>Phone</label><input id="fPhone" type="tel" placeholder="647 000 0000" autocomplete="tel"></div><div class="fg"><label>City</label><input id="fCity" type="text" placeholder="City, Province"></div></div>'
+          +'<div class="fg"><label>Email</label><input id="fEmail" type="email" placeholder="you@agency.com" autocomplete="email"></div>'
+          +'<button class="btn btn-primary" id="submitBtn">Unlock my full report'
+            +'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+          +'<div class="scarcity"><span class="dot"></span>We build for a handful of Ontario agencies at a time</div>'
+          +'<div class="frm-fine">No spam. Your report opens instantly.</div>'
+        +'</div></div>'
+      +'<div id="fullReport"></div>'
+      +'<div class="res-foot"><button class="btn btn-ghost" id="retakeBtn">Retake the assessment</button></div>';
+
+    animateCount(el('scoreN'), pct, 1200);
+    requestAnimationFrame(function(){ setTimeout(function(){ var g=el('gFill'); if(g) g.style.strokeDashoffset=off; }, 260); });
+
+    el('submitBtn').addEventListener('click', function(){ submitLead(pct, arch, weakSys, weak, cost); });
+    el('retakeBtn').addEventListener('click', function(){
+      answers=new Array(SYS.length).fill(-1); idx=0; updateTracker();
+      el('track').classList.remove('on'); show(scIntro);
+    });
+  }
+
+  function lockRow(t){ return '<div class="lock-row"><span class="lock-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2l2.6 2.6L10 3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>'+t+'</span></div>'; }
+
+  function animateCount(node, target, dur){
+    var start=null;
+    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1); var e=1-Math.pow(1-p,3); node.textContent=Math.round(e*target); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+
+  function renderFull(pct, arch, weakSys, weak, cost){
+    var hi = userName ? (userName+', your') : 'Your';
+    var readLine = pct>=85
+      ? hi+' systems are tight across the board. The only edges left are '+weak[0]+' and '+weak[1]+', polish more than gaps.'
+      : hi+' three biggest leaks are '+weak[0]+', '+weak[1]+', and '+weak[2]+'. That is where your hours and dropped balls are hiding.';
+
+    var bd = SYS.map(function(s,i){
+      var pp=Math.round((answers[i]+1)/4*100);
+      var lbl = pp<=25?'Manual':pp<=50?'Patchy':pp<=75?'Getting there':'Automated';
+      return '<div class="bd-row"><div class="bd-ic" style="color:'+s.c+';background:'+hexToRgba(s.c,.10)+'">'+ICONS[s.k]+'</div>'
+        +'<div class="bd-mid"><div class="bd-name"><span>'+s.n+'</span><span class="st">'+lbl+'</span></div>'
+        +'<div class="bd-track"><div class="bd-bar" data-w="'+pp+'" style="background:'+s.c+'"></div></div></div>'
+        +'<div class="bd-pct">'+pp+'%</div></div>';
+    }).join('');
+
+    var fixes = weakSys.map(function(w,i){ var s=w.s; var flow=FLOW[s.k]||[]; var gain=GAIN[s.k]||'';
+      var steps = flow.map(function(step,si){ return '<div class="flow-step" style="--fc:'+s.c+'"><div class="flow-num">'+(si+1)+'</div><div class="flow-txt">'+step+'</div></div>'; }).join('');
+      return '<div class="fixcard" style="--fc:'+s.c+'">'
+        +'<div class="fix-head"><div class="fix-ic" style="color:'+s.c+';background:'+hexToRgba(s.c,.10)+'">'+ICONS[s.k]+'</div><div><div class="fix-rank">Priority 0'+(i+1)+'</div><div class="fix-name">'+s.n+'</div></div></div>'
+        +'<div class="fix-line"><span class="fix-tag bad">Problem</span><span class="fix-txt">'+s.wrong+'</span></div>'
+        +'<div class="fix-flow-h">The Proximity workflow</div><div class="flow">'+steps+'</div>'
+        +'<div class="fix-line gain"><span class="fix-tag good">Result</span><span class="fix-txt"><b>'+gain+'</b></span></div></div>';
+    }).join('');
+
+    var manualPct=Math.min(100,Math.round(cost.annual/12000*100));
+    var proxPct=Math.round(6000/12000*100);
+    var saving=Math.max(0,cost.annual-6000);
+
+    el('fullReport').innerHTML =
+      '<div class="unlock-note"><span class="unlock-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>Report unlocked. Here is the full breakdown.</div>'
+      +'<div class="panel reveal-up"><div class="card-h">Your systemization shape</div>'+radarSVG()+'</div>'
+      +'<div class="panel reveal-up"><div class="card-h">System by system</div>'+bd+'</div>'
+      +'<div class="panel reveal-up"><div class="card-h">Your biggest leaks, and the workflow that closes them</div>'+fixes+'</div>'
+      +'<div class="cost-card reveal-up"><div class="cost-eyebrow">What the gaps cost</div>'
         +'<div class="cost-lead">'+readLine+'</div>'
         +'<p class="cost-sub" style="margin-top:14px">At roughly <b style="color:#fff;font-style:normal">'+cost.hrs+' hours a week</b> on manual admin, that is about <b>$'+cost.annual.toLocaleString()+' a year</b> of your own time.</p>'
         +'<div class="cost-cmp">'
@@ -525,64 +636,43 @@
         +'</div>'
         +(saving>0?'<p class="cost-sub" style="margin:16px 0 0">That is about <b style="color:#fff;font-style:normal">$'+saving.toLocaleString()+' a year</b> and your evenings back.</p>':'')
         +'<div class="cost-note">Estimate based on your answers</div></div>'
-      +'<div class="proof r-stagger" style="animation-delay:.5s"><div class="proof-stars">' + '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>'.repeat(5) + '</div><div class="proof-t"><b>Proven in production.</b> The same system runs a live Mississauga agency, 12 PSWs, 11 clients, thousands of visits logged, zero admin staff.</div></div>'
-      +'<div class="lead-card r-stagger" style="animation-delay:.54s">'
-        +'<div class="lead-h">'+(userName?'Send my full report, '+esc(userName):'Get your full report')+'</div>'
-        +'<p class="lead-p">We will send your system by system breakdown and walk you through your three biggest leaks and what it takes to close them. No pressure, no demo wizardry.</p>'
-        +'<div class="frm" id="leadForm">'
-          +'<div class="frm-row"><div class="fg"><label>First name</label><input id="fFirst" type="text" placeholder="First name" autocomplete="given-name" value="'+(userName?esc(userName):'')+'"></div><div class="fg"><label>Last name</label><input id="fLast" type="text" placeholder="Last name" autocomplete="family-name"></div></div>'
-          +'<div class="fg"><label>Agency name</label><input id="fAgency" type="text" placeholder="Your agency"></div>'
-          +'<div class="frm-row"><div class="fg"><label>Phone</label><input id="fPhone" type="tel" placeholder="647 000 0000" autocomplete="tel"></div><div class="fg"><label>City</label><input id="fCity" type="text" placeholder="City, Province"></div></div>'
-          +'<div class="fg"><label>Email</label><input id="fEmail" type="email" placeholder="you@agency.com" autocomplete="email"></div>'
-          +'<button class="btn btn-primary" id="submitBtn">Send my report and book my call'
-            +'<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
-          +'<div class="scarcity"><span class="dot"></span>We build for a handful of Ontario agencies at a time</div>'
-          +'<div class="frm-fine">We reply within 24 hours</div>'
-        +'</div></div>'
-      +'<div class="res-foot"><button class="btn btn-ghost" id="retakeBtn">Retake the assessment</button></div>';
+      +'<div class="proof reveal-up"><div class="proof-stars">'+ '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>'.repeat(5) +'</div><div class="proof-t"><b>Proven in production.</b> The same system runs a live Mississauga agency, 12 PSWs, 11 clients, thousands of visits logged, zero admin staff.</div></div>'
+      +'<div class="final-cta reveal-up"><div class="fc-h">Want this built for your agency?</div><p class="fc-p">Lance builds the whole system for you, proven inside a real agency. Your report and a walkthrough are on the way.</p><a class="btn btn-primary" href="'+SITE+'" target="_blank" rel="noopener">See the full system<svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>';
 
-    animateCount(el('scoreN'), pct, 1200);
+    var host=el('fullReport');
     requestAnimationFrame(function(){ setTimeout(function(){
-      var g=el('gFill'); if(g) g.style.strokeDashoffset=off;
-      var poly=scResult.querySelector('.radar-poly'); if(poly) poly.classList.add('draw');
-      scResult.querySelectorAll('.radar-dot').forEach(function(d,i){ setTimeout(function(){ d.classList.add('draw'); }, 300+i*40); });
-      scResult.querySelectorAll('.bd-bar').forEach(function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
-      scResult.querySelectorAll('.cost-bar').forEach(function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
-    }, 260); });
-
-    el('submitBtn').addEventListener('click', function(){ submitLead(pct, arch.name, weak); });
-    el('retakeBtn').addEventListener('click', function(){
-      answers=new Array(SYS.length).fill(-1); idx=0; updateTracker();
-      el('track').classList.remove('on'); show(scIntro);
-    });
+      host.querySelectorAll('.reveal-up').forEach(function(n,i){ setTimeout(function(){ n.classList.add('in'); }, i*120); });
+      var poly=host.querySelector('.radar-poly'); if(poly) setTimeout(function(){ poly.classList.add('draw'); },320);
+      host.querySelectorAll('.radar-dot').forEach(function(d,i){ setTimeout(function(){ d.classList.add('draw'); }, 520+i*40); });
+      host.querySelectorAll('.bd-bar').forEach(function(b){ setTimeout(function(){ b.style.width=b.getAttribute('data-w')+'%'; },420); });
+      host.querySelectorAll('.cost-bar').forEach(function(b){ setTimeout(function(){ b.style.width=b.getAttribute('data-w')+'%'; },640); });
+      host.querySelectorAll('.fixcard').forEach(function(card, ci){ card.querySelectorAll('.flow-step').forEach(function(st, si){ setTimeout(function(){ st.classList.add('lit'); }, 500 + ci*450 + si*230); }); });
+    }, 80); });
+    host.scrollIntoView({behavior:'smooth', block:'start'});
   }
 
-  function animateCount(node, target, dur){
-    var start=null;
-    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1); var e=1-Math.pow(1-p,3); node.textContent=Math.round(e*target); if(p<1) requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-  }
-
-  async function submitLead(pct, archName, weakNames){
+  async function submitLead(pct, arch, weakSys, weakNames, cost){
     var first=(el('fFirst').value||'').trim();
     var last=(el('fLast').value||'').trim();
     var agency=(el('fAgency').value||'').trim();
     var phone=(el('fPhone').value||'').trim();
     var city=(el('fCity').value||'').trim();
     var email=(el('fEmail').value||'').trim();
-    if(!first || !agency || (!phone && !email)){ alert('Please add your first name, agency, and a phone or email so we can send the report.'); return; }
-    var btn=el('submitBtn'); btn.disabled=true; btn.textContent='Sending...';
-    var pain='Systemization quiz: '+pct+'% ('+archName+'). Weakest systems: '+weakNames.join(', ')+'.';
+    if(!first || !agency || !email){ alert('Please add your first name, agency, and email so we can open and send your report.'); return; }
+    var btn=el('submitBtn'); btn.disabled=true; btn.textContent='Opening your report...';
+    var pain='Systemization quiz: '+pct+'% ('+arch.name+'). Weakest systems: '+weakNames.join(', ')+'.';
     try{
       var r=await fetch(LEAD_URL,{ method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({ operator_id:'proximity-systems', lead_type:'operator', first_name:first, last_name:last, phone:phone, email:email, city:city, care_needed_for:agency, urgency: pct<=64 ? 'hot' : 'warm', pain_point:pain, source:'Proximity Systems, Systemization Quiz' }) });
       if(!r.ok) throw new Error('bad status');
-      el('leadForm').parentNode.innerHTML =
+      var card = el('leadForm').parentNode; card.classList.remove('gate');
+      card.innerHTML =
         '<div class="success"><div class="success-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div>'
-        +'<h3>Your report is locked in</h3>'
-        +'<p>Thanks '+esc(first)+'. Lance will reach out within 24 hours to walk you through your biggest leaks and what it takes to close them.</p>'
-        +'<a href="'+SITE+'" target="_blank" rel="noopener">See the full system</a></div>';
-    }catch(e){ btn.disabled=false; btn.textContent='Send my report and book my call'; alert('Something went wrong. Please call Lance at 647 382 8047 and we will sort it out.'); }
+        +'<h3>Unlocked, '+esc(first)+'</h3>'
+        +'<p>Your full report is open below, yours to keep. Lance will send your copy and reach out within 24 hours.</p></div>';
+      var lk=scResult.querySelector('.locked'); if(lk) lk.style.display='none';
+      renderFull(pct, arch, weakSys, weakNames, cost);
+    }catch(e){ btn.disabled=false; btn.textContent='Unlock my full report'; alert('Something went wrong. Please call Lance at 647 382 8047 and we will sort it out.'); }
   }
 })();
 </script>
