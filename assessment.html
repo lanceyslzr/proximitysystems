@@ -319,7 +319,7 @@
 <script>
 (function(){
   "use strict";
-  var LEAD_URL = 'https://proximity-agent-production.up.railway.app/webhook/lead';
+  var LEAD_URL = 'https://proximity-systems-server-production.up.railway.app/webhook/lead';
   var SITE = 'https://proximitysystems.ca';
 
   function ic(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
@@ -661,7 +661,15 @@
     if(!first || !agency || !email){ alert('Please add your first name, agency, and email so we can open and send your report.'); return; }
     var btn=el('submitBtn'); if(btn){ btn.disabled=true; btn.textContent='Opening your report...'; }
     var pain='Systemization quiz: '+pct+'% ('+arch.name+'). Weakest systems: '+weakNames.join(', ')+'.';
-    var payload={ operator_id:'proximity-systems', lead_type:'operator', first_name:first, last_name:last, phone:phone, email:email, city:city, care_needed_for:agency, urgency: pct<=64 ? 'hot' : 'warm', pain_point:pain, source:'Proximity Systems, Systemization Quiz' };
+    var report={
+      score: pct,
+      archetype: arch.name,
+      read: arch.tag,
+      systems: SYS.map(function(s,i){ return { name:s.n, pct:(answers[i]<0?0:Math.round(answers[i]/3*100)) }; }),
+      weak: weakSys.map(function(w){ return { name:w.s.n, problem:w.s.wrong, fix:w.s.fix, flow:(FLOW[w.s.k]||[]) }; }),
+      cost: { hrs:cost.hrs, annual:cost.annual }
+    };
+    var payload={ operator_id:'proximity-systems', lead_type:'operator', first_name:first, last_name:last, phone:phone, email:email, city:city, care_needed_for:agency, urgency: pct<=64 ? 'hot' : 'warm', pain_point:pain, source:'Proximity Systems, Systemization Quiz', report:report };
 
     // Best-effort lead capture. The report unlocks no matter what, so a backend
     // cold start or a cross-origin block never traps the user without their report.
