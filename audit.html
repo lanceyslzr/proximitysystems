@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Website Audit for Home Care Agencies | Proximity Systems</title>
+<meta name="description" content="Enter your home care agency website. We read it the way a prospective family would, score how well your online front door turns visitors into booked care, and show you exactly where it leaks and how each gap gets fixed."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --void:#141110; --void2:#1a1613; --panel:#211c18; --panel2:#282219;
+  --line:rgba(240,232,220,.09); --line2:rgba(240,232,220,.17);
+  --paper:#f1ebe1; --paper2:#e9e1d4; --paper-ink:#221d18; --paper-mut:#6a6053;
+  --ink:#efe8dc; --soft:#cabfb0; --muted:#948979; --faint:#6a6155;
+  --teal:#63aebb; --teal-deep:#3d7a8a; --teal-glow:rgba(99,174,187,.15);
+  --gold:#d9a94e; --gold-soft:rgba(217,169,78,.14); --amber:#ce8b3e;
+  --red:#db6b6b; --red-soft:rgba(219,107,107,.09); --green:#71b592; --green-soft:rgba(113,181,146,.1);
+  --serif:'Cormorant Garamond',serif; --sans:'Space Grotesk',sans-serif; --mono:'DM Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shadow:0 2px 6px rgba(0,0,0,.3),0 20px 50px -24px rgba(0,0,0,.6);
+  --shadow-paper:0 1px 2px rgba(0,0,0,.25),0 30px 70px -30px rgba(0,0,0,.7);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--void);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;position:relative;}
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.glow{position:absolute;border-radius:50%;filter:blur(30px);opacity:.5;}
+.glow-a{width:520px;height:520px;background:radial-gradient(circle,var(--teal-glow),transparent 68%);top:-160px;right:-120px;animation:drift 26s ease-in-out infinite;}
+.glow-b{width:460px;height:460px;background:radial-gradient(circle,rgba(217,169,78,.10),transparent 70%);bottom:-180px;left:-140px;animation:drift 32s ease-in-out infinite reverse;}
+.grain{position:absolute;inset:0;opacity:.4;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");}
+.wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 24px 80px;min-height:100vh;display:flex;flex-direction:column;}
+
+.brand{display:flex;align-items:center;gap:11px;padding:26px 0 0;opacity:0;animation:fadeDown .7s var(--ease) .05s forwards;}
+.brand-dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal);animation:pulse 2.8s infinite;}
+.brand-name{font-family:var(--mono);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--muted);}
+.brand-name b{color:var(--ink);font-weight:500;}
+
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0;}
+.screen{display:none;flex-direction:column;}
+.screen.active{display:flex;animation:screenIn .6s var(--ease);}
+.screen.results{justify-content:flex-start;}
+
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:3.4px;text-transform:uppercase;color:var(--teal);margin-bottom:22px;display:flex;align-items:center;gap:11px;}
+.eyebrow .ln{flex:0 0 26px;height:1px;background:var(--teal);opacity:.45;}
+
+.h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,9vw,74px);line-height:1;letter-spacing:-.5px;color:var(--ink);margin-bottom:20px;}
+.h1 em{font-style:italic;color:var(--gold);}
+.sub{font-size:15px;line-height:1.85;color:var(--soft);max-width:490px;margin-bottom:32px;}
+.field-lab{font-family:var(--mono);font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:9px;display:block;}
+.url-shell{display:flex;align-items:stretch;background:var(--panel);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.url-shell:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-glow);}
+.url-proto{display:flex;align-items:center;padding:0 6px 0 16px;font-family:var(--mono);font-size:14px;color:var(--faint);user-select:none;border-right:1px solid var(--line);}
+.url-shell input{flex:1;background:transparent;border:none;padding:17px 16px;font-family:var(--mono);font-size:16px;color:var(--ink);outline:none;min-height:56px;}
+.url-shell input::placeholder{color:var(--faint);}
+.name-line{margin-top:12px;}
+.name-line input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:16px;font-family:var(--sans);font-size:15px;color:var(--ink);outline:none;min-height:54px;transition:border-color .2s,box-shadow .2s;}
+.name-line input:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-glow);}
+.name-line input::placeholder{color:var(--faint);}
+.cta-row{display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap;}
+.btn{font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:.3px;border:none;border-radius:11px;padding:17px 28px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:11px;transition:transform .25s var(--ease),box-shadow .25s,background .25s,opacity .2s;min-height:54px;text-decoration:none;}
+.btn:focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+.btn-primary{background:linear-gradient(180deg,var(--gold),#c6963f);color:#231b0c;box-shadow:0 12px 30px -14px rgba(217,169,78,.7);white-space:nowrap;font-weight:600;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px rgba(217,169,78,.8);}
+.btn-primary svg{transition:transform .25s var(--ease);}
+.btn-primary:hover svg{transform:translateX(4px);}
+.btn-ghost{background:transparent;color:var(--muted);padding:14px 4px;font-size:13.5px;border-bottom:1px solid transparent;border-radius:0;min-height:auto;}
+.btn-ghost:hover{color:var(--ink);border-bottom-color:var(--line2);}
+.trust{margin-top:30px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;color:var(--faint);text-transform:uppercase;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.trust .dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+.errline{color:var(--red);font-family:var(--mono);font-size:12px;letter-spacing:.3px;margin-top:12px;min-height:16px;display:none;}
+.errline.show{display:block;animation:fadeDown .3s var(--ease);}
+
+/* scan */
+.scan-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 0;}
+.browser{width:100%;max-width:460px;border-radius:14px;background:var(--panel);border:1px solid var(--line2);overflow:hidden;position:relative;box-shadow:var(--shadow);}
+.browser-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel2);}
+.dot3{width:9px;height:9px;border-radius:50%;background:var(--faint);opacity:.6;}
+.browser-url{flex:1;margin-left:8px;background:var(--void2);border:1px solid var(--line);border-radius:7px;padding:6px 12px;font-family:var(--mono);font-size:11px;color:var(--soft);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.browser-body{position:relative;height:250px;padding:18px;overflow:hidden;}
+.wb{background:var(--void2);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;position:relative;}
+.wb-hero{height:52px;}
+.wb-row{display:flex;gap:12px;}
+.wb-row .wb{flex:1;height:40px;margin-bottom:0;}
+.wb-cta{height:34px;width:46%;margin-top:12px;background:var(--gold-soft);border-color:rgba(217,169,78,.3);}
+.sigpt{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--faint);transition:all .4s var(--ease);z-index:3;}
+.sigpt.on{background:var(--teal);box-shadow:0 0 12px var(--teal);}
+.scanline{position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,var(--teal),transparent);box-shadow:0 0 18px 3px var(--teal-glow);z-index:4;animation:sweep 2.1s var(--ease) infinite;}
+.scan-status{margin-top:34px;min-height:26px;}
+.scan-line{font-family:var(--serif);font-size:clamp(22px,5vw,30px);font-weight:400;color:var(--ink);font-style:italic;transition:opacity .22s;}
+.scan-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--faint);margin-top:14px;}
+
+/* results head + readout */
+.res-head{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:14px;}
+.res-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.res-site{font-family:var(--mono);font-size:12.5px;color:var(--teal);letter-spacing:.4px;word-break:break-all;}
+.readout{background:var(--paper);color:var(--paper-ink);border-radius:20px;padding:34px 28px 30px;box-shadow:var(--shadow-paper);position:relative;overflow:hidden;margin-bottom:14px;}
+.readout::after{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:rgba(34,29,24,.03);}
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;}
+.gauge{position:relative;width:200px;height:200px;}
+.gauge svg{transform:rotate(135deg);}
+.gauge .g-track{fill:none;stroke:rgba(34,29,24,.1);stroke-width:12;stroke-linecap:round;stroke-dasharray:414.69 552.92;}
+.gauge .g-val{fill:none;stroke:var(--gold);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1.6s var(--ease),stroke .4s;}
+.gauge-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gauge-num{font-family:var(--serif);font-weight:400;font-size:72px;line-height:1;color:var(--paper-ink);}
+.gauge-den{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--paper-mut);margin-top:2px;}
+.band{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;padding:6px 14px;border-radius:100px;border:1px solid currentColor;}
+.verdict{margin-top:20px;font-family:var(--serif);font-size:clamp(20px,4.4vw,26px);line-height:1.4;color:var(--paper-ink);text-align:center;font-weight:400;position:relative;z-index:1;}
+
+.ctx{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px;}
+.ctx-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;}
+.ctx-lab{font-family:var(--mono);font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal);margin-bottom:9px;}
+.ctx-txt{font-size:13.5px;line-height:1.6;color:var(--soft);}
+
+.sec-title{font-family:var(--serif);font-weight:400;font-size:clamp(28px,6vw,40px);line-height:1.05;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-sub{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:22px;}
+
+/* reveal-on-scroll */
+.reveal{transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.js-ready .reveal{opacity:0;transform:translateY(20px);}
+.js-ready .reveal.in{opacity:1;transform:none;}
+
+/* finding = animated before/after workflow */
+.finding{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--sev,var(--muted));border-radius:14px;padding:20px 22px;margin-bottom:14px;}
+.finding-top{display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap;}
+.sev-dot{width:9px;height:9px;border-radius:50%;background:var(--sev,var(--muted));box-shadow:0 0 10px var(--sev,transparent);flex-shrink:0;}
+.finding-sys{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink);font-weight:500;}
+.sev-tag{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--sev,var(--muted));border:1px solid var(--sev,var(--line2));border-radius:100px;padding:3px 9px;}
+.flow{display:grid;grid-template-columns:1fr 46px 1fr;gap:10px;align-items:stretch;margin-bottom:16px;}
+.chip{border-radius:12px;padding:13px 14px;border:1px solid var(--line2);opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
+.finding.in .chip.chip-before{opacity:1;transform:none;transition-delay:.08s;}
+.finding.in .chip.chip-after{opacity:1;transform:none;transition-delay:.5s;}
+.chip.chip-before{border-color:rgba(219,107,107,.32);background:var(--red-soft);}
+.chip.chip-after{border-color:rgba(113,181,146,.34);background:var(--green-soft);}
+.chip-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.chip.chip-before .chip-eyebrow{color:var(--red);}
+.chip.chip-after .chip-eyebrow{color:var(--green);}
+.chip-eyebrow svg{width:12px;height:12px;flex-shrink:0;}
+.chip-txt{font-size:13px;line-height:1.45;color:var(--ink);}
+.flow-mid{display:flex;align-items:center;justify-content:center;}
+.flow-mid svg{overflow:visible;}
+.fa-line{stroke:var(--teal);stroke-width:1.6;stroke-dasharray:30;stroke-dashoffset:30;transition:stroke-dashoffset .55s var(--ease) .28s;}
+.finding.in .fa-line{stroke-dashoffset:0;}
+.fa-head{stroke:var(--teal);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s .68s;}
+.finding.in .fa-head{opacity:1;}
+.fdetail{border-top:1px solid var(--line);padding-top:14px;}
+.fd-row{display:flex;gap:12px;margin-bottom:10px;}
+.fd-row:last-child{margin-bottom:0;}
+.fd-lab{font-family:var(--mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint);flex:0 0 74px;padding-top:2px;}
+.fd-lab.fix{color:var(--teal);}
+.fd-val{font-size:13.5px;line-height:1.6;color:var(--soft);flex:1;}
+.fd-val.fix{color:var(--ink);}
+.fimpact{display:flex;gap:9px;align-items:flex-start;margin-top:14px;background:var(--gold-soft);border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.55;color:var(--ink);}
+.fimpact svg{flex-shrink:0;margin-top:2px;color:var(--gold);}
+.fimpact b{color:var(--gold);font-weight:600;}
+
+/* quick wins */
+.wins{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 20px;margin-bottom:34px;}
+.win{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.55;color:var(--soft);}
+.win:last-child{border-bottom:none;}
+.win-n{font-family:var(--mono);font-size:11px;color:var(--gold);flex-shrink:0;padding-top:2px;min-width:18px;}
+
+/* close / bottom line */
+.close{background:linear-gradient(165deg,rgba(99,174,187,.06),var(--panel));border:1px solid var(--line2);border-radius:22px;padding:36px 30px;margin-bottom:16px;position:relative;overflow:hidden;}
+.close::before{content:'';position:absolute;top:-40px;right:-30px;width:200px;height:200px;border-radius:50%;background:var(--teal-glow);filter:blur(30px);}
+.close-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;position:relative;}
+.close-h{font-family:var(--serif);font-weight:300;font-size:clamp(32px,6.5vw,50px);line-height:1.04;color:var(--ink);margin-bottom:18px;letter-spacing:-.4px;position:relative;}
+.close-h em{font-style:italic;color:var(--gold);}
+.close-future{font-size:15.5px;line-height:1.8;color:var(--soft);max-width:520px;margin-bottom:22px;position:relative;}
+.close-cred{border-left:2px solid var(--teal);padding:2px 0 2px 16px;line-height:1.65;color:var(--soft);margin-bottom:28px;position:relative;font-style:italic;font-family:var(--serif);font-size:16px;}
+.close-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative;}
+
+/* capture */
+.capture{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;position:relative;overflow:hidden;}
+.cap-h{font-family:var(--serif);font-weight:400;font-size:clamp(21px,4.5vw,27px);line-height:1.2;color:var(--ink);margin-bottom:7px;}
+.cap-p{font-size:13.5px;line-height:1.65;color:var(--soft);margin-bottom:20px;max-width:440px;}
+.form-grid{display:grid;gap:11px;}
+.fg input,.fg textarea{width:100%;background:var(--void2);border:1px solid var(--line2);border-radius:11px;padding:15px 16px;font-family:var(--sans);font-size:15px;color:var(--ink);outline:none;min-height:52px;transition:border-color .2s,box-shadow .2s;}
+.fg textarea{min-height:88px;resize:vertical;line-height:1.6;}
+.fg input:focus,.fg textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-glow);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--faint);}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden;}
+.cap-cta{margin-top:16px;width:100%;}
+.cap-done{display:none;text-align:center;padding:14px 0;}
+.cap-done.show{display:block;animation:fadeDown .5s var(--ease);}
+.cap-done .ok{width:52px;height:52px;border-radius:50%;background:var(--green-soft);border:1px solid rgba(113,181,146,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--green);}
+.cap-done-h{font-family:var(--serif);font-size:24px;color:var(--ink);margin-bottom:6px;}
+.cap-done-p{font-size:13.5px;color:var(--soft);line-height:1.6;}
+
+/* sent / build */
+.center-screen{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 0;}
+.sent-ic{width:88px;height:88px;border-radius:50%;background:var(--panel);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;box-shadow:var(--shadow);}
+.sent-ic::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--teal);opacity:.35;}
+.sent-ic svg{width:40px;height:40px;color:var(--teal);}
+.sent-h{font-family:var(--serif);font-weight:300;font-size:clamp(34px,7vw,52px);line-height:1.05;color:var(--ink);margin-bottom:14px;}
+.sent-h em{font-style:italic;color:var(--gold);}
+.sent-p{font-size:15px;line-height:1.8;color:var(--soft);max-width:440px;margin-bottom:26px;}
+
+.foot{text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);padding-top:30px;}
+.foot a{color:var(--muted);text-decoration:none;}
+.foot a:hover{color:var(--ink);}
+.spin{width:17px;height:17px;border:2px solid rgba(35,27,12,.3);border-top-color:#231b0c;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+.btn.loading .spin{display:inline-block;}
+.btn.loading span{opacity:.6;}
+
+@keyframes fadeDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+@keyframes drift{0%,100%{transform:translate(0,0);}50%{transform:translate(30px,20px);}}
+@keyframes sweep{0%{top:0;}100%{top:calc(100% - 2px);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:600px){
+  .wrap{padding:0 18px 60px;}
+  .ctx{grid-template-columns:1fr;}
+  .fg-2{grid-template-columns:1fr;}
+  .cta-row{gap:14px;}
+  .btn-primary{width:100%;}
+  .readout{padding:28px 20px 26px;}
+  .gauge{width:172px;height:172px;}
+  .gauge-num{font-size:60px;}
+  .flow{grid-template-columns:1fr;gap:6px;}
+  .flow-mid{transform:rotate(90deg);margin:2px 0;height:24px;}
+  .close{padding:30px 22px;}
+  .close-cta-row .btn-primary{width:100%;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.06s!important;}
+  .scanline{display:none;}
+  .js-ready .reveal{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+<div class="amb"><div class="glow glow-a"></div><div class="glow glow-b"></div><div class="grain"></div></div>
+
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <div class="brand-name"><b>Proximity Systems</b> &nbsp;·&nbsp; Website Audit</div>
+  </div>
+
+  <div class="stage">
+
+    <!-- INTRO -->
+    <section class="screen active" id="s-intro">
+      <div class="eyebrow"><span class="ln"></span>Read your online front door</div>
+      <h1 class="h1">See your website the way a <em>family</em> does.</h1>
+      <p class="sub">Enter your agency's website. We open it the way a worried daughter would at 11pm, score how well your front door turns that visit into booked care, then show you every leak and exactly how each one gets fixed.</p>
+
+      <label class="field-lab" for="urlInput">Your agency website</label>
+      <div class="url-shell">
+        <span class="url-proto">https://</span>
+        <input id="urlInput" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="youragency.com"/>
+      </div>
+      <div class="name-line">
+        <input id="nameInput" aria-label="First name" type="text" autocomplete="given-name" placeholder="First name (so we can make it personal)"/>
+      </div>
+      <div class="errline" id="introErr"></div>
+
+      <div class="cta-row">
+        <button class="btn btn-primary" id="scanBtn"><span>Scan my site</span><svg width="17" height="17" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <a class="btn-ghost" id="noSiteLink" href="#">I don't have a website yet</a>
+      </div>
+
+      <div class="trust"><span class="dot"></span>Free &nbsp;·&nbsp; No signup to see your score &nbsp;·&nbsp; About 30 seconds</div>
+    </section>
+
+    <!-- SCAN -->
+    <section class="screen" id="s-scan">
+      <div class="scan-wrap">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="dot3"></span><span class="dot3"></span><span class="dot3"></span>
+            <span class="browser-url" id="scanUrl">youragency.com</span>
+          </div>
+          <div class="browser-body">
+            <div class="wb wb-hero"></div>
+            <div class="wb-row"><div class="wb"></div><div class="wb"></div><div class="wb"></div></div>
+            <div class="wb wb-cta"></div>
+            <span class="sigpt" style="top:32px;left:32px;" data-i="0"></span>
+            <span class="sigpt" style="top:30px;right:30px;" data-i="1"></span>
+            <span class="sigpt" style="top:120px;left:50%;" data-i="2"></span>
+            <span class="sigpt" style="bottom:38px;left:34px;" data-i="3"></span>
+            <span class="sigpt" style="bottom:44px;right:40px;" data-i="4"></span>
+            <div class="scanline"></div>
+          </div>
+        </div>
+        <div class="scan-status"><div class="scan-line" id="scanLine">Opening your site</div></div>
+        <div class="scan-tag" id="scanTag">Reading like a family, not a robot</div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="screen results" id="s-results">
+      <div class="res-head">
+        <div class="res-eyebrow">Your front door scores</div>
+        <div class="res-site" id="resSite"></div>
+      </div>
+
+      <div class="readout">
+        <div class="gauge-wrap">
+          <div class="gauge">
+            <svg width="200" height="200" viewBox="0 0 200 200">
+              <circle class="g-track" cx="100" cy="100" r="88"></circle>
+              <circle class="g-val" id="gaugeVal" cx="100" cy="100" r="88"></circle>
+            </svg>
+            <div class="gauge-mid">
+              <div class="gauge-num" id="gaugeNum">0</div>
+              <div class="gauge-den">out of 100</div>
+            </div>
+          </div>
+          <div class="band" id="scoreBand" style="color:var(--gold);">Reading</div>
+        </div>
+        <div class="verdict" id="verdict"></div>
+      </div>
+
+      <div class="ctx">
+        <div class="ctx-card"><div class="ctx-lab">What your site says you do</div><div class="ctx-txt" id="bizSummary"></div></div>
+        <div class="ctx-card"><div class="ctx-lab">How families reach you today</div><div class="ctx-txt" id="contactFlow"></div></div>
+      </div>
+
+      <h2 class="sec-title reveal">Where it leaks, <em>and the fix</em>.</h2>
+      <div class="sec-sub reveal" id="findCount">Each gap mapped to the system that closes it</div>
+      <div id="findingsList"></div>
+
+      <div id="winsBlock" style="display:none;">
+        <h2 class="sec-title reveal">Fix these <em>first</em>.</h2>
+        <div class="sec-sub reveal">Small changes, quickest return</div>
+        <div class="wins reveal" id="winsList"></div>
+      </div>
+
+      <div class="close reveal">
+        <div class="close-eyebrow">The bottom line</div>
+        <h2 class="close-h" id="closeH"></h2>
+        <p class="close-future" id="closeFuture"></p>
+        <div class="close-cred">Not theory. Proximity was built and proven inside a real Mississauga agency, by a PSW of eight years. The same system that closed these gaps for us gets built for you.</div>
+        <div class="close-cta-row">
+          <a class="btn btn-primary" id="landingBtn1" href="#" target="_blank" rel="noopener"><span>See how it gets built</span><svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn-ghost" id="landingLink" href="#" target="_blank" rel="noopener">Ready now, take me to the full system</a>
+        </div>
+      </div>
+
+      <div class="capture reveal" id="captureCard">
+        <div id="capForm">
+          <div class="cap-h">Or have the full breakdown sent to you.</div>
+          <p class="cap-p">Leave your details. Lance sends the complete report plus a short walkthrough of how the whole system gets built for your agency.</p>
+          <div class="form-grid fg">
+            <input class="hp" id="cap_hp" aria-hidden="true" tabindex="-1" autocomplete="off" placeholder="Leave blank"/>
+            <input id="cap_email" aria-label="Email" type="email" autocomplete="email" placeholder="Email"/>
+            <div class="fg-2">
+              <input id="cap_agency" aria-label="Agency name" type="text" autocomplete="organization" placeholder="Agency name"/>
+              <input id="cap_phone" aria-label="Phone (optional)" type="tel" autocomplete="tel" placeholder="Phone (optional)"/>
+            </div>
+          </div>
+          <div class="errline" id="capErr"></div>
+          <button class="btn btn-primary cap-cta" id="capBtn"><span>Send my report</span><span class="spin"></span></button>
+        </div>
+        <div class="cap-done" id="capDone">
+          <div class="ok"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div class="cap-done-h">On its way.</div>
+          <div class="cap-done-p" id="capDoneMsg">Check your inbox. Lance will reach out to walk you through the fixes.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NO WEBSITE BUILD -->
+    <section class="screen" id="s-build">
+      <div class="eyebrow"><span class="ln"></span>No website yet</div>
+      <h1 class="h1">The cleanest place to <em>start</em>.</h1>
+      <p class="sub">No site means no bad habits to undo. Tell us what you're picturing and Lance builds your front door and the whole system behind it, the same one running inside a real agency right now.</p>
+      <div class="form-grid fg" style="max-width:520px;">
+        <input class="hp" id="b_hp" aria-hidden="true" tabindex="-1" autocomplete="off" placeholder="Leave blank"/>
+        <div class="fg-2">
+          <input id="b_name" aria-label="First name" type="text" autocomplete="given-name" placeholder="First name"/>
+          <input id="b_agency" aria-label="Agency name" type="text" autocomplete="organization" placeholder="Agency name"/>
+        </div>
+        <div class="fg-2">
+          <input id="b_email" aria-label="Email" type="email" autocomplete="email" placeholder="Email"/>
+          <input id="b_phone" aria-label="Phone (optional)" type="tel" autocomplete="tel" placeholder="Phone (optional)"/>
+        </div>
+        <textarea id="b_notes" aria-label="What you are picturing" placeholder="What are you picturing? A few words is plenty."></textarea>
+      </div>
+      <div class="errline" id="buildErr"></div>
+      <div class="cta-row">
+        <button class="btn btn-primary" id="buildBtn"><span>Send my build request</span><span class="spin"></span></button>
+        <a class="btn-ghost" id="backLink" href="#">Actually, I do have a site</a>
+      </div>
+    </section>
+
+    <!-- BUILD SENT -->
+    <section class="screen" id="s-build-sent">
+      <div class="center-screen">
+        <div class="sent-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h2 class="sent-h">Got it.</h2>
+        <p class="sent-p">Your build request is in. Lance will reach out shortly to map out your front door and the system behind it.</p>
+        <a class="btn btn-primary" id="landingBtn2" href="#" target="_blank" rel="noopener"><span>See the full system</span><svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path d="M4 11h13M12 6l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="foot">Proximity Systems &nbsp;·&nbsp; <a href="https://proximitysystems.ca" target="_blank" rel="noopener">proximitysystems.ca</a></div>
+</div>
+
+<script>
+(function(){
+  var API = 'https://proximity-systems-server-production.up.railway.app';
+  var LANDING = 'https://proximitysystems.ca';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var state = { name:'', url:'', audit:null };
+  document.body.classList.add('js-ready');
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ var d=document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+  function show(id){
+    var screens = document.querySelectorAll('.screen');
+    for(var i=0;i<screens.length;i++) screens[i].classList.remove('active');
+    $(id).classList.add('active');
+    window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  }
+  function setErr(id, msg){ var e=$(id); e.textContent = msg; e.classList.add('show'); }
+  function clearErr(id){ var e=$(id); e.textContent=''; e.classList.remove('show'); }
+  function looksLikeUrl(v){ return /\.[a-z]{2,}/i.test((v||'').replace(/^https?:\/\//i,'')); }
+  function shortLabel(t, max){ max=max||64; t=(t||'').trim(); var m=t.match(/^[^.!?]+[.!?]?/); var s=m?m[0].trim():t; if(s.length>max){ s=s.slice(0,max-1).trim()+'\u2026'; } return s; }
+
+  /* scan animation */
+  var SCAN_LINES = ['Opening your site','Reading your front door','Checking how families reach you','Looking for proof of care','Measuring your booking path','Scoring against the ten systems','Writing your read'];
+  var scanTextTimer=null, scanPtTimer=null;
+  function runScan(){
+    var i=0, line=$('scanLine'), pts=document.querySelectorAll('#s-scan .sigpt');
+    for(var p=0;p<pts.length;p++) pts[p].classList.remove('on');
+    line.textContent = SCAN_LINES[0];
+    if(reduce){ for(var q=0;q<pts.length;q++) pts[q].classList.add('on'); return; }
+    scanTextTimer = setInterval(function(){
+      i=(i+1)%SCAN_LINES.length; line.style.opacity=0;
+      setTimeout(function(){ line.textContent=SCAN_LINES[i]; line.style.opacity=1; },220);
+    },1050);
+    var j=0;
+    scanPtTimer = setInterval(function(){ if(pts[j]) pts[j].classList.add('on'); j++; if(j>=pts.length) clearInterval(scanPtTimer); },420);
+  }
+  function stopScan(){ clearInterval(scanTextTimer); clearInterval(scanPtTimer); }
+
+  function band(s){
+    if(s>=80) return { label:'Strong front door', c:'var(--green)' };
+    if(s>=60) return { label:'Working, with gaps', c:'var(--gold)' };
+    if(s>=40) return { label:'Leaking families', c:'var(--amber)' };
+    return { label:'Wide open', c:'var(--red)' };
+  }
+  function sevColor(sev){ return sev==='high' ? 'var(--red)' : sev==='low' ? 'var(--green)' : 'var(--amber)'; }
+
+  /* reveal-on-scroll */
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.18, rootMargin:'0px 0px -40px 0px' }) : null;
+  function observeReveals(){
+    var els = document.querySelectorAll('#s-results .reveal');
+    if(!io || reduce){ for(var i=0;i<els.length;i++) els[i].classList.add('in'); return; }
+    for(var j=0;j<els.length;j++){ if(!els[j].classList.contains('in')) io.observe(els[j]); }
+  }
+
+  async function startScan(){
+    var raw = $('urlInput').value.trim();
+    state.name = $('nameInput').value.trim();
+    if(!raw || !looksLikeUrl(raw)){ setErr('introErr','Enter your website address, like youragency.com'); return; }
+    clearErr('introErr');
+    state.url = raw;
+    $('scanUrl').textContent = raw.replace(/^https?:\/\//i,'');
+    show('s-scan'); runScan();
+    var started=Date.now(), data=null, err=null;
+    try{
+      var r = await fetch(API + '/audit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ url: raw, first_name: state.name }) });
+      data = await r.json().catch(function(){ return {}; });
+      if(!r.ok || !data.audit){ err = (data && data.error) || 'We could not complete the audit just now. Please try again in a moment.'; }
+    }catch(e){ err = 'We could not reach the auditor. Check your connection and try again.'; }
+    var minDur = reduce ? 0 : 2500, elapsed = Date.now()-started;
+    if(elapsed < minDur){ await new Promise(function(res){ setTimeout(res, minDur-elapsed); }); }
+    stopScan();
+    if(err){ setErr('introErr', err); show('s-intro'); return; }
+    state.audit = data.audit;
+    renderResults(data.audit);
+    show('s-results');
+    observeReveals();
+  }
+
+  function renderResults(a){
+    var score = Math.max(0, Math.min(100, Math.round(Number(a.score)||0)));
+    $('resSite').textContent = (a.url||state.url).replace(/^https?:\/\//i,'').replace(/\/$/,'');
+    $('verdict').textContent = a.verdict || '';
+    $('bizSummary').textContent = a.business_summary || 'We could not read a clear description of your services from the page.';
+    $('contactFlow').textContent = a.contact_workflow || 'We could not find a clear way for a family to reach you.';
+
+    var b = band(score);
+    $('scoreBand').textContent = b.label; $('scoreBand').style.color = b.c;
+    $('gaugeVal').style.stroke = b.c;
+    var r = 88, C = 2*Math.PI*r, arc = 0.75*C, valEl = $('gaugeVal');
+    valEl.style.strokeDasharray = arc + ' ' + C;
+    valEl.style.strokeDashoffset = arc;
+    setTimeout(function(){
+      valEl.style.strokeDashoffset = arc*(1 - score/100);
+      if(reduce){ $('gaugeNum').textContent = score; } else { animateNum($('gaugeNum'), score, 1500); }
+    }, 140);
+
+    var findings = Array.isArray(a.findings) ? a.findings : [];
+    var list = $('findingsList'); list.innerHTML='';
+    var systemSet = {};
+    if(!findings.length){
+      var clean = document.createElement('div');
+      clean.className='finding reveal'; clean.style.setProperty('--sev','var(--green)');
+      clean.innerHTML='<div class="finding-top"><span class="sev-dot"></span><span class="finding-sys">Clean front door</span></div><div class="fd-val">We did not find a major leak on this page. That is rare. The full report covers the deeper systems behind the site.</div>';
+      list.appendChild(clean);
+      $('findCount').textContent='No major leaks found on the page';
+    } else {
+      $('findCount').textContent = findings.length + (findings.length===1?' leak':' leaks') + ' found, each mapped to the system that closes it';
+      for(var i=0;i<findings.length;i++){
+        var f = findings[i];
+        if(f.system) systemSet[f.system]=1;
+        var sev = (f.severity==='high'||f.severity==='low') ? f.severity : 'medium';
+        var col = sevColor(sev);
+        var beforeLbl = f.before ? f.before : shortLabel(f.problem, 58);
+        var afterLbl  = f.after  ? f.after  : shortLabel(f.fix, 58);
+        var el = document.createElement('div');
+        el.className='finding reveal';
+        el.style.setProperty('--sev', col);
+        if(!reduce) el.style.transitionDelay = Math.min(i*0.05,0.2)+'s';
+        var html =
+          '<div class="finding-top">'
+            +'<span class="sev-dot"></span>'
+            +'<span class="finding-sys">'+esc(f.system||'System')+'</span>'
+            +'<span class="sev-tag">'+esc(sev)+'</span>'
+          +'</div>'
+          +'<div class="flow">'
+            +'<div class="chip chip-before">'
+              +'<div class="chip-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Today</div>'
+              +'<div class="chip-txt">'+esc(beforeLbl)+'</div>'
+            +'</div>'
+            +'<div class="flow-mid"><svg width="40" height="14" viewBox="0 0 40 14"><line class="fa-line" x1="0" y1="7" x2="30" y2="7"/><path class="fa-head" d="M27 3 33 7 27 11"/></svg></div>'
+            +'<div class="chip chip-after">'
+              +'<div class="chip-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>On Proximity</div>'
+              +'<div class="chip-txt">'+esc(afterLbl)+'</div>'
+            +'</div>'
+          +'</div>'
+          +'<div class="fdetail">'
+            +'<div class="fd-row"><span class="fd-lab">What\u2019s wrong</span><span class="fd-val">'+esc(f.problem||'')+'</span></div>'
+            +'<div class="fd-row"><span class="fd-lab fix">How we fix it</span><span class="fd-val fix">'+esc(f.fix||'')+'</span></div>'
+          +'</div>'
+          + (f.impact ? '<div class="fimpact"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><div><b>What it costs you.</b> '+esc(f.impact)+'</div></div>' : '');
+        el.innerHTML = html;
+        list.appendChild(el);
+      }
+    }
+
+    var wins = Array.isArray(a.quick_wins) ? a.quick_wins : [];
+    if(wins.length){
+      $('winsBlock').style.display='block';
+      var wl=$('winsList'); wl.innerHTML='';
+      for(var w=0; w<wins.length; w++){
+        var row=document.createElement('div'); row.className='win';
+        row.innerHTML='<span class="win-n">'+(w+1<10?'0':'')+(w+1)+'</span><span>'+esc(wins[w])+'</span>';
+        wl.appendChild(row);
+      }
+    } else { $('winsBlock').style.display='none'; }
+
+    // close / bottom line
+    var nSys = Object.keys(systemSet).length;
+    var closeH = $('closeH');
+    if(nSys>0){
+      closeH.innerHTML = nSys + ' of your ten systems ' + (nSys===1?'is':'are') + ' leaking <em>families</em>.';
+    } else {
+      closeH.innerHTML = 'Your front door holds. The real gains are in the <em>systems</em> behind it.';
+    }
+    $('closeFuture').textContent = a.future_state || 'Close these and your website stops being a brochure and starts booking care while you sleep, with every enquiry captured, answered, and scheduled without you chasing it.';
+
+    // landing CTAs
+    $('landingBtn1').href = LANDING;
+    $('landingLink').href = LANDING;
+    $('landingBtn2').href = LANDING;
+  }
+
+  function animateNum(el, target, dur){
+    var start=null;
+    function step(ts){ if(start===null) start=ts; var p=Math.min((ts-start)/dur,1); var e=1-Math.pow(1-p,3); el.textContent=Math.round(e*target); if(p<1) requestAnimationFrame(step); else el.textContent=target; }
+    requestAnimationFrame(step);
+  }
+
+  async function sendCapture(){
+    if($('cap_hp').value){ $('capForm').style.display='none'; $('capDone').classList.add('show'); return; }
+    var email=$('cap_email').value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ setErr('capErr','Enter a valid email so we know where to send it'); return; }
+    clearErr('capErr');
+    var btn=$('capBtn'); btn.classList.add('loading'); btn.disabled=true;
+    var a=state.audit||{};
+    var topSystems=(Array.isArray(a.findings)? a.findings.slice(0,3).map(function(f){return f.system;}) : []).join(', ');
+    var payload={
+      first_name: state.name || 'There', email: email,
+      agency: $('cap_agency').value.trim(), phone: $('cap_phone').value.trim(),
+      source: 'Proximity Systems, Website Audit',
+      urgency: (Number(a.score)||0) < 50 ? 'hot' : 'warm',
+      pain_point: 'Website audit ' + (Math.round(Number(a.score)||0)) + '/100 for ' + (a.url||state.url) + (topSystems ? '. Top issues: ' + topSystems : '')
+    };
+    try{
+      var r = await fetch(API + '/webhook/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      var d = await r.json().catch(function(){ return {}; });
+      if(!r.ok){ throw new Error(d.error || 'send failed'); }
+      var nm = state.name ? (', ' + state.name) : '';
+      $('capDoneMsg').textContent = 'Your full report is headed to ' + email + nm + '. Lance will reach out to walk you through the fixes.';
+      $('capForm').style.display='none'; $('capDone').classList.add('show');
+    }catch(e){ btn.classList.remove('loading'); btn.disabled=false; setErr('capErr','That did not go through. Give it another try in a moment.'); }
+  }
+
+  async function sendBuild(){
+    if($('b_hp').value){ show('s-build-sent'); return; }
+    var name=$('b_name').value.trim(), email=$('b_email').value.trim();
+    if(!name){ setErr('buildErr','A first name helps us say hello'); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ setErr('buildErr','Enter a valid email so Lance can reach you'); return; }
+    clearErr('buildErr');
+    var btn=$('buildBtn'); btn.classList.add('loading'); btn.disabled=true;
+    var payload={ first_name:name, email:email, agency:$('b_agency').value.trim(), phone:$('b_phone').value.trim(), build_info:$('b_notes').value.trim() };
+    try{
+      var r = await fetch(API + '/audit/build', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      var d = await r.json().catch(function(){ return {}; });
+      if(!r.ok){ throw new Error(d.error || 'send failed'); }
+      show('s-build-sent');
+    }catch(e){ btn.classList.remove('loading'); btn.disabled=false; setErr('buildErr','That did not go through. Give it another try in a moment.'); }
+  }
+
+  $('landingBtn2').href = LANDING;
+  $('scanBtn').addEventListener('click', startScan);
+  $('urlInput').addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); startScan(); } });
+  $('nameInput').addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); startScan(); } });
+  $('noSiteLink').addEventListener('click', function(e){ e.preventDefault(); show('s-build'); });
+  $('backLink').addEventListener('click', function(e){ e.preventDefault(); show('s-intro'); });
+  $('capBtn').addEventListener('click', sendCapture);
+  $('buildBtn').addEventListener('click', sendBuild);
+})();
+</script>
+</body>
+</html>
