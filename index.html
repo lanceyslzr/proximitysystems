@@ -2014,17 +2014,17 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .pr-meta{ font-family:var(--rb-mono); font-size:7px; letter-spacing:1px; color:var(--rb-faint);
   text-align:right; line-height:1.5; }
 .pr-line{ display:flex; justify-content:space-between; align-items:baseline; padding:5px 0; }
-.pr-desc{ font-family:var(--rb-mono); font-size:9.5px; color:var(--rb-dim); }
-.pr-amt{ font-family:var(--rb-mono); font-size:11px; color:var(--rb-text); }
-.pr-per{ font-size:8px; color:var(--rb-faint); }
-.pr-sub .pr-desc,.pr-sub .pr-amt{ font-size:8px; color:var(--rb-faint); }
+.pr-desc{ font-family:var(--rb-mono); font-size:12px; color:var(--rb-dim); }
+.pr-amt{ font-family:var(--rb-mono); font-size:13px; color:var(--rb-text); }
+.pr-per{ font-size:11px; color:var(--rb-faint); }
+.pr-sub .pr-desc,.pr-sub .pr-amt{ font-size:11px; color:var(--rb-faint); }
 .pr-free .pr-desc{ color:var(--rb-primary); }
 .pr-free .pr-amt{ color:var(--rb-primary); font-weight:600; letter-spacing:1px; }
 .pr-rule{ height:1px; background:var(--rb-line); margin:8px 0; }
 .pr-total{ display:flex; justify-content:space-between; align-items:baseline; }
-.pr-total-k{ font-family:var(--rb-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-dim); }
+.pr-total-k{ font-family:var(--rb-mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-dim); }
 .pr-total-v{ font-family:var(--rb-serif); font-size:30px; font-weight:400; color:var(--rb-text); font-variant-numeric:tabular-nums; }
-.pr-note{ font-family:var(--rb-mono); font-size:7.5px; letter-spacing:.3px; color:var(--rb-faint); margin-top:7px; text-align:center; }
+.pr-note{ font-family:var(--rb-mono); font-size:11px; letter-spacing:.3px; color:var(--rb-faint); margin-top:7px; text-align:center; }
 /* feature list */
 .pr-feat{ display:flex; gap:10px; align-items:flex-start; font-family:var(--rb-mono);
   font-size:10px; color:var(--rb-dim); line-height:1.5; }
@@ -2071,6 +2071,25 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 <style>
 @media (max-width:768px){ #security .sec-grid{ grid-template-columns:1fr !important; } #security .sec-card{ max-width:100% !important; } }
 @media (max-width:600px){ #security .inner{ padding-left:18px !important; padding-right:18px !important; } }
+/* S85.1. Inline grid-template-columns beats every media query short of
+   !important. TWO grids need this, and they are exactly the two carrying NO
+   class attribute, so no stylesheet rule could ever reach them. The other
+   three are deliberately absent:
+     #pricing .pricing-grid  already stacked at max-width:880px !important
+     #security .sec-grid     already stacked at max-width:768px !important
+     #solution repeat(4,1fr) the spreadsheet mockup; four columns ARE the picture
+   Adding it to the first two would re-fix a fix. Measured at 390px before and
+   after: identical computed tracks. */
+@media (max-width:768px){ .stack-mobile{ grid-template-columns:1fr !important; } }
+/* S85.2. A body scroll lock does NOT stop scroll chaining on touch: once the
+   modal hits its scroll limit the gesture continues to the page behind it.
+   overscroll-behavior:contain is what stops it. openBldModal already sets
+   document.body.style.overflow='hidden' and that was not enough.
+   .bld-console-body is deliberately absent: it has ZERO markup uses, it lives
+   inside the builder mockup, and it is not rendered on this page. */
+.bld-modal-overlay{ overscroll-behavior:contain; }
+.bld-modal{ overscroll-behavior:contain; }
+.chat-messages{ overscroll-behavior:contain; }
 </style>
 </head>
 <body>
@@ -2205,14 +2224,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div id="osFeedTime" style="display:none;"></div>
 </div>
 
-<!-- SOCIAL PROOF STRIP, directly below hero, before trust bar -->
-<div style="background:#07090c;border-top:1px solid rgba(61,122,138,.1);border-bottom:1px solid rgba(61,122,138,.1);padding:24px 64px;">
-  <div style="max-width:820px;margin:0 auto;display:flex;align-items:center;gap:24px;">
-    <div style="flex-shrink:0;color:#c9a96e;font-size:14px;letter-spacing:2px;">★★★★★</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:rgba(250,248,244,.65);line-height:1.45;flex:1;">"First full month, I didn't touch admin once. The invoices go out automatically. The system just runs."</div>
-    <div style="flex-shrink:0;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.3);white-space:nowrap;text-align:right;">Margaret Osei<br>Brampton, ON</div>
-  </div>
-</div>
 
 <div class="trust-bar">
   <div class="trust-item">Built in Canada</div>
@@ -2243,7 +2254,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     </p>
 
     <!-- Two-column: pain list left, counter right -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+    <div class="stack-mobile" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
 
       <!-- Pain items (realistic chaos artifacts, pain-red palette) -->
       <div style="display:flex;flex-direction:column;gap:10px;" class="reveal">
@@ -2364,7 +2375,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
         <!-- Live proof -->
         <div style="background:rgba(250,248,244,.03);border:1px solid rgba(250,248,244,.07);border-radius:10px;padding:20px 24px;">
           <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.5);margin-bottom:14px;">Proven inside our own agency</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="stack-mobile" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <div style="text-align:center;">
               <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#faf8f4;line-height:1;">1,847</div>
               <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.5);margin-top:3px;">Visits logged</div>
@@ -3004,7 +3015,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div style="width:1px;height:20px;background:rgba(250,248,244,.08);"></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="color:#1e7d96;font-size:14px;">●</span>
-        <span style="font-family:'DM Mono',monospace;font-size:14px;color:rgba(250,248,244,.6);letter-spacing:1px;">Currently onboarding 3 operators</span>
+        <span style="font-family:'DM Mono',monospace;font-size:14px;color:rgba(250,248,244,.6);letter-spacing:1px;">Taking 3 operators a month</span>
       </div>
     </div>
   </div>
@@ -3018,12 +3029,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       These are real reviews of Proximity Care Services, the Mississauga home care agency running Proximity OS in production. Every family below was served by the system we install for you.
     </p>
     <div class="rv-grid">
-      <div class="rv-card reveal">
-        <div class="rv-stars">★★★★★</div>
-        <div class="rv-quote">"Before Proximity OS we were doing timesheets manually every weekend, invoices in Excel, chasing leads that went cold. The system runs itself now. First full month, we didn't touch admin once."</div>
-        <div class="rv-author">Margaret Osei</div>
-        <div class="rv-role">Home Care Operator · Brampton, Ontario</div>
-      </div>
       <div class="rv-card reveal">
         <div class="rv-stars">★★★★★</div>
         <div class="rv-quote">"Proximity Care has been a life saver. They made my mom comfortable, they're dependable, they go above and beyond. When other agencies fall through, their PSWs are there. Stress completely gone."</div>
@@ -3073,7 +3078,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <span class="cta-offer-div"></span>
       <span class="cta-offer-item"><span class="cta-offer-tick">✓</span>Live in 7 days</span>
       <span class="cta-offer-div"></span>
-      <span class="cta-offer-item"><span class="cta-live-dot"></span>Onboarding 3 operators now</span>
+      <span class="cta-offer-item"><span class="cta-live-dot"></span>Taking 3 operators a month</span>
     </div>
     <div class="cta-btns reveal">
       <a href="#cta" onclick="openBldModal();return false;" class="btn-primary">Build My Package</a>
