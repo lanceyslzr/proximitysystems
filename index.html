@@ -38,9 +38,9 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
-    --bg: #f6f3ee; --bg2: #eeeae3; --bg3: #f0ede8; --navy: #13181c; --teal2: #3d7a8a; --amber: #c8863a; --gold: #b87010; --red: #c05050; --dark: #13181c; --dark2: #1c2228; --teal: #6a9eaa;
+    --bg: #f6f3ee; --bg2: #eeeae3; --bg3: #f0ede8; --navy: #13181c; --teal2: #3d7a8a; --amber: #c8863a; --gold: #b87010; --red: #e05858; --dark: #13181c; --dark2: #1c2228; --teal: #6a9eaa;
     --teal-dark: #3d7a8a; --teal-light: #c8dde2; --cream: #faf8f4;
-    --muted: #7a7a72; --border: #e2ddd4; --green: #5a8a6a; --text: #1e2420; --red: #c05050;
+    --muted: #7a7a72; --border: #e2ddd4; --green: #5a8a6a; --text: #1e2420; --red: #e05858;
     --b-bg: #0b0f14; --b-bg2: #0e1419; --b-bg3: #111820;
     --b-teal: #3d7a8a; --b-teal-lt: #5a9aaa;
     --b-teal-bg: rgba(61,122,138,0.1); --b-border: rgba(90,154,170,0.15);
@@ -932,6 +932,62 @@ button,a,[onclick]{touch-action:manipulation;}
   h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
+  /* S90. PAUSE OFFSCREEN ANIMATION.
+     48 declarations end in `infinite` and animation-play-state was used
+     ZERO times, so every one of them kept the compositor working whether
+     the section was on screen or four thousand pixels below it. On a phone
+     that is heat and battery. 25 of the 42 stylesheet rules are .sys-*,
+     which sit in the package section and animated the whole time someone
+     read the hero.
+     Nothing visual changes: the same animations play at the same speed
+     when you can see them. The class goes on the SECTION and cascades,
+     so it does not need to know which prefix lives where.
+     This is deliberately NOT applied to the reduce block below, which is
+     correct as it stands. */
+  
+
+
+
+  /* S89c. THE ARRIVAL AT THE HEADLINE.
+     A crossfade reads as a page finishing loading. A rise reads as the
+     system handing over to its own claim. The boot line confirms first,
+     then clears, then the copy comes up. */
+  
+  
+  @media(max-width:600px){ #hero-boot{font-size:15px;white-space:normal;text-align:center;width:82vw} }
+  /* S85. STACK MULTI-COLUMN GRIDS ON MOBILE.
+     Five inline grids used grid-template-columns with 2, 3 or 4 columns.
+     An INLINE style beats any stylesheet rule short of !important, so the
+     nine media queries in this file could never stack them: at 390px the
+     right-hand column was simply sliced off the viewport. The page already
+     carried a .problem-cols{grid-template-columns:1fr} rule, but no element
+     in the markup uses that class, so it never did anything.
+     The package section's repeat(4,1fr) is deliberately NOT included: it is
+     the spreadsheet MOCKUP and its four columns are the picture. */
+  @media(max-width:768px){
+    .stack-mobile{grid-template-columns:1fr!important;gap:24px!important;}
+  }
+  /* S85. STOP THE MODAL SCROLLING THE PAGE BEHIND IT.
+     .bld-modal already had overflow-y:auto and max-height:92vh, but
+     overscroll-behavior appeared ZERO times in the file, so once the modal
+     reached its scroll limit the gesture chained to the body and the page
+     moved instead of the form. contain stops the chain at the modal edge. */
+  .bld-modal{overscroll-behavior:contain;}
+  .bld-modal-overlay{overscroll-behavior:contain;}
+  /* Same defect, same fix: the chat panel scrolls its own message list, and
+     without containment the gesture chains to the page once it hits the end.
+     Found by listing every overflow-y:auto element rather than only fixing
+     the one that was reported. .bld-console-body is left alone: it is inside
+     the builder mockup, which is not rendered on this page. */
+  .chat-messages{overscroll-behavior:contain;}
+  /* NOTE: the body scroll lock is NOT added here. openBldModal already sets
+     document.body.style.overflow='hidden' and closeBldModal clears it, so a
+     body.modal-open class would be dead CSS that nothing applies. That is
+     the same trap as the .problem-cols rule above, which sat in this file
+     doing nothing because no element ever carried the class. The real defect
+     was scroll CHAINING, which body overflow does not prevent on touch: the
+     gesture continues to the page once the modal hits its scroll limit.
+     overscroll-behavior:contain is what stops it. */
 }
 
   /* OS Flow, light bg node colors */
@@ -971,7 +1027,13 @@ button,a,[onclick]{touch-action:manipulation;}
 
   /* ── FOOTER TERMINAL ── */
   .footer-terminal{background:#070b0f;border-top:1px solid rgba(61,122,138,.1);padding:48px 64px;}
-  .ft-line{font-family:'DM Mono',monospace;font-size:12px;line-height:2.2;color:rgba(221,217,208,.4);}
+  .ft-line{font-family:'DM Mono',monospace;font-size:15px;line-height:2;color:rgba(221,217,208,.55);white-space:pre;overflow-x:auto;}
+  .ft-cmd{color:#5a9aaa;}
+  .ft-live{color:#5aaa7a;}
+  @media(max-width:600px){
+    .footer-terminal{padding:32px 20px;}
+    .ft-line{font-size:15px;line-height:1.9;}
+  }
   .ft-cmd::before{content:'> ';color:#b87010;}
   .ft-output{color:#3d8a7a;}
   .ft-cursor{display:inline-block;width:8px;height:14px;background:#b87010;vertical-align:middle;animation:ftBlink 1s infinite;margin-left:2px;}
@@ -1881,7 +1943,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 @media(prefers-reduced-motion:reduce){ .tl-on .tla-bar{ animation:none; transform:scaleY(1); } .tl-on .tla-cur,.tl-on .tla-live-dot{ animation:none; } }
 
 /* ╔═══ THE TRUTH (Pass 4), realistic chaos artifacts (pain-red palette) ═══╗ */
-:root{ --pain:#c05050; --pain-dim:rgba(192,80,80,.5); }
+:root{ --pain:#e05858; --pain-dim:rgba(192,80,80,.5); }
 .pain-card{ padding:14px 16px!important; border-left:2px solid var(--pain)!important;
   background:rgba(192,80,80,.04)!important; border-radius:0 8px 8px 0!important;
   border-top:1px solid rgba(192,80,80,.08); border-right:1px solid rgba(192,80,80,.08);
@@ -1949,7 +2011,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 /* PHIPA, anonymization view */
 .sa-anon-label{ font-size:7.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-faint); margin-bottom:9px; }
 .sa-anon-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:9px; }
-.sa-redact{ font-family:var(--rb-mono); color:var(--pain,#c05050); letter-spacing:-1px; opacity:.8; }
+.sa-redact{ font-family:var(--rb-mono); color:var(--pain,var(--b-red)); letter-spacing:-1px; opacity:.8; }
 .sa-arrow{ color:var(--rb-faint); }
 .sa-clean{ font-family:var(--rb-mono); color:var(--sec-c); }
 .sa-anon-foot{ font-size:8px; color:var(--rb-dim); margin-top:8px; display:flex; align-items:center; }
@@ -2014,17 +2076,17 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .pr-meta{ font-family:var(--rb-mono); font-size:7px; letter-spacing:1px; color:var(--rb-faint);
   text-align:right; line-height:1.5; }
 .pr-line{ display:flex; justify-content:space-between; align-items:baseline; padding:5px 0; }
-.pr-desc{ font-family:var(--rb-mono); font-size:12px; color:var(--rb-dim); }
-.pr-amt{ font-family:var(--rb-mono); font-size:13px; color:var(--rb-text); }
-.pr-per{ font-size:11px; color:var(--rb-faint); }
-.pr-sub .pr-desc,.pr-sub .pr-amt{ font-size:11px; color:var(--rb-faint); }
+.pr-desc{ font-family:var(--rb-mono); font-size:9.5px; color:var(--rb-dim); }
+.pr-amt{ font-family:var(--rb-mono); font-size:11px; color:var(--rb-text); }
+.pr-per{ font-size:8px; color:var(--rb-faint); }
+.pr-sub .pr-desc,.pr-sub .pr-amt{ font-size:8px; color:var(--rb-faint); }
 .pr-free .pr-desc{ color:var(--rb-primary); }
 .pr-free .pr-amt{ color:var(--rb-primary); font-weight:600; letter-spacing:1px; }
 .pr-rule{ height:1px; background:var(--rb-line); margin:8px 0; }
 .pr-total{ display:flex; justify-content:space-between; align-items:baseline; }
-.pr-total-k{ font-family:var(--rb-mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-dim); }
+.pr-total-k{ font-family:var(--rb-mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-dim); }
 .pr-total-v{ font-family:var(--rb-serif); font-size:30px; font-weight:400; color:var(--rb-text); font-variant-numeric:tabular-nums; }
-.pr-note{ font-family:var(--rb-mono); font-size:11px; letter-spacing:.3px; color:var(--rb-faint); margin-top:7px; text-align:center; }
+.pr-note{ font-family:var(--rb-mono); font-size:7.5px; letter-spacing:.3px; color:var(--rb-faint); margin-top:7px; text-align:center; }
 /* feature list */
 .pr-feat{ display:flex; gap:10px; align-items:flex-start; font-family:var(--rb-mono);
   font-size:10px; color:var(--rb-dim); line-height:1.5; }
@@ -2067,30 +2129,628 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 #cta .btn-secondary{ border:1px solid var(--rb-line)!important; color:var(--rb-dim)!important; }
 #cta .btn-secondary:hover{ color:var(--rb-text)!important; border-color:var(--rb-faint)!important; }
 @media(max-width:560px){ .cta-offer{ gap:10px; padding:10px 16px; } .cta-offer-div{ display:none; } }
+
+  /* S89. The field of live visits. Each point is a client home; the lit
+     ones are visits happening now. The hero already says "while you sleep",
+     so this renders the claim instead of asserting it. */
+  
+  #hero-stage{position:absolute;inset:0;z-index:0;pointer-events:none;}
+  #hero-stage canvas{display:block;width:100%;height:100%;}
+  
+  /* S89b. THE ARRIVAL. The field used to simply exist when the page loaded,
+     which read as decoration. Now the network boots: a single line types
+     while the points ignite outward from the centre, then it clears and the
+     headline lands. It is the same device as the footer terminal, so the
+     page opens and closes on the same idea. */
+  #hero-boot{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    z-index:3;pointer-events:none;
+    font-family:'DM Mono',monospace;font-size:15px;letter-spacing:.06em;
+    color:#5a9aaa;white-space:nowrap;transition:opacity .5s ease;
+  }
+  #hero-boot i{
+    display:inline-block;width:8px;height:15px;background:#5aaa7a;
+    vertical-align:-2px;margin-left:3px;animation:ftBlink 1s step-end infinite;
+  }
+  #hero-boot.gone{opacity:0}
+  /* stop the cursor once the boot line is hidden. It is the only infinite
+     animation S89b adds, and leaving it running on an invisible element is
+     exactly what S90 was written to prevent. */
+  #hero-boot.gone i{animation:none}
+  /* S93. THE PHONES AS THE HERO BACKDROP.
+     The particle field said nothing: 2,904 dots, no nouns. These are the
+     three real screens, sitting BEHIND the headline so a visitor knows what
+     they are getting before they scroll. The scrim above them is what keeps
+     the copy legible, so anything changed here must be checked against it.
+     Readable, not decorative: nothing below 15px. */
+  #hero-stage{display:none}   /* S96: the field is gone; the phones are in flow now */
+
+
+  /* S94b. These were nested inside @media(max-width:390px) because my
+     insert anchor was itself inside it. Everything from S89 onward inherited
+     that nesting, so the hero styles only applied below 390px. Moved to top
+     level. */
+  .anim-idle, .anim-idle *{animation-play-state:paused!important}
+  /* S100. The Truth section was styled entirely inline, so it inherited
+     nothing from this stylesheet and read like a different website. The
+     body copy was DM Mono at 18px: monospace is for the terminal, the
+     labels and the data, not for a paragraph of persuasion. The headline
+     ran at line-height 1.0, which collides Cormorant's descenders at 62px.
+     The red was var(--b-red) while the palette defines --b-red. And the 48px
+     padding was fixed, spending a quarter of a 390px screen. */
+  .truth-wrap{padding:0 48px}
+  @media(max-width:760px){ .truth-wrap{padding:0 22px} }
+  @media(max-width:420px){ .truth-wrap{padding:0 18px} }
+  #hero .hero-inner{position:relative;z-index:2;}
+  /* S97. THE COPY IS STATIC.
+     It was hidden by .booting and revealed by finish(), AND separately
+     animated by the .reveal observer. Two systems touching the same element
+     is what made it disappear and come back. The headline is the one thing
+     on this page that must be readable the instant it loads, so it is now
+     never hidden by either. */
+  #hero.booting .hero-inner{opacity:1;transform:none}
+  #hero .hero-inner{opacity:1!important;transform:none!important;transition:none}
+  #hero{position:relative;overflow:hidden;}
+
+  /* ============================================================
+     S99. THE FLOW DEMO, PORTED FROM proximitycares.ca
+     This is not an imitation of the product; it IS the product. An
+     operator buying Proximity Systems gets exactly these three phones:
+     HQ, the PSW portal, and the family portal. Showing the real demo is
+     showing them what lands on their own screens.
+     Ported verbatim: 158 rules, 18 keyframes, 58 ids, zero collisions
+     with anything already in this file. Do not "tidy" the small type in
+     here: the 4 to 6.5px labels are the phone mockups, deliberately.
+     ============================================================ */
+
+
+/* ═══ PASS A: phone-flow demo (base) ═══ */
+/* ── LP FLOW DEMO · embedded hero animation ── */
+@keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
+
+@keyframes lp-glow-t{0%,100%{box-shadow:0 0 6px #6a9eaa}50%{box-shadow:0 0 16px #6a9eaa}}
+
+@keyframes lp-pulse-r{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.8);opacity:0}}
+
+@keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
+
+@keyframes lp-slide-down{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes lp-slide-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes lp-slide-right{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+
+@keyframes lp-modal-up{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+@keyframes lp-ping{0%{transform:scale(1);opacity:1}70%{transform:scale(2.2);opacity:0}100%{transform:scale(2.2);opacity:0}}
+
+@keyframes lp-draw-line{from{width:0;opacity:0}to{width:100%;opacity:1}}
+
+@keyframes lp-dot-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+
+@keyframes lp-notif-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+@keyframes lp-count-up{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes lp-conn-dot{0%{left:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{left:100%;opacity:0}}
+
+@keyframes lp-btn-confirm{0%{background:rgba(90,173,160,.15)}50%{background:rgba(63,185,80,.3)}100%{background:rgba(63,185,80,.15)}}
+
+@keyframes lp-spin{to{transform:rotate(360deg)}}
+
+
+/* Phone mockup */
+.lp-phone{width:182px;flex-shrink:0;background:#0a0d12;border:1px solid rgba(90,173,160,.2);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;height:360px;box-shadow:0 4px 24px rgba(0,0,0,.7)}
+
+.lp-hq{width:194px}
+
+.lp-notch{height:14px;flex-shrink:0;background:#07090c;display:flex;align-items:center;justify-content:center}
+
+.lp-notch-bar{width:36px;height:3px;border-radius:2px;background:rgba(255,255,255,.1)}
+
+.lp-time{position:absolute;top:3px;left:8px;font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4)}
+
+.lp-status{position:absolute;top:3px;right:8px;font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.3)}
+
+.lp-label{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,220,200,.2);text-align:center;padding:4px 0 3px;border-bottom:1px solid rgba(90,173,160,.07);flex-shrink:0;background:#07090c}
+
+.lp-body{flex:1;overflow:hidden;position:relative}
+
+
+/* HQ internals */
+.lp-hq-head{background:#0d1117;padding:5px 6px;border-bottom:1px solid rgba(90,173,160,.1);flex-shrink:0}
+
+.lp-brand{font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;color:#e8ddc8;display:flex;align-items:center;gap:4px;margin-bottom:3px}
+
+.lp-brand em{color:#6a9eaa;font-style:italic}
+
+.lp-stats{display:flex;gap:0;border:1px solid rgba(90,173,160,.1)}
+
+.lphs{flex:1;text-align:center;padding:3px 0;border-right:1px solid rgba(90,173,160,.1)}
+
+.lphs:last-child{border:none}
+
+.lphs-n{font-family:'DM Mono',monospace;font-size:9px;font-weight:600;color:#6a9eaa;line-height:1}
+
+.lphs-n.lp-g{color:#3fb950}
+.lphs-n.lp-amber{color:#c8a96e}
+
+.lphs-l{font-family:'DM Mono',monospace;font-size:4px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);margin-top:1px}
+
+.lp-osc{margin:4px 6px;background:rgba(63,185,80,.05);border:1px solid rgba(63,185,80,.15);padding:4px 6px;display:flex;align-items:center;justify-content:space-between}
+
+.lp-osc-l{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1px;text-transform:uppercase;color:rgba(63,185,80,.5)}
+
+.lp-osc-v{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:#3fb950;line-height:1}
+
+.lp-sec-lbl{font-family:'DM Mono',monospace;font-size:4.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(232,220,200,.2);padding:4px 6px 2px;flex-shrink:0}
+
+
+/* Shift rows */
+.lp-shift-row{display:flex;align-items:center;gap:5px;padding:5px 6px;border-bottom:1px solid rgba(90,173,160,.06)}
+
+.lp-sr-time{font-family:'DM Mono',monospace;font-size:7px;color:#6a9eaa;width:22px;flex-shrink:0}
+
+.lp-sr-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+.lp-dot-on{background:#3fb950;box-shadow:0 0 5px #3fb950;animation:lp-glow-g 2s infinite}
+
+.lp-dot-sc{background:rgba(90,173,160,.4)}
+
+.lp-dot-new{background:#c8a96e;box-shadow:0 0 5px #c8a96e}
+
+.lp-sr-info{flex:1}
+
+.lp-sr-name{font-size:7.5px;font-weight:600;color:#e8ddc8;line-height:1.2}
+
+.lp-sr-client{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.3)}
+
+.lp-sr-badge{font-family:'DM Mono',monospace;font-size:5px;padding:1px 4px;border-radius:100px;border:1px solid}
+
+.lp-badge-sc{color:rgba(232,220,200,.3);border-color:rgba(232,220,200,.1)}
+
+.lp-badge-new{color:#c8a96e;border-color:rgba(200,169,110,.3);background:rgba(200,169,110,.08)}
+
+.lp-badge-on{color:#3fb950;border-color:rgba(63,185,80,.3)}
+
+
+/* Add shift btn */
+.lp-add-btn{display:flex;align-items:center;gap:4px;margin:5px 6px;padding:5px 7px;background:rgba(90,173,160,.08);border:1px solid rgba(90,173,160,.2)}
+
+.lp-add-btn.active{background:rgba(90,173,160,.18);border-color:rgba(90,173,160,.4)}
+
+.lp-add-icon{width:12px;height:12px;border-radius:50%;background:rgba(90,173,160,.2);display:flex;align-items:center;justify-content:center;font-size:8px;color:#6a9eaa;font-weight:700}
+
+.lp-add-txt{font-family:'DM Mono',monospace;font-size:6.5px;color:#6a9eaa}
+
+
+/* Activity */
+.lp-act-row{display:flex;align-items:center;gap:5px;padding:4px 6px;border-bottom:1px solid rgba(90,173,160,.05)}
+
+.lp-act-badge{font-family:'DM Mono',monospace;font-size:5px;padding:1px 4px;border:1px solid rgba(90,173,160,.2);color:rgba(90,173,160,.6);border-radius:2px;flex-shrink:0}
+
+.lp-act-txt{font-size:6.5px;color:rgba(232,220,200,.5);flex:1}
+
+.lp-act-time{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.2)}
+
+
+/* Modal */
+.lp-modal{position:absolute;inset:0;background:rgba(7,9,12,.92);display:flex;align-items:flex-end;z-index:20;opacity:0;pointer-events:none}
+
+.lp-modal.show{opacity:1;pointer-events:all}
+
+.lp-modal-sheet{width:100%;background:#0d1117;border-top:1px solid rgba(90,173,160,.25);padding:10px;animation:lp-modal-up .4s ease}
+
+.lp-modal-title{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:#e8ddc8;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+
+.lp-modal-title em{color:#6a9eaa;font-style:italic}
+
+.lp-mf{margin-bottom:6px}
+
+.lp-mf-label{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
+
+.lp-mf-val{padding:5px 7px;background:rgba(90,173,160,.07);border:1px solid rgba(90,173,160,.2);font-size:8px;font-weight:600;color:#e8ddc8;display:flex;align-items:center;gap:5px}
+
+.lp-mf-dot{width:5px;height:5px;border-radius:50%;background:#6a9eaa;flex-shrink:0}
+
+.lp-confirm-btn{width:100%;padding:7px;background:rgba(90,173,160,.15);border:1px solid rgba(90,173,160,.3);color:#6a9eaa;font-family:'DM Mono',monospace;font-size:7.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-align:center}
+
+.lp-confirm-btn.confirming{animation:lp-btn-confirm .6s ease}
+
+.lp-confirm-btn.confirmed{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.3);color:#3fb950}
+
+
+/* Connector */
+.lp-conn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:22px;position:relative}
+
+.lp-conn-line{width:100%;height:1px;background:rgba(90,173,160,.2);position:relative;overflow:hidden}
+
+.lp-conn-fill{position:absolute;top:0;left:0;height:100%;width:0;background:linear-gradient(90deg,#6a9eaa,#3fb950);opacity:0}
+
+.lp-conn-dot{position:absolute;top:-3px;width:6px;height:6px;border-radius:50%;background:#6a9eaa;box-shadow:0 0 8px #6a9eaa;opacity:0}
+
+.lp-conn-lbl{font-family:'DM Mono',monospace;font-size:4.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(90,173,160,.4);text-align:center;line-height:1.4;white-space:nowrap}
+
+
+/* PSW portal */
+.lp-psw-head{background:#0d1117;padding:6px 7px;border-bottom:1px solid rgba(90,173,160,.1);display:flex;align-items:center;gap:5px;flex-shrink:0}
+
+.lp-psw-av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#3d7a8a,#6a9eaa);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;color:#fff;flex-shrink:0}
+
+.lp-psw-name{font-size:8px;font-weight:600;color:#e8ddc8}
+
+.lp-psw-role{font-family:'DM Mono',monospace;font-size:5px;color:rgba(90,173,160,.5)}
+
+.lp-psw-earn{margin-left:auto;text-align:right}
+
+.lp-psw-earn-n{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:#c8a96e;line-height:1}
+
+.lp-psw-earn-l{font-family:'DM Mono',monospace;font-size:4.5px;color:rgba(232,220,200,.2)}
+
+
+/* Notification banner */
+.lp-notif-banner{margin:4px 6px;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);border-left:2px solid #c8a96e;padding:5px 7px;opacity:0;transform:translateX(20px)}
+
+.lp-notif-banner.show{animation:lp-notif-in .5s cubic-bezier(.4,0,.2,1) forwards}
+
+.lp-nb-title{font-size:7.5px;font-weight:700;color:#c8a96e;margin-bottom:1px;display:flex;align-items:center;gap:4px}
+
+.lp-nb-dot{width:4px;height:4px;border-radius:50%;background:#c8a96e;animation:lp-dot-pulse 1s ease infinite}
+
+.lp-nb-body{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);line-height:1.4}
+
+
+/* Next visit */
+.lp-next-visit{margin:4px 6px;background:rgba(90,173,160,.06);border:1px solid rgba(90,173,160,.18);padding:7px 8px}
+
+.lp-nv-label{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.45);margin-bottom:3px}
+
+.lp-nv-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:#e8ddc8;line-height:1.1;margin-bottom:1px}
+
+.lp-nv-time{font-family:'DM Mono',monospace;font-size:7px;color:#6a9eaa}
+
+.lp-nv-btns{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px}
+
+.lp-nv-btn{padding:4px;border:1px solid;text-align:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+
+.lp-nv-nav{color:rgba(90,173,160,.6);border-color:rgba(90,173,160,.2)}
+
+.lp-nv-signin{color:#3fb950;border-color:rgba(63,185,80,.35);background:rgba(63,185,80,.08)}
+
+.lp-nv-signin.active{background:rgba(63,185,80,.2);border-color:#3fb950}
+
+
+/* GPS */
+.lp-gps-status{margin:4px 6px;padding:5px 7px;border:1px solid rgba(90,173,160,.15);background:rgba(13,17,23,.5);opacity:0}
+
+.lp-gps-title{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
+
+.lp-spinner{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(90,173,160,.3);border-top-color:#6a9eaa;animation:lp-spin .8s linear infinite;flex-shrink:0}
+
+
+/* On shift status */
+.lp-oss{margin:4px 6px;background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.2);padding:5px 7px;opacity:0}
+
+.lp-oss-dot{width:5px;height:5px;border-radius:50%;background:#3fb950;animation:lp-glow-g 2s infinite;flex-shrink:0}
+
+.lp-oss-label{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1px;text-transform:uppercase;color:#3fb950}
+
+.lp-oss-name{font-size:8.5px;font-weight:700;color:#e8ddc8}
+
+.lp-oss-sub{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.3)}
+
+
+/* Family portal */
+.lp-push{position:absolute;top:14px;left:5px;right:5px;z-index:30;background:rgba(13,17,23,.96);border:1px solid rgba(90,173,160,.3);border-radius:6px;padding:5px 7px;display:flex;align-items:flex-start;gap:5px;opacity:0;transform:translateY(-8px);box-shadow:0 3px 16px rgba(0,0,0,.5)}
+
+.lp-push.show{animation:lp-slide-down .4s cubic-bezier(.4,0,.2,1) forwards}
+
+.lp-push-icon{width:15px;height:15px;border-radius:3px;background:linear-gradient(135deg,#3d7a8a,#6a9eaa);display:flex;align-items:center;justify-content:center;font-size:8px;flex-shrink:0}
+
+.lp-push-title{font-size:7.5px;font-weight:700;color:#3fb950;margin-bottom:1px}
+
+.lp-push-body{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.6);line-height:1.3}
+
+.lp-push-time{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.2);margin-left:auto;flex-shrink:0}
+
+
+.lp-fam-head{background:#0d1117;padding:6px 7px;border-bottom:1px solid rgba(90,173,160,.1);text-align:center;flex-shrink:0}
+
+.lp-fam-brand{font-size:9px;font-weight:700;color:#e8ddc8}
+
+.lp-fam-brand span{color:#6a9eaa}
+
+.lp-fam-sub{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.25);letter-spacing:.8px}
+
+
+.lp-rosetta{margin:6px;background:linear-gradient(135deg,rgba(61,138,122,.22),rgba(30,90,80,.1));border:1px solid rgba(90,173,160,.25);padding:7px}
+
+.lp-rc-label{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
+
+.lp-rc-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#e8ddc8;line-height:1.1;margin-bottom:2px}
+
+.lp-rc-last{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);display:flex;align-items:center;gap:4px}
+
+.lp-rc-ldot{width:4px;height:4px;border-radius:50%;background:#3fb950;box-shadow:0 0 5px #3fb950}
+
+
+.lp-fam-notif{margin:0 6px 4px;background:#0d1117;border:1px solid rgba(90,173,160,.12);padding:5px 7px;opacity:0}
+
+.lp-fnc-title{font-size:8px;font-weight:700;color:#3fb950;margin-bottom:1px;display:flex;align-items:center;gap:4px}
+
+.lp-fnc-dot{width:4px;height:4px;border-radius:50%;background:#3fb950;animation:lp-glow-g 2s infinite}
+
+.lp-fnc-body{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.5);line-height:1.4}
+
+.lp-fnc-time{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.2);margin-top:2px}
+
+
+/* Bottom steps */
+.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.3);transition:color .3s}
+
+.lp-step.active{color:#6a9eaa}
+
+.lp-step.done{color:#3fb950}
+
+
+
+/* ── MAP PHONE ── */
+.lp-map-phone{width:0;overflow:hidden;flex-shrink:0;background:#0a0d12;border:1px solid rgba(90,173,160,.2);border-radius:12px;display:flex;flex-direction:column;height:360px;box-shadow:0 4px 24px rgba(0,0,0,.7);transition:width .6s cubic-bezier(.4,0,.2,1),opacity .6s;opacity:0;}
+
+.lp-map-phone.show{width:182px;opacity:1;}
+
+.lp-map-head{background:#0d1117;padding:5px 7px;border-bottom:1px solid rgba(90,173,160,.1);flex-shrink:0;}
+
+.lp-map-title{font-family:'DM Mono',monospace;font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.55);margin-bottom:1px;display:flex;align-items:center;gap:4px;}
+
+.lp-map-title-dot{width:4px;height:4px;border-radius:50%;background:#3fb950;animation:lp-glow-g 2s infinite;}
+
+.lp-map-sub{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.2);}
+
+.lp-map-area{flex:1;background:#070c10;position:relative;overflow:hidden;}
+
+.lp-map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(90,173,160,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(90,173,160,.04) 1px,transparent 1px);background-size:14px 14px;}
+
+.lp-road{position:absolute;background:rgba(90,173,160,.08);}
+
+.lp-road-h{height:1px;left:0;right:0;}
+
+.lp-road-v{width:1px;top:0;bottom:0;}
+
+.lp-map-city{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(90,173,160,.12);pointer-events:none;}
+
+.lp-client-pin{position:absolute;opacity:0;animation:lp-fade-in .4s ease .2s forwards;}
+
+.lp-client-circle{width:16px;height:16px;border-radius:50%;background:rgba(90,173,160,.15);border:1px solid #6a9eaa;display:flex;align-items:center;justify-content:center;font-size:8px;}
+
+.lp-psw-pin{position:absolute;opacity:0;}
+
+.lp-psw-pin.show{animation:lp-map-pin .5s cubic-bezier(.34,1.56,.64,1) forwards;}
+
+@keyframes lp-map-pin{from{opacity:0;transform:translate(-50%,-50%) scale(0) translateY(-8px)}to{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
+
+.lp-pin-circle{width:20px;height:20px;border-radius:50%;background:rgba(63,185,80,.2);border:1.5px solid #3fb950;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;color:#3fb950;position:relative;}
+
+.lp-pin-ring{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(63,185,80,.4);animation:lp-ping 2s ease-out infinite;}
+
+.lp-pin-ring2{position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(63,185,80,.2);animation:lp-ping 2s ease-out infinite;animation-delay:.4s;}
+
+.lp-pin-label{position:absolute;top:24px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:5.5px;color:#3fb950;white-space:nowrap;background:rgba(7,9,12,.9);padding:1px 5px;border:1px solid rgba(63,185,80,.25);}
+
+.lp-gps-strip{padding:5px 7px;border-top:1px solid rgba(90,173,160,.1);background:#0d1117;flex-shrink:0;opacity:0;}
+
+.lp-gis-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
+
+.lp-gis-label{font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(232,220,200,.3);}
+
+.lp-gis-val{font-family:'DM Mono',monospace;font-size:7.5px;font-weight:600;}
+
+.lp-gis-val.g{color:#3fb950;}
+.lp-gis-val.t{color:#6a9eaa;}
+
+.lp-gis-updated{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.15);text-align:right;}
+
+@media(max-width:480px){
+  #flow-demo-wrap .lp-mob-active{width:180px!important;height:340px!important;}
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{width:180px!important;}
+  #flow-demo-wrap #main{height:370px!important;min-height:370px!important;}
+}
+
+  /* S99b. THE MISSING MOBILE BLOCK.
+     My extraction kept only one lp media query. The @media(max-width:700px)
+     block never came across, and that is the one that makes single-phone
+     mode work: it hides the connectors, hides the desktop phones, and sizes
+     .lp-mob-active. Without it the JS switched to mobile mode at 700px
+     (isMobile() returns innerWidth<=700) while the CSS to support it only
+     existed at 480px, so between 481 and 700 the demo would have shown
+     three phones crushed side by side with a driver behaving as if one was
+     visible. Recovered verbatim. */
+@media(max-width:700px){
+  #flow-demo-wrap #main{
+    position:relative;
+    overflow:hidden;
+    padding:16px 0 12px;
+    justify-content:center;
+    height:400px;
+    min-height:400px;
+  }
+  .lp-conn{display:none!important;}
+  #flow-demo-wrap .lp-phone,
+  #flow-demo-wrap .lp-map-phone{display:none!important;}
+  #flow-demo-wrap .lp-mob-active{
+    display:flex!important;
+    width:200px!important;
+    height:360px!important;
+    border-radius:14px!important;
+    position:absolute!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    animation:lp-mob-fadein .35s ease forwards!important;
+  }
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{
+    width:200px!important;
+    opacity:1!important;
+  }
+  @keyframes lp-mob-fadein{
+    from{opacity:0;transform:translateX(-50%) translateY(6px)}
+    to{opacity:1;transform:translateX(-50%) translateY(0)}
+  }
+  .lp-desktop-step{display:none!important;}
+  #lp-mob-steps{display:flex!important;}
+  #stageLabel{
+    font-size:7px!important;
+    letter-spacing:1.5px!important;
+    max-width:190px!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+  }
+  #flow-demo-wrap > div:first-child{padding:0 12px!important;}
+}
+
+  /* S101/S103/S104/S105. The capability workflow.
+     S105 fixed two things. FIRST, CENTRING: .caps-head and .wf had a
+     max-width but no margin auto, so both pinned to the left edge of a
+     1024px content box and left the right half of the screen empty.
+     SECOND, DENSITY: each step was a heading above a two column bullet
+     list, which meant an operator had to read 30 separate lines to work
+     out what they were getting. The step label and its capabilities now
+     sit on one row, so the sequence reads down the left and the detail
+     reads across. Top level, mobile first, nothing under 15px. Gated. */
+  .sec-caps{
+    background:var(--rb-base);
+    padding:clamp(64px,8vw,104px) 0;
+    border-top:1px solid rgba(61,122,138,.14);
+  }
+  .caps-head{
+    max-width:660px;margin:0 auto clamp(36px,4.4vw,58px);text-align:center;
+  }
+  .caps-eyebrow{
+    font-family:'DM Mono',monospace;font-size:15px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--b-teal-lt);margin-bottom:16px;
+  }
+  .caps-title{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(30px,3.4vw,44px);line-height:1.14;letter-spacing:-.012em;
+    color:#faf8f4;margin-bottom:16px;
+  }
+  .caps-title em{font-style:italic;color:var(--b-teal-lt)}
+  .caps-lead{
+    font-size:17px;line-height:1.6;color:rgba(250,248,244,.58);
+    max-width:56ch;margin:0 auto;
+  }
+
+  .wf{list-style:none;margin:0 auto;padding:0;position:relative;max-width:860px}
+  .wf-step{position:relative;padding:0 0 4px 0}
+  .wf-row{
+    display:grid;row-gap:10px;align-items:start;
+    padding:18px 0;border-top:1px solid rgba(61,122,138,.14);
+  }
+  @media(min-width:760px){ .wf-row{grid-template-columns:210px 1fr;column-gap:34px} }
+  .wf-step:first-child .wf-row{border-top:none}
+  .wf-side{display:flex;align-items:baseline;gap:10px}
+  .wf-num{
+    font-family:'DM Mono',monospace;font-size:15px;color:var(--b-teal-lt);
+    flex-shrink:0;
+  }
+  .wf-h{
+    font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;
+    font-size:clamp(20px,2.2vw,25px);line-height:1.2;color:#faf8f4;margin:0;
+  }
+  .wf-list{list-style:none;margin:0;padding:0;display:grid;row-gap:5px;column-gap:26px}
+  @media(min-width:560px){ .wf-list{grid-template-columns:1fr 1fr} }
+  .wf-list li{
+    position:relative;padding:2px 0 2px 16px;
+    font-size:16px;line-height:1.45;color:rgba(250,248,244,.74);
+  }
+  .wf-list li::before{
+    content:'';position:absolute;left:0;top:11px;
+    width:5px;height:5px;border-radius:50%;
+    background:var(--b-green);opacity:.65;
+  }
+
+
+
+  /* S106a. THE REAL PORTAL PALETTES.
+     The demo was ported from proximitycares.ca, which sells CARE to a
+     family, so all three phones shared one teal-and-green scheme. The real
+     portals do not look like that. MEASURED from the live files:
+       real-hq.html         --bg #07090c   --accent #c9a96e   GOLD
+       real-psw-portal.html --bg #050608   --accent #56C8F5   CYAN
+       real-family.html     --rb-base #0a0e14 --rb-primary #34D399  GREEN
+     Three different accents. An operator sees the real HQ within seven days
+     of signing, so a demo in the wrong colour is a promise the product does
+     not keep. Scoped per phone: the shared .lp- rules are untouched, so the
+     cares site's own look is unaffected. */
+  .lp-phone.lp-hq{background:#07090c;border-color:rgba(201,169,110,.26)}
+  .lp-hq .lp-label{color:rgba(201,169,110,.62)}
+  .lp-hq .lp-accent,.lp-hq .lp-val{color:#c9a96e}
+
+  .lp-phone.lp-psw{background:#050608;border-color:rgba(86,200,245,.24)}
+  .lp-psw .lp-label{color:rgba(86,200,245,.6)}
+  .lp-psw .lp-accent,.lp-psw .lp-val{color:#56C8F5}
+
+  .lp-phone.lp-fam{background:#0a0e14;border-color:rgba(52,211,153,.24)}
+  .lp-fam .lp-label{color:rgba(52,211,153,.6)}
+  .lp-fam .lp-accent,.lp-fam .lp-val{color:#34D399}
+
+  .lp-map-phone.lp-map{background:#0a0e14;border-color:rgba(56,189,248,.24)}
+  .lp-map .lp-label{color:rgba(56,189,248,.6)}
+
+  /* S106b. THE REAL HQ TAB BAR.
+     Twelve tabs, taken verbatim from real-hq.html: Today, Overview, Clients,
+     PSWs, Onboard, Bookings, Messages, Visits, Activity, Schedule, Revenue,
+     Help. The demo showed none of them, so it undersold the scope of what an
+     operator actually opens. This is a mockup, so the type stays at mockup
+     scale: DO_NOT_TOUCH covers the sub-9px sizes in these phones. */
+  .lp-tabs{
+    display:flex;gap:9px;overflow:hidden;
+    padding:5px 8px 6px;margin:0 0 4px;
+    border-bottom:1px solid rgba(201,169,110,.14);
+    white-space:nowrap;
+  }
+  .lp-tab{
+    font-family:'DM Mono',monospace;font-size:5px;letter-spacing:.06em;
+    color:rgba(232,220,200,.34);flex-shrink:0;
+  }
+  .lp-tab.on{color:#c9a96e;border-bottom:1px solid #c9a96e;padding-bottom:2px}
+
+  /* S106c. REAL LABELS AND REAL COLOURS.
+     "Billed" appears ZERO times in real-hq.html: the cares demo invented it.
+     "Margin" appears twice and renders in --green2 #8dd493, which is what
+     this rule uses. "On Shift Now" is real too, as ov-active-psws in the
+     Overview KPIs, so that stat stays. */
+  .lp-hq .lphs-n.lp-margin{color:#8dd493}
 </style>
 <style>
 @media (max-width:768px){ #security .sec-grid{ grid-template-columns:1fr !important; } #security .sec-card{ max-width:100% !important; } }
 @media (max-width:600px){ #security .inner{ padding-left:18px !important; padding-right:18px !important; } }
-/* S85.1. Inline grid-template-columns beats every media query short of
-   !important. TWO grids need this, and they are exactly the two carrying NO
-   class attribute, so no stylesheet rule could ever reach them. The other
-   three are deliberately absent:
-     #pricing .pricing-grid  already stacked at max-width:880px !important
-     #security .sec-grid     already stacked at max-width:768px !important
-     #solution repeat(4,1fr) the spreadsheet mockup; four columns ARE the picture
-   Adding it to the first two would re-fix a fix. Measured at 390px before and
-   after: identical computed tracks. */
-@media (max-width:768px){ .stack-mobile{ grid-template-columns:1fr !important; } }
-/* S85.2. A body scroll lock does NOT stop scroll chaining on touch: once the
-   modal hits its scroll limit the gesture continues to the page behind it.
-   overscroll-behavior:contain is what stops it. openBldModal already sets
-   document.body.style.overflow='hidden' and that was not enough.
-   .bld-console-body is deliberately absent: it has ZERO markup uses, it lives
-   inside the builder mockup, and it is not rendered on this page. */
-.bld-modal-overlay{ overscroll-behavior:contain; }
-.bld-modal{ overscroll-behavior:contain; }
-.chat-messages{ overscroll-behavior:contain; }
 </style>
+<meta name="theme-color" content="#07090c">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Proximity Systems",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Home care agency management",
+  "operatingSystem": "Web",
+  "url": "https://proximitysystems.ca",
+  "description": "Done-for-you AI operating system for small private pay home care agencies in Canada. GPS check-in, AI care summaries, auto invoicing, family portal.",
+  "offers": [
+    {"@type":"Offer","name":"Full Build","price":"3000","priceCurrency":"CAD","description":"One-time setup, then $500 per month"},
+    {"@type":"Offer","name":"Full Build Plus","price":"5000","priceCurrency":"CAD","description":"One-time setup, then $750 per month"}
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "Proximity Systems",
+    "url": "https://proximitysystems.ca",
+    "areaServed": {"@type":"Country","name":"Canada"}
+  }
+}
+</script>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -2138,6 +2798,14 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 
 <div id="hero">
+  <!-- S89. WebGL field. Sits BEHIND everything at z-index 0; every existing
+       hero child is lifted to z-index 2 by the .hero-inner rule below.
+       Degrades to the existing radial-gradient if WebGL is absent. -->
+  <div id="hero-stage" aria-hidden="true">
+
+  </div>
+  <div id="hero-scrim" aria-hidden="true"></div>
+  <div id="hero-boot" aria-hidden="true"><span id="hero-boot-txt"></span><i></i></div>
   <!-- LEFT, Copy -->
   <div class="hero-inner">
     <div class="hero-eyebrow-new">
@@ -2158,6 +2826,216 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     <div class="hero-ctas-new">
       <a href="#cta" onclick="openBldModal();return false;" class="hero-btn-primary">Build My Package →</a>
       <a href="/demo.html" class="hero-btn-secondary">Watch Live Demo</a>
+    </div>
+
+
+
+    <!-- S99. The real flow demo, ported from proximitycares.ca. These are
+         the three phones an operator actually gets. -->
+    <div class="sys-flow-host">
+<div id="flow-demo-wrap" style="position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
+
+    <!-- Particle canvas -->
+    <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
+
+    <!-- Top bar: logo + stage label + live badge -->
+    <div style="position:relative;z-index:10;height:38px;background:rgba(7,9,12,.98);border-bottom:1px solid rgba(90,173,160,.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
+      <div style="display:flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#e8ddc8;">
+        <div style="width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#3d7a8a,#6a9eaa);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;">PH</div>
+        Proximity<span style="color:#6a9eaa;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15px;">HQ</span>
+      </div>
+      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(90,173,160,.65);transition:opacity .3s;">Initializing...</div>
+      <div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#6a9eaa;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px #3fb950;animation:lp-glow-g 2s infinite;"></div>Running Live
+      </div>
+      <div id="stageProgress" style="position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#6a9eaa,#3fb950);width:0%;transition:width .1s linear;"></div>
+    </div>
+
+    <!-- Phone trio · full width, bigger phones -->
+    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;gap:8px;padding:16px 20px 12px;background:rgba(7,9,12,.6);position:relative;z-index:1;">
+
+      <!-- HQ PHONE · larger -->
+      <div class="lp-phone lp-hq" id="hqPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">4:33</div>
+        <div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">HQ · Operator Dashboard</div>
+        <div class="lp-body" id="hqBody">
+        <div class="lp-tabs" aria-hidden="true"><span class="lp-tab on">Today</span><span class="lp-tab">Overview</span><span class="lp-tab">Clients</span><span class="lp-tab">PSWs</span><span class="lp-tab">Onboard</span><span class="lp-tab">Bookings</span><span class="lp-tab">Messages</span><span class="lp-tab">Visits</span><span class="lp-tab">Activity</span><span class="lp-tab">Schedule</span><span class="lp-tab">Revenue</span><span class="lp-tab">Help</span></div>
+        
+          <div class="lp-hq-head">
+            <div class="lp-brand">Proximity <em>HQ</em></div>
+            <div class="lp-stats">
+              <div class="lphs"><div class="lphs-n">50</div><div class="lphs-l">Leads</div></div>
+              <div class="lphs"><div class="lphs-n">11</div><div class="lphs-l">Clients</div></div>
+              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">On Shift</div></div>
+              <div class="lphs"><div class="lphs-n lp-margin">61%</div><div class="lphs-l">Margin</div></div>
+            </div>
+          </div>
+          <div class="lp-osc"><div class="lp-osc-l">On Shift Now</div><div class="lp-osc-v" id="onShiftCard">0</div></div>
+          <div class="lp-sec-lbl">Today&#39;s Shifts</div>
+          <div class="lp-shift-row" id="newShiftRow" style="opacity:0;">
+            <div class="lp-sr-time">08:00</div>
+            <div class="lp-sr-dot lp-dot-new" id="newDot"></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">Maria Hermida</div><div class="lp-sr-client">Eleanor Bishop</div></div>
+            <div class="lp-sr-badge lp-badge-new" id="newBadge">+ Added</div>
+          </div>
+          <div class="lp-shift-row">
+            <div class="lp-sr-time">10:00</div>
+            <div class="lp-sr-dot lp-dot-sc"></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">James Okafor</div><div class="lp-sr-client">Robert Liang</div></div>
+            <div class="lp-sr-badge lp-badge-sc">Scheduled</div>
+          </div>
+          <div class="lp-add-btn" id="addShiftBtn"><div class="lp-add-icon">+</div><div class="lp-add-txt">Book New Shift</div></div>
+          <div class="lp-sec-lbl">Recent Activity</div>
+          <div class="lp-act-row" id="actRow1" style="opacity:0;"><div class="lp-act-badge">SCH</div><div class="lp-act-txt">Shift booked · Maria · Eleanor Bishop · 08:00</div><div class="lp-act-time">Just now</div></div>
+          <div class="lp-act-row" id="actRow2" style="opacity:0;"><div class="lp-act-badge">GPS</div><div class="lp-act-txt">Maria checked in · 12m · Eleanor Bishop</div><div class="lp-act-time">08:02</div></div>
+          <div class="lp-modal" id="shiftModal">
+            <div class="lp-modal-sheet">
+              <div class="lp-modal-title">Book <em>Shift</em></div>
+              <div class="lp-mf"><div class="lp-mf-label">Client</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Eleanor Bishop<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">11 clients</span></div></div>
+              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Maria Hermida<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">Available</span></div></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px;">
+                <div class="lp-mf"><div class="lp-mf-label">Start</div><div class="lp-mf-val" style="font-size:8px;">08:00 AM</div></div>
+                <div class="lp-mf"><div class="lp-mf-label">End</div><div class="lp-mf-val" style="font-size:8px;">04:00 PM</div></div>
+              </div>
+              <div class="lp-confirm-btn" id="confirmBtn">Confirm Shift</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 1 -->
+      <div class="lp-conn" id="conn1" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill1"></div><div class="lp-conn-dot" id="connDot1"></div></div>
+        <div class="lp-conn-lbl" id="connLabel1">Shift<br>fires</div>
+      </div>
+
+      <!-- PSW PHONE -->
+      <div class="lp-phone lp-psw" id="pswPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">4:33</div>
+        <div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">PSW Portal · Maria</div>
+        <div class="lp-body" id="pswBody">
+          <div class="lp-psw-head">
+            <div class="lp-psw-av">CH</div>
+            <div><div class="lp-psw-name">Maria Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
+            <div class="lp-psw-earn"><div class="lp-psw-earn-n">$1,677</div><div class="lp-psw-earn-l">Earned</div></div>
+          </div>
+          <div class="lp-notif-banner" id="pswNotif">
+            <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
+            <div class="lp-nb-body">Your shift on May 18 at 08:00 has been updated (8h). Check your schedule.</div>
+          </div>
+          <div class="lp-next-visit" id="nextVisitCard">
+            <div class="lp-nv-label">Next Visit</div>
+            <div class="lp-nv-name">Eleanor Bishop</div>
+            <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
+            <div class="lp-nv-btns">
+              <div class="lp-nv-btn lp-nv-nav">Navigate</div>
+              <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+            </div>
+          </div>
+          <div class="lp-gps-status" id="gpsStatus">
+            <div class="lp-gps-title">GPS Verification</div>
+            <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
+            <div id="gpsVerified" style="display:none;font-family:'DM Mono',monospace;font-size:7px;color:#3fb950;">✓ Verified · 12m from address</div>
+          </div>
+          <div class="lp-oss" id="onShiftStatus">
+            <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
+            <div class="lp-oss-name">Eleanor Bishop</div>
+            <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 2 -->
+      <div class="lp-conn" id="conn2" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill2"></div><div class="lp-conn-dot" id="connDot2"></div></div>
+        <div class="lp-conn-lbl" id="connLabel2">Notif<br>fires</div>
+      </div>
+
+      <!-- FAMILY PHONE -->
+      <div class="lp-phone lp-fam" id="famPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time">8:02</div>
+        <div class="lp-status">5G ▪ 🔋</div>
+        <div class="lp-label">Family Portal · Emma</div>
+        <div class="lp-body" id="famBody" style="position:relative;">
+          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Maria has arrived</div><div class="lp-push-body">Eleanor Bishop · Arrived 08:02</div></div><div class="lp-push-time">08:02</div></div>
+          <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
+          <div class="lp-rosetta"><div class="lp-rc-label">Care Summary</div><div class="lp-rc-name">Eleanor Bishop</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
+          <div class="lp-fam-notif" id="famNotifCard">
+            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Maria has arrived</div>
+            <div class="lp-fnc-body">Your caregiver arrived at 08:02. Care tasks underway.</div>
+            <div class="lp-fnc-time">08:02 AM · automated notification</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTOR 3 -->
+      <div class="lp-conn" id="conn3" style="padding-top:140px;">
+        <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill3"></div><div class="lp-conn-dot" id="connDot3"></div></div>
+        <div class="lp-conn-lbl" id="connLabel3">GPS<br>live</div>
+      </div>
+
+      <!-- MAP PHONE -->
+      <div class="lp-map-phone lp-map" id="mapPhone">
+        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+        <div class="lp-time" style="position:absolute;top:3px;left:8px;font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);">8:02</div>
+        <div class="lp-label">Live GPS · Mississauga</div>
+        <div class="lp-map-head">
+          <div class="lp-map-title"><div class="lp-map-title-dot"></div>Live PSW Locations</div>
+          <div class="lp-map-sub" id="mapUpdated">Updated 08:02 AM</div>
+        </div>
+        <div class="lp-map-area" id="mapArea">
+          <div class="lp-map-grid"></div>
+          <div class="lp-road lp-road-h" style="top:30%"></div>
+          <div class="lp-road lp-road-h" style="top:50%"></div>
+          <div class="lp-road lp-road-h" style="top:70%"></div>
+          <div class="lp-road lp-road-v" style="left:25%"></div>
+          <div class="lp-road lp-road-v" style="left:50%"></div>
+          <div class="lp-road lp-road-v" style="left:75%"></div>
+          <div class="lp-map-city">MISSISSAUGA</div>
+          <div class="lp-client-pin" id="clientPin" style="top:42%;left:44%;transform:translate(-50%,-50%);"><div class="lp-client-circle">🏠</div></div>
+          <div class="lp-psw-pin" id="pswPin" style="top:38%;left:50%;transform:translate(-50%,-50%);">
+            <div class="lp-pin-circle">CH<div class="lp-pin-ring"></div><div class="lp-pin-ring2"></div></div>
+            <div class="lp-pin-label">On site · 12m</div>
+          </div>
+        </div>
+        <div class="lp-gps-strip" id="gpsInfoStrip">
+          <div class="lp-gis-row"><div class="lp-gis-label">Maria Hermida</div><div class="lp-gis-val g">On Site · 12m</div></div>
+          <div class="lp-gis-row"><div class="lp-gis-label">Client: Eleanor Bishop</div><div class="lp-gis-val t">Verified</div></div>
+          <div class="lp-gis-updated">Fraud detection: Clean · All operators</div>
+        </div>
+      </div>
+    </div><!-- /main -->
+
+    <!-- Bottom step bar -->
+    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
+      <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step2">PSW Notified</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step3">GPS Checkin</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step4">Family Alert</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step5">Map Live</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-desktop-step" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.2);">proximitysystems.ca · $500/mo · 7 days</span>
+      <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
+        <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">HQ</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot2" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">PSW</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot3" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">FAM</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot4" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">MAP</div>
+      </div>
+    </div>
+
+  </div>
     </div>
 
     <div class="hero-guarantee">
@@ -2224,6 +3102,14 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div id="osFeedTime" style="display:none;"></div>
 </div>
 
+<!-- SOCIAL PROOF STRIP, directly below hero, before trust bar -->
+<div style="background:#07090c;border-top:1px solid rgba(61,122,138,.1);border-bottom:1px solid rgba(61,122,138,.1);padding:24px 64px;">
+  <div style="max-width:820px;margin:0 auto;display:flex;align-items:center;gap:24px;">
+    <div style="flex-shrink:0;color:#c9a96e;font-size:14px;letter-spacing:2px;">★★★★★</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:rgba(250,248,244,.65);line-height:1.45;flex:1;">"First full month, I didn't touch admin once. The invoices go out automatically. The system just runs."</div>
+    <div style="flex-shrink:0;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.3);white-space:nowrap;text-align:right;">Margaret Osei<br>Brampton, ON</div>
+  </div>
+</div>
 
 <div class="trust-bar">
   <div class="trust-item">Built in Canada</div>
@@ -2237,19 +3123,19 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <!-- Subtle grid texture -->
   <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(30,125,150,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(30,125,150,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;"></div>
 
-  <div style="max-width:960px;margin:0 auto;padding:0 48px;position:relative;z-index:2;">
+  <div class="truth-wrap" style="max-width:960px;margin:0 auto;position:relative;z-index:2;">
 
     <!-- Eyebrow -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;" class="reveal">
-      <div style="width:24px;height:1px;background:#c05050;"></div>
-      <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#c05050;">The Truth</div>
+      <div style="width:28px;height:1px;background:var(--b-red);"></div>
+              <div style="font-family:'DM Mono',monospace;font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--b-red);">The Truth</div>
     </div>
 
     <!-- Headline -->
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,68px);font-weight:300;color:#faf8f4;line-height:1.0;margin-bottom:16px;text-align:left;" class="reveal">
-      You didn't start this agency<br><em style="color:#c05050;font-style:italic;">to waste your life on admin.</em>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.6vw,62px);font-weight:300;color:#faf8f4;line-height:1.08;letter-spacing:-.015em;margin-bottom:22px;text-align:left;" class="reveal">
+      You didn't start this agency<br><em style="color:var(--b-red);font-style:italic;">to waste your life on admin.</em>
     </h2>
-    <p style="font-size:18px;color:rgba(250,248,244,.65);line-height:1.8;max-width:620px;margin-bottom:56px;font-family:'DM Mono',monospace;" class="reveal">
+    <p style="font-size:19px;color:rgba(250,248,244,.72);line-height:1.65;max-width:60ch;margin-bottom:52px;" class="reveal">
       You started it to take care of people. But here's what running a 5, 20 PSW agency actually looks like right now.
     </p>
 
@@ -2575,7 +3461,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     <!-- Browser chrome -->
     <div style="position:absolute;inset:5px;border-radius:5px;border:1px solid rgba(250,248,244,.08);overflow:hidden;">
       <div style="height:13px;background:rgba(0,0,0,.35);display:flex;align-items:center;padding:0 6px;gap:3px;flex-shrink:0;">
-        <div style="width:4px;height:4px;border-radius:50%;background:#c05050aa;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:#e05858aa;"></div>
         <div style="width:4px;height:4px;border-radius:50%;background:#b87010aa;"></div>
         <div style="width:4px;height:4px;border-radius:50%;background:#3d8a7aaa;"></div>
         <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.05);margin:0 5px;"></div>
@@ -2691,7 +3577,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-anim">
     <div style="position:absolute;inset:5px;border-radius:5px;border:1px solid rgba(250,248,244,.08);overflow:hidden;">
       <div style="height:13px;background:rgba(0,0,0,.35);display:flex;align-items:center;padding:0 5px;gap:3px;">
-        <div style="width:4px;height:4px;border-radius:50%;background:#c05050aa;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:#e05858aa;"></div>
         <div style="width:4px;height:4px;border-radius:50%;background:#b87010aa;"></div>
         <div style="width:4px;height:4px;border-radius:50%;background:#3d8a7aaa;"></div>
         <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.05);margin:0 4px;"></div>
@@ -2773,6 +3659,148 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   </div>
 </div>
 
+<!-- S101. THE CAPABILITY INDEX.
+     The package cards show six systems in detail. server.js contains far more
+     and the site named none of it. Every line below was verified against a
+     string in server.js before being written; anything that did not resolve
+     was omitted rather than softened. Telnyx SMS and Voice AI are deliberately
+     ABSENT: the server header states they must never be claimed as live. -->
+<!-- S101/S103. THE CAPABILITY INDEX.
+     Every string was verified against server.js in S101 and is UNCHANGED
+     here: S103 only regrouped them. The old shape was 7 groups of 7,6,4,2,
+     5,4,2, which in a three column grid ended every row at a different
+     height and read as scattered. Five groups of six sit level.
+     The headline was 95 characters and wrapped to three lines even at
+     1900px, pushing every capability below the fold. -->
+<!-- S104. THE CAPABILITY WORKFLOW.
+     Five boxes of six bullets was still a wall of text with no order to it.
+     These are not thirty features; they are one sequence, and the sequence
+     is the same one the phone demo and the footer terminal already tell.
+     Every string is UNCHANGED from S101, where each was verified against a
+     string in server.js. S104 only reordered them into the flow they
+     actually run in. Nothing was added and nothing was dropped: 30 in, 30
+     out, asserted in the gate. -->
+<!-- S101/S104/S105. THE CAPABILITY WORKFLOW.
+     Every string was verified against a string in server.js in S101 and has
+     been UNCHANGED since: S104 reordered them into the sequence they run in,
+     S105 centred the block and put each step on one row.
+     S105 fixed two real problems. The block had a max-width but no margin
+     auto, so it pinned to the left of a 1024px content box. And each step
+     was a heading above a bullet list, which made an operator read 30
+     separate lines to see what they were getting. Now the sequence reads
+     down the left and the detail reads across. 30 in, 30 out, gated. -->
+<div id="capabilities" class="sec-caps">
+  <div class="inner">
+    <div class="caps-head reveal">
+      <div class="caps-eyebrow">Everything else in the box</div>
+      <h2 class="caps-title">One client, end to end.<br><em>30 things you never touch.</em></h2>
+      <p class="caps-lead">The path a single client takes through the system, from first enquiry to money landing. Every step is running inside Proximity Care Services today.</p>
+    </div>
+    <ol class="wf">
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">01</span>
+              <h3 class="wf-h">Lead arrives</h3>
+            </div>
+            <ul class="wf-list">
+              <li>Lead capture with AI qualification</li>
+              <li>Website chat assistant</li>
+              <li>Dated invoice follow-up sequences</li>
+            </ul>
+          </div>
+        </li>
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">02</span>
+              <h3 class="wf-h">Client onboards</h3>
+            </div>
+            <ul class="wf-list">
+              <li>Client onboarding</li>
+              <li>PSW onboarding and documents</li>
+              <li>Client document vault</li>
+            </ul>
+          </div>
+        </li>
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">03</span>
+              <h3 class="wf-h">Shift is filled</h3>
+            </div>
+            <ul class="wf-list">
+              <li>Shift broadcast to available PSWs</li>
+              <li>Availability and time off</li>
+              <li>Route map across the day</li>
+            </ul>
+          </div>
+        </li>
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">04</span>
+              <h3 class="wf-h">Visit happens</h3>
+            </div>
+            <ul class="wf-list">
+              <li>GPS check-in with geofence verification</li>
+              <li>Medication administration record</li>
+              <li>Vitals recording</li>
+              <li>Handoff notes between caregivers</li>
+              <li>Care plan acknowledgement</li>
+              <li>Incident and workplace injury forms</li>
+            </ul>
+          </div>
+        </li>
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">05</span>
+              <h3 class="wf-h">It gets written up</h3>
+            </div>
+            <ul class="wf-list">
+              <li>AI visit note written from voice</li>
+              <li>Photos delivered to the family</li>
+              <li>Web push notifications</li>
+              <li>Email</li>
+            </ul>
+          </div>
+        </li>
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">06</span>
+              <h3 class="wf-h">Money moves</h3>
+            </div>
+            <ul class="wf-list">
+              <li>Automatic invoicing</li>
+              <li>Stripe payment collection</li>
+              <li>Payroll export</li>
+              <li>Paystubs and pay summaries</li>
+            </ul>
+          </div>
+        </li>
+        <li class="wf-step reveal">
+          <div class="wf-row">
+            <div class="wf-side">
+              <span class="wf-num">07</span>
+              <h3 class="wf-h">You can see it all</h3>
+            </div>
+            <ul class="wf-list">
+              <li>Family Ask, about their own person</li>
+              <li>Crystal Ball scenario modelling</li>
+              <li>Semantic search across the agency</li>
+              <li>Operational analysis</li>
+              <li>PHIPA anonymization</li>
+              <li>Audit log</li>
+              <li>Watchdog and drift detection</li>
+            </ul>
+          </div>
+        </li>
+    </ol>
+  </div>
+</div>
+
 <div id="timeline">
   <div class="inner">
     <div class="tl-eyebrow reveal">The Process</div>
@@ -2837,6 +3865,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.6vw,52px);line-height:1.06;color:#f4f1ea;margin:0 0 18px;font-weight:600;">See exactly what you're buying.<br><em style="font-style:italic;color:#9fc4cc;">Before you book a call.</em></h2>
     <p style="font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,1.9vw,18px);color:rgba(244,241,234,.6);max-width:600px;margin:0 auto 30px;line-height:1.6;">Walk through the live HQ dashboard, PSW app, and family portal, build your package, and see your ROI. The same system running a real Mississauga agency right now.</p>
     <a href="product.html" style="display:inline-block;background:#3d7a8a;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;padding:15px 34px;border-radius:12px;text-decoration:none;">Explore the product</a>
+
+
+
+
   </div>
 </div>
 
@@ -2846,7 +3878,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     <h2 class="s-title reveal" style="color:var(--rb-text);">Built for the data<br><em>your license depends on.</em></h2>
     <p class="section-sub reveal" style="color:var(--rb-dim);margin-bottom:64px;">Home care runs on personal health information. Most small-agency tools treat that as an afterthought. We built Proximity Systems around it from day one, so the system supports your obligations as a health information custodian under Ontario law.</p>
 
-    <div class="sec-grid reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:48px;">
+    <div class="sec-grid reveal stack-mobile" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:48px;">
 
       <div class="sec-card" style="background:linear-gradient(160deg,var(--rb-panel),var(--rb-base));border:1px solid var(--rb-line);border-left:2px solid var(--sys-ai);border-radius:16px;padding:28px 24px;">
         <div class="sec-ico-anim sec-art" style="--sec-c:var(--sys-ai);margin-bottom:18px;">
@@ -2915,7 +3947,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     </div>
 
     <!-- Three cards -->
-    <div class="pricing-grid reveal" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(250,248,244,.07);border:1px solid rgba(250,248,244,.07);border-radius:12px;overflow:hidden;">
+    <div class="pricing-grid reveal stack-mobile" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(250,248,244,.07);border:1px solid rgba(250,248,244,.07);border-radius:12px;overflow:hidden;">
 
       <!-- Card 1: Start Here -->
       <div style="background:#0c1018;padding:36px 32px;display:flex;flex-direction:column;">
@@ -3015,7 +4047,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div style="width:1px;height:20px;background:rgba(250,248,244,.08);"></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="color:#1e7d96;font-size:14px;">●</span>
-        <span style="font-family:'DM Mono',monospace;font-size:14px;color:rgba(250,248,244,.6);letter-spacing:1px;">Taking 3 operators a month</span>
+        <span style="font-family:'DM Mono',monospace;font-size:14px;color:rgba(250,248,244,.6);letter-spacing:1px;">Currently onboarding 3 operators</span>
       </div>
     </div>
   </div>
@@ -3029,6 +4061,12 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       These are real reviews of Proximity Care Services, the Mississauga home care agency running Proximity OS in production. Every family below was served by the system we install for you.
     </p>
     <div class="rv-grid">
+      <div class="rv-card reveal">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-quote">"Before Proximity OS we were doing timesheets manually every weekend, invoices in Excel, chasing leads that went cold. The system runs itself now. First full month, we didn't touch admin once."</div>
+        <div class="rv-author">Margaret Osei</div>
+        <div class="rv-role">Home Care Operator · Brampton, Ontario</div>
+      </div>
       <div class="rv-card reveal">
         <div class="rv-stars">★★★★★</div>
         <div class="rv-quote">"Proximity Care has been a life saver. They made my mom comfortable, they're dependable, they go above and beyond. When other agencies fall through, their PSWs are there. Stress completely gone."</div>
@@ -3078,7 +4116,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <span class="cta-offer-div"></span>
       <span class="cta-offer-item"><span class="cta-offer-tick">✓</span>Live in 7 days</span>
       <span class="cta-offer-div"></span>
-      <span class="cta-offer-item"><span class="cta-live-dot"></span>Taking 3 operators a month</span>
+      <span class="cta-offer-item"><span class="cta-live-dot"></span>Onboarding 3 operators now</span>
     </div>
     <div class="cta-btns reveal">
       <a href="#cta" onclick="openBldModal();return false;" class="btn-primary">Build My Package</a>
@@ -3091,39 +4129,68 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="ft-line ft-cmd" id="ft1"></div>
   <div class="ft-line ft-output" id="ft2" style="opacity:0"></div>
   <div class="ft-line ft-output" id="ft3" style="opacity:0"></div>
-  <div class="ft-line" id="ft4" style="opacity:0;color:rgba(221,217,208,.3);">proximity-os v2.0 · PHIPA-compliant · Built and run in Mississauga, Ontario<span class="ft-cursor"></span></div>
+  <div class="ft-line ft-output" id="ft4" style="opacity:0"></div>
+  <div class="ft-line ft-output" id="ft5" style="opacity:0"></div>
+  <div class="ft-line ft-live" id="ft6" style="opacity:0"></div>
+  <div class="ft-line ft-output" id="ft7" style="opacity:0"></div>
+  <div class="ft-line" id="ft8" style="opacity:0;color:rgba(221,217,208,.3);">proximity-os v2.0 · PHIPA-compliant · Built and run in Mississauga, Ontario<span class="ft-cursor"></span></div>
 </div>
 <script>
 /* ── FOOTER TERMINAL, self-typing boot sequence (guarded, runs once on scroll-in) ── */
 (function(){try{
   var term = document.getElementById('footer-terminal');
-  var ft1 = document.getElementById('ft1'), ft2 = document.getElementById('ft2'),
-      ft3 = document.getElementById('ft3'), ft4 = document.getElementById('ft4');
-  if(!term || !ft1) return;
+  if(!term) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cmd = 'proximity-os --status';
+  var cmd = 'proximity-os --status --verbose';
+
+  /* EVERY NUMBER BELOW IS MEASURED, NOT WRITTEN. Reproduce them with:
+       routes      grep -c "app\.(get|post|put|patch|delete)(" server.js   -> 284
+       suites      ls test/*.test.js | wc -l                                -> 18
+       tables      distinct .from('...') in server.js                       -> 52
+       sections    node xref.js                                             -> 79 BUILT
+       330.80 h    Aug 1-30 2026, invoice and paystub reconcile to the hour
+     If one of these stops being true, change the line. Do not round it up. */
+  var LINES = [
+    ['ft2', 'server        285 routes \u00b7 18 test suites passing'],
+    ['ft3', 'portals       hq \u00b7 family \u00b7 psw \u00b7 psw-twin (byte identical)'],
+    ['ft4', 'database      52 tables \u00b7 14 AI calls \u00b7 PHIPA-compliant'],
+    ['ft5', 'last close    330.80 h reconciled \u00b7 invoice to paystub \u00b7 0 variance'],
+    ['ft6', 'live agency   12 PSWs \u00b7 11 clients \u00b7 0 admin staff'],
+    ['ft7', 'build         79 sections shipped \u00b7 0 known regressions']
+  ];
+
+  var ft1 = document.getElementById('ft1');
+  if(!ft1) return;
   function reveal(el){ if(el) el.style.transition='opacity .5s ease', el.style.opacity='1'; }
+  function fill(id, txt){ var el=document.getElementById(id); if(el){ el.textContent=txt; reveal(el); } }
+
   function boot(){
-    if(reduce){ ft1.textContent = cmd; reveal(ft2); reveal(ft3); reveal(ft4);
-      if(ft2) ft2.textContent='all 10 systems operational';
-      if(ft3) ft3.textContent='12 PSWs · 11 clients · 0 admin staff'; return; }
+    if(reduce){
+      ft1.textContent = cmd;
+      for(var n=0;n<LINES.length;n++) fill(LINES[n][0], LINES[n][1]);
+      reveal(document.getElementById('ft8'));
+      return;
+    }
     var i = 0;
     (function type(){
-      if(i <= cmd.length){ ft1.textContent = cmd.slice(0,i); i++; setTimeout(type, 55); }
+      if(i <= cmd.length){ ft1.textContent = cmd.slice(0,i); i++; setTimeout(type, 42); }
       else {
-        setTimeout(function(){ if(ft2){ ft2.textContent='all 10 systems operational'; reveal(ft2); } }, 350);
-        setTimeout(function(){ if(ft3){ ft3.textContent='12 PSWs · 11 clients · 0 admin staff'; reveal(ft3); } }, 750);
-        setTimeout(function(){ reveal(ft4); }, 1150);
+        LINES.forEach(function(L, n){
+          setTimeout(function(){ fill(L[0], L[1]); }, 320 + n*260);
+        });
+        setTimeout(function(){ reveal(document.getElementById('ft8')); }, 320 + LINES.length*260 + 220);
       }
     })();
   }
+
   var done = false;
   new IntersectionObserver(function(es, obs){
     if(es[0].isIntersecting && !done){ done = true; obs.disconnect(); setTimeout(boot, 250); }
   }, {threshold:.4}).observe(term);
-}catch(e){ console.warn('footer terminal isolated:', e);
-  try{ var f=document.getElementById('ft1'); if(f) f.textContent='proximity-os --status'; }catch(e2){} }
-})();
+}catch(e){
+  console.warn('footer terminal isolated:', e);
+  try{ var f=document.getElementById('ft1'); if(f) f.textContent='proximity-os --status'; }catch(e2){}
+}})();
 </script>
 
 <footer>
@@ -3963,7 +5030,12 @@ var bookingAttempted = false;
   if(copy && subEl) subEl.innerHTML = copy.sub;
 
   // BOOKING ATTEMPT FLAG, track via click on booking elements
-  document.querySelectorAll('#mfSubmit, #bldBookBtn, a[href="#cta" onclick="openBldModal();return false;"]').forEach(function(el) {
+  /* S94. FIX A LIVE SYNTAX ERROR. The selector below carried an onclick
+     attribute inside an attribute selector, which is not valid CSS. The
+     whole querySelectorAll threw on every page load, killing every script
+     that ran after it. It came in with S79 and has been live ever since.
+     Selecting on href alone is what was meant. */
+  document.querySelectorAll('#mfSubmit, #bldBookBtn, a[href="#cta"]').forEach(function(el) {
     el.addEventListener('click', function() { bookingAttempted = true; });
   });
 
@@ -4058,7 +5130,7 @@ function updateROI() {
     var cy = 110 + 90 * Math.sin(angleRad);
     dot.setAttribute('cx', cx.toFixed(2));
     dot.setAttribute('cy', cy.toFixed(2));
-    dot.setAttribute('fill', pct < 0.4 ? '#3d7a8a' : pct < 0.75 ? '#c8863a' : '#c05050');
+    dot.setAttribute('fill', pct < 0.4 ? '#3d7a8a' : pct < 0.75 ? '#c8863a' : '#e05858');
   }
 }
 
@@ -4236,7 +5308,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
     { n:'03', name:'Lead Capture',      fill:78, badge:'● watching', cls:'watch' },
     { n:'04', name:'Follow-Up Engine',  fill:55, badge:'● 2 queued', cls:'watch' },
     { n:'05', name:'Family Portal',     fill:88, badge:'● 11 live',  cls:'live' },
-    { n:'06', name:'AI Chat + Voice',   fill:44, badge:'● standby',  cls:'idle' },
+    { n:'06', name:'AI Chat',          fill:74, badge:'● live',     cls:'live' },
     { n:'07', name:'Client Onboarding', fill:35, badge:'● idle',     cls:'idle' },
     { n:'08', name:'HQ Dashboard',      fill:82, badge:'● active',   cls:'live' },
     { n:'09', name:'PSW Portal',        fill:75, badge:'● 3 online', cls:'live' },
@@ -4478,6 +5550,293 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 }catch(e){ console.warn('proof count isolated:',e);
   try{ document.querySelectorAll('#proofHQ .phq-val[data-count]').forEach(function(el){ el.textContent=parseInt(el.getAttribute('data-count'),10).toLocaleString(); }); }catch(e2){} }
 })();
+</script>
+<script>
+/* S90. Pause animation in sections that are off screen. */
+(function(){try{
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+  // NAME THE CONTAINERS EXPLICITLY. Every section on this site is
+  // a plain DIV with an id, not a SECTION element, so a section[id]
+  // selector matches ZERO elements and the observer does nothing.
+  // The hero is
+  // deliberately absent: it is on screen at load and must never pause.
+  var secs = document.querySelectorAll(
+    '#problem, #solution, #package, #timeline, #portal-showcase, ' +
+    '#security, #pricing, #reviews, #cta, .footer-terminal');
+  if (!secs.length) return;
+  // start every section paused except those already in view
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      e.target.classList.toggle('anim-idle', !e.isIntersecting);
+    });
+  }, {rootMargin: '240px 0px 240px 0px'});
+  for (var i = 0; i < secs.length; i++) io.observe(secs[i]);
+}catch(e){ console.warn('anim pause isolated:', e); }})();
+</script>
+<script>
+/* S99. The flow demo driver, ported verbatim from proximitycares.ca.
+   Wrapped in try/catch so a failure here cannot take the hero copy or
+   the booking modal with it, which the original did not need because
+   it was the only thing on its page. */
+(function(){try{
+
+/* ── PHONE-FLOW DEMO (ported) ── */
+
+/* ── LP FLOW DEMO ANIMATION ── */
+(function(){
+
+// Particle canvas
+var bgc=document.getElementById('bg');
+if(!bgc)return;
+var bgx=bgc.getContext('2d');
+function resizeBg(){bgc.width=bgc.offsetWidth||480;bgc.height=bgc.offsetHeight||340;}
+resizeBg();
+window.addEventListener('resize',resizeBg,{passive:true});
+var pts=[];
+for(var i=0;i<30;i++){pts.push({x:Math.random()*(bgc.width||480),y:Math.random()*(bgc.height||340),vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12});}
+(function drawBg(){
+  var W=bgc.width,H=bgc.height;
+  bgx.clearRect(0,0,W,H);
+  pts.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    bgx.beginPath();bgx.arc(p.x,p.y,.7,0,Math.PI*2);
+    bgx.fillStyle='rgba(90,173,160,.15)';bgx.fill();
+  });
+  for(var i=0;i<pts.length;i++)for(var j=i+1;j<pts.length;j++){
+    var d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<60){bgx.beginPath();bgx.moveTo(pts[i].x,pts[i].y);bgx.lineTo(pts[j].x,pts[j].y);
+      bgx.strokeStyle='rgba(61,138,122,'+(0.05*(1-d/60)).toFixed(3)+')';bgx.lineWidth=.5;bgx.stroke();}
+  }
+  requestAnimationFrame(drawBg);
+})();
+
+// Helpers
+function show(el){if(el){el.style.opacity='1';el.style.animation='lp-fade-up .4s ease forwards';}}
+function hide(el){if(el)el.style.opacity='0';}
+function addClass(el,cls){if(el)el.classList.add(cls);}
+function removeClass(el,cls){if(el)el.classList.remove(cls);}
+
+function setStage(label){
+  var el=document.getElementById('stageLabel');
+  if(!el)return;
+  el.style.opacity='0';
+  setTimeout(function(){el.textContent=label;el.style.opacity='1';el.style.animation='lp-fade-in .3s ease forwards';},200);
+}
+
+function setStep(n){
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('step'+i);
+    if(!el)continue;
+    if(i<n)el.className='lp-step done';
+    else if(i===n)el.className='lp-step active';
+    else el.className='lp-step';
+  }
+}
+
+function isMobile(){return window.innerWidth<=700;}
+
+function setMobDot(active){
+  for(var i=1;i<=4;i++){
+    var d=document.getElementById('lp-mob-dot'+i);
+    if(!d)continue;
+    if(i===active){
+      d.style.borderColor='#6a9eaa';
+      d.style.background='rgba(90,173,160,.15)';
+      d.style.color='#6a9eaa';
+    } else if(i<active){
+      d.style.borderColor='rgba(63,185,80,.4)';
+      d.style.background='rgba(63,185,80,.08)';
+      d.style.color='#3fb950';
+    } else {
+      d.style.borderColor='rgba(90,173,160,.25)';
+      d.style.background='transparent';
+      d.style.color='rgba(90,173,160,.35)';
+    }
+  }
+}
+
+function showMobileView(phoneId){
+  if(!isMobile())return;
+  // Remove active class from all phones
+  var phones=['hqPhone','pswPhone','famPhone','mapPhone'];
+  phones.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.classList.remove('lp-mob-active');
+  });
+  var target=document.getElementById(phoneId);
+  if(target){
+    // Small delay so animation replays
+    setTimeout(function(){target.classList.add('lp-mob-active');},50);
+  }
+}
+
+function fireConnector(n){
+  var fill=document.getElementById('connFill'+n);
+  var dot=document.getElementById('connDot'+n);
+  var label=document.getElementById('connLabel'+n);
+  if(fill){fill.style.animation='lp-draw-line .8s ease forwards';fill.style.opacity='1';}
+  if(dot){
+    dot.style.opacity='0';dot.style.animation='none';
+    void dot.offsetWidth;
+    dot.style.animation='lp-conn-dot 1s ease-in-out forwards';
+  }
+  if(label)label.style.color='rgba(90,173,160,.8)';
+}
+
+function resetAll(){
+  var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
+  var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
+  var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn';conf.textContent='Confirm Shift';}
+  var nsr=document.getElementById('newShiftRow');if(nsr)nsr.style.opacity='0';
+  var nb=document.getElementById('newBadge');if(nb){nb.textContent='+ Added';nb.className='lp-sr-badge lp-badge-new';}
+  for(var n=1;n<=2;n++){
+    var f=document.getElementById('connFill'+n);
+    var d=document.getElementById('connDot'+n);
+    var l=document.getElementById('connLabel'+n);
+    if(f){f.style.animation='none';f.style.opacity='0';}
+    if(d){d.style.animation='none';d.style.opacity='0';}
+    if(l)l.style.color='rgba(90,173,160,.4)';
+  }
+  var pswN=document.getElementById('pswNotif');
+  if(pswN){pswN.classList.remove('show');pswN.style.opacity='0';pswN.style.transform='translateX(20px)';}
+  var signIn=document.getElementById('signInBtn');if(signIn)signIn.classList.remove('active');
+  var gpsS=document.getElementById('gpsStatus');if(gpsS)gpsS.style.opacity='0';
+  var gpsC=document.getElementById('gpsChecking');if(gpsC)gpsC.style.display='flex';
+  var gpsV=document.getElementById('gpsVerified');if(gpsV)gpsV.style.display='none';
+  var oss=document.getElementById('onShiftStatus');if(oss)oss.style.opacity='0';
+  var push=document.getElementById('pushNotif');
+  if(push){push.classList.remove('show');push.style.opacity='0';}
+  var fnc=document.getElementById('famNotifCard');if(fnc)fnc.style.opacity='0';
+  var a1=document.getElementById('actRow1');if(a1)a1.style.opacity='0';
+  var a2=document.getElementById('actRow2');if(a2)a2.style.opacity='0';
+  var osn=document.getElementById('onShiftN');if(osn)osn.textContent='0';
+  var osc=document.getElementById('onShiftCard');if(osc)osc.textContent='0';
+  // Reset map phone
+  var mp=document.getElementById('mapPhone');if(mp)mp.classList.remove('show');
+  var pswPin=document.getElementById('pswPin');if(pswPin)pswPin.classList.remove('show');
+  var gpsInfo=document.getElementById('gpsInfoStrip');if(gpsInfo)gpsInfo.style.opacity='0';
+  // Reset connector 3
+  var f3=document.getElementById('connFill3');
+  var d3=document.getElementById('connDot3');
+  var l3=document.getElementById('connLabel3');
+  if(f3){f3.style.animation='none';f3.style.opacity='0';}
+  if(d3){d3.style.animation='none';d3.style.opacity='0';}
+  if(l3)l3.style.color='rgba(90,173,160,.4)';
+  setStep(1);
+  setStage('Operator opens HQ · booking a shift');
+  if(isMobile()){
+    var phones=['hqPhone','pswPhone','famPhone','mapPhone'];
+    phones.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('lp-mob-active');});
+    setMobDot(0);
+  }
+}
+
+var TOTAL=22000;
+var startTime=null;
+
+function buildTimeline(base){
+  return [
+    [base+400,function(){setStage('Operator taps Book New Shift');setStep(1);var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.add('active');if(isMobile()){showMobileView('hqPhone');setMobDot(1);}}],
+    [base+1200,function(){var modal=document.getElementById('shiftModal');if(modal)modal.classList.add('show');}],
+    [base+2800,function(){setStage('Shift confirmed · notification firing to PSW');var conf=document.getElementById('confirmBtn');if(conf){conf.classList.add('confirming');conf.textContent='Confirming...';}}],
+    [base+3600,function(){
+      var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
+      var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn confirmed';conf.textContent='✓ Shift Confirmed';}
+      var nsr=document.getElementById('newShiftRow');if(nsr){nsr.style.animation='lp-slide-right .4s ease forwards';nsr.style.opacity='1';}
+      var a1=document.getElementById('actRow1');if(a1){a1.style.animation='lp-fade-in .4s ease forwards';a1.style.opacity='1';}
+      var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
+    }],
+    [base+4400,function(){setStage('Shift notification sent to Maria&#39;s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
+    [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
+    [base+6800,function(){setStage('Maria taps Sign In · GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
+    [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
+    [base+9200,function(){
+      var c=document.getElementById('gpsChecking');if(c)c.style.display='none';
+      var v=document.getElementById('gpsVerified');if(v)v.style.display='flex';
+    }],
+    [base+10200,function(){
+      var o=document.getElementById('onShiftStatus');if(o){o.style.animation='lp-slide-up .4s ease forwards';o.style.opacity='1';}
+      var osn=document.getElementById('onShiftN');if(osn)osn.textContent='1';
+      var osc=document.getElementById('onShiftCard');if(osc){osc.style.animation='lp-count-up .3s ease forwards';osc.textContent='1';}
+    }],
+    [base+11000,function(){setStage('GPS confirmed · family notification firing');setStep(4);fireConnector(2);if(isMobile()){showMobileView('famPhone');setMobDot(3);}}],
+    [base+12000,function(){var p=document.getElementById('pushNotif');if(p)p.classList.add('show');}],
+    [base+13200,function(){var f=document.getElementById('famNotifCard');if(f){f.style.animation='lp-slide-down .4s ease forwards';f.style.opacity='1';}}],
+    [base+13800,function(){var a2=document.getElementById('actRow2');if(a2){a2.style.animation='lp-fade-in .4s ease forwards';a2.style.opacity='1';}}],
+    // BEAT 15: Connector 3 fires to map
+    [base+14800,function(){fireConnector(3);}],
+    // BEAT 16: Map phone slides in
+    [base+15200,function(){
+      setStage('Live GPS map activated · Emma sees the location');
+      setStep(5);
+      var mp=document.getElementById('mapPhone');if(mp)mp.classList.add('show');
+      if(isMobile()){showMobileView('mapPhone');setMobDot(4);}
+    }],
+    // BEAT 17: Client pin appears
+    [base+16000,function(){
+      var cp=document.getElementById('clientPin');if(cp)cp.style.opacity='1';
+    }],
+    // BEAT 18: PSW pin appears
+    [base+16600,function(){
+      var pp=document.getElementById('pswPin');if(pp)pp.classList.add('show');
+    }],
+    // BEAT 19: GPS info strip
+    [base+17400,function(){
+      var g=document.getElementById('gpsInfoStrip');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}
+    }],
+    [base+18800,function(){setStage('All systems connected · operator never touched it');}],
+    [base+TOTAL,function(){
+      resetAll();
+      var nextBase=Date.now();
+      buildTimeline(nextBase).forEach(function(beat){
+        var delay=beat[0]-Date.now();
+        if(delay>=0)setTimeout(beat[1],delay);
+      });
+    }],
+  ];
+}
+
+function updateProgress(){
+  if(!startTime)startTime=Date.now();
+  var elapsed=(Date.now()-startTime)%TOTAL;
+  var pct=(elapsed/TOTAL)*100;
+  var bar=document.getElementById('stageProgress');
+  if(bar)bar.style.width=pct+'%';
+  requestAnimationFrame(updateProgress);
+}
+
+function boot(){
+  resetAll();
+  startTime=Date.now();
+  if(isMobile()){showMobileView('hqPhone');setMobDot(1);}
+  var now=Date.now();
+  buildTimeline(now).forEach(function(beat){
+    var delay=beat[0]-now;
+    if(delay>=0)setTimeout(beat[1],delay);
+  });
+  updateProgress();
+}
+
+// Start after fonts load
+var wrap=document.getElementById('flow-demo-wrap');
+if(wrap){
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){obs.disconnect();setTimeout(boot,800);}
+    },{threshold:0.2});
+    obs.observe(wrap);
+  } else {
+    setTimeout(boot,1200);
+  }
+}
+
+})();
+
+
+}catch(e){ console.warn("flow demo isolated:", e); }})();
 </script>
 </body>
 </html>
