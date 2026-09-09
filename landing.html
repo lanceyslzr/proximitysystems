@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proximity Systems — Your Agency. Automated in 7 Days.</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -23,7 +23,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#fff;text-decoration:none}
 .nav-logo em{color:var(--teal-lt);font-style:italic}
-.nav-cta{background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:9px 18px;border-radius:5px;text-decoration:none;min-height:36px;display:flex;align-items:center;transition:background 0.2s}
+.nav-cta{background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:9px 18px;border-radius:5px;text-decoration:none;min-height:44px;display:flex;align-items:center;transition:background 0.2s}
 .nav-cta:active{background:#2d6a7a}
 
 /* ANN */
@@ -604,14 +604,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .bld-success-sub{font-size:13px;color:var(--text-dim);line-height:1.7}
 
 /* RESPONSIVE */
-
-  .bld-mobile-bar{display:flex}
-  .bld-grid{grid-template-columns:1fr}
-  #builder .sec{padding:60px 0 100px}
-}
-
-  .bld-grid{grid-template-columns:1fr 1fr}
-}
+/* S110. TWO @media OPENING LINES WERE MISSING HERE, leaving orphaned rules
+   and two stray closing braces at top level. Every selector in the block
+   targeted something that does not exist in this markup: #builder,
+   .bld-grid and .bld-mobile-bar are all absent, the same orphaned builder
+   that moved to product.html on the systems site. Browsers ignore a stray
+   top-level }, so nothing was visibly broken, but it was dead code with
+   broken syntax. Removed rather than repaired. */
 
 
 
@@ -1209,7 +1208,7 @@ button,a,[onclick]{touch-action:manipulation;}
 .lp-fam-brand span{color:#5aada0}
 .lp-fam-sub{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.25);letter-spacing:.8px}
 
-.lp-rosetta{margin:6px;background:linear-gradient(135deg,rgba(61,138,122,.22),rgba(30,90,80,.1));border:1px solid rgba(90,173,160,.25);padding:7px}
+.lp-client-card{margin:6px;background:linear-gradient(135deg,rgba(61,138,122,.22),rgba(30,90,80,.1));border:1px solid rgba(90,173,160,.25);padding:7px}
 .lp-rc-label{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
 .lp-rc-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#e8ddc8;line-height:1.1;margin-bottom:2px}
 .lp-rc-last{font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);display:flex;align-items:center;gap:4px}
@@ -1306,8 +1305,99 @@ button,a,[onclick]{touch-action:manipulation;}
   #flow-demo-wrap #main{height:370px!important;min-height:370px!important;}
 }
 
+
+
+
+  /* L1. PREFERS-REDUCED-MOTION.
+     37 keyframes, 24 of them infinite, and ZERO reduced-motion blocks. A
+     visitor with vestibular disorder, migraine or motion sensitivity has
+     this set at OS level and the page ignored it entirely.
+     Copied VERBATIM from the systems site so both pages behave identically.
+     Nothing is deleted: it neutralises animation for people who asked, and
+     everyone else sees the page unchanged. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:.001ms!important; transition-duration:.001ms!important;
+    animation-iteration-count:1!important; }
+  .hero-btn-primary::after,.nav-cta::after,.bld-cp-btn::after{ display:none!important; }
+}
+
+  /* L2. FOUR GRIDS THAT COULD NOT STACK.
+     23 multi-column grid rules sit at top level; 17 target classes absent
+     from the markup and 2 of the 6 live ones already stack. These four did
+     not. At 390px a repeat(3,1fr) strip gives each cell about 110px, and
+     .f-row, the booking form, ALREADY had two stacking rules and is not
+     listed here: my first check required the override within 900 chars of
+     an @media and missed both, so I nearly added a redundant third.
+     .pain-grid and .timeline-rail already stack and are untouched. */
+  @media(max-width:600px){
+    .pain-total-strip{grid-template-columns:1fr}
+    .final-offer-strip{grid-template-columns:1fr}
+    .lp-nv-btns{grid-template-columns:1fr}
+  }
+
+  /* L3. OVERSCROLL CONTAINMENT ON THE CHAT.
+     .chat-msgs is the scroll container, confirmed from the markup rather
+     than assumed to match the systems site. Without contain, scrolling to
+     the end of the chat scrolls the PAGE behind it. Same defect S85 fixed
+     on the systems site for the modal, overlay and chat. */
+  .chat-msgs{overscroll-behavior:contain}
+
+  /* L4. .nav-cta WAS 36px AGAINST A 44px MINIMUM.
+     Fixed IN THE ORIGINAL RULE, not with a later override. A second rule
+     would have worked by source order, but it leaves two conflicting values
+     in the file and the next person has to work out which wins.
+     This was the only real tap target under 44 on the page: the other twelve
+     flagged were orphaned .bld-* rules with zero uses in the markup.
+     The nav is height:56px, so 44 plus padding still fits. */
+
+  /* L6. PAUSE OFFSCREEN ANIMATION.
+     10 live infinite animations, none of them ever paused. On a phone that
+     is continuous compositor work whether you can see them or not.
+     SIX of the ten sit in #flow-demo-wrap, which is the hero and is on
+     screen at load: that block is DELIBERATELY NOT OBSERVED, exactly as the
+     systems site leaves its hero alone. The other four sit in sections that
+     scroll away: .eyebrow-dot across six of them, .live-dot in booking,
+     .ba-scroll-hint in systems.
+     Nothing visual changes. The same animations play at the same speed when
+     you can see them. */
+  .anim-idle, .anim-idle *{animation-play-state:paused!important}
 </style>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<link rel="canonical" href="https://proximitysystems.ca/landing.html">
+<meta name="theme-color" content="#07090c">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://proximitysystems.ca/landing.html">
+<meta property="og:title" content="Proximity Systems: Your Agency. Automated in 7 Days.">
+<meta property="og:description" content="Done-for-you AI operating system for small private pay home care agencies in Canada. GPS check-in, AI care summaries, auto invoicing, family portal.">
+<meta property="og:image" content="https://proximitysystems.ca/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Proximity Systems",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://proximitysystems.ca",
+  "description": "Done-for-you AI operating system for small private pay home care agencies in Canada.",
+  "offers": {
+    "@type": "Offer",
+    "name": "Proximity Systems",
+    "price": "500",
+    "priceCurrency": "CAD",
+    "description": "Per month. Setup quoted on the discovery call."
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Proximity Systems",
+    "url": "https://proximitysystems.ca",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Canada"
+    }
+  }
+}
+</script>
 </head>
 <body>
 <div class="lp-cursor" id="lpCursor" style="left:-100px;top:-100px;"></div>
@@ -1375,7 +1465,7 @@ button,a,[onclick]{touch-action:manipulation;}
               <div class="lphs"><div class="lphs-n">50</div><div class="lphs-l">Leads</div></div>
               <div class="lphs"><div class="lphs-n">11</div><div class="lphs-l">Clients</div></div>
               <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">On Shift</div></div>
-              <div class="lphs"><div class="lphs-n lp-amber">$1,942</div><div class="lphs-l">Billed</div></div>
+              <div class="lphs"><div class="lphs-n lp-amber">61%</div><div class="lphs-l">Margin</div></div>
             </div>
           </div>
           <div class="lp-osc"><div class="lp-osc-l">On Shift Now</div><div class="lp-osc-v" id="onShiftCard">0</div></div>
@@ -1383,7 +1473,7 @@ button,a,[onclick]{touch-action:manipulation;}
           <div class="lp-shift-row" id="newShiftRow" style="opacity:0;">
             <div class="lp-sr-time">08:00</div>
             <div class="lp-sr-dot lp-dot-new" id="newDot"></div>
-            <div class="lp-sr-info"><div class="lp-sr-name">Carolina Hermida</div><div class="lp-sr-client">Rosetta Ferrari</div></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">Maria Hermida</div><div class="lp-sr-client">Eleanor Bishop</div></div>
             <div class="lp-sr-badge lp-badge-new" id="newBadge">+ Added</div>
           </div>
           <div class="lp-shift-row">
@@ -1394,13 +1484,13 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
           <div class="lp-add-btn" id="addShiftBtn"><div class="lp-add-icon">+</div><div class="lp-add-txt">Book New Shift</div></div>
           <div class="lp-sec-lbl">Recent Activity</div>
-          <div class="lp-act-row" id="actRow1" style="opacity:0;"><div class="lp-act-badge">SCH</div><div class="lp-act-txt">Shift booked · Carolina · Rosetta Ferrari · 08:00</div><div class="lp-act-time">Just now</div></div>
-          <div class="lp-act-row" id="actRow2" style="opacity:0;"><div class="lp-act-badge">GPS</div><div class="lp-act-txt">Carolina checked in · 12m · Rosetta Ferrari</div><div class="lp-act-time">08:02</div></div>
+          <div class="lp-act-row" id="actRow1" style="opacity:0;"><div class="lp-act-badge">SCH</div><div class="lp-act-txt">Shift booked · Maria · Eleanor Bishop · 08:00</div><div class="lp-act-time">Just now</div></div>
+          <div class="lp-act-row" id="actRow2" style="opacity:0;"><div class="lp-act-badge">GPS</div><div class="lp-act-txt">Maria checked in · 12m · Eleanor Bishop</div><div class="lp-act-time">08:02</div></div>
           <div class="lp-modal" id="shiftModal">
             <div class="lp-modal-sheet">
               <div class="lp-modal-title">Book <em>Shift</em></div>
-              <div class="lp-mf"><div class="lp-mf-label">Client</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Rosetta Ferrari<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">11 clients</span></div></div>
-              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Carolina Hermida<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">Available</span></div></div>
+              <div class="lp-mf"><div class="lp-mf-label">Client</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Eleanor Bishop<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">11 clients</span></div></div>
+              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Maria Hermida<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">Available</span></div></div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px;">
                 <div class="lp-mf"><div class="lp-mf-label">Start</div><div class="lp-mf-val" style="font-size:8px;">08:00 AM</div></div>
                 <div class="lp-mf"><div class="lp-mf-label">End</div><div class="lp-mf-val" style="font-size:8px;">04:00 PM</div></div>
@@ -1422,11 +1512,11 @@ button,a,[onclick]{touch-action:manipulation;}
         <div class="lp-notch"><div class="lp-notch-bar"></div></div>
         <div class="lp-time">4:33</div>
         <div class="lp-status">5G ▪ 🔋</div>
-        <div class="lp-label">PSW Portal · Carolina</div>
+        <div class="lp-label">PSW Portal · Maria</div>
         <div class="lp-body" id="pswBody">
           <div class="lp-psw-head">
             <div class="lp-psw-av">CH</div>
-            <div><div class="lp-psw-name">Carolina Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
+            <div><div class="lp-psw-name">Maria Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
             <div class="lp-psw-earn"><div class="lp-psw-earn-n">$1,677</div><div class="lp-psw-earn-l">Earned</div></div>
           </div>
           <div class="lp-notif-banner" id="pswNotif">
@@ -1435,7 +1525,7 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
           <div class="lp-next-visit" id="nextVisitCard">
             <div class="lp-nv-label">Next Visit</div>
-            <div class="lp-nv-name">Rosetta Ferrari</div>
+            <div class="lp-nv-name">Eleanor Bishop</div>
             <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
             <div class="lp-nv-btns">
               <div class="lp-nv-btn lp-nv-nav">Navigate</div>
@@ -1449,7 +1539,7 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
           <div class="lp-oss" id="onShiftStatus">
             <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
-            <div class="lp-oss-name">Rosetta Ferrari</div>
+            <div class="lp-oss-name">Eleanor Bishop</div>
             <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
           </div>
         </div>
@@ -1468,12 +1558,12 @@ button,a,[onclick]{touch-action:manipulation;}
         <div class="lp-status">5G ▪ 🔋</div>
         <div class="lp-label">Family Portal · Connie</div>
         <div class="lp-body" id="famBody" style="position:relative;">
-          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Carolina has arrived</div><div class="lp-push-body">Rosetta Ferrari · GPS confirmed</div></div><div class="lp-push-time">08:02</div></div>
+          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Maria has arrived</div><div class="lp-push-body">Eleanor Bishop · Arrived 08:02</div></div><div class="lp-push-time">08:02</div></div>
           <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
-          <div class="lp-rosetta"><div class="lp-rc-label">Your Loved One</div><div class="lp-rc-name">Rosetta Ferrari</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
+          <div class="lp-client-card"><div class="lp-rc-label">Care Summary</div><div class="lp-rc-name">Eleanor Bishop</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
           <div class="lp-fam-notif" id="famNotifCard">
-            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Carolina has arrived</div>
-            <div class="lp-fnc-body">Visit started 08:02. GPS confirmed on site. All care tasks underway.</div>
+            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Maria has arrived</div>
+            <div class="lp-fnc-body">Your caregiver arrived at 08:02. Care tasks underway.</div>
             <div class="lp-fnc-time">08:02 AM · automated notification</div>
           </div>
         </div>
@@ -1510,8 +1600,8 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
         </div>
         <div class="lp-gps-strip" id="gpsInfoStrip">
-          <div class="lp-gis-row"><div class="lp-gis-label">Carolina Hermida</div><div class="lp-gis-val g">On Site · 12m</div></div>
-          <div class="lp-gis-row"><div class="lp-gis-label">Client: Rosetta Ferrari</div><div class="lp-gis-val t">Verified</div></div>
+          <div class="lp-gis-row"><div class="lp-gis-label">Maria Hermida</div><div class="lp-gis-val g">On Site · 12m</div></div>
+          <div class="lp-gis-row"><div class="lp-gis-label">Client: Eleanor Bishop</div><div class="lp-gis-val t">Verified</div></div>
           <div class="lp-gis-updated">Fraud detection: Clean · All operators</div>
         </div>
       </div>
@@ -2612,9 +2702,9 @@ function buildTimeline(base){
       var a1=document.getElementById('actRow1');if(a1){a1.style.animation='lp-fade-in .4s ease forwards';a1.style.opacity='1';}
       var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
     }],
-    [base+4400,function(){setStage('Shift notification sent to Carolina&#39;s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
+    [base+4400,function(){setStage('Shift notification sent to Maria&#39;s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
     [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
-    [base+6800,function(){setStage('Carolina taps Sign In — GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
+    [base+6800,function(){setStage('Maria taps Sign In — GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
     [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
     [base+9200,function(){
       var c=document.getElementById('gpsChecking');if(c)c.style.display='none';
@@ -2699,6 +2789,26 @@ if(wrap){
 })();
 </script>
 
+<script>
+/* L6. Pause animation in sections that are off screen.
+   Names the containers EXPLICITLY. A section[id] selector would match
+   nothing here, the same defect that made this observer inert on the
+   systems site until it was traced. #hero and #flow-demo-wrap are absent
+   on purpose: they are on screen at load and must keep running. */
+(function(){try{
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+  var secs = document.querySelectorAll(
+    '#pain, #timeline, #os-flow, #systems, #offer, #booking, #faq, #final');
+  if (!secs.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      e.target.classList.toggle('anim-idle', !e.isIntersecting);
+    });
+  }, {rootMargin: '240px 0px 240px 0px'});
+  for (var i = 0; i < secs.length; i++) io.observe(secs[i]);
+}catch(e){ console.warn('anim pause isolated:', e); }})();
+</script>
 </body>
 </html>
  
