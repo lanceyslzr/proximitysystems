@@ -2752,9 +2752,22 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em;
     text-transform:uppercase;color:rgba(232,220,200,.35);margin-top:1px;
   }
+  /* NAV PINNED TO THE BOTTOM OF THE FRAME.
+     Measured in a real browser: the PSW column ran 104px past a 360px frame
+     with overflow:hidden, so Home/Schedule/Documents/Messages/Clients was
+     never visible at ANY point in the 21 beat cycle, not just at the end.
+     My own additions caused it: the progress bar, Today and Recent, and
+     four extra action buttons.
+     A real phone pins its bottom nav to the viewport and lets the content
+     above scroll under it. Same here: absolute at the bottom, with the body
+     padded so nothing sits behind it. This is the portal's own behaviour,
+     not a workaround. */
+  .lp-psw .lp-body{padding-bottom:16px}
   .lp-psw-nav{
+    position:absolute;left:0;right:0;bottom:0;z-index:5;
     display:flex;justify-content:space-between;gap:2px;
-    margin-top:5px;padding-top:4px;
+    padding:4px 7px 5px;
+    background:#050608;
     border-top:1px solid rgba(86,200,245,.14);
   }
   .lp-psw-nav span{
