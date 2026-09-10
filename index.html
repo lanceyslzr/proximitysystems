@@ -2409,15 +2409,15 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 .lp-nv-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:#e8ddc8;line-height:1.1;margin-bottom:1px}
 
-.lp-nv-time{font-family:'DM Mono',monospace;font-size:7px;color:#6a9eaa}
+.lp-nv-time{font-family:'DM Mono',monospace;font-size:7px;color:#F0B549}
 
 .lp-nv-btns{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px}
 
-.lp-nv-btn{padding:4px;border:1px solid;text-align:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.lp-nv-btn{padding:4px;border:1px solid;text-align:center;font-family:'DM Mono',monospace;font-size:6px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#a6b3bf;border-color:rgba(166,179,191,.22)}
 
 .lp-nv-nav{color:rgba(90,173,160,.6);border-color:rgba(90,173,160,.2)}
 
-.lp-nv-signin{color:#3fb950;border-color:rgba(63,185,80,.35);background:rgba(63,185,80,.08)}
+.lp-nv-signin{background:linear-gradient(135deg,#56C8F5,#3DAEE0);color:#04141C;border-color:#3DAEE0;font-weight:600}
 
 .lp-nv-signin.active{background:rgba(63,185,80,.2);border-color:#3fb950}
 
@@ -2465,7 +2465,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .lp-fam-sub{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.25);letter-spacing:.8px}
 
 
-.lp-rosetta{margin:6px;background:linear-gradient(135deg,rgba(61,138,122,.22),rgba(30,90,80,.1));border:1px solid rgba(90,173,160,.25);padding:7px}
+.lp-client-card{margin:6px;background:linear-gradient(135deg,rgba(61,138,122,.22),rgba(30,90,80,.1));border:1px solid rgba(90,173,160,.25);padding:7px}
 
 .lp-rc-label{font-family:'DM Mono',monospace;font-size:5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,173,160,.5);margin-bottom:2px}
 
@@ -2723,6 +2723,126 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
      this rule uses. "On Shift Now" is real too, as ov-active-psws in the
      Overview KPIs, so that stat stays. */
   .lp-hq .lphs-n.lp-margin{color:#8dd493}
+  /* .stat-lbl in real-hq is var(--muted) #a8bfc4, not a .2 alpha wash */
+  .lp-hq .lphs-l{color:rgba(232,220,200,.3)}
+
+  /* P1. THE PSW PHONE, 1:1 WITH real-psw-portal.html.
+     The demo showed one earned figure and two buttons. The real portal has
+     four stat tiles, SIX action buttons and a Francais toggle, every one of
+     which was string-matched in that file before being written here.
+     Type stays between 4 and 6.5px: these are PICTURES OF AN APP and
+     raising the type breaks the illusion. DO_NOT_TOUCH covers it. */
+  .lp-psw-fr{
+    font-family:'DM Mono',monospace;font-size:5px;letter-spacing:.04em;
+    color:rgba(86,200,245,.7);border:1px solid rgba(86,200,245,.28);
+    border-radius:4px;padding:2px 4px;white-space:nowrap;
+  }
+  .lp-psw-stats{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;
+    background:rgba(86,200,245,.14);border:1px solid rgba(86,200,245,.14);
+    border-radius:5px;overflow:hidden;margin-bottom:5px;
+  }
+  .lp-pst{background:#050608;padding:4px 5px;text-align:center}
+  .lp-pst-n{
+    font-family:'DM Mono',monospace;font-size:6.5px;font-weight:500;
+    color:#e8ddc8;line-height:1.1;
+  }
+  .lp-pst-n.lp-pst-pay{color:#F0B549}
+  .lp-pst-l{
+    font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em;
+    text-transform:uppercase;color:rgba(232,220,200,.35);margin-top:1px;
+  }
+  .lp-psw-nav{
+    display:flex;justify-content:space-between;gap:2px;
+    margin-top:5px;padding-top:4px;
+    border-top:1px solid rgba(86,200,245,.14);
+  }
+  .lp-psw-nav span{
+    font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.06em;
+    text-transform:uppercase;color:rgba(232,220,200,.32);
+  }
+  .lp-psw-nav span.on{color:#56C8F5}
+
+  /* P2. THE FAMILY PHONE, 1:1 WITH real-family.html.
+     The ETA banner and the four visit-detail pairs were all absent from the
+     demo. Every label was string-matched in the real file before it was
+     written here. The real portal renders these as visit-detail-lbl and
+     visit-detail-val pairs under an expanded visit, which is the shape
+     copied below at mockup scale. */
+  .lp-eta{
+    display:flex;align-items:center;gap:4px;
+    background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.22);
+    border-radius:5px;padding:4px 6px;margin-bottom:5px;
+  }
+  .lp-eta-dot{
+    width:4px;height:4px;border-radius:50%;background:#34D399;flex-shrink:0;
+    animation:lp-glow-g 2s ease-in-out infinite;
+  }
+  .lp-eta-txt{
+    font-family:'DM Mono',monospace;font-size:5px;letter-spacing:.03em;
+    color:#34D399;
+  }
+  .lp-vd{
+    margin-top:5px;padding-top:5px;
+    border-top:1px solid rgba(52,211,153,.14);
+  }
+  .lp-vd-l{
+    font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em;
+    text-transform:uppercase;color:rgba(232,220,200,.35);margin-top:4px;
+  }
+  .lp-vd-v{
+    font-size:5px;line-height:1.4;color:rgba(232,220,200,.62);margin-top:1px;
+  }
+
+  /* FIT. MEASURED, not eyeballed.
+     .lp-phone 182 - 2 border - 12 margin - 2 border - 16 padding = 150px
+     inner. Two columns with a 3px gap gives 73.5px each; minus 8px padding
+     and 2px border leaves 63.5px of text space.
+     "Agree Arrival Time" is 18 characters. DM Mono advances ~0.6em, so at
+     6px that is ~64.8px: it OVERFLOWS by about 1.3px.
+     The label is verbatim from the real portal, id tnc-agreetime-btn, so
+     shortening it would break 1:1. Give it both columns instead: 150px
+     minus padding and border leaves 140px, more than double what it needs. */
+  .lp-nv-btn.lp-nv-wide{grid-column:1 / -1}
+
+  /* P4. THE SIX ELEMENTS FROM THE REFERENCE PNG.
+     Each was string-matched in real-psw-portal.html before being written:
+       the menu button, the Today's Visits progress bar (id
+       today-progress-bar, count id today-progress-count rendering "0 / 0"),
+       the client city line, and the "Today &amp; Recent" section header.
+     Widths computed against the same 150px inner box as the buttons. */
+  .lp-psw-menu{
+    font-size:6.5px;color:rgba(232,220,200,.5);
+    padding-left:3px;flex-shrink:0;
+  }
+  .lp-tprog{margin:0 0 5px}
+  .lp-tprog-top{
+    display:flex;justify-content:space-between;
+    font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.09em;
+    text-transform:uppercase;color:rgba(232,220,200,.35);margin-bottom:2px;
+  }
+  .lp-tprog-bar{
+    height:2px;border-radius:2px;background:rgba(86,200,245,.14);overflow:hidden;
+  }
+  .lp-tprog-fill{height:100%;width:0%;background:#56C8F5}
+  .lp-nv-city{
+    font-family:'DM Mono',monospace;font-size:4px;
+    color:rgba(86,200,245,.55);margin-top:1px;
+  }
+  .lp-tr-lbl{
+    font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em;
+    text-transform:uppercase;color:rgba(232,220,200,.35);
+    margin:5px 0 3px;
+  }
+  .lp-tr{
+    border-left:1px solid rgba(86,200,245,.22);
+    padding:2px 0 2px 4px;margin-bottom:2px;
+  }
+  .lp-tr-n{font-size:5px;color:rgba(232,220,200,.78);line-height:1.2}
+  .lp-tr-m{
+    font-family:'DM Mono',monospace;font-size:4px;
+    color:rgba(232,220,200,.4);margin-top:1px;
+  }
 </style>
 <style>
 @media (max-width:768px){ #security .sec-grid{ grid-template-columns:1fr !important; } #security .sec-card{ max-width:100% !important; } }
@@ -2805,7 +2925,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
   </div>
   <div id="hero-scrim" aria-hidden="true"></div>
-  <div id="hero-boot" aria-hidden="true"><span id="hero-boot-txt"></span><i></i></div>
+  <!-- REMOVED: #hero-boot. It was an EMPTY container pinned at top:50% left:50% z-index:3 with a blinking 8x15px green cursor, sitting dead centre over the phone demo on every screen. Nothing ever added its .gone class, because the boot script that was meant to type into #hero-boot-txt and then hide it does not exist in this file. It is also absent from the original live index.html, so it was introduced and orphaned. Found on a real phone, not by any gate. -->
   <!-- LEFT, Copy -->
   <div class="hero-inner">
     <div class="hero-eyebrow-new">
@@ -2868,7 +2988,8 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
             <div class="lp-stats">
               <div class="lphs"><div class="lphs-n">50</div><div class="lphs-l">Leads</div></div>
               <div class="lphs"><div class="lphs-n">11</div><div class="lphs-l">Clients</div></div>
-              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">On Shift</div></div>
+              <div class="lphs"><div class="lphs-n">7</div><div class="lphs-l">Upcoming</div></div>
+              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">Visits</div></div>
               <div class="lphs"><div class="lphs-n lp-margin">61%</div><div class="lphs-l">Margin</div></div>
             </div>
           </div>
@@ -2913,43 +3034,67 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
       <!-- PSW PHONE -->
       <div class="lp-phone lp-psw" id="pswPhone">
-        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
-        <div class="lp-time">4:33</div>
-        <div class="lp-status">5G ▪ 🔋</div>
-        <div class="lp-label">PSW Portal · Maria</div>
-        <div class="lp-body" id="pswBody">
-          <div class="lp-psw-head">
-            <div class="lp-psw-av">CH</div>
-            <div><div class="lp-psw-name">Maria Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
-            <div class="lp-psw-earn"><div class="lp-psw-earn-n">$1,677</div><div class="lp-psw-earn-l">Earned</div></div>
-          </div>
-          <div class="lp-notif-banner" id="pswNotif">
-            <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
-            <div class="lp-nb-body">Your shift on May 18 at 08:00 has been updated (8h). Check your schedule.</div>
-          </div>
-          <div class="lp-next-visit" id="nextVisitCard">
-            <div class="lp-nv-label">Next Visit</div>
-            <div class="lp-nv-name">Eleanor Bishop</div>
-            <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
-            <div class="lp-nv-btns">
-              <div class="lp-nv-btn lp-nv-nav">Navigate</div>
-              <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+          <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+          <div class="lp-time">4:33</div>
+          <div class="lp-status">5G ▪ 🔋</div>
+          <div class="lp-label">PSW Portal · Maria</div>
+          <div class="lp-body" id="pswBody">
+            <!-- P1. REBUILT 1:1 WITH real-psw-portal.html.
+                 Every label below was string-matched in that file before it
+                 was written. The four stat tiles, the six action buttons and
+                 the Francais toggle are all real and were all absent from
+                 the demo. The seven timeline ids are unchanged: pswPhone,
+                 pswNotif, signInBtn, gpsStatus, gpsChecking, gpsVerified,
+                 onShiftStatus. Type stays at mockup scale, 4 to 6.5px. -->
+            <div class="lp-psw-head">
+              <div class="lp-psw-av">MH</div>
+              <div style="flex:1"><div class="lp-psw-name">Maria Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
+              <div class="lp-psw-fr">Français</div><div class="lp-psw-menu">☰</div>
+            </div>
+            <div class="lp-psw-stats">
+              <div class="lp-pst"><div class="lp-pst-n">1</div><div class="lp-pst-l">Today</div></div>
+              <div class="lp-pst"><div class="lp-pst-n">18</div><div class="lp-pst-l">Period</div></div>
+              <div class="lp-pst"><div class="lp-pst-n">27.5h</div><div class="lp-pst-l">Hours</div></div>
+              <div class="lp-pst"><div class="lp-pst-n lp-pst-pay">$522</div><div class="lp-pst-l">Earned</div></div>
+            </div>
+            <div class="lp-tprog"><div class="lp-tprog-top"><span>Today’s Visits</span><span>0 / 1</span></div><div class="lp-tprog-bar"><div class="lp-tprog-fill"></div></div></div>
+            <div class="lp-notif-banner" id="pswNotif">
+              <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
+              <div class="lp-nb-body">Your shift on May 18 at 08:00 has been updated (8h). Check your schedule.</div>
+            </div>
+            <div class="lp-next-visit" id="nextVisitCard">
+              <div class="lp-nv-label">Next Visit</div>
+              <div class="lp-nv-name">Eleanor Bishop</div>
+              <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
+                <div class="lp-nv-city">Mississauga, Ontario</div>
+              <div class="lp-nv-btns">
+                <div class="lp-nv-btn lp-nv-nav">Navigate</div>
+                <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+                <div class="lp-nv-btn">On My Way</div>
+                <div class="lp-nv-btn">Running Late</div>
+                <div class="lp-nv-btn lp-nv-wide">Agree Arrival Time</div>
+                <div class="lp-nv-btn">Client Not Home</div>
+              </div>
+            </div>
+            <div class="lp-gps-status" id="gpsStatus">
+              <div class="lp-gps-title">GPS Verification</div>
+              <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
+              <div id="gpsVerified" style="display:none;font-family:'DM Mono',monospace;font-size:7px;color:#3fb950;">✓ Verified · 12m from address</div>
+            </div>
+            <div class="lp-oss" id="onShiftStatus">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
+              <div class="lp-oss-name">Eleanor Bishop</div>
+              <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
+            </div>
+            <div class="lp-tr-lbl">Today &amp; Recent</div>
+            <div class="lp-tr"><div class="lp-tr-n">Harold Vance</div><div class="lp-tr-m">Yesterday · 8:00 to 11:30 · 3.5h</div></div>
+            <div class="lp-tr"><div class="lp-tr-n">Edith Marsh</div><div class="lp-tr-m">Mon · 1:00 to 4:00 · 3h</div></div>
+            <div class="lp-psw-nav">
+              <span class="on">Home</span><span>Schedule</span><span>Documents</span><span>Messages</span><span>Clients</span>
             </div>
           </div>
-          <div class="lp-gps-status" id="gpsStatus">
-            <div class="lp-gps-title">GPS Verification</div>
-            <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
-            <div id="gpsVerified" style="display:none;font-family:'DM Mono',monospace;font-size:7px;color:#3fb950;">✓ Verified · 12m from address</div>
-          </div>
-          <div class="lp-oss" id="onShiftStatus">
-            <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
-            <div class="lp-oss-name">Eleanor Bishop</div>
-            <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
-          </div>
         </div>
-      </div>
-
-      <!-- CONNECTOR 2 -->
+        <!-- CONNECTOR 2 -->
       <div class="lp-conn" id="conn2" style="padding-top:140px;">
         <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill2"></div><div class="lp-conn-dot" id="connDot2"></div></div>
         <div class="lp-conn-lbl" id="connLabel2">Notif<br>fires</div>
@@ -2957,23 +3102,38 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
       <!-- FAMILY PHONE -->
       <div class="lp-phone lp-fam" id="famPhone">
-        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
-        <div class="lp-time">8:02</div>
-        <div class="lp-status">5G ▪ 🔋</div>
-        <div class="lp-label">Family Portal · Emma</div>
-        <div class="lp-body" id="famBody" style="position:relative;">
-          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Maria has arrived</div><div class="lp-push-body">Eleanor Bishop · Arrived 08:02</div></div><div class="lp-push-time">08:02</div></div>
-          <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
-          <div class="lp-rosetta"><div class="lp-rc-label">Care Summary</div><div class="lp-rc-name">Eleanor Bishop</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
-          <div class="lp-fam-notif" id="famNotifCard">
-            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Maria has arrived</div>
-            <div class="lp-fnc-body">Your caregiver arrived at 08:02. Care tasks underway.</div>
-            <div class="lp-fnc-time">08:02 AM · automated notification</div>
+          <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+          <div class="lp-time">8:02</div>
+          <div class="lp-status">5G ▪ 🔋</div>
+          <div class="lp-label">Family Portal · Emma</div>
+          <div class="lp-body" id="famBody" style="position:relative;">
+            <!-- P2. REBUILT 1:1 WITH real-family.html.
+                 Every label below was string-matched in that file first:
+                 Care Summary 2 hits, Client Mood 1, Tasks Completed 1,
+                 Medications Given 1, Health Readings 1. The ETA banner text
+                 is verbatim from id="eta-text": "Your PSW is on the way".
+                 The real portal renders these as visit-detail-lbl and
+                 visit-detail-val pairs under an expanded visit.
+                 Timeline ids famPhone, pushNotif and famNotifCard are
+                 unchanged. Type stays at mockup scale, 4 to 6.5px. -->
+            <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Maria has arrived</div><div class="lp-push-body">Eleanor Bishop · Arrived 08:02</div></div><div class="lp-push-time">08:02</div></div>
+            <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
+            <div class="lp-eta"><div class="lp-eta-dot"></div><div class="lp-eta-txt">Your PSW is on the way</div></div>
+            <div class="lp-client-card"><div class="lp-rc-label">Care Summary</div><div class="lp-rc-name">Eleanor Bishop</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
+            <div class="lp-fam-notif" id="famNotifCard">
+              <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Maria has arrived</div>
+              <div class="lp-fnc-body">Your caregiver arrived at 08:02. Care tasks underway.</div>
+              <div class="lp-fnc-time">08:02 AM · automated notification</div>
+            </div>
+            <div class="lp-vd">
+              <div class="lp-vd-l">Client Mood</div><div class="lp-vd-v">Bright, chatty all morning</div>
+              <div class="lp-vd-l">Tasks Completed</div><div class="lp-vd-v">Bathing · Breakfast · Light housekeeping</div>
+              <div class="lp-vd-l">Medications Given</div><div class="lp-vd-v">Metformin, Ramipril</div>
+              <div class="lp-vd-l">Health Readings</div><div class="lp-vd-v">BP 128/76 · HR 72 · Temp 36.6</div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- CONNECTOR 3 -->
+        <!-- CONNECTOR 3 -->
       <div class="lp-conn" id="conn3" style="padding-top:140px;">
         <div class="lp-conn-line"><div class="lp-conn-fill" id="connFill3"></div><div class="lp-conn-dot" id="connDot3"></div></div>
         <div class="lp-conn-lbl" id="connLabel3">GPS<br>live</div>
@@ -3082,7 +3242,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div class="osp-feed-section">
         <div class="osp-feed-label">Live feed · Today</div>
         <div id="ospFeed">
-          <div class="osp-feed-row"><div class="osp-feed-time">08:02</div><div class="osp-feed-text">GPS checkin · Carolina H. · client R.F. · 14m from address</div></div>
+          <div class="osp-feed-row"><div class="osp-feed-time">08:02</div><div class="osp-feed-text">GPS checkin · Maria H. · client E.B. · 14m from address</div></div>
           <div class="osp-feed-row"><div class="osp-feed-time">09:14</div><div class="osp-feed-text">AI care summary sent · family T. · visit complete</div></div>
           <div class="osp-feed-row"><div class="osp-feed-time">11:30</div><div class="osp-feed-text">Invoice auto-fired · $1,720.00 · zero manual entry</div></div>
           <div class="osp-feed-row"><div class="osp-feed-time">02:14</div><div class="osp-feed-text">Lead captured · AI qualified · discovery call booked</div></div>
@@ -3883,7 +4043,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div class="sec-card" style="background:linear-gradient(160deg,var(--rb-panel),var(--rb-base));border:1px solid var(--rb-line);border-left:2px solid var(--sys-ai);border-radius:16px;padding:28px 24px;">
         <div class="sec-ico-anim sec-art" style="--sec-c:var(--sys-ai);margin-bottom:18px;">
           <div class="sa-anon-label">AI input · anonymized</div>
-          <div class="sa-anon-row"><span class="sa-redact">█████ █████</span><span class="sa-arrow">→</span><span class="sa-clean">client R.F.</span></div>
+          <div class="sa-anon-row"><span class="sa-redact">█████ █████</span><span class="sa-arrow">→</span><span class="sa-clean">client E.B.</span></div>
           <div class="sa-anon-row"><span class="sa-redact">██ ████ ██</span><span class="sa-arrow">→</span><span class="sa-clean">123 ████ St</span></div>
           <div class="sa-anon-foot"><span class="sa-tick">✓</span>AI never sees the identity</div>
         </div>
@@ -4836,7 +4996,7 @@ document.addEventListener('keydown', function(e) {
 // OS LIVE FEED, Option B hero
 (function initOSFeed() {
   var FEED = [
-    {icon:'<svg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'2\' y=\'2\' width=\'12\' height=\'13\' rx=\'1.5\' stroke=\'#6dbdd4\' stroke-width=\'1.4\'></rect><line x1=\'5\' y1=\'6\' x2=\'11\' y2=\'6\' stroke=\'#6dbdd4\' stroke-width=\'1.2\'></line><line x1=\'5\' y1=\'9\' x2=\'11\' y2=\'9\' stroke=\'#6dbdd4\' stroke-width=\'1.2\'></line><line x1=\'5\' y1=\'12\' x2=\'9\' y2=\'12\' stroke=\'#6dbdd4\' stroke-width=\'1.2\'></line></svg>',title:'PSW Checked In - GPS Confirmed',desc:'Carolina H. · client R.F. · 8:02 AM',tag:'LIVE'},
+    {icon:'<svg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'2\' y=\'2\' width=\'12\' height=\'13\' rx=\'1.5\' stroke=\'#6dbdd4\' stroke-width=\'1.4\'></rect><line x1=\'5\' y1=\'6\' x2=\'11\' y2=\'6\' stroke=\'#6dbdd4\' stroke-width=\'1.2\'></line><line x1=\'5\' y1=\'9\' x2=\'11\' y2=\'9\' stroke=\'#6dbdd4\' stroke-width=\'1.2\'></line><line x1=\'5\' y1=\'12\' x2=\'9\' y2=\'12\' stroke=\'#6dbdd4\' stroke-width=\'1.2\'></line></svg>',title:'PSW Checked In - GPS Confirmed',desc:'Maria H. · client E.B. · 8:02 AM',tag:'LIVE'},
     {icon:'<svg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'1\' y=\'3\' width=\'14\' height=\'10\' rx=\'1.5\' stroke=\'#6dbdd4\' stroke-width=\'1.4\'></rect><polyline points=\'1,3 8,10 15,3\' stroke=\'#6dbdd4\' stroke-width=\'1.4\' stroke-linejoin=\'round\'></polyline></svg>',title:'New Lead Captured',desc:'client S.M. · Mississauga · dementia care · Call booked',tag:'AUTO'},
     {icon:'<svg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M3 1h7l4 4v10H3V1z\' stroke=\'#c9a96e\' stroke-width=\'1.4\' stroke-linejoin=\'round\'></path><path d=\'M10 1v4h4\' stroke=\'#c9a96e\' stroke-width=\'1.4\'></path><line x1=\'5\' y1=\'8\' x2=\'11\' y2=\'8\' stroke=\'#c9a96e\' stroke-width=\'1.2\'></line><line x1=\'5\' y1=\'11\' x2=\'9\' y2=\'11\' stroke=\'#c9a96e\' stroke-width=\'1.2\'></line></svg>',title:'Invoice Generated, Dual PDF',desc:'family T. · $1,720 · PSW pay stub sent',tag:'AUTO'},
     {icon:'<svg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'2\' y=\'6\' width=\'12\' height=\'5\' rx=\'2.5\' stroke=\'#6db974\' stroke-width=\'1.4\'></rect><line x1=\'8\' y1=\'6\' x2=\'8\' y2=\'11\' stroke=\'#6db974\' stroke-width=\'1.2\'></line></svg>',title:'Medication Record Submitted',desc:'Metformin given · Aspirin refused · Flagged HQ',tag:'MAR'},
