@@ -2564,11 +2564,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 .lp-gis-updated{font-family:'DM Mono',monospace;font-size:5px;color:rgba(232,220,200,.15);text-align:right;}
 
-@media(max-width:480px){
-  #flow-demo-wrap .lp-mob-active{width:180px!important;height:340px!important;}
-  #flow-demo-wrap .lp-map-phone.lp-mob-active{width:180px!important;}
-  #flow-demo-wrap #main{height:370px!important;min-height:370px!important;}
-}
+/* The 480 block was moved BELOW the 700 block. See there. */
 
   /* S99b. THE MISSING MOBILE BLOCK.
      My extraction kept only one lp media query. The @media(max-width:700px)
@@ -2620,6 +2616,20 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     white-space:nowrap!important;
   }
   #flow-demo-wrap > div:first-child{padding:0 12px!important;}
+}
+
+/* S99c. MOVED BELOW THE 700 BLOCK.
+   This sat ABOVE it, and both target "#flow-demo-wrap .lp-mob-active" with
+   !important at equal specificity, so the later 700 rule won and this one
+   was dead: the phone rendered 200x360 at every width below 480.
+   The two blocks also each won a DIFFERENT property, because #main carries
+   !important here and not there. Chrome measured the result at 390px: a
+   360px phone inside a 370px container, 5px of clearance, where landing has
+   15px because its blocks are in the right order. */
+@media(max-width:480px){
+  #flow-demo-wrap .lp-mob-active{width:180px!important;height:340px!important;}
+  #flow-demo-wrap .lp-map-phone.lp-mob-active{width:180px!important;}
+  #flow-demo-wrap #main{height:370px!important;min-height:370px!important;}
 }
 
   /* S101/S103/S104/S105. The capability workflow.
@@ -3124,7 +3134,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
     <!-- S99. The real flow demo, ported from proximitycares.ca. These are
          the three phones an operator actually gets. -->
     <div class="sys-flow-host">
-<div id="flow-demo-wrap" style="position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
+<div id="flow-demo-wrap" style="position:relative;width:100%;max-width:min(900px,100%);margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
 
     <!-- Particle canvas -->
     <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
