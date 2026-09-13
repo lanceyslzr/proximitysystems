@@ -4,8 +4,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proximity Systems — Your Agency. Automated in 7 Days.</title>
+<meta name="description" content="We build your agency's AI operating system in 7 days. GPS visit logging, automated invoicing, family portal and AI chat. You pay after you are live.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proximity Systems. Your Agency, Automated in 7 Days.</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -826,9 +827,6 @@ html.lenis{height:auto}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.35}
 
 /* CUSTOM CURSOR */
-.lp-cursor{position:fixed;width:5px;height:5px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity 0.3s}
-.lp-cursor-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(61,122,138,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.25s ease,height 0.25s ease,border-color 0.25s ease,opacity 0.3s;opacity:0}
-.lp-cursor-ring.hover{width:46px;height:46px;border-color:var(--teal)}
 
 
 /* Level 20 mobile globals */
@@ -1030,8 +1028,6 @@ button,a,[onclick]{touch-action:manipulation;}
   .sys-grid{grid-template-columns:1fr}
   .f-row{grid-template-columns:1fr}
   .hero-stats{grid-template-columns:repeat(3,1fr)}
-
-  .lp-cursor,.lp-cursor-ring{display:none}
   body{cursor:auto}
   a,button{cursor:auto}
   .hvc-feed-item:nth-child(3){display:none}
@@ -1400,8 +1396,8 @@ button,a,[onclick]{touch-action:manipulation;}
 </script>
 </head>
 <body>
-<div class="lp-cursor" id="lpCursor" style="left:-100px;top:-100px;"></div>
-<div class="lp-cursor-ring" id="lpCursorRing" style="left:-100px;top:-100px;"></div>
+
+
 
 <div class="bg-glow"></div>
 <div class="bg-grid"></div>
@@ -1459,13 +1455,16 @@ button,a,[onclick]{touch-action:manipulation;}
         <div class="lp-status">5G ▪ 🔋</div>
         <div class="lp-label">HQ · Operator Dashboard</div>
         <div class="lp-body" id="hqBody">
+        <div class="lp-tabs" aria-hidden="true"><span class="lp-tab on">Today</span><span class="lp-tab">Overview</span><span class="lp-tab">Clients</span><span class="lp-tab">PSWs</span><span class="lp-tab">Onboard</span><span class="lp-tab">Bookings</span><span class="lp-tab">Messages</span><span class="lp-tab">Visits</span><span class="lp-tab">Activity</span><span class="lp-tab">Schedule</span><span class="lp-tab">Revenue</span><span class="lp-tab">Help</span></div>
+        
           <div class="lp-hq-head">
             <div class="lp-brand">Proximity <em>HQ</em></div>
             <div class="lp-stats">
               <div class="lphs"><div class="lphs-n">50</div><div class="lphs-l">Leads</div></div>
               <div class="lphs"><div class="lphs-n">11</div><div class="lphs-l">Clients</div></div>
-              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">On Shift</div></div>
-              <div class="lphs"><div class="lphs-n lp-amber">61%</div><div class="lphs-l">Margin</div></div>
+              <div class="lphs"><div class="lphs-n">7</div><div class="lphs-l">Upcoming</div></div>
+              <div class="lphs"><div class="lphs-n lp-g" id="onShiftN">0</div><div class="lphs-l">Visits</div></div>
+              <div class="lphs"><div class="lphs-n lp-margin">61%</div><div class="lphs-l">Margin</div></div>
             </div>
           </div>
           <div class="lp-osc"><div class="lp-osc-l">On Shift Now</div><div class="lp-osc-v" id="onShiftCard">0</div></div>
@@ -1473,7 +1472,7 @@ button,a,[onclick]{touch-action:manipulation;}
           <div class="lp-shift-row" id="newShiftRow" style="opacity:0;">
             <div class="lp-sr-time">08:00</div>
             <div class="lp-sr-dot lp-dot-new" id="newDot"></div>
-            <div class="lp-sr-info"><div class="lp-sr-name">Maria Hermida</div><div class="lp-sr-client">Eleanor Bishop</div></div>
+            <div class="lp-sr-info"><div class="lp-sr-name">Maria Dela Cruz</div><div class="lp-sr-client">Eleanor Bishop</div></div>
             <div class="lp-sr-badge lp-badge-new" id="newBadge">+ Added</div>
           </div>
           <div class="lp-shift-row">
@@ -1490,7 +1489,7 @@ button,a,[onclick]{touch-action:manipulation;}
             <div class="lp-modal-sheet">
               <div class="lp-modal-title">Book <em>Shift</em></div>
               <div class="lp-mf"><div class="lp-mf-label">Client</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Eleanor Bishop<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">11 clients</span></div></div>
-              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Maria Hermida<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">Available</span></div></div>
+              <div class="lp-mf"><div class="lp-mf-label">PSW</div><div class="lp-mf-val"><div class="lp-mf-dot"></div>Maria Dela Cruz<span style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.3);margin-left:auto;">Available</span></div></div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px;">
                 <div class="lp-mf"><div class="lp-mf-label">Start</div><div class="lp-mf-val" style="font-size:8px;">08:00 AM</div></div>
                 <div class="lp-mf"><div class="lp-mf-label">End</div><div class="lp-mf-val" style="font-size:8px;">04:00 PM</div></div>
@@ -1508,42 +1507,67 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
 
       <!-- PSW PHONE -->
-      <div class="lp-phone" id="pswPhone">
-        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
-        <div class="lp-time">4:33</div>
-        <div class="lp-status">5G ▪ 🔋</div>
-        <div class="lp-label">PSW Portal · Maria</div>
-        <div class="lp-body" id="pswBody">
-          <div class="lp-psw-head">
-            <div class="lp-psw-av">CH</div>
-            <div><div class="lp-psw-name">Maria Hermida</div><div class="lp-psw-role">Personal Support Worker</div></div>
-            <div class="lp-psw-earn"><div class="lp-psw-earn-n">$1,677</div><div class="lp-psw-earn-l">Earned</div></div>
-          </div>
-          <div class="lp-notif-banner" id="pswNotif">
-            <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
-            <div class="lp-nb-body">Your shift on May 18 at 08:00 has been updated (8h). Check your schedule.</div>
-          </div>
-          <div class="lp-next-visit" id="nextVisitCard">
-            <div class="lp-nv-label">Next Visit</div>
-            <div class="lp-nv-name">Eleanor Bishop</div>
-            <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
-            <div class="lp-nv-btns">
-              <div class="lp-nv-btn lp-nv-nav">Navigate</div>
-              <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+      <div class="lp-phone lp-psw" id="pswPhone">
+          <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+          <div class="lp-time">4:33</div>
+          <div class="lp-status">5G ▪ 🔋</div>
+          <div class="lp-label">PSW Portal · Maria</div>
+          <div class="lp-body" id="pswBody">
+            <!-- P1. REBUILT 1:1 WITH real-psw-portal.html.
+                 Every label below was string-matched in that file before it
+                 was written. The four stat tiles, the six action buttons and
+                 the Francais toggle are all real and were all absent from
+                 the demo. The seven timeline ids are unchanged: pswPhone,
+                 pswNotif, signInBtn, gpsStatus, gpsChecking, gpsVerified,
+                 onShiftStatus. Type stays at mockup scale, 4 to 6.5px. -->
+            <div class="lp-psw-head">
+              <div class="lp-psw-av">MD</div>
+              <div style="flex:1"><div class="lp-psw-name">Maria Dela Cruz</div><div class="lp-psw-role">Personal Support Worker</div></div>
+              <div class="lp-psw-fr">Français</div><div class="lp-psw-menu">☰</div>
+            </div>
+            <div class="lp-psw-stats">
+              <div class="lp-pst"><div class="lp-pst-n">1</div><div class="lp-pst-l">Today</div></div>
+              <div class="lp-pst"><div class="lp-pst-n">18</div><div class="lp-pst-l">Period</div></div>
+              <div class="lp-pst"><div class="lp-pst-n">27.5h</div><div class="lp-pst-l">Hours</div></div>
+              <div class="lp-pst"><div class="lp-pst-n lp-pst-pay">$522</div><div class="lp-pst-l">Earned</div></div>
+            </div>
+            <div class="lp-tprog"><div class="lp-tprog-top"><span>Today’s Visits</span><span>0 / 1</span></div><div class="lp-tprog-bar"><div class="lp-tprog-fill"></div></div></div>
+            <div class="lp-notif-banner" id="pswNotif">
+              <div class="lp-nb-title"><div class="lp-nb-dot"></div>Schedule Update</div>
+              <div class="lp-nb-body">Your shift on May 18 at 08:00 has been updated (8h). Check your schedule.</div>
+            </div>
+            <div class="lp-next-visit" id="nextVisitCard">
+              <div class="lp-nv-label">Next Visit</div>
+              <div class="lp-nv-name">Eleanor Bishop</div>
+              <div class="lp-nv-time">08:00 · Tomorrow · 8h</div>
+                <div class="lp-nv-city">Mississauga, Ontario</div>
+              <div class="lp-nv-btns">
+                <div class="lp-nv-btn lp-nv-nav">Navigate</div>
+                <div class="lp-nv-btn lp-nv-signin" id="signInBtn">Sign In →</div>
+                <div class="lp-nv-btn">On My Way</div>
+                <div class="lp-nv-btn">Running Late</div>
+                <div class="lp-nv-btn lp-nv-wide">Agree Arrival Time</div>
+                <div class="lp-nv-btn">Client Not Home</div>
+              </div>
+            </div>
+            <div class="lp-gps-status" id="gpsStatus">
+              <div class="lp-gps-title">GPS Verification</div>
+              <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
+              <div id="gpsVerified" style="display:none;font-family:'DM Mono',monospace;font-size:7px;color:#3fb950;">✓ Verified · 12m from address</div>
+            </div>
+            <div class="lp-oss" id="onShiftStatus">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
+              <div class="lp-oss-name">Eleanor Bishop</div>
+              <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
+            </div>
+            <div class="lp-tr-lbl">Today &amp; Recent</div>
+            <div class="lp-tr"><div class="lp-tr-n">Harold Vance</div><div class="lp-tr-m">Yesterday · 8:00 to 11:30 · 3.5h</div></div>
+            <div class="lp-tr"><div class="lp-tr-n">Edith Marsh</div><div class="lp-tr-m">Mon · 1:00 to 4:00 · 3h</div></div>
+            <div class="lp-psw-nav">
+              <span class="on">Home</span><span>Schedule</span><span>Documents</span><span>Messages</span><span>Clients</span>
             </div>
           </div>
-          <div class="lp-gps-status" id="gpsStatus">
-            <div class="lp-gps-title">GPS Verification</div>
-            <div id="gpsChecking" style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,220,200,.5);"><div class="lp-spinner"></div>Checking location...</div>
-            <div id="gpsVerified" style="display:none;font-family:'DM Mono',monospace;font-size:7px;color:#3fb950;">✓ Verified · 12m from address</div>
-          </div>
-          <div class="lp-oss" id="onShiftStatus">
-            <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;"><div class="lp-oss-dot"></div><div class="lp-oss-label">On Shift · Active</div></div>
-            <div class="lp-oss-name">Eleanor Bishop</div>
-            <div class="lp-oss-sub">Checked in 08:02 · 12m from address · DNR acknowledged</div>
-          </div>
         </div>
-      </div>
 
       <!-- CONNECTOR 2 -->
       <div class="lp-conn" id="conn2" style="padding-top:140px;">
@@ -1552,22 +1576,38 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
 
       <!-- FAMILY PHONE -->
-      <div class="lp-phone" id="famPhone">
-        <div class="lp-notch"><div class="lp-notch-bar"></div></div>
-        <div class="lp-time">8:02</div>
-        <div class="lp-status">5G ▪ 🔋</div>
-        <div class="lp-label">Family Portal · Connie</div>
-        <div class="lp-body" id="famBody" style="position:relative;">
-          <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Maria has arrived</div><div class="lp-push-body">Eleanor Bishop · Arrived 08:02</div></div><div class="lp-push-time">08:02</div></div>
-          <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
-          <div class="lp-client-card"><div class="lp-rc-label">Care Summary</div><div class="lp-rc-name">Eleanor Bishop</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
-          <div class="lp-fam-notif" id="famNotifCard">
-            <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Maria has arrived</div>
-            <div class="lp-fnc-body">Your caregiver arrived at 08:02. Care tasks underway.</div>
-            <div class="lp-fnc-time">08:02 AM · automated notification</div>
+      <div class="lp-phone lp-fam" id="famPhone">
+          <div class="lp-notch"><div class="lp-notch-bar"></div></div>
+          <div class="lp-time">8:02</div>
+          <div class="lp-status">5G ▪ 🔋</div>
+          <div class="lp-label">Family Portal · Emma</div>
+          <div class="lp-body" id="famBody" style="position:relative;">
+            <!-- P2. REBUILT 1:1 WITH real-family.html.
+                 Every label below was string-matched in that file first:
+                 Care Summary 2 hits, Client Mood 1, Tasks Completed 1,
+                 Medications Given 1, Health Readings 1. The ETA banner text
+                 is verbatim from id="eta-text": "Your PSW is on the way".
+                 The real portal renders these as visit-detail-lbl and
+                 visit-detail-val pairs under an expanded visit.
+                 Timeline ids famPhone, pushNotif and famNotifCard are
+                 unchanged. Type stays at mockup scale, 4 to 6.5px. -->
+            <div class="lp-push" id="pushNotif"><div class="lp-push-icon">🏠</div><div><div class="lp-push-title">Maria has arrived</div><div class="lp-push-body">Eleanor Bishop · Arrived 08:02</div></div><div class="lp-push-time">08:02</div></div>
+            <div class="lp-fam-head"><div class="lp-fam-brand">Proximity <span>Care</span></div><div class="lp-fam-sub">Family Portal</div></div>
+            <div class="lp-eta"><div class="lp-eta-dot"></div><div class="lp-eta-txt">Your PSW is on the way</div></div>
+            <div class="lp-client-card"><div class="lp-rc-label">Care Summary</div><div class="lp-rc-name">Eleanor Bishop</div><div class="lp-rc-last"><div class="lp-rc-ldot"></div>Last visit: May 15, 2026</div></div>
+            <div class="lp-fam-notif" id="famNotifCard">
+              <div class="lp-fnc-title"><div class="lp-fnc-dot"></div>Maria has arrived</div>
+              <div class="lp-fnc-body">Your caregiver arrived at 08:02. Care tasks underway.</div>
+              <div class="lp-fnc-time">08:02 AM · automated notification</div>
+            </div>
+            <div class="lp-vd">
+              <div class="lp-vd-l">Client Mood</div><div class="lp-vd-v">Bright, chatty all morning</div>
+              <div class="lp-vd-l">Tasks Completed</div><div class="lp-vd-v">Bathing · Breakfast · Light housekeeping</div>
+              <div class="lp-vd-l">Medications Given</div><div class="lp-vd-v">Metformin, Ramipril</div>
+              <div class="lp-vd-l">Health Readings</div><div class="lp-vd-v">BP 128/76 · HR 72 · Temp 36.6</div>
+            </div>
           </div>
         </div>
-      </div>
 
       <!-- CONNECTOR 3 -->
       <div class="lp-conn" id="conn3" style="padding-top:140px;">
@@ -1576,7 +1616,7 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
 
       <!-- MAP PHONE -->
-      <div class="lp-map-phone" id="mapPhone">
+      <div class="lp-map-phone lp-map" id="mapPhone">
         <div class="lp-notch"><div class="lp-notch-bar"></div></div>
         <div class="lp-time" style="position:absolute;top:3px;left:8px;font-family:'DM Mono',monospace;font-size:6px;color:rgba(232,220,200,.4);">8:02</div>
         <div class="lp-label">Live GPS · Mississauga</div>
@@ -1600,7 +1640,7 @@ button,a,[onclick]{touch-action:manipulation;}
           </div>
         </div>
         <div class="lp-gps-strip" id="gpsInfoStrip">
-          <div class="lp-gis-row"><div class="lp-gis-label">Maria Hermida</div><div class="lp-gis-val g">On Site · 12m</div></div>
+          <div class="lp-gis-row"><div class="lp-gis-label">Maria Dela Cruz</div><div class="lp-gis-val g">On Site · 12m</div></div>
           <div class="lp-gis-row"><div class="lp-gis-label">Client: Eleanor Bishop</div><div class="lp-gis-val t">Verified</div></div>
           <div class="lp-gis-updated">Fraud detection: Clean · All operators</div>
         </div>
@@ -1655,7 +1695,7 @@ button,a,[onclick]{touch-action:manipulation;}
       <div class="eyebrow-dot"></div>What Running a Home Care Agency Actually Looks Like
     </div>
     <h2 class="h2">Every week<br>you lose <em>this.</em></h2>
-    <p class="sub" style="max-width:520px;margin:0 auto 32px;">You started this agency to take care of people — not to spend your evenings doing spreadsheets. Here is where your time actually goes.</p>
+    <p class="sub" style="max-width:520px;margin:0 auto 32px;">You started this agency to take care of people, not to spend your evenings doing spreadsheets. Here is where your time actually goes.</p>
 
     <div class="pain-grid">
       <!-- Manual invoicing -->
@@ -1741,7 +1781,7 @@ button,a,[onclick]{touch-action:manipulation;}
   <div class="sec w" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>How It Works</div>
     <h2 class="h2">One call.<br>Live in <em>7 days.</em></h2>
-    <p class="sub" style="max-width:520px;margin:0 auto 40px;">We handle 100% of the setup. You tell us about your agency on a 20-minute call. We build everything. You go live on day 7 — GPS logging, invoicing, family portal, lead capture, all of it.</p>
+    <p class="sub" style="max-width:520px;margin:0 auto 40px;">We handle 100% of the setup. You tell us about your agency on a 20-minute call. We build everything. You go live on day 7 with GPS logging, invoicing, family portal, lead capture, all of it.</p>
 
     <div class="timeline-rail">
       <div class="tr-step">
@@ -1752,9 +1792,9 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
       <div class="tr-step">
         <div class="tr-num">02</div>
-        <div class="tr-day">Days 2 – 6 · We build</div>
+        <div class="tr-day">Days 2 to 6 · We build</div>
         <div class="tr-title">We configure all 10 systems</div>
-        <div class="tr-desc">GPS logging, invoicing, family portal, HQ dashboard, AI chat — all wired together for your agency.</div>
+        <div class="tr-desc">GPS logging, invoicing, family portal, HQ dashboard, AI chat, all wired together for your agency.</div>
       </div>
       <div class="tr-step">
         <div class="tr-num">03</div>
@@ -1776,7 +1816,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <!-- ── OS FLOW ANIMATION ── -->
 <section id="os-flow" style="padding:56px 0 48px;background:var(--bg);overflow:hidden;">
-  <div style="max-width:960px;margin:0 auto;padding:0 20px;">
+  <div class="w">
     <div style="text-align:center;margin-bottom:36px;">
       <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">The OS in motion</div>
       <div style="font-size:clamp(1.3rem,2.8vw,1.9rem);font-weight:600;color:var(--text);line-height:1.3;">Every visit. Automatic.</div>
@@ -1851,6 +1891,170 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 @keyframes ascBar{from{height:0;opacity:0}to{opacity:1}}
 @keyframes ascBlink{0%,100%{opacity:1}45%,55%{opacity:0}}
 @keyframes ascTyping{0%,100%{opacity:.2}50%{opacity:.8}}
+
+  /* ======================================================================
+     A VISIBLE FOCUS RING. MEASURED: this page has 10 buttons, 5 links, 10
+     inputs, a select and a textarea, and ZERO :focus-visible rules against
+     8 :focus occurrences.
+     Worse, FOUR rules declare outline:none on the form fields, so the
+     browser's own ring is suppressed and nothing replaces it. The only
+     focus styling that exists recolours a BORDER on inputs, which buttons
+     and links never get.
+     A keyboard user therefore has no idea where they are on this page.
+     --teal #3d7a8a computes to 4.01:1 on the page ground and 3.73:1 on a
+     dark field, both above the 3:1 WCAG 1.4.11 wants for a focus indicator.
+     :focus-visible means a mouse user never sees it.
+     ====================================================================== */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:2px;
+    border-radius:3px;
+  }
+  /* The four outline:none rules win on specificity over the element
+     selectors above, so the fields need their own restore. */
+  .f-input:focus-visible,.f-select:focus-visible,.f-textarea:focus-visible,
+  .chat-inp:focus-visible,
+  .mf-input:focus-visible,.mf-textarea:focus-visible{
+    outline:2px solid var(--teal)!important;
+    outline-offset:2px;
+  }
+  /* A mouse click on a field should not draw the ring, but the existing
+     border recolour still applies, so the field still reads as active. */
+  a:focus:not(:focus-visible),
+  button:focus:not(:focus-visible){outline:none;}
+
+  /* The message the guard writes. role="alert" makes a screen reader
+     announce it the moment it appears, without stealing focus. */
+  .f-error{display:none;font-size:14px;line-height:1.4;color:#e06c6c;margin-bottom:10px;}
+  .f-error.show{display:block;}
+  .f-input[aria-invalid="true"],.f-select[aria-invalid="true"],.f-textarea[aria-invalid="true"]{
+    border-color:#e06c6c!important;
+  }
+
+  /* ======================================================================
+     L8. THE SAME 107px PHONE OVERFLOW AS SYSTEMS.
+     Chrome measured it there twice, identically: .lp-body scrollHeight 437
+     vs clientHeight 330, with .lp-oss running 40px past the frame bottom
+     where overflow:hidden clips it. .lp-oss holds the Sign Out state, the
+     second half of the story.
+     Landing carries the IDENTICAL demo: same 3 phones, same 4 ids, same 21
+     beats, same 19 keyframes, same 182px frame, same
+     .lp-body{flex:1;overflow:hidden}. And the identical cause: OPACITY:0
+     STILL OCCUPIES SPACE, so the column is laid out at full height from t=0.
+     The JS sets opacity INLINE, so CSS cannot key off it. The collapse goes
+     at the four points the JS already touches; these rules are the rest
+     state and the transition. Ported verbatim from systems after verifying
+     all four points and the sibling order match.
+     ====================================================================== */
+  #gpsStatus, #onShiftStatus{
+    max-height:0;
+    overflow:hidden;
+    padding-top:0;padding-bottom:0;
+    margin-top:0;margin-bottom:0;
+    transition:max-height .4s ease, opacity .4s ease,
+               padding .4s ease, margin .4s ease;
+  }
+  #gpsStatus[style*="max-height: 90px"],
+  #onShiftStatus[style*="max-height: 90px"]{
+    padding-top:5px;padding-bottom:5px;
+    margin-top:4px;margin-bottom:4px;
+  }
+  /* #nextVisitCard has NO timeline reference at all: laid out from t=0 and
+     never revealed, so it holds its full height for the whole cycle. */
+  #nextVisitCard{
+    max-height:0;overflow:hidden;
+    padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;
+    transition:max-height .4s ease, padding .4s ease, margin .4s ease;
+  }
+  #pswNotif.show ~ #nextVisitCard{
+    max-height:120px;
+    padding-top:7px;padding-bottom:7px;
+    margin-top:4px;margin-bottom:4px;
+  }
+  @media(prefers-reduced-motion:reduce){
+    #gpsStatus, #onShiftStatus, #nextVisitCard{transition:none;}
+  }
+
+  /* ======================================================================
+     L9. THE PHONE DEMO, BROUGHT TO PARITY WITH SYSTEMS.
+     Landing carried an OLDER generation of the same demo. 43 lp- rules
+     existed on systems and not here, and only 10 of them could attach to
+     landing's markup: the other 33 needed elements that did not exist.
+     So the markup was ported first, then these rules.
+     WHAT THE 33 ADD: the HQ tab row, the PSW bottom nav and stats strip,
+     the ETA banner, visit detail rows, today's progress bar, recent visits.
+     WHAT THE 10 ADD: each phone gets its REAL portal accent instead of one
+     shared teal. HQ gold #c9a96e, PSW cyan #56C8F5, family green.
+     SAFE because the seven driven ids unique to landing, os-flow and
+     os-nodes and their five siblings, live in a SEPARATE SECTION at char
+     23,534 while the phones end at 11,910. Verified before any edit.
+     ====================================================================== */
+   .lp-phone.lp-hq{background:#07090c;border-color:rgba(201,169,110,.26)}
+   .lp-hq .lp-label{color:rgba(201,169,110,.62)}
+   .lp-hq .lp-accent,.lp-hq .lp-val{color:#c9a96e}
+   .lp-phone.lp-psw{background:#050608;border-color:rgba(86,200,245,.24)}
+   .lp-psw .lp-label{color:rgba(86,200,245,.6)}
+   .lp-psw .lp-accent,.lp-psw .lp-val{color:#56C8F5}
+   .lp-phone.lp-fam{background:#0a0e14;border-color:rgba(52,211,153,.24)}
+   .lp-fam .lp-label{color:rgba(52,211,153,.6)}
+   .lp-fam .lp-accent,.lp-fam .lp-val{color:#34D399}
+   .lp-map-phone.lp-map{background:#0a0e14;border-color:rgba(56,189,248,.24)}
+   .lp-map .lp-label{color:rgba(56,189,248,.6)}
+   .lp-tabs{ display:flex;gap:9px;overflow:hidden; padding:5px 8px 6px;margin:0 0 4px; border-bottom:1px solid rgba(201,169,110,.14); white-space:nowrap; }
+   .lp-tab{ font-family:'DM Mono',monospace;font-size:5px;letter-spacing:.06em; color:rgba(232,220,200,.34);flex-shrink:0; }
+   .lp-tab.on{color:#c9a96e;border-bottom:1px solid #c9a96e;padding-bottom:2px}
+   .lp-hq .lphs-n.lp-margin{color:#8dd493}
+   .lp-hq .lphs-l{color:rgba(232,220,200,.3)}
+   .lp-psw-fr{ font-family:'DM Mono',monospace;font-size:5px;letter-spacing:.04em; color:rgba(86,200,245,.7);border:1px solid rgba(86,200,245,.28); border-radius:4px;padding:2px 4px;white-space:nowrap; }
+   .lp-psw-stats{ display:grid;grid-template-columns:1fr 1fr;gap:1px; background:rgba(86,200,245,.14);border:1px solid rgba(86,200,245,.14); border-radius:5px;overflow:hidden;margin-bottom:5px; }
+   .lp-pst{background:#050608;padding:4px 5px;text-align:center}
+   .lp-pst-n{ font-family:'DM Mono',monospace;font-size:6.5px;font-weight:500; color:#e8ddc8;line-height:1.1; }
+   .lp-pst-n.lp-pst-pay{color:#F0B549}
+   .lp-pst-l{ font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em; text-transform:uppercase;color:rgba(232,220,200,.35);margin-top:1px; }
+   .lp-psw .lp-body{padding-bottom:16px}
+   .lp-psw-nav{ position:absolute;left:0;right:0;bottom:0;z-index:5; display:flex;justify-content:space-between;gap:2px; padding:4px 7px 5px; background:#050608; border-top:1px solid rgba(86,200,245,.14); }
+   .lp-psw-nav span{ font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.06em; text-transform:uppercase;color:rgba(232,220,200,.32); }
+   .lp-psw-nav span.on{color:#56C8F5}
+   .lp-eta{ display:flex;align-items:center;gap:4px; background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.22); border-radius:5px;padding:4px 6px;margin-bottom:5px; }
+   .lp-eta-dot{ width:4px;height:4px;border-radius:50%;background:#34D399;flex-shrink:0; animation:lp-glow-g 2s ease-in-out infinite; }
+   .lp-eta-txt{ font-family:'DM Mono',monospace;font-size:5px;letter-spacing:.03em; color:#34D399; }
+   .lp-vd{ margin-top:5px;padding-top:5px; border-top:1px solid rgba(52,211,153,.14); }
+   .lp-vd-l{ font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em; text-transform:uppercase;color:rgba(232,220,200,.35);margin-top:4px; }
+   .lp-vd-v{ font-size:5px;line-height:1.4;color:rgba(232,220,200,.62);margin-top:1px; }
+   .lp-nv-btn.lp-nv-wide{grid-column:1 / -1}
+   .lp-psw-menu{ font-size:6.5px;color:rgba(232,220,200,.5); padding-left:3px;flex-shrink:0; }
+   .lp-tprog{margin:0 0 5px}
+   .lp-tprog-top{ display:flex;justify-content:space-between; font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.09em; text-transform:uppercase;color:rgba(232,220,200,.35);margin-bottom:2px; }
+   .lp-tprog-bar{ height:2px;border-radius:2px;background:rgba(86,200,245,.14);overflow:hidden; }
+   .lp-tprog-fill{height:100%;width:0%;background:#56C8F5}
+   .lp-nv-city{ font-family:'DM Mono',monospace;font-size:4px; color:rgba(86,200,245,.55);margin-top:1px; }
+   .lp-tr-lbl{ font-family:'DM Mono',monospace;font-size:4px;letter-spacing:.1em; text-transform:uppercase;color:rgba(232,220,200,.35); margin:5px 0 3px; }
+   .lp-tr{ border-left:1px solid rgba(86,200,245,.22); padding:2px 0 2px 4px;margin-bottom:2px; }
+   .lp-tr-n{font-size:5px;color:rgba(232,220,200,.78);line-height:1.2}
+   .lp-tr-m{ font-family:'DM Mono',monospace;font-size:4px; color:rgba(232,220,200,.4);margin-top:1px; }
+
+  /* ======================================================================
+     OVERLAP. .bld-mobile-bar is position:fixed;bottom:0;z-index:200 and
+     display:flex below 600px, with padding 12px 16px around a button, so it
+     stands roughly 64px tall.
+     Nothing declares clearance for it. The last section happens to clear it
+     because .sec carries padding:72px 0 at that breakpoint, which leaves
+     about 8px. That is two unrelated numbers agreeing by coincidence: change
+     either and the bar covers the final call to action.
+     Declared explicitly here, so the clearance survives a padding change.
+     env(safe-area-inset-bottom) handles the iPhone home indicator, which
+     sits under the bar on notched devices.
+     ====================================================================== */
+  @media(max-width:599px){
+    body{
+      padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px));
+    }
+  }
 </style>
 
     <div class="asc-grid">
@@ -2147,7 +2351,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="sec w" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>Book Your Free Call</div>
     <h2 class="h2">Tell us about<br>your agency.<br><em>We handle the rest.</em></h2>
-    <p class="sub" style="max-width:480px;margin:0 auto 28px;">20-minute call with Lance. No pitch. Just the exact plan for your agency. We build first — you pay after we are live.</p>
+    <p class="sub" style="max-width:480px;margin:0 auto 28px;">20-minute call with Lance. No pitch. Just the exact plan for your agency. We build first and you pay after we are live.</p>
 
     <div class="booking-card" id="booking">
       <div class="booking-head">
@@ -2175,6 +2379,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
         <input type="hidden" id="utmCampaign" name="utm_campaign" value="">
         <input type="hidden" id="pageSrc" name="page_src" value="">
         <div class="booking-footer">
+          <div class="f-error" id="f-error" role="alert" aria-live="polite"></div>
           <button class="btn" id="f-submit" onclick="submitForm()" style="margin-bottom:8px">Book My Free Call</button>
           <div class="btn-note">Lance responds within a few hours · 647-382-8047</div>
         </div>
@@ -2206,7 +2411,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How is this different from what I already use?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Most operators use a mix of spreadsheets, WhatsApp, and generic email tools that were never built for home care. We build one connected system — visit logging talks to billing, billing talks to the family portal, leads talk to the follow-up engine. Nothing is disconnected.</div>
+        <div class="faq-a">Most operators use a mix of spreadsheets, WhatsApp, and generic email tools that were never built for home care. We build one connected system where visit logging talks to billing, billing talks to the family portal, leads talk to the follow-up engine. Nothing is disconnected.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What if it does not work for my agency?<span class="faq-icon">+</span></button>
@@ -2218,7 +2423,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is everything customized to my agency?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes. Your agency name, colors, PSW names, client list, billing rates, chatbot persona, email templates — all built for how your operation runs. Nothing is generic or shared with another agency.</div>
+        <div class="faq-a">Yes. Your agency name, colors, PSW names, client list, billing rates, chatbot persona, email templates, all built for how your operation runs. Nothing is generic or shared with another agency.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What does first month free mean?<span class="faq-icon">+</span></button>
@@ -2246,7 +2451,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
         </div>
         <div class="fos-item">
           <span class="fos-val">$0</span>
-          <span class="fos-lbl">Risk — build first</span>
+          <span class="fos-lbl">Risk, build first</span>
         </div>
       </div>
       <p class="final-risk">We build everything before you pay a cent. First month is <strong>free</strong>. Month 2 onwards is <strong>$500/mo</strong>. You can cancel after month 3. The call costs you 20 minutes. The build costs you nothing until you see it live.</p>
@@ -2302,7 +2507,31 @@ async function submitForm(){
   const city=document.getElementById('f-city').value.trim();
   const clients=document.getElementById('f-clients').value;
   const pain=document.getElementById('f-pain').value.trim();
-  if(!name||!phone||!agency||!city){alert('Please fill in your name, phone, agency name, and city.');return;}
+  var _lf=function(id){return document.getElementById(id);};
+  var _lerr=_lf('f-error');
+  var bad=[];
+  if(!name)   bad.push(['f-name','your name']);
+  if(!phone)  bad.push(['f-phone','a phone number']);
+  if(!agency) bad.push(['f-agency','your agency name']);
+  if(!city)   bad.push(['f-city','your city']);
+  // Email is optional here, but if given it must be usable: it is sent to
+  // the webhook and it is how the plan comes back.
+  if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) bad.push(['f-email','a valid email address']);
+  ['f-name','f-phone','f-agency','f-city','f-email'].forEach(function(id){
+    var el=_lf(id); if(!el) return;
+    el.setAttribute('aria-invalid', bad.some(function(b){return b[0]===id;}) ? 'true' : 'false');
+  });
+  if(bad.length){
+    if(_lerr){
+      _lerr.textContent='Please enter '+bad.map(function(b){return b[1];}).join(', ')+'.';
+      _lerr.classList.add('show');
+    }
+    // Move focus to the FIRST problem, or a keyboard user has to hunt for
+    // which of four fields the message meant.
+    var f=_lf(bad[0][0]); if(f)f.focus();
+    return;
+  }
+  if(_lerr){_lerr.textContent='';_lerr.classList.remove('show');}
   const btn=document.getElementById('f-submit');btn.disabled=true;btn.textContent='Submitting...';
   const parts=name.split(/\s+/);const first=parts.shift();const last=parts.join(' ')||'';
   try{
@@ -2409,23 +2638,9 @@ document.getElementById('chatInp').addEventListener('keydown',e=>{if(e.key==='En
 }());
 
 // CUSTOM CURSOR
-(function initCursor(){
-  if(!window.matchMedia('(pointer:fine)').matches) return;
-  var dot=document.getElementById('lpCursor');
-  var ring=document.getElementById('lpCursorRing');
-  if(!dot||!ring) return;
-  var mx=0,my=0,rx=0,ry=0,cursorVisible=false;
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX;my=e.clientY;
-    dot.style.left=mx+'px';dot.style.top=my+'px';
-    if(!cursorVisible){cursorVisible=true;dot.style.opacity='1';ring.style.opacity='1';}
-  });
-  (function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-  document.querySelectorAll('a,button,[data-hover]').forEach(function(el){
-    el.addEventListener('mouseenter',function(){ring.classList.add('hover');});
-    el.addEventListener('mouseleave',function(){ring.classList.remove('hover');});
-  });
-}());
+/* The custom cursor was removed here to match systems.html, which
+   carries none. It was visible on every desktop, hidden only below
+   599px, and drove a permanent requestAnimationFrame loop. */
 
 // BEHAVIOR ENGINE
 var lpBooked=false;
@@ -2477,8 +2692,21 @@ var lpBooked=false;
 
   // Dwell beacon — fires at 90s if no booking
   var scrollDepth=0;
+  // scrollHeight is a LAYOUT read: inside a scroll handler it forces a
+  // synchronous reflow on every event, before the browser can scroll. It
+  // only changes on resize, so it is cached here and recomputed on resize
+  // AND after load: images and fonts change document height after
+  // DOMContentLoaded, and a cache that never updates is worse than reading.
+  var _lnDocH = 0;
+  function _lnMeasure(){
+    _lnDocH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+  }
+  _lnMeasure();
+  window.addEventListener('resize', _lnMeasure, {passive:true});
+  window.addEventListener('load', _lnMeasure);
   window.addEventListener('scroll',function(){
-    var d=Math.round((window.scrollY/Math.max(1,document.body.scrollHeight-window.innerHeight))*100);
+    if(_lnDocH<=0) return;
+    var d=Math.round((window.scrollY/_lnDocH)*100);
     if(d>scrollDepth) scrollDepth=d;
   },{passive:true});
 
@@ -2656,10 +2884,10 @@ function resetAll(){
   var pswN=document.getElementById('pswNotif');
   if(pswN){pswN.classList.remove('show');pswN.style.opacity='0';pswN.style.transform='translateX(20px)';}
   var signIn=document.getElementById('signInBtn');if(signIn)signIn.classList.remove('active');
-  var gpsS=document.getElementById('gpsStatus');if(gpsS)gpsS.style.opacity='0';
+  var gpsS=document.getElementById('gpsStatus');if(gpsS){gpsS.style.opacity='0';gpsS.style.maxHeight='0';}
   var gpsC=document.getElementById('gpsChecking');if(gpsC)gpsC.style.display='flex';
   var gpsV=document.getElementById('gpsVerified');if(gpsV)gpsV.style.display='none';
-  var oss=document.getElementById('onShiftStatus');if(oss)oss.style.opacity='0';
+  var oss=document.getElementById('onShiftStatus');if(oss){oss.style.opacity='0';oss.style.maxHeight='0';}
   var push=document.getElementById('pushNotif');
   if(push){push.classList.remove('show');push.style.opacity='0';}
   var fnc=document.getElementById('famNotifCard');if(fnc)fnc.style.opacity='0';
@@ -2679,7 +2907,7 @@ function resetAll(){
   if(d3){d3.style.animation='none';d3.style.opacity='0';}
   if(l3)l3.style.color='rgba(90,173,160,.4)';
   setStep(1);
-  setStage('Operator opens HQ — booking a shift');
+  setStage('Operator opens HQ · booking a shift');
   if(isMobile()){
     var phones=['hqPhone','pswPhone','famPhone','mapPhone'];
     phones.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('lp-mob-active');});
@@ -2694,7 +2922,7 @@ function buildTimeline(base){
   return [
     [base+400,function(){setStage('Operator taps Book New Shift');setStep(1);var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.add('active');if(isMobile()){showMobileView('hqPhone');setMobDot(1);}}],
     [base+1200,function(){var modal=document.getElementById('shiftModal');if(modal)modal.classList.add('show');}],
-    [base+2800,function(){setStage('Shift confirmed — notification firing to PSW');var conf=document.getElementById('confirmBtn');if(conf){conf.classList.add('confirming');conf.textContent='Confirming...';}}],
+    [base+2800,function(){setStage('Shift confirmed · notification firing to PSW');var conf=document.getElementById('confirmBtn');if(conf){conf.classList.add('confirming');conf.textContent='Confirming...';}}],
     [base+3600,function(){
       var modal=document.getElementById('shiftModal');if(modal)modal.classList.remove('show');
       var conf=document.getElementById('confirmBtn');if(conf){conf.className='lp-confirm-btn confirmed';conf.textContent='✓ Shift Confirmed';}
@@ -2704,18 +2932,18 @@ function buildTimeline(base){
     }],
     [base+4400,function(){setStage('Shift notification sent to Maria&#39;s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
     [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
-    [base+6800,function(){setStage('Maria taps Sign In — GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
-    [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}}],
+    [base+6800,function(){setStage('Maria taps Sign In · GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
+    [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';g.style.maxHeight='90px';}}],
     [base+9200,function(){
       var c=document.getElementById('gpsChecking');if(c)c.style.display='none';
       var v=document.getElementById('gpsVerified');if(v)v.style.display='flex';
     }],
     [base+10200,function(){
-      var o=document.getElementById('onShiftStatus');if(o){o.style.animation='lp-slide-up .4s ease forwards';o.style.opacity='1';}
+      var o=document.getElementById('onShiftStatus');if(o){o.style.animation='lp-slide-up .4s ease forwards';o.style.opacity='1';o.style.maxHeight='90px';}
       var osn=document.getElementById('onShiftN');if(osn)osn.textContent='1';
       var osc=document.getElementById('onShiftCard');if(osc){osc.style.animation='lp-count-up .3s ease forwards';osc.textContent='1';}
     }],
-    [base+11000,function(){setStage('GPS confirmed — family notification firing');setStep(4);fireConnector(2);if(isMobile()){showMobileView('famPhone');setMobDot(3);}}],
+    [base+11000,function(){setStage('GPS confirmed · family notification firing');setStep(4);fireConnector(2);if(isMobile()){showMobileView('famPhone');setMobDot(3);}}],
     [base+12000,function(){var p=document.getElementById('pushNotif');if(p)p.classList.add('show');}],
     [base+13200,function(){var f=document.getElementById('famNotifCard');if(f){f.style.animation='lp-slide-down .4s ease forwards';f.style.opacity='1';}}],
     [base+13800,function(){var a2=document.getElementById('actRow2');if(a2){a2.style.animation='lp-fade-in .4s ease forwards';a2.style.opacity='1';}}],
@@ -2723,7 +2951,7 @@ function buildTimeline(base){
     [base+14800,function(){fireConnector(3);}],
     // BEAT 16: Map phone slides in
     [base+15200,function(){
-      setStage('Live GPS map activated — Connie sees the location');
+      setStage('Live GPS map activated · Emma sees the location');
       setStep(5);
       var mp=document.getElementById('mapPhone');if(mp)mp.classList.add('show');
       if(isMobile()){showMobileView('mapPhone');setMobDot(4);}
@@ -2740,7 +2968,7 @@ function buildTimeline(base){
     [base+17400,function(){
       var g=document.getElementById('gpsInfoStrip');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';}
     }],
-    [base+18800,function(){setStage('All systems connected — operator never touched it');}],
+    [base+18800,function(){setStage('All systems connected · operator never touched it');}],
     [base+TOTAL,function(){
       resetAll();
       var nextBase=Date.now();
