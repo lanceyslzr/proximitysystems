@@ -2398,6 +2398,33 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      .fos-lbl, and deleting the whole rule took a live override with it.
      Without this the final strip labels drift from 0.05em to 0.1em. */
   .fos-lbl{font-size:11px!important;letter-spacing:0.05em!important;}
+
+  /* ======================================================================
+     F2. EVERY CTA LANDED THE BOOKING CARD UNDER THE FIXED NAV.
+     MEASURED IN A REAL BROWSER: nav is position:fixed and 56px tall, 52px
+     below 600px. #booking had scroll-margin-top:0, so after the jump the
+     card sat at top:0 with its 42px header completely hidden behind the
+     nav and the section heading 257px above the fold. The first visible
+     thing was the "Your Name" label.
+     Someone clicking "Get Your 7-Day Plan" landed on a headless form.
+     scroll-margin-top is the correct tool: it offsets the scroll position
+     for THIS element only, without adding layout space.
+     The extra 24px is breathing room so the card does not sit flush under
+     the nav edge.
+     ====================================================================== */
+  #booking, #offer, [id]{scroll-margin-top:80px;}
+  @media(max-width:599px){ #booking, #offer, [id]{scroll-margin-top:76px;} }
+  /* Anchors inside the phone mockups must NOT gain a scroll offset: they
+     are never jump targets and the rule would apply to every id on the
+     page otherwise. */
+  .lp-phone [id], .lp-map-phone [id]{scroll-margin-top:0;}
+
+  /* F4. FORM LABELS WERE NOT ASSOCIATED WITH THEIR INPUTS.
+     All seven <label>s had no "for" and did not wrap their input, so a
+     screen reader announced seven unlabeled fields on the lead form. The
+     honeypot label was also announced because it is only moved offscreen,
+     not hidden from assistive tech. */
+  .f-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
 </style>
 
     <div class="asc-grid">
@@ -2704,22 +2731,22 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       <div id="bookingForm">
         <div class="booking-body">
           <div class="f-row">
-            <div class="f-group"><label class="f-label">Your Name *</label><input class="f-input" id="f-name" type="text" placeholder="Full name" autocomplete="name"></div>
-            <div class="f-group"><label class="f-label">Phone *</label><input class="f-input" id="f-phone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
+            <div class="f-group"><label class="f-label" for="f-name">Your Name *</label><input class="f-input" id="f-name" type="text" placeholder="Full name" autocomplete="name"></div>
+            <div class="f-group"><label class="f-label" for="f-phone">Phone *</label><input class="f-input" id="f-phone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
           </div>
           <div class="f-row">
-            <div class="f-group"><label class="f-label">Agency Name *</label><input class="f-input" id="f-agency" type="text" placeholder="Your agency name"></div>
-            <div class="f-group"><label class="f-label">City *</label><input class="f-input" id="f-city" type="text" placeholder="City, Province"></div>
+            <div class="f-group"><label class="f-label" for="f-agency">Agency Name *</label><input class="f-input" id="f-agency" type="text" placeholder="Your agency name"></div>
+            <div class="f-group"><label class="f-label" for="f-city">City *</label><input class="f-input" id="f-city" type="text" placeholder="City, Province"></div>
           </div>
           <div class="f-row">
-            <div class="f-group"><label class="f-label">Email</label><input class="f-input" id="f-email" type="email" placeholder="your@email.com" autocomplete="email"></div>
-            <div class="f-group"><label class="f-label">Clients Served</label><select class="f-select" id="f-clients"><option value="">Select...</option><option>Under 10</option><option>10 to 30</option><option>30 to 100</option><option>100+</option></select></div>
+            <div class="f-group"><label class="f-label" for="f-email">Email</label><input class="f-input" id="f-email" type="email" placeholder="your@email.com" autocomplete="email"></div>
+            <div class="f-group"><label class="f-label" for="f-clients">Clients Served</label><select class="f-select" id="f-clients"><option value="">Select...</option><option>Under 10</option><option>10 to 30</option><option>30 to 100</option><option>100+</option></select></div>
           </div>
-          <div class="f-group"><label class="f-label">When do you want to be live</label><select class="f-select" id="f-start"><option value="">Select...</option><option value="Within 2 weeks">Within 2 weeks</option><option value="Within a month">Within a month</option><option value="Just exploring">Just exploring</option></select></div>
+          <div class="f-group"><label class="f-label" for="f-start">When do you want to be live</label><select class="f-select" id="f-start"><option value="">Select...</option><option value="Within 2 weeks">Within 2 weeks</option><option value="Within a month">Within a month</option><option value="Just exploring">Just exploring</option></select></div>
           <!-- Honeypot. The handler checks _hp: bots fill it, humans never
                see it. The form had none, so bot submissions were landing in
                the leads table as real leads. -->
-          <div class="f-hp" aria-hidden="true"><label>Do not fill this in<input id="f-hp" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <div class="f-hp" aria-hidden="true" role="presentation"><label>Do not fill this in<input id="f-hp" type="text" tabindex="-1" autocomplete="off"></label></div>
         </div>
         <input type="hidden" id="utmSource" name="utm_source" value="">
         <input type="hidden" id="utmMedium" name="utm_medium" value="">
@@ -2753,27 +2780,27 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <h2 class="h2" style="text-align:center;">Every objection.<br><em>Answered.</em></h2>
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do I need to know anything about tech?<span class="faq-icon">+</span></button>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Do I need to know anything about tech?<span class="faq-icon">+</span></button>
         <div class="faq-a">No. We handle everything. You give us your agency details on a 20-minute call. We build, configure, test, and hand over live links. You never touch code.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How is this different from what I already use?<span class="faq-icon">+</span></button>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">How is this different from what I already use?<span class="faq-icon">+</span></button>
         <div class="faq-a">Most operators use a mix of spreadsheets, WhatsApp, and generic email tools that were never built for home care. We build one connected system where visit logging talks to billing, billing talks to the family portal, leads talk to the follow-up engine. Nothing is disconnected.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What if it does not work for my agency?<span class="faq-icon">+</span></button>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">What if it does not work for my agency?<span class="faq-icon">+</span></button>
         <div class="faq-a">We build everything first. You see all 10 systems live and working before you pay the setup invoice. If it is not right, you walk away owing nothing for the setup. We take the risk.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How long does setup actually take?<span class="faq-icon">+</span></button>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">How long does setup actually take?<span class="faq-icon">+</span></button>
         <div class="faq-a">7 days from our first call. Day 1 is the discovery call. Days 2 through 6 we build. Day 7 we hand it over with a full walkthrough. Your PSWs can log their first visit that day.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is everything customized to my agency?<span class="faq-icon">+</span></button>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Is everything customized to my agency?<span class="faq-icon">+</span></button>
         <div class="faq-a">Yes. Your agency name, colors, PSW names, client list, billing rates, chatbot persona, email templates, all built for how your operation runs. Nothing is generic or shared with another agency.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What does first month free mean?<span class="faq-icon">+</span></button>
+        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">What does first month free mean?<span class="faq-icon">+</span></button>
         <div class="faq-a">After your setup is complete, month 1 of the $500 retainer is waived. Month 2 onwards is $500 per month. You can cancel after month 3.</div>
       </div>
     </div>
@@ -2817,7 +2844,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 </footer>
 
 <!-- CHAT -->
-<button class="chat-toggle" onclick="toggleChat()" aria-label="Open chat">
+<button data-chat-toggle class="chat-toggle" onclick="toggleChat()" aria-label="Open chat">
   <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </button>
 
@@ -2827,7 +2854,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       <div class="chat-av">P</div>
       <div class="chat-head-info"><div class="chat-head-name">Proximity Systems</div><div class="chat-head-status">Online now</div></div>
     </div>
-    <button class="chat-x" onclick="toggleChat()">×</button>
+    <button data-chat-toggle class="chat-x" onclick="toggleChat()">×</button>
   </div>
   <div class="chat-msgs" id="chatMsgs"></div>
   <div class="chat-chips" id="chatChips"></div>
@@ -2853,7 +2880,7 @@ async function submitForm(){
   const agency=((document.getElementById('f-agency')||{}).value||'').trim();
   const city=((document.getElementById('f-city')||{}).value||'').trim();
   const clients=((document.getElementById('f-clients')||{}).value||'');
-  const pain=((document.getElementById('f-pain')||{}).value||'').trim();const start=((document.getElementById('f-start')||{}).value||'').trim();
+  const start=((document.getElementById('f-start')||{}).value||'').trim();
   var _lf=function(id){return document.getElementById(id);};
   var _lerr=_lf('f-error');
   var bad=[];
@@ -2882,7 +2909,7 @@ async function submitForm(){
   const btn=document.getElementById('f-submit');btn.disabled=true;btn.textContent='Submitting...';
   const parts=name.split(/\s+/);const first=parts.shift();const last=parts.join(' ')||'';
   try{
-    const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:email,city,care_needed_for:agency,care_type_interest:[clients,pain].filter(Boolean).join(' \u00b7 ')||'Not specified',urgency:(document.getElementById('f-start')||{}).value||'not specified',utm_source:(document.getElementById('utmSource')||{}).value||null,utm_medium:(document.getElementById('utmMedium')||{}).value||null,utm_campaign:(document.getElementById('utmCampaign')||{}).value||null,_hp:(document.getElementById('f-hp')||{}).value||null,source:'Proximity Systems Website'})});
+    const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:email,city,care_needed_for:agency,care_type_interest:clients||'Not specified',urgency:(document.getElementById('f-start')||{}).value||'not specified',utm_source:(document.getElementById('utmSource')||{}).value||null,utm_medium:(document.getElementById('utmMedium')||{}).value||null,utm_campaign:(document.getElementById('utmCampaign')||{}).value||null,_hp:(document.getElementById('f-hp')||{}).value||null,source:'Proximity Systems Website'})});
     if(!res.ok)throw new Error();
     document.getElementById('bookingForm').style.display='none';
     document.getElementById('bookingSuccess').classList.add('show');
@@ -2925,7 +2952,7 @@ Pricing: $3,500 setup, $500/mo recurring. First month free. 7 days to go live. W
 The 10 systems (only if asked): Visit logging, auto invoicing, lead capture, follow-up engine, family portal, AI chat, client and PSW onboarding, HQ dashboard, PSW management, converting website.`;
 
 let cH=[],cB=false,cD=false,cR=false;
-function toggleChat(){const w=document.getElementById('chatWin');w.classList.toggle('open');if(w.classList.contains('open')&&!cR){cR=true;const g="Hey. Do you run a home care agency?";addM('bot',g);cH.push({role:'assistant',content:g});showChips(['I run a home care agency','How does this work?','What does it cost?']);setTimeout(()=>document.getElementById('chatInp').focus(),300);}}
+function toggleChat(){const w=document.getElementById('chatWin');w.classList.toggle('open');const open=w.classList.contains('open');document.querySelectorAll('[data-chat-toggle]').forEach(b=>{b.setAttribute('aria-label',open?'Close chat':'Open chat');b.setAttribute('aria-expanded',open?'true':'false');});if(open){const inp=document.getElementById('chatInp');if(inp)setTimeout(()=>inp.focus(),80);}if(w.classList.contains('open')&&!cR){cR=true;const g="Hey. Do you run a home care agency?";addM('bot',g);cH.push({role:'assistant',content:g});showChips(['I run a home care agency','How does this work?','What does it cost?']);setTimeout(()=>document.getElementById('chatInp').focus(),300);}}
 function addM(role,text){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg '+role;d.innerHTML='<div class="cmsg-bub">'+text.replace(/\n/g,'<br>')+'</div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}
 function showT(){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg bot';d.id='cT';d.innerHTML='<div class="typing-ind"><div class="td"></div><div class="td"></div><div class="td"></div></div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}
 function hideT(){const e=document.getElementById('cT');if(e)e.remove();}
@@ -2964,7 +2991,7 @@ async function sendC(text){
   finally{cB=false;document.getElementById('chatSendBtn').disabled=false;}
 }
 
-function toggleFaq(btn){const i=btn.parentElement;const was=i.classList.contains("open");document.querySelectorAll(".faq-item").forEach(x=>x.classList.remove("open"));if(!was)i.classList.add("open");}
+function toggleFaq(btn){const i=btn.parentElement;const was=i.classList.contains("open");document.querySelectorAll(".faq-item").forEach(x=>{x.classList.remove("open");const b=x.querySelector(".faq-q");if(b)b.setAttribute("aria-expanded","false");});if(!was){i.classList.add("open");btn.setAttribute("aria-expanded","true");}}
 
 document.getElementById('chatInp').addEventListener('keydown',e=>{if(e.key==='Enter')doSend();});
 
@@ -3277,7 +3304,7 @@ function buildTimeline(base){
       var a1=document.getElementById('actRow1');if(a1){a1.style.animation='lp-fade-in .4s ease forwards';a1.style.opacity='1';}
       var btn=document.getElementById('addShiftBtn');if(btn)btn.classList.remove('active');
     }],
-    [base+4400,function(){setStage('Shift notification sent to Maria&#39;s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
+    [base+4400,function(){setStage('Shift notification sent to Maria’s portal');setStep(2);fireConnector(1);if(isMobile()){showMobileView('pswPhone');setMobDot(2);}}],
     [base+5400,function(){var n=document.getElementById('pswNotif');if(n)n.classList.add('show');}],
     [base+6800,function(){setStage('Maria taps Sign In · GPS verifying');setStep(3);var s=document.getElementById('signInBtn');if(s)s.classList.add('active');}],
     [base+7600,function(){var g=document.getElementById('gpsStatus');if(g){g.style.animation='lp-fade-up .4s ease forwards';g.style.opacity='1';g.style.maxHeight='90px';}}],
