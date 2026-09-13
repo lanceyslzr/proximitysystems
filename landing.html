@@ -112,7 +112,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 /* PAIN GRID */
 #pain{background:var(--bg2)}
-.pain-card:hover{border-color:rgba(224,88,88,0.28);border-top-color:var(--red)}
 
 /* TOTAL STRIP */
 
@@ -2182,7 +2181,6 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   .ann,
   .btn-note,
   .pill,
-  .pts-lbl,
   .tr-day,
   .booking-head-title,
   .booking-head-badge,
@@ -2216,10 +2214,6 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     letter-spacing:0.01em!important;
     text-transform:none!important;
     font-weight:600;
-  }
-  .pts-lbl, .fos-lbl{
-    font-size:11px!important;
-    letter-spacing:0.05em!important;
   }
   .tr-day{
     font-size:11px!important;
@@ -2399,6 +2393,11 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     color:var(--text-dim);
     opacity:.72;
   }
+
+  /* Restored after the .pts-lbl cleanup: that class shared this rule with
+     .fos-lbl, and deleting the whole rule took a live override with it.
+     Without this the final strip labels drift from 0.05em to 0.1em. */
+  .fos-lbl{font-size:11px!important;letter-spacing:0.05em!important;}
 </style>
 
     <div class="asc-grid">
