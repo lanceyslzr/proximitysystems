@@ -1069,6 +1069,7 @@ button,a,[onclick]{touch-action:manipulation;}
 .pd-stage{position:relative;width:392px;height:764px;transform-origin:top center;}
 .pd-stage .pd-phone{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;}
 .pd-stage .pd-phone.on{opacity:1;}
+@media(min-width:1240px){.pd-stage{width:1208px;display:flex;gap:16px;align-items:flex-start;}.pd-stage .pd-phone{position:relative;inset:auto;opacity:.34;filter:saturate(.55);transition:opacity .45s ease,filter .45s ease;}.pd-stage .pd-phone.on{opacity:1;filter:none;}}
 /* The wrapper carries the scaled height so the device never overruns the demo box. */
 .pd-fit{position:relative;display:flex;justify-content:center;width:100%;}
 /* Tap ripple. Demo chrome, drawn at the coordinates the capture measured on the real control. */
@@ -1892,7 +1893,7 @@ button,a,[onclick]{touch-action:manipulation;}
   </div>
 
   <!-- FULL-WIDTH FLOW DEMO -->
-  <div id="flow-demo-wrap" style="position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
+  <div id="flow-demo-wrap" style="position:relative;width:100%;max-width:min(1240px,100%);margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
 
     <!-- Particle canvas -->
     <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
@@ -3436,16 +3437,44 @@ var main = document.getElementById('main');
 var fitBox = document.getElementById('pdFit');
 if (!stage || !wrap) return;
 var phones = {}; Object.keys(DATA).forEach(function(id){ phones[id] = document.getElementById(id); PD.mount(phones[id], DATA[id]); });
+var REST = {pswPhone:'upcoming', famPhone:'recent'};
+var BG = {0:REST, 4:{pswPhone:'home'}};
+var PREBOOK = {0:1, 4:0};
+// Nothing booked today means two things the portal does not render, and this reproduces both.
+//   the next visit card   psw-portal.html: if (upcoming.length > 0 && !activeVisit) ... else display none
+//   today's schedule row  psw-portal.html: if (isToday && !activeVisit) dayRows.push(... feed tile upcoming ...)
+//   its TODAY group header psw-portal.html: if (dayRows.length) rows.push(dayLabel header) then the rows
+// The card is handled by a stylesheet rule so it survives patch(), which rebuilds the inner tree on
+// every frame. The row is handled here instead of with :has(), because a browser without :has()
+// drops the whole rule silently and the row would come back with nobody the wiser.
+function prebook(on){
+  var p = phones.pswPhone; if (!p) return;
+  p.classList.toggle('pd-prebook', on);
+  var tile = p.querySelector('.feed-tile.upcoming');
+  var row = tile && tile.closest ? tile.closest('.feed-row') : null;
+  if (!row) return;
+  row.style.display = on ? 'none' : '';
+  // The day group header is pushed only inside if (dayRows.length), so a day with no rows has no
+  // header either. Hiding the row without its header would leave a TODAY label the portal never draws.
+  var head = row.previousElementSibling;
+  if (head && head.classList && !head.classList.contains('feed-row')) head.style.display = on ? 'none' : '';
+}
+function rest(){ Object.keys(REST).forEach(function(id){ var p = phones[id]; if(!p) return; var j = PD.frameIndex(p, REST[id]); if (j >= 0) PD.show(p, j, true); });
+  prebook(true); }
+rest();
 
 // The device scales as one object, never by type: the screen stays the portal's own 390 x 762.
 function fit(){
   var avail = main.clientWidth - 32;
   var maxH = Math.max(460, Math.min(764, window.innerHeight - 260)); // 764 = 762 screen + the device's two 1px borders
-  var s = Math.min(1, avail / 392, maxH / 764);
+  var three = window.matchMedia('(min-width:1240px)').matches;
+  var stageW = three ? 1208 : 392;
+  var s = Math.min(1, avail / stageW, maxH / 764);
   stage.style.transform = 'scale(' + s + ')';
   // The scaled device still occupies 764px of layout height, so its wrapper carries the scaled
   // height. Setting the height on #main instead let the device overrun its padding box by 28px.
   fitBox.style.height = Math.ceil(764 * s) + 'px';
+  stage.style.width = stageW + 'px';
 
 }
 fit(); window.addEventListener('resize', fit, {passive:true});
@@ -3460,8 +3489,15 @@ function setStep(n){ for(var i=1;i<=4;i++){ var e=document.getElementById('step'
 var at = -1, timer = null, total = BEATS.reduce(function(a,b){return a+b[4];},0), started = 0;
 function run(i){
   var b = BEATS[i], phone = phones[b[0]], idx = PD.frameIndex(phone, b[1]);
+  var bg = BG[i]; if (bg) Object.keys(bg).forEach(function(id){
+    if (id === b[0]) return;
+    var p = phones[id]; if (!p) return;
+    var j = PD.frameIndex(p, bg[id]);
+    if (j >= 0 && p.__pd && p.__pd.at !== j) PD.show(p, j, i === 0);
+  });
+  if (PREBOOK[i] !== undefined) prebook(!!PREBOOK[i]);
   Object.keys(phones).forEach(function(id){ phones[id].classList.toggle('on', id === b[0]); });
-  PD.show(phone, idx, at < 0 || BEATS[at][0] !== b[0]);
+  PD.show(phone, idx, at < 0 || (!window.matchMedia('(min-width:1240px)').matches && BEATS[at][0] !== b[0]));
   setStage(b[3]); setStep(b[2]); at = i;
   // The tap lands on the control this frame's capture actually pressed, just before it acts.
   var f = PD.frameAt(phone, idx), next = BEATS[(i + 1) % BEATS.length];
