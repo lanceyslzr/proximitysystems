@@ -1052,7 +1052,7 @@ button,a,[onclick]{touch-action:manipulation;}
 @keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
 @keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
-.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.3);transition:color .3s}
+.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.54);transition:color .3s}
 .lp-step.active{color:#5aada0}
 .lp-step.done{color:#3fb950}
 /* Device chrome. Values reused from the live landing .lp-phone rule: 1px border, 12px radius,
@@ -1210,7 +1210,7 @@ button,a,[onclick]{touch-action:manipulation;}
         <div style="width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;">PH</div>
         Proximity<span style="color:#5aada0;font-style:italic;font-family:'Instrument Sans',system-ui,sans-serif;font-size:15px;">HQ</span>
       </div>
-      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(90,173,160,.65);transition:opacity .3s;">Initializing...</div>
+      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(120,205,190,.9);transition:opacity .3s;">Initializing...</div>
       <div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#5aada0;">
         <div style="width:5px;height:5px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px #3fb950;animation:lp-glow-g 2s infinite;"></div>Running Live
       </div>
@@ -1398,7 +1398,7 @@ button,a,[onclick]{touch-action:manipulation;}
       <div id="os-nodes" style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;position:relative;z-index:2;flex-wrap:nowrap;"></div>
     </div>
     <div style="text-align:center;margin-top:24px;min-height:44px;">
-      <div id="os-flow-desc-text" style="font-size:13px;color:rgba(232,228,220,.45);line-height:1.6;max-width:500px;margin:0 auto;transition:opacity .25s;"></div>
+      <div id="os-flow-desc-text" style="font-size:13px;color:rgba(232,228,220,.52);line-height:1.6;max-width:500px;margin:0 auto;transition:opacity .25s;"></div>
     </div>
   </div>
 </section>
@@ -1415,7 +1415,7 @@ var TEAL='var(--teal)';
 var cur=0,tmr=null,rdy=false;
 function buildNodes(){var w=document.getElementById('os-nodes');if(!w)return;w.innerHTML=STEPS.map(function(s,i){return'<div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;" onclick="osGo('+i+')"><div class="osn-icon" id="osni-'+i+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="'+s.icon+'"/></svg></div><div class="osn-label" id="osnl-'+i+'">'+s.label+'</div></div>';}).join('');}
 function drawPath(){var svg=document.getElementById('os-flow-svg');var path=document.getElementById('os-flow-path');var w=document.getElementById('os-nodes');if(!svg||!path||!w)return;var sr=svg.getBoundingClientRect();var icons=w.querySelectorAll('.osn-icon');if(!icons.length)return;var pts=[];icons.forEach(function(el){var r=el.getBoundingClientRect();pts.push({x:r.left-sr.left+r.width/2,y:r.top-sr.top+r.height/2});});if(pts.length<2)return;var d='M '+pts[0].x+' '+pts[0].y;for(var i=1;i<pts.length;i++){var mx=(pts[i-1].x+pts[i].x)/2;d+=' C '+mx+' '+pts[i-1].y+' '+mx+' '+pts[i].y+' '+pts[i].x+' '+pts[i].y;}path.setAttribute('d',d);var dot=document.getElementById('os-flow-dot');var anim=document.getElementById('os-dot-anim');if(dot&&anim){dot.setAttribute('opacity','0.9');anim.setAttribute('path',d);try{anim.beginElement();}catch(e){}}}
-window.osGo=function(i){cur=i;STEPS.forEach(function(_,idx){var ic=document.getElementById('osni-'+idx);var lb=document.getElementById('osnl-'+idx);if(!ic||!lb)return;if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor='var(--teal)';ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color='var(--teal)';lb.style.color='var(--teal)';}else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.4)';lb.style.color='rgba(232,228,220,.4)';}else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.18)';lb.style.color='rgba(232,228,220,.18)';}});var dt=document.getElementById('os-flow-desc-text');if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}};
+window.osGo=function(i){cur=i;STEPS.forEach(function(_,idx){var ic=document.getElementById('osni-'+idx);var lb=document.getElementById('osnl-'+idx);if(!ic||!lb)return;if(idx===i){ic.style.background='rgba(61,122,138,.25)';ic.style.borderColor='var(--teal)';ic.style.boxShadow='0 0 10px rgba(61,122,138,.3)';ic.style.transform='scale(1.1)';ic.style.color='var(--teal)';lb.style.color='var(--teal)';}else if(idx<i){ic.style.background='rgba(61,122,138,.1)';ic.style.borderColor='rgba(61,122,138,.3)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.4)';lb.style.color='rgba(232,228,220,.4)';}else{ic.style.background='rgba(61,122,138,.05)';ic.style.borderColor='rgba(61,122,138,.15)';ic.style.boxShadow='';ic.style.transform='scale(1)';ic.style.color='rgba(232,228,220,.52)';lb.style.color='rgba(232,228,220,.52)';}});var dt=document.getElementById('os-flow-desc-text');if(dt){dt.style.opacity='0';setTimeout(function(){dt.textContent=STEPS[i].desc;dt.style.opacity='1';},150);}};
 function tick(){osGo(cur);cur=(cur+1)%STEPS.length;}
 function init(){if(rdy)return;rdy=true;buildNodes();setTimeout(function(){drawPath();osGo(0);tmr=setInterval(tick,2400);},120);window.addEventListener('resize',function(){clearTimeout(window._osRT);window._osRT=setTimeout(drawPath,200);});}
 var sec=document.getElementById('os-flow');
@@ -1438,13 +1438,13 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 .asc{background:#0c1018;border:1px solid rgba(250,248,244,.07);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default;}
 .asc:hover{border-color:rgba(30,125,150,.35);transform:translateY(-2px);}
 .asc-head{padding:11px 14px 8px;display:flex;align-items:center;justify-content:space-between;}
-.asc-num{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(250,248,244,.2);}
+.asc-num{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(250,248,244,.47);}
 .asc-badge{font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;}
 .asc-badge.live{background:rgba(61,138,122,.12);color:#3d8a7a;border:1px solid rgba(61,138,122,.25);}
 .asc-badge.free{background:rgba(184,112,16,.1);color:#c9940f;border:1px solid rgba(184,112,16,.25);}
 .asc-anim{height:82px;position:relative;overflow:hidden;margin:0 14px;border-radius:6px;background:rgba(0,0,0,.25);}
 .asc-name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;color:rgba(250,248,244,.75);padding:10px 14px 3px;}
-.asc-desc{font-size:9px;color:rgba(250,248,244,.3);padding:0 14px 13px;line-height:1.65;}
+.asc-desc{font-size:9px;color:rgba(250,248,244,.47);padding:0 14px 13px;line-height:1.65;}
 /* keyframes */
 @keyframes ascFadeIn{from{opacity:0}to{opacity:1}}
 @keyframes ascSlideR{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
@@ -1982,7 +1982,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <!-- Check -->
     <div style="position:absolute;right:10px;top:10px;width:20px;height:20px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#3d8a7a;opacity:0;animation:ascPop .4s ease 1.1s forwards;">✓</div>
     <!-- Label -->
-    <div style="position:absolute;bottom:5px;left:10px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.2);letter-spacing:.8px;">GPS · MAR · AI note</div>
+    <div style="position:absolute;bottom:5px;left:10px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);letter-spacing:.8px;">GPS · MAR · AI note</div>
   </div>
   <div class="asc-name">Visit Logging</div>
   <div class="asc-desc">GPS check-in · Medication record · AI visit note · 60s</div>
@@ -2004,7 +2004,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <!-- Arrow + sent -->
     <div style="position:absolute;left:50px;bottom:14px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(30,125,150,.6);opacity:0;animation:ascFadeIn .3s ease 1.1s forwards;">→</div>
     <div style="position:absolute;right:10px;bottom:14px;font-family:'DM Mono',monospace;font-size:8px;color:#3d8a7a;letter-spacing:.5px;opacity:0;animation:ascFadeIn .3s ease 1.3s forwards;">Sent ✓</div>
-    <div style="position:absolute;bottom:5px;left:10px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.2);letter-spacing:.8px;">30 seconds · one click</div>
+    <div style="position:absolute;bottom:5px;left:10px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);letter-spacing:.8px;">30 seconds · one click</div>
   </div>
   <div class="asc-name">Auto Invoicing</div>
   <div class="asc-desc">Invoice PDF · Pay stub · Payroll CSV · AR updated</div>
@@ -2019,9 +2019,9 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       <div style="max-width:85%;padding:4px 8px;border-radius:5px;background:rgba(255,255,255,.05);font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.5);opacity:0;animation:ascSlideR .3s ease .15s forwards;">Need care for my mom…</div>
       <!-- typing -->
       <div style="display:flex;gap:3px;padding:5px 8px;background:rgba(255,255,255,.04);border-radius:5px;align-self:flex-start;width:36px;opacity:0;animation:ascFadeIn .3s ease .55s forwards;">
-        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.3);animation:ascTyping .9s ease infinite;animation-delay:0s;"></div>
-        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.3);animation:ascTyping .9s ease infinite;animation-delay:.15s;"></div>
-        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.3);animation:ascTyping .9s ease infinite;animation-delay:.3s;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.47);animation:ascTyping .9s ease infinite;animation-delay:0s;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.47);animation:ascTyping .9s ease infinite;animation-delay:.15s;"></div>
+        <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.47);animation:ascTyping .9s ease infinite;animation-delay:.3s;"></div>
       </div>
       <div style="max-width:88%;padding:4px 8px;border-radius:5px;background:rgba(30,125,150,.18);font-family:'DM Mono',monospace;font-size:8px;color:#7dccc0;align-self:flex-end;opacity:0;animation:ascSlideR .3s ease .9s forwards;">Hi! I can help right now.</div>
       <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(61,138,122,.6);text-align:right;opacity:0;animation:ascFadeIn .3s ease 1.35s forwards;">Call booked ✓ · 2:14am</div>
@@ -2052,7 +2052,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease 1s forwards;">
         <div style="width:7px;height:7px;border-radius:50%;border:1.5px solid rgba(30,125,150,.4);background:#0c1018;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.3);">Day 30 · Review ask</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.47);">Day 30 · Review ask</span>
       </div>
     </div>
   </div>
@@ -2076,11 +2076,11 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <!-- Push notif -->
     <div style="position:absolute;left:8px;top:10px;right:46px;background:rgba(61,138,122,.08);border:1px solid rgba(61,138,122,.22);border-radius:5px;padding:5px 7px;opacity:0;animation:ascSlideU .4s ease .5s forwards;">
       <div style="font-family:'DM Mono',monospace;font-size:7px;color:#3d8a7a;margin-bottom:2px;display:flex;align-items:center;gap:4px;"><div style="width:4px;height:4px;border-radius:50%;background:#3d8a7a;animation:ascPulse 1.5s ease-in-out infinite;"></div>Sarah has arrived</div>
-      <div style="font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(250,248,244,.35);">Dorothy · 09:01am · GPS ✓</div>
+      <div style="font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(250,248,244,.47);">Dorothy · 09:01am · GPS ✓</div>
     </div>
     <!-- Stars -->
     <div style="position:absolute;left:8px;bottom:7px;font-size:11px;color:#c9940f;letter-spacing:1px;opacity:0;animation:ascFadeIn .4s ease 1.2s forwards;">★★★★★</div>
-    <div style="position:absolute;right:10px;bottom:7px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.2);">PIN login</div>
+    <div style="position:absolute;right:10px;bottom:7px;font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">PIN login</div>
   </div>
   <div class="asc-name">Family Portal</div>
   <div class="asc-desc">Visit history · AI summaries · Ratings · No more 9pm calls</div>
@@ -2097,10 +2097,10 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
         <div style="width:4px;height:4px;border-radius:50%;background:#b87010aa;"></div>
         <div style="width:4px;height:4px;border-radius:50%;background:#3d8a7aaa;"></div>
         <div style="flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.05);margin:0 5px;"></div>
-        <div style="font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(250,248,244,.2);">2:14am</div>
+        <div style="font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(250,248,244,.47);">2:14am</div>
       </div>
       <div style="padding:5px 7px;display:flex;flex-direction:column;gap:3px;">
-        <div style="padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(250,248,244,.45);max-width:88%;opacity:0;animation:ascSlideR .3s ease .25s forwards;">Hi, can you help me?</div>
+        <div style="padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(250,248,244,.47);max-width:88%;opacity:0;animation:ascSlideR .3s ease .25s forwards;">Hi, can you help me?</div>
         <div style="padding:3px 6px;border-radius:4px;background:rgba(30,125,150,.15);font-family:'DM Mono',monospace;font-size:7.5px;color:#7dccc0;align-self:flex-end;max-width:88%;opacity:0;animation:ascSlideR .3s ease .85s forwards;">Of course! What do you need?</div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(61,138,122,.55);text-align:right;opacity:0;animation:ascFadeIn .3s ease 1.3s forwards;">Call booked ✓</div>
       </div>
@@ -2146,19 +2146,19 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:5px;">
         <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .1s forwards;">
           <div style="font-family:'Instrument Sans',system-ui,sans-serif;font-size:13px;font-weight:300;color:#1e7d96;line-height:1;">8</div>
-          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Shifts</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.47);text-transform:uppercase;letter-spacing:.5px;">Shifts</div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .2s forwards;">
           <div style="font-family:'Instrument Sans',system-ui,sans-serif;font-size:13px;font-weight:300;color:#3d8a7a;line-height:1;">11</div>
-          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Clients</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.47);text-transform:uppercase;letter-spacing:.5px;">Clients</div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .3s forwards;">
           <div style="font-family:'Instrument Sans',system-ui,sans-serif;font-size:13px;font-weight:300;color:#c9940f;line-height:1;">$18k</div>
-          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Revenue</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.47);text-transform:uppercase;letter-spacing:.5px;">Revenue</div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .4s forwards;">
           <div style="font-family:'Instrument Sans',system-ui,sans-serif;font-size:13px;font-weight:300;color:rgba(250,248,244,.6);line-height:1;">0</div>
-          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.25);text-transform:uppercase;letter-spacing:.5px;">Admin</div>
+          <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.47);text-transform:uppercase;letter-spacing:.5px;">Admin</div>
         </div>
       </div>
       <!-- Bar chart -->
@@ -2184,17 +2184,17 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
         <div style="width:18px;height:18px;border-radius:50%;background:rgba(30,125,150,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;flex-shrink:0;">SM</div>
-        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Sarah Mitchell</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.3);">12 visits · 4.9★</div></div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Sarah Mitchell</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">12 visits · 4.9★</div></div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.22);">Active</div>
       </div>
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .35s forwards;">
         <div style="width:18px;height:18px;border-radius:50%;background:rgba(61,138,122,.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;flex-shrink:0;">JO</div>
-        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">James Okafor</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.3);">9 visits · 4.7★</div></div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">James Okafor</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">9 visits · 4.7★</div></div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.22);">Active</div>
       </div>
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .6s forwards;">
         <div style="width:18px;height:18px;border-radius:50%;background:rgba(184,112,16,.25);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;flex-shrink:0;">LP</div>
-        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Luz Perez</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.3);">VSC expires 28d</div></div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Luz Perez</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">VSC expires 28d</div></div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(184,112,16,.1);color:#c9940f;border:1px solid rgba(184,112,16,.2);">Alert</div>
       </div>
     </div>
