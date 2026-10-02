@@ -2265,7 +2265,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
             <div class="f-group"><label class="f-label" for="f-city">City *</label><input class="f-input" id="f-city" type="text" placeholder="City, Province"></div>
           </div>
           <div class="f-row">
-            <div class="f-group"><label class="f-label" for="f-email">Email</label><input class="f-input" id="f-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
+            <div class="f-group"><label class="f-label" for="f-email">Email *</label><input class="f-input" id="f-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
             <div class="f-group"><label class="f-label" for="f-clients">Clients Served</label><select class="f-select" id="f-clients"><option value="">Select...</option><option>Under 10</option><option>10 to 30</option><option>30 to 100</option><option>100+</option></select></div>
           </div>
           <div class="f-group"><label class="f-label" for="f-start">When do you want to be live</label><select class="f-select" id="f-start"><option value="">Select...</option><option value="Within 2 weeks">Within 2 weeks</option><option value="Within a month">Within a month</option><option value="Just exploring">Just exploring</option></select></div>
@@ -2399,6 +2399,102 @@ const RAIL='https://proximity-agent-production.up.railway.app/chat';
 
 
 // BOOKING
+async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
+  if (!confirmEl) return; // guard null
+  confirmEl.style.display = 'block';
+  confirmEl.innerHTML = '<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.6);font-family:\'DM Mono\',monospace;font-size:16px;letter-spacing:1px;">LOADING AVAILABLE TIMES...</div>';
+
+  let slots = [];
+  try {
+    const r = await fetch('https://proximity-agent-production.up.railway.app/leads/call-slots');
+    const d = await r.json();
+    slots = d.slots || [];
+  } catch(e) {
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will reach out within 2 hours to confirm a time.</span>';
+    return;
+  }
+
+  if (!slots.length) {
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re booked, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will call you within 2 hours.</span>';
+    return;
+  }
+
+  // Group slots by date
+  const byDate = {};
+  slots.forEach(s => {
+    const date = s.label.split(' at ')[0];
+    if (!byDate[date]) byDate[date] = [];
+    byDate[date].push(s);
+  });
+
+  const dateKeys = Object.keys(byDate).slice(0, 5);
+
+  let html = '<div style="margin-bottom:14px;">'
+    + '<strong style="color:#fff;font-size:20px;">Pick a time for your call</strong>'
+    + '<p style="color:rgba(255,255,255,0.55);font-size:16px;margin:4px 0 0;font-family:\'DM Mono\',monospace;letter-spacing:.5px;">15 min · Lance calls you</p>'
+    + '</div>';
+
+  dateKeys.forEach((date, di) => {
+    html += '<div style="margin-bottom:12px;">'
+      + '<div style="font-family:\'DM Mono\',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">' + date + '</div>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    byDate[date].forEach(slot => {
+      const time = slot.label.split(' at ')[1] || slot.label;
+      html += '<button onclick="bookSlot(\'' + leadId + '\',\'' + slot.value + '\',\'' + firstName + '\',this)" '
+        + 'style="min-height:44px;padding:12px 18px;min-height:44px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);'
+        + 'border-radius:8px;color:rgba(255,255,255,0.85);font-family:\'DM Mono\',monospace;font-size:16px;'
+        + 'cursor:pointer;transition:all .2s;touch-action:manipulation;"'
+        + ' onmouseover="this.style.background=\'rgba(61,138,122,0.2)\';this.style.borderColor=\'rgba(61,138,122,0.5)\'"'
+        + ' onmouseout="this.style.background=\'rgba(255,255,255,0.06)\';this.style.borderColor=\'rgba(255,255,255,0.15)\'">'
+        + time + '</button>';
+    });
+    html += '</div></div>';
+  });
+
+  confirmEl.innerHTML = html;
+}
+
+async function bookSlot(leadId, slotValue, firstName, btn) {
+  // Safely disable sibling slot buttons without crashing
+  try {
+    const wrap = btn.closest('.slot-picker');
+    if (wrap) { wrap.querySelectorAll('button').forEach(b => { b.disabled = true; }); }
+    else { btn.disabled = true; }
+  } catch(e) { try { btn.disabled = true; } catch(e2){} }
+  try { btn.textContent = 'Booking...'; btn.style.background = 'rgba(61,138,122,0.3)'; } catch(e){}
+
+  try {
+    const r = await fetch('https://proximity-agent-production.up.railway.app/leads/book-call', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lead_id: leadId, slot: slotValue, operator_id: 'proximity-systems' })
+    });
+    const d = await r.json();
+    const slotLabel = slotValue.replace(/_/g, ' ');
+    // Find container safely
+    let container = null;
+    try { container = btn.closest('.slot-picker'); } catch(e) {}
+    if (!container) {
+      let el = btn;
+      for (let i = 0; i < 6; i++) {
+        if (!el || !el.parentElement) break;
+        el = el.parentElement;
+        if (el.classList && el.classList.contains('slot-picker')) { container = el; break; }
+        if (el.id) { container = el; break; }
+      }
+    }
+    const target = container || (btn.parentElement ? btn.parentElement.parentElement || btn.parentElement : document.body);
+    if (target) target.innerHTML = '<strong style="color:#fff;font-size:20px;">You\'re booked, ' + firstName + '.</strong>'
+      + '<br><br><div style="background:rgba(61,138,122,0.15);border:1px solid rgba(61,138,122,0.3);border-radius:10px;padding:14px 16px;margin-top:4px;">'
+      + '<div style="font-family:\'DM Mono\',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(61,138,122,0.95);margin-bottom:6px;">CONFIRMED</div>'
+      + '<div style="color:#fff;font-size:18px;">' + slotLabel + '</div>'
+      + '<div style="color:rgba(255,255,255,0.5);font-size:16px;margin-top:4px;">Lance calls you · check your email for confirmation</div>'
+      + '</div>';
+  } catch(e) {
+    try { btn.textContent = 'Error, try again'; btn.disabled = false; } catch(e2){}
+  }
+}
+
 async function submitForm(){
   const name=((document.getElementById('f-name')||{}).value||'').trim();
   const phone=((document.getElementById('f-phone')||{}).value||'').trim();
@@ -2416,7 +2512,8 @@ async function submitForm(){
   if(!city)   bad.push(['f-city','your city']);
   // Email is optional here, but if given it must be usable: it is sent to
   // the webhook and it is how the plan comes back.
-  if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) bad.push(['f-email','a valid email address']);
+  if(!email) bad.push(['f-email','your email address']);
+       else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) bad.push(['f-email','a valid email address']);
   ['f-name','f-phone','f-agency','f-city','f-email'].forEach(function(id){
     var el=_lf(id); if(!el) return;
     el.setAttribute('aria-invalid', bad.some(function(b){return b[0]===id;}) ? 'true' : 'false');
@@ -2437,8 +2534,12 @@ async function submitForm(){
   try{
     const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:email,city,care_needed_for:agency,care_type_interest:clients||'Not specified',urgency:(document.getElementById('f-start')||{}).value||'not specified',utm_source:(document.getElementById('utmSource')||{}).value||null,utm_medium:(document.getElementById('utmMedium')||{}).value||null,utm_campaign:(document.getElementById('utmCampaign')||{}).value||null,_hp:(document.getElementById('f-hp')||{}).value||null,source:'Proximity Systems Website'})});
     if(!res.ok)throw new Error();
+    var _d={};try{_d=await res.json();}catch(_e){_d={};}
+    var _leadId=_d.lead_id||null;
     document.getElementById('bookingForm').style.display='none';
-    document.getElementById('bookingSuccess').classList.add('show');
+    var _sc=document.getElementById('bookingSuccess');
+    _sc.classList.add('show');
+    if(_leadId){await showSlotPicker(_leadId,first,_sc,btn);}
   }catch(e){alert('Something went wrong. Call Lance at 647-382-8047.');btn.disabled=false;btn.textContent='Book My Free Call';}
 }
 
