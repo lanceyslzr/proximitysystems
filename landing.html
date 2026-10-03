@@ -1199,63 +1199,7 @@ button,a,[onclick]{touch-action:manipulation;}
   </div>
 
   <!-- FULL-WIDTH FLOW DEMO -->
-  <div id="flow-demo-wrap" style="position:relative;width:100%;max-width:min(1660px,100%);margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
-
-    <!-- Particle canvas -->
-    <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
-
-    <!-- Top bar: logo + stage label + live badge -->
-    <div style="position:relative;z-index:10;height:38px;background:rgba(7,9,12,.98);border-bottom:1px solid rgba(90,173,160,.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
-      <div style="display:flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#e8ddc8;">
-        <div style="width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;">PH</div>
-        Proximity<span style="color:#5aada0;font-style:italic;font-family:'Instrument Sans',system-ui,sans-serif;font-size:15px;">HQ</span>
-      </div>
-      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(120,205,190,.9);transition:opacity .3s;">Initializing...</div>
-      <div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#5aada0;">
-        <div style="width:5px;height:5px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px #3fb950;animation:lp-glow-g 2s infinite;"></div>Running Live
-      </div>
-      <div id="stageProgress" style="position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#5aada0,#3fb950);width:0%;transition:width .1s linear;"></div>
-    </div>
-
-    <!-- Phone trio, full width, bigger phones -->
-    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;padding:16px 16px 12px;background:rgba(7,9,12,.6);position:relative;z-index:1;">
-      <div class="pd-fit" id="pdFit"><div class="pd-stage" id="pdStage">
-        <div class="pd-phone pd-hq" id="hqPhone" aria-label="Proximity HQ, operator view" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-        <div class="pd-phone pd-psw" id="pswPhone" aria-label="PSW portal, caregiver view" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-        <div class="pd-phone pd-fam" id="famPhone" aria-label="Family portal" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-        <div class="pd-phone pd-map" id="mapPhone" aria-label="Live GPS, caregiver and client on one map" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-      </div></div>
-    </div><!-- /main -->
-
-    <!-- Bottom step bar -->
-    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
-      <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step2">PSW Signs In</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step3">Family Sees It</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step4">HQ Live Map</span>
-      <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
-        <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">HQ</div>
-        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
-        <div id="lp-mob-dot2" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">PSW</div>
-        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
-        <div id="lp-mob-dot3" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">FAM</div>
-        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
-        <div id="lp-mob-dot4" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">MAP</div>
-      </div>
-    </div>
-
-  </div><!-- /flow-demo-wrap -->
+  <!-- /flow-demo-wrap -->
 
   <!-- Trust bar below demo -->
   <div class="hero-trust" style="margin-top:24px;justify-content:center;">

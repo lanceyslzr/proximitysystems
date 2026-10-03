@@ -3175,75 +3175,57 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
     <div class="hero-ctas-new">
       <a href="#cta" onclick="openBldModal();return false;" class="hero-btn-primary">Build My Package →</a>
-      <a href="/demo.html" class="hero-btn-secondary">Watch Live Demo</a>
     </div>
 
 
 
     <!-- S99. The real flow demo, ported from proximitycares.ca. These are
          the three phones an operator actually gets. -->
-    <div class="sys-flow-host">
-<div id="flow-demo-wrap" style="position:relative;width:100%;max-width:min(1660px,100%);margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
-
-    <!-- Particle canvas -->
-    <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
-
-    <!-- Top bar: logo + stage label + live badge -->
-    <div style="position:relative;z-index:10;height:38px;background:rgba(7,9,12,.98);border-bottom:1px solid rgba(90,173,160,.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
-      <div style="display:flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#e8ddc8;">
-        <div style="width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;">PH</div>
-        Proximity<span style="color:#5aada0;font-style:italic;font-family:'Instrument Sans',system-ui,sans-serif;font-size:15px;">HQ</span>
+    <div class="bld-compact-wrap">
+      <div class="bld-chips-area">
+        <div class="bld-chips-controls">
+          <span class="bld-chip-count"><span id="bldCount">0</span> of 10 selected</span>
+          <button class="bld-chip-selall" onclick="selectAll()">Select all 10</button>
+        </div>
+        <div class="bld-chips-grid" id="bldGrid"></div>
+        <div class="bld-upsell-hint" id="bldUpsellHint"></div>
       </div>
-      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(120,205,190,.9);transition:opacity .3s;">Initializing...</div>
-      <div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#5aada0;">
-        <div style="width:5px;height:5px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px #3fb950;animation:lp-glow-g 2s infinite;"></div>Running Live
+      <div class="bld-compact-panel">
+        <div class="bld-cp-head">
+          <div class="bld-cp-title">Your Build</div>
+          <div class="bld-cp-live"><span class="eyebrow-dot" style="width:5px;height:5px"></span>Live pricing</div>
+        </div>
+        <div class="bld-cp-body">
+          <div class="bld-cp-empty" id="bldEmpty">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="opacity:0.2;margin:0 auto 10px;display:block"><rect x="6" y="10" width="28" height="22" rx="3" stroke="#3d7a8a" stroke-width="1.5"/><path d="M14 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M16 19h8M16 24h5" stroke="#3d7a8a" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div style="font-size:10px;color:rgba(255,255,255,.46);line-height:1.6;text-align:center;letter-spacing:0.5px">Select systems to<br>build your package</div>
+          </div>
+          <div id="bldActive" style="display:none">
+            <div class="bld-ring-wrap">
+              <svg class="bld-ring-svg" width="80" height="80" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(106,158,170,0.15)" stroke-width="6"/>
+                <circle cx="40" cy="40" r="34" fill="none" stroke="#3d7a8a" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="213.6" id="bldRingFill" stroke-linecap="round" transform="rotate(-90 40 40)" style="transition:stroke-dashoffset 0.4s ease"/>
+              </svg>
+              <div class="bld-ring-center"><span class="bld-ring-num" id="bldRingNum">0</span><span class="bld-ring-of">/10</span></div>
+            </div>
+            <div class="bld-progress" id="bldProgress"><div class="bld-progress-head"><span>Build progress</span><span class="bld-progress-pct" id="bldProgressPct">0%</span></div><div class="bld-progress-track"><div class="bld-progress-fill" id="bldProgressFill"></div></div></div>
+            <div class="bld-console" id="bldConsole"><div class="bld-console-head"><span class="bld-con-dot"></span><span class="bld-con-dot"></span><span class="bld-con-dot"></span><span class="bld-con-title">proximity-os · build</span></div><div class="bld-console-body" id="bldConsoleBody"></div></div>
+            <div class="bld-build-stack" id="bldBuildStack"></div>
+            <div class="bld-pipeline" id="bldPipeline"></div>
+            <div class="bld-cp-price-block">
+              <div class="bld-cp-price-row"><span>Setup</span><span>from $2,499</span></div>
+              <div class="bld-cp-price-row"><span>Monthly</span><span>$500 / mo</span></div>
+              <div class="bld-cp-price-row" style="color:#5aaa7a"><span>Month 1</span><span>Free</span></div>
+              <div class="bld-cp-divider"></div>
+              <div class="bld-cp-total-row"><span style="font-size:11px;color:rgba(255,255,255,0.5)">You pay today</span><span class="bld-cp-total-val">from $2,499</span></div>
+            </div>
+            <div class="bld-cp-save-note" id="bldSaveNote"></div>
+          </div>
+          <button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Book a Free Call</button>
+          <button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button>
+          <div class="bld-cp-fine">Build first · Pay after · First month free</div>
+        </div>
       </div>
-      <div id="stageProgress" style="position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#5aada0,#3fb950);width:0%;transition:width .1s linear;"></div>
-    </div>
-
-    <!-- Phone trio, full width, bigger phones -->
-    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;padding:16px 16px 12px;background:rgba(7,9,12,.6);position:relative;z-index:1;">
-      <div class="pd-fit" id="pdFit"><div class="pd-stage" id="pdStage">
-        <div class="pd-phone pd-hq" id="hqPhone" aria-label="Proximity HQ, operator view" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-        <div class="pd-phone pd-psw" id="pswPhone" aria-label="PSW portal, caregiver view" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-        <div class="pd-phone pd-fam" id="famPhone" aria-label="Family portal" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-        <div class="pd-phone pd-map" id="mapPhone" aria-label="Live GPS, caregiver and client on one map" role="img">
-        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
-      </div>
-      </div></div>
-    </div><!-- /main -->
-
-    <!-- Bottom step bar -->
-    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
-      <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step2">PSW Notified</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step3">GPS Checkin</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step4">Family Alert</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-step lp-desktop-step" id="step5">Map Live</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
-      <span class="lp-desktop-step" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.54);">proximitysystems.ca · $500/mo · 7 days</span>
-      <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
-        <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">HQ</div>
-        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
-        <div id="lp-mob-dot2" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">PSW</div>
-        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
-        <div id="lp-mob-dot3" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">FAM</div>
-        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
-        <div id="lp-mob-dot4" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">MAP</div>
-      </div>
-    </div>
-
-  </div>
     </div>
 
     <div class="hero-guarantee">
