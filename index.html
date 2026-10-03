@@ -3812,7 +3812,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
         <div class="mf-group"><label class="mf-label">First Name *</label><input class="mf-input" id="mfFirst" type="text" placeholder="First name" autocomplete="given-name"></div>
         <div class="mf-group"><label class="mf-label">Last Name</label><input class="mf-input" id="mfLast" type="text" placeholder="Last name" autocomplete="family-name"></div>
       </div>
-      <div class="mf-group"><label class="mf-label">Phone *</label><input class="mf-input" id="mfPhone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
+      <div class="mf-row">
+        <div class="mf-group"><label class="mf-label">Phone *</label><input class="mf-input" id="mfPhone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
+        <div class="mf-group"><label class="mf-label">Email *</label><input class="mf-input" id="mfEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
+      </div>
       <div class="mf-group"><label class="mf-label">Agency Name *</label><input class="mf-input" id="mfAgency" type="text" placeholder="Your agency name"></div>
       <div class="mf-group"><label class="mf-label">City *</label><input class="mf-input" id="mfCity" type="text" placeholder="City, Province"></div>
       <div class="mf-group"><label class="mf-label">Anything else?</label><textarea class="mf-textarea" id="mfNotes" placeholder="Questions, concerns, what you are working on..."></textarea></div>
@@ -4765,15 +4768,15 @@ document.addEventListener('keydown', function(e) {
     const last=(document.getElementById('mfLast').value||'').trim();
     const phone=(document.getElementById('mfPhone').value||'').trim();
     const agency=(document.getElementById('mfAgency').value||'').trim();
-    const city=(document.getElementById('mfCity').value||'').trim();
+    const city=(document.getElementById('mfCity').value||'').trim();const email=(document.getElementById('mfEmail').value||'').trim();
     const notes=(document.getElementById('mfNotes').value||'').trim();
-    if(!first||!phone||!agency||!city){alert('Please fill in your name, phone, agency, and city.');return;}
+    var miss=[];if(!first)miss.push('your first name');if(!phone)miss.push('a phone number');if(!agency)miss.push('your agency name');if(!city)miss.push('your city');if(!email)miss.push('your email address');else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))miss.push('a valid email address');if(miss.length){alert('Please add '+miss.join(', ')+'.');return;}
     const btn=document.getElementById('mfSubmit');btn.disabled=true;btn.textContent='Sending...';
     const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
     const sysList=items.length>0?items.map(s=>s.name).join(', '):'Unsure, needs consultation';
     const pain='Builder: '+sysList+'. Notes: '+(notes||'None');
     try{
-      const r=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:'',city,care_needed_for:agency,urgency:items.length>=5?'hot':'warm',pain_point:pain,source:'Proximity Systems Main Site, Builder'})});
+      const r=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:email,city,care_needed_for:agency,urgency:items.length>=5?'hot':'warm',pain_point:pain,source:'Proximity Systems Main Site, Builder'})});
       if(!r.ok)throw new Error();
       const d=await r.json();
       const leadId=d.lead_id||null;
