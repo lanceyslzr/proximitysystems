@@ -2372,15 +2372,15 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
 
   const dateKeys = Object.keys(byDate).slice(0, 5);
 
-  let html = '<div style="margin-bottom:14px;">'
+  let html = '<div style="margin-bottom:14px;text-align:center;">'
     + '<strong style="color:#fff;font-size:20px;">Pick a time for your call</strong>'
-    + '<p style="color:rgba(255,255,255,0.55);font-size:16px;margin:4px 0 0;font-family:\'DM Mono\',monospace;letter-spacing:.5px;">15 min · Lance calls you</p>'
+    + '<p style="color:rgba(255,255,255,0.55);font-size:16px;margin:4px 0 0;font-family:\'DM Mono\',monospace;letter-spacing:.5px;">20 min · Lance calls you</p>'
     + '</div>';
 
   dateKeys.forEach((date, di) => {
     html += '<div style="margin-bottom:12px;">'
-      + '<div style="font-family:\'DM Mono\',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">' + date + '</div>'
-      + '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+      + '<div style="font-family:\'DM Mono\',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;text-align:center;">' + date + '</div>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">';
     byDate[date].forEach(slot => {
       const time = slot.label.split(' at ')[1] || slot.label;
       html += '<button onclick="bookSlot(\'' + leadId + '\',\'' + slot.value + '\',\'' + firstName + '\',this)" '
@@ -2661,6 +2661,7 @@ var lpBooked=false;
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
+          operator_id:'proximity-systems',
           type:'dwell_beacon',
           source:src,
           utm_medium:utmMed,
