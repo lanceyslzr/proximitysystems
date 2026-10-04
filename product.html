@@ -2924,42 +2924,58 @@ function ixMarkerChips(raw) {
   }
 }
 
-function getSmartChips(turnCount, lastBotReply, leadCaptured) {
-  // After lead is captured, offer the questions operators ask next.
-  if (leadCaptured) return ['How fast can you build?','What does $500/mo include?','What happens on the call?'];
+function getSmartChips(lastBotReply, leadCaptured) {
+  var r = (lastBotReply || '').toLowerCase();
 
-  const r = (lastBotReply || '').toLowerCase();
+  // THE RULE THIS FUNCTION OBEYS
+  // An ANSWER button is offered only where a matcher below positively identified the
+  // question. When nothing matches, the question is unknown, so only QUESTIONS are
+  // offered: a visitor can ask any of these whatever was just said, while an answer
+  // would be a guess about what was asked. A wrong guess is what reads as the buttons
+  // ignoring the topic. Turn count never selects buttons, because selecting an answer
+  // by counting turns is that same guess with no evidence behind it at all.
+  var Q_SAFE  = ['How does this work?', 'What does it cost?', 'How fast can you build?'];
+  var Q_AFTER = ['How fast can you build?', 'What does $500/mo include?', 'What happens on the call?'];
+  var Q_PRICE = ['Is the first month really free?', 'How long to go live?', 'What do I get for $500/mo?'];
+  var Q_TIME  = ['Do I have to touch any code?', 'What happens on day 7?', 'What do you need from me?'];
+  var Q_PROD  = ['Tell me about the family portal', 'How does invoicing work?', 'What does the HQ look like?'];
+  var A_PAIN  = ['Invoicing takes forever', 'PSW tracking is a mess', 'Missing leads overnight', 'Family calls eat my time'];
+  var A_WHERE = ['My agency is in Ontario', 'We operate in BC', 'We serve multiple cities'];
 
-  // What did the bot just ask? The server qualifies in order: name, city, pain, contact.
-  const asksName    = r.includes('your name') || r.includes("what's your name") || r.includes('who am i');
-  const asksContact = r.includes('reach you') || r.includes('phone or email') || r.includes('best way') || r.includes('get in touch') || r.includes('contact');
-  const asksAgency  = r.includes('agency') || r.includes('what city') || r.includes('where are you') || r.includes('located') || r.includes('where do you');
-  const asksPain    = r.includes('biggest') || r.includes('challenge') || r.includes('pain') || r.includes('struggle') || r.includes('frustrat') || r.includes('hardest') || r.includes('what slows');
+  if (leadCaptured) return Q_AFTER;
 
-  // OPEN VALUE questions: no buttons. Tappable "answers" to these are what felt random.
-  // The user just types their name or their contact.
-  if (asksContact) return [];
-  if (asksName && turnCount <= 2) return [];
+  // OPEN questions. A person answers these by typing. No button can carry a name or a
+  // phone number, so the row is cleared rather than filled with strings that are
+  // neither. Tested before every other matcher, at every turn.
+  var asksName = r.includes('your name') || r.includes('who am i speaking') || r.includes('who do i have');
+  var asksContact = r.includes('reach you') || r.includes('phone or email') || r.includes('best way to')
+    || r.includes('get in touch') || r.includes('your email') || r.includes('your phone')
+    || r.includes('your number') || r.includes('an email') || r.includes('email address')
+    || r.includes('phone number');
+  if (asksName || asksContact) return [];
 
-  // CHOICE questions: real, tappable answers that actually fit the question.
-  if (asksPain)   return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
-  if (asksAgency) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+  // CHOICE questions. These have a small set of real answers, so answers are safe here.
+  // Matched on question shape and never on a bare topic noun: the word agency appears in
+  // most replies this site produces, so matching it alone offered location answers to
+  // timeline statements.
+  var asksPain = r.includes('biggest') || r.includes('challenge') || r.includes('pain')
+    || r.includes('struggle') || r.includes('frustrat') || r.includes('hardest')
+    || r.includes('what slows') || r.includes('eats your');
+  var asksWhere = r.includes('what city') || r.includes('which city') || r.includes('where are you')
+    || r.includes('where do you') || r.includes('located') || r.includes('agency called')
+    || r.includes('name of your agency') || r.includes('what agency');
+  if (asksPain) return A_PAIN;
+  if (asksWhere) return A_WHERE;
 
-  // Off script: the bot just explained pricing, timeline, or a portal. Offer relevant follow up QUESTIONS.
-  if (r.includes('$500') || r.includes('3,500') || r.includes('pricing') || r.includes('cost') || r.includes('setup'))
-    return ['Is the first month really free?','How long to go live?','What do I get for $500/mo?'];
-  if (r.includes('7 day') || r.includes('go live') || r.includes('we build first'))
-    return ['Do I have to touch any code?','What happens on day 7?','What do you need from me?'];
-  if (r.includes('family portal') || r.includes('hq dashboard') || r.includes('psw portal') || r.includes('invoicing') || r.includes('care summar'))
-    return ['Tell me about the family portal','How does invoicing work?','What does the HQ look like?'];
+  // TOPICAL statements. The bot explained something rather than asking, so the safe
+  // move is a follow up question about what it just explained.
+  if (r.includes('$500') || r.includes('3,500') || r.includes('pricing') || r.includes('per month')
+    || r.includes('/mo') || r.includes('free month')) return Q_PRICE;
+  if (r.includes('7 day') || r.includes('go live') || r.includes('we build first')) return Q_TIME;
+  if (r.includes('family portal') || r.includes('hq dashboard') || r.includes('psw portal')
+    || r.includes('invoicing') || r.includes('care summar')) return Q_PROD;
 
-  // Turn based fallback that mirrors the qualify order when wording matched nothing.
-  if (turnCount <= 1) return ['How does this work?','What does it cost?','How fast can you build?'];
-  if (turnCount === 2) return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
-  if (turnCount === 3) return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
-  if (turnCount >= 4) return [];
-
-  return ['Tell me more','What does $500/mo include?','How long to go live?'];
+  return Q_SAFE;
 }
 function ixChips(chips) {
   const el = document.getElementById('ixChatChips');
@@ -3018,9 +3034,8 @@ async function ixSendText(text) {
     ixAddM('bot', reply);
     ixH.push({ role: 'assistant', content: reply });
     // Regenerate chips contextually after every response
-    const _ixTurns = ixH.filter(m => m.role === 'user').length;
     const _ixMk = ixMarkerChips(raw);
-    ixChips(_ixMk !== null ? _ixMk : getSmartChips(_ixTurns, reply, ixD));
+    ixChips(_ixMk !== null ? _ixMk : getSmartChips(reply, ixD));
     if (ixD) {
       const inp = document.getElementById('ixChatInp');
       if (inp) inp.placeholder = 'Lance will be in touch, keep chatting if you have questions.';
