@@ -3322,12 +3322,12 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
     const d = await r.json();
     slots = d.slots || [];
   } catch(e) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:13px;">Lance will reach out within 2 hours to confirm a time.</span>';
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:13px;">Lance will reach out within 2 hours to confirm a time. You can also call him at 647-382-8047 or email hello@proximitysystems.ca.</span>';
     return;
   }
 
   if (!slots.length) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re booked, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:13px;">Lance will call you within 2 hours.</span>';
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:13px;">No times are showing right now, so nothing is scheduled yet. Lance will call you within 2 hours, or reach him at 647-382-8047 or hello@proximitysystems.ca.</span>';
     return;
   }
 
@@ -3343,7 +3343,7 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
 
   let html = '<div style="margin-bottom:14px;text-align:center;">'
     + '<strong style="color:#fff;font-size:15px;">Pick a time for your call</strong>'
-    + '<p style="color:rgba(255,255,255,0.55);font-size:12px;margin:4px 0 0;font-family:\'DM Mono\',monospace;letter-spacing:.5px;">20 min · Lance calls you</p>'
+    + '<p style="color:rgba(255,255,255,0.55);font-size:12px;margin:4px 0 0;font-family:\'DM Mono\',monospace;letter-spacing:.5px;">20 min · Lance calls you · Toronto time</p>'
     + '</div>';
 
   dateKeys.forEach((date, di) => {

@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /
+Allow: /$
+Allow: /index.html
+Allow: /landing.html
+Allow: /product.html
+
+Sitemap: https://proximitysystems.ca/sitemap.xml
