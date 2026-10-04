@@ -4294,12 +4294,12 @@ chatBubble.addEventListener('click', () => {
 });
 chatClose.addEventListener('click', () => {
   chatOverlay.classList.remove('open');
-  chatBubble.style.display = 'flex';
+  chatBubble.style.display = '';
 });
 chatOverlay.addEventListener('click', (e) => {
   if (e.target === chatOverlay) {
     chatOverlay.classList.remove('open');
-    chatBubble.style.display = 'flex';
+    chatBubble.style.display = '';
   }
 });
 
@@ -4442,7 +4442,7 @@ async function ixSendText(text) {
             pain_point: lead.pain || '', source: 'Proximity Systems Index Chatbot'
           })
         });
-      } catch(e) { console.error(e); }
+      } catch(e) { ixD = false; console.error(e); }
     }
     const reply = raw.replace(/<!--[\s\S]*?-->/g, '').trim();
     ixAddM('bot', reply);
@@ -4520,14 +4520,14 @@ document.addEventListener('keydown', function(e) {
       burger.classList.toggle('open');
       mobileMenu.classList.toggle('open');
       var cb=document.querySelector('.chat-bubble');
-      if(cb)cb.style.display=mobileMenu.classList.contains('open')?'none':'flex';
+      if(cb)cb.style.display=mobileMenu.classList.contains('open')?'none':'';
     });
   }
   function closeMenu(){
     burger.classList.remove('open');
     mobileMenu.classList.remove('open');
     var cb=document.querySelector('.chat-bubble');
-    if(cb)cb.style.display='flex';
+    if(cb)cb.style.display='';
   }
 
 

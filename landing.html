@@ -2523,9 +2523,29 @@ The 10 systems (only if asked): Visit logging, auto invoicing, lead capture, fol
 
 let cH=[],cB=false,cD=false,cR=false;
 function toggleChat(){const w=document.getElementById('chatWin');w.classList.toggle('open');const open=w.classList.contains('open');document.querySelectorAll('[data-chat-toggle]').forEach(b=>{b.setAttribute('aria-label',open?'Close chat':'Open chat');b.setAttribute('aria-expanded',open?'true':'false');});if(open){const inp=document.getElementById('chatInp');if(inp)setTimeout(()=>inp.focus(),80);}if(w.classList.contains('open')&&!cR){cR=true;const g="Hey. Do you run a home care agency?";addM('bot',g);cH.push({role:'assistant',content:g});showChips(['I run a home care agency','How does this work?','What does it cost?']);setTimeout(()=>document.getElementById('chatInp').focus(),300);}}
-function addM(role,text){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg '+role;d.innerHTML='<div class="cmsg-bub">'+text.replace(/\n/g,'<br>')+'</div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}
+function addM(role,text){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg '+role;const b=document.createElement('div');b.className='cmsg-bub';const parts=String(text==null?'':text).split('\n');for(let i=0;i<parts.length;i++){if(i)b.appendChild(document.createElement('br'));b.appendChild(document.createTextNode(parts[i]));}d.appendChild(b);c.appendChild(d);c.scrollTop=c.scrollHeight;}
 function showT(){const c=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='cmsg bot';d.id='cT';d.innerHTML='<div class="typing-ind"><div class="td"></div><div class="td"></div><div class="td"></div></div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}
 function hideT(){const e=document.getElementById('cT');if(e)e.remove();}
+function ixMarkerChips(raw) {
+  // If the server prompt is updated to tag replies, the AI declares its own buttons.
+  // Returns an array (possibly empty) when a tag is present, or null to fall back to getSmartChips.
+  const m = (raw || '').match(/<!--\s*CHIPS:\s*([a-z_]+)\s*-->/i);
+  if (!m) return null;
+  switch (m[1].toLowerCase()) {
+    case 'agency':
+    case 'city':     return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
+    case 'pain':     return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
+    case 'pricing':  return ['Is the first month really free?','How long to go live?','What do I get for $500/mo?'];
+    case 'timeline': return ['Do I have to touch any code?','What happens on day 7?','What do you need from me?'];
+    case 'product':  return ['Tell me about the family portal','How does invoicing work?','What does the HQ look like?'];
+    case 'open':
+    case 'none':
+    case 'name':
+    case 'contact':  return [];
+    default:         return null;
+  }
+}
+
 function getSmartChips(lastBotReply, leadCaptured) {
   var r = (lastBotReply || '').toLowerCase();
 
@@ -2591,11 +2611,12 @@ async function sendC(text){
     const data=await r.json();hideT();
     const raw=data.response||'Something went wrong. Call Lance at 647-382-8047.';
     const lm=raw.match(/<!--\s*LEAD_DATA\s*:\s*(\{[\s\S]*?\})\s*-->/);
-    if(lm){try{const lead=JSON.parse(lm[1]);await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:(lead.name||'').split(' ')[0]||'',last_name:(lead.name||'').split(' ').slice(1).join(' ')||'',phone:lead.contact||'',email:'',city:lead.city||'',care_needed_for:lead.agency||'',urgency:lead.start||'not specified',care_type_interest:lead.pain||'Not specified',source:'Proximity Systems Website Chatbot'})});cD=true;}catch(e){console.error(e);}}
-    const reply=raw.replace(/<!--\s*LEAD_DATA\s*:\s*\{[\s\S]*?\}\s*-->\n?/,'').trim();
+    if(lm&&!cD){try{const lead=JSON.parse(lm[1]);cD=true;await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:(lead.name||'').split(' ')[0]||'',last_name:(lead.name||'').split(' ').slice(1).join(' ')||'',phone:lead.contact||'',email:'',city:lead.city||'',care_needed_for:lead.agency||'',urgency:lead.start||'not specified',care_type_interest:lead.pain||'Not specified',source:'Proximity Systems Website Chatbot'})});}catch(e){cD=false;console.error(e);}}
+    const reply=raw.replace(/<!--[\s\S]*?-->/g,'').trim();
     addM('bot',reply);cH.push({role:'assistant',content:reply});
     // Regenerate chips after every bot response
-    showChips(getSmartChips(reply, cD));
+    const _ixMk = ixMarkerChips(raw);
+    showChips(_ixMk !== null ? _ixMk : getSmartChips(reply, cD));
     if(cD){var _inp=document.getElementById('chatInp');if(_inp)_inp.placeholder='Lance will be in touch. Keep chatting if you have questions.';}
   }catch(e){hideT();addM('bot','Something went wrong. Reach Lance at 647-382-8047.');}
   finally{cB=false;document.getElementById('chatSendBtn').disabled=false;}
