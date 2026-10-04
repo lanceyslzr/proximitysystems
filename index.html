@@ -462,7 +462,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 
   /* HAMBURGER */
   .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:600;min-width:44px;min-height:44px;align-items:center;justify-content:center}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--rb-text);margin:5px 0;transition:all .3s}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--rb-text);margin:0;transition:all .3s}
   .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
   .hamburger.open span:nth-child(2){opacity:0}
   .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
@@ -736,7 +736,7 @@ button,a,[onclick]{touch-action:manipulation;}
     #cta { padding: 80px 24px; }
     .hero-btns { flex-wrap: wrap; }
     .nav-links { display: none; }
-    .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
     .mobile-cta { display: block; }
     body { padding-bottom: 72px; }
     .mobile-menu { z-index: 510; }
