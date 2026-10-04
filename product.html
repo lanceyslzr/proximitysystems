@@ -1328,7 +1328,8 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 /* ╔═══ BUILDER RESTRUCTURE, stacked, full-width, no dead space ═══╗ */
 /* chips on top (full width), build dashboard below (full width) */
 .bld-compact-wrap{ display:flex!important; flex-direction:column!important;
-  gap:20px!important; grid-template-columns:none!important; align-items:stretch!important; }
+  gap:20px!important; grid-template-columns:none!important; align-items:stretch!important;
+  width:100%!important; }
 .bld-chips-area{ width:100%!important; }
 /* chips: roomier grid, bigger tap targets, readable */
 .bld-chips-grid{ grid-template-columns:repeat(auto-fit,minmax(220px,1fr))!important; gap:10px!important; }
@@ -2085,7 +2086,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <circle cx="88" cy="80" r="4" fill="#3d7a8a" opacity="0.45"/>
     </svg>
     <div style="line-height:1.15;">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:5px;color:var(--dark);text-transform:uppercase;">PROXIMITY</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:5px;color:var(--rb-text);text-transform:uppercase;">PROXIMITY</div>
       <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:3px;color:var(--teal-dark);text-transform:uppercase;margin-top:1px;">Systems</div>
     </div>
   </a>
@@ -3362,12 +3363,12 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
     html += '</div></div>';
   });
 
-  confirmEl.innerHTML = html;
+  confirmEl.innerHTML = '<div class="slot-rows">' + html + '</div>';
 }
 async function bookSlot(leadId, slotValue, firstName, btn) {
   // Safely disable sibling slot buttons without crashing
   try {
-    const wrap = btn.closest('.slot-picker');
+    const wrap = btn.closest('.slot-rows') || btn.closest('.slot-picker');
     if (wrap) { wrap.querySelectorAll('button').forEach(b => { b.disabled = true; }); }
     else { btn.disabled = true; }
   } catch(e) { try { btn.disabled = true; } catch(e2){} }

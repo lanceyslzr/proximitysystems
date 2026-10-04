@@ -2394,13 +2394,13 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
     html += '</div></div>';
   });
 
-  confirmEl.innerHTML = html;
+  confirmEl.innerHTML = '<div class="slot-rows">' + html + '</div>';
 }
 
 async function bookSlot(leadId, slotValue, firstName, btn) {
   // Safely disable sibling slot buttons without crashing
   try {
-    const wrap = btn.closest('.slot-picker');
+    const wrap = btn.closest('.slot-rows') || btn.closest('.slot-picker');
     if (wrap) { wrap.querySelectorAll('button').forEach(b => { b.disabled = true; }); }
     else { btn.disabled = true; }
   } catch(e) { try { btn.disabled = true; } catch(e2){} }
