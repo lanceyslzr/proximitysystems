@@ -2651,11 +2651,12 @@ if('IntersectionObserver' in window){
             <div class="bld-build-stack" id="bldBuildStack"></div>
             <div class="bld-pipeline" id="bldPipeline"></div>
             <div class="bld-cp-price-block">
-              <div class="bld-cp-price-row"><span>Setup</span><span>from $2,499</span></div>
-              <div class="bld-cp-price-row"><span>Monthly</span><span>$500 / mo</span></div>
+              <div class="bld-cp-price-row"><span>Package</span><span id="bldTierName">Operations</span></div>
+              <div class="bld-cp-price-row"><span>Setup</span><span id="bldSetupVal">$2,499</span></div>
+              <div class="bld-cp-price-row"><span>Monthly</span><span id="bldMonthlyVal">$500 / mo</span></div>
               <div class="bld-cp-price-row" style="color:#5aaa7a"><span>Month 1</span><span>Free</span></div>
               <div class="bld-cp-divider"></div>
-              <div class="bld-cp-total-row"><span style="font-size:11px;color:rgba(255,255,255,0.5)">You pay today</span><span class="bld-cp-total-val">from $2,499</span></div>
+              <div class="bld-cp-total-row"><span style="font-size:11px;color:rgba(255,255,255,0.5)">Due today</span><span class="bld-cp-total-val" id="bldTotalVal">$0</span></div>
             </div>
             <div class="bld-cp-save-note" id="bldSaveNote"></div>
           </div>
@@ -3126,7 +3127,23 @@ function showComing(){
     const h=document.getElementById('bldUpsellHint');
     if(h){h.textContent='Voice AI is Phase 2, activates automatically when your Telnyx account is connected.';h.classList.add('show');setTimeout(()=>h.classList.remove('show'),3000);}
   }
-function bldUpdate(){
+// TIER MAPPING. Operations holds s01, s02, s08, s09, which is visit logging,
+  // invoicing, the HQ dashboard and PSW management. A selection inside that set is
+  // charged Operations. Anything beyond it is The Full Build. Growth Partner holds the
+  // same ten systems as The Full Build, so it cannot be reached by selecting tiles and
+  // is not offered here.
+  var BLD_T1 = ['s01', 's02', 's08', 's09'];
+  // ids arrive in SELECTION order, from Array.from(bldSelected), because the rule is to
+  // name the tile that moved them. A Set iterates in insertion order, and bldToggle
+  // deletes before it re adds, so a deselect and reselect updates that order correctly.
+  function bldTierOf(ids) {
+    var beyond = [];
+    for (var i = 0; i < ids.length; i++) if (BLD_T1.indexOf(ids[i]) < 0) beyond.push(ids[i]);
+    return beyond.length === 0
+      ? { name: 'Operations', setup: '$2,499', monthly: '$500 / mo', beyond: null }
+      : { name: 'The Full Build', setup: '$3,499', monthly: '$500 / mo', beyond: beyond[0] };
+  }
+  function bldUpdate(){
     const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
     const count=items.length;
     const cEl=document.getElementById('bldCount');
@@ -3251,10 +3268,22 @@ function bldUpdate(){
         conBody.scrollTop=conBody.scrollHeight;
       }
     }
+    // TIER MAPPING, written from the selection rather than left static.
+    var _t = bldTierOf(Array.from(bldSelected));
+    var _tn = document.getElementById('bldTierName'); if(_tn)_tn.textContent=_t.name;
+    var _sv = document.getElementById('bldSetupVal'); if(_sv)_sv.textContent=_t.setup;
+    var _mv = document.getElementById('bldMonthlyVal'); if(_mv)_mv.textContent=_t.monthly;
+    // Due today is always zero. Setup is paid after go live and month 1 is free, which
+    // is what the rest of the page promises in six places across these two files.
+    var _tv = document.getElementById('bldTotalVal'); if(_tv)_tv.textContent='$0';
     const sn=document.getElementById('bldSaveNote');
     if(sn){
-      if(count>=10)sn.textContent='Full stack, best value';
-      else if(count>0)sn.textContent=count+' system'+(count===1?'':'s')+' selected';
+      if(_t.beyond){
+        var _m = BLD_SYSTEMS.filter(function(s){return s.id===_t.beyond;})[0];
+        sn.textContent=(_m?_m.name:'That system')+' moves you to The Full Build';
+      } else if(count>0){
+        sn.textContent=count+' system'+(count===1?'':'s')+' selected, Operations';
+      }
     }
     const hint=document.getElementById('bldUpsellHint');
     if(hint){
@@ -3278,7 +3307,7 @@ function openBldModal(){
       } else {
         pkg.innerHTML='<div class="bld-modal-pkg-label">Your selected package</div>'
           +'<div class="bld-modal-tags">'+items.map(s=>'<span class="bld-modal-tag">'+s.svg+' '+s.name+'</span>').join('')+'</div>'
-          +'<div class="bld-modal-totline"><span class="bld-modal-totlbl">'+items.length+' system'+(items.length===1?'':'s')+' · Setup</span><span class="bld-modal-totval">from $2,499</span></div>';
+          +'<div class="bld-modal-totline"><span class="bld-modal-totlbl">'+items.length+' system'+(items.length===1?'':'s')+' · '+bldTierOf(Array.from(bldSelected)).name+'</span><span class="bld-modal-totval">'+bldTierOf(Array.from(bldSelected)).setup+' setup, due after launch</span></div>';
       }
     }
     const overlay=document.getElementById('bldModalOverlay');
