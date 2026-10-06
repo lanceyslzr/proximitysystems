@@ -602,6 +602,14 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .mf-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--b-text-muted);text-transform:uppercase;display:block;margin-bottom:5px}
   .mf-input,.mf-textarea{width:100%;background:var(--b-bg3);border:1px solid var(--b-border);border-radius:5px;padding:11px 14px;font-family:'DM Mono',monospace;font-size:16px;color:var(--b-text);outline:none;transition:border-color 0.2s;-webkit-appearance:none;min-height:44px}
   .mf-input:focus,.mf-textarea:focus{border-color:var(--b-teal)}
+  /* The message the guard writes. role="alert" makes a screen reader announce it the
+     moment it appears, without stealing focus. Copied from landing, where SITE4 proved
+     this pattern and the 2026-10-05 field check verified every part of it. */
+  .mf-error{display:none;font-size:14px;line-height:1.4;color:#e06c6c;margin-bottom:10px}
+  .mf-error.show{display:block}
+  /* !important because .mf-input:focus also sets border-color, and the invalid field IS
+     the focused one the moment focus moves to the first problem. */
+  .mf-input[aria-invalid="true"],.mf-textarea[aria-invalid="true"]{border-color:#e06c6c!important}
   .mf-input::placeholder,.mf-textarea::placeholder{color:var(--b-text-muted)}
   .mf-textarea{min-height:68px;resize:none;font-size:16px;line-height:1.5}
   .mf-submit{width:100%;background:var(--teal-dark);color:#fff;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;padding:16px;border-radius:4px;border:none;cursor:pointer;min-height:52px;margin-top:6px;transition:background 0.2s;letter-spacing:1.5px;text-transform:uppercase}
@@ -3334,7 +3342,33 @@ async function submitBldBooking(){
     const agency=(document.getElementById('mfAgency').value||'').trim();
     const city=(document.getElementById('mfCity').value||'').trim();const email=(document.getElementById('mfEmail').value||'').trim();
     const notes=(document.getElementById('mfNotes').value||'').trim();
-    var miss=[];if(!first)miss.push('your first name');if(!phone)miss.push('a phone number');if(!agency)miss.push('your agency name');if(!city)miss.push('your city');if(!email)miss.push('your email address');else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))miss.push('a valid email address');if(miss.length){alert('Please add '+miss.join(', ')+'.');return;}
+    var _mf=function(id){return document.getElementById(id);};
+      var _merr=_mf('mfError');
+      var bad=[];
+      if(!first)  bad.push(['mfFirst','your first name']);
+      if(!phone)  bad.push(['mfPhone','a phone number']);
+      if(!agency) bad.push(['mfAgency','your agency name']);
+      if(!city)   bad.push(['mfCity','your city']);
+      if(!email)  bad.push(['mfEmail','your email address']);
+      else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) bad.push(['mfEmail','a valid email address']);
+      // true OR false on all five, every time, so a field that now passes stops being
+      // announced as invalid. landing does the same and the field check confirmed the
+      // four passing fields flip back to false.
+      ['mfFirst','mfPhone','mfAgency','mfCity','mfEmail'].forEach(function(id){
+        var el=_mf(id); if(!el) return;
+        el.setAttribute('aria-invalid', bad.some(function(b){return b[0]===id;}) ? 'true' : 'false');
+      });
+      if(bad.length){
+        if(_merr){
+          _merr.textContent='Please enter '+bad.map(function(b){return b[1];}).join(', ')+'.';
+          _merr.classList.add('show');
+        }
+        // Move focus to the FIRST problem, or a keyboard user has to hunt for which of
+        // five fields the message meant.
+        var _f=_mf(bad[0][0]); if(_f)_f.focus();
+        return;
+      }
+      if(_merr){_merr.textContent='';_merr.classList.remove('show');}
     const btn=document.getElementById('mfSubmit');btn.disabled=true;btn.textContent='Sending...';
     const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
     const sysList=items.length>0?items.map(s=>s.name).join(', '):'Unsure, needs consultation';
@@ -3526,6 +3560,7 @@ document.addEventListener("DOMContentLoaded",function(){window._roiVal=10;update
       <input type="hidden" id="utmMedium" name="utm_medium" value="">
       <input type="hidden" id="utmCampaign" name="utm_campaign" value="">
       <input type="hidden" id="pageSrc" name="page_src" value="">
+      <div class="mf-error" id="mfError" role="alert" aria-live="polite"></div>
       <button class="mf-submit" id="mfSubmit" onclick="submitBldBooking()">Send My Package, Book the Call</button>
       <div class="mf-note">Lance responds within a few hours · 647-382-8047<br>We build first · You pay after it is live</div>
     </div>
