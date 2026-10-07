@@ -455,7 +455,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .chat-modal-close:hover { background: rgba(0,0,0,0.7); }
   .chat-modal-close svg { width: 16px; height: 16px; fill: #fff; pointer-events: none; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
-  .hsn-num, .hsn-num em, .roi-num, [data-roi-out] { font-variant-numeric: tabular-nums; }
+  .hsn-num, .hsn-num em { font-variant-numeric: tabular-nums; }
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-2 { transition-delay: 0.2s; }
@@ -620,23 +620,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-success-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:#fff;margin-bottom:10px}
   .bld-success-sub{font-size:13px;color:var(--b-text-dim);line-height:1.7}
 
-  /* ── ROI CALCULATOR ── */
-  .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:48px}
-  .roi-sliders{display:flex;flex-direction:column;gap:24px}
-  .roi-slider-row{display:flex;flex-direction:column;gap:10px}
-  .roi-slider-top{display:flex;align-items:center;justify-content:space-between}
-  .roi-slider-lbl{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.5px}
-  .roi-slider-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--teal);line-height:1}
-  .roi-range{width:100%;accent-color:var(--teal-dark);cursor:pointer;height:3px;-webkit-appearance:none;appearance:none;background:rgba(106,158,170,0.2);border-radius:2px;outline:none}
-  .roi-range::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--teal-dark);cursor:pointer;border:2px solid var(--bg)}
-  .roi-outputs{display:flex;flex-direction:column;gap:2px}
-  .roi-out{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
-  .roi-out-lbl{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:1.5px;text-transform:uppercase}
-  .roi-out-val{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--teal);line-height:1;transition:all 0.3s ease}
-  .roi-out-val.highlight{color:#fff}
-  .roi-verdict{margin-top:24px;border-left:2px solid var(--teal-dark);padding:16px 20px;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:rgba(255,255,255,0.55);line-height:1.5}
-  .roi-verdict strong{color:#fff;font-style:normal}
-
   /* ── HORMOZI 3-TIER PRICING ── */
   .ht-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;align-items:start;margin-top:48px}
   .ht-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.2s}
@@ -758,8 +741,6 @@ button,a,[onclick]{touch-action:manipulation;}
     .bld-compact-panel { display: none; }
     .bld-mobile-bar { display: flex; }
     .bld-chips-grid { grid-template-columns: repeat(2,1fr); }
-    #roi-calc { padding: 80px 24px; }
-    .roi-grid { grid-template-columns: 1fr; gap: 32px; }
   }
 
 
@@ -843,12 +824,6 @@ button,a,[onclick]{touch-action:manipulation;}
     #builder { padding: 60px 24px; }
     .bld-chips-grid { grid-template-columns: 1fr 1fr; }
     .mf-row { grid-template-columns: 1fr; }
-    #roi-calc { padding: 60px 24px; }
-    .roi-out { flex-direction: column; gap: 6px; align-items: flex-start; padding: 14px 18px; }
-    .roi-out-val { font-size: 28px; }
-    .roi-out-lbl { font-size: 9px; }
-    .roi-verdict { font-size: 15px; padding: 12px 16px; }
-    .roi-slider-val { font-size: 22px; }
   }
 
 
@@ -1714,10 +1689,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .tl-on .tl-art{ animation:tlPop var(--t4) var(--e-snap) both; }
 @keyframes tlPop{ 0%{transform:scale(.6);opacity:0;} 100%{transform:scale(1);opacity:1;} }
 
-/* 3. ROI, gauge glow + number transition */
-#roiArcPath{ filter:drop-shadow(0 0 6px var(--rb-primary)); }
-#roiHrsOut,#roiCostOut,#roiAnnualOut,#roiPaybackOut{ transition:color var(--t2) var(--e); font-variant-numeric:tabular-nums; }
-
 /* 4. SECURITY, animated icons + glow on scroll */
 .sec-card{ transition:transform var(--t3) var(--e), box-shadow var(--t3) var(--e), border-color var(--t2) var(--e); }
 .sec-card.sec-on{ }
@@ -2055,39 +2026,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .sa-email-foot-l{ font-size:7px; letter-spacing:.5px; color:var(--rb-faint); margin-bottom:3px; }
 .sa-email-foot-u{ font-size:8px; color:var(--sec-c); display:flex; align-items:center; }
 
-/* ╔═══ ROI (Pass 6), dark-native + before/after contrast ═══╗ */
-#roi-calc{ background:var(--rb-base); }
-.roi-shell{ display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:center; }
-.roi-gauge-col{ display:flex; flex-direction:column; align-items:center; gap:20px; }
-.roi-stepper{ display:flex; align-items:center; background:var(--rb-panel); border:1px solid var(--rb-line);
-  border-radius:100px; overflow:hidden; }
-.roi-step-btn{ width:52px; height:44px; font-size:24px; font-weight:300; color:var(--rb-dim);
-  background:none; border:none; cursor:pointer; transition:color var(--t2) var(--e), background var(--t2) var(--e); }
-.roi-step-btn:hover{ color:var(--rb-text); background:rgba(255,255,255,.03); }
-.roi-step-div{ width:1px; height:22px; background:var(--rb-line); }
-.roi-step-lbl{ width:60px; text-align:center; font-family:var(--rb-mono); font-size:7px; letter-spacing:2px;
-  text-transform:uppercase; color:var(--rb-faint); }
-/* before / after */
-.roi-compare{ display:flex; flex-direction:column; gap:12px; }
-.roi-side{ border-radius:12px; padding:18px 20px; }
-.roi-before{ background:rgba(251,113,133,.05); border:1px solid rgba(251,113,133,.18); }
-.roi-after{ background:linear-gradient(160deg,var(--rb-panel),var(--rb-base)); border:1px solid var(--rb-line);
-  box-shadow:0 0 0 1px rgba(45,212,191,.06), 0 20px 50px -20px rgba(0,0,0,.6); }
-.roi-side-head{ display:flex; align-items:center; gap:8px; font-family:var(--rb-mono); font-size:9px;
-  letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-dim); margin-bottom:14px; }
-.roi-side-dot{ width:7px; height:7px; border-radius:50%; background:var(--rs-c,var(--rb-primary));
-  box-shadow:0 0 8px var(--rs-c,var(--rb-primary)); }
-.roi-row{ display:flex; justify-content:space-between; align-items:baseline; padding:7px 0;
-  border-bottom:1px solid var(--rb-line); }
-.roi-row:last-child{ border-bottom:none; }
-.roi-k{ font-family:var(--rb-mono); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:var(--rb-dim); }
-.roi-v{ font-family:var(--rb-serif); font-size:26px; font-weight:400; color:var(--rb-text); font-variant-numeric:tabular-nums; }
-.roi-row-big .roi-v{ font-size:30px; }
-.roi-good{ color:var(--rb-primary)!important; }
-.roi-verdict{ font-family:var(--rb-serif); font-style:italic; font-size:16px; font-weight:300;
-  color:var(--rb-dim); text-align:center; padding:6px 0; line-height:1.6; }
-.roi-verdict strong{ color:var(--rb-primary); font-weight:400; font-style:normal; }
-@media(max-width:760px){ .roi-shell{ grid-template-columns:1fr!important; } }
 
 /* ╔═══ PRICING (Pass 7), receipt artifact + mobile-responsive ═══╗ */
 /* RECEIPT, matches the product's own invoice aesthetic */
@@ -5182,46 +5120,7 @@ var bookingAttempted = false;
 })();
 
 
-function updateROI() {
-  var clients = window._roiVal || 10;
-  var el = document.getElementById('roiClients'); if(el) el.textContent = clients;
-  var hrs = clients * 3;
-  var monthly = hrs * 40;
-  var annual = monthly * 12;
-  var payback = Math.ceil(3500 / monthly);
-  var h = document.getElementById('roiHrsOut'); if(h){ if(window.__roiAnimNum){ window.__roiAnimNum(h, hrs, '', ' hrs'); } else { h.textContent = hrs + ' hrs'; } }
-  var c = document.getElementById('roiCostOut'); if(c){ if(window.__roiAnimNum){ window.__roiAnimNum(c, monthly, '$', ''); } else { c.textContent = '$' + monthly.toLocaleString(); } }
-  var a = document.getElementById('roiAnnualOut'); if(a){ if(window.__roiAnimNum){ window.__roiAnimNum(a, annual, '$', ''); } else { a.textContent = '$' + annual.toLocaleString(); } }
-  var p = document.getElementById('roiPaybackOut'); if(p) p.textContent = payback + ' month' + (payback !== 1 ? 's' : '');
-  var v = document.getElementById('roiVerdict');
-  if(v) v.innerHTML = 'You recover the setup cost in <strong>' + payback + ' month' + (payback!==1?'s':'') + '</strong>, then admin is free.';
-  var arc = document.getElementById('roiArcPath');
-  var dot = document.getElementById('roiDot');
-  var pct = (clients - 5) / 45;
-  var arcLen = 424.12;
-  if (arc) {
-    var filled = Math.max(1, pct * arcLen);
-    arc.setAttribute('stroke-dasharray', filled.toFixed(1) + ' ' + (arcLen * 3));
-  }
-  if (dot) {
-    var angleDeg = 135 + pct * 270;
-    var angleRad = angleDeg * Math.PI / 180;
-    var cx = 110 + 90 * Math.cos(angleRad);
-    var cy = 110 + 90 * Math.sin(angleRad);
-    dot.setAttribute('cx', cx.toFixed(2));
-    dot.setAttribute('cy', cy.toFixed(2));
-    dot.setAttribute('fill', pct < 0.4 ? '#3d7a8a' : pct < 0.75 ? '#c8863a' : '#e05858');
-  }
-}
 
-function roiAdj(delta) {
-  window._roiVal = Math.max(5, Math.min(50, (window._roiVal || 10) + delta));
-  updateROI();
-}
-
-
-
-document.addEventListener("DOMContentLoaded",function(){window._roiVal=10;updateROI();});
 
 // ── IN-HOUSE SLOT PICKER, replaces Calendly ──────────────────────────────
 // Called after webhook/lead returns lead_id
@@ -5555,7 +5454,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/* ── SECTION UPGRADES, scroll-triggered life for truth/timeline/roi/security ── */
+/* ── SECTION UPGRADES, scroll-triggered life for truth/timeline/security ── */
 (function(){try{
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -5583,16 +5482,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
     },{threshold:.3}).observe(grid);
   }
 
-  // 3. ROI, animate number changes (hook into existing roi update if present)
-  function animNum(el,to,prefix,suffix){
-    if(!el) return; if(reduce){ el.textContent=(prefix||'')+to+(suffix||''); return; }
-    var from=parseInt((el.textContent||'0').replace(/[^0-9]/g,''),10)||0;
-    var dur=500,t0=performance.now();
-    function tick(now){ var p=Math.min(1,(now-t0)/dur); var v=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));
-      el.textContent=(prefix||'')+v.toLocaleString()+(suffix||''); if(p<1)requestAnimationFrame(tick); }
-    requestAnimationFrame(tick);
-  }
-  window.__roiAnimNum=animNum;
+
 
   // 4. SECURITY, glow cards in on scroll
   document.querySelectorAll('.sec-card').forEach(function(card){
