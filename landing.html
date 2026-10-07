@@ -2222,12 +2222,12 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
         <div class="booking-footer">
           <div class="f-error" id="f-error" role="alert" aria-live="polite"></div>
           <button class="btn" id="f-submit" onclick="submitForm()" style="margin-bottom:8px">Book My Free Call</button>
-          <div class="btn-note">Lance responds within a few hours · 647-382-8047</div>
+          <div class="btn-note">Lance responds within a few hours · <a href="tel:6473828047">647-382-8047</a></div>
         </div>
       </div>
       <div class="booking-success" id="bookingSuccess">
         <div class="success-title">That did not go through.</div>
-        <p class="success-sub">We could not confirm your booking. Call Lance directly at 647-382-8047 or email hello@proximitysystems.ca and he will sort it out.</p>
+        <p class="success-sub">We could not confirm your booking. Call Lance directly at <a href="tel:6473828047">647-382-8047</a> or email <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a> and he will sort it out.</p>
       </div>
     </div>
   </div>
@@ -2297,7 +2297,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       <p class="final-risk">We build everything before you pay a cent. First month is <strong>free</strong>. Month 2 onwards is <strong>$500/mo</strong>. You can cancel after month 3. The call costs you 20 minutes. The build costs you nothing until you see it live.</p>
       <div class="cta-stack" style="max-width:380px;margin:0 auto">
         <a href="#booking" class="btn">Get My 7-Day Automation Plan</a>
-        <div class="btn-note">647-382-8047 · hello@proximitysystems.ca</div>
+        <div class="btn-note"><a href="tel:6473828047">647-382-8047</a> · <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a></div>
       </div>
     </div>
   </div>
@@ -2306,7 +2306,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 <footer>
   <div class="footer-logo">Proximity <em>Systems</em></div>
   <p style="font-size:12px;color:var(--text-dim);line-height:1.6;margin-bottom:14px;max-width:400px;margin-left:auto;margin-right:auto">We build the full back office for home care agencies in 7 days.</p>
-  <div class="footer-contact">Lance Salazar &nbsp;·&nbsp; 647-382-8047 &nbsp;·&nbsp; <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a><br>Mississauga, Ontario &nbsp;·&nbsp; proximitysystems.ca</div>
+  <div class="footer-contact">Lance Salazar &nbsp;·&nbsp; <a href="tel:6473828047">647-382-8047</a> &nbsp;·&nbsp; <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a><br>Mississauga, Ontario &nbsp;·&nbsp; proximitysystems.ca</div>
 </footer>
 
 <!-- CHAT -->
@@ -2350,12 +2350,12 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
     const d = await r.json();
     slots = d.slots || [];
   } catch(e) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will reach out within 2 hours to confirm a time. You can also call him at 647-382-8047 or email hello@proximitysystems.ca.</span>';
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will reach out within 2 hours to confirm a time. You can also call him at <a href="tel:6473828047">647-382-8047</a> or email <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a>.</span>';
     return;
   }
 
   if (!slots.length) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">No times are showing right now, so nothing is scheduled yet. Lance will call you within 2 hours, or reach him at 647-382-8047 or hello@proximitysystems.ca.</span>';
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">No times are showing right now, so nothing is scheduled yet. Lance will call you within 2 hours, or reach him at <a href="tel:6473828047">647-382-8047</a> or <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a>.</span>';
     return;
   }
 

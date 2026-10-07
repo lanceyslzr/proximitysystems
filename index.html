@@ -3819,7 +3819,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <input type="hidden" id="pageSrc" name="page_src" value="">
       <div class="mf-error" id="mfError" role="alert" aria-live="polite"></div>
       <button class="mf-submit" id="mfSubmit" onclick="submitBldBooking()">Send My Package, Book the Call</button>
-      <div class="mf-note">Lance responds within a few hours · 647-382-8047<br>We build first · You pay after it is live</div>
+      <div class="mf-note">Lance responds within a few hours · <a href="tel:6473828047">647-382-8047</a><br>We build first · You pay after it is live</div>
     </div>
     <!-- S79. submitBldBooking() looks for #bldSuccess and, on a successful
          lead post, hides the form and renders the slot picker into it. The
@@ -3827,7 +3827,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
          happen, even though the lead was captured. .bld-success{display:none}
          and .bld-success.show{display:block} already existed in the
          stylesheet with no markup using them. -->
-    <div id="bldSuccess" class="bld-success"><div class="bld-modal-title">That did not go through.</div><p style="font-size:13px;line-height:1.7;color:var(--b-text-muted);margin:10px 0 0;">We could not confirm your booking. Call Lance directly at 647-382-8047 or email hello@proximitysystems.ca and he will sort it out.</p></div>
+    <div id="bldSuccess" class="bld-success"><div class="bld-modal-title">That did not go through.</div><p style="font-size:13px;line-height:1.7;color:var(--b-text-muted);margin:10px 0 0;">We could not confirm your booking. Call Lance directly at <a href="tel:6473828047">647-382-8047</a> or email <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a> and he will sort it out.</p></div>
     
   </div>
 </div>
@@ -5238,12 +5238,12 @@ async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
     const d = await r.json();
     slots = d.slots || [];
   } catch(e) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will reach out within 2 hours to confirm a time. You can also call him at 647-382-8047 or email hello@proximitysystems.ca.</span>';
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will reach out within 2 hours to confirm a time. You can also call him at <a href="tel:6473828047">647-382-8047</a> or email <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a>.</span>';
     return;
   }
 
   if (!slots.length) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">No times are showing right now, so nothing is scheduled yet. Lance will call you within 2 hours, or reach him at 647-382-8047 or hello@proximitysystems.ca.</span>';
+    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">No times are showing right now, so nothing is scheduled yet. Lance will call you within 2 hours, or reach him at <a href="tel:6473828047">647-382-8047</a> or <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a>.</span>';
     return;
   }
 
