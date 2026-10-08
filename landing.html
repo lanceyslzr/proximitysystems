@@ -1329,6 +1329,13 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      honeypot label was also announced because it is only moved offscreen,
      not hidden from assistive tech. */
   .f-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+  /* CONTACT LINKS IN SMALL PRINT AND THE BOOKING SUCCESS MESSAGE.
+     SITE21 wrapped these in anchors with no class, and this page has no rule that
+     colours a bare anchor, so the browser default applied and they rendered blue and
+     underlined. .footer-contact a is the convention this follows, which on landing is
+     the dim text colour rather than an accent. */
+  .btn-note a, .booking-success a { color: var(--text-dim); text-decoration: none; }
 </style>
 
     <div class="asc-grid">

@@ -2213,6 +2213,14 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 <style>
 @media (max-width:768px){ #security .sec-grid{ grid-template-columns:1fr !important; } #security .sec-card{ max-width:100% !important; } }
 @media (max-width:600px){ #security .inner{ padding-left:18px !important; padding-right:18px !important; } }
+
+  /* CONTACT LINKS IN SMALL PRINT AND THE BUILDER SUCCESS MESSAGE.
+     SITE21 wrapped these numbers and addresses in anchors with no class, and this page
+     has no rule that colours a bare anchor, so the browser default applied and they
+     rendered blue and underlined against the text around them. These are the two
+     containers that lacked a descendant anchor rule. .footer-contact-list a already had
+     one, and this follows it. */
+  .mf-note a, .bld-success a { color: var(--teal); text-decoration: none; }
 </style>
 <meta name="theme-color" content="#07090c">
 <script type="application/ld+json">
