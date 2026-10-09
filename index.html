@@ -4246,6 +4246,11 @@ var bookingAttempted = false;
 
   setTimeout(function() {
     if(bookingAttempted) return;
+    /* SCROLL DEPTH GATE. Without this the beacon POSTs a lead for every visitor who
+       stays 90 seconds without reading anything. It was lost once before. scrollDepth
+       is maintained by the passive scroll handler above and is already reported in the
+       body below, so this adds no new dependency. */
+    if(scrollDepth <= 10) return;
     try {
       fetch(LEAD_URL, {
         method: 'POST',
