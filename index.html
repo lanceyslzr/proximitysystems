@@ -147,7 +147,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .trust-item:first-child::before { display: none; }
   .section-wrap { padding:clamp(56px,8vw,92px) 64px; max-width: 100%; }
   #problem { background: var(--dark2); }
-  #solution { background: var(--cream); }
   #package { background: var(--bg); }
   #proof { background: var(--dark); }
   .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
@@ -175,7 +174,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .mockup-pill.auto { background: rgba(90,138,106,0.2); color: var(--green); border: 1px solid rgba(90,138,106,0.3); }
   .mockup-pill.live { background: rgba(106,158,170,0.2); color: var(--teal); border: 1px solid rgba(106,158,170,0.3); }
   .wm-dot.r{background:#ff5f57;}.wm-dot.y{background:#febc2e;}.wm-dot.g{background:#28c840;}
-  .testimonial-bar { background: var(--teal-dark); padding: 64px; }
   .ba.before { background: rgba(192,80,80,0.06); border: 1px solid rgba(192,80,80,0.15); }
   .ba.after { background: rgba(90,138,106,0.08); border: 1px solid rgba(90,138,106,0.2); }
   .ba.before .ba-tag { color: rgba(192,80,80,0.7); } .ba.after .ba-tag { color: var(--green); }
@@ -444,13 +442,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 
   /* ── HORMOZI 3-TIER PRICING ── */
 
-  /* ── ROTATING TESTIMONIAL ── */
-  .testi-slide{position:absolute;top:0;left:0;right:0;opacity:0;transition:opacity 0.6s ease;pointer-events:none}
-  .testi-slide.ts-active{opacity:1;pointer-events:auto;position:relative}
-  .testi-nav{display:flex;align-items:center;gap:8px;margin-top:28px}
-  .testi-dot-btn{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.25);border:none;cursor:pointer;padding:0;transition:all 0.3s;min-height:0}
-  .testi-dot-btn.ts-on{background:#fff;width:20px;border-radius:3px}
-
 
 
 /* Level 20 mobile globals */
@@ -500,7 +491,6 @@ button,a,[onclick]{touch-action:manipulation;}
     .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
     .footer-bottom { padding: 20px 24px; flex-direction: column; text-align: center; }
     .trust-bar { padding: 20px 24px; gap: 24px; }
-    .testimonial-bar { padding: 48px 24px; }
     #cta { padding: 80px 24px; }
     .hero-btns { flex-wrap: wrap; }
     .nav-links { display: none; }
@@ -553,7 +543,6 @@ button,a,[onclick]{touch-action:manipulation;}
     .s-title { font-size: clamp(1.8rem,6vw,2.5rem); margin-bottom: 2rem; }
     .trust-bar { flex-direction: column; gap: 12px; padding: 1.5rem; }
     .trust-item { font-size: 9px; }
-    .testimonial-bar { padding: 2rem 1.5rem; }
     #cta { padding: 3rem 1.5rem; }
     .cta-title { font-size: clamp(1.5rem,6vw,2.5rem); }
     .cta-sub { font-size: 0.85rem; margin-bottom: 2rem; }
@@ -2259,7 +2248,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   </a>
   <ul class="nav-links">
     <li><a href="#problem">The Problem</a></li>
-    <li><a href="#solution">The Solution</a></li>
     <li><a href="#package">The Package</a></li> <li><a href="product.html">The Product</a></li>
     <li><a href="#security">Security</a></li>
     <li><a href="#pricing">Pricing</a></li>
@@ -2269,7 +2257,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="#problem" onclick="closeMenu()">The Problem</a>
-  <a href="#solution" onclick="closeMenu()">The Solution</a>
   <a href="#package" onclick="closeMenu()">The Package</a> <a href="product.html" onclick="closeMenu()">The Product</a>
   <a href="#security" onclick="closeMenu()">Security</a>
   <a href="#pricing" onclick="closeMenu()">Pricing</a>
@@ -2584,7 +2571,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   </div>
 </div>
 
-<div id="solution" style="height:0;overflow:hidden;"></div><div id="package" class="section-wrap">
+<div id="package" class="section-wrap">
   <div class="inner">
     <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:var(--teal-dark)"></div><div class="eyebrow-tag" style="color:var(--teal-dark)">The Package</div></div>
     <div class="package-header">
@@ -2952,12 +2939,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 </div>
 
 
-<div class="testimonial-bar">
-  <div class="inner">
-    
-    <div class="testi-nav" id="testiNav"></div>
-  </div>
-</div>
 
 <!-- S101. THE CAPABILITY INDEX.
      The package cards show six systems in detail. server.js contains far more
@@ -3321,7 +3302,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div class="footer-col-title">Navigation</div>
       <ul class="footer-links">
         <li><a href="#problem">The Problem</a></li>
-        <li><a href="#solution">The Solution</a></li>
         <li><a href="#package">The Package</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#cta" onclick="openBldModal();return false;">Book a Call</a></li>
@@ -3985,33 +3965,6 @@ document.addEventListener('keydown', function(e) {
   }
 
   bldRender();
-
-
-  // ── ROTATING TESTIMONIAL ──
-  (function(){
-    var slides=document.querySelectorAll('.testi-slide');
-    var nav=document.getElementById('testiNav');
-    if(!slides.length||!nav)return;
-    var current=0;
-    var timer;
-    slides.forEach(function(_,i){
-      var b=document.createElement('button');
-      b.className='testi-dot-btn'+(i===0?' ts-on':'');
-      b.setAttribute('aria-label','Review '+(i+1));
-      b.addEventListener('click',function(){goTo(i);resetTimer();});
-      nav.appendChild(b);
-    });
-    function goTo(idx){
-      slides[current].classList.remove('ts-active');
-      nav.children[current].classList.remove('ts-on');
-      current=idx;
-      slides[current].classList.add('ts-active');
-      nav.children[current].classList.add('ts-on');
-    }
-    function next(){goTo((current+1)%slides.length);}
-    function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
-    resetTimer();
-  })();
 
 
 /* ============================================================
@@ -4720,7 +4673,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   // The hero is
   // deliberately absent: it is on screen at load and must never pause.
   var secs = document.querySelectorAll(
-    '#problem, #solution, #package, #timeline, #portal-showcase, ' +
+    '#problem, #package, #timeline, #portal-showcase, ' +
     '#security, #pricing, #reviews, #cta, .footer-terminal');
   if (!secs.length) return;
   // start every section paused except those already in view
