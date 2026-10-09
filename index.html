@@ -66,8 +66,8 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .nav-cta { background: var(--dark) !important; color: #fff !important; padding: 12px 28px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); font-size: 9px !important; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s !important; border: 1px solid var(--dark); }
   .nav-cta::after { display: none !important; }
   .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%); }
-  /* ── HERO, Particle canvas + orb ── */
-  /* ── HERO, Desktop 2-col. Breakpoints below collapse to single column. ── */
+  /*  HERO, Particle canvas + orb  */
+  /*  HERO, Desktop 2-col. Breakpoints below collapse to single column.  */
   #hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; overflow: hidden; background: #07090c; padding: 120px 64px 80px; }
   .hero-inner { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: flex-start; text-align: left; width: 100%; max-width: 560px; }
   .hero-eyebrow-new { display: flex; align-items: center; gap: 8px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #3d8a7a; margin-bottom: 22px; font-family: var(--rb-mono); white-space: nowrap; overflow: hidden; }
@@ -93,7 +93,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .hpc-notif-icon.t { background: rgba(61,122,138,.2); }
   .hpc-notif-icon.o { background: rgba(200,169,110,.15); }
 
-  /* ── OS COMMAND PANEL, Hero right column ── */
+  /*  OS COMMAND PANEL, Hero right column  */
   .os-panel { background:rgba(7,9,12,.97); border:1px solid rgba(61,122,138,.22); border-radius:12px; overflow:hidden; box-shadow:0 0 0 1px rgba(61,122,138,.08),0 24px 80px rgba(0,0,0,.7); font-family:'DM Mono',monospace; display:flex; flex-direction:column; }
   .osp-header { background:rgba(61,122,138,.07); border-bottom:1px solid rgba(61,122,138,.15); padding:10px 16px; display:flex; align-items:center; gap:10px; flex-shrink:0; }
   .osp-dots { display:flex; gap:5px; flex-shrink:0; }
@@ -334,14 +334,14 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .rv-author { color: #6a9eaa; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
   .rv-role { color: rgba(221,217,208,.55); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 
-  /* ── COMPACT SYSTEMS CHIPS ── */
+  /*  COMPACT SYSTEMS CHIPS  */
   .sys-chips-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:0}
   .sys-chip{background:var(--cream);padding:22px 20px;transition:background 0.2s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;min-width:0;word-break:break-word;overflow-wrap:break-word;}
   .sys-chip::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--teal-dark);transform:scaleX(0);transition:transform 0.3s ease;transform-origin:left}
   .sys-chip:hover{background:#fff}.sys-chip:hover::after{transform:scaleX(1)}
   .sys-chip.addon-chip{background:#fff;border-top:2px solid var(--teal-dark)}
 
-  /* ── BUILDER SECTION ── */
+  /*  BUILDER SECTION  */
   /* Scoped CSS vars for builder dark components */
   #builder,#bldModalOverlay{
     --b-bg:#0b0f14;--b-bg2:#0e1419;--b-bg3:#111820;
@@ -440,7 +440,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-success{display:none;text-align:center;padding:48px 16px}
   .bld-success.show{display:block}
 
-  /* ── HORMOZI 3-TIER PRICING ── */
+  /*  HORMOZI 3-TIER PRICING  */
 
 
 
@@ -448,13 +448,13 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 *{-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
 
-  /* ── CONTAINER ── */
+  /*  CONTAINER  */
   .inner { max-width:1120px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
   .section-wrap .inner { padding: 0; }
 @media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}}
 
 
-/* ── INDEX INLINE CHATBOT ── */
+/*  INDEX INLINE CHATBOT  */
 .chat-modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
 .ix-chip{background:rgba(30,125,150,.12);border:1px solid rgba(30,125,150,.35);color:#6ab4c8;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;padding:8px 14px;border-radius:999px;cursor:pointer;transition:background .15s,border-color .15s;}
   .ix-chip:hover{background:rgba(30,125,150,.22);border-color:rgba(30,125,150,.6);}
@@ -709,31 +709,31 @@ button,a,[onclick]{touch-action:manipulation;}
 
   .site-content { position: relative; z-index: auto; }
 
-  /* ── PROBLEM SECTION ── */
+  /*  PROBLEM SECTION  */
   #problem{position:relative;overflow:hidden;}
   .prob-item{position:relative;overflow:hidden;transition:border-color .3s,background .3s;}
   .prob-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--red);transform:scaleY(0);transform-origin:bottom;transition:transform .4s cubic-bezier(.16,1,.3,1);}
   .prob-item:hover::after{transform:scaleY(1);}
   .prob-item:hover{background:rgba(192,80,80,.04);border-color:rgba(192,80,80,.2);}
 
-  /* ── SYS CHIPS UPGRADE ── */
+  /*  SYS CHIPS UPGRADE  */
   .sys-chip{position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);}
   .sys-chip:hover{transform:translateY(-2px);border-color:rgba(61,122,138,.4);box-shadow:0 8px 24px rgba(61,122,138,.12);}
 
-  /* ── TIMELINE ── */
+  /*  TIMELINE  */
   .tl-card{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;}
   .tl-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(61,122,138,.12);}
 
-  /* ── PRICING GLOW ── */
+  /*  PRICING GLOW  */
   @keyframes priceGlow{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.05);opacity:1;}}
 
-  /* ── REVIEWS ── */
+  /*  REVIEWS  */
   #reviews{background:linear-gradient(180deg,#0b0f14 0%,#111820 100%);}
   .rv-card{position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s;}
   .rv-card::before{content:'"';position:absolute;top:-10px;left:16px;font-family:'Cormorant Garamond',serif;font-size:120px;color:rgba(61,122,138,.06);line-height:1;pointer-events:none;}
   .rv-card:hover{transform:translateY(-4px);border-color:rgba(61,122,138,.3);}
 
-  /* ── FOOTER TERMINAL ── */
+  /*  FOOTER TERMINAL  */
   .footer-terminal{background:#070b0f;border-top:1px solid rgba(61,122,138,.1);padding:48px 64px;}
   .ft-line{font-family:'DM Mono',monospace;font-size:15px;line-height:2;color:rgba(221,217,208,.55);white-space:pre;overflow-x:auto;}
   .ft-cmd{color:#5a9aaa;}
@@ -747,21 +747,21 @@ button,a,[onclick]{touch-action:manipulation;}
   .ft-cursor{display:inline-block;width:8px;height:14px;background:#b87010;vertical-align:middle;animation:ftBlink 1s infinite;margin-left:2px;}
   @keyframes ftBlink{0%,100%{opacity:1}50%{opacity:0}}
 
-  /* ── SCROLL PROGRESS BAR ── */
+  /*  SCROLL PROGRESS BAR  */
   .scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal-dark),#b87010);z-index:9999;transform-origin:left;transform:scaleX(0);}
 
-  /* ── SECTION WATERMARKS ── */
+  /*  SECTION WATERMARKS  */
 
-  /* ── GSAP WILL CHANGE ── */
+  /*  GSAP WILL CHANGE  */
   .nav-cta,.btn-primary{will-change:transform;}
 
 
-  /* ═══ COMPOSITION SYSTEM, centered header spine (all sections consistent) ═══ */
+  /*  COMPOSITION SYSTEM, centered header spine (all sections consistent)  */
   .section-eyebrow, .rv-eyebrow, .tl-eyebrow { justify-content: center; text-align: center; }
   .tl-title, .s-title, .cta-title, .rv-title { text-align: center; margin-left: auto; margin-right: auto; max-width: 22ch; }
   .tl-sub, .s-sub, .cta-sub, .section-sub { text-align: center; margin-left: auto; margin-right: auto; max-width: 60ch; }
 
-  /* ═══ SYSTEM COLOR-CODE, one hue per function ═══ */
+  /*  SYSTEM COLOR-CODE, one hue per function  */
   .sys-chips-grid .sys-chip:nth-child(1) .sc-icon{color:#38BDF8;opacity:1;}
   .sys-chips-grid .sys-chip:nth-child(1) .sc-num{color:#38BDF8;}
   .sys-chips-grid .sys-chip:nth-child(1){border-left:2px solid #38BDF8;}
@@ -793,11 +793,11 @@ button,a,[onclick]{touch-action:manipulation;}
   .sys-chips-grid .sys-chip:nth-child(10) .sc-num{color:#2DD4BF;}
   .sys-chips-grid .sys-chip:nth-child(10){border-left:2px solid #2DD4BF;}
 
-/* ╔══════════════════════════════════════════════════════════════════╗
-   ║  PROXIMITY SYSTEMS, VISUAL REBUILD v2 (care-tech dashboard)        ║
-   ║  Dark premium · editorial serif + geometric sans + mono · glowing  ║
-   ║  Injected last = wins cascade. Transforms surfaces, not markup.    ║
-   ╚══════════════════════════════════════════════════════════════════╝ */
+/*
+     PROXIMITY SYSTEMS, VISUAL REBUILD v2 (care-tech dashboard)
+     Dark premium · editorial serif + geometric sans + mono · glowing
+     Injected last = wins cascade. Transforms surfaces, not markup.
+    */
 :root{
   --rb-void:#06080c; --rb-base:#0a0e14; --rb-panel:#0e131b; --rb-panel2:#131a24;
   --rb-line:rgba(255,255,255,.07); --rb-line2:rgba(255,255,255,.12);
@@ -808,14 +808,14 @@ button,a,[onclick]{touch-action:manipulation;}
   --sys-sched:#a78bfa; --sys-ai:#2dd4bf; --sys-lead:#fb7185;
   --rb-serif:'Fraunces',serif; --rb-sans:'Space Grotesk',sans-serif; --rb-mono:'DM Mono',monospace;
 }
-/* ── BASE CANVAS, unify the split light/dark into one dark system ── */
+/*  BASE CANVAS, unify the split light/dark into one dark system  */
 body{ background:var(--rb-void)!important; color:var(--rb-text)!important; font-family:var(--rb-sans)!important; }
 body::before{ opacity:.35!important; }
 /* kill custom cursor noise on rebuild for clarity */
 @media(pointer:fine){ body{cursor:auto!important;} }
 .cursor,.cursor-ring{ display:none!important; }
 
-/* ── TYPE SYSTEM, three voices ── */
+/*  TYPE SYSTEM, three voices  */
 .hero-h1-new,.s-title,.tl-title,.cta-title,.rv-title,.hero-title{
   font-family:var(--rb-serif)!important; font-weight:300!important;
   letter-spacing:-.015em!important; color:var(--rb-text)!important;
@@ -833,7 +833,7 @@ body::before{ opacity:.35!important; }
   font-family:var(--rb-sans)!important; color:var(--rb-dim)!important; }
 .package-intro-text{font-family:'Cormorant Garamond',serif!important}
 
-/* ── NAV, glass dark ── */
+/*  NAV, glass dark  */
 nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)!important;
   border-bottom:1px solid var(--rb-line)!important; }
 .nav-links a{ color:var(--rb-dim)!important; letter-spacing:2px!important; }
@@ -844,7 +844,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
   box-shadow:0 6px 24px rgba(45,212,191,.25)!important; }
 .nav-cta:hover{ clip-path:none!important; transform:translateY(-1px); }
 
-/* ── SECTION SURFACES, every light section -> dark panel ── */
+/*  SECTION SURFACES, every light section -> dark panel  */
 .section-wrap,#package,#timeline,#builder,#real,#pricing{
   background:var(--rb-void)!important; color:var(--rb-text)!important; position:relative; }
 #real{ background:var(--rb-base)!important; }
@@ -852,7 +852,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
 .s-title.dark,.cta-title{ color:var(--rb-text)!important; }
 .package-intro-text strong{ color:var(--rb-text)!important; }
 
-/* ── HERO, deeper void, glow ── */
+/*  HERO, deeper void, glow  */
 #hero{ background:radial-gradient(ellipse 80% 60% at 50% 0%, #0c1620 0%, var(--rb-void) 60%)!important; }
 .hero-eyebrow-new{ color:var(--rb-primary)!important; }
 .hero-sub-new{ color:var(--rb-dim)!important; }
@@ -865,7 +865,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
   font-variant-numeric:tabular-nums; }
 .hero-guarantee{ color:var(--rb-faint)!important; }
 
-/* ── SYSTEM CARDS, glowing dashboard tiles, color-coded ── */
+/*  SYSTEM CARDS, glowing dashboard tiles, color-coded  */
 .sys-chips-grid{ gap:14px!important; }
 .sys-chip{ background:linear-gradient(160deg,var(--rb-panel),var(--rb-base))!important;
   border:1px solid var(--rb-line)!important; border-radius:16px!important;
@@ -876,7 +876,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
 .sys-chip:hover{ transform:translateY(-4px)!important;
   border-color:var(--rb-line2)!important; box-shadow:0 18px 50px rgba(0,0,0,.5)!important; }
 
-/* ── TIMELINE, terminal cards with glowing badge ── */
+/*  TIMELINE, terminal cards with glowing badge  */
 .tl-card{ background:linear-gradient(160deg,var(--rb-panel),var(--rb-base))!important;
   border:1px solid var(--rb-line)!important; border-radius:16px!important; }
 .tl-badge{ font-family:var(--rb-mono)!important; background:rgba(45,212,191,.12)!important;
@@ -886,24 +886,24 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
   color:#04130f!important; border:none!important; border-radius:12px!important;
   font-family:var(--rb-mono)!important; font-weight:500!important; }
 
-/* ── PROOF / pricing dark coherence ── */
+/*  PROOF / pricing dark coherence  */
 #pricing{ background:radial-gradient(ellipse 70% 50% at 50% 100%, #0c1620, var(--rb-void))!important; }
 
-/* ── CTA band ── */
+/*  CTA band  */
 .cta-title{ color:var(--rb-text)!important; }
 .cta-sub{ color:var(--rb-dim)!important; }
 
-/* ── FOOTER ── */
+/*  FOOTER  */
 footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line); }
 .footer-brand{ font-family:var(--rb-serif)!important; }
 .footer-brand em{ color:var(--rb-primary)!important; }
 
-/* ── COMPOSITION, centered spine (kept) ── */
+/*  COMPOSITION, centered spine (kept)  */
 .section-eyebrow,.rv-eyebrow,.tl-eyebrow{ justify-content:center!important; text-align:center!important; }
 .tl-title,.s-title,.cta-title,.rv-title{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:20ch!important; }
 .tl-sub,.s-sub,.cta-sub,.section-sub{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:58ch!important; }
 
-/* ── SYSTEM COLOR-CODE (glowing, per map) ── */
+/*  SYSTEM COLOR-CODE (glowing, per map)  */
 .sys-chips-grid .sys-chip:nth-child(1) .sc-icon{color:var(--sys-gps)!important;}
 .sys-chips-grid .sys-chip:nth-child(1) .sc-num{color:var(--sys-gps)!important;}
 .sys-chips-grid .sys-chip:nth-child(1){border-left:2px solid var(--sys-gps)!important;}
@@ -945,7 +945,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .sys-chips-grid .sys-chip:nth-child(10){border-left:2px solid var(--sys-ai)!important;}
 .sys-chips-grid .sys-chip:nth-child(10):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-ai),0 0 30px -8px var(--sys-ai)!important;}
 
-/* ── BUILDER + ROI + inline white cards -> dark coherence (Pass 1 hold; Pass 2 rebuilds builder) ── */
+/*  BUILDER + ROI + inline white cards -> dark coherence (Pass 1 hold; Pass 2 rebuilds builder)  */
 .bld-chip{ background:var(--rb-panel)!important; border:1.5px solid var(--rb-line)!important;
   color:var(--rb-text)!important; border-radius:10px!important; }
 .bld-chip:hover{ border-color:var(--rb-primary)!important; background:var(--rb-panel2)!important; }
@@ -959,7 +959,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .section-wrap [style*="color:#1e2420"],.section-wrap [style*="color:#13181c"],
 /* ROI calculator dark */
 
-/* ╔═══ CONTRAST CORRECTION, WCAG-minded legibility pass ═══╗ */
+/*  CONTRAST CORRECTION, WCAG-minded legibility pass  */
 /* 1. ALL buttons: ensure text contrasts its fill. Bright fills get dark ink,
       dark/medium fills get bright ink. The #1e7d96 medium-teal got white text
       (low contrast), bump fill brighter OR darken text. We brighten fill. */
@@ -981,14 +981,12 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
   color:var(--rb-dim)!important; }
 /* 4. dim -> slightly brighter baseline so sections don't drown */
 :root{ --rb-dim:#a6b3bf!important; }
-/* 5. eyebrows/labels were teal-dark (#3d7a8a), too dim on void; use primary */
-.eyebrow-tag,.tl-eyebrow,.rv-eyebrow,.hero-eyebrow-new,.section-num-bg{ }
 [style*="color:var(--teal-dark)"]{ color:var(--rb-primary)!important; }
 [style*="background:var(--teal-dark)"]{ background:var(--rb-primary)!important; color:#04130f!important; }
 /* 6. section eyebrow lines that were teal-dark */
 .eyebrow-line[style*="teal-dark"],.eyebrow-line{ background:var(--rb-primary)!important; }
 
-/* ╔═══ HERO RECOMPOSE, center-stacked (kill generic left/right split) ═══╗ */
+/*  HERO RECOMPOSE, center-stacked (kill generic left/right split)  */
 #hero{ display:flex!important; flex-direction:column!important; align-items:center!important;
   justify-content:center!important; text-align:center!important; gap:0!important;
   grid-template-columns:none!important; padding:140px 32px 90px!important; }
@@ -1004,11 +1002,11 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .hero-right-col{ width:100%!important; max-width:680px!important; margin:48px auto 0!important;
   opacity:0; animation:fadeUp .9s ease forwards .9s; }
 
-/* ╔═══ PROOF STAT CARDS, kill cream islands, glowing dark KPIs ═══╗ */
+/*  PROOF STAT CARDS, kill cream islands, glowing dark KPIs  */
 /* the prose block beside the cards, lift from dim to legible */
 /* color-code the 4 KPIs by their meaning */
 
-/* ╔═══ LIGHT-ISLAND SWEEP, eliminate every remaining cream/white surface ═══╗ */
+/*  LIGHT-ISLAND SWEEP, eliminate every remaining cream/white surface  */
 /* #real section wrapper itself was background:#fff inline */
 /* ROI calculator block + its inner cells (timeline section) */
 /* generic catch-all: any remaining cream inline bg anywhere in a dark section */
@@ -1021,7 +1019,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .bld-chip{ background:var(--rb-panel)!important; }
 .sys-chip.addon-chip{ background:var(--rb-panel2)!important; }
 
-/* ╔═══ FINAL CTA SECTION, was background:var(--bg) cream island ═══╗ */
+/*  FINAL CTA SECTION, was background:var(--bg) cream island  */
 #cta .cta-sub{ color:var(--rb-dim)!important; }
 #cta .cta-sub strong,#cta strong{ color:var(--rb-text)!important; }
 /* the CTA buttons */
@@ -1030,7 +1028,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 #cta [style*="background:#13181c"] *{ color:#04130f!important; }
 #cta a[style*="border"]{ border-color:var(--rb-line2)!important; color:var(--rb-text)!important; }
 
-/* ── BUILDER LIVE-BUILD DASHBOARD ── */
+/*  BUILDER LIVE-BUILD DASHBOARD  */
 .bld-build-stack{ display:flex; flex-direction:column; gap:7px; margin:4px 0 16px; }
 .bld-mod{ display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:10px;
   background:var(--rb-base); border:1px solid var(--rb-line); border-left:2px solid var(--mod-c,var(--rb-primary));
@@ -1052,7 +1050,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
   box-shadow:0 0 6px var(--mod-c,var(--rb-primary)); animation:bldPulse 1.6s ease-in-out infinite; }
 @keyframes bldPulse{ 0%,100%{opacity:1;} 50%{opacity:.4;} }
 
-/* ╔═══ BUILDER CHIP TEXT, was var(--dark) on dark = invisible ═══╗ */
+/*  BUILDER CHIP TEXT, was var(--dark) on dark = invisible  */
 .bld-chip-name{ color:var(--rb-text)!important; font-family:var(--rb-sans)!important; }
 .bld-chip.sel .bld-chip-name{ color:var(--rb-text)!important; }
 .bld-chip-icon{ color:var(--rb-dim)!important; }
@@ -1071,7 +1069,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 
 /* builder intro + muted text -> legible */
 
-/* ╔═══ BUILDER RESTRUCTURE, stacked, full-width, no dead space ═══╗ */
+/*  BUILDER RESTRUCTURE, stacked, full-width, no dead space  */
 /* chips on top (full width), build dashboard below (full width) */
 .bld-compact-wrap{ display:flex!important; flex-direction:column!important;
   gap:20px!important; grid-template-columns:none!important; align-items:stretch!important;
@@ -1093,7 +1091,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .bld-cp-body{ padding:24px!important; }
 /* inside the panel, lay ring + build-stack + pricing in a row on desktop */
 #bldActive{ display:none; }
-#bldActive.show-grid,#bldActive[style*="block"]{ }
 .bld-cp-body{ display:flex; flex-direction:column; gap:20px; }
 /* build stack: 2-col module grid so it fills width nicely */
 .bld-build-stack{ display:grid!important; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))!important;
@@ -1114,9 +1111,9 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 /* empty state legible */
 .bld-cp-empty{ color:var(--rb-dim)!important; font-family:var(--rb-mono)!important; font-size:12px!important; }
 
-/* ╔══════════════════════════════════════════════════════════════════╗
-   ║  POLISH PASS, the 300%: motion rhythm, tactility, finish          ║
-   ╚══════════════════════════════════════════════════════════════════╝ */
+/*
+     POLISH PASS, the 300%: motion rhythm, tactility, finish
+    */
 :root{
   /* ONE signature easing, the "expensive" curve, used everywhere */
   --e:cubic-bezier(.22,1,.36,1);          /* smooth decelerate */
@@ -1125,7 +1122,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
   --t1:120ms; --t2:200ms; --t3:340ms; --t4:560ms;
 }
 
-/* ── UNIVERSAL TACTILITY, every interactive thing responds to press ── */
+/*  UNIVERSAL TACTILITY, every interactive thing responds to press  */
 .bld-chip,.sys-chip,.hero-btn-primary,.hero-btn-secondary,.nav-cta,.tl-cta,
 .rv-cta,.bld-cp-btn,.bld-cp-ghost,.bld-chip-selall,.bld-mob-btn,
 a[class*="btn"],button:not(:disabled){
@@ -1139,7 +1136,7 @@ a[class*="btn"],button:not(:disabled){
 }
 .bld-chip:active,.sys-chip:active{ transform:scale(.97)!important; }
 
-/* ── PREMIUM BUTTON SHEEN, light sweep on primary CTAs ── */
+/*  PREMIUM BUTTON SHEEN, light sweep on primary CTAs  */
 .hero-btn-primary,.nav-cta,.bld-cp-btn:not(:disabled){ position:relative; overflow:hidden; }
 .hero-btn-primary::after,.nav-cta::after,.bld-cp-btn:not(:disabled)::after{
   content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
@@ -1148,7 +1145,7 @@ a[class*="btn"],button:not(:disabled){
 }
 .hero-btn-primary:hover::after,.nav-cta:hover::after,.bld-cp-btn:not(:disabled):hover::after{ left:140%; }
 
-/* ── ACCESSIBILITY, keyboard focus ring (was 0, real a11y gap) ── */
+/*  ACCESSIBILITY, keyboard focus ring (was 0, real a11y gap)  */
 a:focus-visible,button:focus-visible,input:focus-visible,
 textarea:focus-visible,select:focus-visible,.bld-chip:focus-visible,.sys-chip:focus-visible{
   outline:2px solid var(--rb-primary)!important; outline-offset:3px!important;
@@ -1156,31 +1153,31 @@ textarea:focus-visible,select:focus-visible,.bld-chip:focus-visible,.sys-chip:fo
 }
 *:focus:not(:focus-visible){ outline:none; }
 
-/* ── GPU SMOOTHNESS, promote animated layers, kill jank ── */
+/*  GPU SMOOTHNESS, promote animated layers, kill jank  */
 .hero-right-col,.sys-chip,.bld-chip,.bld-mod,
 .reveal,.cta-title em,.hero-h1-new em{ will-change:transform; }
 .bld-mod,.sys-chip{ backface-visibility:hidden; transform:translateZ(0); }
 
-/* ── REFINED CARD HOVER, lift + glow in rhythm ── */
+/*  REFINED CARD HOVER, lift + glow in rhythm  */
 .sys-chip{ transition:transform var(--t3) var(--e), border-color var(--t2) var(--e), box-shadow var(--t3) var(--e)!important; }
 
-/* ── LINK UNDERLINE GROW (nav), smooth, signature ease ── */
+/*  LINK UNDERLINE GROW (nav), smooth, signature ease  */
 .nav-links a::after{ transition:width var(--t3) var(--e)!important; }
 
-/* ── SELECTION COLOR, branded, not browser-blue ── */
+/*  SELECTION COLOR, branded, not browser-blue  */
 ::selection{ background:rgba(45,212,191,.28); color:var(--rb-text); }
 
-/* ── SMOOTH SCROLL feel already via Lenis; ensure anchor offset clean ── */
+/*  SMOOTH SCROLL feel already via Lenis; ensure anchor offset clean  */
 html{ scroll-behavior:smooth; }
 
-/* ── REDUCED MOTION, kill all the above motion for those who need it ── */
+/*  REDUCED MOTION, kill all the above motion for those who need it  */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{ animation-duration:.001ms!important; transition-duration:.001ms!important;
     animation-iteration-count:1!important; }
   .hero-btn-primary::after,.nav-cta::after,.bld-cp-btn::after{ display:none!important; }
 }
 
-/* ── MICRO-REFINEMENTS, the details that compound ── */
+/*  MICRO-REFINEMENTS, the details that compound  */
 /* serif display: optical leading + ligatures for editorial finish */
 .hero-h1-new,.s-title,.tl-title,.cta-title,.rv-title{
   font-feature-settings:"liga" 1,"calt" 1,"kern" 1;
@@ -1209,7 +1206,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 ::-webkit-scrollbar-thumb{ background:var(--rb-line2); border-radius:6px; border:2px solid var(--rb-void); }
 ::-webkit-scrollbar-thumb:hover{ background:var(--rb-primary); }
 
-/* ╔═══ ANIMATED WORKFLOW, one visit flowing through the systems ═══╗ */
+/*  ANIMATED WORKFLOW, one visit flowing through the systems  */
 .flow-wrap{ max-width:1100px; margin:0 auto 56px; padding:36px 28px;
   background:linear-gradient(160deg,var(--rb-panel),var(--rb-base));
   border:1px solid var(--rb-line); border-radius:20px; }
@@ -1246,7 +1243,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   .flow-label{ font-size:13px; }
 }
 
-/* ╔═══ PER-CARD MICRO-ANIMATIONS, each system shown working ═══╗ */
+/*  PER-CARD MICRO-ANIMATIONS, each system shown working  */
 .sc-viz{ height:48px; margin:10px 0 12px; position:relative; overflow:hidden; border-radius:8px;
   background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb,var(--vc) 7%,transparent), transparent 70%), #06090e;
   border:1px solid color-mix(in srgb,var(--vc) 18%,var(--rb-line));
@@ -1329,7 +1326,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 @media(prefers-reduced-motion:reduce){ .sc-viz [data-anim]{ animation:none!important; opacity:1!important; } }
 
-/* ╔═══ BUILDER CONSOLE, compiling feel ═══╗ */
+/*  BUILDER CONSOLE, compiling feel  */
 .bld-console{ background:#06090e; border:1px solid var(--rb-line); border-radius:12px;
   overflow:hidden; margin-bottom:4px; box-shadow:inset 0 1px 4px rgba(0,0,0,.5); }
 .bld-console-head{ display:flex; align-items:center; gap:6px; padding:8px 12px;
@@ -1353,7 +1350,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .bld-mod-metric{ font-family:var(--rb-mono); font-size:7.5px; letter-spacing:.5px; color:var(--rb-faint);
   text-transform:uppercase; margin-top:1px; }
 
-/* ╔═══ SECTION UPGRADES, match the animated treatment ═══╗ */
+/*  SECTION UPGRADES, match the animated treatment  */
 /* 1. THE TRUTH, pain cards glow on left, eliminate-items stagger in */
 .prob-card,[class*="prob-"]{ transition:border-color var(--t2) var(--e), background var(--t2) var(--e); }
 .elim-item{ opacity:0; transform:translateX(-8px); }
@@ -1374,7 +1371,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 /* 4. SECURITY, animated icons + glow on scroll */
 .sec-card{ transition:transform var(--t3) var(--e), box-shadow var(--t3) var(--e), border-color var(--t2) var(--e); }
-.sec-card.sec-on{ }
 .sec-card:hover{ transform:translateY(-4px); }
 .sec-card .sec-ico-anim{ opacity:0; transform:scale(.7); }
 .sec-card.sec-on .sec-ico-anim{ opacity:1; transform:scale(1); transition:opacity var(--t3) var(--e), transform var(--t3) var(--e-snap); }
@@ -1383,7 +1379,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .sys-chips-grid{ background:transparent!important; border:none!important; gap:14px!important;
   border-radius:0!important; overflow:visible!important; }
 
-/* ╔═══ BUILDER, "actually being built" feel ═══╗ */
+/*  BUILDER, "actually being built" feel  */
 /* overall build progress bar */
 .bld-progress{ margin:0 0 4px; }
 .bld-progress-head{ display:flex; justify-content:space-between; align-items:baseline;
@@ -1395,8 +1391,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .bld-progress-fill{ height:100%; width:0; border-radius:3px;
   background:linear-gradient(90deg,var(--rb-primary),var(--sys-gps));
   box-shadow:0 0 10px var(--rb-primary); transition:width var(--t4) var(--e); }
-/* module compiling state, shows building before online */
-.bld-mod.compiling{ }
 .bld-mod.compiling .bld-mod-status{ color:var(--rb-faint); }
 .bld-mod.compiling .bld-mod-dot{ animation:none; background:var(--rb-faint); box-shadow:none; }
 .bld-mod-prog{ position:absolute; left:0; bottom:0; height:2px; width:0;
@@ -1410,7 +1404,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .bld-mod.online .bld-mod-status .stxt-on{ display:inline; }
 .bld-mod.online .bld-mod-dot{ animation:bldPulse 1.6s ease-in-out infinite; background:var(--mod-c); box-shadow:0 0 6px var(--mod-c); }
 
-/* ╔═══ BUILD PIPELINE, live end-to-end data flow (fills dead space) ═══╗ */
+/*  BUILD PIPELINE, live end-to-end data flow (fills dead space)  */
 .bld-pipeline{ display:none; background:#06090e; border:1px solid var(--rb-line); border-radius:12px;
   padding:18px 16px 14px; box-shadow:inset 0 1px 4px rgba(0,0,0,.5); position:relative; overflow:hidden; }
 .bld-pipeline.on{ display:block; }
@@ -1441,10 +1435,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .bld-pipe-foot{ font-family:var(--rb-mono); font-size:8px; letter-spacing:.5px; color:var(--rb-faint);
   text-align:center; margin-top:14px; }
 .bld-pipe-foot b{ color:var(--rb-primary); font-weight:400; }
-@media(prefers-reduced-motion:reduce){ .bld-pipe-packet{ display:none; } .bld-pipe-node{ } .bld-pipe-node .bld-pipe-ico{ } }
+@media(prefers-reduced-motion:reduce){ .bld-pipe-packet{ display:none; } }
 
-/* ── PORTED SYSTEM SHOWCASE CARDS (from landing) ── */
-/* ── ANIMATED SYSTEM CARDS ── */
+/*  PORTED SYSTEM SHOWCASE CARDS (from landing)  */
+/*  ANIMATED SYSTEM CARDS  */
 .asc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:4px;}
 .asc{background:linear-gradient(160deg,var(--rb-panel),var(--rb-base));border:1px solid rgba(250,248,244,.07);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default;}
 .asc:hover{border-color:rgba(45,212,191,.4);transform:translateY(-2px);}
@@ -1468,10 +1462,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 @keyframes ascBlink{0%,100%{opacity:1}45%,55%{opacity:0}}
 @keyframes ascTyping{0%,100%{opacity:.2}50%{opacity:.8}}
 
-/* ╔══════════════════════════════════════════════════════════════════╗
-   ║  HERO REBUILD (Pass 1), elevate os-panel dashboard to 10/10       ║
-   ║  Decoration removed. Re-skin to --rb tokens + system color-map.    ║
-   ╚══════════════════════════════════════════════════════════════════╝ */
+/*
+     HERO REBUILD (Pass 1), elevate os-panel dashboard to 10/10
+     Decoration removed. Re-skin to --rb tokens + system color-map.
+    */
 /* hero canvas: remove orb-era radial, clean deep void with subtle top glow */
 #hero{ background:radial-gradient(ellipse 90% 55% at 50% -5%, #0c1620 0%, var(--rb-void) 55%)!important; }
 
@@ -1527,14 +1521,14 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .osp-foot-val{ font-family:var(--rb-serif)!important; color:var(--rb-text)!important; font-variant-numeric:tabular-nums; }
 .osp-foot-lbl{ font-family:var(--rb-mono)!important; color:var(--rb-dim)!important; }
 
-/* ╔═══ THE PROOF (Pass 2), realistic "Live HQ" dashboard artifact ═══╗ */
+/*  THE PROOF (Pass 2), realistic "Live HQ" dashboard artifact  */
 #real{ background:var(--rb-base)!important; }
 .phq-val{ font-family:var(--rb-serif); font-size:clamp(30px,4vw,44px); font-weight:400;
   color:var(--phq-c,var(--rb-text)); line-height:1; font-variant-numeric:tabular-nums;
   text-shadow:0 0 24px color-mix(in srgb,var(--phq-c) 30%,transparent); }
 
 
-/* ╔═══ TIMELINE (Pass 3), realistic per-day artifacts ═══╗ */
+/*  TIMELINE (Pass 3), realistic per-day artifacts  */
 .tl-art{ height:88px; margin-bottom:18px; padding:11px 13px; border-radius:10px;
   background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb,var(--tla-c) 8%,transparent), transparent 70%), #06090e;
   border:1px solid color-mix(in srgb,var(--tla-c) 18%,var(--rb-line));
@@ -1582,7 +1576,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 @keyframes tlBar{ to{ transform:scaleY(1); } }
 @media(prefers-reduced-motion:reduce){ .tl-on .tla-bar{ animation:none; transform:scaleY(1); } .tl-on .tla-cur,.tl-on .tla-live-dot{ animation:none; } }
 
-/* ╔═══ THE TRUTH (Pass 4), realistic chaos artifacts (pain-red palette) ═══╗ */
+/*  THE TRUTH (Pass 4), realistic chaos artifacts (pain-red palette)  */
 :root{ --pain:#e05858; --pain-dim:rgba(192,80,80,.5); }
 .pain-art{ position:relative; height:62px; margin-bottom:10px; border-radius:6px; overflow:hidden;
   background:#0a0608; border:1px solid rgba(192,80,80,.18); padding:8px 10px;
@@ -1635,7 +1629,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .pa-pay-v{ color:rgba(250,248,244,.6); }
 .pa-pay-strike{ text-decoration:line-through; text-decoration-color:var(--pain); color:var(--pain); }
 
-/* ╔═══ SECURITY (Pass 5), demonstrative compliance artifacts ═══╗ */
+/*  SECURITY (Pass 5), demonstrative compliance artifacts  */
 .sec-art{ display:block!important; height:auto; padding:12px 13px; border-radius:10px;
   background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb,var(--sec-c) 7%,transparent), transparent 70%), #06090e;
   border:1px solid color-mix(in srgb,var(--sec-c) 18%,var(--rb-line));
@@ -1669,7 +1663,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .sa-email-foot-u{ font-size:8px; color:var(--sec-c); display:flex; align-items:center; }
 
 
-/* ╔═══ PRICING (Pass 7), receipt artifact + mobile-responsive ═══╗ */
+/*  PRICING (Pass 7), receipt artifact + mobile-responsive  */
 /* RECEIPT, matches the product's own invoice aesthetic */
 .price-receipt{ background:#06090e; border:1px solid rgba(45,212,191,.18); border-radius:10px;
   padding:16px 16px 14px; box-shadow:inset 0 1px 4px rgba(0,0,0,.5); }
@@ -1692,7 +1686,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .pr-note{ font-family:var(--rb-mono); font-size:7.5px; letter-spacing:.3px; color:var(--rb-faint); margin-top:7px; text-align:center; }
 /* feature list */
 
-/* ── MOBILE: grid was a hardcoded 3-col with no collapse, fix it ── */
+/*  MOBILE: grid was a hardcoded 3-col with no collapse, fix it  */
 @media(max-width:880px){
   .pricing-grid{ grid-template-columns:1fr!important; gap:1px!important; }
   .price-featured{ order:0; } /* featured receipt first on mobile */
@@ -1703,7 +1697,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   .pr-brand{ font-size:9px; }
 }
 
-/* ╔═══ FINAL CTA (Pass 8), dark-native + aligned buttons + offer chip ═══╗ */
+/*  FINAL CTA (Pass 8), dark-native + aligned buttons + offer chip  */
 #cta{ background:radial-gradient(ellipse 70% 60% at 50% 50%, #0c1620, var(--rb-void)); }
 #cta .cta-pre{ color:var(--rb-primary); }
 #cta .cta-title{ color:var(--rb-text); }
@@ -1803,8 +1797,8 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
      ============================================================ */
 
 
-/* ═══ PASS A: phone-flow demo (base) ═══ */
-/* ── LP FLOW DEMO · embedded hero animation ── */
+/*  PASS A: phone-flow demo (base)  */
+/*  LP FLOW DEMO · embedded hero animation  */
 @keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
 
 @keyframes lp-glow-t{0%,100%{box-shadow:0 0 6px #6a9eaa}50%{box-shadow:0 0 16px #6a9eaa}}
@@ -1907,7 +1901,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 
 
-/* ── MAP PHONE ── */
+/*  MAP PHONE  */
 
 .lp-map-phone.show{width:182px;opacity:1;}
 
@@ -2613,7 +2607,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
     <div class="asc-grid reveal">
 
-<!-- ────────────────────────────────── S01 VISIT LOGGING ── -->
+<!--  S01 VISIT LOGGING  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">01</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2646,7 +2640,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">GPS check-in · Medication record · AI visit note · 60s</div>
 </div>
 
-<!-- ────────────────────────────────── S02 AUTO INVOICING ── -->
+<!--  S02 AUTO INVOICING  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">02</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2668,7 +2662,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">Invoice PDF · Pay stub · Payroll CSV · AR updated</div>
 </div>
 
-<!-- ────────────────────────────────── S03 LEAD CAPTURE ── -->
+<!--  S03 LEAD CAPTURE  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">03</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2689,7 +2683,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">AI chatbot · Replies in 60s · Books calls 24/7</div>
 </div>
 
-<!-- ────────────────────────────────── S04 FOLLOW-UP ENGINE ── -->
+<!--  S04 FOLLOW-UP ENGINE  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">04</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2718,7 +2712,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">14 templates · Day 1/3/7/30 automatic · Zero manual</div>
 </div>
 
-<!-- ────────────────────────────────── S05 FAMILY PORTAL ── -->
+<!--  S05 FAMILY PORTAL  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">05</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2744,7 +2738,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">Visit history · AI summaries · Ratings · No more 9pm calls</div>
 </div>
 
-<!-- ────────────────────────────────── S06 AI CHAT ── -->
+<!--  S06 AI CHAT  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">06</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2768,7 +2762,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">Website chatbot · Answers 24/7 · Books calls automatically</div>
 </div>
 
-<!-- ────────────────────────────────── S07 CLIENT ONBOARDING ── -->
+<!--  S07 CLIENT ONBOARDING  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">07</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2795,7 +2789,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">Sign → portal live → care plan ready · Nothing manual</div>
 </div>
 
-<!-- ────────────────────────────────── S08 HQ DASHBOARD ── -->
+<!--  S08 HQ DASHBOARD  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">08</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2835,7 +2829,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">Scheduling · Revenue · PSW compliance · Chief of Staff AI</div>
 </div>
 
-<!-- ────────────────────────────────── S09 PSW MANAGEMENT ── -->
+<!--  S09 PSW MANAGEMENT  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">09</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -2861,7 +2855,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="asc-desc">Digital profiles · Cert expiry alerts · Performance scores</div>
 </div>
 
-<!-- ────────────────────────────────── S10 CONVERTING WEBSITE ── -->
+<!--  S10 CONVERTING WEBSITE  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">10</span><span class="asc-badge free">Free add-on</span></div>
   <div class="asc-anim">
@@ -2890,7 +2884,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   </div>
 </div>
 
-<!-- ── SYSTEM BUILDER ── -->
+<!--  SYSTEM BUILDER  -->
 
 
 
@@ -3230,7 +3224,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <div class="ft-line" id="ft8" style="opacity:0;color:rgba(221,217,208,.3);">proximity-os v2.0 · Mississauga, ON<span class="ft-cursor"></span></div>
 </div>
 <script>
-/* ── FOOTER TERMINAL, self-typing boot sequence (guarded, runs once on scroll-in) ── */
+/*  FOOTER TERMINAL, self-typing boot sequence (guarded, runs once on scroll-in)  */
 (function(){try{
   var term = document.getElementById('footer-terminal');
   if(!term) return;
@@ -3355,7 +3349,7 @@ Built and led by Lance Salazar · Founder, Proximity Systems · Mississauga, Ont
 </div>
 
 <script>
-// ── INDEX INLINE CHATBOT ──
+//  INDEX INLINE CHATBOT
 const IX_RAIL = 'https://proximity-agent-production.up.railway.app/chat';
 const IX_LEAD = 'https://proximity-agent-production.up.railway.app/webhook/lead';
 const IX_SYS = `You are a sales assistant for Proximity Systems, a done-for-you AI operating system built and proven inside a real home care agency in Canada. 10 PSWs. 10 clients. Zero admin staff.
@@ -3641,7 +3635,7 @@ document.addEventListener('keydown', function(e) {
   }
 
 
-  // ── BUILDER ──
+  //  BUILDER
   const LEAD_URL='https://proximity-agent-production.up.railway.app/webhook/lead';
   const BLD_SYSTEMS=[
     {id:'s01',metric:'GPS verified',color:'var(--sys-gps)',tag:'GPS check-in, AI notes',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Visit Logging',live:true,addon:false},
@@ -3746,7 +3740,7 @@ document.addEventListener('keydown', function(e) {
         rn._t=setInterval(function(){ cur+=step; rn.textContent=cur; if(cur===to)clearInterval(rn._t); }, 60);
       } else { rn.textContent=count; }
     }
-    // ── LIVE BUILD DASHBOARD, assemble a module per selected system ──
+    //  LIVE BUILD DASHBOARD, assemble a module per selected system
     var stack=document.getElementById('bldBuildStack');
     if(stack){
       stack.innerHTML=items.map(function(s,i){
@@ -3776,10 +3770,10 @@ document.addEventListener('keydown', function(e) {
       // prune removed
       window.__bldOnline.forEach(function(id){ if(!bldSelected.has(id)) window.__bldOnline.delete(id); });
     }
-    // ── BUILD PROGRESS BAR ──
+    //  BUILD PROGRESS BAR
     var pf=document.getElementById('bldProgressFill'), pp=document.getElementById('bldProgressPct');
     if(pf){ var ppct=Math.round((count/10)*100); pf.style.width=ppct+'%'; if(pp)pp.textContent=ppct+'%'; }
-    // ── LIVE PIPELINE, selected systems working end to end ──
+    //  LIVE PIPELINE, selected systems working end to end
     var pipe=document.getElementById('bldPipeline');
     if(pipe){
       if(count<2){ pipe.classList.remove('on'); pipe.innerHTML=''; if(pipe._to)clearTimeout(pipe._to); if(pipe._th)clearTimeout(pipe._th); }
@@ -3822,7 +3816,7 @@ document.addEventListener('keydown', function(e) {
         }
       }
     }
-    // ── BUILD CONSOLE, compile log, types a line per selected system ──
+    //  BUILD CONSOLE, compile log, types a line per selected system
     var conBody=document.getElementById('bldConsoleBody');
     if(conBody){
       if(count===0){
@@ -4261,7 +4255,7 @@ var bookingAttempted = false;
 
 
 
-// ── IN-HOUSE SLOT PICKER, replaces Calendly ──────────────────────────────
+//  IN-HOUSE SLOT PICKER, replaces Calendly
 // Called after webhook/lead returns lead_id
 // Fetches /leads/call-slots, renders picker, POSTs /leads/book-call
 
@@ -4360,16 +4354,16 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
     try { btn.textContent = 'Error, try again'; btn.disabled = false; } catch(e2){}
   }
 }
-// ── END SLOT PICKER ───────────────────────────────────────────────────────
+//  END SLOT PICKER
 
 </script>
 
 
 
 <script>
-// ── HERO PARTICLE CANVAS, REMOVED (abstract decoration; canvas element deleted) ──
+//  HERO PARTICLE CANVAS, REMOVED (abstract decoration; canvas element deleted)
 
-// ── HERO STAT COUNTERS ────────────────────────────────────────────────────────
+//  HERO STAT COUNTERS
 (function(){try{
   function animCount(el, target, dur){
     if(!el) return;
@@ -4395,7 +4389,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   obs.observe(hero);
 }catch(e){console.warn('init section isolated:',e);}})();
 
-// ── SCROLL PROGRESS BAR ───────────────────────────────────────────────────────
+//  SCROLL PROGRESS BAR
 (function(){try{
   var bar = document.getElementById('scrollProgress');
   if(!bar) return;
@@ -4407,7 +4401,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   }, {passive:true});
 }catch(e){console.warn('init section isolated:',e);}})();
 
-// ── HERO MOBILE RESPONSIVE ───────────────────────────────────────────────────
+//  HERO MOBILE RESPONSIVE
 (function(){try{
   function checkMobile(){
     var hero = document.getElementById('hero');
@@ -4420,7 +4414,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   window.addEventListener('resize', checkMobile, {passive:true});
 }catch(e){console.warn('init section isolated:',e);}})();
 
-// ── OS PANEL, command center animation ──────────────────────────────────────
+//  OS PANEL, command center animation
 (function initOSPanel() {
   var OSP_SYSTEMS = [
     { n:'01', name:'Visit Logging',     fill:92, badge:'● 3 active', cls:'live' },
@@ -4482,7 +4476,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/* ── CINEMATIC LAYER, commercial scroll motion (guarded, reduced-motion aware) ── */
+/*  CINEMATIC LAYER, commercial scroll motion (guarded, reduced-motion aware)  */
 (function(){try{
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -4520,7 +4514,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/* ── WORKFLOW ANIMATION, visit thread travels the pipeline ── */
+/*  WORKFLOW ANIMATION, visit thread travels the pipeline  */
 (function(){try{
   var wrap=document.getElementById('flowWrap');
   var pulse=document.getElementById('flowPulse');
@@ -4562,7 +4556,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/* ── PER-CARD MICRO-ANIMATIONS, inject SVG scenes, play on scroll-in ── */
+/*  PER-CARD MICRO-ANIMATIONS, inject SVG scenes, play on scroll-in  */
 (function(){try{
   var scenes = {
     1:'<svg viewBox="0 0 120 48"><circle class="vc v-ping" cx="60" cy="30" r="1" stroke-width="1.5"/><path class="vc v-pin" d="M60 14c4 0 7 3 7 7 0 5-7 11-7 11s-7-6-7-11c0-4 3-7 7-7Z" data-anim stroke-width="1.6"/><circle class="vcf v-pin" cx="60" cy="21" r="2.4" data-anim/></svg>',
@@ -4593,7 +4587,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/* ── SECTION UPGRADES, scroll-triggered life for truth/timeline/security ── */
+/*  SECTION UPGRADES, scroll-triggered life for truth/timeline/security  */
 (function(){try{
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -4634,7 +4628,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/* ── THE PROOF, count-up KPIs when the Live HQ panel scrolls in ── */
+/*  THE PROOF, count-up KPIs when the Live HQ panel scrolls in  */
 (function(){try{
   var hq=document.getElementById('proofHQ');
   if(!hq) return;

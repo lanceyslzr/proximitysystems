@@ -201,9 +201,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .faq-item.open .faq-a{display:block}
 
 
-/* ══════════════════════════════════════════
+/*
    SYSTEM BUILDER
-══════════════════════════════════════════ */.bld-active.show{display:block}
+ */.bld-active.show{display:block}
 @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .bld-book-btn{width:100%;background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:14px;border-radius:7px;border:none;cursor:pointer;min-height:48px;transition:background 0.2s,transform 0.1s;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px}
 .bld-book-btn:active{transform:scale(0.98);background:#2d6a7a}
@@ -215,9 +215,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 /* RESPONSIVE */
 
-/* ══════════════════════════════════════════
+/*
    SYSTEM BUILDER
-══════════════════════════════════════════ */
+ */
 
 /* STEP HEADER */
 
@@ -264,7 +264,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
    top-level }, so nothing was visibly broken, but it was dead code with
    broken syntax. Removed rather than repaired. */
 
-/* ── SYSTEM CARDS, visual grid ── */
+/*  SYSTEM CARDS, visual grid  */
 @keyframes pulseRed{0%,100%{box-shadow:0 0 8px rgba(224,88,88,0.35)}50%{box-shadow:0 0 12px rgba(224,88,88,0.6)}}
 @keyframes pulseGreen{0%,100%{box-shadow:0 0 8px rgba(90,170,122,0.35)}50%{box-shadow:0 0 12px rgba(90,170,122,0.6)}}
 .syscard-mark.bad{animation:pulseRed 2.5s ease infinite;border-color:rgba(224,88,88,0.5);background:rgba(224,88,88,0.1);color:var(--red);box-shadow:0 0 8px rgba(224,88,88,0.35)}
@@ -274,15 +274,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 
 
-/* ── COMPACT BUILDER ── */
+/*  COMPACT BUILDER  */
 .bld-upsell-hint.show{display:block}
 
 /* COMPACT PANEL */
 
 
-/* ── OB PACKAGE CARD (offer section personalized) ── */
+/*  OB PACKAGE CARD (offer section personalized)  */
 
-/* ── BOOKING PREVIEW ── */
+/*  BOOKING PREVIEW  */
 
 /* MOBILE, up to 599px */
 
@@ -488,9 +488,9 @@ button,a,[onclick]{touch-action:manipulation;}
   .tr-num{flex-shrink:0;margin-bottom:0}
 }
 
-/* ── PHONE DEMO. Each screen below is transcribed from the real portal: markup, class names
+/*  PHONE DEMO. Each screen below is transcribed from the real portal: markup, class names
    and CSS come out of hq.html, psw-portal.html and family.html as they render at 390px.
-   Nothing here is authored by hand except this device frame. ── */
+   Nothing here is authored by hand except this device frame.  */
 @keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
 @keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
@@ -616,7 +616,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <div class="ann"><strong>First month free.</strong> We build everything first. You pay after it is live. &nbsp;·&nbsp; We onboard <strong>3 agencies at a time</strong> to guarantee 7-day delivery. <strong>3 spots open.</strong></div>
 
-<!-- ── HERO ── -->
+<!--  HERO  -->
 <section id="hero" style="min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:88px 24px 48px;position:relative;overflow:hidden;">
 
   <!-- Centered headline block -->
@@ -651,7 +651,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
 
-<!-- ── PAIN ── -->
+<!--  PAIN  -->
 <section id="pain" class="sec-edge" style="background:var(--bg2)">
   <div class="sec w" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;">
@@ -720,7 +720,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
 
-<!-- ── 7-DAY TIMELINE ── -->
+<!--  7-DAY TIMELINE  -->
 <section id="timeline" class="sec-edge" style="background:var(--bg)">
   <div class="sec w" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>How It Works</div>
@@ -758,7 +758,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
 
-<!-- ── OS FLOW ANIMATION ── -->
+<!--  OS FLOW ANIMATION  -->
 <section id="os-flow" class="sec-edge" style="padding:56px 0 48px;background:var(--bg);overflow:hidden;">
   <div class="w">
     <div style="text-align:center;margin-bottom:36px;">
@@ -804,7 +804,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
 
 
-<!-- ── 10 SYSTEMS ── -->
+<!--  10 SYSTEMS  -->
 <section id="systems" class="sec-edge" style="background:var(--bg2)">
   <div class="sec w-wide" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>10 Done-For-You Systems · All Connected · All Live</div>
@@ -812,7 +812,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <p class="sub" style="margin-bottom:32px;font-size:14px;max-width:540px;margin-left:auto;margin-right:auto;">Built for Ontario private-pay home care. Every system wired together from day one.</p>
 
     <style>
-/* ── ANIMATED SYSTEM CARDS ── */
+/*  ANIMATED SYSTEM CARDS  */
 .asc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:4px;}
 .asc{background:#0c1018;border:1px solid rgba(250,248,244,.07);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default;}
 .asc:hover{border-color:rgba(30,125,150,.35);transform:translateY(-2px);}
@@ -987,8 +987,6 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      A summary should not shout louder than the evidence.
      Its label was 8px, below anything legible as reading copy.
      ====================================================================== */
-  @media(max-width:599px){
-  }
 
   /* ======================================================================
      THE FINAL CTA STRIP. Its LAYOUT was already right: repeat(3,1fr),
@@ -1340,7 +1338,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
     <div class="asc-grid">
 
-<!-- ────────────────────────────────── S01 VISIT LOGGING ── -->
+<!--  S01 VISIT LOGGING  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">01</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1373,7 +1371,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">GPS check-in · Medication record · AI visit note · 60s</div>
 </div>
 
-<!-- ────────────────────────────────── S02 AUTO INVOICING ── -->
+<!--  S02 AUTO INVOICING  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">02</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1395,7 +1393,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">Invoice PDF · Pay stub · Payroll CSV · AR updated</div>
 </div>
 
-<!-- ────────────────────────────────── S03 LEAD CAPTURE ── -->
+<!--  S03 LEAD CAPTURE  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">03</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1416,7 +1414,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">AI chatbot · Replies in 60s · Books calls 24/7</div>
 </div>
 
-<!-- ────────────────────────────────── S04 FOLLOW-UP ENGINE ── -->
+<!--  S04 FOLLOW-UP ENGINE  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">04</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1445,7 +1443,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">14 templates · Day 1/3/7/30 automatic · Zero manual</div>
 </div>
 
-<!-- ────────────────────────────────── S05 FAMILY PORTAL ── -->
+<!--  S05 FAMILY PORTAL  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">05</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1471,7 +1469,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">Visit history · AI summaries · Ratings · No more 9pm calls</div>
 </div>
 
-<!-- ────────────────────────────────── S06 AI CHAT ── -->
+<!--  S06 AI CHAT  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">06</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1495,7 +1493,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">Website chatbot · Answers 24/7 · Books calls automatically</div>
 </div>
 
-<!-- ────────────────────────────────── S07 CLIENT ONBOARDING ── -->
+<!--  S07 CLIENT ONBOARDING  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">07</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1522,7 +1520,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">Sign → portal live → care plan ready · Nothing manual</div>
 </div>
 
-<!-- ────────────────────────────────── S08 HQ DASHBOARD ── -->
+<!--  S08 HQ DASHBOARD  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">08</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1562,7 +1560,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">Scheduling · Revenue · PSW compliance · Chief of Staff AI</div>
 </div>
 
-<!-- ────────────────────────────────── S09 PSW MANAGEMENT ── -->
+<!--  S09 PSW MANAGEMENT  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">09</span><span class="asc-badge live">● Live</span></div>
   <div class="asc-anim">
@@ -1588,7 +1586,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-desc">Digital profiles · Cert expiry alerts · Performance scores</div>
 </div>
 
-<!-- ────────────────────────────────── S10 CONVERTING WEBSITE ── -->
+<!--  S10 CONVERTING WEBSITE  -->
 <div class="asc">
   <div class="asc-head"><span class="asc-num">10</span><span class="asc-badge free">Free add-on</span></div>
   <div class="asc-anim">
@@ -1626,8 +1624,8 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
 
 
-<!-- ── PROOF ── -->
-<!-- ── OFFER + BOOKING ── -->
+<!--  PROOF  -->
+<!--  OFFER + BOOKING  -->
 <section id="offer" class="sec-edge" style="background:var(--bg)">
   <div class="sec w" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>Book Your Free Call</div>
@@ -1679,11 +1677,11 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
 
 
-<!-- ── FAQ ──</section>
+<!--  FAQ </section>
 
 
 
-<!-- ── FAQ ── -->
+<!--  FAQ  -->
 <section id="faq" class="sec-edge" style="background:var(--bg2)">
   <div class="sec w">
     <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>Your Questions Answered</div>
@@ -1717,7 +1715,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   </div>
 </section>
 
-<!-- ── FINAL CTA ── -->
+<!--  FINAL CTA  -->
 <section id="final" class="sec-edge" style="background:var(--bg)">
   <div class="sec w">
     <div class="final-box">
@@ -2216,7 +2214,7 @@ var lpBooked=false;
 </script>
 
 <script>
-/* ── PHONE DEMO ANIMATION. Beats move between frames captured from the real portals. ── */
+/*  PHONE DEMO ANIMATION. Beats move between frames captured from the real portals.  */
 (function(){
 // Particle canvas
 var bgc=document.getElementById('bg');
