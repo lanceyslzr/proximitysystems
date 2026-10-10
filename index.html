@@ -89,9 +89,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .hsn-sub { font-family: var(--rb-mono); font-size: 7.5px; color: #3d8a7a; margin-top: 3px; }
   /* Hero right, product card */
   .hero-right-col { position: relative; z-index: 10; opacity: 0; animation: fadeUp .9s ease forwards .9s; }
-  .hpc-notif-icon.g { background: rgba(90,138,106,.2); }
-  .hpc-notif-icon.t { background: rgba(61,122,138,.2); }
-  .hpc-notif-icon.o { background: rgba(200,169,110,.15); }
 
   /*  OS COMMAND PANEL, Hero right column  */
   .os-panel { background:rgba(7,9,12,.97); border:1px solid rgba(61,122,138,.22); border-radius:12px; overflow:hidden; box-shadow:0 0 0 1px rgba(61,122,138,.08),0 24px 80px rgba(0,0,0,.7); font-family:'DM Mono',monospace; display:flex; flex-direction:column; }
@@ -134,13 +131,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   #hero::after { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(61,122,138,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(61,122,138,.03) 1px,transparent 1px); background-size:48px 48px; pointer-events:none; z-index:0; }
   .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(90,138,106,0.3);}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(90,138,106,0);} }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px,6vw,88px); font-weight: 300; line-height: 1.0; color: var(--dark); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
-  .hero-title em { font-style: italic; color: var(--teal-dark); display: block; }
-  .hero-btns { display: flex; gap: 16px; flex-wrap: nowrap; align-items: stretch; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
-  .hero-btns > a { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
-  .card-dot.r { background: #ff5f57; } .card-dot.y { background: #febc2e; } .card-dot.g { background: #28c840; }
-  @keyframes slideIn { from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);} }
-  .notif-icon.green{background:rgba(90,138,106,0.2);}
+
   .trust-bar { background: var(--dark); padding: 20px 64px; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; }
   .trust-item { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,.46); text-transform: uppercase; }
   .trust-item::before { content: '·'; color: var(--teal); font-size: 20px; }
@@ -155,34 +146,13 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); }
   .s-title.light { color: #fff; } .s-title.dark { color: var(--dark); }
   .s-title em { font-style: italic; color: var(--teal); }
-  .prob-item { padding: 24px 28px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
-  .prob-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--red); transform: scaleY(0); transition: transform 0.3s ease; }
-  .prob-item:hover::before { transform: scaleY(1); }
-  .prob-item:hover { background: rgba(255,255,255,0.04); }
   .prob-strike { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: line-through; text-decoration-color: rgba(192,80,80,0.5); font-weight: 500; margin-bottom: 6px; }
-  .f-num.active { background: rgba(106,158,170,0.15); border: 1px solid var(--teal-dark); color: var(--teal); }
-  .f-num.done { background: rgba(90,138,106,0.15); border: 1px solid var(--green); color: var(--green); }
   .package-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 64px; }
   .package-intro-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--muted); line-height: 1.6; }
   .package-intro-text strong { color: var(--dark); font-style: normal; }
-  .sys-card.addon { border-top: 2px solid var(--teal-dark); background: #fff; }
-  .sys-card.addon::after { background: var(--teal-dark); }
-  .sys-card.wide { grid-column: span 2; }
-  .sys-card.full { grid-column: span 4; }
-  .mockup-dot.r{background:#ff5f57;}.mockup-dot.y{background:#febc2e;}.mockup-dot.g{background:#28c840;}
-  .mockup-row.active { background: rgba(61,122,138,0.12); border-color: rgba(61,122,138,0.25); }
-  .mockup-pill.auto { background: rgba(90,138,106,0.2); color: var(--green); border: 1px solid rgba(90,138,106,0.3); }
-  .mockup-pill.live { background: rgba(106,158,170,0.2); color: var(--teal); border: 1px solid rgba(106,158,170,0.3); }
-  .wm-dot.r{background:#ff5f57;}.wm-dot.y{background:#febc2e;}.wm-dot.g{background:#28c840;}
-  .ba.before { background: rgba(192,80,80,0.06); border: 1px solid rgba(192,80,80,0.15); }
-  .ba.after { background: rgba(90,138,106,0.08); border: 1px solid rgba(90,138,106,0.2); }
-  .ba.before .ba-tag { color: rgba(192,80,80,0.7); } .ba.after .ba-tag { color: var(--green); }
-  .ba.before .ba-list { color: rgba(255,255,255,0.55); }
-  .ba.after .ba-list { color: rgba(255,255,255,0.75); }
-  .offer-card.featured { border-color: var(--teal-dark); box-shadow: 0 0 0 1px var(--teal-dark); }
-  .offer-card.featured .offer-head { background: rgba(61,122,138,0.1); }
-  .offer-cta.solid { background: var(--teal-dark); color: #fff; }
-  .offer-cta.solid:hover { background: var(--teal); }
+
+
+
   .btn-primary { display: inline-block; background: var(--dark); color: #fff; padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; border: 1px solid var(--dark); }
   .btn-primary:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
   .btn-primary.light { background: #fff; color: var(--dark); border-color: #fff; }
@@ -334,12 +304,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .rv-author { color: #6a9eaa; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
   .rv-role { color: rgba(221,217,208,.55); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 
-  /*  COMPACT SYSTEMS CHIPS  */
-  .sys-chips-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:0}
-  .sys-chip{background:var(--cream);padding:22px 20px;transition:background 0.2s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;min-width:0;word-break:break-word;overflow-wrap:break-word;}
-  .sys-chip::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--teal-dark);transform:scaleX(0);transition:transform 0.3s ease;transform-origin:left}
-  .sys-chip:hover{background:#fff}.sys-chip:hover::after{transform:scaleX(1)}
-  .sys-chip.addon-chip{background:#fff;border-top:2px solid var(--teal-dark)}
 
   /*  BUILDER SECTION  */
   /* Scoped CSS vars for builder dark components */
@@ -362,7 +326,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-chip:hover{border-color:var(--teal);background:var(--bg)}
   .bld-chip:active{transform:scale(0.97)}
   .bld-chip.sel{border-color:var(--chip-c,var(--rb-primary))!important;background:color-mix(in srgb,var(--chip-c,var(--rb-primary)) 10%,transparent)!important;box-shadow:0 0 0 1px var(--chip-c,var(--rb-primary)),0 0 18px -6px var(--chip-c,var(--rb-primary))}
-  .bld-chip.coming-chip{opacity:0.5;cursor:default}
   .bld-chip-icon{flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:var(--teal-dark);transition:color 0.2s}
   .bld-chip.sel .bld-chip-icon{color:var(--chip-c,var(--rb-primary))!important}
   .bld-chip-name{font-size:11px;font-weight:500;color:var(--text);flex:1;line-height:1.3;font-family:'DM Mono',monospace}
@@ -466,7 +429,6 @@ button,a,[onclick]{touch-action:manipulation;}
 .chat-input-row button{background:#3d7a8a;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:16px;min-width:44px;min-height:44px;}
 .ix-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.6;}
 .ix-msg-bot{background:rgba(61,122,138,0.15);border:1px solid rgba(61,122,138,0.25);color:#ddd9d0;align-self:flex-start;border-radius:4px 12px 12px 12px;}
-.ix-msg-user{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#ddd9d0;align-self:flex-end;border-radius:12px 4px 12px 12px;}
 .ix-typing{display:flex;gap:4px;align-items:center;padding:12px 16px;}
 .ix-typing span{width:6px;height:6px;border-radius:50%;background:#3d7a8a;animation:ixDot 1.2s infinite;}
 .ix-typing span:nth-child(2){animation-delay:.2s;}
@@ -485,21 +447,16 @@ button,a,[onclick]{touch-action:manipulation;}
     .hero-right-col { width: 100%; max-width: 520px; margin: 0 auto; }
     .section-wrap { padding: 80px 24px; }
     .package-header { grid-template-columns: 1fr; gap: 24px; }
-    .sys-card.wide { grid-column: span 1; }
-    .sys-card.full { grid-column: span 1; }
-    .sys-card.addon > div { grid-template-columns: 1fr; gap: 24px; }
     .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
     .footer-bottom { padding: 20px 24px; flex-direction: column; text-align: center; }
     .trust-bar { padding: 20px 24px; gap: 24px; }
     #cta { padding: 80px 24px; }
-    .hero-btns { flex-wrap: wrap; }
     .nav-links { display: none; }
     .hamburger { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
     .mobile-cta { display: block; }
     body { padding-bottom: 72px; }
     .mobile-menu { z-index: 510; }
     .chat-bubble { bottom: 84px; right: 16px; }
-    .sys-chips-grid { grid-template-columns: repeat(2,1fr); }
     .bld-compact-wrap { grid-template-columns: 1fr; }
     .bld-compact-panel { display: none; }
     .bld-chips-grid { grid-template-columns: repeat(2,1fr); }
@@ -554,8 +511,6 @@ button,a,[onclick]{touch-action:manipulation;}
     .footer-brand { font-size: 22px; }
     .package-intro-text { font-size: 1rem; }
     .mobile-cta .btn-primary { font-size: 10px; }
-    .sys-chips-grid { grid-template-columns: repeat(2,1fr); }
-    .sys-chip { padding: 16px 14px; }
     .bld-chips-grid { grid-template-columns: 1fr 1fr; }
     .mf-row { grid-template-columns: 1fr; }
   }
@@ -566,8 +521,6 @@ button,a,[onclick]{touch-action:manipulation;}
     .chat-bubble svg { width: 22px; height: 22px; }
     .chat-modal { width: 100vw; height: 100vh; height: 100dvh; max-width: 100vw; max-height: 100vh; max-height: 100dvh; border-radius: 0; }
     .tl-grid { grid-template-columns: 1fr; }
-    .sys-chip { padding: 14px 16px; }
-    .sys-chips-grid { grid-template-columns: 1fr; }
     .bld-chips-grid { grid-template-columns: 1fr; }
     #hero { padding: 80px 16px 36px; gap: 24px; }
     .hero-eyebrow-new { font-size: 7.5px; letter-spacing: 1px; }
@@ -610,18 +563,6 @@ button,a,[onclick]{touch-action:manipulation;}
   #mfSubmit:hover, #bldBookBtn:hover {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
   }
-
-  /* SCROLL REVEAL */
-  .ps-reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
-  }
-  .ps-reveal.ps-visible {
-    opacity: 1;
-    transform: none;
-  }
-  .ps-reveal { animation: psShow 0.001s 1.8s forwards; }
   
 
 
@@ -654,7 +595,6 @@ button,a,[onclick]{touch-action:manipulation;}
      then clears, then the copy comes up. */
   
   
-  @media(max-width:600px){ #hero-boot{font-size:15px;white-space:normal;text-align:center;width:82vw} }
   /* S85. STACK MULTI-COLUMN GRIDS ON MOBILE.
      Five inline grids used grid-template-columns with 2, 3 or 4 columns.
      An INLINE style beats any stylesheet rule short of !important, so the
@@ -711,21 +651,12 @@ button,a,[onclick]{touch-action:manipulation;}
 
   /*  PROBLEM SECTION  */
   #problem{position:relative;overflow:hidden;}
-  .prob-item{position:relative;overflow:hidden;transition:border-color .3s,background .3s;}
-  .prob-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--red);transform:scaleY(0);transform-origin:bottom;transition:transform .4s cubic-bezier(.16,1,.3,1);}
-  .prob-item:hover::after{transform:scaleY(1);}
-  .prob-item:hover{background:rgba(192,80,80,.04);border-color:rgba(192,80,80,.2);}
-
-  /*  SYS CHIPS UPGRADE  */
-  .sys-chip{position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);}
-  .sys-chip:hover{transform:translateY(-2px);border-color:rgba(61,122,138,.4);box-shadow:0 8px 24px rgba(61,122,138,.12);}
 
   /*  TIMELINE  */
   .tl-card{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;}
   .tl-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(61,122,138,.12);}
 
   /*  PRICING GLOW  */
-  @keyframes priceGlow{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.05);opacity:1;}}
 
   /*  REVIEWS  */
   #reviews{background:linear-gradient(180deg,#0b0f14 0%,#111820 100%);}
@@ -760,38 +691,6 @@ button,a,[onclick]{touch-action:manipulation;}
   .section-eyebrow, .rv-eyebrow, .tl-eyebrow { justify-content: center; text-align: center; }
   .tl-title, .s-title, .cta-title, .rv-title { text-align: center; margin-left: auto; margin-right: auto; max-width: 22ch; }
   .tl-sub, .s-sub, .cta-sub, .section-sub { text-align: center; margin-left: auto; margin-right: auto; max-width: 60ch; }
-
-  /*  SYSTEM COLOR-CODE, one hue per function  */
-  .sys-chips-grid .sys-chip:nth-child(1) .sc-icon{color:#38BDF8;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(1) .sc-num{color:#38BDF8;}
-  .sys-chips-grid .sys-chip:nth-child(1){border-left:2px solid #38BDF8;}
-  .sys-chips-grid .sys-chip:nth-child(2) .sc-icon{color:#FBBF24;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(2) .sc-num{color:#FBBF24;}
-  .sys-chips-grid .sys-chip:nth-child(2){border-left:2px solid #FBBF24;}
-  .sys-chips-grid .sys-chip:nth-child(3) .sc-icon{color:#FB7185;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(3) .sc-num{color:#FB7185;}
-  .sys-chips-grid .sys-chip:nth-child(3){border-left:2px solid #FB7185;}
-  .sys-chips-grid .sys-chip:nth-child(4) .sc-icon{color:#FB7185;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(4) .sc-num{color:#FB7185;}
-  .sys-chips-grid .sys-chip:nth-child(4){border-left:2px solid #FB7185;}
-  .sys-chips-grid .sys-chip:nth-child(5) .sc-icon{color:#34D399;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(5) .sc-num{color:#34D399;}
-  .sys-chips-grid .sys-chip:nth-child(5){border-left:2px solid #34D399;}
-  .sys-chips-grid .sys-chip:nth-child(6) .sc-icon{color:#2DD4BF;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(6) .sc-num{color:#2DD4BF;}
-  .sys-chips-grid .sys-chip:nth-child(6){border-left:2px solid #2DD4BF;}
-  .sys-chips-grid .sys-chip:nth-child(7) .sc-icon{color:#F472B6;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(7) .sc-num{color:#F472B6;}
-  .sys-chips-grid .sys-chip:nth-child(7){border-left:2px solid #F472B6;}
-  .sys-chips-grid .sys-chip:nth-child(8) .sc-icon{color:#A78BFA;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(8) .sc-num{color:#A78BFA;}
-  .sys-chips-grid .sys-chip:nth-child(8){border-left:2px solid #A78BFA;}
-  .sys-chips-grid .sys-chip:nth-child(9) .sc-icon{color:#A78BFA;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(9) .sc-num{color:#A78BFA;}
-  .sys-chips-grid .sys-chip:nth-child(9){border-left:2px solid #A78BFA;}
-  .sys-chips-grid .sys-chip:nth-child(10) .sc-icon{color:#2DD4BF;opacity:1;}
-  .sys-chips-grid .sys-chip:nth-child(10) .sc-num{color:#2DD4BF;}
-  .sys-chips-grid .sys-chip:nth-child(10){border-left:2px solid #2DD4BF;}
 
 /*
      PROXIMITY SYSTEMS, VISUAL REBUILD v2 (care-tech dashboard)
@@ -865,17 +764,6 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
   font-variant-numeric:tabular-nums; }
 .hero-guarantee{ color:var(--rb-faint)!important; }
 
-/*  SYSTEM CARDS, glowing dashboard tiles, color-coded  */
-.sys-chips-grid{ gap:14px!important; }
-.sys-chip{ background:linear-gradient(160deg,var(--rb-panel),var(--rb-base))!important;
-  border:1px solid var(--rb-line)!important; border-radius:16px!important;
-  padding:24px 22px!important; transition:transform .25s var(--ease-out),border-color .25s,box-shadow .25s!important; }
-.sys-chip::before{ content:''; position:absolute; inset:0; border-radius:16px; padding:1px;
-  background:linear-gradient(160deg,transparent,transparent); opacity:0; transition:opacity .3s;
-  pointer-events:none; }
-.sys-chip:hover{ transform:translateY(-4px)!important;
-  border-color:var(--rb-line2)!important; box-shadow:0 18px 50px rgba(0,0,0,.5)!important; }
-
 /*  TIMELINE, terminal cards with glowing badge  */
 .tl-card{ background:linear-gradient(160deg,var(--rb-panel),var(--rb-base))!important;
   border:1px solid var(--rb-line)!important; border-radius:16px!important; }
@@ -903,55 +791,12 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .tl-title,.s-title,.cta-title,.rv-title{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:20ch!important; }
 .tl-sub,.s-sub,.cta-sub,.section-sub{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:58ch!important; }
 
-/*  SYSTEM COLOR-CODE (glowing, per map)  */
-.sys-chips-grid .sys-chip:nth-child(1) .sc-icon{color:var(--sys-gps)!important;}
-.sys-chips-grid .sys-chip:nth-child(1) .sc-num{color:var(--sys-gps)!important;}
-.sys-chips-grid .sys-chip:nth-child(1){border-left:2px solid var(--sys-gps)!important;}
-.sys-chips-grid .sys-chip:nth-child(1):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-gps),0 0 30px -8px var(--sys-gps)!important;}
-.sys-chips-grid .sys-chip:nth-child(2) .sc-icon{color:var(--sys-invoice)!important;}
-.sys-chips-grid .sys-chip:nth-child(2) .sc-num{color:var(--sys-invoice)!important;}
-.sys-chips-grid .sys-chip:nth-child(2){border-left:2px solid var(--sys-invoice)!important;}
-.sys-chips-grid .sys-chip:nth-child(2):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-invoice),0 0 30px -8px var(--sys-invoice)!important;}
-.sys-chips-grid .sys-chip:nth-child(3) .sc-icon{color:var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(3) .sc-num{color:var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(3){border-left:2px solid var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(3):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-lead),0 0 30px -8px var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(4) .sc-icon{color:var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(4) .sc-num{color:var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(4){border-left:2px solid var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(4):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-lead),0 0 30px -8px var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(5) .sc-icon{color:var(--sys-family)!important;}
-.sys-chips-grid .sys-chip:nth-child(5) .sc-num{color:var(--sys-family)!important;}
-.sys-chips-grid .sys-chip:nth-child(5){border-left:2px solid var(--sys-family)!important;}
-.sys-chips-grid .sys-chip:nth-child(5):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-family),0 0 30px -8px var(--sys-family)!important;}
-.sys-chips-grid .sys-chip:nth-child(6) .sc-icon{color:var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(6) .sc-num{color:var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(6){border-left:2px solid var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(6):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-ai),0 0 30px -8px var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(7) .sc-icon{color:var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(7) .sc-num{color:var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(7){border-left:2px solid var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(7):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-lead),0 0 30px -8px var(--sys-lead)!important;}
-.sys-chips-grid .sys-chip:nth-child(8) .sc-icon{color:var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(8) .sc-num{color:var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(8){border-left:2px solid var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(8):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-sched),0 0 30px -8px var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(9) .sc-icon{color:var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(9) .sc-num{color:var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(9){border-left:2px solid var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(9):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-sched),0 0 30px -8px var(--sys-sched)!important;}
-.sys-chips-grid .sys-chip:nth-child(10) .sc-icon{color:var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(10) .sc-num{color:var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(10){border-left:2px solid var(--sys-ai)!important;}
-.sys-chips-grid .sys-chip:nth-child(10):hover{box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px var(--sys-ai),0 0 30px -8px var(--sys-ai)!important;}
-
 /*  BUILDER + ROI + inline white cards -> dark coherence (Pass 1 hold; Pass 2 rebuilds builder)  */
 .bld-chip{ background:var(--rb-panel)!important; border:1.5px solid var(--rb-line)!important;
   color:var(--rb-text)!important; border-radius:10px!important; }
 .bld-chip:hover{ border-color:var(--rb-primary)!important; background:var(--rb-panel2)!important; }
 .bld-chip.selected,.bld-chip[data-on="1"]{ border-color:var(--rb-primary)!important;
   background:rgba(45,212,191,.1)!important; }
-#builder .s-title,#builder h2,#builder h3{ color:var(--rb-text)!important; }
 /* generic white inline cards within dark sections */
 .section-wrap [style*="background:#fff"],#real [style*="background:#fff"],
 #timeline [style*="background:#fff"],#pricing [style*="background:#fff"]{
@@ -1001,23 +846,9 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 /* the device visual now sits BELOW the copy, centered, as a hero showpiece */
 .hero-right-col{ width:100%!important; max-width:680px!important; margin:48px auto 0!important;
   opacity:0; animation:fadeUp .9s ease forwards .9s; }
-
-/*  PROOF STAT CARDS, kill cream islands, glowing dark KPIs  */
-/* the prose block beside the cards, lift from dim to legible */
-/* color-code the 4 KPIs by their meaning */
-
-/*  LIGHT-ISLAND SWEEP, eliminate every remaining cream/white surface  */
-/* #real section wrapper itself was background:#fff inline */
-/* ROI calculator block + its inner cells (timeline section) */
-/* generic catch-all: any remaining cream inline bg anywhere in a dark section */
-.section-wrap [style*="background:#f0ede8"],.section-wrap [style*="background:#f6f3ee"],
-.section-wrap [style*="background:#e2ddd4"],.section-wrap [style*="background:#d8d3ca"],
-#timeline [style*="background:#f0ede8"],#timeline [style*="background:#f6f3ee"],
-#timeline [style*="background:#e2ddd4"]{ background:var(--rb-panel)!important; }
 /* any remaining dark-on-now-dark text -> legible */
 /* builder chips that were #fff */
 .bld-chip{ background:var(--rb-panel)!important; }
-.sys-chip.addon-chip{ background:var(--rb-panel2)!important; }
 
 /*  FINAL CTA SECTION, was background:var(--bg) cream island  */
 #cta .cta-sub{ color:var(--rb-dim)!important; }
@@ -1061,8 +892,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .bld-chip.addon-chip{ background:var(--rb-panel2)!important; }
 .bld-chip-badge{ color:var(--rb-primary)!important; }
 .bld-upsell-hint{ color:var(--rb-dim)!important; }
-/* the "X of 10 systems" label + section subtext */
-#builder .bld-chips-controls,#builder .bld-chip-count{ color:var(--rb-dim)!important; }
 /* unselected chip default text dim, selected bright */
 .bld-chip:not(.sel) .bld-chip-name{ color:var(--rb-dim)!important; }
 .bld-chip.sel .bld-chip-name{ color:var(--rb-text)!important; }
@@ -1158,9 +987,6 @@ textarea:focus-visible,select:focus-visible,.bld-chip:focus-visible,.sys-chip:fo
 .reveal,.cta-title em,.hero-h1-new em{ will-change:transform; }
 .bld-mod,.sys-chip{ backface-visibility:hidden; transform:translateZ(0); }
 
-/*  REFINED CARD HOVER, lift + glow in rhythm  */
-.sys-chip{ transition:transform var(--t3) var(--e), border-color var(--t2) var(--e), box-shadow var(--t3) var(--e)!important; }
-
 /*  LINK UNDERLINE GROW (nav), smooth, signature ease  */
 .nav-links a::after{ transition:width var(--t3) var(--e)!important; }
 
@@ -1185,7 +1011,6 @@ html{ scroll-behavior:smooth; }
 }
 /* build modules: subtle inner depth so they read as physical tiles */
 .bld-mod{ box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 2px 8px rgba(0,0,0,.3); }
-.sys-chip{ box-shadow:inset 0 1px 0 rgba(255,255,255,.03); }
 /* chip check-mark: pops in with the snap ease when selected */
 .bld-chip-check{ transition:transform var(--t2) var(--e-snap), opacity var(--t1) var(--e)!important; }
 .bld-chip:not(.sel) .bld-chip-check{ transform:scale(0); opacity:0; }
@@ -1242,89 +1067,20 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   .flow-stage{ flex-direction:row; gap:14px; text-align:left; justify-content:flex-start; }
   .flow-label{ font-size:13px; }
 }
-
-/*  PER-CARD MICRO-ANIMATIONS, each system shown working  */
-.sc-viz{ height:48px; margin:10px 0 12px; position:relative; overflow:hidden; border-radius:8px;
-  background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb,var(--vc) 7%,transparent), transparent 70%), #06090e;
-  border:1px solid color-mix(in srgb,var(--vc) 18%,var(--rb-line));
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.5); }
-.sc-viz svg{ position:absolute; inset:0; width:100%; height:100%; }
-.sc-viz [data-anim]{ opacity:0; }
-.sys-chip.viz-on .sc-viz [data-anim]{ opacity:1; }
-/* color per card from the existing nth-child map, reuse --vc */
-.sys-chips-grid .sys-chip:nth-child(1){ --vc:var(--sys-gps); }
-.sys-chips-grid .sys-chip:nth-child(2){ --vc:var(--sys-invoice); }
-.sys-chips-grid .sys-chip:nth-child(3){ --vc:var(--sys-lead); }
-.sys-chips-grid .sys-chip:nth-child(4){ --vc:var(--sys-lead); }
-.sys-chips-grid .sys-chip:nth-child(5){ --vc:var(--sys-family); }
-.sys-chips-grid .sys-chip:nth-child(6){ --vc:var(--sys-ai); }
-.sys-chips-grid .sys-chip:nth-child(7){ --vc:var(--sys-lead); }
-.sys-chips-grid .sys-chip:nth-child(8){ --vc:var(--sys-sched); }
-.sys-chips-grid .sys-chip:nth-child(9){ --vc:var(--sys-sched); }
-.sys-chips-grid .sys-chip:nth-child(10){ --vc:var(--sys-ai); }
-.sc-viz .vc{ stroke:var(--vc); fill:none; }
-.sc-viz .vcf{ fill:var(--vc); }
-
-/* 1 GPS, pin drops + ping ring */
-.sys-chip.viz-on .v-pin{ animation:vPin 2.6s var(--e) infinite; }
-.sys-chip.viz-on .v-ping{ animation:vPing 2.6s ease-out infinite; }
 @keyframes vPin{ 0%{transform:translateY(-14px);opacity:0;} 18%,70%{transform:translateY(0);opacity:1;} 100%{transform:translateY(0);opacity:1;} }
 @keyframes vPing{ 0%,18%{r:1;opacity:0;} 30%{opacity:.7;} 60%{r:13;opacity:0;} 100%{opacity:0;} }
-
-/* 2 Invoicing, two docs slide out + check */
-.sys-chip.viz-on .v-doc1{ animation:vDoc1 3s var(--e) infinite; }
-.sys-chip.viz-on .v-doc2{ animation:vDoc2 3s var(--e) infinite; }
-.sys-chip.viz-on .v-chk{ animation:vFade 3s ease infinite; }
 @keyframes vDoc1{ 0%{transform:translateX(0);opacity:0;} 25%,80%{transform:translateX(-9px);opacity:1;} 100%{opacity:0;} }
 @keyframes vDoc2{ 0%{transform:translateX(0);opacity:0;} 35%,80%{transform:translateX(9px);opacity:1;} 100%{opacity:0;} }
 @keyframes vFade{ 0%,55%{opacity:0;} 70%,90%{opacity:1;} 100%{opacity:0;} }
-
-/* 3 Lead Capture, concentric target locks on */
-.sys-chip.viz-on .v-r1{ animation:vRing 2.4s ease-out infinite; }
-.sys-chip.viz-on .v-r2{ animation:vRing 2.4s ease-out .2s infinite; }
-.sys-chip.viz-on .v-dot{ animation:vFade 2.4s ease infinite; }
 @keyframes vRing{ 0%{transform:scale(.3);opacity:0;} 40%{opacity:1;} 80%,100%{transform:scale(1);opacity:.5;} }
-
-/* 4 Follow-up, envelope pulses outward repeatedly */
-.sys-chip.viz-on .v-env1{ animation:vSend 2.8s var(--e) infinite; }
-.sys-chip.viz-on .v-env2{ animation:vSend 2.8s var(--e) .9s infinite; }
 @keyframes vSend{ 0%{transform:translateX(-12px);opacity:0;} 30%{opacity:1;} 70%{transform:translateX(12px);opacity:0;} 100%{opacity:0;} }
-
-/* 5 Family, heartbeat line pulse */
-.sys-chip.viz-on .v-beat{ stroke-dasharray:60; stroke-dashoffset:60; animation:vBeat 2.4s var(--e) infinite; }
 @keyframes vBeat{ 0%{stroke-dashoffset:60;} 50%,100%{stroke-dashoffset:-60;} }
-
-/* 6 AI Chat, typing dots */
-.sys-chip.viz-on .v-d1{ animation:vDot 1.4s ease infinite; }
-.sys-chip.viz-on .v-d2{ animation:vDot 1.4s ease .2s infinite; }
-.sys-chip.viz-on .v-d3{ animation:vDot 1.4s ease .4s infinite; }
 @keyframes vDot{ 0%,100%{opacity:.25;transform:translateY(0);} 50%{opacity:1;transform:translateY(-3px);} }
-
-/* 7 Onboarding, checklist items tick in */
-.sys-chip.viz-on .v-c1{ animation:vTick 3s ease infinite; }
-.sys-chip.viz-on .v-c2{ animation:vTick 3s ease .5s infinite; }
-.sys-chip.viz-on .v-c3{ animation:vTick 3s ease 1s infinite; }
 @keyframes vTick{ 0%,10%{opacity:0;transform:scale(.5);} 25%,85%{opacity:1;transform:scale(1);} 100%{opacity:0;} }
-
-/* 8 HQ Dashboard, bars grow */
-.sys-chip.viz-on .v-b1{ animation:vBar 2.6s var(--e) infinite; }
-.sys-chip.viz-on .v-b2{ animation:vBar 2.6s var(--e) .15s infinite; }
-.sys-chip.viz-on .v-b3{ animation:vBar 2.6s var(--e) .3s infinite; }
-.sys-chip.viz-on .v-b4{ animation:vBar 2.6s var(--e) .45s infinite; }
 @keyframes vBar{ 0%{transform:scaleY(0);} 40%,80%{transform:scaleY(1);} 100%{transform:scaleY(.2);} }
-
-/* 9 PSW Mgmt, two avatars connect */
-.sys-chip.viz-on .v-link{ stroke-dasharray:30; stroke-dashoffset:30; animation:vLink 2.6s var(--e) infinite; }
-.sys-chip.viz-on .v-av1,.sys-chip.viz-on .v-av2{ animation:vFade 2.6s ease infinite; }
 @keyframes vLink{ 0%,20%{stroke-dashoffset:30;} 55%,100%{stroke-dashoffset:0;} }
-
-/* 10 Website, cursor clicks a button */
-.sys-chip.viz-on .v-cur{ animation:vCur 2.8s var(--e) infinite; }
-.sys-chip.viz-on .v-btn{ animation:vBtn 2.8s var(--e) infinite; }
 @keyframes vCur{ 0%{transform:translate(8px,-6px);opacity:0;} 30%{opacity:1;} 55%{transform:translate(0,0);} 70%{transform:translate(0,2px);} 100%{transform:translate(0,0);opacity:0;} }
 @keyframes vBtn{ 0%,55%{fill-opacity:.15;} 70%{fill-opacity:.5;} 100%{fill-opacity:.15;} }
-
-@media(prefers-reduced-motion:reduce){ .sc-viz [data-anim]{ animation:none!important; opacity:1!important; } }
 
 /*  BUILDER CONSOLE, compiling feel  */
 .bld-console{ background:#06090e; border:1px solid var(--rb-line); border-radius:12px;
@@ -1364,7 +1120,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 /* 2. TIMELINE, progress line draws as you scroll */
 .tl-grid{ position:relative; }
-.tl-grid.tl-on .tl-progress-fill{ width:100%; }
 .tl-card{ position:relative; z-index:1; }
 .tl-on .tl-art{ animation:tlPop var(--t4) var(--e-snap) both; }
 @keyframes tlPop{ 0%{transform:scale(.6);opacity:0;} 100%{transform:scale(1);opacity:1;} }
@@ -1374,10 +1129,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .sec-card:hover{ transform:translateY(-4px); }
 .sec-card .sec-ico-anim{ opacity:0; transform:scale(.7); }
 .sec-card.sec-on .sec-ico-anim{ opacity:1; transform:scale(1); transition:opacity var(--t3) var(--e), transform var(--t3) var(--e-snap); }
-
-/* sys-chips-grid was background:var(--border) cream, kill the cream gaps */
-.sys-chips-grid{ background:transparent!important; border:none!important; gap:14px!important;
-  border-radius:0!important; overflow:visible!important; }
 
 /*  BUILDER, "actually being built" feel  */
 /* overall build progress bar */
@@ -1391,11 +1142,8 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .bld-progress-fill{ height:100%; width:0; border-radius:3px;
   background:linear-gradient(90deg,var(--rb-primary),var(--sys-gps));
   box-shadow:0 0 10px var(--rb-primary); transition:width var(--t4) var(--e); }
-.bld-mod.compiling .bld-mod-status{ color:var(--rb-faint); }
-.bld-mod.compiling .bld-mod-dot{ animation:none; background:var(--rb-faint); box-shadow:none; }
 .bld-mod-prog{ position:absolute; left:0; bottom:0; height:2px; width:0;
   background:var(--mod-c,var(--rb-primary)); box-shadow:0 0 8px var(--mod-c); }
-.bld-mod.compiling .bld-mod-prog{ animation:bldCompile .9s var(--e) forwards; }
 @keyframes bldCompile{ 0%{width:0;} 100%{width:100%;} }
 .bld-mod.online .bld-mod-prog{ width:100%; opacity:0; transition:opacity var(--t3) var(--e); }
 .bld-mod .bld-mod-status .stxt-build{ display:inline; }
@@ -1459,7 +1207,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 @keyframes ascDraw{from{width:0}to{width:100%}}
 @keyframes ascPing{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.4);opacity:0}}
 @keyframes ascBar{from{height:0;opacity:0}to{opacity:1}}
-@keyframes ascBlink{0%,100%{opacity:1}45%,55%{opacity:0}}
 @keyframes ascTyping{0%,100%{opacity:.2}50%{opacity:.8}}
 
 /*
@@ -1523,9 +1270,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 /*  THE PROOF (Pass 2), realistic "Live HQ" dashboard artifact  */
 #real{ background:var(--rb-base)!important; }
-.phq-val{ font-family:var(--rb-serif); font-size:clamp(30px,4vw,44px); font-weight:400;
-  color:var(--phq-c,var(--rb-text)); line-height:1; font-variant-numeric:tabular-nums;
-  text-shadow:0 0 24px color-mix(in srgb,var(--phq-c) 30%,transparent); }
 
 
 /*  TIMELINE (Pass 3), realistic per-day artifacts  */
@@ -1729,27 +1473,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   
   #hero-stage{position:absolute;inset:0;z-index:0;pointer-events:none;}
   #hero-stage canvas{display:block;width:100%;height:100%;}
-  
-  /* S89b. THE ARRIVAL. The field used to simply exist when the page loaded,
-     which read as decoration. Now the network boots: a single line types
-     while the points ignite outward from the centre, then it clears and the
-     headline lands. It is the same device as the footer terminal, so the
-     page opens and closes on the same idea. */
-  #hero-boot{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    z-index:3;pointer-events:none;
-    font-family:'DM Mono',monospace;font-size:15px;letter-spacing:.06em;
-    color:#5a9aaa;white-space:nowrap;transition:opacity .5s ease;
-  }
-  #hero-boot i{
-    display:inline-block;width:8px;height:15px;background:#5aaa7a;
-    vertical-align:-2px;margin-left:3px;animation:ftBlink 1s step-end infinite;
-  }
-  #hero-boot.gone{opacity:0}
-  /* stop the cursor once the boot line is hidden. It is the only infinite
-     animation S89b adds, and leaving it running on an invisible element is
-     exactly what S90 was written to prevent. */
-  #hero-boot.gone i{animation:none}
   /* S93. THE PHONES AS THE HERO BACKDROP.
      The particle field said nothing: 2,904 dots, no nouns. These are the
      three real screens, sitting BEHIND the headline so a visitor knows what
@@ -1775,13 +1498,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   @media(max-width:760px){ .truth-wrap{padding:0 22px} }
   @media(max-width:420px){ .truth-wrap{padding:0 18px} }
   #hero .hero-inner{position:relative;z-index:2;}
-  /* S97. THE COPY IS STATIC.
-     It was hidden by .booting and revealed by finish(), AND separately
-     animated by the .reveal observer. Two systems touching the same element
-     is what made it disappear and come back. The headline is the one thing
-     on this page that must be readable the instant it loads, so it is now
-     never hidden by either. */
-  #hero.booting .hero-inner{opacity:1;transform:none}
   #hero .hero-inner{opacity:1!important;transform:none!important;transition:none}
   #hero{position:relative;overflow:hidden;}
 
@@ -1799,40 +1515,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 /*  PASS A: phone-flow demo (base)  */
 /*  LP FLOW DEMO · embedded hero animation  */
-@keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
-
-@keyframes lp-glow-t{0%,100%{box-shadow:0 0 6px #6a9eaa}50%{box-shadow:0 0 16px #6a9eaa}}
-
-@keyframes lp-pulse-r{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.8);opacity:0}}
-
-@keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-@keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
 
 @keyframes lp-slide-down{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
 
-@keyframes lp-slide-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-@keyframes lp-slide-right{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-
-@keyframes lp-modal-up{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-@keyframes lp-ping{0%{transform:scale(1);opacity:1}70%{transform:scale(2.2);opacity:0}100%{transform:scale(2.2);opacity:0}}
-
-@keyframes lp-draw-line{from{width:0;opacity:0}to{width:100%;opacity:1}}
-
-@keyframes lp-dot-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
-
 @keyframes lp-notif-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-
-@keyframes lp-count-up{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-
-@keyframes lp-conn-dot{0%{left:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{left:100%;opacity:0}}
-
-@keyframes lp-btn-confirm{0%{background:rgba(90,173,160,.15)}50%{background:rgba(63,185,80,.3)}100%{background:rgba(63,185,80,.15)}}
-
-@keyframes lp-spin{to{transform:rotate(360deg)}}
-
 
 /* Phone mockup */
 
@@ -1841,76 +1527,8 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 /* Stage: one phone at a time, the others held in the DOM so a beat never waits on a build. */
 /* The wrapper carries the scaled height so the device never overruns the demo box. */
 /* Tap ripple. Demo chrome, drawn at the coordinates the capture measured on the real control. */
-@keyframes pd-tap{0%{transform:scale(.35);opacity:0}25%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
-
-
-/* HQ internals */
-
-
-/* Shift rows */
-
-
-/* Add shift btn */
-
-.lp-add-btn.active{background:rgba(90,173,160,.18);border-color:rgba(90,173,160,.4)}
-
-
-/* Activity */
-
-
-/* Modal */
-
-.lp-modal.show{opacity:1;pointer-events:all}
-
-.lp-confirm-btn.confirmed{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.3);color:#3fb950}
-
-
-/* Connector */
-
-
-/* PSW portal */
-
-
-/* Notification banner */
-
-.lp-notif-banner.show{animation:lp-notif-in .5s cubic-bezier(.4,0,.2,1) forwards}
-
-
-/* Next visit */
-
-.lp-nv-signin.active{background:rgba(63,185,80,.2);border-color:#3fb950}
-
-
-/* GPS */
-
-
-/* On shift status */
-
-
-/* Family portal */
-
-.lp-push.show{animation:lp-slide-down .4s cubic-bezier(.4,0,.2,1) forwards}
-
-
-/* Bottom steps */
-.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.54);transition:color .3s}
-
-.lp-step.active{color:#6a9eaa}
-
-.lp-step.done{color:#3fb950}
-
-
-
-/*  MAP PHONE  */
-
-.lp-map-phone.show{width:182px;opacity:1;}
-
-.lp-psw-pin.show{animation:lp-map-pin .5s cubic-bezier(.34,1.56,.64,1) forwards;}
 
 @keyframes lp-map-pin{from{opacity:0;transform:translate(-50%,-50%) scale(0) translateY(-8px)}to{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
-
-.lp-gis-val.g{color:#3fb950;}
-.lp-gis-val.t{color:#6a9eaa;}
 
 /* The 480 block was moved BELOW the 700 block. See there. */
 
@@ -1926,80 +1544,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 @media(max-width:700px){
   /* height and min-height removed: the pd stage is 764px and fit() sets
      the wrapper height itself. A fixed 400px here crushed it. */
-  @keyframes lp-mob-fadein{
-    from{opacity:0;transform:translateX(-50%) translateY(6px)}
-    to{opacity:1;transform:translateX(-50%) translateY(0)}
-  }
-  .lp-desktop-step{display:none!important;}
 }
-
-/* S99c. MOVED BELOW THE 700 BLOCK.
-   This sat ABOVE it, and both target "#flow-demo-wrap .lp-mob-active" with
-   !important at equal specificity, so the later 700 rule won and this one
-   was dead: the phone rendered 200x360 at every width below 480.
-   The two blocks also each won a DIFFERENT property, because #main carries
-   !important here and not there. Chrome measured the result at 390px: a
-   360px phone inside a 370px container, 5px of clearance, where landing has
-   15px because its blocks are in the right order. */
-
-  /* S101/S103/S104/S105. The capability workflow.
-     S105 fixed two things. FIRST, CENTRING: .caps-head and .wf had a
-     max-width but no margin auto, so both pinned to the left edge of a
-     1024px content box and left the right half of the screen empty.
-     SECOND, DENSITY: each step was a heading above a two column bullet
-     list, which meant an operator had to read 30 separate lines to work
-     out what they were getting. The step label and its capabilities now
-     sit on one row, so the sequence reads down the left and the detail
-     reads across. Top level, mobile first, nothing under 15px. Gated. */
-  
-  
-
-
-
-  /* S106a. THE REAL PORTAL PALETTES.
-     The demo was ported from proximitycares.ca, which sells CARE to a
-     family, so all three phones shared one teal-and-green scheme. The real
-     portals do not look like that. MEASURED from the live files:
-       real-hq.html         --bg #07090c   --accent #c9a96e   GOLD
-       real-psw-portal.html --bg #050608   --accent #56C8F5   CYAN
-       real-family.html     --rb-base #0a0e14 --rb-primary #34D399  GREEN
-     Three different accents. An operator sees the real HQ within seven days
-     of signing, so a demo in the wrong colour is a promise the product does
-     not keep. Scoped per phone: the shared .lp- rules are untouched, so the
-     cares site's own look is unaffected. */
-
-  /* S106b. THE REAL HQ TAB BAR.
-     Twelve tabs, taken verbatim from real-hq.html: Today, Overview, Clients,
-     PSWs, Onboard, Bookings, Messages, Visits, Activity, Schedule, Revenue,
-     Help. The demo showed none of them, so it undersold the scope of what an
-     operator actually opens. This is a mockup, so the type stays at mockup
-     scale: DO_NOT_TOUCH covers the sub-9px sizes in these phones. */
-  .lp-tab.on{color:#c9a96e;border-bottom:1px solid #c9a96e;padding-bottom:2px}
-
-  /* S106c. REAL LABELS AND REAL COLOURS.
-     "Billed" appears ZERO times in real-hq.html: the cares demo invented it.
-     "Margin" appears twice and renders in --green2 #8dd493, which is what
-     this rule uses. "On Shift Now" is real too, as ov-active-psws in the
-     Overview KPIs, so that stat stays. */
-  /* .stat-lbl in real-hq is var(--muted) #a8bfc4, not a .2 alpha wash */
-
-  /* P1. THE PSW PHONE, 1:1 WITH real-psw-portal.html.
-     The demo showed one earned figure and two buttons. The real portal has
-     four stat tiles, SIX action buttons and a Francais toggle, every one of
-     which was string-matched in that file before being written here.
-     Type stays between 4 and 6.5px: these are PICTURES OF AN APP and
-     raising the type breaks the illusion. DO_NOT_TOUCH covers it. */
-  /* NAV PINNED TO THE BOTTOM OF THE FRAME.
-     Measured in a real browser: the PSW column ran 104px past a 360px frame
-     with overflow:hidden, so Home/Schedule/Documents/Messages/Clients was
-     never visible at ANY point in the 21 beat cycle, not just at the end.
-     My own additions caused it: the progress bar, Today and Recent, and
-     four extra action buttons.
-     A real phone pins its bottom nav to the viewport and lets the content
-     above scroll under it. Same here: absolute at the bottom, with the body
-     padded so nothing sits behind it. This is the portal's own behaviour,
-     not a workaround. */
-  .lp-psw-nav span.on{color:#56C8F5}
 
   /* P2. THE FAMILY PHONE, 1:1 WITH real-family.html.
      The ETA banner and the four visit-detail pairs were all absent from the
@@ -2123,32 +1668,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   }
   @media(prefers-reduced-motion:reduce){
     .pf-row{transition:none;}
-  }
-
-  /* ======================================================================
-     S3. THE PSW PHONE BODY OVERFLOWED BY 107px.
-     MEASURED by Chrome twice, identically: .lp-body scrollHeight 437 vs
-     clientHeight 330, with .lp-oss running 40px past the frame bottom where
-     .lp-body's overflow:hidden clips it. .lp-oss holds the Sign Out state,
-     the second half of the story.
-     CAUSE: OPACITY:0 STILL OCCUPIES SPACE. Three blocks start hidden but
-     fully laid out, so the column is 437px tall from t=0. Identical to the
-     cause on the cares phone, where the same fix worked.
-     The JS sets opacity INLINE, so CSS cannot key off it. The collapse is
-     applied at the same four points the JS already touches, and these rules
-     supply the rest state and the transition.
-     ====================================================================== */
-  /* When the timeline gives the space back it also restores the padding and
-     margin the rest state removed, or the block reappears flush against its
-     neighbours. */
-  /* #nextVisitCard has NO timeline reference at all: it is laid out from
-     t=0 and never revealed, so it holds its full height for the whole
-     cycle. It is part of the 107px. Collapsed at rest and opened only when
-     the notification that precedes it fires. */
-  #pswNotif.show ~ #nextVisitCard{
-    max-height:120px;
-    padding-top:7px;padding-bottom:7px;
-    margin-top:4px;margin-bottom:4px;
   }
   
 </style>

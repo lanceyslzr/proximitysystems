@@ -51,7 +51,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 .h1{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:700;font-size:52px;line-height:0.92;color:#fff;letter-spacing:-0.03em;margin-bottom:20px}
 .h1 em{color:var(--teal-lt);font-style:italic}
-.h1 .strike{color:var(--red);font-style:italic;text-decoration:line-through;text-decoration-color:rgba(224,88,88,0.5)}
 .h2{font-family:'Instrument Sans',system-ui,sans-serif;font-weight:700;font-size:40px;line-height:0.93;color:#fff;letter-spacing:-0.02em;margin-bottom:14px}
 .h2 em{color:var(--teal-lt);font-style:italic}
 .sub{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:24px;max-width:640px}
@@ -68,11 +67,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
 .pill{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.1em;color:var(--text-dim);text-transform:uppercase}
 .pill-dot{width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green);flex-shrink:0}
-.hvc-dot.r{background:#ff5f57}.hvc-dot.y{background:#febc2e}.hvc-dot.g{background:#28c840}
 
 
 /* FEED ANIMATION */
-@keyframes feedIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
 
 /* PAIN GRID */
 #pain{background:var(--bg2)}
@@ -93,11 +90,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 /* SYSTEMS, VISUAL CARDS */
 #systems{background:var(--bg2)}
 
-/* MATH SECTION */
-.math-card.bad::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)}
-.math-card.bad .math-label{color:var(--red)}
-.math-card.bad .math-val{color:var(--red)}
-
 /* ROI CALC */
 
 /* PROOF */
@@ -106,7 +98,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 
 /* OFFER BOX */
 #offer{background:var(--bg)}
-.guarantee{background:rgba(90,170,122,0.05);border:1px solid rgba(90,170,122,0.18);border-radius:8px;padding:16px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start}
 
 /* BOOKING */
 #booking{background:var(--bg2)}
@@ -200,60 +191,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .faq-a{display:none;padding:14px 18px 16px;font-size:13px;color:var(--text-dim);line-height:1.7;border-top:1px solid var(--border)}
 .faq-item.open .faq-a{display:block}
 
-
-/*
-   SYSTEM BUILDER
- */.bld-active.show{display:block}
-@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.bld-book-btn{width:100%;background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:14px;border-radius:7px;border:none;cursor:pointer;min-height:48px;transition:background 0.2s,transform 0.1s;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px}
-.bld-book-btn:active{transform:scale(0.98);background:#2d6a7a}
-.bld-book-btn:disabled{background:var(--text-muted);cursor:not-allowed;transform:none}
-.bld-modal-overlay.open{opacity:1;pointer-events:all}
-.bld-modal-overlay.open .bld-modal{transform:translateY(0)}
-.bld-success.show{display:block}
-/* builder responsive handled in main breakpoints */
-
-/* RESPONSIVE */
-
-/*
-   SYSTEM BUILDER
- */
-
-/* STEP HEADER */
-
-/* SYSTEM BUILDER CARDS */
-
-/* SELECT ALL ROW */
-
-/* SUMMARY PANEL */
-
-/* EMPTY STATE */
-
-/* ACTIVE STATE */
-.bld-active.show{display:block}
-
 /* FLOW DIAGRAM */
-@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-
-/* CONNECTOR LINE */
-
-/* METRICS */
-
-/* PRICE */
-
-/* PROGRESS BAR */
-
-/* PANEL BTNS */
-.bld-book-btn{width:100%;background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:14px;border-radius:7px;border:none;cursor:pointer;min-height:48px;transition:background 0.2s,transform 0.1s;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px}
-.bld-book-btn:active{transform:scale(0.98);background:#2d6a7a}
-.bld-book-btn:disabled{background:var(--text-muted);cursor:not-allowed;transform:none}
-
-/* MOBILE STICKY */
-
-/* MODAL */
-.bld-modal-overlay.open{opacity:1;pointer-events:all}
-.bld-modal-overlay.open .bld-modal{transform:translateY(0)}
-.bld-success.show{display:block}
 
 /* RESPONSIVE */
 /* S110. TWO @media OPENING LINES WERE MISSING HERE, leaving orphaned rules
@@ -266,16 +204,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 /*  SYSTEM CARDS, visual grid  */
 @keyframes pulseRed{0%,100%{box-shadow:0 0 8px rgba(224,88,88,0.35)}50%{box-shadow:0 0 12px rgba(224,88,88,0.6)}}
-@keyframes pulseGreen{0%,100%{box-shadow:0 0 8px rgba(90,170,122,0.35)}50%{box-shadow:0 0 12px rgba(90,170,122,0.6)}}
-.syscard-mark.bad{animation:pulseRed 2.5s ease infinite;border-color:rgba(224,88,88,0.5);background:rgba(224,88,88,0.1);color:var(--red);box-shadow:0 0 8px rgba(224,88,88,0.35)}
 
 .ba-scroll-hint{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--teal-lt);text-transform:uppercase;text-align:center;margin-top:36px;display:flex;align-items:center;justify-content:center;gap:6px;animation:bounce 2s ease infinite}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-
-
-
-/*  COMPACT BUILDER  */
-.bld-upsell-hint.show{display:block}
 
 /* COMPACT PANEL */
 
@@ -306,9 +237,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 /* Hero pills, first pill gets "SALES" feel with teal dot */
 .pill:first-child .pill-dot { background: var(--green); box-shadow: 0 0 6px rgba(90,170,122,0.5); }
-
-/* Offer section guarantee, gold accent to reinforce value */
-.guarantee { border-color: rgba(200,169,110,0.2) !important; }
 
 /* Landing-specific nav differentiator, warmer teal */
 nav .nav-logo { letter-spacing: 4px; }
@@ -438,15 +366,6 @@ button,a,[onclick]{touch-action:manipulation;}
   .tr-num{margin-bottom:12px}
   .tr-title{font-size:12px}
   .tr-desc{font-size:11px}
-
-  /* System cards, 1 col on mobile for breathing room */
-
-  /* Builder */
-
-  /* Proof */
-
-  /* Offer + Booking */
-  .guarantee{padding:13px;gap:10px}
   .booking-body{padding:16px}
   .booking-card{margin-top:0}
 
@@ -491,8 +410,6 @@ button,a,[onclick]{touch-action:manipulation;}
 /*  PHONE DEMO. Each screen below is transcribed from the real portal: markup, class names
    and CSS come out of hq.html, psw-portal.html and family.html as they render at 390px.
    Nothing here is authored by hand except this device frame.  */
-@keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
-@keyframes lp-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
 .lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.54);transition:color .3s}
 .lp-step.active{color:#5aada0}
@@ -833,7 +750,6 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 @keyframes ascDraw{from{width:0}to{width:100%}}
 @keyframes ascPing{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.4);opacity:0}}
 @keyframes ascBar{from{height:0;opacity:0}to{opacity:1}}
-@keyframes ascBlink{0%,100%{opacity:1}45%,55%{opacity:0}}
 @keyframes ascTyping{0%,100%{opacity:.2}50%{opacity:.8}}
 
   /* ======================================================================
