@@ -322,6 +322,7 @@ button,a,[onclick]{touch-action:manipulation;}
 .ix-typing span{width:6px;height:6px;border-radius:50%;background:#3d7a8a;animation:ixDot 1.2s infinite;}
 .ix-typing span:nth-child(2){animation-delay:.2s;}
 .ix-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes ixDot{0%,100%{opacity:1}50%{opacity:.35}}
 
 
 @media (max-width: 1024px) {
@@ -426,7 +427,6 @@ button,a,[onclick]{touch-action:manipulation;}
 
   /*  SECTION WATERMARKS  */
 
-  /*  GSAP WILL CHANGE  */
   .nav-cta,.btn-primary{will-change:transform;}
 
 
@@ -718,7 +718,6 @@ textarea:focus-visible,select:focus-visible,.bld-chip:focus-visible,.sys-chip:fo
 /*  SELECTION COLOR, branded, not browser-blue  */
 ::selection{ background:rgba(45,212,191,.28); color:var(--rb-text); }
 
-/*  SMOOTH SCROLL feel already via Lenis; ensure anchor offset clean  */
 html{ scroll-behavior:smooth; }
 
 /*  REDUCED MOTION, kill all the above motion for those who need it  */
@@ -1999,10 +1998,6 @@ function selectAll(){
       else{bldSelected.add(s.id);chip&&chip.classList.add('sel');}
     });
     bldUpdate();
-  }
-function showComing(){
-    const h=document.getElementById('bldUpsellHint');
-    if(h){h.textContent='Voice AI is Phase 2, activates automatically when your Telnyx account is connected.';h.classList.add('show');setTimeout(()=>h.classList.remove('show'),3000);}
   }
 // TIER MAPPING. Operations holds s01, s02, s08, s09, which is visit logging,
   // invoicing, the HQ dashboard and PSW management. A selection inside that set is

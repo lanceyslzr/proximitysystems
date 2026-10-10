@@ -433,6 +433,7 @@ button,a,[onclick]{touch-action:manipulation;}
 .ix-typing span{width:6px;height:6px;border-radius:50%;background:#3d7a8a;animation:ixDot 1.2s infinite;}
 .ix-typing span:nth-child(2){animation-delay:.2s;}
 .ix-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes ixDot{0%,100%{opacity:1}50%{opacity:.35}}
 
 
 @media (max-width: 1024px) {
@@ -1067,20 +1068,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   .flow-stage{ flex-direction:row; gap:14px; text-align:left; justify-content:flex-start; }
   .flow-label{ font-size:13px; }
 }
-@keyframes vPin{ 0%{transform:translateY(-14px);opacity:0;} 18%,70%{transform:translateY(0);opacity:1;} 100%{transform:translateY(0);opacity:1;} }
-@keyframes vPing{ 0%,18%{r:1;opacity:0;} 30%{opacity:.7;} 60%{r:13;opacity:0;} 100%{opacity:0;} }
-@keyframes vDoc1{ 0%{transform:translateX(0);opacity:0;} 25%,80%{transform:translateX(-9px);opacity:1;} 100%{opacity:0;} }
-@keyframes vDoc2{ 0%{transform:translateX(0);opacity:0;} 35%,80%{transform:translateX(9px);opacity:1;} 100%{opacity:0;} }
-@keyframes vFade{ 0%,55%{opacity:0;} 70%,90%{opacity:1;} 100%{opacity:0;} }
-@keyframes vRing{ 0%{transform:scale(.3);opacity:0;} 40%{opacity:1;} 80%,100%{transform:scale(1);opacity:.5;} }
-@keyframes vSend{ 0%{transform:translateX(-12px);opacity:0;} 30%{opacity:1;} 70%{transform:translateX(12px);opacity:0;} 100%{opacity:0;} }
-@keyframes vBeat{ 0%{stroke-dashoffset:60;} 50%,100%{stroke-dashoffset:-60;} }
-@keyframes vDot{ 0%,100%{opacity:.25;transform:translateY(0);} 50%{opacity:1;transform:translateY(-3px);} }
-@keyframes vTick{ 0%,10%{opacity:0;transform:scale(.5);} 25%,85%{opacity:1;transform:scale(1);} 100%{opacity:0;} }
-@keyframes vBar{ 0%{transform:scaleY(0);} 40%,80%{transform:scaleY(1);} 100%{transform:scaleY(.2);} }
-@keyframes vLink{ 0%,20%{stroke-dashoffset:30;} 55%,100%{stroke-dashoffset:0;} }
-@keyframes vCur{ 0%{transform:translate(8px,-6px);opacity:0;} 30%{opacity:1;} 55%{transform:translate(0,0);} 70%{transform:translate(0,2px);} 100%{transform:translate(0,0);opacity:0;} }
-@keyframes vBtn{ 0%,55%{fill-opacity:.15;} 70%{fill-opacity:.5;} 100%{fill-opacity:.15;} }
 
 /*  BUILDER CONSOLE, compiling feel  */
 .bld-console{ background:#06090e; border:1px solid var(--rb-line); border-radius:12px;
@@ -1144,7 +1131,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   box-shadow:0 0 10px var(--rb-primary); transition:width var(--t4) var(--e); }
 .bld-mod-prog{ position:absolute; left:0; bottom:0; height:2px; width:0;
   background:var(--mod-c,var(--rb-primary)); box-shadow:0 0 8px var(--mod-c); }
-@keyframes bldCompile{ 0%{width:0;} 100%{width:100%;} }
 .bld-mod.online .bld-mod-prog{ width:100%; opacity:0; transition:opacity var(--t3) var(--e); }
 .bld-mod .bld-mod-status .stxt-build{ display:inline; }
 .bld-mod .bld-mod-status .stxt-on{ display:none; }
@@ -1516,9 +1502,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 /*  PASS A: phone-flow demo (base)  */
 /*  LP FLOW DEMO · embedded hero animation  */
 
-@keyframes lp-slide-down{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
 
-@keyframes lp-notif-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 
 /* Phone mockup */
 
@@ -1528,7 +1512,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 /* The wrapper carries the scaled height so the device never overruns the demo box. */
 /* Tap ripple. Demo chrome, drawn at the coordinates the capture measured on the real control. */
 
-@keyframes lp-map-pin{from{opacity:0;transform:translate(-50%,-50%) scale(0) translateY(-8px)}to{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
 
 /* The 480 block was moved BELOW the 700 block. See there. */
 
@@ -1541,10 +1524,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
      existed at 480px, so between 481 and 700 the demo would have shown
      three phones crushed side by side with a driver behaving as if one was
      visible. Recovered verbatim. */
-@media(max-width:700px){
-  /* height and min-height removed: the pd stage is 764px and fit() sets
-     the wrapper height itself. A fixed 400px here crushed it. */
-}
 
   /* P2. THE FAMILY PHONE, 1:1 WITH real-family.html.
      The ETA banner and the four visit-detail pairs were all absent from the
@@ -3207,10 +3186,6 @@ document.addEventListener('keydown', function(e) {
     bldUpdate();
   }
 
-  function showComing(){
-    const h=document.getElementById('bldUpsellHint');
-    if(h){h.textContent='Voice AI is Phase 2, activates automatically when your Telnyx account is connected.';h.classList.add('show');setTimeout(()=>h.classList.remove('show'),3000);}
-  }
 
   // TIER MAPPING. Operations holds s01, s02, s08, s09, which is visit logging,
   // invoicing, the HQ dashboard and PSW management. A selection inside that set is
