@@ -165,6 +165,81 @@ function keyframeFacts(p) {
 
 const balance = t => { let d = 0; for (const c of t) { if (c === '{') d++; else if (c === '}') d--; if (d < 0) return -1; } return d; };
 
+// DUPLICATE ATTRIBUTE TOKENIZER, for W15.
+//
+// WHY A STATE MACHINE AND NOT A PATTERN. A regex over attributes cannot tell a
+// `>` inside a quoted value from the end of a tag, cannot skip script and style
+// bodies, and cannot normalise attribute name case. Three scanners in this
+// project have already been fooled by content that merely resembled what they
+// matched, most recently one that read the hex colours #F2F4F6 and #F7F8F5 as
+// Canadian postal codes. This one was built against a 21 case trap suite and
+// cross checked against an independent tokenizer on all three pages, which
+// agreed exactly.
+//
+// LIMITS, stated where they are used, per rule 121. It reports MARKUP only.
+// A duplicate inside a string that script later injects is a real defect too,
+// but nothing can distinguish an injected fragment from an example in a comment,
+// so those are out of scope rather than silently counted clean. Attribute names
+// compare case insensitively, which is how HTML treats them.
+function dupAttrs(src) {
+  const out = [];
+  const n = src.length;
+  let i = 0;
+  const lineAt = (q) => { let l = 1; for (let k = 0; k < q; k++) if (src.charCodeAt(k) === 10) l++; return l; };
+  while (i < n) {
+    const lt = src.indexOf('<', i);
+    if (lt < 0) break;
+    i = lt;
+    if (src.startsWith('<!--', i)) { const e = src.indexOf('-->', i + 4); i = e < 0 ? n : e + 3; continue; }
+    if (src.startsWith('<!', i))   { const e = src.indexOf('>', i + 2);   i = e < 0 ? n : e + 1; continue; }
+    if (src.startsWith('</', i))   { const e = src.indexOf('>', i + 2);   i = e < 0 ? n : e + 1; continue; }
+    // a letter is required, which is what keeps "a < b" in text from reading as a tag
+    if (!/[a-zA-Z]/.test(src[i + 1] || '')) { i = lt + 1; continue; }
+    let p = i + 1;
+    while (p < n && /[^\s/>]/.test(src[p])) p++;
+    const tag = src.slice(i + 1, p).toLowerCase();
+    const seen = new Map();
+    while (p < n) {
+      while (p < n && /\s/.test(src[p])) p++;
+      if (p >= n) break;
+      if (src[p] === '>') { p++; break; }
+      if (src[p] === '/') {
+        let q = p + 1; while (q < n && /\s/.test(src[q])) q++;
+        if (src[q] === '>') { p = q + 1; break; }
+        p++; continue;
+      }
+      const ns = p;
+      while (p < n && !/[\s=/>]/.test(src[p])) p++;
+      const name = src.slice(ns, p).toLowerCase();
+      let q = p; while (q < n && /\s/.test(src[q])) q++;
+      let value = null;
+      if (src[q] === '=') {
+        q++; while (q < n && /\s/.test(src[q])) q++;
+        const ch = src[q];
+        if (ch === '"' || ch === "'") {
+          const e = src.indexOf(ch, q + 1);
+          value = e < 0 ? src.slice(q + 1) : src.slice(q + 1, e);
+          p = e < 0 ? n : e + 1;
+        } else {
+          const vs = q; while (q < n && !/[\s>]/.test(src[q])) q++;
+          value = src.slice(vs, q); p = q;
+        }
+      }
+      if (!name) { p++; continue; }
+      if (!seen.has(name)) seen.set(name, []);
+      seen.get(name).push(value);
+    }
+    for (const [name, vals] of seen) {
+      if (vals.length > 1) out.push({ tag, name, values: vals, line: lineAt(i) });
+    }
+    if (tag === 'script' || tag === 'style') {
+      const m = src.slice(p).match(new RegExp('</' + tag + '\\s*>', 'i'));
+      i = m ? p + m.index + m[0].length : n;
+    } else i = p;
+  }
+  return out;
+}
+
 // DECLARED EXCEPTIONS. A guard that stays red on a known, deliberately unfixed
 // defect gets ignored, which is the same failure as a check that cries wolf. But
 // an exception that hides a defect is worse than no check. So an exception must
@@ -189,8 +264,12 @@ const C = (id, label, fn) => checks.push([id, label, fn]);
 C('W1', 'every page has at least one rel=icon link', ps =>
   ps.filter(p => [...p.h.matchAll(/<link[^>]*rel\s*=\s*("|')[^"']*icon[^"']*\1/gi)].length === 0).map(p => p.name));
 
+// The dash class is written with \u escapes, not the characters themselves. A
+// detector that must match en and em dashes would otherwise be the one file in
+// every drop that breaks the no dashes rule, and an exception nobody can argue
+// with is still an exception. The escapes are identical to the engine.
 C('W2', 'zero en or em dashes in any page', ps =>
-  ps.filter(p => (p.h.match(/[‐-―−]/g) || []).length > 0).map(p => p.name));
+  ps.filter(p => (p.h.match(/[\u2010-\u2015\u2212]/g) || []).length > 0).map(p => p.name));
 
 C('W3', 'aggregateRating is never populated with a ratingValue', ps =>
   ps.filter(p => /aggregateRating[\s\S]{0,300}ratingValue/.test(p.h)).map(p => p.name));
@@ -278,6 +357,29 @@ function deadFunctions(p) {
 
 C('W14', 'every declared function is referenced or immediately invoked', ps =>
   ps.filter(p => deadFunctions(p).length).map(p => p.name + ' [' + deadFunctions(p).join(', ') + ']'));
+
+// W15. NO ELEMENT MAY CARRY THE SAME ATTRIBUTE TWICE.
+//
+// Every HTML parser keeps the FIRST occurrence and silently discards the rest,
+// so a duplicate is a handler, class or source the author wrote and the browser
+// never runs. It cannot be seen in a rendered page and it produces no console
+// error, which is why index carried one for an unknown number of drops: a mobile
+// menu item opened the builder modal and left the menu open behind it, because
+// its second onclick, the one that closed the menu, was discarded.
+//
+// It surfaced only because a count in a brief disagreed with the page, six inline
+// closeMenu handlers in the source against five live on it. Nothing in this guard
+// would have caught it, which is the reason for this check.
+C('W15', 'no element carries the same attribute twice', ps => {
+  const bad = [];
+  for (const p of ps) {
+    for (const d of dupAttrs(p.h)) {
+      bad.push(p.name + ' line ' + d.line + ' <' + d.tag + '> has ' + d.name +
+               ' ' + d.values.length + ' times, only the first is used');
+    }
+  }
+  return bad;
+});
 
 const pages = files.map(readPage);
 
