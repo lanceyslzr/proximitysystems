@@ -2023,12 +2023,12 @@ function selectAll(){
     const empty=document.getElementById('bldEmpty');
     const active=document.getElementById('bldActive');
     const btn=document.getElementById('bldBookBtn');
-    const mob=document.getElementById('bldMobileBar');
+    
     if(count===0){
       if(empty)empty.style.display='block';
       if(active)active.style.display='none';
       if(btn)btn.disabled=true;
-      if(mob)mob.style.display='none';
+      
       return;
     }
     if(empty)empty.style.display='none';
@@ -2162,13 +2162,7 @@ function selectAll(){
       if(count>0&&count<9){hint.textContent='Most operators select all 9 core systems. Each connects to the next.';hint.classList.add('show');}
       else{hint.classList.remove('show');}
     }
-    if(mob){
-      mob.style.display='flex';
-      const mc=document.getElementById('bldMobCount');
-      const mp=document.getElementById('bldMobPrice');
-      if(mc)mc.textContent=count+' system'+(count===1?'':'s')+' selected';
-      if(mp)mp.textContent='';
-    }
+    
   }
 function openBldModal(){
     const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));

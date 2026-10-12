@@ -3211,12 +3211,12 @@ document.addEventListener('keydown', function(e) {
     const empty=document.getElementById('bldEmpty');
     const active=document.getElementById('bldActive');
     const btn=document.getElementById('bldBookBtn');
-    const mob=document.getElementById('bldMobileBar');
+    
     if(count===0){
       if(empty)empty.style.display='block';
       if(active)active.style.display='none';
       if(btn)btn.disabled=true;
-      if(mob)mob.style.display='none';
+      
       return;
     }
     if(empty)empty.style.display='none';
@@ -3350,13 +3350,7 @@ document.addEventListener('keydown', function(e) {
       if(count>0&&count<9){hint.textContent='Most operators select all 9 core systems. Each connects to the next.';hint.classList.add('show');}
       else{hint.classList.remove('show');}
     }
-    if(mob){
-      mob.style.display='flex';
-      const mc=document.getElementById('bldMobCount');
-      const mp=document.getElementById('bldMobPrice');
-      if(mc)mc.textContent=count+' system'+(count===1?'':'s')+' selected';
-      if(mp)mp.textContent='';
-    }
+    
   }
 
   function openBldModal(){
@@ -3987,17 +3981,7 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   var stats = document.querySelectorAll('.hero-stat-new');
   if (stats.length) gsap.from(stats, {y:18, opacity:0, duration:.7, stagger:.1, delay:.45, ease:'power2.out'});
 
-  // 4. PORTAL THEATER AUTOPLAY, the visit chain runs itself when scrolled into view
-  var chainBtns = document.getElementById('chain2-btns');
-  if (chainBtns && typeof window.runChain2 === 'function') {
-    var played = false;
-    new IntersectionObserver(function(es, obs){
-      if (es[0].isIntersecting && !played) {
-        played = true; obs.disconnect();
-        setTimeout(function(){ try { window.runChain2('checkin', chainBtns.querySelector('div')); } catch(e){} }, 500);
-      }
-    }, {threshold:.45}).observe(chainBtns);
-  }
+  
 
   // 5. SECTION HEADERS, gentle scrub-rise for any h2 not already in the reveal system
   document.querySelectorAll('h2:not(.reveal):not(.rv-title)').forEach(function(h){
@@ -4050,56 +4034,11 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 </script>
 
 <script>
-/*  PER-CARD MICRO-ANIMATIONS, inject SVG scenes, play on scroll-in  */
-(function(){try{
-  var scenes = {
-    1:'<svg viewBox="0 0 120 48"><circle class="vc v-ping" cx="60" cy="30" r="1" stroke-width="1.5"/><path class="vc v-pin" d="M60 14c4 0 7 3 7 7 0 5-7 11-7 11s-7-6-7-11c0-4 3-7 7-7Z" data-anim stroke-width="1.6"/><circle class="vcf v-pin" cx="60" cy="21" r="2.4" data-anim/></svg>',
-    2:'<svg viewBox="0 0 120 48"><rect class="vc v-doc1" x="48" y="14" width="16" height="20" rx="2" data-anim stroke-width="1.4"/><rect class="vc v-doc2" x="56" y="14" width="16" height="20" rx="2" data-anim stroke-width="1.4"/><path class="vc v-chk" d="M54 24l3 3 6-6" data-anim stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    3:'<svg viewBox="0 0 120 48"><circle class="vc v-r1" cx="60" cy="24" r="11" data-anim stroke-width="1.4"/><circle class="vc v-r2" cx="60" cy="24" r="6" data-anim stroke-width="1.4"/><circle class="vcf v-dot" cx="60" cy="24" r="2" data-anim/></svg>',
-    4:'<svg viewBox="0 0 120 48"><path class="vc v-env1" d="M50 18h20v12H50zM50 18l10 7 10-7" data-anim stroke-width="1.3" stroke-linejoin="round"/><path class="vc v-env2" d="M50 18h20v12H50zM50 18l10 7 10-7" data-anim stroke-width="1.3" stroke-linejoin="round"/></svg>',
-    5:'<svg viewBox="0 0 120 48"><path class="vc v-beat" d="M30 24h14l4-9 6 18 5-13 3 4h22" data-anim stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    6:'<svg viewBox="0 0 120 48"><circle class="vcf v-d1" cx="50" cy="24" r="3" data-anim/><circle class="vcf v-d2" cx="60" cy="24" r="3" data-anim/><circle class="vcf v-d3" cx="70" cy="24" r="3" data-anim/></svg>',
-    7:'<svg viewBox="0 0 120 48"><path class="vc v-c1" d="M48 16l2 2 3-3" data-anim stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path class="vc v-c2" d="M48 24l2 2 3-3" data-anim stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path class="vc v-c3" d="M48 32l2 2 3-3" data-anim stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path class="vc" d="M58 15h16M58 23h16M58 31h12" stroke-width="1.2" stroke-linecap="round" opacity=".4"/></svg>',
-    8:'<svg viewBox="0 0 120 48"><rect class="vcf v-b1" x="46" y="14" width="5" height="22" rx="1" data-anim style="transform-origin:48px 36px"/><rect class="vcf v-b2" x="55" y="14" width="5" height="22" rx="1" data-anim style="transform-origin:57px 36px"/><rect class="vcf v-b3" x="64" y="14" width="5" height="22" rx="1" data-anim style="transform-origin:66px 36px"/><rect class="vcf v-b4" x="73" y="14" width="5" height="22" rx="1" data-anim style="transform-origin:75px 36px"/></svg>',
-    9:'<svg viewBox="0 0 120 48"><circle class="vc v-av1" cx="48" cy="20" r="5" data-anim stroke-width="1.4"/><path class="vc v-av1" d="M42 33a6 6 0 0 1 12 0" data-anim stroke-width="1.4"/><circle class="vc v-av2" cx="72" cy="20" r="5" data-anim stroke-width="1.4"/><path class="vc v-av2" d="M66 33a6 6 0 0 1 12 0" data-anim stroke-width="1.4"/><path class="vc v-link" d="M54 22h12" data-anim stroke-width="1.4"/></svg>',
-    10:'<svg viewBox="0 0 120 48"><rect class="vcf v-btn" x="46" y="18" width="28" height="12" rx="3" data-anim fill-opacity=".15"/><path class="vc v-cur" d="M64 28l3 8 2-4 4-1z" data-anim stroke-width="1.2" stroke-linejoin="round"/></svg>'
-  };
-  document.querySelectorAll('.sc-viz').forEach(function(el){
-    var n=el.getAttribute('data-v'); if(scenes[n]) el.innerHTML=scenes[n];
-  });
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      var card=e.target;
-      if(e.isIntersecting) card.classList.add('viz-on');
-      else card.classList.remove('viz-on'); // pause off-screen (perf)
-    });
-  },{threshold:.3});
-  document.querySelectorAll('.sys-chips-grid .sys-chip').forEach(function(card){ io.observe(card); });
-}catch(e){ console.warn('card viz isolated:',e);
-  try{ document.querySelectorAll('.sys-chip').forEach(function(c){c.classList.add('viz-on');}); }catch(e2){} }
-})();
-</script>
-
-<script>
 /*  SECTION UPGRADES, scroll-triggered life for truth/timeline/security  */
 (function(){try{
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 1. THE TRUTH, eliminate items strike through one by one
-  var elim=document.getElementById('elimList');
-  if(elim){
-    var rows=Array.prototype.slice.call(elim.children);
-    rows.forEach(function(r){ r.classList.add('elim-item');
-      var txt=r.querySelector('div:last-child'); if(txt) txt.classList.add('elim-text');
-      var ck=r.querySelector('div:first-child'); if(ck) ck.classList.add('elim-check');
-    });
-    new IntersectionObserver(function(es,obs){
-      if(es[0].isIntersecting){ obs.disconnect(); elim.classList.add('elim-on');
-        if(reduce){ rows.forEach(function(r){r.classList.add('struck');}); return; }
-        rows.forEach(function(r,i){ setTimeout(function(){ r.classList.add('struck'); }, 200+i*220); });
-      }
-    },{threshold:.4}).observe(elim);
-  }
+  
 
   // 2. TIMELINE, draw progress line + pop icons
   var grid=document.querySelector('.tl-grid');
@@ -4121,35 +4060,6 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
 })();
 </script>
 
-<script>
-/*  THE PROOF, count-up KPIs when the Live HQ panel scrolls in  */
-(function(){try{
-  var hq=document.getElementById('proofHQ');
-  if(!hq) return;
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var vals=Array.prototype.slice.call(hq.querySelectorAll('.phq-val[data-count]'));
-  function run(){
-    vals.forEach(function(el){
-      var to=parseInt(el.getAttribute('data-count'),10)||0;
-      if(reduce){ el.textContent=to.toLocaleString(); return; }
-      var dur=1100, t0=performance.now();
-      function tick(now){
-        var p=Math.min(1,(now-t0)/dur);
-        var v=Math.round(to*(1-Math.pow(1-p,3)));
-        el.textContent=v.toLocaleString();
-        if(p<1)requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    });
-  }
-  var done=false;
-  new IntersectionObserver(function(es,obs){
-    if(es[0].isIntersecting && !done){ done=true; obs.disconnect(); setTimeout(run,200); }
-  },{threshold:.4}).observe(hq);
-}catch(e){ console.warn('proof count isolated:',e);
-  try{ document.querySelectorAll('#proofHQ .phq-val[data-count]').forEach(function(el){ el.textContent=parseInt(el.getAttribute('data-count'),10).toLocaleString(); }); }catch(e2){} }
-})();
-</script>
 <script>
 /* S90. Pause animation in sections that are off screen. */
 (function(){try{
