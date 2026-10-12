@@ -513,6 +513,181 @@ C('W17', 'every getElementById literal resolves to markup or to a created id', p
   return bad;
 });
 
+// W18. THE PAGES MUST AGREE ON THE HEAD METADATA THEY CARRY, AND THE APPLE TOUCH
+// ICON MUST BE A PNG THAT EXISTS.
+//
+// WHY. Three pages that are one site drifted apart in their own head. product.html
+// carried no theme-color while the other two did, so it rendered a different
+// browser chrome colour on mobile. landing.html carried twitter:card alone, with no
+// twitter:title, twitter:description or twitter:image, so a share of the page Lance
+// actually sends people to fell back to whatever each platform could infer. And all
+// three pointed apple-touch-icon at an SVG, a format Safari does not accept for
+// that link, so the iOS home screen tile fell back to a screenshot of the page.
+//
+// None of that is visible from inside a single page, which is why no earlier check
+// caught it: every one of them reads one page at a time. This check is the first
+// that compares the pages AGAINST EACH OTHER.
+//
+// THE SET IS DERIVED, NOT PINNED, rule 127. The union of the metadata keys present
+// across the pages given is computed every run, and any page missing a key another
+// page carries is reported. Pinning a list here would need editing every time a tag
+// is added, and a list nobody updates is a check that quietly stops working.
+//
+// LIMIT, STATED WHERE IT IS USED, rule 121. Run against a single file, the union is
+// that file's own set, so the agreement half of this check finds nothing. It
+// discriminates only across a directory. The apple touch icon half works either way.
+//
+// WHY THE FORMAT RULE IS WORTH ENFORCING AND NOT JUST FIXING ONCE. The icon link is
+// the kind of line that gets copied from page to page. One SVG href copied into a
+// new page would silently break that page's tile with nothing to say so.
+C('W18', 'the pages agree on their head metadata, and the apple touch icon is a png that exists', ps => {
+  const bad = [];
+  const keyOf = tag => ((tag.match(/\s(?:property|name)\s*=\s*["']([^"']*)["']/i) || [])[1] || '').toLowerCase();
+  /* only the keys that describe the page to the outside world. Anything else, such
+   * as viewport or charset, is boilerplate that pages may legitimately differ on. */
+  const WANTED = /^(description|theme-color|og:|twitter:)/;
+  const metaKeys = p => new Set(
+    [...p.markup.matchAll(/<meta\b[^>]*>/gi)].map(m => keyOf(m[0])).filter(k => WANTED.test(k))
+  );
+
+  const sets = ps.map(p => ({ name: p.name, keys: metaKeys(p) }));
+  const union = new Set();
+  sets.forEach(s => s.keys.forEach(k => union.add(k)));
+  for (const s of sets) {
+    for (const k of union) {
+      if (!s.keys.has(k)) bad.push(s.name + ' is missing head metadata ' + k + ', which another page carries');
+    }
+  }
+
+  for (const p of ps) {
+    const link = (p.markup.match(/<link\b[^>]*rel\s*=\s*["']apple-touch-icon["'][^>]*>/i) || [])[0];
+    if (!link) { bad.push(p.name + ' has no apple touch icon link'); continue; }
+    const href = (link.match(/\shref\s*=\s*["']([^"']*)["']/i) || [])[1] || '';
+    if (!/\.png(\?|$)/i.test(href)) {
+      bad.push(p.name + ' apple touch icon points at ' + href + ', which is not a png, and Safari accepts only png here');
+      continue;
+    }
+    /* a link to a png that is not there is worse than a link to the wrong format */
+    let rel = href.replace(/[?#].*$/, '');
+    if (rel.charAt(0) === '/') rel = rel.slice(1);
+    if (!/^https?:/i.test(href) && !fs.existsSync(path.join(p.dir, rel))) {
+      bad.push(p.name + ' apple touch icon points at ' + href + ' but that file is not beside the page');
+    }
+  }
+  return bad;
+});
+
+// W19. EVERY og:image DECLARATION MUST MATCH THE ASSET IT POINTS AT.
+//
+// WHY. og-image.png is a JPEG. Both index and product declared og:image:type as
+// image/png, and nothing anywhere could tell, because every check written so far
+// reads markup against markup. This one reads the ASSET. It opens the file the page
+// points at, derives the true format from its signature and the true dimensions
+// from its own header, and fails any page that claims otherwise.
+//
+// WHY IT IS WORTH A CHECK RATHER THAN A ONE TIME FIX. The dangerous version of this
+// is not today's. It is someone replacing the share image with a differently sized
+// one and leaving og:image:width and og:image:height behind. The declaration would
+// then be confidently wrong, every share would be cropped or letterboxed by the
+// platform, and nothing would say a word. Deriving the dimensions from the file
+// every run is the only way that stays true.
+//
+// WHY THE DIMENSIONS ARE READ BY HAND. Reading them means parsing two headers, and
+// a dependency to do it would have to be vendored into the repository for one
+// check. PNG carries width and height as two big endian integers at a fixed offset
+// in IHDR. JPEG carries them in whichever start of frame marker appears, which has
+// to be walked segment by segment because the markers are not at a fixed offset and
+// APP segments of arbitrary length sit in front of them.
+//
+// LIMIT, STATED WHERE IT IS USED, rule 121. Only an og:image that resolves to a
+// file beside the page is opened. One on another host is reported as unverifiable
+// rather than passed silently, because a check that quietly skips what it cannot
+// reach reads as a verdict it has not earned.
+function imageFacts(file) {
+  let b;
+  try { b = fs.readFileSync(file); } catch (e) { return null; }
+  if (b.length > 24 && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47) {
+    return { mime: 'image/png', width: b.readUInt32BE(16), height: b.readUInt32BE(20), bytes: b.length };
+  }
+  if (b.length > 4 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) {
+    let i = 2;
+    while (i + 9 < b.length) {
+      if (b[i] !== 0xff) { i++; continue; }
+      const marker = b[i + 1];
+      /* start of frame markers carry the size. C4, C8 and CC are not frames. */
+      if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+        return { mime: 'image/jpeg', height: b.readUInt16BE(i + 5), width: b.readUInt16BE(i + 7), bytes: b.length };
+      }
+      if (marker === 0xd8 || (marker >= 0xd0 && marker <= 0xd9)) { i += 2; continue; }
+      i += 2 + b.readUInt16BE(i + 2);
+    }
+    return { mime: 'image/jpeg', width: null, height: null, bytes: b.length };
+  }
+  if (b.length > 6 && b.slice(0, 3).toString('latin1') === 'GIF') {
+    return { mime: 'image/gif', width: b.readUInt16LE(6), height: b.readUInt16LE(8), bytes: b.length };
+  }
+  if (b.length > 12 && b.slice(0, 4).toString('latin1') === 'RIFF' && b.slice(8, 12).toString('latin1') === 'WEBP') {
+    return { mime: 'image/webp', width: null, height: null, bytes: b.length };
+  }
+  return { mime: 'unknown', width: null, height: null, bytes: b.length };
+}
+
+C('W19', 'every og:image declaration matches the asset it points at', ps => {
+  const bad = [];
+  const metaOf = (p, key) => {
+    for (const m of p.markup.matchAll(/<meta\b[^>]*>/gi)) {
+      const t = m[0];
+      const k = ((t.match(/\s(?:property|name)\s*=\s*["']([^"']*)["']/i) || [])[1] || '').toLowerCase();
+      if (k === key) return (t.match(/\scontent\s*=\s*["']([^"']*)["']/i) || [])[1];
+    }
+    return undefined;
+  };
+  for (const p of ps) {
+    const src = metaOf(p, 'og:image');
+    if (src === undefined) continue;          /* W18 is what reports a missing one */
+    /* An absolute og:image is only resolved locally when it sits on THIS site. The
+     * site's own origin is derived from the page's canonical link rather than
+     * assumed, rule 127. Without this, an og:image hosted on a CDN would have its
+     * path pulled out and looked for beside the page, and reported missing when it
+     * is simply somewhere else. An image this check cannot reach is reported as
+     * unverified rather than passed, because silently skipping what it cannot open
+     * would make this a verdict it has not earned. */
+    const canon = (p.markup.match(/<link\b[^>]*rel\s*=\s*["']canonical["'][^>]*>/i) || [])[0] || '';
+    const canonHref = (canon.match(/\shref\s*=\s*["']([^"']*)["']/i) || [])[1] || '';
+    const origin = (canonHref.match(/^(https?:\/\/[^/]+)/i) || [])[1];
+    let rel = src;
+    if (/^https?:\/\//i.test(src)) {
+      if (!origin || src.slice(0, origin.length).toLowerCase() !== origin.toLowerCase()) {
+        bad.push(p.name + ' og:image ' + src + ' is not on this site, so its format and size cannot be verified here');
+        continue;
+      }
+      rel = src.slice(origin.length) || '/';
+    }
+    if (rel.charAt(0) === '/') rel = rel.slice(1);
+    const file = path.join(p.dir, rel.replace(/[?#].*$/, ''));
+    if (!fs.existsSync(file)) {
+      bad.push(p.name + ' og:image points at ' + src + ' but no such file sits beside the page');
+      continue;
+    }
+    const f = imageFacts(file);
+    if (!f) { bad.push(p.name + ' og:image ' + src + ' could not be read'); continue; }
+
+    const type = metaOf(p, 'og:image:type');
+    if (type !== undefined && type.toLowerCase() !== f.mime) {
+      bad.push(p.name + ' declares og:image:type ' + type + ' but the file is ' + f.mime);
+    }
+    for (const dim of ['width', 'height']) {
+      const declared = metaOf(p, 'og:image:' + dim);
+      if (declared === undefined) continue;
+      if (f[dim] === null) { bad.push(p.name + ' declares og:image:' + dim + ' but the ' + f.mime + ' header could not be read'); continue; }
+      if (String(f[dim]) !== String(declared).trim()) {
+        bad.push(p.name + ' declares og:image:' + dim + ' ' + declared + ' but the file is ' + f[dim]);
+      }
+    }
+  }
+  return bad;
+});
+
 const pages = files.map(readPage);
 
 let passed = 0;
