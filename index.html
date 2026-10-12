@@ -1094,16 +1094,8 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   text-transform:uppercase; margin-top:1px; }
 
 /*  SECTION UPGRADES, match the animated treatment  */
-/* 1. THE TRUTH, pain cards glow on left, eliminate-items stagger in */
+/* 1. THE TRUTH, pain cards glow on left */
 .prob-card,[class*="prob-"]{ transition:border-color var(--t2) var(--e), background var(--t2) var(--e); }
-.elim-item{ opacity:0; transform:translateX(-8px); }
-.elim-on .elim-item{ opacity:1; transform:translateX(0); transition:opacity var(--t3) var(--e), transform var(--t3) var(--e); }
-.elim-check{ transform:scale(0); }
-.elim-on .elim-item.struck .elim-check{ transform:scale(1); transition:transform var(--t2) var(--e-snap); }
-.elim-item .elim-text{ position:relative; }
-.elim-item .elim-text::after{ content:''; position:absolute; left:0; top:50%; width:0; height:1px;
-  background:var(--sys-family); transition:width var(--t3) var(--e); }
-.elim-on .elim-item.struck .elim-text::after{ width:100%; }
 
 /* 2. TIMELINE, progress line draws as you scroll */
 .tl-grid{ position:relative; }
@@ -3513,34 +3505,6 @@ document.addEventListener('keydown', function(e) {
   setInterval(addItem, 3200);
 })();
 
-// SCROLL REVEAL OBSERVER
-const psRevealObs = new IntersectionObserver(entries => {
-  entries.forEach((en, i) => {
-    if(en.isIntersecting) {
-      const el = en.target;
-      const delay = parseInt(el.dataset.revealDelay || 0);
-      setTimeout(() => el.classList.add('ps-visible'), delay);
-      psRevealObs.unobserve(el);
-    }
-  });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.ps-reveal').forEach((el, i) => {
-  el.dataset.revealDelay = (i % 6) * 80;
-  psRevealObs.observe(el);
-});
-
-// SECTION LINE OBSERVER
-const lineObs = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if(en.isIntersecting) {
-      en.target.classList.add('line-visible');
-      lineObs.unobserve(en.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.section-wrap').forEach(el => lineObs.observe(el));
-
 // MAGNETIC BUTTONS
 function initMagnetic(selector, strength) {
   strength = strength || 0.25;
@@ -3558,39 +3522,6 @@ function initMagnetic(selector, strength) {
 }
 initMagnetic('.hero-btns a, .cta-primary, #mfSubmit');
 
-// HERO WORD SPLIT ANIMATION
-(function splitHeroWords() {
-  const titleEl = document.querySelector('.hero-title');
-  if(!titleEl) return;
-  // Only split text nodes, preserve em tags
-  Array.from(titleEl.childNodes).forEach(node => {
-    if(node.nodeType === 3 && node.textContent.trim()) {
-      const words = node.textContent.split(' ').filter(w => w.trim());
-      const fragment = document.createDocumentFragment();
-      words.forEach((word, i) => {
-        const span = document.createElement('span');
-        span.className = 'hero-word';
-        span.textContent = word + ' ';
-        span.style.animationDelay = (0.4 + i * 0.08) + 's';
-        fragment.appendChild(span);
-      });
-      node.parentNode.replaceChild(fragment, node);
-    }
-  });
-})();
-
-// ENHANCED CURSOR HOVER, extend to all interactive elements
-document.querySelectorAll('a, button, [data-hover], .prob-item, .sys-chip, .review-card, .tl-step').forEach(function(el) {
-  el.addEventListener('mouseenter', function() {
-    const ring = document.getElementById('cursorRing');
-    if(ring) ring.classList.add('cursor-hover');
-  });
-  el.addEventListener('mouseleave', function() {
-    const ring = document.getElementById('cursorRing');
-    if(ring) ring.classList.remove('cursor-hover');
-  });
-});
-
 
 
 
@@ -3598,7 +3529,7 @@ document.querySelectorAll('a, button, [data-hover], .prob-item, .sys-chip, .revi
    LEVEL 20 ADDITIONS, Safe, additive only
    Global vars already taken: chatBubble, chatOverlay, chatClose,
    chatFrame, nav, obs, burger, mobileMenu, feedData, feedIdx,
-   LEAD_URL, BLD_SYSTEMS, bldSelected, psRevealObs, lineObs
+   LEAD_URL, BLD_SYSTEMS, bldSelected
    New globals: bookingAttempted (flag only)
    GSAP scope: nav scroll only. All other animations handled by
    existing CSS + observers. Do not compete.

@@ -104,7 +104,7 @@ function readPage(file) {
   const css = S.allCss(h);
   const scripts = S.scriptBlocks(h).map(b => b.text).join('\n');
   return {
-    name: path.basename(file), h,
+    name: path.basename(file), dir: path.dirname(file), h,
     css, cssNoComments: css.replace(/\/\*[\s\S]*?\*\//g, ''),
     code: scripts, clean: stripComments(scripts),
     markup: S.markupOnly(h), blocks: S.styleBlocks(h)
@@ -376,6 +376,138 @@ C('W15', 'no element carries the same attribute twice', ps => {
     for (const d of dupAttrs(p.h)) {
       bad.push(p.name + ' line ' + d.line + ' <' + d.tag + '> has ' + d.name +
                ' ' + d.values.length + ' times, only the first is used');
+    }
+  }
+  return bad;
+});
+
+// SHARED INSTRUMENT FOR W16 AND W17. The ids and classes a page's own script
+// creates. Both checks ask the same question from opposite ends, so they share one
+// reader: W17 asks whether every id the script READS can exist, W16 asks whether
+// every class the script WRITES can matter.
+//
+// WHY THESE TWO CHECKS EXIST. One rebuild of the hero and section markup, commits
+// 90b727c, 6988358 and 4ebd5e6, left the runtime referring to markup that was gone.
+// It produced the hero copy rewrite that never fired, every tagged LinkedIn and
+// email click landing on generic copy, and it was silent because both lookups were
+// guarded. It also produced 33 orphaned classes, 9 dead handles and 3990 characters
+// of inert script. W17 would have caught the hero defect the day it landed.
+//
+// FOUR MEASURED CORRECTIONS, each one a wrong result from an earlier draft.
+//
+//  1. classList.remove IS NOT A READER. A class that something adds and something
+//     removes, with no rule styling it and nothing testing it, is still dead. Only
+//     contains, querySelector, querySelectorAll, closest and matches branch on a
+//     class. Counting remove as a reader hid two real orphans on index.
+//
+//  2. A CLASS STYLED ONLY IN A FETCHED PAYLOAD IS NOT DEAD. landing creates
+//     pd-body, which no page stylesheet mentions; it is styled inside the css field
+//     of pd/hq.json, pd/psw.json and pd/fam.json. Those paths are DERIVED from the
+//     page's own source rather than pinned here, per rule 127, and a payload the
+//     page names but which is missing is reported, not silently ignored, because a
+//     missing stylesheet source would turn every class it styles into a false
+//     orphan.
+//
+//  3. A CONCATENATION PREFIX IS NOT A TOKEN. bldchip-, osni-, ix-msg- and friends
+//     are built as 'bldchip-'+id. Treating them as class or id names produced four
+//     false orphans across the three pages.
+//
+//  4. CLASS SELECTORS COME FROM RULE PRELUDES, PARSED, NOT FROM THE RAW STYLESHEET.
+//     Testing a token against the whole stylesheet text matches decimal points, url
+//     paths and strings: .w3 and .org both appeared as classes, out of w3.org. An
+//     earlier fix that stripped quoted strings from the stylesheet destroyed 86
+//     percent of it, 49237 characters down to 6988, and reported styled classes as
+//     orphans. cssscan's rules() parser is used instead, which is brace aware and
+//     strips comments while preserving offsets.
+function createdTokens(p) {
+  const classes = new Map(), ids = new Map();
+  const add = (m, t, how) => { if (t && !m.has(t)) m.set(t, how); };
+  const c = p.clean;
+  for (const m of c.matchAll(/classList\s*\.\s*(?:add|toggle|replace)\(\s*["']([\w-]+)["']/g)) add(classes, m[1], 'classList');
+  for (const m of c.matchAll(/class\s*=\s*\\?["']([^"'\\]+)/g)) m[1].split(/\s+/).forEach(t => add(classes, t, 'built string'));
+  for (const m of c.matchAll(/className\s*=\s*["']([^"']*)["']/g)) m[1].split(/\s+/).forEach(t => add(classes, t, 'className'));
+  for (const m of c.matchAll(/setAttribute\(\s*["']class["']\s*,\s*["']([^"']*)["']/g)) m[1].split(/\s+/).forEach(t => add(classes, t, 'setAttribute'));
+  for (const m of c.matchAll(/id\s*=\s*\\?["']([A-Za-z][\w-]*)/g)) add(ids, m[1], 'built string');
+  for (const m of c.matchAll(/\.id\s*=(?!=)\s*["']([\w-]+)["']/g)) add(ids, m[1], 'id assignment');
+  for (const m of c.matchAll(/setAttribute\(\s*["']id["']\s*,\s*["']([\w-]+)["']/g)) add(ids, m[1], 'setAttribute');
+  return { classes, ids };
+}
+
+// Every JSON payload this page names, read for extra stylesheet text and for the
+// scope values it assigns as ids. Derived from the page, never pinned.
+function payloadFacts(p) {
+  const css = [], scopes = new Set(), missing = [];
+  const rels = new Set([...p.h.matchAll(/["'`]([\w./-]*pd\/[\w.-]+\.json)["'`]/g)].map(m => m[1]));
+  for (const rel of rels) {
+    const f = path.join(p.dir, rel);
+    if (!fs.existsSync(f)) { missing.push(rel); continue; }
+    try {
+      const j = JSON.parse(fs.readFileSync(f, 'utf8'));
+      if (typeof j.css === 'string') css.push(j.css);
+      if (typeof j.scope === 'string') scopes.add(j.scope);
+    } catch (e) { missing.push(rel + ' is not readable JSON'); }
+  }
+  return { css, scopes, missing };
+}
+
+// Class tokens that appear in a parsed rule prelude, from the page's stylesheets
+// and from any payload stylesheet. At rule frames are skipped, their nested rules
+// are not, so a class styled only inside a media query still counts.
+function styledClasses(cssTexts) {
+  const set = new Set();
+  for (const text of cssTexts) {
+    for (const r of S.rules(text)) {
+      if (r.isAtRule) continue;
+      for (const sel of S.selectorList(r.sel))
+        for (const m of sel.matchAll(/\.([A-Za-z_][\w-]*)/g)) set.add(m[1]);
+    }
+  }
+  return set;
+}
+
+const isConcatPrefix = (p, t) => /-$/.test(t) || p.h.indexOf("'" + t + "'+") >= 0 || p.h.indexOf('"' + t + '"+') >= 0;
+
+function branchesOnClass(p, t) {
+  const q = esc(t);
+  return new RegExp('classList\\s*\\.\\s*contains\\(\\s*["\']' + q + '["\']').test(p.clean)
+    || new RegExp('(?:querySelector(?:All)?|closest|matches)\\(\\s*["\'][^"\']{0,90}\\.' + q + '(?![\\w-])').test(p.clean);
+}
+
+// W16. A CLASS THE SCRIPT CREATES THAT NOTHING STYLES AND NOTHING BRANCHES ON.
+C('W16', 'every class the script creates is styled or branched on', ps => {
+  const bad = [];
+  for (const p of ps) {
+    const made = createdTokens(p).classes;
+    const pay = payloadFacts(p);
+    pay.missing.forEach(m => bad.push(p.name + ' names ' + m + ' but it is missing, so classes it styles cannot be verified'));
+    const styled = styledClasses([p.css, ...pay.css]);
+    const inMarkup = S.classTokens(p.h);
+    for (const [t, how] of made) {
+      if (styled.has(t) || inMarkup.has(t) || isConcatPrefix(p, t) || branchesOnClass(p, t)) continue;
+      bad.push(p.name + ' class ' + t + ', created by ' + how + ', is styled by no rule and read by nothing');
+    }
+  }
+  return bad;
+});
+
+// W17. A getElementById LITERAL THAT CANNOT RESOLVE.
+// LIMIT, STATED WHERE IT IS USED, rule 121. An id assigned from an expression
+// cannot be resolved statically. Two exist, both on landing: a style element id
+// built as 'pd-css-' + id, which the concatenation prefix rule covers, and a screen
+// id taken from a payload scope, which the payload scope values cover. Any future
+// dynamic assignment that a literal read depends on will make this check FAIL
+// rather than pass quietly, which is the correct direction for a guard.
+C('W17', 'every getElementById literal resolves to markup or to a created id', ps => {
+  const bad = [];
+  for (const p of ps) {
+    const { ids } = createdTokens(p);
+    const pay = payloadFacts(p);
+    const markupIds = new Set([...p.markup.matchAll(/\sid\s*=\s*("([^"]*)"|'([^']*)')/g)]
+      .map(m => (m[2] !== undefined ? m[2] : m[3])));
+    for (const m of p.clean.matchAll(/getElementById\(\s*["']([^"']+)["']/g)) {
+      const t = m[1];
+      if (markupIds.has(t) || ids.has(t) || pay.scopes.has(t) || isConcatPrefix(p, t)) continue;
+      bad.push(p.name + " getElementById('" + t + "') resolves to no markup id and nothing creates it");
     }
   }
   return bad;
