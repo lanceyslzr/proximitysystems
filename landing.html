@@ -419,15 +419,41 @@ button,a,[onclick]{touch-action:manipulation;}
    0 4px 24px rgba(0,0,0,.7) shadow, and the per portal identity pairs from its S rules. The
    viewport is the 390 x 762 viewport measured from Lance's phone (1080x2340 at 2.7692, 104px status bar, nav bar from 2214px). Layout containment makes it the containing block
    for the portal's own position:fixed bars and sheets. */
-.pd-viewport{position:relative;width:390px;height:762px;overflow:hidden;contain:layout paint}
+.pd-phone{position:relative;flex-shrink:0;border:1px solid rgba(90,173,160,.2);border-radius:44px;overflow:hidden;background:#0b0d10;box-shadow:0 0 0 1px rgba(255,255,255,.05) inset,0 28px 60px -20px rgba(0,0,0,.9),0 2px 10px rgba(0,0,0,.6)}
+.pd-phone::after{content:'';position:absolute;inset:0;border-radius:44px;pointer-events:none;box-shadow:0 0 0 1px rgba(255,255,255,.07) inset}
+.pd-phone.pd-hq{background:#07090c;border-color:rgba(201,169,110,.26)}
+.pd-phone.pd-psw{background:#050608;border-color:rgba(86,200,245,.24)}
+.pd-phone.pd-fam{background:#0a0e14;border-color:rgba(52,211,153,.24)}
+.pd-viewport{position:relative;width:390px;height:762px;overflow:hidden;contain:layout paint;border-radius:38px;transform:scale(.968);transform-origin:center center}
 .pd-scroll{position:absolute;inset:0;overflow:hidden}
 /* Stage: one phone at a time, the others held in the DOM so a beat never waits on a build. */
+.pd-stage{position:relative;flex-shrink:0;width:392px;height:764px;transform-origin:top center;}
+.pd-stage .pd-phone{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;}
 .pd-stage .pd-phone.on{opacity:1;}
-@media(min-width:1240px){.pd-stage .pd-phone.on{opacity:1;filter:none;}.pd-stage .pd-map.show{width:392px;}}
+@media(min-width:1240px){.pd-stage{width:1616px;display:flex;gap:16px;align-items:flex-start;justify-content:center;}.pd-stage .pd-phone{position:relative;inset:auto;opacity:.34;filter:saturate(.55);transition:opacity .45s ease,filter .45s ease;}.pd-stage .pd-phone.on{opacity:1;filter:none;}.pd-stage .pd-map{width:0;overflow:hidden;transition:opacity .45s ease,filter .45s ease,width .62s cubic-bezier(.4,0,.2,1);}.pd-stage .pd-map.show{width:392px;}}
 /* The wrapper carries the scaled height so the device never overruns the demo box. */
+.pd-fit{position:relative;display:flex;justify-content:center;width:100%;}
+/* NOTHING BOOKED TODAY. The runtime toggles .pd-prebook on the PSW phone and its own
+   comment says the next visit card is "handled by a stylesheet rule so it survives
+   patch()". THAT RULE DID NOT EXIST, in this page, in the page the markup was
+   recovered from, or in any of the three payload stylesheets. PREBOOK is {0:1, 7:0},
+   so beat 0 turns it on and the booked beat turns it off: without the rule the card
+   was visible from the first beat and the payoff showed nothing changing.
+   !important is load bearing, not defensive. The captured element is
+   <div class="today-next-card" id="pp_today-next-card" style="display: block;">
+   so it carries an inline display that a plain rule cannot beat, and that inline
+   style is also why this has to be CSS: patch() rebuilds the inner tree every frame
+   and would discard any property a script had set. */
+#pswPhone.pd-prebook .today-next-card{display:none!important}
 /* Tap ripple. Demo chrome, drawn at the coordinates the capture measured on the real control. */
 .pd-tap{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.55);pointer-events:none;z-index:9999;animation:pd-tap .7s cubic-bezier(.22,1,.36,1) forwards;}
 @keyframes pd-tap{0%{transform:scale(.35);opacity:0}25%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
+/* The Running Live dot's pulse. Deleted as an orphan once the markup that used it
+   was gone, which was correct then and wrong the moment the markup came back. */
+@keyframes lp-glow-g{0%,100%{box-shadow:0 0 6px #3fb950}50%{box-shadow:0 0 18px #3fb950}}
+@media(max-width:700px){.lp-desktop-step{display:none}#lp-mob-steps{display:flex!important}}
+#stageLabel{margin:0 12px}
+@media(max-width:700px){#flow-demo-wrap .pd-hdr-word{display:none}}
 
 /* portal CSS now travels inside each payload, injected by PDLoad */
 
@@ -552,7 +578,63 @@ button,a,[onclick]{touch-action:manipulation;}
   </div>
 
   <!-- FULL-WIDTH FLOW DEMO -->
-  <!-- /flow-demo-wrap -->
+  <div id="flow-demo-wrap" style="position:relative;width:100%;max-width:min(1660px,100%);margin:0 auto;border-radius:14px;border:1px solid rgba(90,173,160,.2);box-shadow:0 12px 60px rgba(0,0,0,.6);overflow:hidden;z-index:2;">
+
+    <!-- Particle canvas -->
+    <canvas id="bg" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
+
+    <!-- Top bar: logo + stage label + live badge -->
+    <div style="position:relative;z-index:10;height:38px;background:rgba(7,9,12,.98);border-bottom:1px solid rgba(90,173,160,.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
+      <div style="display:flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#e8ddc8;">
+        <div style="width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#3d8a7a,#5aada0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:600;color:#fff;">PH</div>
+        <span class="pd-hdr-word">Proximity</span><span class="pd-hdr-word" style="color:#5aada0;font-style:italic;font-family:'Instrument Sans',system-ui,sans-serif;font-size:15px;">HQ</span>
+      </div>
+      <div id="stageLabel" style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(90,173,160,.65);transition:opacity .3s;">Initializing...</div>
+      <div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:#5aada0;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px #3fb950;animation:lp-glow-g 2s infinite;"></div>Running Live
+      </div>
+      <div id="stageProgress" style="position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#5aada0,#3fb950);width:0%;transition:width .1s linear;"></div>
+    </div>
+
+    <!-- Phone trio, full width, bigger phones -->
+    <div id="main" style="display:flex;align-items:flex-start;justify-content:center;padding:16px 16px 12px;background:rgba(7,9,12,.6);position:relative;z-index:1;">
+      <div class="pd-fit" id="pdFit"><div class="pd-stage" id="pdStage">
+        <div class="pd-phone pd-hq" id="hqPhone" aria-label="Proximity HQ, operator view" role="img">
+        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
+      </div>
+        <div class="pd-phone pd-psw" id="pswPhone" aria-label="PSW portal, caregiver view" role="img">
+        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
+      </div>
+        <div class="pd-phone pd-fam" id="famPhone" aria-label="Family portal" role="img">
+        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
+      </div>
+        <div class="pd-phone pd-map" id="mapPhone" aria-label="Live GPS, caregiver and client on one map" role="img">
+        <div class="pd-viewport"><div class="pd-scroll"><div class="pd-screen" inert></div></div></div>
+      </div>
+      </div></div>
+    </div><!-- /main -->
+
+    <!-- Bottom step bar -->
+    <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
+      <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step2">PSW Signs In</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step3">Family Sees It</span>
+      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-step lp-desktop-step" id="step4">HQ Live Map</span>
+      <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
+        <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">HQ</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot2" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">PSW</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot3" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">FAM</div>
+        <div style="width:14px;height:1px;background:rgba(90,173,160,.2);"></div>
+        <div id="lp-mob-dot4" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">MAP</div>
+      </div>
+    </div>
+
+  </div><!-- /flow-demo-wrap -->
 
   <!-- Trust bar below demo -->
   <div class="hero-trust" style="margin-top:24px;justify-content:center;">
@@ -2131,7 +2213,8 @@ var lpBooked=false;
 </script>
 
 <script>
-/*  PHONE DEMO ANIMATION. Beats move between frames captured from the real portals.  */
+/*  PARTICLE CANVAS behind the phone demo. Decorative only. Its guard below returns
+    when #bg is absent, which is why it must not share a scope with the runtime.  */
 (function(){
 // Particle canvas
 var bgc=document.getElementById('bg');
@@ -2159,7 +2242,18 @@ for(var i=0;i<30;i++){pts.push({x:Math.random()*(bgc.width||480),y:Math.random()
   }
   requestAnimationFrame(drawBg);
 })();
+})();
 
+/*  PHONE DEMO RUNTIME. Beats move between frames captured from the real portals.
+    THIS IS A SEPARATE SCOPE ON PURPOSE. Until SITE37 the particle canvas above and
+    everything below lived in one function, which opened with
+      var bgc = document.getElementById('bg'); if (!bgc) return;
+    When the demo markup was removed the canvas went with it, that guard fired, and
+    the return aborted the function before BEATS, PDLoad and PD were ever declared.
+    The entire demo was dead and nothing reported it: no console error, no failed
+    request, nothing in a screenshot. A decorative element must never be able to
+    take down the hero, so each half now guards only itself.  */
+(function(){
 /* DATA is fetched per phone by PDLoad, see pd/*.json */
 var BEATS = [["hqPhone", "schedule", 1, "The week, caregiver by caregiver", 3000], ["hqPhone", "psw-scroll", 1, "Scroll to the caregiver you want", 2600], ["hqPhone", "cell-tap", 1, "Tap her own empty cell · that is how she is chosen", 2800], ["hqPhone", "add-shift-open", 1, "The sheet opens prefilled with her and the date", 3000], ["hqPhone", "client-picked", 1, "Pick the client · Isolde Varga", 2800], ["hqPhone", "hours-set", 1, "08:00 to 16:00 · eight hours", 2600], ["hqPhone", "ai-suggestion", 1, "It recommends a caregiver, and says why", 3000], ["hqPhone", "booked", 1, "Booked · Amara Osei now shows 8.0h on the board", 3200], ["pswPhone", "psw-home", 2, "It is already on Amara's phone", 3000], ["pswPhone", "psw-schedule", 2, "Her week ahead, and the open shifts she can take", 3000], ["pswPhone", "psw-checkin", 2, "She signs in · the care plan is on screen first", 3200], ["pswPhone", "psw-checklist", 2, "Her checklist, with Isolde's own routine in it", 3400], ["famPhone", "fam-arrived", 3, "The family sees Amara is with Isolde right now", 3400], ["famPhone", "fam-map", 3, "And exactly where · at the address, not near it", 3000], ["mapPhone", "live-map", 4, "Back in HQ · caregiver and client on one map", 3400]];
 /* Phone demo runtime. Mounts a captured portal screen and moves it between captured frames.
