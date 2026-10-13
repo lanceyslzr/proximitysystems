@@ -540,9 +540,37 @@ C('W17', 'every getElementById literal resolves to markup or to a created id', p
 // WHY THE FORMAT RULE IS WORTH ENFORCING AND NOT JUST FIXING ONCE. The icon link is
 // the kind of line that gets copied from page to page. One SVG href copied into a
 // new page would silently break that page's tile with nothing to say so.
+// THE ONE MARKUP ATTRIBUTE READER. Every check that pulls a value out of a markup
+// tag goes through this and nothing else.
+//
+// SITE43, rule 137. Before this, five call sites each carried their own
+// content\s*=\s*["']([^"']*)["'] whose negated class excludes BOTH quote marks, so a
+// value delimited by one quote mark stopped at the first occurrence of the other.
+// landing.html's description reads "We build your agency's AI operating system in 7
+// days." and all five readers returned "We build your agency". W17 already did it
+// correctly with the alternation below; this makes that the only form in the file.
+//
+// IT RETURNS undefined WHEN THE ATTRIBUTE IS ABSENT, never ''. W19 branches on
+// src === undefined to tell a page with no og:image from one with an empty og:image,
+// so coercing here would make it resolve an empty path and report a missing file on a
+// page that simply has no share image. Callers keep their own coercion.
+//
+// WHAT DOES NOT USE THIS, deliberately: the CSS animation value readers, where
+// stopping at a quote keeps a quoted string out of a name; W1's rel search, which
+// already backreferences its delimiter; and the readers that scan raw JAVASCRIPT for
+// class=, className, setAttribute and getElementById, which are not markup tags. A
+// class name, an element id and a rel token cannot contain a quote mark.
+//
+// `name` may be an alternation such as 'property|name'. It is interpolated into a
+// non capturing group, so every caller in this file passes a literal attribute name.
+function attrOf(tag, name) {
+  const m = String(tag).match(new RegExp('\\s(?:' + name + ')\\s*=\\s*("[^"]*"|\'[^\']*\')', 'i'));
+  return m ? m[1].slice(1, -1) : undefined;
+}
+
 C('W18', 'the pages agree on their head metadata, and the apple touch icon is a png that exists', ps => {
   const bad = [];
-  const keyOf = tag => ((tag.match(/\s(?:property|name)\s*=\s*["']([^"']*)["']/i) || [])[1] || '').toLowerCase();
+  const keyOf = tag => (attrOf(tag, 'property|name') || '').toLowerCase();
   /* only the keys that describe the page to the outside world. Anything else, such
    * as viewport or charset, is boilerplate that pages may legitimately differ on. */
   const WANTED = /^(description|theme-color|og:|twitter:)/;
@@ -562,7 +590,7 @@ C('W18', 'the pages agree on their head metadata, and the apple touch icon is a 
   for (const p of ps) {
     const link = (p.markup.match(/<link\b[^>]*rel\s*=\s*["']apple-touch-icon["'][^>]*>/i) || [])[0];
     if (!link) { bad.push(p.name + ' has no apple touch icon link'); continue; }
-    const href = (link.match(/\shref\s*=\s*["']([^"']*)["']/i) || [])[1] || '';
+    const href = attrOf(link, 'href') || '';
     if (!/\.png(\?|$)/i.test(href)) {
       bad.push(p.name + ' apple touch icon points at ' + href + ', which is not a png, and Safari accepts only png here');
       continue;
@@ -637,8 +665,8 @@ C('W19', 'every og:image declaration matches the asset it points at', ps => {
   const metaOf = (p, key) => {
     for (const m of p.markup.matchAll(/<meta\b[^>]*>/gi)) {
       const t = m[0];
-      const k = ((t.match(/\s(?:property|name)\s*=\s*["']([^"']*)["']/i) || [])[1] || '').toLowerCase();
-      if (k === key) return (t.match(/\scontent\s*=\s*["']([^"']*)["']/i) || [])[1];
+      const k = (attrOf(t, 'property|name') || '').toLowerCase();
+      if (k === key) return attrOf(t, 'content');
     }
     return undefined;
   };
@@ -653,7 +681,7 @@ C('W19', 'every og:image declaration matches the asset it points at', ps => {
      * unverified rather than passed, because silently skipping what it cannot open
      * would make this a verdict it has not earned. */
     const canon = (p.markup.match(/<link\b[^>]*rel\s*=\s*["']canonical["'][^>]*>/i) || [])[0] || '';
-    const canonHref = (canon.match(/\shref\s*=\s*["']([^"']*)["']/i) || [])[1] || '';
+    const canonHref = attrOf(canon, 'href') || '';
     const origin = (canonHref.match(/^(https?:\/\/[^/]+)/i) || [])[1];
     let rel = src;
     if (/^https?:\/\//i.test(src)) {
