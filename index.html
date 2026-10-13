@@ -139,8 +139,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .section-wrap { padding:clamp(56px,8vw,92px) 64px; max-width: 100%; }
   #problem { background: var(--dark2); }
   #package { background: var(--bg); }
-  #proof { background: var(--dark); }
-  .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .eyebrow-line { width: 40px; height: 1px; background: var(--teal); }
   .eyebrow-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); }
@@ -747,7 +746,6 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
 /*  SECTION SURFACES, every light section -> dark panel  */
 .section-wrap,#package,#timeline,#builder,#real,#pricing{
   background:var(--rb-void)!important; color:var(--rb-text)!important; position:relative; }
-#real{ background:var(--rb-base)!important; }
 #real *,#package .s-title,.tl-title{ color:var(--rb-text); }
 .s-title.dark,.cta-title{ color:var(--rb-text)!important; }
 .package-intro-text strong{ color:var(--rb-text)!important; }
@@ -1247,7 +1245,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .osp-foot-lbl{ font-family:var(--rb-mono)!important; color:var(--rb-dim)!important; }
 
 /*  THE PROOF (Pass 2), realistic "Live HQ" dashboard artifact  */
-#real{ background:var(--rb-base)!important; }
 
 
 /*  TIMELINE (Pass 3), realistic per-day artifacts  */

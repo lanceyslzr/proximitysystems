@@ -50,8 +50,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; }
   @media(pointer:fine){ body { cursor: none; } }
-  .cursor { width: 8px; height: 8px; background: var(--teal-dark); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: transform 0.15s ease; }
-  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.5; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.5; }
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 520; padding: 24px 64px; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; }
   .nav-brand { display:flex; align-items:center; text-decoration: none; }
   .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
@@ -67,8 +66,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(90,138,106,0.3);}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(90,138,106,0);} }
   
   .section-wrap { padding:clamp(56px,8vw,92px) 64px; max-width: 100%; }
-  #package { background: var(--bg); }
-  .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .eyebrow-line { width: 40px; height: 1px; background: var(--teal); }
   .eyebrow-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); } .s-title.dark { color: var(--dark); }
@@ -184,8 +182,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .mobile-menu a:last-child{border-bottom:none;margin-top:8px;background:var(--teal-dark);color:#fff;font-weight:500}
 
   /* Timeline Section */
-  #timeline { background: #07090c; padding: 120px 64px; }
-
+  
   /*  BUILDER SECTION  */
   #builder{background:var(--bg);padding:100px 64px}
   /* Scoped CSS vars for builder dark components */
@@ -303,7 +300,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .inner { max-width:1120px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
   .section-wrap .inner { padding: 0; }
   .bld-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
-@media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}}
+@media(hover:none){body{cursor:auto}a,button{cursor:auto}}
 
 
 /*  INDEX INLINE CHATBOT  */
@@ -318,7 +315,6 @@ button,a,[onclick]{touch-action:manipulation;}
 .chat-input-row button{background:#3d7a8a;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:16px;min-width:44px;min-height:44px;}
 .ix-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.6;}
 .ix-msg-bot{background:rgba(61,122,138,0.15);border:1px solid rgba(61,122,138,0.25);color:#ddd9d0;align-self:flex-start;border-radius:4px 12px 12px 12px;}
-.ix-msg-user{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#ddd9d0;align-self:flex-end;border-radius:12px 4px 12px 12px;}
 .ix-typing{display:flex;gap:4px;align-items:center;padding:12px 16px;}
 .ix-typing span{width:6px;height:6px;border-radius:50%;background:#3d7a8a;animation:ixDot 1.2s infinite;}
 .ix-typing span:nth-child(2){animation-delay:.2s;}
@@ -344,16 +340,10 @@ button,a,[onclick]{touch-action:manipulation;}
   }
 
 
-@media (max-width: 900px) {
-    #timeline, #reviews { padding: 80px 24px; }
-  }
-
-
 @media (max-width: 768px) {
   .inner, .bld-inner { padding: 0 24px; }
     body { cursor: auto !important; }
-    .cur,.cursor,#cur,#curRing,.cur-ring,.cursor-ring { display: none !important; }
-    .chat-bubble { cursor: pointer; }
+        .chat-bubble { cursor: pointer; }
     .chat-modal-close { cursor: pointer; }
     .nav-brand { gap: 8px; }
     .nav-brand svg { width: 28px; height: 28px; }
@@ -458,7 +448,6 @@ body{ background:var(--rb-void)!important; color:var(--rb-text)!important; font-
 body::before{ opacity:.35!important; }
 /* kill custom cursor noise on rebuild for clarity */
 @media(pointer:fine){ body{cursor:auto!important;} }
-.cursor,.cursor-ring{ display:none!important; }
 
 /*  TYPE SYSTEM, three voices  */
 .hero-h1-new,.s-title,.tl-title,.cta-title,.rv-title,.hero-title{
@@ -489,7 +478,6 @@ body::before{ opacity:.35!important; }
 /*  SECTION SURFACES, every light section -> dark panel  */
 .section-wrap,#package,#timeline,#builder,#real,#pricing{
   background:var(--rb-void)!important; color:var(--rb-text)!important; position:relative; }
-#real{ background:var(--rb-base)!important; }
 #real *,#package .s-title,.tl-title{ color:var(--rb-text); }
 .s-title.dark,.cta-title{ color:var(--rb-text)!important; }
 
@@ -498,7 +486,6 @@ body::before{ opacity:.35!important; }
 /*  TIMELINE, terminal cards with glowing badge  */
 
 /*  PROOF / pricing dark coherence  */
-#pricing{ background:radial-gradient(ellipse 70% 50% at 50% 100%, #0c1620, var(--rb-void))!important; }
 
 /*  CTA band  */
 
@@ -883,7 +870,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 /* FOOTER STATS */
 
 /*  THE PROOF (Pass 2), realistic "Live HQ" dashboard artifact  */
-#real{ background:var(--rb-base)!important; }
 
 /*  TIMELINE (Pass 3), realistic per-day artifacts  */
 /* shared atoms */
