@@ -716,6 +716,175 @@ C('W19', 'every og:image declaration matches the asset it points at', ps => {
   return bad;
 });
 
+// SHARED. THE TEXT A TAG SCANNER MAY SAFELY READ.
+//
+// WHY THIS EXISTS RATHER THAN SCANNING p.markup OR p.h DIRECTLY. Neither is correct on
+// its own, and both failures were measured rather than guessed:
+//
+//   p.markup comes from markupOnly, which removes the whole script and style ELEMENT,
+//   opening tag included. So every script src disappears and a check that reads them is
+//   blind. That cost a day: the asset audit missed a planted broken <script src> while
+//   catching a planted img and link.
+//
+//   p.h, the raw page, sees the script tags but also sees JAVASCRIPT. In HTML a tag
+//   starts at '<', and in JS '<' is the less-than operator, so inline code is full of
+//   tag-shaped text. Measured on these three pages: scanning raw produced 315 phantom
+//   tags, every one a comparison.
+//       for(var n=0;n<LINES.length;n++)   becomes tag LINES with attribute i=0;
+//       from<to?1:-1                      becomes tag to
+//       i<s.length                        becomes tag s
+//
+// So: the markup, plus the script and style OPENING tags lifted out of the raw page.
+// Measured on all three pages: it sees the script tags, yields zero phantoms, and gives
+// an identical reference set to the raw scan.
+function scannableTags(p) {
+  const opens = [...p.h.matchAll(/<(?:script|style)\b[^>]*>/gi)].map(m => m[0]).join('\n');
+  return p.markup + '\n' + opens;
+}
+
+// W20. EVERY ASSET A PAGE REFERENCES MUST EXIST.
+//
+// WHY. SITE42 closed this for ONE asset: all three pages pointed apple-touch-icon at an
+// SVG, which iOS does not accept for that link, and nothing in the repository could tell
+// because no check opened the thing a page points at. W19 now does that for og:image
+// alone. Every other reference on every page, each img src, each stylesheet or script or
+// preload href, each favicon and manifest, is still unchecked. A reference to a file that
+// does not exist is a silent 404 on a live page.
+//
+// WHAT A VERDICT MEANS HERE, stated where it is used, rule 121. Only a reference that
+// resolves to a path inside this repository is opened. An absolute URL on another host, a
+// data URI, a bare fragment, a mailto or tel link are reported as OUT OF SCOPE and are
+// NOT counted as passing, because treating what cannot be opened as a pass is a verdict
+// this check has not earned. The site's own origin is derived from each page's canonical
+// link rather than assumed, rule 127, so a CDN hosted asset is not reported missing
+// merely because it is not on disk.
+function assetRefs(p) {
+  const out = [];
+  const text = scannableTags(p);
+  const ATTRS = ['src', 'href', 'content', 'poster', 'data-src'];
+  for (const m of text.matchAll(/<([a-zA-Z][\w-]*)\b([^>]*)>/g)) {
+    const tag = m[1].toLowerCase(), attrs = m[2];
+    for (const a of ATTRS) {
+      const raw = (attrs.match(new RegExp('\\s' + a + '\\s*=\\s*("[^"]*"|\'[^\']*\')', 'i')) || [])[1];
+      if (!raw) continue;
+      const v = raw.slice(1, -1).trim();
+      if (!v) continue;
+      /* a content attribute only names a file on an og or twitter image */
+      if (a === 'content') {
+        const key = ((attrs.match(/\s(?:property|name)\s*=\s*("[^"]*"|'[^']*')/i) || [])[1] || '').slice(1, -1).toLowerCase();
+        if (!/^(og:image|twitter:image)$/.test(key)) continue;
+      }
+      out.push({ what: '<' + tag + '> ' + a, value: v });
+    }
+  }
+  /* url() inside the page's own style blocks. The closing paren is found by scanning
+   * with a depth counter, not by a lazy group: a data:image/svg+xml URI contains parens
+   * and [^)]* stops inside one. And a url() NESTED inside an already consumed url() is
+   * skipped, because these pages carry a background built from an inline SVG that
+   * applies its own filter with filter='url(%23noise)'. %23 is an encoded '#', a fragment
+   * pointing at <filter id='noise'> a few characters earlier in the same URI, not a file.
+   * Reported as missing, it was a false positive that took two passes to kill. */
+  const styles = p.css;
+  let consumedTo = -1;
+  for (let i = styles.indexOf('url('); i >= 0; i = styles.indexOf('url(', i + 1)) {
+    if (i < consumedTo) continue;
+    let j = i + 4, depth = 1, q = null;
+    while (j < styles.length && depth > 0) {
+      const ch = styles[j];
+      if (q) { if (ch === q) q = null; }
+      else if (ch === '"' || ch === "'") q = ch;
+      else if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      j++;
+    }
+    consumedTo = j;
+    const v = styles.slice(i + 4, j - 1).trim().replace(/^["']|["']$/g, '');
+    if (v) out.push({ what: 'url()', value: v });
+  }
+  return out;
+}
+
+C('W20', 'every asset a page references exists, and anything unreachable says so', ps => {
+  const bad = [];
+  for (const p of ps) {
+    const canon = (p.markup.match(/<link\b[^>]*rel\s*=\s*["']canonical["'][^>]*>/i) || [])[0] || '';
+    const origin = (((canon.match(/\shref\s*=\s*("[^"]*"|'[^']*')/i) || [])[1] || '').slice(1, -1)
+      .match(/^(https?:\/\/[^/]+)/i) || [])[1];
+    for (const r of assetRefs(p)) {
+      let v = r.value;
+      if (/^(data:|mailto:|tel:|javascript:|#)/i.test(v)) continue;   /* not a file */
+      if (/^\/\//.test(v)) continue;                                  /* protocol relative, another host */
+      if (/^https?:\/\//i.test(v)) {
+        if (!origin || v.slice(0, origin.length).toLowerCase() !== origin.toLowerCase()) continue;
+        v = v.slice(origin.length) || '/';
+      }
+      v = v.replace(/[?#].*$/, '');
+      if (!v || v === '/') continue;
+      const rel = v.charAt(0) === '/' ? v.slice(1) : v;
+      if (!fs.existsSync(path.join(p.dir, rel))) {
+        bad.push(p.name + ' ' + r.what + '="' + r.value.slice(0, 60) + '" resolves to ' + rel + ' which does not exist');
+      }
+    }
+  }
+  return bad;
+});
+
+// W21. NO TAG MAY CARRY AN UNQUOTED ATTRIBUTE VALUE.
+//
+// WHY THIS MATTERS MORE THAN A WRONG VALUE WOULD. The failure mode is SILENCE. W18
+// derives its key list from the UNION of what the three pages actually carry, so a tag
+// the reader cannot see contributes nothing to that union. A page could therefore lack a
+// metadata key AND hide the evidence that it is missing, and W18 would report agreement.
+// W19 and W20 read attributes the same way. HTML permits an unquoted value, and neither
+// the reader SITE43 built nor the one it replaced reads one: both return undefined.
+//
+// Raised by Claude Code at SITE43 as row A10 of that drop's trap suite, which recorded
+// the limit rather than fixing it.
+//
+// WHY MAKE THE FORM LOUD RATHER THAN TEACH THE READERS TO ACCEPT IT. Teaching attrOf to
+// read an unquoted value would remove the symptom and leave the class of silent gap
+// intact: the next reader written would have the same blind spot, and nothing would say
+// so. A check that FAILS on the form kills the silence permanently, and it enforces a
+// style that is already universal here. Measured at a46d2e6: 2150 tags and 3026
+// attributes across the three pages, EVERY ONE QUOTED. So this costs nothing today and
+// forecloses the gap for good.
+//
+// WHAT IS NOT A HIT, and why each exclusion is safe. A boolean attribute carries no value
+// at all, so async, defer, hidden and the rest are not unquoted values. And the scan runs
+// over scannableTags, not the raw page: in HTML a tag opens at '<', but in JAVASCRIPT '<'
+// is the less-than operator, so scanning raw produced 315 phantom tags on these pages,
+// every one a comparison such as for(var n=0;n<LINES.length;n++) read as a tag named
+// LINES with an attribute i=0;. The shared scope sees the real script and style tags and
+// none of the phantoms.
+const W21_BOOLEAN = new Set(['async', 'defer', 'checked', 'disabled', 'readonly', 'required',
+  'selected', 'multiple', 'autofocus', 'autoplay', 'controls', 'loop', 'muted', 'open',
+  'hidden', 'novalidate', 'reversed', 'default', 'ismap', 'itemscope', 'allowfullscreen',
+  'playsinline', 'formnovalidate', 'inert', 'nomodule', 'crossorigin', 'itemtype']);
+
+C('W21', 'no tag carries an unquoted attribute value, which a reader cannot see', ps => {
+  const bad = [];
+  for (const p of ps) {
+    const text = scannableTags(p);
+    /* the tag body is matched quote aware so a '>' inside a quoted value does not end
+     * the tag early, which would truncate the attribute list and hide a later hit */
+    for (const m of text.matchAll(/<([a-zA-Z][\w-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g)) {
+      const tag = m[1].toLowerCase();
+      const re = /([a-zA-Z_:@#\[\]()][\w:.\-\[\]()]*)\s*(=\s*("[^"]*"|'[^']*'|[^\s>]+))?/g;
+      let a;
+      while ((a = re.exec(m[2])) !== null) {
+        if (!a[1]) break;
+        if (!a[2]) continue;                                  /* no value at all */
+        const v = a[3];
+        if (v[0] === '"' || v[0] === "'") continue;            /* properly delimited */
+        if (W21_BOOLEAN.has(a[1].toLowerCase())) continue;     /* a flag, not a value */
+        bad.push(p.name + ' <' + tag + '> has an unquoted ' + a[1] + '=' + v.slice(0, 30) +
+          ', which W18, W19 and W20 would all read as absent');
+      }
+    }
+  }
+  return bad;
+});
+
 const pages = files.map(readPage);
 
 let passed = 0;
