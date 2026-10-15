@@ -1650,12 +1650,38 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
      containers that lacked a descendant anchor rule. .footer-contact-list a already had
      one, and this follows it. */
   .mf-note a, .bld-success a { color: var(--teal); text-decoration: none; }
+
+/* ---- SITE50. Skip link, then print. ---- */
+.ps-skip{position:fixed;left:-9999px;top:0;z-index:100000;background:#070a0e;color:#fff;padding:13px 20px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1px solid var(--rb-primary,var(--teal,#2dd4bf))}
+.ps-skip:focus{left:14px;top:14px}
+#ps-main{display:block;outline:none;scroll-margin-top:96px}
+.ps-top{position:fixed;right:28px;bottom:158px;z-index:500;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#070a0e;color:var(--rb-primary,var(--teal,#2dd4bf));border:1px solid currentColor;border-radius:4px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease,visibility 0s .18s}
+.ps-top.on{opacity:1;visibility:visible;transform:translateY(0);transition-delay:0s}
+@media (prefers-reduced-motion:reduce){.ps-top{transition:none}}
+@media print{
+  :is(nav,.mobile-menu,.mobile-cta,.scroll-progress,.cursor,.cursor-ring,.hamburger,.chat-bubble,.chat-overlay,.chat-toggle,.chat-win,.bld-compact-panel,.bld-modal-overlay,.bg-glow,.bg-grid,canvas,video,iframe,.f-hp,.ps-top,.ps-skip):not(#_pr):not(#_pr):not(#_pr){display:none!important}
+  html:not(#_pr):not(#_pr):not(#_pr),body:not(#_pr):not(#_pr):not(#_pr){background:#fff!important}
+  *:not(#_pr):not(#_pr):not(#_pr),*:not(#_pr):not(#_pr):not(#_pr)::before,*:not(#_pr):not(#_pr):not(#_pr)::after{
+    background:transparent!important;background-image:none!important;
+    color:#111!important;border-color:#c8c8c8!important;box-shadow:none!important;
+    text-shadow:none!important;filter:none!important;opacity:1!important;
+    -webkit-text-fill-color:currentColor!important;
+    -webkit-background-clip:border-box!important;background-clip:border-box!important;
+    transform:none!important;animation:none!important;transition:none!important}
+  a[href^="http"]:not(#_pr):not(#_pr):not(#_pr)::after{
+    content:" (" attr(href) ")";font-size:9pt;color:#555!important;word-break:break-all}
+  :is(h1,h2,h3,h4):not(#_pr):not(#_pr):not(#_pr){break-after:avoid-page;page-break-after:avoid}
+  :is(img,svg,table,figure):not(#_pr):not(#_pr):not(#_pr){break-inside:avoid;page-break-inside:avoid}
+  :is(p,li):not(#_pr):not(#_pr):not(#_pr){orphans:3;widows:3}
+  @page{margin:14mm}
+}
 </style>
 <meta name="theme-color" content="#07090c">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": "https://proximitysystems.ca/#software",
   "name": "Proximity Systems",
   "applicationCategory": "BusinessApplication",
   "applicationSubCategory": "Home care agency software",
@@ -1670,28 +1696,29 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   "offers": [
     {
       "@type": "Offer",
-      "name": "Core Stack",
-      "price": "3000",
+      "name": "Operations",
+      "price": "2499",
       "priceCurrency": "CAD",
       "description": "One-time setup paid after launch, first month free, then $500 per month"
     },
     {
       "@type": "Offer",
       "name": "The Full Build",
-      "price": "3500",
+      "price": "3499",
       "priceCurrency": "CAD",
       "description": "One-time setup paid after launch, first month free, then $500 per month"
     },
     {
       "@type": "Offer",
       "name": "Growth Partner",
-      "price": "5000",
+      "price": "4499",
       "priceCurrency": "CAD",
       "description": "One-time setup paid after launch, first month free, then $750 per month"
     }
   ],
   "provider": {
     "@type": "Organization",
+      "@id": "https://proximitysystems.ca/#organization",
     "name": "Proximity Systems",
     "url": "https://proximitysystems.ca",
     "areaServed": {
@@ -1701,8 +1728,26 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://proximitysystems.ca/#webpage",
+  "url": "https://proximitysystems.ca",
+  "name": "Home Care Agency Software in Canada | Proximity Systems",
+  "inLanguage": "en-CA",
+  "dateModified": "2026-10-14",
+  "about": {
+    "@id": "https://proximitysystems.ca/#software"
+  },
+  "publisher": {
+    "@id": "https://proximitysystems.ca/#organization"
+  }
+}
+</script>
 </head>
 <body>
+<a class="ps-skip" href="#ps-main">Skip to content</a>
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -1745,6 +1790,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 </div>
 
 
+<span id="ps-main" tabindex="-1"></span>
 <div id="hero">
   <!-- S89. WebGL field. Sits BEHIND everything at z-index 0; every existing
        hero child is lifted to z-index 2 by the .hero-inner rule below.
@@ -4011,6 +4057,8 @@ async function bookSlot(leadId, slotValue, firstName, btn) {
   for (var i = 0; i < secs.length; i++) io.observe(secs[i]);
 }catch(e){ console.warn('anim pause isolated:', e); }})();
 </script>
+<button class="ps-top" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<script>(function(){var b=document.querySelector(".ps-top"),m=document.getElementById("ps-main");if(!b||!m||!("IntersectionObserver" in window))return;new IntersectionObserver(function(e){b.classList.toggle("on",!e[0].isIntersecting);}).observe(m);b.addEventListener("click",function(){var r=window.matchMedia("(prefers-reduced-motion:reduce)").matches;window.scrollTo({top:0,behavior:r?"auto":"smooth"});var n=document.querySelector("nav a")||document.querySelector(".ps-skip");if(n)n.focus();});})();</script>
 </body>
 </html>
 

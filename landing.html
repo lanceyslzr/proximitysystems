@@ -529,6 +529,7 @@ button,a,[onclick]{touch-action:manipulation;}
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": "https://proximitysystems.ca/#software",
   "name": "Proximity Systems",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
@@ -543,6 +544,7 @@ button,a,[onclick]{touch-action:manipulation;}
   },
   "provider": {
     "@type": "Organization",
+      "@id": "https://proximitysystems.ca/#organization",
     "name": "Proximity Systems",
     "url": "https://proximitysystems.ca",
     "areaServed": {
@@ -552,8 +554,26 @@ button,a,[onclick]{touch-action:manipulation;}
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://proximitysystems.ca/landing.html#webpage",
+  "url": "https://proximitysystems.ca/landing.html",
+  "name": "Proximity Systems. Your Agency, Automated in 7 Days.",
+  "inLanguage": "en-CA",
+  "dateModified": "2026-10-14",
+  "about": {
+    "@id": "https://proximitysystems.ca/#software"
+  },
+  "publisher": {
+    "@id": "https://proximitysystems.ca/#organization"
+  }
+}
+</script>
 </head>
 <body>
+<a class="ps-skip" href="#ps-main">Skip to content</a>
 
 
 
@@ -565,6 +585,7 @@ button,a,[onclick]{touch-action:manipulation;}
   <a href="#booking" class="nav-cta">Get Your 7-Day Plan</a>
 </nav>
 
+<span id="ps-main" tabindex="-1"></span>
 <div class="ann"><strong>First month free.</strong> We build everything first. You pay after it is live. &nbsp;·&nbsp; We onboard <strong>3 agencies at a time</strong> to guarantee 7-day delivery. <strong>3 spots open.</strong></div>
 
 <!--  HERO  -->
@@ -1340,6 +1361,31 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      underlined. .footer-contact a is the convention this follows, which on landing is
      the dim text colour rather than an accent. */
   .btn-note a, .booking-success a { color: var(--text-dim); text-decoration: none; }
+
+/* ---- SITE50. Skip link, then print. ---- */
+.ps-skip{position:fixed;left:-9999px;top:0;z-index:100000;background:#070a0e;color:#fff;padding:13px 20px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1px solid var(--rb-primary,var(--teal,#2dd4bf))}
+.ps-skip:focus{left:14px;top:14px}
+#ps-main{display:block;outline:none;scroll-margin-top:96px}
+.ps-top{position:fixed;right:28px;bottom:158px;z-index:500;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#070a0e;color:var(--rb-primary,var(--teal,#2dd4bf));border:1px solid currentColor;border-radius:4px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease,visibility 0s .18s}
+.ps-top.on{opacity:1;visibility:visible;transform:translateY(0);transition-delay:0s}
+@media (prefers-reduced-motion:reduce){.ps-top{transition:none}}
+@media print{
+  :is(nav,.mobile-menu,.mobile-cta,.scroll-progress,.cursor,.cursor-ring,.hamburger,.chat-bubble,.chat-overlay,.chat-toggle,.chat-win,.bld-compact-panel,.bld-modal-overlay,.bg-glow,.bg-grid,canvas,video,iframe,.f-hp,.ps-top,.ps-skip):not(#_pr):not(#_pr):not(#_pr){display:none!important}
+  html:not(#_pr):not(#_pr):not(#_pr),body:not(#_pr):not(#_pr):not(#_pr){background:#fff!important}
+  *:not(#_pr):not(#_pr):not(#_pr),*:not(#_pr):not(#_pr):not(#_pr)::before,*:not(#_pr):not(#_pr):not(#_pr)::after{
+    background:transparent!important;background-image:none!important;
+    color:#111!important;border-color:#c8c8c8!important;box-shadow:none!important;
+    text-shadow:none!important;filter:none!important;opacity:1!important;
+    -webkit-text-fill-color:currentColor!important;
+    -webkit-background-clip:border-box!important;background-clip:border-box!important;
+    transform:none!important;animation:none!important;transition:none!important}
+  a[href^="http"]:not(#_pr):not(#_pr):not(#_pr)::after{
+    content:" (" attr(href) ")";font-size:9pt;color:#555!important;word-break:break-all}
+  :is(h1,h2,h3,h4):not(#_pr):not(#_pr):not(#_pr){break-after:avoid-page;page-break-after:avoid}
+  :is(img,svg,table,figure):not(#_pr):not(#_pr):not(#_pr){break-inside:avoid;page-break-inside:avoid}
+  :is(p,li):not(#_pr):not(#_pr):not(#_pr){orphans:3;widows:3}
+  @page{margin:14mm}
+}
 </style>
 
     <div class="asc-grid">
@@ -1694,28 +1740,28 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <h2 class="h2" style="text-align:center;">Every objection.<br><em>Answered.</em></h2>
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Do I need to know anything about tech?<span class="faq-icon">+</span></button>
-        <div class="faq-a">No. We handle everything. You give us your agency details on a 20-minute call. We build, configure, test, and hand over live links. You never touch code.</div>
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-1" onclick="toggleFaq(this)">Do I need to know anything about tech?<span class="faq-icon">+</span></button>
+        <div class="faq-a" id="ps-faq-1">No. We handle everything. You give us your agency details on a 20-minute call. We build, configure, test, and hand over live links. You never touch code.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">How is this different from what I already use?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Most operators use a mix of spreadsheets, WhatsApp, and generic email tools that were never built for home care. We build one connected system where visit logging talks to billing, billing talks to the family portal, leads talk to the follow-up engine. Nothing is disconnected.</div>
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-2" onclick="toggleFaq(this)">How is this different from what I already use?<span class="faq-icon">+</span></button>
+        <div class="faq-a" id="ps-faq-2">Most operators use a mix of spreadsheets, WhatsApp, and generic email tools that were never built for home care. We build one connected system where visit logging talks to billing, billing talks to the family portal, leads talk to the follow-up engine. Nothing is disconnected.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">What if it does not work for my agency?<span class="faq-icon">+</span></button>
-        <div class="faq-a">We build everything first. You see all 10 systems live and working before you pay the setup invoice. If it is not right, you walk away owing nothing for the setup. We take the risk.</div>
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-3" onclick="toggleFaq(this)">What if it does not work for my agency?<span class="faq-icon">+</span></button>
+        <div class="faq-a" id="ps-faq-3">We build everything first. You see all 10 systems live and working before you pay the setup invoice. If it is not right, you walk away owing nothing for the setup. We take the risk.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">How long does setup actually take?<span class="faq-icon">+</span></button>
-        <div class="faq-a">7 days from our first call. Day 1 is the discovery call. Days 2 through 6 we build. Day 7 we hand it over with a full walkthrough. Your PSWs can log their first visit that day.</div>
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-4" onclick="toggleFaq(this)">How long does setup actually take?<span class="faq-icon">+</span></button>
+        <div class="faq-a" id="ps-faq-4">7 days from our first call. Day 1 is the discovery call. Days 2 through 6 we build. Day 7 we hand it over with a full walkthrough. Your PSWs can log their first visit that day.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">Is everything customized to my agency?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes. Your agency name, colors, PSW names, client list, billing rates, chatbot persona, email templates, all built for how your operation runs. Nothing is generic or shared with another agency.</div>
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-5" onclick="toggleFaq(this)">Is everything customized to my agency?<span class="faq-icon">+</span></button>
+        <div class="faq-a" id="ps-faq-5">Yes. Your agency name, colors, PSW names, client list, billing rates, chatbot persona, email templates, all built for how your operation runs. Nothing is generic or shared with another agency.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false" onclick="toggleFaq(this)">What does first month free mean?<span class="faq-icon">+</span></button>
-        <div class="faq-a">After your setup is complete, month 1 of the $500 retainer is waived. Month 2 onwards is $500 per month. You can cancel after month 3.</div>
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-6" onclick="toggleFaq(this)">What does first month free mean?<span class="faq-icon">+</span></button>
+        <div class="faq-a" id="ps-faq-6">After your setup is complete, month 1 of the $500 retainer is waived. Month 2 onwards is $500 per month. You can cancel after month 3.</div>
       </div>
     </div>
   </div>
@@ -2551,6 +2597,8 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   for (var i = 0; i < secs.length; i++) io.observe(secs[i]);
 }catch(e){ console.warn('anim pause isolated:', e); }})();
 </script>
+<button class="ps-top" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<script>(function(){var b=document.querySelector(".ps-top"),m=document.getElementById("ps-main");if(!b||!m||!("IntersectionObserver" in window))return;new IntersectionObserver(function(e){b.classList.toggle("on",!e[0].isIntersecting);}).observe(m);b.addEventListener("click",function(){var r=window.matchMedia("(prefers-reduced-motion:reduce)").matches;window.scrollTo({top:0,behavior:r?"auto":"smooth"});var n=document.querySelector("nav a")||document.querySelector(".ps-skip");if(n)n.focus();});})();</script>
 </body>
 </html>
  
