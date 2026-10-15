@@ -36,9 +36,9 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
-    --bg: #f6f3ee; --bg2: #eeeae3; --bg3: #f0ede8; --navy: #13181c; --teal2: #3d7a8a; --amber: #c8863a; --gold: #b87010; --red: #c05050; --dark: #13181c; --dark2: #1c2228; --teal: #6a9eaa;
-    --teal-dark: #3d7a8a; --teal-light: #c8dde2; --cream: #faf8f4;
-    --muted: #7a7a72; --border: #e2ddd4; --green: #5a8a6a; --text: #1e2420; --red: #c05050;
+    --bg: #f6f3ee; --bg2: #eeeae3; --bg3: #f0ede8; --navy: #13181c; --teal2: #3d7a8a; --amber: #c8863a; --gold: #b87010; --red: #c05050; --dark: #13181c; --dark2: #1c2228; --teal: #2dd4bf;
+    --teal-dark: #2dd4bf; --teal-light: #c8dde2; --cream: #faf8f4;
+    --muted: #7a7a72; --border: #e2ddd4; --green: #34d399; --text: #1e2420; --red: #c05050;
     --b-bg: #0b0f14; --b-bg2: #0e1419; --b-bg3: #111820;
     --b-teal: #3d7a8a; --b-teal-lt: #5a9aaa;
     --b-teal-bg: rgba(61,122,138,0.1); --b-border: rgba(90,154,170,0.15);
@@ -436,7 +436,7 @@ button,a,[onclick]{touch-action:manipulation;}
 :root{
   --rb-void:#06080c; --rb-base:#0a0e14; --rb-panel:#0e131b; --rb-panel2:#131a24;
   --rb-line:rgba(255,255,255,.07); --rb-line2:rgba(255,255,255,.12);
-  --rb-text:#eef2f6; --rb-dim:#9aa7b4; --rb-faint:rgba(238,242,246,.45);
+  --rb-text:#eef2f6; --rb-dim:#e6eaed; --rb-faint:#b5bec6;
   --rb-primary:#2dd4bf; --rb-primary-lt:#5eead4; --rb-gold:#f0b549;
   /* system color-code map */
   --sys-gps:#38bdf8; --sys-invoice:#fbbf24; --sys-family:#34d399;
@@ -532,7 +532,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 /* 2. Secondary/ghost buttons: faint text -> legible */
 /* 3. FAINT BODY TEXT, lift anything under ~0.45 opacity to readable on dark.
       --rb-faint was .45; raise to .62 for body legibility. Keep .03 bg numerals. */
-:root{ --rb-faint:rgba(238,242,246,.62)!important; }
+:root{ --rb-faint:#b5bec6!important; }
 .hero-guarantee,.sc-desc,.footer-tagline,.footer-copy,.footer-links a,.footer-contact-list li{
   color:var(--rb-dim)!important; }
 /* drowned-out low-opacity inline text on dark -> dim (legible) */
@@ -540,7 +540,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 [style*="color:rgba(255,255,255,.35)"],[style*="color:rgba(255,255,255,.46)"]{
   color:var(--rb-dim)!important; }
 /* 4. dim -> slightly brighter baseline so sections don't drown */
-:root{ --rb-dim:#a6b3bf!important; }
+:root{ --rb-dim:#e6eaed!important; }
 [style*="color:#3d7a8a"]{ color:var(--rb-primary)!important; }
 [style*="color:var(--teal-dark)"]{ color:var(--rb-primary)!important; }
 [style*="background:var(--teal-dark)"]{ background:var(--rb-primary)!important; color:#04130f!important; }
@@ -1013,7 +1013,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 <span id="ps-main" tabindex="-1"></span>
 <div class="section-wrap" style="padding:92px 24px 26px;text-align:center;max-width:920px;margin:0 auto;">
-  <a href="index.html" style="display:inline-block;margin-bottom:18px;color:#5a9aaa;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">&larr; Back to home</a>
+  <a href="index.html" style="display:inline-block;margin-bottom:18px;color:#2dd4bf;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">&larr; Back to home</a>
   <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);line-height:1.05;color:#f4f1ea;margin:0 0 14px;font-weight:600;">See exactly what you're buying.</h1>
   <p style="font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,2vw,18px);color:rgba(244,241,234,.62);max-width:640px;margin:0 auto;line-height:1.6;">The full operating system: the HQ dashboard, the PSW app, and the family portal. The same system running a real agency in Mississauga right now.</p>
 </div>
@@ -1021,18 +1021,18 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
   <!-- Section header -->
   <div style="text-align:center;padding:0 24px 48px;">
-    <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--rb-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#3d8a7a;margin-bottom:16px;">
+    <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--rb-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#2dd4bf;margin-bottom:16px;">
       <div style="width:5px;height:5px;border-radius:50%;background:#3d8a7a;animation:psDot 2s infinite;"></div>
       The Operating System · Live
     </div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:300;color:#faf8f4;line-height:1.05;margin-bottom:12px;">See exactly what you're buying.<br><em style="color:#1e7d96;font-style:italic;">Before you book a call.</em></h2>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:300;color:#faf8f4;line-height:1.05;margin-bottom:12px;">See exactly what you're buying.<br><em style="color:#2dd4bf;font-style:italic;">Before you book a call.</em></h2>
     <p style="font-size:12px;color:rgba(250,248,244,.47);max-width:480px;margin:0 auto;line-height:1.8;letter-spacing:.3px;">Three portals. Real UI. Real triggers. This is what runs inside your agency on day 8.</p>
   </div>
 
   <!-- Portal nav tabs -->
   <div style="max-width:860px;margin:0 auto;padding:0 16px;">
     <div id="ps-nav" style="display:flex;gap:1px;background:rgba(250,248,244,.04);border:1px solid rgba(250,248,244,.06);border-radius:8px 8px 0 0;overflow:hidden;">
-      <div class="ps-tab ps-active" onclick="psShow('hq',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--rb-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#1e7d96;cursor:pointer;background:rgba(30,125,150,.08);border-bottom:2px solid #1e7d96;transition:all .2s;">
+      <div class="ps-tab ps-active" onclick="psShow('hq',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--rb-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#2dd4bf;cursor:pointer;background:rgba(30,125,150,.08);border-bottom:2px solid #1e7d96;transition:all .2s;">
         <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3d8a7a;margin-right:5px;animation:psDot 2s infinite;vertical-align:middle;"></span>HQ Dashboard
       </div>
       <div class="ps-tab" onclick="psShow('psw',this)" style="flex:1;padding:13px 8px;text-align:center;font-family:var(--rb-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,244,.47);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;">
@@ -1051,11 +1051,11 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
         <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
         <div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.47);">proximitycares.ca/hq.html · Coordinator View</div>
-        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(30,125,150,.1);color:#1e7d96;border:1px solid rgba(30,125,150,.2);">HQ</div>
+        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(30,125,150,.1);color:#2dd4bf;border:1px solid rgba(30,125,150,.2);">HQ</div>
       </div>
       <!-- HQ inner tabs -->
       <div style="display:flex;gap:1px;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(250,248,244,.05);overflow-x:auto;" id="hq2-tabs">
-        <div class="hq2-tab hq2-on" onclick="hq2Tab('overview',this)" style="padding:8px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#1e7d96;white-space:nowrap;cursor:pointer;border-bottom:1px solid #1e7d96;">Overview</div>
+        <div class="hq2-tab hq2-on" onclick="hq2Tab('overview',this)" style="padding:8px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#2dd4bf;white-space:nowrap;cursor:pointer;border-bottom:1px solid #1e7d96;">Overview</div>
         <div class="hq2-tab" onclick="hq2Tab('schedule',this)" style="padding:8px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Schedule</div>
         <div class="hq2-tab" onclick="hq2Tab('clients',this)" style="padding:8px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">Clients</div>
         <div class="hq2-tab" onclick="hq2Tab('psws',this)" style="padding:8px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);white-space:nowrap;cursor:pointer;border-bottom:1px solid transparent;">PSWs</div>
@@ -1065,10 +1065,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <!-- Overview -->
       <div id="hq2-overview" style="padding:14px;display:flex;flex-direction:column;gap:10px;">
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#1e7d96;" id="hq2-kv">8</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Visits today</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ 3 live</div></div>
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#3d8a7a;">312</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Invoices</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ auto</div></div>
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#b87010;">89</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Leads</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ AI 24/7</div></div>
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;">$18.4K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Month rev</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ 12%</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#2dd4bf;" id="hq2-kv">8</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Visits today</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:2px;">↑ 3 live</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#2dd4bf;">312</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Invoices</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:2px;">↑ auto</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#f0b549;">89</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Leads</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:2px;">↑ AI 24/7</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;">$18.4K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Month rev</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:2px;">↑ 12%</div></div>
         </div>
         <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;">
           <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(250,248,244,.05);"><div style="width:6px;height:6px;border-radius:50%;background:#3d8a7a;animation:psDot 2s infinite;"></div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);">Live activity · Proximity Care Services · Mississauga</div></div>
@@ -1106,10 +1106,10 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <!-- Revenue -->
       <div id="hq2-revenue" style="padding:14px;display:none;flex-direction:column;gap:10px;">
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#1e7d96;">$18.4K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">This month</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:2px;">↑ 12%</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#2dd4bf;">$18.4K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">This month</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:2px;">↑ 12%</div></div>
           <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf8f4;">$16.4K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Last month</div></div>
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#b87010;">$2.0K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Margin</div></div>
-          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#3d8a7a;">0</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Vacant</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:2px;">all covered ✓</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#f0b549;">$2.0K</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Margin</div></div>
+          <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;"><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#2dd4bf;">0</div><div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-top:3px;">Vacant</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:2px;">all covered ✓</div></div>
         </div>
         <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:12px;" id="hq2-rev-bars"></div>
       </div>
@@ -1120,7 +1120,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
         <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
         <div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.47);">proximitycares.ca/psw-portal.html · PSW View</div>
-        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">GPS Active</div>
+        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:#2dd4bf;border:1px solid rgba(61,138,122,.2);">GPS Active</div>
       </div>
       <div id="psw2-body" style="padding:14px;display:flex;flex-direction:column;gap:10px;"></div>
     </div>
@@ -1130,11 +1130,11 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
         <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
         <div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.47);">proximitycares.ca/family.html · Family View</div>
-        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(184,112,16,.1);color:#c9940f;border:1px solid rgba(184,112,16,.2);">PIN Protected</div>
+        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(184,112,16,.1);color:#f0b549;border:1px solid rgba(184,112,16,.2);">PIN Protected</div>
       </div>
       <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
         <div style="display:flex;gap:1px;border-bottom:1px solid rgba(250,248,244,.06);margin-bottom:4px;" id="fam2-tabs">
-          <div class="fam2-tab fam2-on" onclick="fam2Tab('visits',this)" style="padding:7px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#b87010;cursor:pointer;border-bottom:2px solid #b87010;">Visits</div>
+          <div class="fam2-tab fam2-on" onclick="fam2Tab('visits',this)" style="padding:7px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#f0b549;cursor:pointer;border-bottom:2px solid #b87010;">Visits</div>
           <div class="fam2-tab" onclick="fam2Tab('team',this)" style="padding:7px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);cursor:pointer;border-bottom:2px solid transparent;">Care Team</div>
           <div class="fam2-tab" onclick="fam2Tab('ask',this)" style="padding:7px 14px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);cursor:pointer;border-bottom:2px solid transparent;">Ask AI</div>
         </div>
@@ -1142,23 +1142,23 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
           <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;margin-bottom:6px;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(250,248,244,.05);cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
               <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf8f4;">Today · May 24</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);margin-top:2px;">Sarah Mitchell</div></div>
-              <div style="font-family:var(--rb-mono);font-size:10px;color:#1e7d96;">4.3h ↗</div>
+              <div style="font-family:var(--rb-mono);font-size:10px;color:#2dd4bf;">4.3h ↗</div>
             </div>
             <div style="padding:10px 12px;">
               <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-bottom:5px;">AI Care Summary</div>
               <div style="font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.7);line-height:1.7;margin-bottom:8px;">Sarah provided comprehensive care for Dorothy. Personal hygiene completed, all 3 medications administered on schedule, breakfast and lunch prepared. Dorothy was in good spirits.</div>
               <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
-                <span style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">Personal care ✓</span>
-                <span style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">Meds given ✓</span>
-                <span style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(30,125,150,.1);color:#1e7d96;border:1px solid rgba(30,125,150,.2);">Summary emailed ✓</span>
+                <span style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:#2dd4bf;border:1px solid rgba(61,138,122,.2);">Personal care ✓</span>
+                <span style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(61,138,122,.1);color:#2dd4bf;border:1px solid rgba(61,138,122,.2);">Meds given ✓</span>
+                <span style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:rgba(30,125,150,.1);color:#2dd4bf;border:1px solid rgba(30,125,150,.2);">Summary emailed ✓</span>
               </div>
               <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-bottom:5px;">Rate this visit</div>
               <div style="display:flex;gap:4px;align-items:center;" id="fam2-stars">
-                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(1)">★</span>
-                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(2)">★</span>
-                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(3)">★</span>
-                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(4)">★</span>
-                <span style="font-size:16px;color:#b87010;cursor:pointer;" onclick="fam2Rate(5)">★</span>
+                <span style="font-size:16px;color:#f0b549;cursor:pointer;" onclick="fam2Rate(1)">★</span>
+                <span style="font-size:16px;color:#f0b549;cursor:pointer;" onclick="fam2Rate(2)">★</span>
+                <span style="font-size:16px;color:#f0b549;cursor:pointer;" onclick="fam2Rate(3)">★</span>
+                <span style="font-size:16px;color:#f0b549;cursor:pointer;" onclick="fam2Rate(4)">★</span>
+                <span style="font-size:16px;color:#f0b549;cursor:pointer;" onclick="fam2Rate(5)">★</span>
                 <span id="fam2-rate-label" style="font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.47);margin-left:4px;">5 stars</span>
               </div>
             </div>
@@ -1166,7 +1166,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
           <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
               <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf8f4;">May 22</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);margin-top:2px;">Sarah Mitchell</div></div>
-              <div style="font-family:var(--rb-mono);font-size:10px;color:#1e7d96;">4.0h ↗</div>
+              <div style="font-family:var(--rb-mono);font-size:10px;color:#2dd4bf;">4.0h ↗</div>
             </div>
             <div style="display:none;padding:10px 12px;font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.6);line-height:1.7;">Routine care completed. Dorothy in good mood. No concerns noted.</div>
           </div>
@@ -1174,7 +1174,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
         <div id="fam2-team" style="display:none;">
           <div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:12px;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-              <div style="width:36px;height:36px;border-radius:50%;background:rgba(30,125,150,.2);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:11px;color:#1e7d96;flex-shrink:0;">SM</div>
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(30,125,150,.2);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:11px;color:#2dd4bf;flex-shrink:0;">SM</div>
               <div><div style="font-size:12px;color:#faf8f4;">Sarah Mitchell</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);">PSW · 4.9 ★ avg · 12 visits</div></div>
             </div>
             <div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);line-height:1.7;">Mon / Wed / Fri · Mornings · Personal care specialist</div>
@@ -1197,11 +1197,11 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
       <div style="background:#111820;border-bottom:1px solid rgba(250,248,244,.06);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;">
         <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#c0504d;"></div><div style="width:9px;height:9px;border-radius:50%;background:#b87010;"></div><div style="width:9px;height:9px;border-radius:50%;background:#3d8a7a;"></div></div>
         <div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,248,244,.47);">Live Trigger Chain · Railway Backend</div>
-        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;border:1px solid rgba(61,138,122,.2);">Real webhooks</div>
+        <div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(61,138,122,.1);color:#2dd4bf;border:1px solid rgba(61,138,122,.2);">Real webhooks</div>
       </div>
       <div style="padding:14px;">
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;" id="chain2-btns">
-          <div style="padding:8px 16px;font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(30,125,150,.3);background:rgba(30,125,150,.15);color:#1e7d96;cursor:pointer;" onclick="runChain2('checkin',this)">PSW Signs In</div>
+          <div style="padding:8px 16px;font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(30,125,150,.3);background:rgba(30,125,150,.15);color:#2dd4bf;cursor:pointer;" onclick="runChain2('checkin',this)">PSW Signs In</div>
           <div style="padding:8px 16px;font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(250,248,244,.1);background:transparent;color:rgba(250,248,244,.47);cursor:pointer;" onclick="runChain2('checkout',this)">PSW Signs Out</div>
           <div style="padding:8px 16px;font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(250,248,244,.1);background:transparent;color:rgba(250,248,244,.47);cursor:pointer;" onclick="runChain2('lead',this)">Lead Captured</div>
           <div style="padding:8px 16px;font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;border-radius:4px;border:1px solid rgba(250,248,244,.1);background:transparent;color:rgba(250,248,244,.47);cursor:pointer;" onclick="runChain2('invoice',this)">Invoice Generated</div>
@@ -1352,7 +1352,7 @@ function buildSched2(){
     p.s.forEach(function(s){
       var cell=document.createElement('div');
       cell.style.cssText='height:22px;border-radius:3px;'+(s?'background:rgba(30,125,150,.15);border:1px solid rgba(30,125,150,.3);':'background:#111820;border:1px solid rgba(250,248,244,.05);');
-      if(s){var l=document.createElement('div');l.style.cssText='font-family:var(--rb-mono);font-size:6px;color:#1e7d96;padding:2px 3px;line-height:1.2;overflow:hidden;';l.textContent=p.name.split(' ')[0];cell.appendChild(l);}
+      if(s){var l=document.createElement('div');l.style.cssText='font-family:var(--rb-mono);font-size:6px;color:#2dd4bf;padding:2px 3px;line-height:1.2;overflow:hidden;';l.textContent=p.name.split(' ')[0];cell.appendChild(l);}
       row.appendChild(cell);
     });
     cont.appendChild(row);
@@ -1363,7 +1363,7 @@ function buildClients2(){
   CLIENTS.forEach(function(c){
     var el=document.createElement('div');
     el.style.cssText='background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;';
-    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(30,125,150,.15);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:9px;color:#1e7d96;">'+c.ini+'</div><div><div style="font-size:10px;color:#faf8f4;">'+c.name+'</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);">'+c.psw+'</div></div></div><div style="display:flex;justify-content:space-between;font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);"><span>'+c.v+' visits</span><span style="color:#3d8a7a;">'+c.mood+'</span><span>$'+c.rate+'/h</span></div>';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(30,125,150,.15);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:9px;color:#2dd4bf;">'+c.ini+'</div><div><div style="font-size:10px;color:#faf8f4;">'+c.name+'</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);">'+c.psw+'</div></div></div><div style="display:flex;justify-content:space-between;font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);"><span>'+c.v+' visits</span><span style="color:#2dd4bf;">'+c.mood+'</span><span>$'+c.rate+'/h</span></div>';
     cont.appendChild(el);
   });
 }
@@ -1373,7 +1373,7 @@ function buildPSWCards2(){
     var el=document.createElement('div');
     el.style.cssText='background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;';
     var certColor=p.cert==='All valid'?'#3d8a7a':'#c9940f';
-    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:9px;color:#3d8a7a;">'+p.code+'</div><div><div style="font-size:10px;color:#faf8f4;">'+p.name+'</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);">'+p.r+' ★ · '+p.v+' visits</div></div></div><div style="font-family:var(--rb-mono);font-size:8px;display:flex;justify-content:space-between;"><span style="color:rgba(250,248,244,.47);">'+p.h+'h this month</span><span style="color:'+certColor+';">'+p.cert+'</span></div>';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:9px;color:#2dd4bf;">'+p.code+'</div><div><div style="font-size:10px;color:#faf8f4;">'+p.name+'</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);">'+p.r+' ★ · '+p.v+' visits</div></div></div><div style="font-family:var(--rb-mono);font-size:8px;display:flex;justify-content:space-between;"><span style="color:rgba(250,248,244,.47);">'+p.h+'h this month</span><span style="color:'+certColor+';">'+p.cert+'</span></div>';
     cont.appendChild(el);
   });
 }
@@ -1392,7 +1392,7 @@ function buildRev2(){
 //  PSW PORTAL
 function initPSW2(){
   var body=document.getElementById('psw2-body');if(!body||body.children.length)return;
-  body.innerHTML='<div style="background:rgba(30,125,150,.08);border:1px solid rgba(30,125,150,.25);border-radius:8px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;color:#faf8f4;margin-bottom:2px;">Dorothy Chen</div><div style="font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.47);">09:01am, In progress</div><div style="font-family:var(--rb-mono);font-size:8px;color:#3d8a7a;margin-top:3px;">● GPS verified · 43.59°N 79.64°W</div></div><div style="display:flex;flex-direction:column;gap:5px;"><button style="padding:6px 12px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:rgba(192,80,80,.15);color:#c05050;border:1px solid rgba(192,80,80,.3);cursor:pointer;">⚠ Incident</button><button style="padding:6px 12px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:#1e7d96;color:#fff;border:none;cursor:pointer;" onclick="psw2Checkout()">Check Out</button></div></div><div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;"><div style="padding:8px 12px;border-bottom:1px solid rgba(250,248,244,.05);font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);">Today\'s Tasks, Dorothy Chen</div><div id="psw2-tasks" style="padding:8px 12px;display:flex;flex-direction:column;gap:0;"></div></div><div id="psw2-ai" style="background:rgba(30,125,150,.06);border:1px solid rgba(30,125,150,.2);border-radius:6px;padding:10px 12px;opacity:0;transition:opacity .5s;"><div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#1e7d96;margin-bottom:6px;">● Claude · AI Care Summary</div><div style="font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.8);line-height:1.7;" id="psw2-ai-text"></div></div>';
+  body.innerHTML='<div style="background:rgba(30,125,150,.08);border:1px solid rgba(30,125,150,.25);border-radius:8px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;color:#faf8f4;margin-bottom:2px;">Dorothy Chen</div><div style="font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.47);">09:01am, In progress</div><div style="font-family:var(--rb-mono);font-size:8px;color:#2dd4bf;margin-top:3px;">● GPS verified · 43.59°N 79.64°W</div></div><div style="display:flex;flex-direction:column;gap:5px;"><button style="padding:6px 12px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:rgba(192,80,80,.15);color:#c05050;border:1px solid rgba(192,80,80,.3);cursor:pointer;">⚠ Incident</button><button style="padding:6px 12px;font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-radius:4px;background:#1e7d96;color:#fff;border:none;cursor:pointer;" onclick="psw2Checkout()">Check Out</button></div></div><div style="background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;overflow:hidden;"><div style="padding:8px 12px;border-bottom:1px solid rgba(250,248,244,.05);font-family:var(--rb-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(250,248,244,.47);">Today\'s Tasks, Dorothy Chen</div><div id="psw2-tasks" style="padding:8px 12px;display:flex;flex-direction:column;gap:0;"></div></div><div id="psw2-ai" style="background:rgba(30,125,150,.06);border:1px solid rgba(30,125,150,.2);border-radius:6px;padding:10px 12px;opacity:0;transition:opacity .5s;"><div style="font-family:var(--rb-mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#2dd4bf;margin-bottom:6px;">● Claude · AI Care Summary</div><div style="font-family:var(--rb-mono);font-size:9px;color:rgba(250,248,244,.8);line-height:1.7;" id="psw2-ai-text"></div></div>';
   var tasks=['Personal hygiene','Medication reminder','Breakfast preparation','Light housekeeping','Documentation'];
   var tc=document.getElementById('psw2-tasks');
   tasks.forEach(function(t,i){
@@ -1480,7 +1480,7 @@ window.runChain2=function(type,btnEl){
       var wc=w.c==='gold'?'#c9940f':w.c==='green'?'#3d8a7a':'#1e7d96';
       var row=document.createElement('div');
       row.style.cssText='display:flex;align-items:center;gap:6px;font-family:var(--rb-mono);font-size:9px;padding:4px 0;border-bottom:1px solid rgba(250,248,244,.03);opacity:0;transition:opacity .3s;';
-      row.innerHTML='<span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(30,125,150,.15);color:'+wc+';flex-shrink:0;">'+w.m+'</span><span style="color:rgba(250,248,244,.47);flex:1;">'+w.p+'</span><span style="color:rgba(250,248,244,.47);">'+w.t+'</span><span style="font-size:7px;padding:1px 4px;border-radius:2px;background:rgba(61,138,122,.1);color:#3d8a7a;flex-shrink:0;">200</span>';
+      row.innerHTML='<span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(30,125,150,.15);color:'+wc+';flex-shrink:0;">'+w.m+'</span><span style="color:rgba(250,248,244,.47);flex:1;">'+w.p+'</span><span style="color:rgba(250,248,244,.47);">'+w.t+'</span><span style="font-size:7px;padding:1px 4px;border-radius:2px;background:rgba(61,138,122,.1);color:#2dd4bf;flex-shrink:0;">200</span>';
       we.appendChild(row);setTimeout(function(){row.style.opacity='1';},30);
     },800+i*200);
   });
