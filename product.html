@@ -1012,10 +1012,8 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 
 <span id="ps-main" tabindex="-1"></span>
-<div class="section-wrap" style="padding:92px 24px 26px;text-align:center;max-width:920px;margin:0 auto;">
-  <a href="index.html" style="display:inline-block;margin-bottom:18px;color:#2dd4bf;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">&larr; Back to home</a>
-  <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);line-height:1.05;color:#f4f1ea;margin:0 0 14px;font-weight:600;">See exactly what you're buying.</h1>
-  <p style="font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,2vw,18px);color:rgba(244,241,234,.62);max-width:640px;margin:0 auto;line-height:1.6;">The full operating system: the HQ dashboard, the PSW app, and the family portal. The same system running a real agency in Mississauga right now.</p>
+<div class="section-wrap" style="padding:86px 24px 10px;text-align:center;max-width:920px;margin:0 auto;">
+  <a href="index.html" class="pp-back">&larr; Back to home</a>
 </div>
 <div id="portal-showcase" style="background:#060a0e;padding:72px 0 80px;position:relative;overflow:hidden;">
 
@@ -1716,6 +1714,15 @@ Built and led by Lance Salazar · Founder, Proximity Systems · Mississauga, Ont
   :is(p,li):not(#_pr):not(#_pr):not(#_pr){orphans:3;widows:3}
   @page{margin:14mm}
 }
+
+/* The back action on the product page. It navigates, so it stays an anchor; what changes
+   is that it now carries the shape the rest of the site uses for a button, the notched
+   bottom right corner from .nav-cta, deepening on hover exactly as that button does. The
+   treatment is deliberately secondary, a hairline on a transparent body, because the
+   designed hero sits directly beneath it and this must not compete with it. */
+.pp-back{display:inline-block;padding:11px 24px;background:transparent;border:1px solid rgba(185,194,202,.28);color:#e6eaed;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;clip-path:polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);transition:border-color .18s ease,color .18s ease,clip-path .18s ease}
+.pp-back:hover{border-color:var(--teal);color:#ffffff;clip-path:polygon(0 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%)}
+.pp-back:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 </style>
 <script>
   const burger = document.getElementById('hamburger');
