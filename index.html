@@ -1732,6 +1732,17 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   .bld-chips-grid{flex:1 1 auto;align-content:start}
   .bld-compact-panel{position:static!important;align-self:start}
 }
+
+/* SITE55, the serif migration finished at the heading tier.
+   These headings carry Cormorant Garamond in an inline style attribute, which beats every
+   normal rule, so the Fraunces token they should have been using could never reach them.
+   Scoped to h1 and h2 so it cannot touch the wordmark, the stat numbers, the modal title
+   or any of the other places Cormorant is deliberate.
+   The accent inside a heading sits one weight above it, which is what the Fraunces
+   headings on this page already do. */
+h1[style*="Cormorant"],h2[style*="Cormorant"]{
+  font-family:var(--rb-serif)!important;font-weight:300!important}
+h1[style*="Cormorant"] em,h2[style*="Cormorant"] em{font-weight:400!important}
 </style>
 <meta name="theme-color" content="#07090c">
 <script type="application/ld+json">
