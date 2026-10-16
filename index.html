@@ -396,7 +396,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .mf-input[aria-invalid="true"],.mf-textarea[aria-invalid="true"]{border-color:#e06c6c!important}
   .mf-input::placeholder,.mf-textarea::placeholder{color:var(--b-text-muted)}
   .mf-textarea{min-height:68px;resize:none;font-size:16px;line-height:1.5}
-  .mf-submit{width:100%;background:var(--teal-dark);color:#fff;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:16px;border-radius:4px;border:none;cursor:pointer;min-height:52px;margin-top:6px;transition:background 0.2s;letter-spacing:1.5px;text-transform:uppercase}
+  .mf-submit{width:100%;background:var(--teal-dark);color:#04130f;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:16px;border-radius:4px;border:none;cursor:pointer;min-height:52px;margin-top:6px;transition:background 0.2s;letter-spacing:1.5px;text-transform:uppercase}
   .mf-submit:disabled{background:var(--muted);cursor:not-allowed}
   .mf-note{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;color:var(--b-text-muted);text-transform:uppercase;text-align:center;margin-top:10px;line-height:1.7}
   .bld-success{display:none;text-align:center;padding:48px 16px}
@@ -737,7 +737,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
   border-bottom:1px solid var(--rb-line)!important; }
 .nav-links a{ color:var(--rb-dim)!important; letter-spacing:2px!important; }
 .nav-links a:hover{ color:var(--rb-text)!important; }
-.nav-cta{ background:linear-gradient(120deg,var(--rb-primary),#1ba89a)!important;
+a.nav-cta{ background:var(--rb-primary)!important;
   color:#04130f!important; border:none!important; border-radius:10px!important;
   clip-path:none!important; font-weight:500!important;
   box-shadow:0 6px 24px rgba(45,212,191,.25)!important; }
@@ -754,7 +754,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
 #hero{ background:radial-gradient(ellipse 80% 60% at 50% 0%, #0c1620 0%, var(--rb-void) 60%)!important; }
 .hero-eyebrow-new{ color:var(--rb-primary)!important; }
 .hero-sub-new{ color:var(--rb-dim)!important; }
-.hero-btn-primary{ background:linear-gradient(120deg,var(--rb-primary),#1ba89a)!important;
+.hero-btn-primary{ background:var(--rb-primary)!important;
   color:#04130f!important; border:none!important; border-radius:12px!important;
   font-family:var(--rb-mono)!important; font-weight:500!important;
   box-shadow:0 8px 30px rgba(45,212,191,.3)!important; transition:transform .2s,box-shadow .2s!important; }
@@ -769,7 +769,7 @@ nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)
 .tl-badge{ font-family:var(--rb-mono)!important; background:rgba(45,212,191,.12)!important;
   color:var(--rb-primary)!important; border:1px solid rgba(45,212,191,.25)!important; }
 .tl-card-title{ color:var(--rb-text)!important; font-weight:600!important; }
-.tl-cta,.rv-cta{ background:linear-gradient(120deg,var(--rb-primary),#1ba89a)!important;
+.tl-cta,.rv-cta{ background:var(--rb-primary)!important;
   color:#04130f!important; border:none!important; border-radius:12px!important;
   font-family:var(--rb-mono)!important; font-weight:500!important; }
 
@@ -808,7 +808,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
       dark/medium fills get bright ink. The #1e7d96 medium-teal got white text
       (low contrast), bump fill brighter OR darken text. We brighten fill. */
 .tl-cta,.rv-cta,.bld-cp-btn,.bld-mob-btn,.ht-cta-solid,.wm-btn{
-  background:linear-gradient(120deg,var(--rb-primary),#1ba89a)!important;
+  background:var(--rb-primary)!important;
   color:#04130f!important; font-weight:500!important; }
 /* inline #1e7d96 buttons -> bright primary with dark ink */
 [style*="background:#1e7d96"]{ background:var(--rb-primary)!important; color:#04130f!important; }
@@ -854,7 +854,7 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 #cta .cta-sub strong,#cta strong{ color:var(--rb-text)!important; }
 /* the CTA buttons */
 #cta [style*="background:#13181c"],#cta [style*="background:var(--dark)"]{
-  background:linear-gradient(120deg,var(--rb-primary),#1ba89a)!important; color:#04130f!important; }
+  background:var(--rb-primary)!important; color:#04130f!important; }
 #cta [style*="background:#13181c"] *{ color:#04130f!important; }
 #cta a[style*="border"]{ border-color:var(--rb-line2)!important; color:var(--rb-text)!important; }
 
@@ -1434,7 +1434,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .cta-live-dot{ width:6px; height:6px; border-radius:50%; background:var(--rb-primary);
   box-shadow:0 0 8px var(--rb-primary); animation:bldPulse 1.6s ease-in-out infinite; }
 /* buttons aligned to site primary (was old #1e7d96) */
-#cta .btn-primary{ background:var(--rb-primary)!important; color:#04181c!important;
+#cta .btn-primary{ background:var(--rb-primary)!important; color:#04130f!important;
   border:1px solid var(--rb-primary)!important; font-weight:500;
   box-shadow:0 0 0 1px rgba(45,212,191,.2), 0 12px 30px -8px rgba(45,212,191,.35); }
 #cta .btn-primary:hover{ background:#3ee0cb!important; transform:translateY(-2px); }
@@ -1886,7 +1886,7 @@ h1[style*="Cormorant"] em,h2[style*="Cormorant"] em{font-weight:400!important}
     </p>
 
     <div class="hero-ctas-new">
-      <a href="#cta" onclick="openBldModal();return false;" class="hero-btn-primary">Build My Package →</a>
+      <a href="#cta" onclick="openBldModal();return false;" class="hero-btn-primary">Build My Systems Today →</a>
     </div>
 
 
@@ -2680,7 +2680,7 @@ h1[style*="Cormorant"] em,h2[style*="Cormorant"] em{font-weight:400!important}
       <div style="background:#0c1018;padding:36px 32px;display:flex;flex-direction:column;"><div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-bottom:12px;">Operations</div><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;margin-bottom:20px;">The agency you have</div><div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px;"><div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#faf8f4;line-height:1;">$2,499</div></div><div style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-faint);margin-bottom:32px;">setup &middot; month 1 free &middot; $500/mo after</div><div style="height:1px;background:rgba(250,248,244,.07);margin-bottom:24px;"></div><div style="display:flex;flex-direction:column;gap:10px;flex:1;"><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Visit Logging + GPS + AI notes</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Auto Invoicing + payroll CSV</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">HQ Dashboard + scheduling board</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">PSW portal + broadcast messaging</span></div><div style="font-family:'DM Mono',monospace;font-size:14px;color:rgba(250,248,244,.47);line-height:1.6;margin-top:18px;">Runs the agency you have. No lead capture, no family portal, no website, no guarantee.</div></div><div style="height:1px;background:rgba(250,248,244,.07);margin:28px 0 24px;"></div><a href="#cta" onclick="openBldModal();return false;" style="display:block;text-align:center;border:1px solid rgba(250,248,244,.47);color:rgba(250,248,244,.7);padding:14px;font-family:'DM Mono',monospace;font-size:16px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;">Book a Free Call &rarr;</a></div>
 
       <!-- Card 2: Full Build, featured (receipt artifact) -->
-      <div class="price-featured" style="background:#0d1e2a;padding:36px 28px;display:flex;flex-direction:column;position:relative;border-left:1px solid rgba(45,212,191,.3);border-right:1px solid rgba(45,212,191,.3);"><div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--rb-primary);color:#04181c;font-family:var(--rb-mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;white-space:nowrap;font-weight:500;">Most Popular</div><div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-bottom:12px;color:rgba(45,212,191,.75);">The Full Build</div><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;margin-bottom:20px;">The agency you want</div><div class="price-receipt"><div class="pr-head"><div class="pr-brand">PROXIMITY SYSTEMS</div><div class="pr-meta">INVOICE<br>#PS-0001</div></div><div class="pr-line"><span class="pr-desc">Full Build &middot; 10 systems</span><span class="pr-amt">$3,499</span></div><div class="pr-line pr-sub"><span class="pr-desc">Setup &middot; built in 7 days</span><span class="pr-amt">one-time</span></div><div class="pr-line"><span class="pr-desc">Monthly &middot; all systems</span><span class="pr-amt">$500<span class="pr-per">/mo</span></span></div><div class="pr-line pr-free"><span class="pr-desc">Month 1</span><span class="pr-amt">FREE</span></div><div class="pr-rule"></div><div class="pr-total"><span class="pr-total-k">Due after launch</span><span class="pr-total-v">$3,499</span></div><div class="pr-note">then $500/mo after month 1 &middot; cancel anytime</div></div><div style="display:flex;flex-direction:column;gap:10px;flex:1;margin-top:22px;"><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Everything in Operations</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Plus the six that bring clients in: Lead Capture, AI Chat, Family Portal, Client Onboarding, Follow-Up, your website</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Live in 7 days or you owe nothing</span></div></div><div style="height:1px;background:rgba(250,248,244,.07);margin:28px 0 24px;"></div><a href="#cta" onclick="openBldModal();return false;" style="display:block;text-align:center;background:var(--rb-primary);color:#04181c;padding:16px;font-family:var(--rb-mono);font-size:16px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .2s;">Book a Free Call &rarr;</a></div>
+      <div class="price-featured" style="background:#0d1e2a;padding:36px 28px;display:flex;flex-direction:column;position:relative;border-left:1px solid rgba(45,212,191,.3);border-right:1px solid rgba(45,212,191,.3);"><div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--rb-primary);color:#04130f;font-family:var(--rb-mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;white-space:nowrap;font-weight:500;">Most Popular</div><div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,248,244,.47);margin-bottom:12px;color:rgba(45,212,191,.75);">The Full Build</div><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf8f4;margin-bottom:20px;">The agency you want</div><div class="price-receipt"><div class="pr-head"><div class="pr-brand">PROXIMITY SYSTEMS</div><div class="pr-meta">INVOICE<br>#PS-0001</div></div><div class="pr-line"><span class="pr-desc">Full Build &middot; 10 systems</span><span class="pr-amt">$3,499</span></div><div class="pr-line pr-sub"><span class="pr-desc">Setup &middot; built in 7 days</span><span class="pr-amt">one-time</span></div><div class="pr-line"><span class="pr-desc">Monthly &middot; all systems</span><span class="pr-amt">$500<span class="pr-per">/mo</span></span></div><div class="pr-line pr-free"><span class="pr-desc">Month 1</span><span class="pr-amt">FREE</span></div><div class="pr-rule"></div><div class="pr-total"><span class="pr-total-k">Due after launch</span><span class="pr-total-v">$3,499</span></div><div class="pr-note">then $500/mo after month 1 &middot; cancel anytime</div></div><div style="display:flex;flex-direction:column;gap:10px;flex:1;margin-top:22px;"><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Everything in Operations</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Plus the six that bring clients in: Lead Capture, AI Chat, Family Portal, Client Onboarding, Follow-Up, your website</span></div><div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#2dd4bf;font-size:11px;flex-shrink:0;margin-top:1px;">&#10003;</span><span style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);line-height:1.6;">Live in 7 days or you owe nothing</span></div></div><div style="height:1px;background:rgba(250,248,244,.07);margin:28px 0 24px;"></div><a href="#cta" onclick="openBldModal();return false;" style="display:block;text-align:center;background:var(--rb-primary);color:#04130f;padding:16px;font-family:var(--rb-mono);font-size:16px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .2s;">Book a Free Call &rarr;</a></div>
 
       
 <!-- Card 3: Growth Partner -->
@@ -2778,7 +2778,7 @@ h1[style*="Cormorant"] em,h2[style*="Cormorant"] em{font-weight:400!important}
       <span class="cta-offer-item"><span class="cta-live-dot"></span>4 new agencies a month</span>
     </div>
     <div class="cta-btns reveal">
-      <a href="#cta" onclick="openBldModal();return false;" class="btn-primary">Build My Package</a>
+      <a href="#cta" onclick="openBldModal();return false;" class="btn-primary">Build My Systems Today</a>
       <a href="tel:6473828047" class="btn-secondary">Call 647-382-8047</a>
     </div>
   </div>
