@@ -728,7 +728,7 @@ html{ scroll-behavior:smooth; }
 .bld-chip:not(.sel) .bld-chip-check{ transform:scale(0); opacity:0; }
 .bld-chip.sel .bld-chip-check{ transform:scale(1); opacity:1; }
 /* the live ring: glow pulse so "building" feels alive */
-#bldRingFill{ filter:drop-shadow(0 0 6px var(--rb-primary)); }
+
 /* pricing total: tabular so digits don't jump width while counting */
 .bld-cp-total-val,.hsn-num,.hsn-num em{ font-variant-numeric:tabular-nums; }
 /* nav: tighter when scrolled, breathing when not, already there, refine ease */
@@ -1530,37 +1530,7 @@ if('IntersectionObserver' in window){
           <div class="bld-cp-title">Your Build</div>
           <div class="bld-cp-live"><span class="eyebrow-dot" style="width:5px;height:5px"></span>Live pricing</div>
         </div>
-        <div class="bld-cp-body">
-          <div class="bld-cp-empty" id="bldEmpty">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="opacity:0.2;margin:0 auto 10px;display:block"><rect x="6" y="10" width="28" height="22" rx="3" stroke="#3d7a8a" stroke-width="1.5"/><path d="M14 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M16 19h8M16 24h5" stroke="#3d7a8a" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <div style="font-size:10px;color:rgba(255,255,255,.46);line-height:1.6;text-align:center;letter-spacing:0.5px">Select systems to<br>build your package</div>
-          </div>
-          <div id="bldActive" style="display:none">
-            <div class="bld-ring-wrap">
-              <svg class="bld-ring-svg" width="80" height="80" viewBox="0 0 80 80">
-                <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(106,158,170,0.15)" stroke-width="6"/>
-                <circle cx="40" cy="40" r="34" fill="none" stroke="#3d7a8a" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="213.6" id="bldRingFill" stroke-linecap="round" transform="rotate(-90 40 40)" style="transition:stroke-dashoffset 0.4s ease"/>
-              </svg>
-              <div class="bld-ring-center"><span class="bld-ring-num" id="bldRingNum">0</span><span class="bld-ring-of">/10</span></div>
-            </div>
-            <div class="bld-progress" id="bldProgress"><div class="bld-progress-head"><span>Build progress</span><span class="bld-progress-pct" id="bldProgressPct">0%</span></div><div class="bld-progress-track"><div class="bld-progress-fill" id="bldProgressFill"></div></div></div>
-            <div class="bld-console" id="bldConsole"><div class="bld-console-head"><span class="bld-con-dot"></span><span class="bld-con-dot"></span><span class="bld-con-dot"></span><span class="bld-con-title">proximity-os · build</span></div><div class="bld-console-body" id="bldConsoleBody"></div></div>
-            <div class="bld-build-stack" id="bldBuildStack"></div>
-            <div class="bld-pipeline" id="bldPipeline"></div>
-            <div class="bld-cp-price-block">
-              <div class="bld-cp-price-row"><span>Package</span><span id="bldTierName">Operations</span></div>
-              <div class="bld-cp-price-row"><span>Setup</span><span id="bldSetupVal">$2,499</span></div>
-              <div class="bld-cp-price-row"><span>Monthly</span><span id="bldMonthlyVal">$500 / mo</span></div>
-              <div class="bld-cp-price-row" style="color:#5aaa7a"><span>Month 1</span><span>Free</span></div>
-              <div class="bld-cp-divider"></div>
-              <div class="bld-cp-total-row"><span style="font-size:11px;color:rgba(255,255,255,0.5)">Due today</span><span class="bld-cp-total-val" id="bldTotalVal">$0</span></div>
-            </div>
-            <div class="bld-cp-save-note" id="bldSaveNote"></div>
-          </div>
-          <button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Book a Free Call</button>
-          <button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button>
-          <div class="bld-cp-fine">Build first · Pay after · First month free</div>
-        </div>
+        <div class="bld-cp-body"><div class="bld-cp-empty" id="bldEmpty">Select systems to<br>build your package</div><div id="bldActive" style="display:none"><div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div><div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div><div class="bld-cp-row"><span>Monthly</span><b id="bldMonthlyVal"></b></div><div class="bld-cp-rule"></div><div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div><div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div><div class="bld-cp-note" id="bldSaveNote"></div><div class="bld-pipe-strip" id="bldPipeline"></div></div><button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Book a Free Call</button><button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button><p class="bld-cp-fine">Build first &middot; Pay after &middot; First month free</p></div>
       </div>
     </div>
   </div>
@@ -1723,6 +1693,63 @@ Built and led by Lance Salazar · Founder, Proximity Systems · Mississauga, Ont
 .pp-back{display:inline-block;padding:11px 24px;background:transparent;border:1px solid rgba(185,194,202,.28);color:#e6eaed;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;clip-path:polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);transition:border-color .18s ease,color .18s ease,clip-path .18s ease}
 .pp-back:hover{border-color:var(--teal);color:#ffffff;clip-path:polygon(0 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%)}
 .pp-back:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+/* SITE54 4a, the builder picker as compact rows.
+   The chips were 56px tall in a three column grid with an uneven last row. These are rows
+   in two columns, each system shown once. The accent colour each system already carries is
+   kept on --chip-c and only appears once the row is selected, so an unselected list reads as
+   one quiet block rather than ten competing colours. */
+.bld-chips-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:8px 7px}
+@media(max-width:470px){.bld-chips-grid{grid-template-columns:1fr}}
+.bld-row{display:flex;align-items:center;gap:8px;width:100%;padding:11px 9px;cursor:pointer;
+  background:none;border:0;text-align:left;color:inherit;font:inherit;border-radius:3px;
+  transition:background .13s ease}
+.bld-row:hover{background:rgba(255,255,255,.028)}
+.bld-row:focus-visible{outline:2px solid var(--chip-c,#2dd4bf);outline-offset:-2px}
+.bld-row-box{width:13px;height:13px;flex:0 0 13px;border:1px solid #b5bec6;display:grid;
+  place-items:center;transition:border-color .13s,background .13s}
+.bld-row-box svg{opacity:0;transition:opacity .13s}
+.bld-row.sel .bld-row-box{border-color:var(--chip-c);background:var(--chip-c)}
+.bld-row.sel .bld-row-box svg{opacity:1}
+.bld-row-ico{display:flex;color:#b5bec6;opacity:.75;flex:0 0 14px;
+  transition:color .13s,opacity .13s}
+.bld-row.sel .bld-row-ico{color:var(--chip-c);opacity:1}
+.bld-row-ico svg{width:14px;height:14px}
+.bld-row-name{font-size:13px;color:#b5bec6;transition:color .13s;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.bld-row.sel .bld-row-name{color:#eef2f6}
+.bld-row-free{margin-left:auto;font-family:var(--rb-mono);font-size:8px;letter-spacing:.1em;
+  color:#2dd4bf;border:1px solid #2dd4bf;padding:1px 4px;white-space:nowrap}
+
+/* SITE54 4b and 4d, the rebuilt summary panel and the compact node strip. */
+.bld-cp-row{display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--rb-mono);font-size:11px;letter-spacing:.06em;padding:3px 0;color:#b5bec6}
+.bld-cp-row b{font-family:var(--rb-sans);font-size:15px;font-weight:500;letter-spacing:0;color:#eef2f6}
+.bld-cp-row.bld-cp-big b{font-family:var(--rb-serif);font-size:25px;font-weight:300}
+.bld-cp-free{color:#2dd4bf!important}
+.bld-cp-rule{height:1px;background:rgba(185,194,202,.14);margin:7px 0}
+.bld-cp-note{font-family:var(--rb-mono);font-size:10px;letter-spacing:.08em;color:#2dd4bf;
+  padding:8px 0 2px;line-height:1.5}
+/* THE NODE STRIP. The old pipeline was 130px of rail, packet and labelled nodes. This keeps
+   what it was for, systems connected rather than listed, in roughly a third of the height. */
+.bld-pipe-strip{display:none;padding:9px 0 2px}
+.bld-pipe-strip.on{display:block}
+.bld-ps-track{display:flex;align-items:center;gap:0}
+.bld-ps-node{width:9px;height:9px;border-radius:50%;background:var(--np-c);flex:0 0 9px;
+  box-shadow:0 0 0 2px rgba(0,0,0,.35)}
+.bld-ps-link{flex:1 1 auto;height:1px;background:rgba(185,194,202,.3);min-width:6px}
+.bld-ps-foot{font-family:var(--rb-mono);font-size:9px;letter-spacing:.09em;color:#b5bec6;
+  padding-top:7px}
+.bld-ps-foot b{color:#eef2f6;font-weight:400}
+
+/* SITE54 4e, the builder returns to two columns now that the build dashboard is gone. */
+@media(min-width:1025px){
+  .bld-compact-wrap{display:grid!important;grid-template-columns:1fr 300px!important;
+    gap:24px!important;align-items:stretch!important}
+  .bld-chips-area{display:flex!important;flex-direction:column!important;width:auto!important}
+  .bld-chips-grid{flex:1 1 auto;align-content:start}
+  .bld-compact-panel{position:static!important;align-self:start}
+}
 </style>
 <script>
   const burger = document.getElementById('hamburger');
@@ -2027,23 +2054,30 @@ const BLD_SYSTEMS=[
   ];
 const bldSelected=new Set();
 function bldRender(){
-    const grid=document.getElementById('bldGrid');
-    if(!grid)return;
-    grid.innerHTML=BLD_SYSTEMS.map(function(s,i){
-      var cls='bld-chip';
-      if(s.addon)cls+=' addon-chip';
-      var anim='animation:fadeUp 0.25s ease '+(i*0.04).toFixed(3)+'s both';
-      var badge=s.addon?'<span class="bld-chip-badge">Free</span>':'';
-      var check='<span class="bld-chip-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2.5 2.5 3.5-4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-      return '<div class="'+cls+'" id="bldchip-'+s.id+'" data-sid="'+s.id+'" style="'+anim+';--chip-c:'+s.color+'">'
-        +'<span class="bld-chip-icon">'+s.svg+'</span>'
-        +'<span class="bld-chip-name">'+s.name+'</span>'
-        +badge+check+'</div>';
-    }).join('');
-    grid.querySelectorAll('.bld-chip').forEach(function(el){
-      el.addEventListener('click',function(){bldToggle(el.getAttribute('data-sid'));});
+  /* COMPACT ROWS, NOT CHIPS. Same contract: renders into #bldGrid, each element keeps
+     id="bldchip-<id>" and data-sid so bldToggle can find it, selection is still the .sel
+     class, and clicking still calls bldToggle. Nothing downstream knows this changed.
+     The elements are buttons rather than divs because the chips had no tabindex and no
+     role, which made the builder impossible to use from a keyboard. aria-pressed is synced
+     here, in the handler, so bldToggle itself stays exactly as it was. */
+  var grid=document.getElementById('bldGrid'); if(!grid)return;
+  grid.innerHTML=BLD_SYSTEMS.map(function(s,i){
+    var badge=s.addon?'<span class="bld-row-free">Free</span>':'';
+    return '<button type="button" class="bld-row" id="bldchip-'+s.id+'" data-sid="'+s.id+'"'
+      +' aria-pressed="false" style="--chip-c:'+s.color+'">'
+      +'<span class="bld-row-box"><svg width="9" height="9" viewBox="0 0 9 9" fill="none">'
+      +'<path d="M1.5 4.5l2.5 2.5 3.5-4" stroke="#04130f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      +'<span class="bld-row-ico">'+s.svg+'</span>'
+      +'<span class="bld-row-name">'+s.name+'</span>'+badge+'</button>';
+  }).join('');
+  grid.querySelectorAll('.bld-row').forEach(function(el){
+    el.addEventListener('click',function(){
+      var id=el.getAttribute('data-sid');
+      bldToggle(id);
+      el.setAttribute('aria-pressed', bldSelected.has(id)?'true':'false');
     });
-  }
+  });
+}
 function bldToggle(id){
     const chip=document.getElementById('bldchip-'+id);
     if(!chip)return;
@@ -2077,154 +2111,62 @@ function selectAll(){
       : { name: 'The Full Build', setup: '$3,499', monthly: '$500 / mo', beyond: beyond[0] };
   }
   function bldUpdate(){
-    const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
-    const count=items.length;
-    const cEl=document.getElementById('bldCount');
-    if(cEl)cEl.textContent=count;
-    const empty=document.getElementById('bldEmpty');
-    const active=document.getElementById('bldActive');
-    const btn=document.getElementById('bldBookBtn');
-    
-    if(count===0){
-      if(empty)empty.style.display='block';
-      if(active)active.style.display='none';
-      if(btn)btn.disabled=true;
-      
-      return;
-    }
-    if(empty)empty.style.display='none';
-    if(active)active.style.display='block';
-    if(btn)btn.disabled=false;
-    const pct=count/10;const circ=213.6;
-    const ring=document.getElementById('bldRingFill');
-    if(ring)ring.setAttribute('stroke-dashoffset',(circ-(circ*pct)).toFixed(1));
-    const rn=document.getElementById('bldRingNum');
-    if(rn){
-      var from=parseInt(rn.textContent||'0',10), to=count;
-      if(from!==to && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-        var step=from<to?1:-1, cur=from;
-        clearInterval(rn._t);
-        rn._t=setInterval(function(){ cur+=step; rn.textContent=cur; if(cur===to)clearInterval(rn._t); }, 60);
-      } else { rn.textContent=count; }
-    }
-    //  LIVE BUILD DASHBOARD, assemble a module per selected system
-    var stack=document.getElementById('bldBuildStack');
-    if(stack){
-      stack.innerHTML=items.map(function(s,i){
-        var isNew = !window.__bldOnline || !window.__bldOnline.has(s.id);
-        return '<div class="bld-mod '+(isNew?'compiling':'online')+'" data-sid="'+s.id+'" style="--mod-c:'+s.color+';animation-delay:'+(i*0.05).toFixed(2)+'s">'
-          +'<div class="bld-mod-ico">'+s.svg+'</div>'
-          +'<div class="bld-mod-body"><div class="bld-mod-name">'+s.name+'</div>'
-          +'<div class="bld-mod-metric">'+(s.metric||'online')+'</div></div>'
-          +'<div class="bld-mod-status"><span class="bld-mod-dot"></span><span class="stxt-build">Building</span><span class="stxt-on">Online</span></div>'
-          +'<div class="bld-mod-prog"></div></div>';
-      }).join('');
-      // flip newly-compiling modules to online after the build animation
-      if(!window.__bldOnline) window.__bldOnline=new Set();
-      items.forEach(function(s){
-        if(!window.__bldOnline.has(s.id)){
-          var mod=stack.querySelector('.bld-mod[data-sid="'+s.id+'"]');
-          if(mod){
-            if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-              mod.classList.remove('compiling'); mod.classList.add('online');
-            } else {
-              setTimeout(function(){ mod.classList.remove('compiling'); mod.classList.add('online'); }, 950);
-            }
-          }
-          window.__bldOnline.add(s.id);
-        }
-      });
-      // prune removed
-      window.__bldOnline.forEach(function(id){ if(!bldSelected.has(id)) window.__bldOnline.delete(id); });
-    }
-    //  BUILD PROGRESS BAR
-    var pf=document.getElementById('bldProgressFill'), pp=document.getElementById('bldProgressPct');
-    if(pf){ var ppct=Math.round((count/10)*100); pf.style.width=ppct+'%'; if(pp)pp.textContent=ppct+'%'; }
-    //  LIVE PIPELINE, selected systems working end to end
-    var pipe=document.getElementById('bldPipeline');
-    if(pipe){
-      if(count<2){ pipe.classList.remove('on'); pipe.innerHTML=''; if(pipe._to)clearTimeout(pipe._to); if(pipe._th)clearTimeout(pipe._th); }
-      else {
-        var nodes=items.slice(0,6); // cap visual to 6 for clarity
-        var nodesHtml=nodes.map(function(s){
-          return '<div class="bld-pipe-node" style="--np-c:'+s.color+'">'
-            +'<div class="bld-pipe-ico">'+s.svg+'</div>'
-            +'<div class="bld-pipe-lbl">'+s.name+'</div></div>';
-        }).join('');
-        pipe.innerHTML='<div class="bld-pipe-title">Live · data flowing through your system</div>'
-          +'<div class="bld-pipe-track"><div class="bld-pipe-rail"></div>'
-          +'<div class="bld-pipe-packet" id="bldPipePacket"></div>'+nodesHtml+'</div>'
-          +'<div class="bld-pipe-foot"><b>'+count+'</b> systems · one connected thread · zero admin</div>';
-        pipe.classList.add('on');
-        if(pipe._to)clearTimeout(pipe._to); if(pipe._th)clearTimeout(pipe._th);
-        if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-          var packet=pipe.querySelector('#bldPipePacket');
-          var pnodes=Array.prototype.slice.call(pipe.querySelectorAll('.bld-pipe-node'));
-          var n=pnodes.length;
-          function runPipe(){
-            var i=0;
-            pnodes.forEach(function(nd){ nd.classList.remove('fire'); });
-            function hop(){
-              if(i>=n){ if(packet)packet.style.opacity='0';
-                pipe._to=setTimeout(function(){ runPipe(); }, 900); return; }
-              var nd=pnodes[i], cstr=nd.style.getPropertyValue('--np-c');
-              var pctL = n>1 ? 18 + (i/(n-1))*(100-36) : 50;
-              if(packet){ packet.style.transition=i===0?'none':'left .5s var(--e)';
-                packet.style.left='calc('+pctL+'% )'; packet.style.opacity='1';
-                packet.style.background=cstr; packet.style.boxShadow='0 0 12px 2px '+cstr; }
-              nd.classList.add('fire');
-              i++; pipe._th=setTimeout(hop, 560);
-            }
-            hop();
-          }
-          runPipe();
-        } else {
-          pipe.querySelectorAll('.bld-pipe-node').forEach(function(nd){ nd.classList.add('fire'); });
-        }
-      }
-    }
-    //  BUILD CONSOLE, compile log, types a line per selected system
-    var conBody=document.getElementById('bldConsoleBody');
-    if(conBody){
-      if(count===0){
-        conBody.innerHTML='<div class="bld-con-line bld-con-empty">$ select systems to compile your build<span class="bld-con-cursor"></span></div>';
-      } else {
-        var lines=items.map(function(s,i){
-          var svc=s.name.toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-|-$/g,'');
-          return '<div class="bld-con-line" style="--lc:'+s.color+';animation-delay:'+(i*0.05).toFixed(2)+'s">'
-            +'<span class="bld-con-ok">[OK]</span> '+svc+'.service <span class="bld-con-arrow">&#8594;</span> <span class="bld-con-ok">online</span></div>';
-        });
-        lines.push('<div class="bld-con-line" style="animation-delay:'+(count*0.05).toFixed(2)+'s">'
-          +'<span class="bld-con-ok">&#10003;</span> '+count+'/10 services running'
-          +(count>=10?' <span class="bld-con-ok">· full stack</span>':'')+'<span class="bld-con-cursor"></span></div>');
-        conBody.innerHTML=lines.join('');
-        conBody.scrollTop=conBody.scrollHeight;
-      }
-    }
-    // TIER MAPPING, written from the selection rather than left static.
-    var _t = bldTierOf(Array.from(bldSelected));
-    var _tn = document.getElementById('bldTierName'); if(_tn)_tn.textContent=_t.name;
-    var _sv = document.getElementById('bldSetupVal'); if(_sv)_sv.textContent=_t.setup;
-    var _mv = document.getElementById('bldMonthlyVal'); if(_mv)_mv.textContent=_t.monthly;
-    // Due today is always zero. Setup is paid after go live and month 1 is free, which
-    // is what the rest of the page promises in six places across these two files.
-    var _tv = document.getElementById('bldTotalVal'); if(_tv)_tv.textContent='$0';
-    const sn=document.getElementById('bldSaveNote');
-    if(sn){
-      if(_t.beyond){
-        var _m = BLD_SYSTEMS.filter(function(s){return s.id===_t.beyond;})[0];
-        sn.textContent=(_m?_m.name:'That system')+' moves you to The Full Build';
-      } else if(count>0){
-        sn.textContent=count+' system'+(count===1?'':'s')+' selected, Operations';
-      }
-    }
-    const hint=document.getElementById('bldUpsellHint');
-    if(hint){
-      if(count>0&&count<9){hint.textContent='Most operators select all 9 core systems. Each connects to the next.';hint.classList.add('show');}
-      else{hint.classList.remove('show');}
-    }
-    
+  var items=BLD_SYSTEMS.filter(function(s){return bldSelected.has(s.id);});
+  var count=items.length;
+  var cEl=document.getElementById('bldCount'); if(cEl)cEl.textContent=count;
+  /* the picker tells a screen reader what is pressed; bldToggle is left untouched */
+  var grid=document.getElementById('bldGrid');
+  if(grid)grid.querySelectorAll('.bld-row').forEach(function(r){
+    r.setAttribute('aria-pressed', bldSelected.has(r.getAttribute('data-sid'))?'true':'false');
+  });
+  var empty=document.getElementById('bldEmpty');
+  var active=document.getElementById('bldActive');
+  var btn=document.getElementById('bldBookBtn');
+  if(count===0){
+    if(empty)empty.style.display='block';
+    if(active)active.style.display='none';
+    if(btn)btn.disabled=true;
+    return;
   }
+  if(empty)empty.style.display='none';
+  if(active)active.style.display='block';
+  if(btn)btn.disabled=false;
+  /* TIER MAPPING, written from the selection rather than left static. */
+  var _t=bldTierOf(Array.from(bldSelected));
+  var _tn=document.getElementById('bldTierName'); if(_tn)_tn.textContent=_t.name;
+  var _sv=document.getElementById('bldSetupVal'); if(_sv)_sv.textContent=_t.setup;
+  var _mv=document.getElementById('bldMonthlyVal'); if(_mv)_mv.textContent=_t.monthly;
+  /* Due today is always zero. Setup is paid after go live and month 1 is free, which is
+     what the rest of the page promises in six places across these two files. */
+  var _tv=document.getElementById('bldTotalVal'); if(_tv)_tv.textContent='$0';
+  var sn=document.getElementById('bldSaveNote');
+  if(sn){
+    if(_t.beyond){
+      var _m=BLD_SYSTEMS.filter(function(s){return s.id===_t.beyond;})[0];
+      sn.textContent=(_m?_m.name:'That system')+' moves you to The Full Build';
+    } else { sn.textContent=count+' system'+(count===1?'':'s')+' selected, Operations'; }
+  }
+  var hint=document.getElementById('bldUpsellHint');
+  if(hint){
+    if(count>0&&count<9){hint.textContent='Most operators select all 9 core systems. Each connects to the next.';hint.classList.add('show');}
+    else{hint.classList.remove('show');}
+  }
+  /* THE NODE STRIP, the one piece of the old build theatre that was doing work: it shows
+     the chosen systems connected to each other rather than listed. Same threshold and the
+     same six node cap as before, drawn at a third of the height. */
+  var pipe=document.getElementById('bldPipeline');
+  if(pipe){
+    if(count<2){ pipe.classList.remove('on'); pipe.innerHTML=''; }
+    else {
+      var nodes=items.slice(0,6);
+      pipe.innerHTML='<div class="bld-ps-track">'+nodes.map(function(s){
+        return '<span class="bld-ps-node" style="--np-c:'+s.color+'" title="'+s.name+'"></span>';
+      }).join('<span class="bld-ps-link"></span>')+'</div>'
+        +'<div class="bld-ps-foot"><b>'+count+'</b> systems, one connected thread</div>';
+      pipe.classList.add('on');
+    }
+  }
+}
 function openBldModal(){
     const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
     const pkg=document.getElementById('bldModalPkg');
