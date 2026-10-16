@@ -18,6 +18,7 @@
   --teal:#2dd4bf;--teal-lt:#2dd4bf;--teal-bg:#0b2028;
   --red:#fc99a8;--green:#34d399;--gold:#c8a96e;
   --text:#e6eaed;--text-dim:#e6eaed;--text-muted:#3a5a62;
+  --rb-text:#eef2f6;--rb-dim:#e6eaed;--rb-faint:#b5bec6;
   --border:rgba(90,154,170,0.12);--border-b:rgba(90,154,170,0.25);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -405,7 +406,7 @@ button,a,[onclick]{touch-action:manipulation;}
    and CSS come out of hq.html, psw-portal.html and family.html as they render at 390px.
    Nothing here is authored by hand except this device frame.  */
 @keyframes lp-fade-in{from{opacity:0}to{opacity:1}}
-.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,220,200,.54);transition:color .3s}
+.lp-step{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--rb-faint);transition:color .3s}
 .lp-step.active{color:#2dd4bf}
 .lp-step.done{color:#3fb950}
 /* Device chrome. Values reused from the live landing .lp-phone rule: 1px border, 12px radius,
@@ -638,11 +639,11 @@ button,a,[onclick]{touch-action:manipulation;}
     <!-- Bottom step bar -->
     <div style="height:40px;background:rgba(7,9,12,.98);border-top:1px solid rgba(90,173,160,.12);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;padding:0 12px;overflow:hidden;">
       <span class="lp-step lp-desktop-step" id="step1">HQ Books</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-desktop-step" style="color:var(--rb-faint);font-size:10px;">→</span>
       <span class="lp-step lp-desktop-step" id="step2">PSW Signs In</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-desktop-step" style="color:var(--rb-faint);font-size:10px;">→</span>
       <span class="lp-step lp-desktop-step" id="step3">Family Sees It</span>
-      <span class="lp-desktop-step" style="color:rgba(255,255,255,.15);font-size:10px;">→</span>
+      <span class="lp-desktop-step" style="color:var(--rb-faint);font-size:10px;">→</span>
       <span class="lp-step lp-desktop-step" id="step4">HQ Live Map</span>
       <div id="lp-mob-steps" style="display:none;align-items:center;gap:10px;">
         <div id="lp-mob-dot1" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(90,173,160,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(90,173,160,.45);transition:all .3s;flex-shrink:0;">HQ</div>
@@ -838,13 +839,13 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 .asc{background:#0c1018;border:1px solid rgba(250,248,244,.07);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default;}
 .asc:hover{border-color:rgba(30,125,150,.35);transform:translateY(-2px);}
 .asc-head{padding:11px 14px 8px;display:flex;align-items:center;justify-content:space-between;}
-.asc-num{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(250,248,244,.47);}
+.asc-num{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--rb-faint);}
 .asc-badge{font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;}
 .asc-badge.live{background:rgba(61,138,122,.12);color:#2dd4bf;border:1px solid rgba(61,138,122,.25);}
 .asc-badge.free{background:rgba(184,112,16,.1);color:#f0b549;border:1px solid rgba(184,112,16,.25);}
 .asc-anim{height:82px;position:relative;overflow:hidden;margin:0 14px;border-radius:6px;background:rgba(0,0,0,.25);}
 .asc-name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;color:rgba(250,248,244,.75);padding:10px 14px 3px;}
-.asc-desc{font-size:9px;color:rgba(250,248,244,.47);padding:0 14px 13px;line-height:1.65;}
+.asc-desc{font-size:9px;color:var(--rb-faint);padding:0 14px 13px;line-height:1.65;}
 /* keyframes */
 @keyframes ascFadeIn{from{opacity:0}to{opacity:1}}
 @keyframes ascSlideR{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
@@ -1462,7 +1463,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   <div class="asc-anim">
     <!-- Chat bubbles -->
     <div style="position:absolute;inset:6px;display:flex;flex-direction:column;gap:4px;justify-content:center;">
-      <div style="max-width:85%;padding:4px 8px;border-radius:5px;background:rgba(255,255,255,.05);font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.5);opacity:0;animation:ascSlideR .3s ease .15s forwards;">Need care for my mom…</div>
+      <div style="max-width:85%;padding:4px 8px;border-radius:5px;background:rgba(255,255,255,.05);font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);opacity:0;animation:ascSlideR .3s ease .15s forwards;">Need care for my mom…</div>
       <!-- typing -->
       <div style="display:flex;gap:3px;padding:5px 8px;background:rgba(255,255,255,.04);border-radius:5px;align-self:flex-start;width:36px;opacity:0;animation:ascFadeIn .3s ease .55s forwards;">
         <div style="width:4px;height:4px;border-radius:50%;background:rgba(250,248,244,.47);animation:ascTyping .9s ease infinite;animation-delay:0s;"></div>
@@ -1486,15 +1487,15 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <div style="position:absolute;left:16px;top:8px;bottom:8px;display:flex;flex-direction:column;justify-content:space-between;">
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
         <div style="width:7px;height:7px;border-radius:50%;background:#3d8a7a;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Day 1 · Replied ✓</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Day 1 · Replied ✓</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .4s forwards;">
         <div style="width:7px;height:7px;border-radius:50%;background:#3d8a7a;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Day 3 · Follow-up ✓</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Day 3 · Follow-up ✓</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .7s forwards;">
         <div style="width:7px;height:7px;border-radius:50%;background:#3d8a7a;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Day 7 · Check-in ✓</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Day 7 · Check-in ✓</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease 1s forwards;">
         <div style="width:7px;height:7px;border-radius:50%;border:1.5px solid rgba(30,125,150,.4);background:#0c1018;flex-shrink:0;"></div>
@@ -1546,7 +1547,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
         <div style="font-family:'DM Mono',monospace;font-size:5.5px;color:rgba(250,248,244,.47);">2:14am</div>
       </div>
       <div style="padding:5px 7px;display:flex;flex-direction:column;gap:3px;">
-        <div style="padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(250,248,244,.47);max-width:88%;opacity:0;animation:ascSlideR .3s ease .25s forwards;">Hi, can you help me?</div>
+        <div style="padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.04);font-family:'DM Mono',monospace;font-size:7.5px;color:var(--rb-faint);max-width:88%;opacity:0;animation:ascSlideR .3s ease .25s forwards;">Hi, can you help me?</div>
         <div style="padding:3px 6px;border-radius:4px;background:rgba(30,125,150,.15);font-family:'DM Mono',monospace;font-size:7.5px;color:#7dccc0;align-self:flex-end;max-width:88%;opacity:0;animation:ascSlideR .3s ease .85s forwards;">Of course! What do you need?</div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(61,138,122,.55);text-align:right;opacity:0;animation:ascFadeIn .3s ease 1.3s forwards;">Call booked ✓</div>
       </div>
@@ -1563,19 +1564,19 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
         <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2dd4bf;flex-shrink:0;">✓</div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Agreement signed digitally</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Agreement signed digitally</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .4s forwards;">
         <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2dd4bf;flex-shrink:0;">✓</div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Family portal activated</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Family portal activated</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .7s forwards;">
         <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2dd4bf;flex-shrink:0;">✓</div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Care plan pre-populated</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Care plan pre-populated</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease 1s forwards;">
         <div style="width:14px;height:14px;border-radius:50%;background:rgba(61,138,122,.12);border:1.5px solid #3d8a7a;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2dd4bf;flex-shrink:0;">✓</div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.55);">Welcome email sent</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Welcome email sent</span>
       </div>
     </div>
   </div>
@@ -1603,7 +1604,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
           <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.47);text-transform:uppercase;letter-spacing:.5px;">Revenue</div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:3px;text-align:center;opacity:0;animation:ascFadeIn .3s ease .4s forwards;">
-          <div style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:13px;font-weight:400;color:rgba(250,248,244,.6);line-height:1;">0</div>
+          <div style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:13px;font-weight:400;color:var(--rb-faint);line-height:1;">0</div>
           <div style="font-family:'DM Mono',monospace;font-size:5px;color:rgba(250,248,244,.47);text-transform:uppercase;letter-spacing:.5px;">Admin</div>
         </div>
       </div>
@@ -1630,17 +1631,17 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
         <div style="width:18px;height:18px;border-radius:50%;background:rgba(30,125,150,.35);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:500;color:#fff;flex-shrink:0;">SM</div>
-        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Sarah Mitchell</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">12 visits · 4.9★</div></div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Sarah Mitchell</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">12 visits · 4.9★</div></div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(61,138,122,.1);color:#2dd4bf;border:1px solid rgba(61,138,122,.22);">Active</div>
       </div>
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .35s forwards;">
         <div style="width:18px;height:18px;border-radius:50%;background:rgba(61,138,122,.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:500;color:#fff;flex-shrink:0;">JO</div>
-        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">James Okafor</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">9 visits · 4.7★</div></div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">James Okafor</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">9 visits · 4.7★</div></div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(61,138,122,.1);color:#2dd4bf;border:1px solid rgba(61,138,122,.22);">Active</div>
       </div>
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .6s forwards;">
         <div style="width:18px;height:18px;border-radius:50%;background:rgba(184,112,16,.25);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;font-weight:500;color:#fff;flex-shrink:0;">LP</div>
-        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(250,248,244,.65);">Luz Perez</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">VSC expires 28d</div></div>
+        <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--rb-faint);">Luz Perez</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(250,248,244,.47);">VSC expires 28d</div></div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 6px;border-radius:3px;background:rgba(184,112,16,.1);color:#f0b549;border:1px solid rgba(184,112,16,.2);">Alert</div>
       </div>
     </div>
