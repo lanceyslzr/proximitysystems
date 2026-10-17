@@ -370,8 +370,6 @@ button,a,[onclick]{touch-action:manipulation;}
     .bld-chips-grid { grid-template-columns: 1fr; }
     /* Product card, compact on small screens */
     /* Social proof strip compact */
-    div[style*="padding:24px 64px"] { padding: 16px 16px !important; }
-    div[style*="padding:24px 64px"] > div { flex-direction: column; gap: 10px; text-align: center; }
   }
 
   /* ============================================================
@@ -512,11 +510,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 #builder input,#builder textarea,#builder select{ background:var(--rb-base)!important;
   border:1px solid var(--rb-line)!important; color:var(--rb-text)!important; border-radius:10px!important; }
 #builder input::placeholder,#builder textarea::placeholder{ color:var(--rb-faint)!important; }
-/* generic white inline cards within dark sections */
-.section-wrap [style*="background:#fff"],#real [style*="background:#fff"],
-#timeline [style*="background:#fff"],#pricing [style*="background:#fff"]{
-  background:var(--rb-panel)!important; border-color:var(--rb-line)!important; }
-.section-wrap [style*="color:#1e2420"],.section-wrap [style*="color:#13181c"],
 /* ROI calculator dark */
 
 /*  CONTRAST CORRECTION, WCAG-minded legibility pass  */
@@ -536,16 +529,13 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .hero-guarantee,.sc-desc,.footer-tagline,.footer-copy,.footer-links a,.footer-contact-list li{
   color:var(--rb-dim)!important; }
 /* drowned-out low-opacity inline text on dark -> dim (legible) */
-[style*="color:rgba(250,248,244,.47)"],[style*="color:rgba(255,255,255,.25)"],
-[style*="color:rgba(255,255,255,.35)"],[style*="color:rgba(255,255,255,.46)"]{
+[style*="color:rgba(250,248,244,.47)"],[style*="color:rgba(255,255,255,.46)"]{
   color:var(--rb-dim)!important; }
 /* 4. dim -> slightly brighter baseline so sections don't drown */
 :root{ --rb-dim:#e6eaed!important; }
-[style*="color:#3d7a8a"]{ color:var(--rb-primary)!important; }
 [style*="color:var(--teal-dark)"]{ color:var(--rb-primary)!important; }
-[style*="background:var(--teal-dark)"]{ background:var(--rb-primary)!important; color:#04130f!important; }
 /* 6. section eyebrow lines that were teal-dark */
-.eyebrow-line[style*="teal-dark"],.eyebrow-line{ background:var(--rb-primary)!important; }
+.eyebrow-line{ background:var(--rb-primary)!important; }
 /* the device visual now sits BELOW the copy, centered, as a hero showpiece */
 
 /*  PROOF STAT CARDS, kill cream islands, glowing dark KPIs  */
@@ -555,14 +545,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 /*  LIGHT-ISLAND SWEEP, eliminate every remaining cream/white surface  */
 /* #real section wrapper itself was background:#fff inline */
 /* ROI calculator block + its inner cells (timeline section) */
-/* generic catch-all: any remaining cream inline bg anywhere in a dark section */
-.section-wrap [style*="background:#f0ede8"],.section-wrap [style*="background:#f6f3ee"],
-.section-wrap [style*="background:#e2ddd4"],.section-wrap [style*="background:#d8d3ca"],
-#timeline [style*="background:#f0ede8"],#timeline [style*="background:#f6f3ee"],
-#timeline [style*="background:#e2ddd4"]{ background:var(--rb-panel)!important; }
-/* any remaining dark-on-now-dark text -> legible */
-[style*="color:#1e2420"],[style*="color:#13181c"]{ color:var(--rb-text)!important; }
-[style*="color:#7a7a72"]{ color:var(--rb-dim)!important; }
 /* builder chips that were #fff */
 .bld-chip{ background:var(--rb-panel)!important; }
 
@@ -1758,9 +1740,9 @@ Built and led by Lance Salazar · Founder, Proximity Systems · Mississauga, Ont
    or any of the other places Cormorant is deliberate.
    The accent inside a heading sits one weight above it, which is what the Fraunces
    headings on this page already do. */
-h1[style*="Cormorant"],h2[style*="Cormorant"]{
+h2[style*="Cormorant"]{
   font-family:var(--rb-serif)!important;font-weight:300!important}
-h1[style*="Cormorant"] em,h2[style*="Cormorant"] em{font-weight:400!important}
+h2[style*="Cormorant"] em{font-weight:400!important}
 </style>
 <script>
   const burger = document.getElementById('hamburger');
