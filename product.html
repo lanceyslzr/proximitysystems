@@ -190,7 +190,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
     --b-bg:#0b0f14;--b-bg2:#0e1419;--b-bg3:#111820;
     --b-teal:#3d7a8a;--b-teal-lt:#5a9aaa;--b-teal-bg:rgba(61,122,138,0.1);
     --b-border:rgba(90,154,170,0.15);--b-border-b:rgba(90,154,170,0.28);
-    --b-text:#ddd9d0;--b-text-dim:#6a8a92;--b-text-muted:rgba(166,196,204,.92);
+    --b-text:#ddd9d0;--b-text-dim:#6a8a92;--b-text-muted:#a6c4cc;
     --b-green:#5aaa7a;--b-gold:#c8a96e;--b-red:#e05858
   }
   .bld-compact-wrap{display:grid;grid-template-columns:1fr 260px;gap:24px;align-items:start}
@@ -439,8 +439,8 @@ button,a,[onclick]{touch-action:manipulation;}
   --rb-text:#eef2f6; --rb-dim:#e6eaed; --rb-faint:#b5bec6;
   --rb-primary:#2dd4bf; --rb-primary-lt:#5eead4; --rb-gold:#f0b549;
   /* system color-code map */
-  --sys-gps:#38bdf8; --sys-invoice:#fbbf24; --sys-family:#34d399;
-  --sys-sched:#a78bfa; --sys-ai:#2dd4bf; --sys-lead:#fb7185;
+  --sys-gps:#44c1f8; --sys-invoice:#fbbf24; --sys-family:#34d399;
+  --sys-sched:#c0acfb; --sys-ai:#2dd4bf; --sys-lead:#fc9caa;
   --rb-serif:'Fraunces',serif; --rb-sans:'Space Grotesk',sans-serif; --rb-mono:'DM Mono',monospace;
 }
 /*  BASE CANVAS, unify the split light/dark into one dark system  */
@@ -1336,7 +1336,7 @@ function initHQ2(){
     setTimeout(function(){
       var row=document.createElement('div');
       row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid rgba(250,248,244,.04);font-family:var(--rb-mono);font-size:9px;';
-      row.innerHTML='<span style="color:var(--rb-faint);">'+e.t+'</span><span style="color:rgba(250,248,244,.47);flex-shrink:0;margin-left:8px;">'+e.time+' <span style="font-size:7px;padding:1px 5px;border-radius:2px;background:'+(e.type==='live'?'rgba(61,138,122,.1)':'rgba(184,112,16,.1)')+';color:'+(e.type==='live'?'#3d8a7a':'#c9940f')+';">'+e.type+'</span></span>';
+      row.innerHTML='<span style="color:var(--rb-faint);">'+e.t+'</span><span style="color:rgba(250,248,244,.47);flex-shrink:0;margin-left:8px;">'+e.time+' <span style="font-size:7px;padding:1px 5px;border-radius:2px;background:'+(e.type==='live'?'rgba(61,138,122,.1)':'rgba(184,112,16,.1)')+';color:'+(e.type==='live'?'#80c7b8':'#edaf12')+';">'+e.type+'</span></span>';
       feed.appendChild(row);
     },i*100);
   });
@@ -1370,7 +1370,7 @@ function buildPSWCards2(){
   PSWS.forEach(function(p){
     var el=document.createElement('div');
     el.style.cssText='background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:6px;padding:10px 12px;';
-    var certColor=p.cert==='All valid'?'#3d8a7a':'#c9940f';
+    var certColor=p.cert==='All valid'?'#80c7b8':'#edaf12';
     el.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:rgba(61,138,122,.15);display:flex;align-items:center;justify-content:center;font-family:var(--rb-mono);font-size:9px;color:#2dd4bf;">'+p.code+'</div><div><div style="font-size:10px;color:#faf8f4;">'+p.name+'</div><div style="font-family:var(--rb-mono);font-size:8px;color:rgba(250,248,244,.47);">'+p.r+' ★ · '+p.v+' visits</div></div></div><div style="font-family:var(--rb-mono);font-size:8px;display:flex;justify-content:space-between;"><span style="color:rgba(250,248,244,.47);">'+p.h+'h this month</span><span style="color:'+certColor+';">'+p.cert+'</span></div>';
     cont.appendChild(el);
   });
@@ -1475,7 +1475,7 @@ window.runChain2=function(type,btnEl){
   var we=document.getElementById('chain2-wh');
   c.wh.forEach(function(w,i){
     setTimeout(function(){
-      var wc=w.c==='gold'?'#c9940f':w.c==='green'?'#3d8a7a':'#1e7d96';
+      var wc=w.c==='gold'?'#edaf12':w.c==='green'?'#80c7b8':'#59c2de';
       var row=document.createElement('div');
       row.style.cssText='display:flex;align-items:center;gap:6px;font-family:var(--rb-mono);font-size:9px;padding:4px 0;border-bottom:1px solid rgba(250,248,244,.03);opacity:0;transition:opacity .3s;';
       row.innerHTML='<span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(30,125,150,.15);color:'+wc+';flex-shrink:0;">'+w.m+'</span><span style="color:rgba(250,248,244,.47);flex:1;">'+w.p+'</span><span style="color:rgba(250,248,244,.47);">'+w.t+'</span><span style="font-size:7px;padding:1px 4px;border-radius:2px;background:rgba(61,138,122,.1);color:#2dd4bf;flex-shrink:0;">200</span>';
@@ -1486,7 +1486,7 @@ window.runChain2=function(type,btnEl){
   var ce=document.getElementById('chain2-events');
   c.ev.forEach(function(ev,i){
     setTimeout(function(){
-      var ec=ev.c==='t'?'#1e7d96':ev.c==='g'?'#3d8a7a':'#c9940f';
+      var ec=ev.c==='t'?'#59c2de':ev.c==='g'?'#80c7b8':'#edaf12';
       var row=document.createElement('div');
       row.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 10px;background:#111820;border:1px solid rgba(250,248,244,.07);border-radius:5px;font-family:var(--rb-mono);font-size:9px;opacity:0;border-left:2px solid '+ec+';transition:opacity .3s;';
       row.innerHTML='<span>'+ev.icon+'</span><span style="color:rgba(250,248,244,.65);flex:1;">'+ev.t+'</span><span style="font-size:7px;padding:1px 5px;border-radius:2px;background:rgba(30,125,150,.1);color:'+ec+';">auto</span>';
@@ -1582,9 +1582,9 @@ if('IntersectionObserver' in window){
         <!-- TODAY (manual) -->
         <div class="roi-side roi-before">
           <div class="roi-side-head"><span class="roi-side-dot" style="--rs-c:#fb7185"></span>Today · doing it by hand</div>
-          <div class="roi-row"><span class="roi-k">Hours wasted / mo</span><span class="roi-v" id="roiHrsOut" style="color:#fb7185;">30 hrs</span></div>
-          <div class="roi-row"><span class="roi-k">Monthly cost</span><span class="roi-v" id="roiCostOut" style="color:#fb7185;">$1,200</span></div>
-          <div class="roi-row roi-row-big"><span class="roi-k">Annual admin cost</span><span class="roi-v" id="roiAnnualOut" style="color:#fb7185;">$14,400</span></div>
+          <div class="roi-row"><span class="roi-k">Hours wasted / mo</span><span class="roi-v" id="roiHrsOut" style="color:#fc9caa;">30 hrs</span></div>
+          <div class="roi-row"><span class="roi-k">Monthly cost</span><span class="roi-v" id="roiCostOut" style="color:#fc9caa;">$1,200</span></div>
+          <div class="roi-row roi-row-big"><span class="roi-k">Annual admin cost</span><span class="roi-v" id="roiAnnualOut" style="color:#fc9caa;">$14,400</span></div>
         </div>
 
         <!-- AFTER (Proximity) -->
