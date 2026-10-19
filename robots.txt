@@ -14,4 +14,10 @@ Allow: /sitemap.xml
 Allow: /favicon.svg
 Allow: /apple-touch-icon.png
 
+# And this file. A crawler cannot know any of the rules above until it has already fetched
+# this file, so Disallow was never going to stop Google or Bing reading it. What it did stop
+# was strict fetchers that re-apply the rules afterwards, and one of those falls back to
+# crawling everything when it cannot read this file, which is the opposite of the intent.
+Allow: /robots.txt
+
 Sitemap: https://proximitysystems.ca/sitemap.xml

@@ -1,0 +1,18 @@
+# Line endings are frozen on purpose.
+#
+# Every drop on this repository asserts md5 digests of the files it touches, and it asserts
+# them against the working tree rather than against the commit. Without this file those
+# digests hold only because the machine doing the checkout happens to leave line endings
+# alone. On a machine with core.autocrlf=true every text file would arrive with CRLF and
+# every digest in every verify script would fail, with nothing actually wrong.
+#
+# text=auto would NOT fix that. It normalises what goes into the repository and still lets
+# checkout rewrite what lands on disk. -text switches the conversion off in both directions,
+# so the bytes on disk equal the bytes in the commit on any machine.
+#
+# The wildcard is deliberate. A list of filenames goes stale the moment a file is added, and
+# a hand maintained list is exactly the kind of thing that drifts out of sync unnoticed.
+#
+# Checked before this was added: all 81 tracked files were text=unspecified and every text
+# file held zero CR bytes, so this changes no content today. It prevents drift tomorrow.
+* -text
