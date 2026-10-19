@@ -5,4 +5,13 @@ Allow: /index.html
 Allow: /landing.html
 Allow: /product.html
 
+# The three pages above are the only pages that should rank. Everything else in this
+# repository is a client demo or a portal and stays disallowed. These four are ASSETS those
+# pages reference, and a blanket Disallow was blocking them: the social preview image, the
+# sitemap this very file points at, and the two icons.
+Allow: /og-image.jpg
+Allow: /sitemap.xml
+Allow: /favicon.svg
+Allow: /apple-touch-icon.png
+
 Sitemap: https://proximitysystems.ca/sitemap.xml
