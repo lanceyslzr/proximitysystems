@@ -363,8 +363,12 @@ button,a,[onclick]{touch-action:manipulation;}
 
   /* Form fields, 16px prevents iOS zoom */
   .f-input,.f-select,.f-textarea{font-size:16px;padding:10px 12px}
-  .f-row{grid-template-columns:1fr}
-  .f-group{margin-bottom:10px}
+  /* One column here, and the ROW owns all the spacing: this gap between the two fields of a
+     pair, and the margin below between one pair and the next. .f-group carries none, because
+     a grid gap and a child margin both applying inside a row but only the margin applying
+     between rows is what made every other field half as far from its label. */
+  .f-row{grid-template-columns:1fr;gap:20px;margin-bottom:20px}
+  .f-group{margin-bottom:0}
   .f-label{font-size:7.5px;margin-bottom:4px}
 
   /* FAQ */
@@ -376,7 +380,6 @@ button,a,[onclick]{touch-action:manipulation;}
 
   /* Misc, handled above */
   .ba-scroll-hint{font-size:8px}
-  .f-row{grid-template-columns:1fr}
   body{cursor:auto}
   a,button{cursor:auto}
 }
