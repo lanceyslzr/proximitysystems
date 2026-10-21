@@ -398,8 +398,19 @@ button,a,[onclick]{touch-action:manipulation;}
   /* Pain grid, single col on very small screens */
   /* Timeline, single col on very small screens */
   .timeline-rail{grid-template-columns:1fr;gap:16px}
-  .tr-step{flex-direction:row;text-align:left;gap:14px;align-items:flex-start}
-  .tr-num{flex-shrink:0;margin-bottom:0}
+  /* The rail is one column at this width, and the step used to become a flex ROW. That put
+     all four children side by side: the number AND the day label AND the title AND the
+     description, each about 85px of a 390px screen. Measured, the day label and the title
+     were 43 to 57px wide and wrapped over three and four lines.
+     A two column grid puts the number beside the whole text block instead of beside every
+     line of it. Placement is explicit rather than auto flow: auto placement would put the
+     number and the day label in the same row, and that would depend on the four children
+     keeping their current source order forever. */
+  .tr-step{display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:3px;align-items:start;text-align:left;padding:0}
+  .tr-num{grid-column:1;grid-row:1 / span 3;flex-shrink:0;margin-bottom:0;align-self:start}
+  .tr-day{grid-column:2;grid-row:1}
+  .tr-title{grid-column:2;grid-row:2}
+  .tr-desc{grid-column:2;grid-row:3}
 }
 
 /*  PHONE DEMO. Each screen below is transcribed from the real portal: markup, class names
