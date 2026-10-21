@@ -46,8 +46,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(90,154,170,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(90,154,170,0.022) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,black 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,black 0%,transparent 70%);pointer-events:none;z-index:0}
 
 /* TYPE */
-.eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:7px;margin-bottom:16px}
-.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 7px rgba(61,122,138,0.8);flex-shrink:0;animation:pulse 2s ease-in-out infinite}
+.eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;color:var(--teal);text-transform:uppercase;display:flex;align-items:flex-start;gap:7px;margin-bottom:16px}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 7px rgba(61,122,138,0.8);flex-shrink:0;animation:pulse 2s ease-in-out infinite;margin-top:calc((1.6em - 5px) / 2);margin-top:calc((1lh - 5px) / 2)}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}.h1{font-family:'Fraunces',serif;font-weight:300;font-size:52px;line-height:0.92;color:#fff;letter-spacing:-0.03em;margin-bottom:20px}
 .h1 em{color:var(--teal-lt);font-style:italic}.h2{font-family:'Fraunces',serif;font-weight:300;font-size:40px;line-height:0.93;color:#fff;letter-spacing:-0.02em;margin-bottom:14px}
 .h2 em{color:var(--teal-lt);font-style:italic}
@@ -1377,7 +1377,15 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 .ps-skip{position:fixed;left:-9999px;top:0;z-index:100000;background:#070a0e;color:#fff;padding:13px 20px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1px solid var(--rb-primary,var(--teal,#2dd4bf))}
 .ps-skip:focus{left:14px;top:14px}
 #ps-main{display:block;outline:none;scroll-margin-top:96px}
-.ps-top{position:fixed;right:28px;bottom:158px;z-index:500;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#070a0e;color:var(--rb-primary,var(--teal,#2dd4bf));border:1px solid currentColor;border-radius:4px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease,visibility 0s .18s}
+/* bottom:88px, not 158px. At 158 this sits at the middle of the right edge, in the
+   text column. The chat button occupies 24 to 76 from the bottom, so 88 puts this
+   directly above it with a 12px gap and makes one corner cluster of the two. */
+.ps-top{position:fixed;right:28px;bottom:88px;z-index:500;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#070a0e;color:var(--rb-primary,var(--teal,#2dd4bf));border:1px solid currentColor;border-radius:4px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease,visibility 0s .18s}
+/* The chat panel is bottom:84px and 480px tall, so it covers 84 to 564 from the bottom, and
+   this button is z-index 500 against the panel's 299. Without this it floats on top of an
+   open chat window. Both are direct children of body with the panel first, so the sibling
+   combinator reaches it and no JavaScript is needed. */
+.chat-win.open ~ .ps-top{opacity:0;visibility:hidden;pointer-events:none}
 .ps-top.on{opacity:1;visibility:visible;transform:translateY(0);transition-delay:0s}
 @media (prefers-reduced-motion:reduce){.ps-top{transition:none}}
 @media print{
