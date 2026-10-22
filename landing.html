@@ -1184,14 +1184,15 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     max-width:760px;
     display:flex;
     flex-direction:column;
-    gap:2px;
+    gap:6px;
   }
   .pn-row{
     display:flex;
-    align-items:flex-start;
-    gap:16px;
-    padding:18px 20px;
-    text-align:left;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    padding:26px 20px;
+    text-align:center;
     border-radius:10px;
     border:1px solid transparent;
     transition:background .25s, border-color .25s;
@@ -1201,7 +1202,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     border-color:rgba(224,88,88,0.12);
   }
   .pn-ico{
-    flex:0 0 34px;
+    flex:0 0 auto;
     width:34px;height:34px;
     border-radius:9px;
     background:rgba(224,88,88,0.07);
@@ -1209,7 +1210,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     display:flex;align-items:center;justify-content:center;
     color:var(--red);
   }
-  .pn-body{display:flex;flex-direction:column;gap:4px;min-width:0;}
+  .pn-body{display:flex;flex-direction:column;gap:4px;min-width:0;align-items:center;text-align:center;}
   .pn-title{
     font-family:'Space Grotesk',system-ui,sans-serif;
     font-size:16px;font-weight:600;line-height:1.35;
@@ -1218,6 +1219,8 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   .pn-desc{
     font-size:14px;line-height:1.55;
     color:var(--text-dim);
+    max-width:52ch;
+    text-align:center;
   }
   /* The proof block closes the section with facts, not projections. */
   .pn-proof{
@@ -1244,13 +1247,24 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     color:var(--text-dim);
   }
   @media(max-width:599px){
-    .pn-row{padding:14px 14px;gap:12px;}
+    .pn-row{padding:20px 14px;gap:10px;}
     .pn-title{font-size:15px;}
     .pn-desc{font-size:13.5px;}
     .pn-proof-row{gap:28px;}
     .pn-stat-n{font-size:27px;}
   }
   @media(prefers-reduced-motion:reduce){ .pn-row{transition:none;} }
+  /* SITE68. From 700px up the five pains sit on a six track grid, three then two, the
+     second row centred, so there is no empty cell and the page keeps one axis. Each card
+     spans two tracks; the fourth starts at track two, which centres the last pair. Below
+     700px the stacked list above is unchanged. The resting card takes the values the
+     hover already used, so no new colour enters the page. Measured at 1440: the section
+     went from 1353px to 967px, every title on one line. */
+  @media(min-width:700px){
+    .pn-list{max-width:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;}
+    .pn-row{grid-column:span 2;background:rgba(224,88,88,0.035);border-color:rgba(224,88,88,0.12);}
+    .pn-row:nth-child(4){grid-column:2 / span 2;}
+  }
 
   /* The honeypot must be invisible to people and reachable by bots, so it
      cannot use display:none, which many bots skip. Off-canvas instead. */
@@ -1268,21 +1282,9 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      and description centre beneath it. That matches how the rest of the
      page reads top to bottom on one axis, and it removes the ragged left
      edge that a 34px icon column creates when the titles are different
-     lengths.
+     lengths. SITE68 folded those pain rules into the pain block itself,
+     so one block owns that section and nothing here overrides it.
      ====================================================================== */
-  .pn-row{
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    gap:12px;
-    padding:26px 20px;
-  }
-  .pn-ico{flex:0 0 auto;}
-  .pn-body{align-items:center;text-align:center;}
-  .pn-title{text-align:center;}
-  .pn-desc{text-align:center;max-width:52ch;}
-  /* Stacked rows need more air between them than a list of lines did. */
-  .pn-list{gap:6px;}
   /* .tr-step already carried align-items:center and text-align:center, so
      no rule is needed for it. Verified rather than assumed. */
   /* .faq-q is display:flex with justify-content:space-between, so
@@ -1295,9 +1297,6 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
   /* toggleFaq rotates the icon, so the open state must keep the centring
      translate or the plus jumps when it turns. */
   .faq-item.open .faq-icon{transform:translateY(-50%) rotate(45deg);}
-  @media(max-width:599px){
-    .pn-row{padding:20px 14px;gap:10px;}
-  }
 
   /* ======================================================================
      --text-muted FAILS AA EVERYWHERE.
