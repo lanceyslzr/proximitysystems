@@ -30,6 +30,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .nav-logo em{color:var(--teal-lt);font-style:italic}
 .nav-cta{background:var(--teal);color:#04130f;font-family:'Space Grotesk',system-ui,sans-serif;font-size:12px;font-weight:600;padding:9px 18px;border-radius:5px;text-decoration:none;min-height:44px;display:flex;align-items:center;transition:background 0.2s}
 .nav-cta:active{background:#2d6a7a}
+/* SITE72. On a phone the nav button took 38 percent of the bar with the same words as desktop.
+   Below 600px it says Book a Call; the height stays 44px for the tap target (L4). The hidden
+   label is display:none, so a screen reader hears only the one on screen. */
+.nav-cta-short{display:none}
+@media(max-width:599px){.nav-cta-long{display:none}.nav-cta-short{display:inline}}
 
 /* ANN */
 .ann{background:var(--teal-bg);border-bottom:1px solid var(--border);padding:9px 16px;text-align:center;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--teal-lt);text-transform:uppercase;margin-top:56px}
@@ -388,7 +393,9 @@ button,a,[onclick]{touch-action:manipulation;}
 
 @media(max-width:390px){
   body{font-size:14px;}
-  h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
+  /* SITE72. A rule here forced every h1 and h2 to about 23px on phones 390px wide and under, then
+     let them jump to the designed sizes at 391, so an iPhone visitor saw half size headings. It was
+     removed; headings take the same sizes from 360 up, measured with no overflow. */
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
   #hero{padding:56px 0 28px!important;min-height:0!important;align-items:flex-start!important;}
@@ -587,7 +594,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <nav>
   <a href="/" class="nav-logo">Proximity <em>Systems</em></a>
-  <a href="#booking" class="nav-cta">Get Your 7-Day Plan</a>
+  <a href="#booking" class="nav-cta"><span class="nav-cta-long">Get Your 7-Day Plan</span><span class="nav-cta-short">Book a Call</span></a>
 </nav>
 
 <span id="ps-main" tabindex="-1"></span>
@@ -602,8 +609,8 @@ button,a,[onclick]{touch-action:manipulation;}
       <div class="pill" id="heroEyebrow"><div class="pill-dot"></div>Live in Mississauga, ON</div>
       <div class="pill"><div class="pill-dot"></div>10 systems running</div>
     </div>
-    <h1 class="h1" style="font-size:clamp(44px,6vw,76px);text-align:center;margin-bottom:16px;">We build your<br>agency’s system in <em>7 days.</em><br>You pay <em>after</em> it runs.</h1>
-    <p class="sub" id="heroSub" style="text-align:center;max-width:520px;margin:0 auto 24px;font-size:14px;line-height:1.6;">GPS logging. AI invoicing. Family portal. Lead capture. 10 systems built for your agency. Live in 7 days. $500/mo.</p>
+    <h1 class="h1" style="font-size:clamp(44px,6vw,76px);text-align:center;margin-bottom:16px;">Are you ready to eliminate your agency’s <em>manual admin?</em></h1>
+    <p class="sub" id="heroSub" style="text-align:center;max-width:520px;margin:0 auto 24px;font-size:14px;line-height:1.6;">GPS logging. AI invoicing. Family portal. Lead capture. 10 systems built for your agency, live in 7 days. You pay after it runs.</p>
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
       <a href="#booking" class="btn" style="max-width:380px;width:100%;">Get My 7-Day Automation Plan</a>
       <div class="btn-note">Free 20-min call · No obligation · Built in 7 days</div>
@@ -674,8 +681,6 @@ button,a,[onclick]{touch-action:manipulation;}
     <span class="hero-trust-item"><span class="hero-trust-dot"></span>10 systems built</span>
     <span class="hero-trust-sep">·</span>
     <span class="hero-trust-item"><span class="hero-trust-dot"></span>Live in 7 days</span>
-    <span class="hero-trust-sep">·</span>
-    <span class="hero-trust-item"><span class="hero-trust-dot"></span>$500/mo all in</span>
     <span class="hero-trust-sep">·</span>
     <span class="hero-trust-item"><span class="hero-trust-dot"></span>We build first. You pay after.</span>
   </div>
@@ -781,7 +786,7 @@ button,a,[onclick]{touch-action:manipulation;}
       </div>
       <div class="tr-step">
         <div class="tr-num">04</div>
-        <div class="tr-day">Month 2+ · $500/mo</div>
+        <div class="tr-day">Month 2 onwards · Monthly retainer</div>
         <div class="tr-title">We stay beside you</div>
         <div class="tr-desc">Every system stays running. New features ship automatically. You never touch code.</div>
       </div>
@@ -1802,7 +1807,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button" aria-expanded="false" aria-controls="ps-faq-6" onclick="toggleFaq(this)">What does first month free mean?<span class="faq-icon">+</span></button>
-        <div class="faq-a" id="ps-faq-6">After your setup is complete, month 1 of the $500 retainer is waived. Month 2 onwards is $500 per month. You can cancel after month 3.</div>
+        <div class="faq-a" id="ps-faq-6">After your setup is complete, month 1 of the monthly retainer is waived. The retainer starts in month 2. You can cancel after month 3.</div>
       </div>
     </div>
   </div>
@@ -1829,7 +1834,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
           <span class="fos-lbl">Risk, build first</span>
         </div>
       </div>
-      <p class="final-risk">We build everything before you pay a cent. First month is <strong>free</strong>. Month 2 onwards is <strong>$500/mo</strong>. You can cancel after month 3. The call costs you 20 minutes. The build costs you nothing until you see it live.</p>
+      <p class="final-risk">We build everything before you pay a cent. First month is <strong>free</strong>. You can cancel after month 3. The call costs you 20 minutes. The build costs you nothing until you see it live.</p>
       <div class="cta-stack" style="max-width:380px;margin:0 auto">
         <a href="#booking" class="btn">Get My 7-Day Automation Plan</a>
         <div class="btn-note"><a href="tel:6473828047">647-382-8047</a> · <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a></div>
@@ -2049,7 +2054,7 @@ CRITICAL FAILURE MODES, NEVER DO THESE:
 TONE: Direct, warm, plain English. Two sentences max per reply. No bullets. No dashes. No emojis.
 
 If asked about pricing mid-flow: answer in one sentence then ask the next question.
-Pricing: $3,500 setup, $500/mo recurring. First month free. 7 days to go live. We build first, you pay after it is live.
+Pricing, three plans, first month free on every plan and setup paid after we go live: Operations $2,499 setup then $500/mo, The Full Build $3,499 setup then $500/mo, Growth Partner $4,499 setup then $750/mo. 7 days to go live. We build first, you pay after it is live.
 
 The 10 systems (only if asked): Visit logging, auto invoicing, lead capture, follow-up engine, family portal, AI chat, client and PSW onboarding, HQ dashboard, PSW management, converting website.`;
 
@@ -2067,7 +2072,7 @@ function ixMarkerChips(raw) {
     case 'agency':
     case 'city':     return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
     case 'pain':     return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
-    case 'pricing':  return ['Is the first month really free?','How long to go live?','What do I get for $500/mo?'];
+    case 'pricing':  return ['Is the first month really free?','How long to go live?','What\'s included each month?'];
     case 'timeline': return ['Do I have to touch any code?','What happens on day 7?','What do you need from me?'];
     case 'product':  return ['Tell me about the family portal','How does invoicing work?','What does the HQ look like?'];
     case 'open':
@@ -2089,8 +2094,8 @@ function getSmartChips(lastBotReply, leadCaptured) {
   // ignoring the topic. Turn count never selects buttons, because selecting an answer
   // by counting turns is that same guess with no evidence behind it at all.
   var Q_SAFE  = ['How does this work?', 'What does it cost?', 'How fast can you build?'];
-  var Q_AFTER = ['How fast can you build?', 'What does $500/mo include?', 'What happens on the call?'];
-  var Q_PRICE = ['Is the first month really free?', 'How long to go live?', 'What do I get for $500/mo?'];
+  var Q_AFTER = ['How fast can you build?', 'What\'s included each month?', 'What happens on the call?'];
+  var Q_PRICE = ['Is the first month really free?', 'How long to go live?', 'What\'s included each month?'];
   var Q_TIME  = ['Do I have to touch any code?', 'What happens on day 7?', 'What do you need from me?'];
   var Q_PROD  = ['Tell me about the family portal', 'How does invoicing work?', 'What does the HQ look like?'];
   var A_PAIN  = ['Invoicing takes forever', 'PSW tracking is a mess', 'Missing leads overnight', 'Family calls eat my time'];

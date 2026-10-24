@@ -570,7 +570,9 @@ button,a,[onclick]{touch-action:manipulation;}
 
 @media(max-width:390px){ .inner, .bld-inner { padding: 0 16px; }
   body{font-size:14px;}
-  h1,h2{font-size:clamp(1.4rem,6vw,2rem)!important;}
+  /* SITE72. A rule here forced every h1 and h2 to about 23px on phones 390px wide and under, then
+     let them jump to the designed sizes at 391, so an iPhone visitor saw half size headings. It was
+     removed; headings take the same sizes from 360 up, measured with no overflow. */
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
   /* S90. PAUSE OFFSCREEN ANIMATION.
@@ -1925,7 +1927,7 @@ h2[style*="Cormorant"] em{font-weight:400!important}
           <div class="bld-cp-title">Your Build</div>
           <div class="bld-cp-live"><span class="eyebrow-dot" style="width:5px;height:5px"></span>Live pricing</div>
         </div>
-        <div class="bld-cp-body"><div class="bld-cp-empty" id="bldEmpty">Select systems to<br>build your package</div><div id="bldActive" style="display:none"><div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div><div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div><div class="bld-cp-row"><span>Monthly</span><b id="bldMonthlyVal"></b></div><div class="bld-cp-rule"></div><div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div><div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div><div class="bld-cp-note" id="bldSaveNote"></div><div class="bld-pipe-strip" id="bldPipeline"></div></div><button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Book a Free Call</button><button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button><p class="bld-cp-fine">Build first &middot; Pay after &middot; First month free</p></div>
+        <div class="bld-cp-body"><div class="bld-cp-empty" id="bldEmpty">Select systems to<br>build your package</div><div id="bldActive" style="display:none"><div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div><div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div><div class="bld-cp-rule"></div><div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div><div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div><div class="bld-cp-note" id="bldSaveNote"></div><div class="bld-pipe-strip" id="bldPipeline"></div></div><button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Book a Free Call</button><button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button><p class="bld-cp-fine">Build first &middot; Pay after &middot; First month free</p></div>
       </div>
     </div>
 
@@ -3017,7 +3019,7 @@ function ixMarkerChips(raw) {
     case 'agency':
     case 'city':     return ['My agency is in Ontario','We operate in BC','We serve multiple cities'];
     case 'pain':     return ['Invoicing takes forever','PSW tracking is a mess','Missing leads overnight','Family calls eat my time'];
-    case 'pricing':  return ['Is the first month really free?','How long to go live?','What do I get for $500/mo?'];
+    case 'pricing':  return ['Is the first month really free?','How long to go live?','What\'s included each month?'];
     case 'timeline': return ['Do I have to touch any code?','What happens on day 7?','What do you need from me?'];
     case 'product':  return ['Tell me about the family portal','How does invoicing work?','What does the HQ look like?'];
     case 'open':
@@ -3039,8 +3041,8 @@ function getSmartChips(lastBotReply, leadCaptured) {
   // ignoring the topic. Turn count never selects buttons, because selecting an answer
   // by counting turns is that same guess with no evidence behind it at all.
   var Q_SAFE  = ['How does this work?', 'What does it cost?', 'How fast can you build?'];
-  var Q_AFTER = ['How fast can you build?', 'What does $500/mo include?', 'What happens on the call?'];
-  var Q_PRICE = ['Is the first month really free?', 'How long to go live?', 'What do I get for $500/mo?'];
+  var Q_AFTER = ['How fast can you build?', 'What\'s included each month?', 'What happens on the call?'];
+  var Q_PRICE = ['Is the first month really free?', 'How long to go live?', 'What\'s included each month?'];
   var Q_TIME  = ['Do I have to touch any code?', 'What happens on day 7?', 'What do you need from me?'];
   var Q_PROD  = ['Tell me about the family portal', 'How does invoicing work?', 'What does the HQ look like?'];
   var A_PAIN  = ['Invoicing takes forever', 'PSW tracking is a mess', 'Missing leads overnight', 'Family calls eat my time'];
