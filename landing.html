@@ -1184,7 +1184,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     max-width:760px;
     display:flex;
     flex-direction:column;
-    gap:6px;
+    gap:10px;
   }
   .pn-row{
     display:flex;
@@ -1194,7 +1194,8 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     padding:26px 20px;
     text-align:center;
     border-radius:10px;
-    border:1px solid transparent;
+    border:1px solid rgba(224,88,88,0.12);
+    background:rgba(224,88,88,0.035);
     transition:background .25s, border-color .25s;
   }
   .pn-row:hover{
@@ -1235,7 +1236,13 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     color:var(--text-dim);
     margin-bottom:18px;
   }
-  .pn-proof-row{display:flex;justify-content:center;gap:56px;flex-wrap:wrap;}
+  /* SITE70. The four stats wrapped as a free row with a fixed gap, so below 1024 they broke
+     1, 2, 1 on a phone and 3 then 1 on a tablet, leaving one stat alone. Four need 736px side
+     by side. The box first reaches that at 818 with 2px to spare and stops growing at 840,
+     760px wide, so four sit across from 840 and two by two below it. Each column is capped at
+     240px and the pair centred, so on a tablet the two columns do not drift apart; the widest
+     stat is 201px. */
+  .pn-proof-row{display:grid;grid-template-columns:repeat(2,minmax(0,240px));justify-content:center;column-gap:16px;row-gap:22px;}
   .pn-stat{display:flex;flex-direction:column;gap:5px;}.pn-stat-n{
     font-family:'Cormorant Garamond',serif;
     font-size:34px;font-weight:400;line-height:1;
@@ -1247,10 +1254,8 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     color:var(--text-dim);
   }
   @media(max-width:599px){
-    .pn-row{padding:20px 14px;gap:10px;}
+    .pn-row{padding:18px 16px;gap:10px;}
     .pn-title{font-size:15px;}
-    .pn-desc{font-size:13.5px;}
-    .pn-proof-row{gap:28px;}
     .pn-stat-n{font-size:27px;}
   }
   @media(prefers-reduced-motion:reduce){ .pn-row{transition:none;} }
@@ -1262,8 +1267,14 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      went from 1353px to 967px, every title on one line. */
   @media(min-width:700px){
     .pn-list{max-width:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;}
-    .pn-row{grid-column:span 2;background:rgba(224,88,88,0.035);border-color:rgba(224,88,88,0.12);}
+    .pn-row{grid-column:span 2;}
     .pn-row:nth-child(4){grid-column:2 / span 2;}
+  }
+  /* SITE70. The card fill moved into the base .pn-row rule, so phones show the five pains as
+     the same cards desktop does, and the rule above no longer repeats it. The phone description
+     size of 13.5px was removed, so the 14px reading floor holds at every width. */
+  @media(min-width:840px){
+    .pn-proof-row{grid-template-columns:repeat(4,max-content);justify-content:center;column-gap:56px;}
   }
 
   /* The honeypot must be invisible to people and reachable by bots, so it
