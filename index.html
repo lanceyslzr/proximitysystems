@@ -184,6 +184,14 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .market-flag { font-size: 24px; }
   .market-name { font-size: 12px; color:var(--rb-faint); margin-bottom: 4px; }
   .market-status { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
+  /* SITE73. On phones the footer centres its text, so each market name centred inside the space
+     beside its flag and the rows did not line up. Under 769px the list is as wide as its widest row
+     and centred as one block, with the rows left aligned inside it, so flags, names and statuses
+     each share one edge. */
+  @media (max-width: 768px) {
+    .footer-markets { width: max-content; max-width: 100%; margin: 8px auto 0; }
+    .market-item > div:last-child { text-align: left; }
+  }
   .footer-bottom { padding: 24px 64px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   .footer-copy { font-size: 10px; color: rgba(255,255,255,0.15); letter-spacing: 1px; }
   .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); z-index: 90; padding: 16px 24px; }
@@ -2723,7 +2731,7 @@ h2[style*="Cormorant"] em{font-weight:400!important}
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span style="color:#2dd4bf;font-size:14px;">●</span>
-        <span style="font-family:'DM Mono',monospace;font-size:14px;color:var(--rb-faint);letter-spacing:1px;">Now onboarding 4 new agencies a month</span>
+        <span style="font-family:'DM Mono',monospace;font-size:14px;color:var(--rb-faint);letter-spacing:1px;">Onboarding 3 agencies at a time</span>
       </div>
     </div>
   </div>
@@ -2792,7 +2800,7 @@ h2[style*="Cormorant"] em{font-weight:400!important}
       <span class="cta-offer-div"></span>
       <span class="cta-offer-item"><span class="cta-offer-tick">✓</span>Live in 7 days</span>
       <span class="cta-offer-div"></span>
-      <span class="cta-offer-item"><span class="cta-live-dot"></span>4 new agencies a month</span>
+      <span class="cta-offer-item"><span class="cta-live-dot"></span>3 agencies at a time</span>
     </div>
     <div class="cta-btns reveal">
       <a href="#cta" onclick="openBldModal();return false;" class="btn-primary">Build My Systems Today</a>
@@ -2970,7 +2978,7 @@ CRITICAL FAILURE MODES, NEVER DO THESE:
 TONE: Direct, warm, plain English. Two sentences max. No bullets. No dashes. No emojis.
 
 If asked about pricing: answer in one sentence then continue.
-Pricing, three plans, first month free on every plan and setup paid after we go live: Operations $2,499 setup then $500/mo, The Full Build $3,499 setup then $500/mo, Growth Partner $4,499 setup then $750/mo. 7 days to go live. We serve agencies across Canada now and the US soon, and take 4 new agencies a month.
+Pricing, three plans, first month free on every plan and setup paid after we go live: Operations $2,499 setup then $500/mo, The Full Build $3,499 setup then $500/mo, Growth Partner $4,499 setup then $750/mo. 7 days to go live. We serve agencies across Canada now and the US soon, and onboard 3 agencies at a time.
 10 systems: GPS visit logging, AI care summaries, auto invoicing, payroll CSV, lead capture, follow-up engine, family portal, AI chatbot, HQ dashboard with scheduling, PSW portal, all connected, done for you.`;
 
 let ixH = [], ixB = false, ixD = false;

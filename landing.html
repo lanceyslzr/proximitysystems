@@ -131,6 +131,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .footer-logo em{color:var(--teal-lt);font-style:italic}
 .footer-contact{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.1em;color:var(--text-muted);line-height:2;text-transform:uppercase}
 .footer-contact a{color:var(--text-dim);text-decoration:none}
+/* SITE73. The phone number split at its hyphen under the booking button from 344 to 390px, and a
+   separator dot ended the first footer line on phones. On phones the footer and the booking note
+   now put each item on its own line with no dots, which keeps the number whole: measured from
+   280 to 1024px. The note that already fits on one line keeps its dot. */
+@media(max-width:599px){.btn-note .cs,.footer-contact .cs,.footer-contact .cbr{display:none}.btn-note .ci,.footer-contact .ci{display:block}}
 
 /* CHAT */
 .chat-toggle{position:fixed;bottom:24px;right:20px;width:52px;height:52px;border-radius:50%;background:var(--teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(61,122,138,0.45);z-index:300;transition:transform 0.2s}
@@ -1762,7 +1767,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
         <div class="booking-footer">
           <div class="f-error" id="f-error" role="alert" aria-live="polite"></div>
           <button class="btn" id="f-submit" onclick="submitForm()" style="margin-bottom:8px">Book My Free Call</button>
-          <div class="btn-note">Lance responds within a few hours · <a href="tel:6473828047">647-382-8047</a></div>
+          <div class="btn-note"><span class="ci">Lance responds within a few hours</span><span class="cs"> · </span><span class="ci"><a href="tel:6473828047">647-382-8047</a></span></div>
         </div>
       </div>
       <div class="booking-success" id="bookingSuccess">
@@ -1846,7 +1851,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 <footer>
   <div class="footer-logo">Proximity <em>Systems</em></div>
   <p style="font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:14px;max-width:400px;margin-left:auto;margin-right:auto">We build the full back office for home care agencies in 7 days.</p>
-  <div class="footer-contact">Lance Salazar &nbsp;·&nbsp; <a href="tel:6473828047">647-382-8047</a> &nbsp;·&nbsp; <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a><br>Mississauga, Ontario &nbsp;·&nbsp; proximitysystems.ca</div>
+  <div class="footer-contact"><span class="ci">Lance Salazar</span><span class="cs"> &nbsp;·&nbsp; </span><span class="ci"><a href="tel:6473828047">647-382-8047</a></span><span class="cs"> &nbsp;·&nbsp; </span><span class="ci"><a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a></span><br class="cbr"><span class="ci">Mississauga, Ontario</span><span class="cs"> &nbsp;·&nbsp; </span><span class="ci">proximitysystems.ca</span></div>
 </footer>
 
 <!-- CHAT -->
