@@ -751,7 +751,7 @@ button,a,[onclick]{touch-action:manipulation;}
     <div class="pn-proof">
             <div class="pn-proof-lbl">Built by a PSW. Proven in our own agency.</div>
             <div class="pn-proof-row">
-              <div class="pn-stat"><span class="pn-stat-n">22,000+</span><span class="pn-stat-l">Hours in the field, 8 years as a PSW</span></div>
+              <div class="pn-stat"><span class="pn-stat-n">15,000</span><span class="pn-stat-l">Hours in the field, 8 years as a PSW</span></div>
               <div class="pn-stat"><span class="pn-stat-n">1,200+</span><span class="pn-stat-l">Hours logged in the system</span></div>
               <div class="pn-stat"><span class="pn-stat-n">$0</span><span class="pn-stat-l">Admin staff</span></div>
               <div class="pn-stat"><span class="pn-stat-n">$40K</span><span class="pn-stat-l">Coordinator salary, gone</span></div>
@@ -1167,10 +1167,11 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
      THE STRIP'S NUMBERS, measured 2026-09-29 against server.js at HEAD.
      Re-measure before any push, these move as the agency operates:
-       22,000+  Lance's own bedside hours. 8 years as a PSW, 10 hour days,
-                11 days worked in every 14. 2,296 days x 10h = 22,959.
-                A pattern, not a record, so it prints as 22,000+ and it is
-                labelled his, never the system's.
+       15,000   Lance's own bedside hours over 8 years as a PSW. His stated
+                figure, set by him on 2026 10 24 (SITE74). It replaced 22,000+,
+                which was worked out from a shift pattern (10 hour days, 11 in
+                every 14) rather than stated by him. Printed as he gave it, with
+                no plus, and labelled his, never the system's.
        1,200+   select sum(hours_worked) from visits
                 where status in ('complete','completed')
                   and operator_id <> 'demo-op'          -> 1,245
