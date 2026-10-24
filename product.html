@@ -285,6 +285,10 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   /*  ROI CALCULATOR  */
   .roi-verdict{margin-top:24px;border-left:2px solid var(--teal-dark);padding:16px 20px;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:rgba(255,255,255,0.55);line-height:1.5}
   .roi-verdict strong{color:#fff;font-style:normal}
+  /* SITE71. The calculator's side padding was set inline, so the 1024px and 768px rules below
+     (24px, the edge the builder above it uses) never applied, and on a phone its cards sat 48px
+     in against the builder's 40. The padding now lives here, ahead of those rules, so they work. */
+  #roi-calc{ padding:84px 32px 78px; }
 
   /*  HORMOZI 3-TIER PRICING  */
 
@@ -885,7 +889,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   background:none; border:none; cursor:pointer; transition:color var(--t2) var(--e), background var(--t2) var(--e); }
 .roi-step-btn:hover{ color:var(--rb-text); background:rgba(255,255,255,.03); }
 .roi-step-div{ width:1px; height:22px; background:var(--rb-line); }
-.roi-step-lbl{ width:60px; text-align:center; font-family:var(--rb-mono); font-size:7px; letter-spacing:2px;
+.roi-step-lbl{ width:60px; text-align:center; font-family:var(--rb-mono); font-size:12px; letter-spacing:1px;
   text-transform:uppercase; color:var(--rb-faint); }
 /* before / after */
 .roi-compare{ display:flex; flex-direction:column; gap:12px; }
@@ -893,15 +897,19 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .roi-before{ background:rgba(251,113,133,.05); border:1px solid rgba(251,113,133,.18); }
 .roi-after{ background:linear-gradient(160deg,var(--rb-panel),var(--rb-base)); border:1px solid var(--rb-line);
   box-shadow:0 0 0 1px rgba(45,212,191,.06), 0 20px 50px -20px rgba(0,0,0,.6); }
-.roi-side-head{ display:flex; align-items:center; gap:8px; font-family:var(--rb-mono); font-size:9px;
+.roi-side-head{ display:flex; align-items:center; gap:8px; font-family:var(--rb-mono); font-size:12px;
   letter-spacing:1.5px; text-transform:uppercase; color:var(--rb-dim); margin-bottom:14px; }
 .roi-side-dot{ width:7px; height:7px; border-radius:50%; background:var(--rs-c,var(--rb-primary));
   box-shadow:0 0 8px var(--rs-c,var(--rb-primary)); }
-.roi-row{ display:flex; justify-content:space-between; align-items:baseline; padding:7px 0;
+.roi-row{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; column-gap:12px; padding:7px 0;
   border-bottom:1px solid var(--rb-line); }
 .roi-row:last-child{ border-bottom:none; }
-.roi-k{ font-family:var(--rb-mono); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:var(--rb-dim); }
-.roi-v{ font-family:var(--rb-serif); font-size:26px; font-weight:400; color:var(--rb-text); font-variant-numeric:tabular-nums; }
+/* SITE71. These labels say what each money figure means, and at 7 to 9px they were the smallest
+   text on the page. SITE59 raised the price terms to 12px for the same reason; these follow it.
+   A value never breaks inside itself; when a row cannot hold both, the value moves under its
+   label and stays at the right edge. */
+.roi-k{ font-family:var(--rb-mono); font-size:12px; letter-spacing:.5px; text-transform:uppercase; color:var(--rb-dim); }
+.roi-v{ font-family:var(--rb-serif); font-size:26px; font-weight:400; color:var(--rb-text); font-variant-numeric:tabular-nums; white-space:nowrap; margin-left:auto; }
 .roi-row-big .roi-v{ font-size:30px; }
 .roi-good{ color:var(--rb-primary)!important; }
 .roi-verdict{ font-family:var(--rb-serif); font-style:italic; font-size:16px; font-weight:300;
@@ -1517,7 +1525,7 @@ if('IntersectionObserver' in window){
     </div>
   </div>
 </div>
-<div id="roi-calc" style="padding:84px 32px 78px;position:relative;border-top:1px solid var(--rb-line);">
+<div id="roi-calc" style="position:relative;border-top:1px solid var(--rb-line);">
   <div class="inner" style="max-width:920px;margin:0 auto;">
     <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">What Admin Actually Costs You</div></div>
     <h2 class="s-title reveal" style="text-align:center;margin-bottom:14px;">What are you spending<br><em>right now?</em></h2>
@@ -1545,7 +1553,7 @@ if('IntersectionObserver' in window){
               style="transition:cx .45s cubic-bezier(.4,0,.2,1),cy .45s cubic-bezier(.4,0,.2,1);"/>
           </svg>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-            <div style="font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--rb-dim);margin-bottom:4px;">clients</div>
+            <div style="font-family:var(--rb-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--rb-dim);margin-bottom:4px;">clients</div>
             <div id="roiClients" style="font-family:var(--rb-serif);font-size:60px;font-weight:400;color:var(--rb-text);line-height:1;">10</div>
           </div>
         </div>
@@ -1556,7 +1564,7 @@ if('IntersectionObserver' in window){
           <div class="roi-step-div"></div>
           <button onclick="roiAdj(5)" class="roi-step-btn" aria-label="more clients">+</button>
         </div>
-        <div style="font-family:var(--rb-mono);font-size:8px;color:var(--rb-faint);letter-spacing:1px;text-transform:uppercase;">5, 50 clients</div>
+        <div style="font-family:var(--rb-mono);font-size:12px;color:var(--rb-faint);letter-spacing:1px;text-transform:uppercase;">5 to 50 clients</div>
       </div>
 
       <!-- BEFORE / AFTER -->
