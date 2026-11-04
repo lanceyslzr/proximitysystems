@@ -3121,6 +3121,10 @@ function ixChips(chips) {
   el.innerHTML = chips.map(c =>
     `<button class="ix-chip" onclick="ixSendText(this.textContent)">${c}</button>`
   ).join('');
+  // PSCHT1. The chips take room under the messages after the reply was scrolled into view; scroll again so the
+  // newest reply is not left half hidden behind them.
+  const m = document.getElementById('ixChatMsgs');
+  if (m) m.scrollTop = m.scrollHeight;
 }
 
 function ixSend() {

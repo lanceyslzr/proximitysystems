@@ -2101,7 +2101,10 @@ function getSmartChips(lastBotReply, leadCaptured) {
 
   return Q_SAFE;
 }
-function showChips(chips){const el=document.getElementById('chatChips');if(!el)return;el.innerHTML='';chips.forEach(t=>{const b=document.createElement('button');b.className='cchip';b.textContent=t;b.onclick=()=>{el.innerHTML='';sendC(t);};el.appendChild(b);});}
+function showChips(chips){const el=document.getElementById('chatChips');if(!el)return;el.innerHTML='';chips.forEach(t=>{const b=document.createElement('button');b.className='cchip';b.textContent=t;b.onclick=()=>{el.innerHTML='';sendC(t);};el.appendChild(b);});
+  // PSCHT1. The chips take room under the messages after the reply was scrolled into view; scroll again so the
+  // newest reply is not left half hidden behind them.
+  const c=document.getElementById('chatMsgs');if(c)c.scrollTop=c.scrollHeight;}
 function doSend(){const inp=document.getElementById('chatInp');const t=inp.value.trim();if(!t)return;inp.value='';sendC(t);}
 async function sendC(text){
   if(!text||cB)return;
