@@ -116,12 +116,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .f-input,.f-select,.f-textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:'Space Grotesk',system-ui,sans-serif;font-size:16px;color:var(--text);outline:none;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;min-height:44px}
 .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--teal)}
 .f-input::placeholder,.f-textarea::placeholder{color:var(--text-muted)}
-.f-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%236a8a92' d='M5 7L1 3h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer;color:var(--text-dim)}
-.f-select option{background:#0e1419;color:var(--text)}
 .booking-footer{padding:14px 20px;border-top:1px solid var(--border);background:var(--bg2)}
 .booking-success{display:none;text-align:center;padding:48px 20px}
 .booking-success.show{display:block}.success-title{font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:#fff;margin-bottom:8px}
 .success-sub{font-size:14px;color:var(--text-dim);line-height:1.7}
+/* PSRSV1. Reserve My Spot popup: the booking card in an overlay, a dropdown month calendar and the day's times. */
+.rs-ov{position:fixed;inset:0;z-index:2000;background:rgba(3,5,8,.8);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;justify-content:center;align-items:flex-start;overflow-y:auto;overscroll-behavior:contain;padding:24px 16px calc(24px + env(safe-area-inset-bottom))}
+.rs-ov.open,.rs-ov:target{display:flex}
+.rs-card{position:relative;width:100%;max-width:480px;margin:auto 0;text-align:left;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.rs-card .booking-head{gap:10px;padding-right:56px;position:relative}
+.rs-x{position:absolute;top:50%;right:6px;transform:translateY(-50%);width:44px;height:44px;border:0;background:transparent;color:var(--text-dim);font-size:26px;line-height:1;cursor:pointer;touch-action:manipulation}
+.rs-x:hover{color:#fff}
+.rs-intro{font-size:15px;line-height:1.6;color:var(--text-dim);margin:0 0 16px}
+.rs-card .booking-body>.f-group{margin-bottom:16px}
+.rs-card .booking-body>.f-group:last-of-type{margin-bottom:0}
+.rs-pickday{display:flex;align-items:center;justify-content:space-between;min-height:48px;text-align:left;cursor:pointer;color:var(--text);touch-action:manipulation}
+.rs-pickday::after{content:"";width:8px;height:8px;border-right:2px solid var(--teal);border-bottom:2px solid var(--teal);transform:rotate(45deg);margin:-4px 4px 0 12px;flex-shrink:0}
+.rs-pickday[aria-expanded="true"]::after{transform:rotate(-135deg);margin-top:4px}
+.rs-cal{margin-top:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px}
+.rs-cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.rs-cal-month{font-family:'Fraunces',serif;font-size:18px;font-weight:400;color:#fff}
+.rs-cal-nav{width:44px;height:44px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-size:18px;cursor:pointer;touch-action:manipulation}
+.rs-cal-nav:disabled{opacity:.3;cursor:default}
+.rs-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.rs-cal-dow{text-align:center;font-size:12px;color:var(--text-muted);padding:4px 0}
+.rs-day{min-height:44px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--text-muted);font-family:'Space Grotesk',system-ui,sans-serif;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:2px 0;touch-action:manipulation}
+.rs-day small{font-size:9px;letter-spacing:.02em;line-height:1}
+.rs-day.open{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.35);color:#fff;cursor:pointer}
+.rs-day.open:hover{border-color:var(--teal)}
+.rs-day[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#04130f;font-weight:600}
+.rs-day.gone small{color:var(--text-dim)}
+.rs-times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rs-time{min-height:44px;border-radius:6px;border:1px solid rgba(45,212,191,.35);background:rgba(45,212,191,.08);color:#fff;font-family:'Space Grotesk',system-ui,sans-serif;font-size:15px;cursor:pointer;touch-action:manipulation}
+.rs-time:hover{border-color:var(--teal)}
+.rs-time[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#04130f;font-weight:600}
+.rs-time:disabled{background:transparent;border-color:var(--border);color:var(--text-muted);text-decoration:line-through;cursor:default}
+.ba-scroll-hint.rs-hint{display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:20px;text-decoration:none;animation:none}
+html.rs-lock,html.rs-lock body{overflow:hidden}
 
 /* FINAL */
 .final-box{background:var(--teal-bg);border:1px solid var(--border-b);border-radius:12px;padding:44px 24px;text-align:center;margin-top:32px}
@@ -354,7 +385,7 @@ button,a,[onclick]{touch-action:manipulation;}
   .ann{margin-top:52px;font-size:8.5px;padding:8px 16px}
 
   /* Hero */
-  #hero{padding:72px 0 40px!important;min-height:0!important;align-items:flex-start!important;justify-content:flex-start!important}
+  #hero{padding:72px 16px 40px!important;min-height:0!important;align-items:flex-start!important;justify-content:flex-start!important}
   .hero-pills{margin-bottom:18px}
   .cta-stack{max-width:100%}
   .hero-trust{gap:4px;margin-top:16px;flex-wrap:nowrap;overflow:hidden;}.hero-trust-item{font-size:8px;letter-spacing:0.08em;white-space:nowrap;}.hero-trust-sep{font-size:9px;flex-shrink:0;}
@@ -403,7 +434,7 @@ button,a,[onclick]{touch-action:manipulation;}
      removed; headings take the same sizes from 360 up, measured with no overflow. */
   .container,.wrap,[class*="section"]{padding-left:14px!important;padding-right:14px!important;}
   input,select,textarea{font-size:16px!important;}
-  #hero{padding:56px 0 28px!important;min-height:0!important;align-items:flex-start!important;}
+  #hero{padding:56px 14px 28px!important;min-height:0!important;align-items:flex-start!important;}
   .hero-trust{flex-wrap:wrap;gap:3px;}
   .hero-trust-item{font-size:7px;}
   .hero-trust-sep{display:none;}
@@ -599,7 +630,7 @@ button,a,[onclick]{touch-action:manipulation;}
 
 <nav>
   <a href="/" class="nav-logo">Proximity <em>Systems</em></a>
-  <a href="#booking" class="nav-cta"><span class="nav-cta-long">Get Your 7-Day Plan</span><span class="nav-cta-short">Book a Call</span></a>
+  <a href="#reserve" class="nav-cta" data-reserve><span class="nav-cta-long">Reserve My Spot</span><span class="nav-cta-short">Reserve</span></a>
 </nav>
 
 <span id="ps-main" tabindex="-1"></span>
@@ -617,7 +648,7 @@ button,a,[onclick]{touch-action:manipulation;}
     <h1 class="h1" style="font-size:clamp(44px,6vw,76px);text-align:center;margin-bottom:16px;">Are you ready to eliminate your agency’s <em>manual admin?</em></h1>
     <p class="sub" id="heroSub" style="text-align:center;max-width:520px;margin:0 auto 24px;font-size:14px;line-height:1.6;">GPS logging. AI invoicing. Family portal. Lead capture. 10 systems built for your agency, live in 7 days. You pay after it runs.</p>
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <a href="#booking" class="btn" style="max-width:380px;width:100%;">Get My 7-Day Automation Plan</a>
+      <a href="#reserve" class="btn" data-reserve style="max-width:380px;width:100%;">Reserve My Spot</a>
       <div class="btn-note">Free 20-min call · No obligation · Built in 7 days</div>
     </div>
   </div>
@@ -1717,10 +1748,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
     </div><!-- /asc-grid -->
 
-    <div class="ba-scroll-hint" style="margin-top:32px;">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Get your 7-day plan
-    </div>
+    <a href="#reserve" class="ba-scroll-hint rs-hint" data-reserve>Reserve your spot</a>
   </div>
 </section>
 
@@ -1729,55 +1757,46 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 
 
 <!--  PROOF  -->
-<!--  OFFER + BOOKING  -->
-<section id="offer" class="sec-edge" style="background:var(--bg)">
-  <div class="sec w" style="text-align:center;">
-    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-dot"></div>Book Your Free Call</div>
-    <h2 class="h2">Tell us about<br>your agency.<br><em>We handle the rest.</em></h2>
-    <p class="sub" style="max-width:480px;margin:0 auto 28px;">20-minute call with Lance. No pitch. Just the exact plan for your agency. We build first and you pay after we are live.</p>
-
-    <div class="booking-card" id="booking">
-      <div class="booking-head">
-        <span class="booking-head-title">Book Your Free Call</span>
-        <span class="booking-head-badge"><span class="live-dot"></span>Free · 20 min</span>
-      </div>
-      <div id="bookingForm">
-        <div class="booking-body">
-          <div class="f-row">
-            <div class="f-group"><label class="f-label" for="f-name">Your Name *</label><input class="f-input" id="f-name" type="text" placeholder="Full name" autocomplete="name"></div>
-            <div class="f-group"><label class="f-label" for="f-phone">Phone *</label><input class="f-input" id="f-phone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
-          </div>
-          <div class="f-row">
-            <div class="f-group"><label class="f-label" for="f-agency">Agency Name *</label><input class="f-input" id="f-agency" type="text" placeholder="Your agency name"></div>
-            <div class="f-group"><label class="f-label" for="f-city">City *</label><input class="f-input" id="f-city" type="text" placeholder="City, Province"></div>
-          </div>
-          <div class="f-row">
-            <div class="f-group"><label class="f-label" for="f-email">Email *</label><input class="f-input" id="f-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
-            <div class="f-group"><label class="f-label" for="f-clients">Clients Served</label><select class="f-select" id="f-clients"><option value="">Select...</option><option>Under 10</option><option>10 to 30</option><option>30 to 100</option><option>100+</option></select></div>
-          </div>
-          <div class="f-group"><label class="f-label" for="f-start">When do you want to be live</label><select class="f-select" id="f-start"><option value="">Select...</option><option value="Within 2 weeks">Within 2 weeks</option><option value="Within a month">Within a month</option><option value="Just exploring">Just exploring</option></select></div>
-          <!-- Honeypot. The handler checks _hp: bots fill it, humans never
-               see it. The form had none, so bot submissions were landing in
-               the leads table as real leads. -->
-          <div class="f-hp" aria-hidden="true" role="presentation"><label>Do not fill this in<input id="f-hp" type="text" tabindex="-1" autocomplete="off"></label></div>
+<!--  RESERVE MY SPOT (PSRSV1). One popup for every call to action.  -->
+<div class="rs-ov" id="reserve" role="dialog" aria-modal="true" aria-labelledby="rs-title" data-lenis-prevent>
+  <div class="booking-card rs-card" id="booking">
+    <div class="booking-head">
+      <span class="booking-head-title" id="rs-title">Reserve your spot</span>
+      <span class="booking-head-badge"><span class="live-dot"></span>3 spots open</span>
+      <button class="rs-x" type="button" aria-label="Close" data-rs-close>&times;</button>
+    </div>
+    <div id="bookingForm">
+      <div class="booking-body">
+        <p class="rs-intro">Pick a day and a time. Lance calls you: 20 minutes, free, no obligation.</p>
+        <div class="f-row">
+          <div class="f-group"><label class="f-label" for="f-name">Your Name *</label><input class="f-input" id="f-name" type="text" placeholder="Full name" autocomplete="name"></div>
+          <div class="f-group"><label class="f-label" for="f-phone">Phone *</label><input class="f-input" id="f-phone" type="tel" placeholder="647-000-0000" autocomplete="tel"></div>
         </div>
-        <input type="hidden" id="utmSource" name="utm_source" value="">
-        <input type="hidden" id="utmMedium" name="utm_medium" value="">
-        <input type="hidden" id="utmCampaign" name="utm_campaign" value="">
-        <input type="hidden" id="pageSrc" name="page_src" value="">
-        <div class="booking-footer">
-          <div class="f-error" id="f-error" role="alert" aria-live="polite"></div>
-          <button class="btn" id="f-submit" onclick="submitForm()" style="margin-bottom:8px">Book My Free Call</button>
-          <div class="btn-note"><span class="ci">Lance responds within a few hours</span><span class="cs"> · </span><span class="ci"><a href="tel:6473828047">647-382-8047</a></span></div>
+        <div class="f-group"><label class="f-label" for="f-email">Email *</label><input class="f-input" id="f-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
+        <div class="f-group">
+          <span class="f-label" id="rs-day-l">Day *</span>
+          <button class="f-input rs-pickday" type="button" id="rs-pickday" aria-expanded="false" aria-controls="rs-cal" aria-labelledby="rs-day-l rs-pickday">Pick a day</button>
+          <div class="rs-cal" id="rs-cal" hidden></div>
         </div>
+        <div class="f-group" id="rs-time-g" hidden>
+          <span class="f-label" id="rs-time-l">Time, Toronto *</span>
+          <div class="rs-times" id="rs-times" role="group" aria-labelledby="rs-time-l"></div>
+        </div>
+        <div class="f-hp" aria-hidden="true" role="presentation"><label>Do not fill this in<input id="f-hp" type="text" tabindex="-1" autocomplete="off"></label></div>
       </div>
-      <div class="booking-success" id="bookingSuccess">
-        <div class="success-title">That did not go through.</div>
-        <p class="success-sub">We could not confirm your booking. Call Lance directly at <a href="tel:6473828047">647-382-8047</a> or email <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a> and he will sort it out.</p>
+      <input type="hidden" id="utmSource" name="utm_source" value="">
+      <input type="hidden" id="utmMedium" name="utm_medium" value="">
+      <input type="hidden" id="utmCampaign" name="utm_campaign" value="">
+      <input type="hidden" id="pageSrc" name="page_src" value="">
+      <div class="booking-footer">
+        <div class="f-error" id="f-error" role="alert" aria-live="polite"></div>
+        <button class="btn" type="button" id="f-submit" style="margin-bottom:8px;width:100%">Reserve My Spot</button>
+        <div class="btn-note"><span class="ci">Or call Lance</span><span class="cs"> · </span><span class="ci"><a href="tel:6473828047">647-382-8047</a></span></div>
       </div>
     </div>
+    <div class="booking-success" id="bookingSuccess" role="status" aria-live="polite"></div>
   </div>
-</section>
+</div>
 
 
 
@@ -1842,7 +1861,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
       </div>
       <p class="final-risk">We build everything before you pay a cent. First month is <strong>free</strong>. You can cancel after month 3. The call costs you 20 minutes. The build costs you nothing until you see it live.</p>
       <div class="cta-stack" style="max-width:380px;margin:0 auto">
-        <a href="#booking" class="btn">Get My 7-Day Automation Plan</a>
+        <a href="#reserve" class="btn" data-reserve>Reserve My Spot</a>
         <div class="btn-note"><a href="tel:6473828047">647-382-8047</a> · <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a></div>
       </div>
     </div>
@@ -1884,150 +1903,90 @@ const LEAD_URL='https://proximity-agent-production.up.railway.app/webhook/lead';
 const RAIL='https://proximity-agent-production.up.railway.app/chat';
 
 
-// BOOKING
-async function showSlotPicker(leadId, firstName, confirmEl, submitBtn) {
-  if (!confirmEl) return; // guard null
-  confirmEl.style.display = 'block';
-  confirmEl.innerHTML = '<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.6);font-family:\'DM Mono\',monospace;font-size:16px;letter-spacing:1px;">LOADING AVAILABLE TIMES...</div>';
-
-  let slots = [];
-  try {
-    const r = await fetch('https://proximity-agent-production.up.railway.app/leads/call-slots');
-    const d = await r.json();
-    slots = d.slots || [];
-  } catch(e) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">Lance will reach out within 2 hours to confirm a time. You can also call him at <a href="tel:6473828047">647-382-8047</a> or email <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a>.</span>';
-    return;
-  }
-
-  if (!slots.length) {
-    confirmEl.innerHTML = '<strong style="color:#fff;">You\'re on the list, ' + firstName + '.</strong><br><br><span style="color:rgba(255,255,255,0.6);font-size:16px;">No times are showing right now, so nothing is scheduled yet. Lance will call you within 2 hours, or reach him at <a href="tel:6473828047">647-382-8047</a> or <a href="mailto:hello@proximitysystems.ca">hello@proximitysystems.ca</a>.</span>';
-    return;
-  }
-
-  // Group slots by date
-  const byDate = {};
-  slots.forEach(s => {
-    const date = s.label.split(' at ')[0];
-    if (!byDate[date]) byDate[date] = [];
-    byDate[date].push(s);
-  });
-
-  const dateKeys = Object.keys(byDate).slice(0, 5);
-
-  let html = '<div style="margin-bottom:14px;text-align:center;">'
-    + '<strong style="color:#fff;font-size:20px;">Pick a time for your call</strong>'
-    + '<p style="color:rgba(255,255,255,0.55);font-size:16px;margin:4px 0 0;font-family:\'DM Mono\',monospace;letter-spacing:.5px;">20 min · Lance calls you · Toronto time</p>'
-    + '</div>';
-
-  dateKeys.forEach((date, di) => {
-    html += '<div style="margin-bottom:12px;">'
-      + '<div style="font-family:\'DM Mono\',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;text-align:center;">' + date + '</div>'
-      + '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">';
-    byDate[date].forEach(slot => {
-      const time = slot.label.split(' at ')[1] || slot.label;
-      html += '<button onclick="bookSlot(\'' + leadId + '\',\'' + slot.value + '\',\'' + firstName + '\',this)" '
-        + 'style="min-height:44px;padding:12px 18px;min-height:44px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);'
-        + 'border-radius:8px;color:rgba(255,255,255,0.85);font-family:\'DM Mono\',monospace;font-size:16px;'
-        + 'cursor:pointer;transition:all .2s;touch-action:manipulation;"'
-        + ' onmouseover="this.style.background=\'rgba(61,138,122,0.2)\';this.style.borderColor=\'rgba(61,138,122,0.5)\'"'
-        + ' onmouseout="this.style.background=\'rgba(255,255,255,0.06)\';this.style.borderColor=\'rgba(255,255,255,0.15)\'">'
-        + time + '</button>';
-    });
-    html += '</div></div>';
-  });
-
-  confirmEl.innerHTML = '<div class="slot-rows">' + html + '</div>';
-}
-
-async function bookSlot(leadId, slotValue, firstName, btn) {
-  // Safely disable sibling slot buttons without crashing
-  try {
-    const wrap = btn.closest('.slot-rows') || btn.closest('.slot-picker');
-    if (wrap) { wrap.querySelectorAll('button').forEach(b => { b.disabled = true; }); }
-    else { btn.disabled = true; }
-  } catch(e) { try { btn.disabled = true; } catch(e2){} }
-  try { btn.textContent = 'Booking...'; btn.style.background = 'rgba(61,138,122,0.3)'; } catch(e){}
-
-  try {
-    const r = await fetch('https://proximity-agent-production.up.railway.app/leads/book-call', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lead_id: leadId, slot: slotValue, operator_id: 'proximity-systems' })
-    });
-    const d = await r.json();
-    const slotLabel = slotValue.replace(/_/g, ' ');
-    // Find container safely
-    let container = null;
-    try { container = btn.closest('.slot-picker'); } catch(e) {}
-    if (!container) {
-      let el = btn;
-      for (let i = 0; i < 6; i++) {
-        if (!el || !el.parentElement) break;
-        el = el.parentElement;
-        if (el.classList && el.classList.contains('slot-picker')) { container = el; break; }
-        if (el.id) { container = el; break; }
-      }
+// RESERVE MY SPOT (PSRSV1). One popup for every call to action. Lance's week: five days, 10 AM to 10 PM, two
+// of them ending at 3 PM; about 30 percent of days and 20 percent of the open days' times are not offered. The
+// same days and times show for everyone (picked from the date and hour, not at random), from tomorrow for four
+// weeks, Toronto time. The
+// booking goes to /leads/book-discovery, which creates the lead, books the time and sends the Proximity Systems
+// confirmation in one request.
+(function(){
+  var API='https://proximity-agent-production.up.railway.app';
+  var ov=document.getElementById('reserve'); if(!ov) return;
+  var WEEK={1:21,2:14,3:21,4:14,5:21};               // weekday: last start hour (Mon to Fri; Tue and Thu end at 3 PM)
+  var FIRST=10, DAYS_OFF=30, TIMES_OFF=20;            // first start 10 AM; about 30 of every 100 days and 20 of every 100 times not open
+  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DAY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var $=function(id){return document.getElementById(id);};
+  var cal=$('rs-cal'), pick=$('rs-pickday'), tg=$('rs-time-g'), times=$('rs-times'), err=$('f-error'), go=$('f-submit');
+  var view=null, day=null, slot=null, lastFocus=null, busy=false;
+  function torontoToday(){var p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()).split('-');return Date.UTC(+p[0],+p[1]-1,+p[2]);}
+  function iso(t){return new Date(t).toISOString().slice(0,10);}
+  function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0)%100;}
+  function hl(h){return (h%12||12)+':00 '+(h<12?'AM':'PM');}
+  function slotsFor(t){var w=new Date(t).getUTCDay(),last=WEEK[w];if(!last)return null;var d=iso(t),off=hash(d+' day')<DAYS_OFF,out=[];for(var h=FIRST;h<=last;h++)out.push({h:h,open:!off&&hash(d+' '+h)>=TIMES_OFF});return out;}
+  var T0=torontoToday(), START=T0+864e5, END=T0+28*864e5;
+  function label(t,h){var x=new Date(t);return DAY[x.getUTCDay()]+', '+MON[x.getUTCMonth()]+' '+x.getUTCDate()+' at '+hl(h);}
+  function drawCal(){
+    var y=new Date(view).getUTCFullYear(), m=new Date(view).getUTCMonth(), first=Date.UTC(y,m,1), days=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+    var minM=new Date(START).getUTCFullYear()*12+new Date(START).getUTCMonth(), maxM=new Date(END).getUTCFullYear()*12+new Date(END).getUTCMonth(), cur=y*12+m;
+    var h='<div class="rs-cal-head"><button type="button" class="rs-cal-nav" data-nav="-1" aria-label="Previous month"'+(cur<=minM?' disabled':'')+'>&#8249;</button><span class="rs-cal-month">'+MON[m]+' '+y+'</span><button type="button" class="rs-cal-nav" data-nav="1" aria-label="Next month"'+(cur>=maxM?' disabled':'')+'>&#8250;</button></div><div class="rs-cal-grid">';
+    ['S','M','T','W','T','F','S'].forEach(function(d){h+='<span class="rs-cal-dow" aria-hidden="true">'+d+'</span>';});
+    for(var i=0;i<new Date(first).getUTCDay();i++)h+='<span></span>';
+    for(var d=1;d<=days;d++){
+      var t=Date.UTC(y,m,d), s=(t>=START&&t<=END)?slotsFor(t):null, n=s?s.filter(function(x){return x.open;}).length:0, nm=DAY[new Date(t).getUTCDay()]+', '+MON[m]+' '+d;
+      if(t<START||t>END) h+='<button type="button" class="rs-day" disabled aria-label="'+nm+', not bookable">'+d+'</button>';
+      else if(!s) h+='<button type="button" class="rs-day" disabled aria-label="'+nm+', closed">'+d+'<small>Closed</small></button>';
+      else if(!n) h+='<button type="button" class="rs-day gone" disabled aria-label="'+nm+', no times open">'+d+'<small>Off</small></button>';
+      else h+='<button type="button" class="rs-day open" data-t="'+t+'" aria-pressed="'+(day===t)+'" aria-label="'+nm+', '+n+' times open">'+d+'</button>';
     }
-    const target = container || (btn.parentElement ? btn.parentElement.parentElement || btn.parentElement : document.body);
-    if (target) target.innerHTML = '<strong style="color:#fff;font-size:20px;">You\'re booked, ' + firstName + '.</strong>'
-      + '<br><br><div style="background:rgba(61,138,122,0.15);border:1px solid rgba(61,138,122,0.3);border-radius:10px;padding:14px 16px;margin-top:4px;">'
-      + '<div style="font-family:\'DM Mono\',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(61,138,122,0.95);margin-bottom:6px;">CONFIRMED</div>'
-      + '<div style="color:#fff;font-size:18px;">' + slotLabel + '</div>'
-      + '<div style="color:rgba(255,255,255,0.5);font-size:16px;margin-top:4px;">Lance calls you · check your email for confirmation</div>'
-      + '</div>';
-  } catch(e) {
-    try { btn.textContent = 'Error, try again'; btn.disabled = false; } catch(e2){}
+    cal.innerHTML=h+'</div>';
   }
-}
-
-async function submitForm(){
-  const name=((document.getElementById('f-name')||{}).value||'').trim();
-  const phone=((document.getElementById('f-phone')||{}).value||'').trim();
-  const email=(document.getElementById('f-email')||{}).value||'';
-  const agency=((document.getElementById('f-agency')||{}).value||'').trim();
-  const city=((document.getElementById('f-city')||{}).value||'').trim();
-  const clients=((document.getElementById('f-clients')||{}).value||'');
-  const start=((document.getElementById('f-start')||{}).value||'').trim();
-  var _lf=function(id){return document.getElementById(id);};
-  var _lerr=_lf('f-error');
-  var bad=[];
-  if(!name)   bad.push(['f-name','your name']);
-  if(!phone)  bad.push(['f-phone','a phone number']);
-  if(!agency) bad.push(['f-agency','your agency name']);
-  if(!city)   bad.push(['f-city','your city']);
-  // Email is optional here, but if given it must be usable: it is sent to
-  // the webhook and it is how the plan comes back.
-  if(!email) bad.push(['f-email','your email address']);
-       else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) bad.push(['f-email','a valid email address']);
-  ['f-name','f-phone','f-agency','f-city','f-email'].forEach(function(id){
-    var el=_lf(id); if(!el) return;
-    el.setAttribute('aria-invalid', bad.some(function(b){return b[0]===id;}) ? 'true' : 'false');
+  function drawTimes(){
+    var s=slotsFor(day)||[]; times.innerHTML='';
+    s.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='rs-time';b.textContent=hl(x.h);
+      if(!x.open){b.disabled=true;b.setAttribute('aria-label',hl(x.h)+', unavailable');}
+      else{b.setAttribute('aria-pressed',String(slot&&slot.h===x.h));b.addEventListener('click',function(){slot={t:day,h:x.h};drawTimes();err.classList.remove('show');});}
+      times.appendChild(b);});
+    tg.hidden=false;
+  }
+  function setOpen(o){cal.hidden=!o;pick.setAttribute('aria-expanded',String(o));if(o)drawCal();}
+  pick.addEventListener('click',function(){setOpen(cal.hidden);});
+  cal.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||b.disabled)return;
+    if(b.dataset.nav){var x=new Date(view);view=Date.UTC(x.getUTCFullYear(),x.getUTCMonth()+(+b.dataset.nav),1);drawCal();return;}
+    if(b.dataset.t){day=+b.dataset.t;slot=null;var x2=new Date(day);pick.textContent=DAY[x2.getUTCDay()]+', '+MON[x2.getUTCMonth()]+' '+x2.getUTCDate();setOpen(false);drawTimes();}});
+  function open(e){if(e)e.preventDefault();lastFocus=document.activeElement;ov.classList.add('open');document.documentElement.classList.add('rs-lock');
+    if(view===null){var s=new Date(START);view=Date.UTC(s.getUTCFullYear(),s.getUTCMonth(),1);}
+    setTimeout(function(){var n=$('f-name');if(n&&$('bookingForm').style.display!=='none')n.focus();},60);}
+  function close(){ov.classList.remove('open');document.documentElement.classList.remove('rs-lock');
+    if(location.hash==='#reserve'||location.hash==='#booking')history.replaceState(null,'',location.pathname+location.search);
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  document.querySelectorAll('[data-reserve]').forEach(function(a){a.addEventListener('click',open);});
+  ov.addEventListener('click',function(e){if(e.target===ov||e.target.closest('[data-rs-close]'))close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.classList.contains('open'))close();});
+  if(location.hash==='#reserve'||location.hash==='#booking')open();
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function done(first,when,email){$('bookingForm').style.display='none';var sc=$('bookingSuccess');sc.classList.add('show');
+    sc.innerHTML='<div class="success-title">You’re in, '+esc(first)+'.</div><p class="success-sub">Lance calls you '+esc(when)+', Toronto time. A confirmation is on its way to '+esc(email)+'.</p><button class="btn" type="button" data-rs-close style="margin-top:20px;width:100%">Done</button>';}
+  go.addEventListener('click',function(){
+    if(busy)return;
+    var name=$('f-name').value.trim(), phone=$('f-phone').value.trim(), email=$('f-email').value.trim(), m='', bad=null;
+    if(!name){m='Add your name.';bad='f-name';}
+    else if(phone.replace(/\D/g,'').length<10){m='Add a phone number Lance can call.';bad='f-phone';}
+    else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){m='Add an email for your confirmation.';bad='f-email';}
+    else if(!slot){m=day?'Pick a time.':'Pick a day and a time.';}
+    ['f-name','f-phone','f-email'].forEach(function(id){$(id).removeAttribute('aria-invalid');});
+    if(m){err.textContent=m;err.classList.add('show');if(bad){$(bad).setAttribute('aria-invalid','true');$(bad).focus();}return;}
+    err.textContent='';err.classList.remove('show');
+    var parts=name.split(/\s+/), first=parts.shift(), last=parts.join(' '), when=label(slot.t,slot.h);
+    if($('f-hp').value){done(first,when,email);return;}
+    busy=true;go.disabled=true;go.textContent='Reserving...';
+    var u=($('utmSource')||{}).value||'', src='landing_reserve'+(u&&u!=='direct'?' utm:'+u.slice(0,40):'');   // filled by the page's behaviour engine (src or utm_source)
+    fetch(API+'/leads/book-discovery',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({first_name:first,last_name:last,phone:phone,email:email,slot:when,operator_id:'proximity-systems',lead_type:'operator',source:src})})
+      .then(function(r){if(!r.ok)throw new Error(String(r.status));return r.json();})
+      .then(function(){done(first,when,email);})
+      .catch(function(){busy=false;go.disabled=false;go.textContent='Reserve My Spot';err.textContent='That did not go through. Try again, or call Lance at 647-382-8047.';err.classList.add('show');});
   });
-  if(bad.length){
-    if(_lerr){
-      _lerr.textContent='Please enter '+bad.map(function(b){return b[1];}).join(', ')+'.';
-      _lerr.classList.add('show');
-    }
-    // Move focus to the FIRST problem, or a keyboard user has to hunt for
-    // which of four fields the message meant.
-    var f=_lf(bad[0][0]); if(f)f.focus();
-    return;
-  }
-  if(_lerr){_lerr.textContent='';_lerr.classList.remove('show');}
-  const btn=document.getElementById('f-submit');btn.disabled=true;btn.textContent='Submitting...';
-  const parts=name.split(/\s+/);const first=parts.shift();const last=parts.join(' ')||'';
-  try{
-    const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operator_id:'proximity-systems',lead_type:'operator',first_name:first,last_name:last,phone,email:email,city,care_needed_for:agency,care_type_interest:clients||'Not specified',urgency:(document.getElementById('f-start')||{}).value||'not specified',utm_source:(document.getElementById('utmSource')||{}).value||null,utm_medium:(document.getElementById('utmMedium')||{}).value||null,utm_campaign:(document.getElementById('utmCampaign')||{}).value||null,_hp:(document.getElementById('f-hp')||{}).value||null,source:'Proximity Systems Website'})});
-    if(!res.ok)throw new Error();
-    var _d={};try{_d=await res.json();}catch(_e){_d={};}
-    var _leadId=_d.lead_id||null;
-    document.getElementById('bookingForm').style.display='none';
-    var _sc=document.getElementById('bookingSuccess');
-    _sc.classList.add('show');
-    if(_leadId){await showSlotPicker(_leadId,first,_sc,btn);}
-  }catch(e){alert('Something went wrong. Call Lance at 647-382-8047.');btn.disabled=false;btn.textContent='Book My Free Call';}
-}
+})();
 
 // CHAT
 const SYS=`You are a sales assistant for Proximity Systems, the only done-for-you AI operating system built and proven inside a real home care agency in Canada.
