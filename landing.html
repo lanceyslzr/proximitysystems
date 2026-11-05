@@ -2048,7 +2048,12 @@ function ixMarkerChips(raw) {
   }
 }
 
-function getSmartChips(lastBotReply, leadCaptured) {
+// PSCHT3. Never offer what the visitor has already sent: a chip they tapped or a question they typed is left out.
+function chipsNotAsked(chips, history) {
+  var said = (history || []).filter(function (m) { return m && m.role === 'user'; }).map(function (m) { return String(m.content).trim().toLowerCase(); });
+  return (chips || []).filter(function (c) { return said.indexOf(String(c).trim().toLowerCase()) === -1; });
+}
+function getSmartChips(lastBotReply, leadCaptured, asked) {
   var r = (lastBotReply || '').toLowerCase();
 
   // THE RULE THIS FUNCTION OBEYS
@@ -2065,8 +2070,18 @@ function getSmartChips(lastBotReply, leadCaptured) {
   var Q_PROD  = ['Tell me about the family portal', 'How does invoicing work?', 'What does the HQ look like?'];
   var A_PAIN  = ['Invoicing takes forever', 'PSW tracking is a mess', 'Missing leads overnight', 'Family calls eat my time'];
   var A_WHERE = ['My agency is in Ontario', 'We operate in BC', 'We serve multiple cities'];
+  // PSCHT3. A question row leaves out what was asked and tops back up to its size from the other questions, in
+  // this fixed order, so the visitor always has fresh questions. An answer row is never topped up with questions.
+  var Q_ALL = Q_SAFE.concat(Q_PRICE, Q_TIME, Q_PROD, Q_AFTER);
+  function fresh(list) {
+    var out = chipsNotAsked(list, asked);
+    for (var i = 0; i < Q_ALL.length && out.length < list.length; i++) {
+      if (out.indexOf(Q_ALL[i]) === -1 && chipsNotAsked([Q_ALL[i]], asked).length) out.push(Q_ALL[i]);
+    }
+    return out;
+  }
 
-  if (leadCaptured) return Q_AFTER;
+  if (leadCaptured) return fresh(Q_AFTER);
 
   // OPEN questions. A person answers these by typing. No button can carry a name or a
   // phone number, so the row is cleared rather than filled with strings that are
@@ -2088,18 +2103,18 @@ function getSmartChips(lastBotReply, leadCaptured) {
   var asksWhere = r.includes('what city') || r.includes('which city') || r.includes('where are you')
     || r.includes('where do you') || r.includes('located') || r.includes('agency called')
     || r.includes('name of your agency') || r.includes('what agency');
-  if (asksPain) return A_PAIN;
-  if (asksWhere) return A_WHERE;
+  if (asksPain) return chipsNotAsked(A_PAIN, asked);
+  if (asksWhere) return chipsNotAsked(A_WHERE, asked);
 
   // TOPICAL statements. The bot explained something rather than asking, so the safe
   // move is a follow up question about what it just explained.
   if (r.includes('$500') || r.includes('3,500') || r.includes('pricing') || r.includes('per month')
-    || r.includes('/mo') || r.includes('free month')) return Q_PRICE;
-  if (r.includes('7 day') || r.includes('go live') || r.includes('we build first')) return Q_TIME;
+    || r.includes('/mo') || r.includes('free month')) return fresh(Q_PRICE);
+  if (r.includes('7 day') || r.includes('go live') || r.includes('we build first')) return fresh(Q_TIME);
   if (r.includes('family portal') || r.includes('hq dashboard') || r.includes('psw portal')
-    || r.includes('invoicing') || r.includes('care summar')) return Q_PROD;
+    || r.includes('invoicing') || r.includes('care summar')) return fresh(Q_PROD);
 
-  return Q_SAFE;
+  return fresh(Q_SAFE);
 }
 function showChips(chips){const el=document.getElementById('chatChips');if(!el)return;el.innerHTML='';chips.forEach(t=>{const b=document.createElement('button');b.className='cchip';b.textContent=t;b.onclick=()=>{el.innerHTML='';sendC(t);};el.appendChild(b);});
   // PSCHT1. The chips take room under the messages after the reply was scrolled into view; scroll again so the
@@ -2121,7 +2136,7 @@ async function sendC(text){
     addM('bot',reply);cH.push({role:'assistant',content:reply});
     // Regenerate chips after every bot response
     const _ixMk = ixMarkerChips(raw);
-    showChips(_ixMk !== null ? _ixMk : getSmartChips(reply, cD));
+    showChips(_ixMk !== null ? chipsNotAsked(_ixMk, cH) : getSmartChips(reply, cD, cH));
     if(cD){var _inp=document.getElementById('chatInp');if(_inp)_inp.placeholder='Lance will be in touch. Keep chatting if you have questions.';}
   }catch(e){hideT();addM('bot','Something went wrong. Reach Lance at 647-382-8047.');}
   finally{cB=false;document.getElementById('chatSendBtn').disabled=false;}
