@@ -15,11 +15,11 @@
 <style>
 :root{
   --bg:#07090c;--bg2:#0d1219;--bg3:#121822;
-  --teal:#2dd4bf;--teal-lt:#2dd4bf;--teal-bg:#0b2028;
+  --teal:#6a9eaa;--teal-lt:#9cc3cc;--teal-bg:#0b2028;--cta:#D4A843;--cta-hover:#e2b955;
   --red:#fc99a8;--green:#34d399;--gold:#c8a96e;
   --text:#e6eaed;--text-dim:#e6eaed;--text-muted:#3a5a62;
   --rb-text:#eef2f6;--rb-dim:#e6eaed;--rb-faint:#b5bec6;
-  --border:rgba(90,154,170,0.12);--border-b:rgba(90,154,170,0.25);
+  --border:rgba(255,255,255,0.08);--border-b:rgba(255,255,255,0.14);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
@@ -28,8 +28,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:#fff;text-decoration:none;letter-spacing:5px}
 .nav-logo em{color:var(--teal-lt);font-style:italic}
-.nav-cta{background:var(--teal);color:#04130f;font-family:'DM Sans',system-ui,sans-serif;font-size:12px;font-weight:600;padding:9px 18px;border-radius:5px;text-decoration:none;min-height:44px;display:flex;align-items:center;transition:background 0.2s}
-.nav-cta:active{background:#2d6a7a}
+.nav-cta{background:var(--cta);color:#04130f;font-family:'DM Sans',system-ui,sans-serif;font-size:12px;font-weight:600;padding:9px 18px;border-radius:5px;text-decoration:none;min-height:44px;display:flex;align-items:center;transition:background 0.2s}
+.nav-cta:active{background:#b8902f}
 /* SITE72. On a phone the nav button took 38 percent of the bar with the same words as desktop.
    Below 600px it says Book a Call; the height stays 44px for the tap target (L4). The hidden
    label is display:none, so a screen reader hears only the one on screen. */
@@ -37,7 +37,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 @media(max-width:599px){.nav-cta-long{display:none}.nav-cta-short{display:inline}}
 
 /* ANN */
-.ann{background:var(--teal-bg);border-bottom:1px solid var(--border);padding:9px 16px;text-align:center;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--teal-lt);text-transform:uppercase;margin-top:56px}
+.ann{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 16px;text-align:center;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--teal-lt);text-transform:uppercase;margin-top:56px}
 .ann strong{color:#fff}
 
 /* LAYOUT */
@@ -47,8 +47,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
      section edges. See .sec-edge. */
 
 /* BG */
-.bg-glow{position:fixed;top:-200px;left:-200px;width:min(700px,100vw);height:min(700px,100vw);background:radial-gradient(circle,rgba(61,122,138,0.08) 0%,transparent 60%);pointer-events:none;z-index:0}
-.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(90,154,170,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(90,154,170,0.022) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,black 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 20% 30%,black 0%,transparent 70%);pointer-events:none;z-index:0}
 
 /* TYPE */
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}/* PSLND1. One type system: Cormorant for headings, DM Sans for reading, DM Mono only for figures. */
@@ -57,8 +55,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .sub{font-size:17px;color:var(--text-dim);line-height:1.65;margin-bottom:24px;max-width:640px;text-wrap:pretty}
 
 /* BUTTONS */
-.btn{display:flex;align-items:center;justify-content:center;background:var(--teal);color:#04130f;font-family:'DM Sans',system-ui,sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:6px;text-decoration:none;border:none;cursor:pointer;min-height:52px;transition:background 0.2s,transform 0.1s;width:100%}
-.btn:active{transform:scale(0.98);background:#2d6a7a}
+.btn{display:flex;align-items:center;justify-content:center;background:var(--cta);color:#04130f;font-family:'DM Sans',system-ui,sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:6px;text-decoration:none;border:none;cursor:pointer;min-height:52px;transition:background 0.2s,transform 0.1s;width:100%}
+.btn:active{transform:scale(0.98);background:#b8902f}
 .btn:disabled{background:var(--text-muted);cursor:not-allowed}
 .btn-note{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.12em;color:var(--text-muted);text-align:center;margin-top:9px;text-transform:uppercase}
 .cta-stack{display:flex;flex-direction:column;gap:9px;max-width:420px}
@@ -138,12 +136,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,9,12,0.96)
 .rs-cal-dow{text-align:center;font-size:12px;color:var(--text-muted);padding:4px 0}
 .rs-day{min-height:44px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--text-muted);font-family:'DM Sans',system-ui,sans-serif;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:2px 0;touch-action:manipulation}
 .rs-day small{font-size:9px;letter-spacing:.02em;line-height:1}
-.rs-day.open{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.35);color:#fff;cursor:pointer}
+.rs-day.open{background:rgba(106,158,170,.1);border-color:rgba(106,158,170,.45);color:#fff;cursor:pointer}
 .rs-day.open:hover{border-color:var(--teal)}
 .rs-day[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#04130f;font-weight:600}
 .rs-day.gone small{color:var(--text-dim)}
 .rs-times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.rs-time{min-height:44px;border-radius:6px;border:1px solid rgba(45,212,191,.35);background:rgba(45,212,191,.08);color:#fff;font-family:'DM Sans',system-ui,sans-serif;font-size:15px;cursor:pointer;touch-action:manipulation}
+.rs-time{min-height:44px;border-radius:6px;border:1px solid rgba(106,158,170,.45);background:rgba(106,158,170,.1);color:#fff;font-family:'DM Sans',system-ui,sans-serif;font-size:15px;cursor:pointer;touch-action:manipulation}
 .rs-time:hover{border-color:var(--teal)}
 .rs-time[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#04130f;font-weight:600}
 .rs-time:disabled{background:transparent;border-color:var(--border);color:var(--text-muted);text-decoration:line-through;cursor:default}
@@ -256,7 +254,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 
 /* Pain section background, slightly warmer than mini-demo */
-#pain { background: rgba(224,88,88,0.03) !important; border-top: 1px solid rgba(224,88,88,0.08); border-bottom: 1px solid rgba(224,88,88,0.08); }
 
 /* Named enemy strip, stronger red border */
 
@@ -265,8 +262,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 nav .nav-logo { letter-spacing:5px; }
 
 /* CTA buttons on landing, slightly warmer */
-.btn { background: var(--teal) !important; }
-.btn:hover { background: var(--teal-lt) !important; }
+.btn { background: var(--cta) !important; }
+.btn:hover { background: var(--cta-hover) !important; }
 
 
 /* ASYMMETRIC CUT, brand signature */
@@ -611,8 +608,6 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
 
-<div class="bg-glow"></div>
-<div class="bg-grid"></div>
 
 <nav>
   <a href="/" class="nav-logo">Proximity <em>Systems</em></a>
@@ -872,7 +867,7 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
 .asc-name{font-size:17px;font-weight:600;color:#f0ede8;padding:16px 18px 4px;}
 .asc-desc{font-size:15px;line-height:1.5;color:rgba(230,234,237,.72);padding:0 18px 20px;text-wrap:pretty;}
 .asc-hq{grid-column:span 3;}
-.asc-hq .asc-anim{zoom:1.9;height:100px;}
+.asc-hq .asc-anim{zoom:1.9;height:84px;}
 /* Cormorant draws old style figures by default, so a 7 drops below the line. Numbers sit on it. */
 .h1,.h2,.pn-stat-n,.fos-val{font-variant-numeric:lining-nums tabular-nums}
 @media(max-width:899px){.asc-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
@@ -1007,14 +1002,6 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
      carries an explicit class instead, which also survives anyone inserting
      a comment later.
      ====================================================================== */
-  .sec-edge{
-    border-top:1px solid transparent;
-    border-image:linear-gradient(90deg,
-      transparent 0%,
-      rgba(61,122,138,.9) 22%,
-      rgba(61,122,138,.9) 78%,
-      transparent 100%) 1;
-  }
   /* The edge needs room above the first child, which is usually an eyebrow
      carrying its own margin. */
   /* The shoulder is declared once, with the .w fix below. Two blocks
@@ -1184,20 +1171,20 @@ if(sec){if('IntersectionObserver' in window){var ob=new IntersectionObserver(fun
     padding:26px 20px;
     text-align:center;
     border-radius:10px;
-    border:1px solid rgba(224,88,88,0.12);
-    background:rgba(224,88,88,0.035);
+    border:1px solid transparent;
+    background:rgba(255,255,255,0.03);
     transition:background .25s, border-color .25s;
   }
   .pn-row:hover{
-    background:rgba(224,88,88,0.035);
-    border-color:rgba(224,88,88,0.12);
+    background:rgba(255,255,255,0.045);
+    border-color:transparent;
   }
   .pn-ico{
     flex:0 0 auto;
     width:34px;height:34px;
     border-radius:9px;
-    background:rgba(224,88,88,0.07);
-    border:1px solid rgba(224,88,88,0.16);
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.12);
     display:flex;align-items:center;justify-content:center;
     color:var(--red);
   }
