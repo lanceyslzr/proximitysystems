@@ -27,7 +27,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://proximitysystems.ca/product.html">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <style>
@@ -66,9 +66,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(90,138,106,0.3);}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(90,138,106,0);} }
   
   .section-wrap { padding:clamp(56px,8vw,92px) 64px; max-width: 100%; }
-    .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-  .eyebrow-line { width: 40px; height: 1px; background: var(--teal); }
-  .eyebrow-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); } .s-title.dark { color: var(--dark); }
   .s-title em { font-style: italic; color: var(--teal); }
 
@@ -434,7 +431,6 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
   /*  COMPOSITION SYSTEM, centered header spine (all sections consistent)  */
-  .section-eyebrow, .rv-eyebrow, .tl-eyebrow { justify-content: center; text-align: center; }
   .tl-title, .s-title, .cta-title, .rv-title { text-align: center; margin-left: auto; margin-right: auto; max-width: 22ch; }
   .tl-sub, .s-sub, .cta-sub, .section-sub { text-align: center; margin-left: auto; margin-right: auto; max-width: 60ch; }
 
@@ -453,7 +449,7 @@ button,a,[onclick]{touch-action:manipulation;}
   /* system color-code map */
   --sys-gps:#44c1f8; --sys-invoice:#fbbf24; --sys-family:#34d399;
   --sys-sched:#c0acfb; --sys-ai:#2dd4bf; --sys-lead:#fc9caa;
-  --rb-serif:'Fraunces',serif; --rb-sans:'Space Grotesk',sans-serif; --rb-mono:'DM Mono',monospace;
+  --rb-serif:'Cormorant Garamond',serif; --rb-sans:'DM Sans',sans-serif; --rb-mono:'DM Mono',monospace;
 }
 /*  BASE CANVAS, unify the split light/dark into one dark system  */
 body{ background:var(--rb-void)!important; color:var(--rb-text)!important; font-family:var(--rb-sans)!important; }
@@ -464,15 +460,15 @@ body::before{ opacity:.35!important; }
 /*  TYPE SYSTEM, three voices  */
 .hero-h1-new,.s-title,.tl-title,.cta-title,.rv-title,.hero-title{
   font-family:var(--rb-serif)!important; font-weight:300!important;
-  letter-spacing:-.015em!important; color:var(--rb-text)!important;
-  font-optical-sizing:auto; }
+  letter-spacing:0!important; color:var(--rb-text)!important;
+  font-variant-numeric:lining-nums; }
+h1.hero-h1-new em{ font-style:italic!important; }
 .hero-h1-new em,.s-title em,.tl-title em,.cta-title em,.rv-title em{
-  font-style:italic!important; font-weight:400!important;
+  font-style:normal!important; font-weight:400!important;
   background:linear-gradient(120deg,var(--rb-primary),var(--sys-gps))!important;
   -webkit-background-clip:text!important; background-clip:text!important;
   -webkit-text-fill-color:transparent!important; }
-.hero-eyebrow-new,.eyebrow-tag,.tl-eyebrow,.rv-eyebrow,.section-eyebrow,
-.sc-num,.nav-links a,.hsn-label,.footer-col-title{
+.hero-eyebrow-new,.sc-num{
   font-family:var(--rb-mono)!important; }
 .hero-sub-new,.tl-sub,.s-sub,.cta-sub,.section-sub,.sc-desc,.sc-name,
 .package-intro-text,.tl-card-body,.tl-card-title{
@@ -507,7 +503,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .footer-brand em{ color:var(--rb-primary)!important; }
 
 /*  COMPOSITION, centered spine (kept)  */
-.section-eyebrow,.rv-eyebrow,.tl-eyebrow{ justify-content:center!important; text-align:center!important; }
 .tl-title,.s-title,.cta-title,.rv-title{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:20ch!important; }
 .tl-sub,.s-sub,.cta-sub,.section-sub{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:58ch!important; }
 
@@ -549,7 +544,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 :root{ --rb-dim:#e6eaed!important; }
 [style*="color:var(--teal-dark)"]{ color:var(--rb-primary)!important; }
 /* 6. section eyebrow lines that were teal-dark */
-.eyebrow-line{ background:var(--rb-primary)!important; }
 /* the device visual now sits BELOW the copy, centered, as a hero showpiece */
 
 /*  PROOF STAT CARDS, kill cream islands, glowing dark KPIs  */
@@ -1019,10 +1013,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
   <!-- Section header -->
   <div style="text-align:center;padding:0 24px 48px;">
-    <div style="display:inline-flex;align-items:center;gap:10px;font-family:var(--rb-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#2dd4bf;margin-bottom:16px;">
-      <div style="width:5px;height:5px;border-radius:50%;background:#3d8a7a;animation:psDot 2s infinite;"></div>
-      The Operating System · Live
-    </div>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:300;color:#faf8f4;line-height:1.05;margin-bottom:12px;">See exactly what you're buying.<br><em style="color:#2dd4bf;font-style:italic;">Before you book a call.</em></h2>
     <p style="font-size:14px;color:rgba(250,248,244,.47);max-width:480px;margin:0 auto;line-height:1.8;letter-spacing:.3px;">Three portals. Real UI. Real triggers. This is what runs inside your agency on day 8.</p>
   </div>
@@ -1513,7 +1503,6 @@ if('IntersectionObserver' in window){
 
 <div id="builder">
   <div class="bld-inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Build Your Package</div></div>
     <h2 class="s-title dark reveal" style="margin-bottom:12px">Pick What Your<br>Agency <em>Actually Needs.</em></h2>
     <p style="font-size:14px;color:var(--muted);line-height:2;margin-bottom:36px;max-width:520px">Ten systems built for you. Setup from $2,499, and the first month is free. Select what fits and book a call, we will handle the rest.</p>
     <div class="bld-compact-wrap">
@@ -1537,7 +1526,6 @@ if('IntersectionObserver' in window){
 </div>
 <div id="roi-calc" style="position:relative;border-top:1px solid var(--rb-line);">
   <div class="inner" style="max-width:920px;margin:0 auto;">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">What Admin Actually Costs&nbsp;You</div></div>
     <h2 class="s-title reveal" style="text-align:center;margin-bottom:14px;">What are you spending<br><em>right now?</em></h2>
     <p class="section-sub reveal" style="margin-bottom:56px;">Drag your client count. This is the admin time and money your agency burns every month doing it by hand, and what it looks like once the system runs it instead.</p>
 
@@ -1760,6 +1748,28 @@ Built and led by Lance Salazar · Founder, Proximity Systems · Mississauga, Ont
 h2[style*="Cormorant"]{
   font-family:var(--rb-serif)!important;font-weight:300!important}
 h2[style*="Cormorant"] em{font-weight:400!important}
+
+/* PSTYP1. The type, in one place. Headlines in Cormorant Garamond, text in DM Sans. Mono stays for numbers, times and
+   the pictures of a spreadsheet, a terminal, an invoice and redacted data, and nowhere else. Words that were set in
+   capitals with wide spacing now read as written. One italic line per page: the hero's. Figures are the standard
+   lining kind, so 10 reads 10 in Cormorant. These rules hold at every width on purpose, which is why the block sits
+   after the media blocks; it sets only font, case, spacing, style and figures, never size or layout. The inline
+   styles that the review strip's phone layout matches on are not touched; they are overridden from here.
+   Each list names only what this page has. */
+.ps-skip,.bld-chip-count,.bld-chip-selall,.bld-row-free,.bld-cp-live,.bld-cp-empty,.bld-cp-btn,.bld-cp-ghost,
+.bld-cp-fine,.bld-ps-foot,.footer-col-title,.nav-links a,.nav-cta,.mobile-menu a,.mf-label,.mf-submit,.mf-note,
+.mf-note a,.roi-step-lbl,.roi-side-head,.roi-k,.market-status,.pp-back,.footer-copy,#roi-calc [style*="Mono"],
+#roi-calc [style*="mono"],footer > [style*="DM Mono"],#portal-showcase [style*="margin-top:40px"] > p,
+#portal-showcase [style*="margin-top:40px"] > a,[style*="'Space Grotesk'"]{
+  font-family:var(--rb-sans)!important; text-transform:none!important; letter-spacing:normal!important;
+  font-variant:normal!important; }
+.mf-label{ font-size:13px!important; }
+h2 em,.roi-verdict{
+  font-style:normal!important; }
+body *{ font-variant-numeric:lining-nums; }
+.roi-v{
+  font-variant-numeric:lining-nums tabular-nums!important; }
+h1,h2,h3{ text-wrap:balance; }
 </style>
 <script>
   const burger = document.getElementById('hamburger');

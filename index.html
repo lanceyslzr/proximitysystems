@@ -26,7 +26,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://proximitysystems.ca">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
@@ -139,9 +139,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .section-wrap { padding:clamp(56px,8vw,92px) 64px; max-width: 100%; }
   #problem { background: var(--dark2); }
   #package { background: var(--bg); }
-    .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-  .eyebrow-line { width: 40px; height: 1px; background: var(--teal); }
-  .eyebrow-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); }
   .s-title.light { color: #fff; } .s-title.dark { color: var(--dark); }
   .s-title em { font-style: italic; color: var(--teal); }
@@ -160,7 +157,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .btn-secondary { display: inline-block; border: 1px solid var(--border); color: var(--muted); padding: 16px 36px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
   .btn-secondary:hover { border-color: var(--dark); color: var(--dark); }
   #cta { background: var(--bg); padding: 160px 64px; text-align: center; }
-  .cta-pre { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 32px; }
   .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,5vw,64px); font-weight: 300; color: var(--dark); line-height: 1.15; margin-bottom: 28px; }
   .cta-title em { font-style: italic; color: var(--teal-dark); }
   .cta-sub { font-size: 14px; color: var(--muted); line-height: 2; margin-bottom: 56px; max-width: 500px; margin-left: auto; margin-right: auto; }
@@ -286,7 +282,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 
   /* Timeline Section */
   #timeline { background: #07090c; padding: 120px 64px; }
-  #timeline .tl-eyebrow { font-size: 10px; letter-spacing: 3px; color: #2dd4bf; text-transform: uppercase; font-variant: small-caps; margin-bottom: 24px; }
   #timeline .tl-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #e6eaed; margin-bottom: 20px; }
   #timeline .tl-title em { font-style: italic; color: #2dd4bf; }
   #timeline .tl-sub { font-size: 14px; line-height: 1.9; color: rgba(221,217,208,0.6); max-width: 600px; margin-bottom: 64px; }
@@ -301,7 +296,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
 
   /* Reviews Section */
   #reviews { background: #0d1117; padding: 120px 64px; }
-  #reviews .rv-eyebrow { font-size: 10px; letter-spacing: 3px; color: #2dd4bf; text-transform: uppercase; font-variant: small-caps; margin-bottom: 24px; }
   #reviews .rv-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #e6eaed; margin-bottom: 64px; }
   #reviews .rv-title em { font-style: italic; color: #2dd4bf; }
   .rv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -727,7 +721,6 @@ button,a,[onclick]{touch-action:manipulation;}
 
 
   /*  COMPOSITION SYSTEM, centered header spine (all sections consistent)  */
-  .section-eyebrow, .rv-eyebrow, .tl-eyebrow { justify-content: center; text-align: center; }
   .tl-title, .s-title, .cta-title, .rv-title { text-align: center; margin-left: auto; margin-right: auto; max-width: 22ch; }
   .tl-sub, .s-sub, .cta-sub, .section-sub { text-align: center; margin-left: auto; margin-right: auto; max-width: 60ch; }
 
@@ -744,7 +737,7 @@ button,a,[onclick]{touch-action:manipulation;}
   /* system color-code map */
   --sys-gps:#44c1f8; --sys-invoice:#fbbf24; --sys-family:#34d399;
   --sys-sched:#c0acfb; --sys-ai:#2dd4bf; --sys-lead:#fc9caa;
-  --rb-serif:'Fraunces',serif; --rb-sans:'Space Grotesk',sans-serif; --rb-mono:'DM Mono',monospace;
+  --rb-serif:'Cormorant Garamond',serif; --rb-sans:'DM Sans',sans-serif; --rb-mono:'DM Mono',monospace;
 }
 /*  BASE CANVAS, unify the split light/dark into one dark system  */
 body{ background:var(--rb-void)!important; color:var(--rb-text)!important; font-family:var(--rb-sans)!important; }
@@ -756,15 +749,15 @@ body::before{ opacity:.35!important; }
 /*  TYPE SYSTEM, three voices  */
 .hero-h1-new,.s-title,.tl-title,.cta-title,.rv-title,.hero-title{
   font-family:var(--rb-serif)!important; font-weight:300!important;
-  letter-spacing:-.015em!important; color:var(--rb-text)!important;
-  font-optical-sizing:auto; }
+  letter-spacing:0!important; color:var(--rb-text)!important;
+  font-variant-numeric:lining-nums; }
+h1.hero-h1-new em{ font-style:italic!important; }
 .hero-h1-new em,.s-title em,.tl-title em,.cta-title em,.rv-title em{
-  font-style:italic!important; font-weight:400!important;
+  font-style:normal!important; font-weight:400!important;
   background:linear-gradient(120deg,var(--rb-primary),var(--sys-gps))!important;
   -webkit-background-clip:text!important; background-clip:text!important;
   -webkit-text-fill-color:transparent!important; }
-.hero-eyebrow-new,.eyebrow-tag,.tl-eyebrow,.rv-eyebrow,.section-eyebrow,
-.sc-num,.nav-links a,.hsn-label,.footer-col-title{
+.hero-eyebrow-new,.sc-num{
   font-family:var(--rb-mono)!important; }
 .hero-sub-new,.tl-sub,.s-sub,.cta-sub,.section-sub,.sc-desc,.sc-name,
 .package-intro-text,.tl-card-body,.tl-card-title{
@@ -774,7 +767,7 @@ body::before{ opacity:.35!important; }
 /*  NAV, glass dark  */
 nav.scrolled{ background:rgba(8,11,16,.82)!important; backdrop-filter:blur(22px)!important;
   border-bottom:1px solid var(--rb-line)!important; }
-.nav-links a{ color:var(--rb-dim)!important; letter-spacing:2px!important; }
+.nav-links a{ color:var(--rb-dim)!important; letter-spacing:normal!important; }
 .nav-links a:hover{ color:var(--rb-text)!important; }
 a.nav-cta{ background:var(--rb-primary)!important;
   color:#04130f!important; border:none!important; border-radius:10px!important;
@@ -795,11 +788,11 @@ a.nav-cta{ background:var(--rb-primary)!important;
 .hero-sub-new{ color:var(--rb-dim)!important; }
 .hero-btn-primary{ background:var(--rb-primary)!important;
   color:#04130f!important; border:none!important; border-radius:12px!important;
-  font-family:var(--rb-mono)!important; font-weight:500!important;
+  font-family:var(--rb-sans)!important; font-weight:500!important;
   box-shadow:0 8px 30px rgba(45,212,191,.3)!important; transition:transform .2s,box-shadow .2s!important; }
 .hero-btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 40px rgba(45,212,191,.42)!important; }
 .hsn-num,.hsn-num em{ font-family:var(--rb-serif)!important; color:var(--rb-text)!important;
-  font-variant-numeric:tabular-nums; }
+  font-variant-numeric:lining-nums tabular-nums; }
 .hero-guarantee{ color:var(--rb-faint)!important; }
 
 /*  TIMELINE, terminal cards with glowing badge  */
@@ -825,7 +818,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .footer-brand em{ color:var(--rb-primary)!important; }
 
 /*  COMPOSITION, centered spine (kept)  */
-.section-eyebrow,.rv-eyebrow,.tl-eyebrow{ justify-content:center!important; text-align:center!important; }
 .tl-title,.s-title,.cta-title,.rv-title{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:20ch!important; }
 .tl-sub,.s-sub,.cta-sub,.section-sub{ text-align:center!important; margin-left:auto!important; margin-right:auto!important; max-width:58ch!important; }
 
@@ -861,7 +853,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 [style*="color:var(--teal-dark)"]{ color:var(--rb-primary)!important; }
 [style*="background:var(--teal-dark)"]{ background:var(--rb-primary)!important; color:#04130f!important; }
 /* 6. section eyebrow lines that were teal-dark */
-.eyebrow-line[style*="teal-dark"],.eyebrow-line{ background:var(--rb-primary)!important; }
 
 /*  HERO RECOMPOSE, center-stacked (kill generic left/right split)  */
 #hero{ display:flex!important; flex-direction:column!important; align-items:center!important;
@@ -1475,7 +1466,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 
 /*  FINAL CTA (Pass 8), dark-native + aligned buttons + offer chip  */
 #cta{ background:radial-gradient(ellipse 70% 60% at 50% 50%, #0c1620, var(--rb-void)); }
-#cta .cta-pre{ color:var(--rb-primary); }
 #cta .cta-title{ color:var(--rb-text); }
 #cta .cta-title em{ color:var(--rb-primary); font-style:italic; }
 #cta .cta-sub{ color:var(--rb-dim); }
@@ -1800,6 +1790,33 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 h2[style*="Cormorant"]{
   font-family:var(--rb-serif)!important;font-weight:300!important}
 h2[style*="Cormorant"] em{font-weight:400!important}
+
+/* PSTYP1. The type, in one place. Headlines in Cormorant Garamond, text in DM Sans. Mono stays for numbers, times and
+   the pictures of a spreadsheet, a terminal, an invoice and redacted data, and nowhere else. Words that were set in
+   capitals with wide spacing now read as written. One italic line per page: the hero's. Figures are the standard
+   lining kind, so 10 reads 10 in Cormorant. These rules hold at every width on purpose, which is why the block sits
+   after the media blocks; it sets only font, case, spacing, style and figures, never size or layout. The inline
+   styles that the review strip's phone layout matches on are not touched; they are overridden from here.
+   Each list names only what this page has. */
+.ps-skip,.hero-btn-primary,.bld-chip-count,.bld-chip-selall,.bld-row-free,.bld-cp-live,.bld-cp-empty,.bld-cp-btn,
+.bld-cp-ghost,.bld-cp-fine,.bld-ps-foot,.hg-text,.hsn-label,.hsn-sub,.osp-hd-title,.osp-live-badge,.osp-feed-label,
+.osp-foot-lbl,.pain-desc,.pf-proof-lbl,.pf-stat-l,.flow-caption,.flow-sub,.asc-badge,.asc-name,.tl-badge,.tla-k,
+.tla-badge,.tla-cal-d,.tla-line,.tla-live,.tl-cta,.sa-anon-label,.sa-anon-foot,.sa-scan-row,.sa-email-foot-l,
+.sa-email-foot-u,.sec-note,.pr-desc,.pr-per,.pr-total-k,.pr-note,.cta-offer-item,.cta-offer-tick,.btn-primary,
+.btn-secondary,.footer-col-title,.nav-links a,.nav-cta,.mobile-menu a,.mf-label,.mf-submit,.mf-note,.mf-note a,
+.trust-item,.tl-card-title,.rv-role,.market-status,.footer-copy,#pricing [style*="Mono"],#pricing [style*="mono"],
+footer > [style*="DM Mono"],.pa-alert,.pa-inbox-from,.pa-call-status,.pa-board-day,.pa-pay-k,.pa-text-meta,
+.pa-pay-v.pa-err,.osp-sys-badge,#package [style*="DM Mono"],div[style*="padding:24px 64px"] [style*="DM Mono"],
+[style*="'Space Grotesk'"]{
+  font-family:var(--rb-sans)!important; text-transform:none!important; letter-spacing:normal!important;
+  font-variant:normal!important; }
+.mf-label{ font-size:13px!important; }
+h2 em,.hsn-num em,.pf-proof-line,.package-intro-text,.flow-footer,div[style*="padding:24px 64px"] [style*="italic"]{
+  font-style:normal!important; }
+body *{ font-variant-numeric:lining-nums; }
+.hsn-num,.hsn-num em,.osp-foot-val,.tla-cal-n,.pr-total-v,.pr-amt{
+  font-variant-numeric:lining-nums tabular-nums!important; }
+h1,h2,h3{ text-wrap:balance; }
 </style>
 <meta name="theme-color" content="#07090c">
 <script type="application/ld+json">
@@ -2055,12 +2072,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
   <div class="truth-wrap" style="max-width:960px;margin:0 auto;position:relative;z-index:2;">
 
-    <!-- Eyebrow -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;" class="reveal">
-      <div style="width:28px;height:1px;background:var(--b-red);"></div>
-              <div style="font-family:'DM Mono',monospace;font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--b-red);">The Truth</div>
-    </div>
-
     <!-- Headline -->
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.6vw,62px);font-weight:300;color:#faf8f4;line-height:1.08;letter-spacing:-.015em;margin-bottom:22px;text-align:center;" class="reveal">
       You didn't start this agency<br><em style="color:var(--b-red);font-style:italic;">to waste your life on admin.</em>
@@ -2195,7 +2206,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
 <div id="package" class="section-wrap">
   <div class="inner">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line" style="background:var(--teal-dark)"></div><div class="eyebrow-tag" style="color:var(--teal-dark)">The Package</div></div>
     <div class="package-header">
       <h2 class="s-title dark reveal" style="margin-bottom:0">Everything You Need.<br><em>Nothing You Don't.</em></h2>
       <div class="package-intro-text reveal reveal-delay-2"><strong>We build it. We install it. We hand it to you running.</strong><br>Not a template. Not a course. Not a DIY tool. We come in, build your entire system from scratch, and hand it back running.</div>
@@ -2585,7 +2595,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
 <div id="timeline">
   <div class="inner">
-    <div class="tl-eyebrow reveal">The Process</div>
     <h2 class="tl-title reveal">From Call to Live<br>in <em>7 Days.</em></h2>
     <p class="tl-sub reveal">No drawn-out timelines. No endless revisions. We build fast because we've built this system for our own agency, we know exactly what works.</p>
     <div class="tl-grid">
@@ -2643,7 +2652,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
 <div id="portal-showcase" style="background:#060a0e;padding:clamp(64px,9vw,96px) 24px;text-align:center;position:relative;">
   <div style="max-width:780px;margin:0 auto;">
-    <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#2dd4bf;margin-bottom:18px;">The Product</div>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.6vw,52px);line-height:1.06;color:#f4f1ea;margin:0 0 18px;font-weight:600;">See exactly what you're buying.<br><em style="font-style:italic;color:#9fc4cc;">Before you book a call.</em></h2>
     <p style="font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,1.9vw,18px);color:var(--rb-dim);max-width:600px;margin:0 auto 30px;line-height:1.6;">Walk through the live HQ dashboard, PSW app, and family portal, build your package, and see your ROI. The same system running a real Mississauga agency right now.</p>
     <a href="product.html" style="display:inline-block;background:#3d7a8a;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;padding:15px 34px;border-radius:12px;text-decoration:none;">Explore the product</a>
@@ -2656,7 +2664,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
 <div id="security" style="background:var(--rb-base);padding:84px 32px 78px;position:relative;border-top:1px solid var(--rb-line);">
   <div class="inner" style="max-width:1080px;margin:0 auto;">
-    <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><div class="eyebrow-tag">Security &amp; Privacy</div></div>
     <h2 class="s-title reveal" style="color:var(--rb-text);">Built for the data<br><em>your license depends on.</em></h2>
     <p class="section-sub reveal" style="color:var(--rb-dim);margin-bottom:64px;">Home care runs on personal health information. Most small-agency tools treat that as an afterthought. We built Proximity Systems around it from day one, so the system supports your obligations as a health information custodian under Ontario law.</p>
 
@@ -2719,11 +2726,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
     <!-- Header -->
     <div style="text-align:center;margin-bottom:64px;">
-      <div style="display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#2dd4bf;margin-bottom:18px;" class="reveal">
-        <span style="width:24px;height:1px;background:#1e7d96;display:inline-block;"></span>
-        Pricing
-        <span style="width:24px;height:1px;background:#1e7d96;display:inline-block;"></span>
-      </div>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,66px);font-weight:300;color:#faf8f4;line-height:1.04;margin-bottom:14px;" class="reveal">Pick what you need.<br><em style="color:#2dd4bf;font-style:italic;">Pay after we deliver.</em></h2>
       <p style="font-family:'DM Mono',monospace;font-size:16px;color:var(--rb-dim);max-width:560px;margin:0 auto;line-height:1.8;" class="reveal">We build first. You pay after. Live in 7 days or you owe us nothing.<br><strong style="color:var(--rb-faint);font-weight:500;">First month free on every plan.</strong></p>
     </div>
@@ -2766,7 +2768,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
 <div id="reviews">
   <div class="inner">
-    <div class="rv-eyebrow reveal" style="text-align:center;">In their words</div>
     <h2 class="rv-title reveal" style="text-align:center;">The operator we built this for, <br><em>and the people who know them.</em></h2>
     <p style="font-size:14px;color:#e6eaed;line-height:1.8;max-width:600px;margin:0 auto 48px;text-align:center;" class="reveal">
       Reviews of Proximity Care Services from its Google listing, 5.0 across 13 reviews, quoted as written. The agency runs on Proximity OS every day.
@@ -2814,7 +2815,6 @@ h2[style*="Cormorant"] em{font-weight:400!important}
 
 <div id="cta">
   <div class="inner">
-    <div class="cta-pre reveal">The next move is yours</div>
     <h2 class="cta-title reveal">Stop running your agency<br>like it's <em>1998.</em></h2>
     <p class="cta-sub reveal">
       Book a 20-minute call. We'll show you the exact system we install, what it would look like inside your agency, and what we'd charge to build it for you. <strong>No pressure. No obligation. No demo wizardry.</strong><br><br>
