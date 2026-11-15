@@ -373,8 +373,9 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-cp-fine{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.09em;color:var(--muted);text-transform:uppercase;text-align:center;line-height:1.6}
   /* Mobile sticky bar */
   /* Builder modal */
-  .bld-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9000;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
-  .bld-modal-overlay.open{opacity:1;pointer-events:all}
+  .bld-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9000;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.25s,visibility 0s linear 0.25s}
+  /* PSKEY1. Closed, the popup was see through but its 7 controls still took Tab; hidden now, after the fade. */
+  .bld-modal-overlay.open{opacity:1;pointer-events:all;visibility:visible;transition:opacity 0.25s,visibility 0s}
   .bld-modal{background:var(--b-bg2);border:1px solid var(--b-border-b);border-radius:12px 12px 0 0;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:28px 24px 48px;transform:translateY(30px);transition:transform 0.3s ease}
   .bld-modal-overlay.open .bld-modal{transform:translateY(0)}
   .bld-modal-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
@@ -3446,6 +3447,16 @@ document.addEventListener('keydown', function(e) {
     rsLastFocus=null;
   }
   document.addEventListener('keydown',function(e){var o=document.getElementById('bldModalOverlay');if(e.key==='Escape'&&o&&o.classList.contains('open'))closeBldModal();});
+  // PSKEY1. While the popup is open, Tab and Shift+Tab go round its own controls instead of the page behind it.
+  document.addEventListener('keydown',function(e){
+    var o=document.getElementById('bldModalOverlay');
+    if(e.key!=='Tab'||!o||!o.classList.contains('open'))return;
+    var f=[].slice.call(o.querySelectorAll('a[href],button,input,select,textarea,[tabindex]')).filter(function(x){return x.tabIndex>=0&&!x.disabled&&x.getClientRects().length>0&&getComputedStyle(x).visibility!=='hidden';});
+    if(!f.length)return;
+    var a=f[0],z=f[f.length-1],at=document.activeElement;
+    if(e.shiftKey&&(at===a||!o.contains(at))){e.preventDefault();z.focus();}
+    else if(!e.shiftKey&&(at===z||!o.contains(at))){e.preventDefault();a.focus();}
+  });
 
   function handleBldOverlay(e){if(e.target===document.getElementById('bldModalOverlay'))closeBldModal();}
 
