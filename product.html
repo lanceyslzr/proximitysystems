@@ -1225,7 +1225,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
   <!-- Bottom CTA -->
   <div style="text-align:center;margin-top:40px;padding:0 16px;">
     <p style="font-family:var(--rb-mono);font-size:14px;color:rgba(250,248,244,.47);margin-bottom:16px;">This is what runs inside your agency on day 8. Want it installed by next week?</p>
-    <a href="index.html#pricing" style="display:inline-block;padding:14px 36px;background:#1e7d96;color:#faf8f4;font-family:var(--rb-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#2a8fa6'" onmouseout="this.style.background='#1e7d96'">See Pricing →</a>
+    <a href="index.html#pricing" style="display:inline-block;padding:14px 36px;background:#1e7d96;color:#faf8f4;font-family:var(--rb-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#2a8fa6'" onmouseout="this.style.background='#1e7d96'">See Pricing</a>
   </div>
 </div>
 
@@ -1770,6 +1770,51 @@ body *{ font-variant-numeric:lining-nums; }
 .roi-v{
   font-variant-numeric:lining-nums tabular-nums!important; }
 h1,h2,h3{ text-wrap:balance; }
+
+/* PSBTN1. The buttons, in one place, after every media block so they hold at every width. Every action button is gold
+   with the brand's cut corner: two opposite corners cut, 10px, deepening to 14px on hover. Primary is filled gold with
+   dark ink; secondary is a gold tint with gold text. Keyboard focus draws inside the cut so it is never clipped. The
+   inline styles other rules match on are left as written and overridden from here. Each list names only what this
+   page has. */
+a.nav-cta,.bld-cp-btn,.mf-submit,a[href="index.html#pricing"][style*="background:#1e7d96"],
+a[href="#builder"][style*="background:#3d7a8a"]{
+  background:#d4a843!important; color:#0b0f14!important; border:0!important; border-radius:0!important;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))!important; box-shadow:none!important;
+  font-family:var(--rb-sans)!important; font-weight:600!important; font-size:15px!important; line-height:20px!important;
+  letter-spacing:normal!important; text-transform:none!important; padding-top:14px!important; padding-bottom:14px!important;
+  transition:background .2s ease,clip-path .2s ease!important; }
+a.nav-cta:hover,.bld-cp-btn:hover,.mf-submit:hover,a[href="index.html#pricing"][style*="background:#1e7d96"]:hover,
+a[href="#builder"][style*="background:#3d7a8a"]:hover{
+  background:#e8c06a!important; clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))!important; }
+a.nav-cta:focus-visible,.bld-cp-btn:focus-visible,.mf-submit:focus-visible,
+a[href="index.html#pricing"][style*="background:#1e7d96"]:focus-visible,
+a[href="#builder"][style*="background:#3d7a8a"]:focus-visible{
+  outline:2px solid #0b0f14!important; outline-offset:-6px!important; }
+.bld-cp-ghost,.bld-chip-selall,.pp-back{
+  background:rgba(212,168,67,.12)!important; color:#e8c06a!important; border:1px solid rgba(212,168,67,.35)!important;
+  border-radius:0!important; clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))!important; box-shadow:none!important;
+  font-family:var(--rb-sans)!important; letter-spacing:normal!important; text-transform:none!important;
+  transition:background .2s ease,clip-path .2s ease!important; }
+.bld-cp-ghost:hover,.bld-chip-selall:hover,.pp-back:hover{
+  background:rgba(212,168,67,.2)!important; color:#f0d48e!important; clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))!important; }
+.bld-cp-ghost:focus-visible,.bld-chip-selall:focus-visible,.pp-back:focus-visible{
+  outline:2px solid #e8c06a!important; outline-offset:-6px!important; }
+.pp-back{ padding-top:15px!important; padding-bottom:15px!important; }
+.bld-cp-btn:disabled{ background:rgba(212,168,67,.3)!important; color:rgba(11,15,20,.75)!important; cursor:not-allowed; }
+#mfSubmit:disabled{ cursor:progress; background-color:#d4a843!important;
+  background-image:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.38) 50%,transparent 65%)!important;
+  background-size:220% 100%!important; animation:psbtnLoad 1.1s linear infinite; }
+@keyframes psbtnLoad{ from{background-position:120% 0} to{background-position:-100% 0} }
+.chat-bubble{ background:#6a9eaa!important; }
+.bld-row{ position:relative; }
+.bld-row.sel .bld-row-box{ animation:psbtnPop .28s ease; }
+.bld-row-added{ position:absolute; right:9px; top:50%; transform:translateY(-50%); pointer-events:none;
+  font:600 12px/1 var(--rb-sans); color:#e8c06a; background:#161c24; border-radius:8px; padding:5px 8px;
+  animation:psbtnAdded 1.6s ease forwards; }
+@keyframes psbtnPop{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+@keyframes psbtnAdded{ 0%,70%{opacity:1} 100%{opacity:0} }
+@media (prefers-reduced-motion:reduce){
+  #mfSubmit:disabled,.bld-row.sel .bld-row-box,.bld-row-added{ animation:none; } }
 </style>
 <script>
   const burger = document.getElementById('hamburger');
@@ -2095,9 +2140,18 @@ function bldRender(){
       var id=el.getAttribute('data-sid');
       bldToggle(id);
       el.setAttribute('aria-pressed', bldSelected.has(id)?'true':'false');
+      bldAdded(el, bldSelected.has(id));
     });
   });
 }
+  function bldAdded(el,on){
+    var old=el.querySelector('.bld-row-added'); if(old)old.remove();
+    if(!on)return;
+    var tag=document.createElement('span'); tag.className='bld-row-added'; tag.setAttribute('aria-hidden','true');
+    tag.textContent='Added \u2713'; el.appendChild(tag);
+    setTimeout(function(){ if(tag.parentNode)tag.remove(); },1700);
+  }
+
 function bldToggle(id){
     const chip=document.getElementById('bldchip-'+id);
     if(!chip)return;
