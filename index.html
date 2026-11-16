@@ -97,8 +97,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .osp-dot { width:8px; height:8px; border-radius:50%; }
   .osp-dot:nth-child(1){background:rgba(192,80,80,.7);} .osp-dot:nth-child(2){background:rgba(200,134,58,.7);} .osp-dot:nth-child(3){background:rgba(90,138,90,.7);}
   .osp-hd-title { font-size:8px; letter-spacing:2px; text-transform:uppercase; color:rgba(250,248,244,.47); flex:1; }
-  .osp-live-badge { display:flex; align-items:center; gap:5px; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; color:#2dd4bf; flex-shrink:0; }
-  .osp-live-dot { width:5px; height:5px; border-radius:50%; background:#3d8a7a; animation:pulse 2s infinite; flex-shrink:0; }
   /* System rows */
   .osp-systems { padding:8px 14px 4px; display:flex; flex-direction:column; border-bottom:1px solid rgba(61,122,138,.1); }
   .osp-sys-row { display:grid; grid-template-columns:18px 120px 1fr 64px; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.025); }
@@ -123,14 +121,12 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .osp-foot-val { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; color:#2dd4bf; line-height:1; margin-bottom:3px; }
   .osp-foot-lbl { font-size:6.5px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(250,248,244,.22); }
   /* Guarantee strip */
-  .hero-guarantee { display:flex; align-items:center; gap:10px; margin-top:20px; padding:10px 16px; background:rgba(61,122,138,.06); border:1px solid rgba(61,122,138,.18); border-left:2px solid #3d8a7a; }
+  .hero-guarantee { display:flex; align-items:center; gap:10px; margin-top:20px; padding:10px 16px; border-radius:8px; background:rgba(61,122,138,.06); border:1px solid rgba(61,122,138,.18); border-left:2px solid #3d8a7a; }
   .hg-icon { font-size:12px; flex-shrink:0; }
   .hg-text { font-family:'DM Mono',monospace; font-size:9px; color:var(--rb-faint); letter-spacing:.5px; line-height:1.6; }
   .hg-text strong { color:rgba(250,248,244,.8); font-weight:500; }
   /* Hero grid background texture */
   #hero::after { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(61,122,138,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(61,122,138,.03) 1px,transparent 1px); background-size:48px 48px; pointer-events:none; z-index:0; }
-  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(90,138,106,0.3);}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(90,138,106,0);} }
 
   .trust-bar { background: var(--dark); padding: 20px 64px; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; }
   .trust-item { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 2px; color:var(--rb-faint); text-transform: uppercase; }
@@ -287,7 +283,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   #timeline .tl-sub { font-size: 14px; line-height: 1.9; color: rgba(221,217,208,0.6); max-width: 600px; margin-bottom: 64px; }
   .tl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 56px; }
   .tl-card { background: #111820; border: 1px solid rgba(61,122,138,0.2); border-top: 3px solid #3d7a8a; padding: 32px 24px; border-radius: 4px; position: relative; }
-  .tl-badge { display: inline-block; background: #3d7a8a; color: #fff; font-size: 10px; letter-spacing: 2px; padding: 6px 12px; text-transform: uppercase; margin-bottom: 20px; border-radius: 2px; }
+  .tl-badge { display: inline-block; background: #3d7a8a; color: #fff; font-size: 10px; letter-spacing: 2px; padding: 6px 12px; text-transform: uppercase; margin-bottom: 20px; border-radius: 8px; }
   .tl-card-title { font-family: 'Cormorant Garamond', serif; color: #e6eaed; font-size: 1rem; font-weight: 500; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
   .tl-card-body { color: rgba(221,217,208,0.65); font-size: 0.88rem; line-height: 1.75; }
   .tl-cta-wrap { text-align: center; }
@@ -299,7 +295,7 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   #reviews .rv-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; color: #e6eaed; margin-bottom: 64px; }
   #reviews .rv-title em { font-style: italic; color: #2dd4bf; }
   .rv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .rv-card { background: #111820; border: 1px solid rgba(61,122,138,0.2); padding: 36px 32px; border-radius: 4px; display: flex; flex-direction: column; }
+  .rv-card { background: #111820; border: 1px solid rgba(61,122,138,0.2); padding: 36px 32px; border-radius: 16px; display: flex; flex-direction: column; }
   .rv-stars { color: #f0b549; font-size: 16px; letter-spacing: 3px; margin-bottom: 24px; }
   .rv-quote { color: #e6eaed; font-size: 0.9rem; line-height: 1.8; margin-bottom: 32px; flex-grow: 1; }
   .rv-author { color: #2dd4bf; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
@@ -344,7 +340,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-compact-panel{position:sticky;top:72px;background:var(--b-bg2);border:1px solid var(--b-border-b);border-radius:8px;overflow:hidden}
   .bld-cp-head{background:var(--b-teal-bg);padding:12px 16px;border-bottom:1px solid var(--b-border);display:flex;align-items:center;justify-content:space-between}
   .bld-cp-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#fff}
-  .bld-cp-live{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;color:var(--b-teal-lt);text-transform:uppercase}
   .bld-cp-body{padding:16px}
   .bld-cp-empty{text-align:center;padding:20px 12px}
   .bld-ring-wrap{position:relative;width:80px;height:80px;margin:0 auto 14px}
@@ -364,7 +359,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-cp-btn:active{background:#2c5d6b}
   .bld-cp-ghost{width:100%;background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;padding:8px;border-radius:4px;border:1px solid var(--border);cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;transition:all 0.2s}
   .bld-cp-ghost:hover{border-color:var(--teal-dark);color:var(--teal-dark)}
-  .bld-cp-fine{font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.09em;color:var(--muted);text-transform:uppercase;text-align:center;line-height:1.6}
   /* Mobile sticky bar */
   /* Builder modal */
   .bld-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9000;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.25s,visibility 0s linear 0.25s}
@@ -753,10 +747,7 @@ body::before{ opacity:.35!important; }
   font-variant-numeric:lining-nums; }
 h1.hero-h1-new em{ font-style:italic!important; }
 .hero-h1-new em,.s-title em,.tl-title em,.cta-title em,.rv-title em{
-  font-style:normal!important; font-weight:400!important;
-  background:linear-gradient(120deg,var(--rb-primary),var(--sys-gps))!important;
-  -webkit-background-clip:text!important; background-clip:text!important;
-  -webkit-text-fill-color:transparent!important; }
+  font-style:normal!important; font-weight:400!important; color:var(--rb-primary)!important; }
 .hero-eyebrow-new,.sc-num{
   font-family:var(--rb-mono)!important; }
 .hero-sub-new,.tl-sub,.s-sub,.cta-sub,.section-sub,.sc-desc,.sc-name,
@@ -934,7 +925,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
   border:1px solid var(--rb-line)!important; border-radius:18px!important; display:block!important; }
 .bld-cp-head{ padding:18px 24px!important; border-bottom:1px solid var(--rb-line)!important; }
 .bld-cp-title{ font-family:var(--rb-serif)!important; font-size:20px!important; color:var(--rb-text)!important; font-weight:400!important; }
-.bld-cp-live{ font-family:var(--rb-mono)!important; color:var(--rb-dim)!important; font-size:9px!important; }
 .bld-cp-body{ padding:24px!important; }
 /* inside the panel, lay ring + build-stack + pricing in a row on desktop */
 #bldActive{ display:none; }
@@ -954,7 +944,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
 .bld-cp-btn{ font-size:12px!important; letter-spacing:2px!important; padding:15px!important; border-radius:12px!important; }
 .bld-cp-ghost{ color:var(--rb-dim)!important; border-color:var(--rb-line2)!important; border-radius:12px!important; font-size:11px!important; }
 .bld-cp-ghost:hover{ color:var(--rb-primary)!important; border-color:var(--rb-primary)!important; }
-.bld-cp-fine{ color:var(--rb-faint)!important; font-family:var(--rb-mono)!important; }
 /* empty state legible */
 .bld-cp-empty{ color:var(--rb-dim)!important; font-family:var(--rb-mono)!important; font-size:12px!important; }
 
@@ -1188,7 +1177,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .asc-head{padding:11px 14px 8px;display:flex;align-items:center;justify-content:space-between;}
 .asc-num{font-family:var(--rb-mono);font-size:8px;letter-spacing:2px;color:var(--rb-faint);}
 .asc-badge{font-size:7px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-family:var(--rb-mono);}
-.asc-badge.live{background:rgba(61,138,122,.12);color:#2dd4bf;border:1px solid rgba(61,138,122,.25);}
 .asc-badge.free{background:rgba(184,112,16,.1);color:#f0b549;border:1px solid rgba(184,112,16,.25);}
 .asc-anim{height:82px;position:relative;overflow:hidden;margin:0 14px;border-radius:6px;background:rgba(0,0,0,.25);}
 .asc-name{font-family:var(--rb-mono);font-size:11px;letter-spacing:.5px;color:rgba(250,248,244,.75);padding:10px 14px 3px;}
@@ -1226,8 +1214,6 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .osp-dots .osp-dot:nth-child(2){ background:#FFB340!important; }
 .osp-dots .osp-dot:nth-child(3){ background:var(--rb-primary)!important; }
 .osp-hd-title{ font-family:var(--rb-mono)!important; color:var(--rb-dim)!important; letter-spacing:1.5px!important; }
-.osp-live-badge{ font-family:var(--rb-mono)!important; color:var(--rb-primary)!important; }
-.osp-live-dot{ background:var(--rb-primary)!important; box-shadow:0 0 8px var(--rb-primary)!important; }
 
 /* SYSTEM ROWS, color-coded by the system map (matches package cards) */
 .osp-systems{ padding:12px 18px 8px!important; }
@@ -1387,7 +1373,7 @@ nav{ transition:padding var(--t3) var(--e), background var(--t3) var(--e), borde
 .sa-scan{ display:flex; align-items:center; gap:14px; }
 .sa-grade{ font-family:var(--rb-serif); font-size:40px; font-weight:400; color:var(--sec-c); line-height:1;
   width:50px; height:50px; display:flex; align-items:center; justify-content:center;
-  border:2px solid color-mix(in srgb,var(--sec-c) 40%,transparent); border-radius:12px;
+  border:2px solid color-mix(in srgb,var(--sec-c) 40%,transparent); border-radius:8px;
   text-shadow:0 0 16px color-mix(in srgb,var(--sec-c) 50%,transparent); flex-shrink:0; }
 .sa-scan-rows{ display:flex; flex-direction:column; gap:5px; }
 .sa-scan-row{ font-size:9px; color:var(--rb-dim); display:flex; align-items:center; }
@@ -1798,8 +1784,8 @@ h2[style*="Cormorant"] em{font-weight:400!important}
    after the media blocks; it sets only font, case, spacing, style and figures, never size or layout. The inline
    styles that the review strip's phone layout matches on are not touched; they are overridden from here.
    Each list names only what this page has. */
-.ps-skip,.hero-btn-primary,.bld-chip-count,.bld-chip-selall,.bld-row-free,.bld-cp-live,.bld-cp-empty,.bld-cp-btn,
-.bld-cp-ghost,.bld-cp-fine,.bld-ps-foot,.hg-text,.hsn-label,.hsn-sub,.osp-hd-title,.osp-live-badge,.osp-feed-label,
+.ps-skip,.hero-btn-primary,.bld-chip-count,.bld-chip-selall,.bld-row-free,.bld-cp-empty,.bld-cp-btn,
+.bld-cp-ghost,.bld-ps-foot,.hg-text,.hsn-label,.hsn-sub,.osp-hd-title,.osp-feed-label,
 .osp-foot-lbl,.pain-desc,.pf-proof-lbl,.pf-stat-l,.flow-caption,.flow-sub,.asc-badge,.asc-name,.tl-badge,.tla-k,
 .tla-badge,.tla-cal-d,.tla-line,.tla-live,.tl-cta,.sa-anon-label,.sa-anon-foot,.sa-scan-row,.sa-email-foot-l,
 .sa-email-foot-u,.sec-note,.pr-desc,.pr-per,.pr-total-k,.pr-note,.cta-offer-item,.cta-offer-tick,.btn-primary,
@@ -2030,9 +2016,9 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
       <div class="bld-compact-panel">
         <div class="bld-cp-head">
           <div class="bld-cp-title">Your Build</div>
-          <div class="bld-cp-live"><span class="eyebrow-dot" style="width:5px;height:5px"></span>Live pricing</div>
+          
         </div>
-        <div class="bld-cp-body"><div class="bld-cp-empty" id="bldEmpty">Select systems to<br>build your package</div><div id="bldActive" style="display:none"><div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div><div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div><div class="bld-cp-rule"></div><div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div><div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div><div class="bld-cp-note" id="bldSaveNote"></div><div class="bld-pipe-strip" id="bldPipeline"></div></div><button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Reserve My Spot</button><button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button><p class="bld-cp-fine">Build first &middot; Pay after &middot; First month free</p></div>
+        <div class="bld-cp-body"><div class="bld-cp-empty" id="bldEmpty">Select systems to<br>build your package</div><div id="bldActive" style="display:none"><div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div><div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div><div class="bld-cp-rule"></div><div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div><div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div><div class="bld-cp-note" id="bldSaveNote"></div><div class="bld-pipe-strip" id="bldPipeline"></div></div><button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Reserve My Spot</button><button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button></div>
       </div>
     </div>
 
@@ -2072,7 +2058,6 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
       <div class="osp-header">
         <div class="osp-dots"><div class="osp-dot"></div><div class="osp-dot"></div><div class="osp-dot"></div></div>
         <div class="osp-hd-title">Proximity OS · 10 Systems · Mississauga ON</div>
-        <div class="osp-live-badge"><div class="osp-live-dot"></div>All Running</div>
       </div>
       <!-- 10 System rows -->
       <div class="osp-systems" id="ospSystems"></div>
@@ -2124,7 +2109,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
   <div class="truth-wrap" style="max-width:960px;margin:0 auto;position:relative;z-index:2;">
 
     <!-- Headline -->
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.6vw,62px);font-weight:300;color:#faf8f4;line-height:1.08;letter-spacing:-.015em;margin-bottom:22px;text-align:center;" class="reveal">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.6vw,62px);font-weight:300;color:#faf8f4;line-height:1.08;letter-spacing:0;margin-bottom:22px;text-align:center;" class="reveal">
       You didn't start this agency<br><em style="color:var(--b-red);font-style:italic;">to waste your life on admin</em>
     </h2>
     <p style="font-size:19px;color:var(--rb-dim);line-height:1.65;max-width:60ch;margin:0 auto 52px;text-align:center;" class="reveal">
@@ -2298,7 +2283,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S01 VISIT LOGGING  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">01</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">01</span></div>
   <div class="asc-anim">
     <!-- Phone silhouette -->
     <div style="position:absolute;left:10px;top:9px;width:26px;height:52px;border-radius:4px;border:1.5px solid rgba(30,125,150,.4);background:#07090c;display:flex;flex-direction:column;align-items:center;padding-top:8px;">
@@ -2331,7 +2316,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S02 AUTO INVOICING  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">02</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">02</span></div>
   <div class="asc-anim">
     <!-- Doc -->
     <div style="position:absolute;left:10px;top:8px;width:32px;height:52px;border-radius:3px;background:#0d1520;border:1px solid rgba(30,125,150,.3);">
@@ -2353,7 +2338,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S03 LEAD CAPTURE  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">03</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">03</span></div>
   <div class="asc-anim">
     <!-- Chat bubbles -->
     <div style="position:absolute;inset:6px;display:flex;flex-direction:column;gap:4px;justify-content:center;">
@@ -2374,7 +2359,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S04 FOLLOW-UP ENGINE  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">04</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">04</span></div>
   <div class="asc-anim">
     <!-- Vertical timeline -->
     <div style="position:absolute;left:18px;top:8px;bottom:8px;width:1.5px;background:rgba(30,125,150,.15);"></div>
@@ -2403,7 +2388,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S05 FAMILY PORTAL  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">05</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">05</span></div>
   <div class="asc-anim">
     <!-- Phone -->
     <div style="position:absolute;right:10px;top:6px;width:28px;height:52px;border-radius:5px;border:1.5px solid rgba(184,112,16,.3);background:#0a0d12;overflow:hidden;">
@@ -2429,7 +2414,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S06 AI CHAT  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">06</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">06</span></div>
   <div class="asc-anim">
     <!-- Browser chrome -->
     <div style="position:absolute;inset:5px;border-radius:5px;border:1px solid rgba(250,248,244,.08);overflow:hidden;">
@@ -2453,7 +2438,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S07 CLIENT ONBOARDING  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">07</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">07</span></div>
   <div class="asc-anim">
     <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
       <div style="display:flex;align-items:center;gap:8px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">
@@ -2480,7 +2465,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S08 HQ DASHBOARD  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">08</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">08</span></div>
   <div class="asc-anim">
     <div style="position:absolute;inset:6px;">
       <!-- KPI row -->
@@ -2520,7 +2505,7 @@ a[style*="border:1px solid rgba(184,112,16,.4)"]:focus-visible{
 
 <!--  S09 PSW MANAGEMENT  -->
 <div class="asc">
-  <div class="asc-head"><span class="asc-num">09</span><span class="asc-badge live">● Live</span></div>
+  <div class="asc-head"><span class="asc-num">09</span></div>
   <div class="asc-anim">
     <div style="position:absolute;inset:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;">
       <div style="display:flex;align-items:center;gap:7px;opacity:0;animation:ascSlideR .3s ease .1s forwards;">

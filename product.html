@@ -62,8 +62,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .nav-cta::after { display: none !important; }
   .nav-cta:hover { background: var(--teal-dark) !important; border-color: var(--teal-dark) !important; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%); }
 
-  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(90,138,106,0.3);}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(90,138,106,0);} }
   
   .section-wrap { padding:clamp(56px,8vw,92px) 64px; max-width: 100%; }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; line-height: 1.05; margin-bottom: 64px; color: var(--text); } .s-title.dark { color: var(--dark); }
@@ -227,7 +225,6 @@ img,video,iframe,svg{max-width:100%;height:auto;}
   .bld-compact-panel{position:sticky;top:72px;background:var(--b-bg2);border:1px solid var(--b-border-b);border-radius:8px;overflow:hidden}
   .bld-cp-head{background:var(--b-teal-bg);padding:12px 16px;border-bottom:1px solid var(--b-border);display:flex;align-items:center;justify-content:space-between}
   .bld-cp-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#fff}
-  .bld-cp-live{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;color:var(--b-teal-lt);text-transform:uppercase}
   .bld-cp-body{padding:16px}
   .bld-cp-empty{text-align:center;padding:20px 12px}
   .bld-ring-wrap{position:relative;width:80px;height:80px;margin:0 auto 14px}
@@ -464,10 +461,7 @@ body::before{ opacity:.35!important; }
   font-variant-numeric:lining-nums; }
 h1.hero-h1-new em{ font-style:italic!important; }
 .hero-h1-new em,.s-title em,.tl-title em,.cta-title em,.rv-title em{
-  font-style:normal!important; font-weight:400!important;
-  background:linear-gradient(120deg,var(--rb-primary),var(--sys-gps))!important;
-  -webkit-background-clip:text!important; background-clip:text!important;
-  -webkit-text-fill-color:transparent!important; }
+  font-style:normal!important; font-weight:400!important; color:var(--rb-primary)!important; }
 .hero-eyebrow-new,.sc-num{
   font-family:var(--rb-mono)!important; }
 .hero-sub-new,.tl-sub,.s-sub,.cta-sub,.section-sub,.sc-desc,.sc-name,
@@ -617,7 +611,6 @@ footer{ background:var(--rb-base)!important; border-top:1px solid var(--rb-line)
   border:1px solid var(--rb-line)!important; border-radius:18px!important; display:block!important; }
 .bld-cp-head{ padding:18px 24px!important; border-bottom:1px solid var(--rb-line)!important; }
 .bld-cp-title{ font-family:var(--rb-serif)!important; font-size:20px!important; color:var(--rb-text)!important; font-weight:400!important; }
-.bld-cp-live{ font-family:var(--rb-mono)!important; color:var(--rb-dim)!important; font-size:9px!important; }
 .bld-cp-body{ padding:24px!important; }
 /* inside the panel, lay ring + build-stack + pricing in a row on desktop */
 #bldActive{ display:none; }
@@ -1517,7 +1510,7 @@ if('IntersectionObserver' in window){
       <div class="bld-compact-panel">
         <div class="bld-cp-head">
           <div class="bld-cp-title">Your Build</div>
-          <div class="bld-cp-live"><span class="eyebrow-dot" style="width:5px;height:5px"></span>Live pricing</div>
+          
         </div>
         <div class="bld-cp-body"><div class="bld-cp-empty" id="bldEmpty">Select systems to<br>build your package</div><div id="bldActive" style="display:none"><div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div><div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div><div class="bld-cp-rule"></div><div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div><div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div><div class="bld-cp-note" id="bldSaveNote"></div><div class="bld-pipe-strip" id="bldPipeline"></div></div><button class="bld-cp-btn" id="bldBookBtn" onclick="openBldModal()" disabled>Book a Free Call</button><button class="bld-cp-ghost" onclick="openUnsure()">Not sure what I need</button><p class="bld-cp-fine">Build first &middot; Pay after &middot; First month free</p></div>
       </div>
@@ -1756,7 +1749,7 @@ h2[style*="Cormorant"] em{font-weight:400!important}
    after the media blocks; it sets only font, case, spacing, style and figures, never size or layout. The inline
    styles that the review strip's phone layout matches on are not touched; they are overridden from here.
    Each list names only what this page has. */
-.ps-skip,.bld-chip-count,.bld-chip-selall,.bld-row-free,.bld-cp-live,.bld-cp-empty,.bld-cp-btn,.bld-cp-ghost,
+.ps-skip,.bld-chip-count,.bld-chip-selall,.bld-row-free,.bld-cp-empty,.bld-cp-btn,.bld-cp-ghost,
 .bld-cp-fine,.bld-ps-foot,.footer-col-title,.nav-links a,.nav-cta,.mobile-menu a,.mf-label,.mf-submit,.mf-note,
 .mf-note a,.roi-step-lbl,.roi-side-head,.roi-k,.market-status,.pp-back,.footer-copy,#roi-calc [style*="Mono"],
 #roi-calc [style*="mono"],footer > [style*="DM Mono"],#portal-showcase [style*="margin-top:40px"] > p,
