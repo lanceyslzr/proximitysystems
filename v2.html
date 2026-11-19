@@ -186,9 +186,32 @@ button { touch-action: manipulation; }
 .ps-c-hq { background: #D4A843; }
 .ps-c-psw { background: #56C8F5; }
 .ps-c-fam { background: #34D399; }
+/* PSV2-3 the fact strip and the proof section. Every word in them is the homepage's. */
+.ps-facts-sec { padding: 0 0 56px; }
+.ps-facts { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 10px 28px; margin: 0; padding: 22px 0; border-top: 1px solid var(--ps-line); border-bottom: 1px solid var(--ps-line); list-style: none; }
+.ps-facts li { display: inline-flex; align-items: center; gap: 8px; color: var(--ps-muted); font-size: var(--ps-fs-small); }
+.ps-facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ps-gold); flex: none; }
+.ps-sec { padding: 40px 0 96px; }
+.ps-proof { display: flex; flex-direction: column; gap: 48px; }
+.ps-sec-head { display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+.ps-h2 { margin: 0; color: var(--ps-ink); font-size: var(--ps-fs-h2); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+.ps-h2 em { font-style: normal; color: var(--ps-navy); }
+.ps-lead { margin: 0; color: var(--ps-muted); font-size: var(--ps-fs-lead); line-height: 1.6; }
+.ps-reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.ps-review { display: flex; flex-direction: column; gap: 18px; height: 100%; margin: 0; padding: 24px; border: 1px solid var(--ps-line); border-radius: 6px; background: var(--ps-white); }
+.ps-stars { color: var(--ps-gold-text); font-size: 14px; letter-spacing: 2px; }
+.ps-review blockquote { flex: 1; margin: 0; color: var(--ps-ink); font-size: 18px; font-weight: 500; line-height: 1.45; }
+.ps-review figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; color: var(--ps-muted); font-size: var(--ps-fs-micro); }
+.ps-review cite { color: var(--ps-ink); font-style: normal; }
+.ps-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.ps-stat { display: flex; flex-direction: column; gap: 8px; margin: 0; padding-top: 16px; border-top: 2px solid var(--ps-gold); }
+.ps-stat strong { color: var(--ps-navy); font-size: clamp(40px, 4.4vw, 56px); font-weight: 500; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums lining-nums; }
+.ps-stat span { color: var(--ps-muted); font-size: var(--ps-fs-small); }
 @media (max-width: 900px) {
   .ps-hero { padding: 48px 0 64px; }
   .ps-hero-in { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .ps-reviews { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ps-sec { padding: 32px 0 80px; }
 }
 @media (max-width: 768px) {
   :root { --ps-gutter: 24px; --ps-hdr-h: 64px; }
@@ -220,6 +243,11 @@ button { touch-action: manipulation; }
   .ps-hero-ctas .ps-btn { width: 100%; }
   .ps-phone { width: 248px; border-radius: 40px; }
   .ps-phone-screen { border-radius: 31px; }
+  .ps-facts { flex-direction: column; gap: 10px; }
+  .ps-reviews { grid-template-columns: minmax(0, 1fr); }
+  .ps-review blockquote { font-size: 17px; }
+  .ps-stats { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .ps-sec { padding: 24px 0 64px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -354,6 +382,67 @@ button { touch-action: manipulation; }
         </div>
         <figcaption class="ps-phone-cap" id="psShotCap">For you and your office</figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+<section class="ps-facts-sec" aria-label="About Proximity Systems">
+  <div class="ps-wrap">
+    <ul class="ps-facts">
+      <li>Built in Canada</li>
+      <li>Serving Ontario</li>
+      <li>No software platforms. No templates. No DIY.</li>
+      <li>Live on Proximity Care Services, Mississauga</li>
+      <li>100% Remote Setup</li>
+    </ul>
+  </div>
+</section>
+<section class="ps-sec" id="reviews" aria-labelledby="reviewsTitle">
+  <div class="ps-wrap ps-proof">
+    <div class="ps-sec-head">
+      <h2 class="ps-h2" id="reviewsTitle">The operator we built this for, <em>and the people who know them</em></h2>
+      <p class="ps-lead">Reviews of Proximity Care Services from its Google listing, 5.0 across 13 reviews, quoted as written. The agency runs on Proximity OS every day.</p>
+    </div>
+    <ul class="ps-reviews">
+      <li>
+        <figure class="ps-review">
+          <div class="ps-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"He is dependable and goes above and beyond for his clients. … He has relieved my stress of caring for my mom."</blockquote>
+          <figcaption><cite>Jennifer Nguyen</cite><span>Family · Google Review</span></figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="ps-review">
+          <div class="ps-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"When my dad was in the hospital he is only PSW that stayed in touch to see how he was doing. … He is always on time and is a true professional."</blockquote>
+          <figcaption><cite>H B</cite><span>Family · Google Review</span></figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="ps-review">
+          <div class="ps-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"Helpful PSWs at a reasonable price. Our experience was a good one for my dad."</blockquote>
+          <figcaption><cite>Rick Vardzel</cite><span>Family · Google Review</span></figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="ps-review">
+          <div class="ps-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"Lance has been a truly amazing caregiver. … He is punctual, neat and tidy in carrying out his duties."</blockquote>
+          <figcaption><cite>Jay Sandhu</cite><span>Google Review</span></figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure class="ps-review">
+          <div class="ps-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"Proximity Care services Inc is  exceptional, demonstrating expertise and compassion in every interaction. … I highly recommend their services for anyone seeking top-notch healthcare."</blockquote>
+          <figcaption><cite>Pardeep Aryan</cite><span>Google Review</span></figcaption>
+        </figure>
+      </li>
+    </ul>
+    <div class="ps-stats">
+      <p class="ps-stat"><strong>7 days</strong><span>From call to live</span></p>
+      <p class="ps-stat"><strong>10</strong><span>Systems in the Full Build</span></p>
+      <p class="ps-stat"><strong>$0</strong><span>Due today</span></p>
     </div>
   </div>
 </section>
