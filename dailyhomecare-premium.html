@@ -478,10 +478,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 .jump a{display:inline-flex;align-items:center;min-height:44px;padding:.35rem 1rem;border-radius:999px;border:1.5px solid var(--rule);background:var(--white);font-size:.78rem;font-weight:800;color:var(--navy);transition:border-color .2s,background .2s,color .2s;}
 .jump a:hover{border-color:var(--navy);background:var(--navy);color:var(--white);}
 .sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
-.sp-card{display:grid;grid-template-columns:40% 1fr;background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);overflow:hidden;scroll-margin-top:24px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
+.sp-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);overflow:hidden;scroll-margin-top:24px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
 .sp-card.reveal{transform:none;}
 .sp-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
-.sp-img{position:relative;overflow:hidden;background:var(--cream2);min-height:100%;}
+.sp-img{position:relative;overflow:hidden;background:var(--cream2);aspect-ratio:16/10;}
 .sp-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);}
 .sp-card:hover .sp-img img{transform:scale(1.05);}
 .sp-body{padding:1.4rem 1.5rem 1.2rem;display:flex;flex-direction:column;}
@@ -506,7 +506,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .hdr-links>a,.dd-top{font-size:.98rem;padding:.5rem .55rem;}
   .hdr-phone{font-size:.98rem;}
   .sp-intro{gap:2.5rem;}
-  .sp-card{grid-template-columns:36% 1fr;}
   .adapt{gap:3rem;}
   .hero-grid{gap:2.5rem;}
   .icard{width:240px;margin-left:-1.4rem;}
@@ -599,8 +598,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .post{flex:0 0 86%;}
   .sp-banner{aspect-ratio:16/9;margin-top:2rem;}
   .sp-intro-a{font-size:1.4rem;}
-  .sp-card{grid-template-columns:minmax(0,1fr);}
-  .sp-img{min-height:0;aspect-ratio:16/10;}
   .sp-body{padding:1.2rem 1.25rem 1.1rem;}
   .jump{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -1.25rem 1.8rem;padding:0 1.25rem;max-width:none;}
   .jump::-webkit-scrollbar{display:none;}
