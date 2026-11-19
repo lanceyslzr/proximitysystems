@@ -347,7 +347,7 @@ a,button,.chip,.flt,.gi{touch-action:manipulation;}
 .faq-a p+p{margin-top:.8rem;}
 
 /* contact */
-.c-banner{height:170px;position:relative;overflow:hidden;border-radius:var(--rc);max-width:1100px;margin:0 auto;}
+.c-banner{aspect-ratio:4/1;position:relative;overflow:hidden;border-radius:var(--rc);max-width:800px;margin:0 auto;}
 .c-banner img{width:100%;height:100%;object-fit:cover;}
 .c-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,251,243,0) 40%,var(--cream) 100%);}
 .contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:start;}
@@ -454,49 +454,27 @@ textarea.fi{min-height:110px;resize:vertical;line-height:1.6;}
 /* grain */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;}
 
-/* services page */
-.sp-hero{position:relative;padding:8.5rem 0 3.25rem;overflow:hidden;background:linear-gradient(160deg,var(--white) 0%,var(--cream) 60%,var(--indigo-pale) 100%);}
-.sp-head{position:relative;z-index:2;text-align:center;max-width:880px;margin:0 auto;}
-.crumbs{display:flex;align-items:center;justify-content:center;gap:.45rem;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+/* services page: her sections, built from the homepage parts */
+.pg-hero{padding:8.5rem 0 3.5rem;background:linear-gradient(160deg,var(--white) 0%,var(--cream) 60%,var(--indigo-pale) 100%);text-align:center;}
+.crumbs{display:flex;align-items:center;justify-content:center;gap:.45rem;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
 .crumbs a{color:var(--indigo);min-height:44px;display:inline-flex;align-items:center;}
 .crumbs [aria-current]{color:var(--navy);}
-.sp-head h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,4.2vw,4rem);line-height:1.04;color:var(--navy);margin-bottom:1.1rem;letter-spacing:-.01em;}
-.sp-head h1 em{font-style:italic;font-weight:600;color:var(--indigo);}
-.sp-sub{font-size:1.15rem;line-height:1.75;color:var(--body);max-width:620px;margin:0 auto 1.9rem;}
-.sp-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-bottom:1.4rem;}
-.sp-head .chips{justify-content:center;}
-.sp-banner{position:relative;z-index:2;margin-top:2.6rem;border-radius:var(--rc);overflow:hidden;aspect-ratio:1180/390;box-shadow:var(--sh-xl);background:var(--cream2);}
-.sp-banner img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;}
-.sp-intro{display:grid;grid-template-columns:1.15fr .85fr;gap:3.5rem;align-items:start;}
-.sp-intro-a{font-family:var(--serif);font-weight:600;font-size:1.7rem;line-height:1.45;color:var(--navy);}
-.sp-intro-b p{font-size:1.06rem;line-height:1.85;color:var(--body);margin-bottom:1.4rem;}
-.sp-need{display:flex;align-items:center;gap:.9rem;border-radius:var(--r);background:var(--rose-ghost);border-left:4px solid var(--rose);padding:1rem 1.2rem;}
-.sp-need small{display:block;font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-ink);}
-.sp-need a{font-weight:800;font-size:1.15rem;color:var(--navy);min-height:44px;display:inline-flex;align-items:center;}
-.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:.45rem;margin:0 auto 2.2rem;max-width:900px;}
-.jump a{display:inline-flex;align-items:center;min-height:44px;padding:.35rem 1rem;border-radius:999px;border:1.5px solid var(--rule);background:var(--white);font-size:.78rem;font-weight:800;color:var(--navy);transition:border-color .2s,background .2s,color .2s;}
-.jump a:hover{border-color:var(--navy);background:var(--navy);color:var(--white);}
-.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
-.sp-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);overflow:hidden;scroll-margin-top:24px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
-.sp-card.reveal{transform:none;}
-.sp-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
-.sp-img{position:relative;overflow:hidden;background:var(--cream2);aspect-ratio:16/10;}
-.sp-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);}
-.sp-card:hover .sp-img img{transform:scale(1.05);}
-.sp-body{padding:1.4rem 1.5rem 1.2rem;display:flex;flex-direction:column;}
-.sp-num{font-family:var(--serif);font-weight:700;font-size:.95rem;color:var(--rose-ink);margin-bottom:.2rem;}
-.sp-body h3{font-family:var(--serif);font-weight:700;font-size:1.55rem;line-height:1.1;color:var(--navy);}
-.sp-tag{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.12rem;color:var(--indigo);margin:.3rem 0 .6rem;}
-.sp-body p.sp-txt{font-size:.95rem;line-height:1.72;color:var(--body);flex:1;}
-.sp-body .tlink{margin-top:.5rem;}
-.adapt{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;}
-.adapt p{font-size:1.05rem;line-height:1.85;color:var(--body);margin-top:1.1rem;}
-.towns{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem;}
-.towns span{display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;background:var(--white);border:1px solid var(--rule);padding:.4rem .85rem;font-size:.78rem;font-weight:800;color:var(--navy);}
-.towns svg{width:14px;height:14px;color:var(--rose);}
-.sp-cta{text-align:center;max-width:780px;margin:0 auto;}
-.sp-cta p{font-size:1.08rem;line-height:1.85;margin-top:1.1rem;}
-.sp-cta .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:1.9rem;}
+.pg-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,4.2vw,4rem);line-height:1.04;color:var(--navy);letter-spacing:-.01em;max-width:880px;margin:0 auto;}
+.pg-hero h1 em{font-style:italic;font-weight:600;color:var(--indigo);}
+.pg-banner{max-width:800px;margin:2.4rem auto 0;border-radius:var(--rc);overflow:hidden;aspect-ratio:10/3;box-shadow:var(--sh-xl);background:var(--cream2);}
+.pg-banner img{width:100%;height:100%;object-fit:cover;}
+.pg-line{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,2.3vw,1.95rem);line-height:1.3;color:var(--navy);max-width:760px;margin:2.4rem auto 1.7rem;}
+.pg-text{max-width:780px;margin:0 auto;text-align:center;}
+.pg-text .pg-big{font-family:var(--serif);font-weight:600;font-size:1.6rem;line-height:1.5;color:var(--navy);}
+.pg-text p+p{margin-top:1.2rem;}
+.pg-hero h1,.pg-text .display,.pg-cta .display{text-wrap:balance;}
+.pg-text a{color:var(--indigo);font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+.svc p.svc-tag{flex:none;font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.08rem;line-height:1.35;color:var(--indigo);margin:-.25rem 0 .6rem;}
+.pg-cta{text-align:center;max-width:780px;margin:0 auto;}
+.pg-cta p{font-size:1.08rem;line-height:1.85;margin-top:1.1rem;}
+.pg-cta .btn{margin-top:1.9rem;}
+.pg-call{margin-top:1.2rem!important;font-weight:700;color:var(--white);}
+.pg-call a{color:var(--white);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;display:inline-flex;align-items:center;min-height:44px;}
 
 /* breakpoints, one block each, in order */
 @media(max-width:1024px){
@@ -504,8 +482,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .hdr-in{gap:1rem;}
   .hdr-links>a,.dd-top{font-size:.98rem;padding:.5rem .55rem;}
   .hdr-phone{font-size:.98rem;}
-  .sp-intro{gap:2.5rem;}
-  .adapt{gap:3rem;}
   .hero-grid{gap:2.5rem;}
   .icard{width:240px;margin-left:-1.4rem;}
   .svc-grid{grid-template-columns:repeat(2,1fr);}
@@ -514,6 +490,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .rv-card{padding:2.6rem 2.2rem;}
 }
 @media(max-width:900px){
+  .pg-hero{padding:6.5rem 0 2.5rem;}
   html{scroll-padding-top:72px;}
   .hdr{height:72px;}
   .hdr-in{padding:0 1.2rem;gap:.6rem;}
@@ -522,9 +499,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .hdr-phone{margin-left:auto;width:46px;height:46px;justify-content:center;border:1px solid rgba(255,255,255,.35);border-radius:var(--r);}
   .hdr-phone span{display:none;}
   .ham{display:flex;}
-  .sp-hero{padding:6.5rem 0 2.5rem;}
-  .sp-intro,.adapt{grid-template-columns:minmax(0,1fr);gap:2rem;}
-  .sp-grid{grid-template-columns:minmax(0,1fr);}
   .hero{padding:6.5rem 0 2.5rem;}
   .hero-grid{grid-template-columns:minmax(0,1fr);gap:3rem;}
   .hero-r{padding:1rem 0 3rem;max-width:640px;}
@@ -579,6 +553,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .svc-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 1.25rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.9rem;margin:0 -1.25rem;padding:0 1.25rem .4rem;}
   .svc-grid::-webkit-scrollbar{display:none;}
   .svc{flex:0 0 80%;scroll-snap-align:start;}
+  .team-bg img,.check-bg img{display:none;}
+  .svc-grid.svc-list{display:grid;grid-template-columns:minmax(0,1fr);gap:1.1rem;overflow:visible;margin:0;padding:0;}
+  .svc-list .svc{flex:none;}
+  .pg-banner{margin-top:1.8rem;}
+  .pg-line{font-size:1.35rem;margin:1.8rem auto 1.4rem;}
+  .pg-text .pg-big{font-size:1.3rem;}
   .swipe-hint{display:block;text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.9rem;}
   .team-strip{grid-template-columns:repeat(3,1fr);gap:.5rem;}
   .team-strip figure.wide{grid-column:auto;aspect-ratio:1/1;}
@@ -588,24 +568,16 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .foot-close{padding-bottom:1.8rem;margin-bottom:1.8rem;}
   .collage{height:320px;}
   .faq-photo{display:none;}
-  .c-banner{height:110px;}
   .sm-b{bottom:-1.5rem;width:36%;}
   .rv-card{padding:2.2rem 1.4rem;}
   .cf{padding:1.8rem 1.3rem;}
   .check-in{padding:2rem 1.3rem;}
   .refer{grid-template-columns:90px 1fr;}
   .post{flex:0 0 86%;}
-  .sp-banner{aspect-ratio:16/9;margin-top:2rem;}
-  .sp-intro-a{font-size:1.4rem;}
-  .sp-body{padding:1.2rem 1.25rem 1.1rem;}
-  .jump{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -1.25rem 1.8rem;padding:0 1.25rem;max-width:none;}
-  .jump::-webkit-scrollbar{display:none;}
-  .jump a{flex-shrink:0;}
 }
 @media(max-width:480px){
+  .pg-hero h1{font-size:2.45rem;}
   .hdr-logo svg{height:46px;}
-  .sp-head h1{font-size:2.45rem;}
-  .sp-sub{font-size:1.04rem;}
   .hero h1{font-size:2.6rem;}
   .hero-sub{font-size:1.02rem;}
   .stat{padding:2rem .8rem;}
@@ -615,8 +587,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .check h3{font-size:1.8rem;}
 }
 @media(max-width:390px){
+  .pg-hero h1{font-size:2.2rem;}
   .hero h1{font-size:2.3rem;}
-  .sp-head h1{font-size:2.2rem;}
   .mob-sub{grid-template-columns:1fr;}
   .pill span{font-size:.6rem;letter-spacing:.14em;}
   .stat-l{font-size:.6rem;letter-spacing:.1em;}
@@ -658,142 +630,74 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   <a href="https://www.dailyhomecare.ca/contact-us" class="btn btn-rose js-close">Request a Free Care Consultation</a>
 </div>
 <main>
-<section class="sp-hero" id="top">
+<section class="pg-hero" id="top">
   <div class="wrap">
-    <div class="sp-head">
-      <nav class="crumbs ha1" aria-label="Breadcrumb"><a href="dailyhomecare-premium.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Services</span></nav>
-      <h1 class="ha2">Experience Personalized <em>Home Care Services in Niagara</em></h1>
-      <p class="sp-sub ha3">Responsive home care after a hospital discharge, fall, or sudden change in care needs.</p>
-      <div class="sp-btns ha4"><a class="btn btn-rose" href="https://www.dailyhomecare.ca/contact-us">Request a Care Consultation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost" href="tel:9052275354"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg> 905 227 5354</a></div>
-      <div class="chips ha5">
-        <span class="cchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Fully Insured</span>
-        <span class="cchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>WSIB Compliant</span>
-        <span class="cchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Approved VAC Provider</span>
-        <span class="cchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Greenshield Eligible</span>
-      </div>
-    </div>
-    <div class="sp-banner ha6"><img src="https://static.wixstatic.com/media/b9daef_5be1469701154c05b28071301d101385~mv2.jpg/v1/fill/w_1600,h_480,al_c,q_85,enc_auto/team3.jpg" alt="Daily Home Care caregivers making heart shapes with their hands outside a home" width="1600" height="480" fetchpriority="high"></div>
+    <nav class="crumbs ha1" aria-label="Breadcrumb"><a href="dailyhomecare-premium.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Services</span></nav>
+    <h1 class="ha2">Experience Personalized <em>Home Care Services in Niagara</em></h1>
+    <div class="pg-banner ha3"><img src="https://static.wixstatic.com/media/b9daef_5be1469701154c05b28071301d101385~mv2.jpg/v1/fill/w_1600,h_480,al_c,q_85,enc_auto/team3.jpg" alt="Daily Home Care caregivers making heart shapes with their hands outside a home" width="1600" height="480" fetchpriority="high"></div>
+    <p class="pg-line ha4">Responsive home care after a hospital discharge, fall, or sudden change in care needs.</p>
+    <a class="btn btn-rose ha5" href="https://www.dailyhomecare.ca/contact-us">Request a Care Consultation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 </section>
-<section class="sec">
-  <div class="wrap sp-intro">
-    <p class="sp-intro-a reveal-l">When someone you care about suddenly needs help, Daily Home Care provides personalized support with mobility, personal care, meals, supervision, companionship, and recovery routines, at home or in a retirement residence.</p>
-    <div class="sp-intro-b reveal-r">
-      <p>Care is delivered with professionalism, dignity, and dependable communication, helping families feel informed and supported.</p>
-      <div class="sp-need"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg><div><small>Need care soon?</small><a href="tel:9052275354">Call us at 905 227 5354</a></div></div>
-    </div>
+<section class="sec" id="intro">
+  <div class="wrap pg-text reveal">
+    <p class="pg-big">When someone you care about suddenly needs help, Daily Home Care provides personalized support with mobility, personal care, meals, supervision, companionship, and recovery routines, at home or in a retirement residence.</p>
+    <p class="lead">Care is delivered with professionalism, dignity, and dependable communication, helping families feel informed and supported.</p>
   </div>
 </section>
 <section class="sec cream" id="explore">
   <div class="wrap">
-    <div class="sec-head center reveal"><div class="eyebrow"><span class="eb-dot rose"></span><span class="eb-txt rose">Our Services</span></div><h2 class="display wipe">Explore <em>Our Services</em></h2><p class="lead">Whether you need temporary assistance or ongoing support, our services can be tailored to changing needs while helping you or your loved one remain safe and independent, wherever you call home.</p></div>
-    <nav class="jump reveal" aria-label="Jump to a service"><a href="#svc-personal">Personal Care</a><a href="#svc-companion">Companion Care</a><a href="#svc-respite">Respite Care</a><a href="#svc-palliative">Palliative Care</a><a href="#svc-dementia">Dementia Care</a><a href="#svc-posthospital">Post Hospital Support</a><a href="#svc-overnight">Overnight Care</a><a href="#svc-retirement">Retirement Home Support</a></nav>
-    <div class="sp-grid">
-      <article class="sp-card reveal" id="svc-personal">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/personal-care-niagara" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_ea56a4caebe745e6bc21f7644abf7989~mv2.jpeg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/psw.jpg" alt="Personal support worker providing compassionate home care to an elderly client in Niagara." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">01</span>
-          <h3>Personal Care</h3>
-          <p class="sp-tag">Support with dignity and respect.</p>
-          <p class="sp-txt">Our caregivers assist with daily living: bathing, grooming, dressing, and mobility so clients can feel comfortable and confident every day. We focus on safety, privacy, independence and personal dignity.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/personal-care-niagara">Learn more<span class="sr"> about Personal Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+    <div class="sec-head center reveal"><h2 class="display wipe">Explore <em>Our Services</em></h2><p class="lead">Whether you need temporary assistance or ongoing support, our services can be tailored to changing needs while helping you or your loved one remain safe and independent, wherever you call home.</p></div>
+    <div class="svc-grid svc-list reveal">
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/personal-care-niagara" tabindex="-1" aria-hidden="true"><span class="svc-num">01</span><img src="https://static.wixstatic.com/media/b9daef_ea56a4caebe745e6bc21f7644abf7989~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/psw.jpg" srcset="https://static.wixstatic.com/media/b9daef_ea56a4caebe745e6bc21f7644abf7989~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/psw.jpg 600w, https://static.wixstatic.com/media/b9daef_ea56a4caebe745e6bc21f7644abf7989~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/psw.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Personal support worker providing compassionate home care to an elderly client in Niagara." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Personal Care</h3><p class="svc-tag">Support with dignity and respect.</p><p>Our caregivers assist with daily living: bathing, grooming, dressing, and mobility so clients can feel comfortable and confident every day. We focus on safety, privacy, independence and personal dignity.</p><a class="tlink" href="https://www.dailyhomecare.ca/personal-care-niagara">Learn more<span class="sr"> about Personal Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal d1" id="svc-companion">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/companion-care-niagara" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_39aad5d05dae4eaabbd0c87d80084649~mv2.jpeg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/read.jpg" alt="Friendly caregiver sharing conversation and companionship with older adult at home." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">02</span>
-          <h3>Companion Care</h3>
-          <p class="sp-tag">Meaningful presence that brightens the day.</p>
-          <p class="sp-txt">We provide social interaction, conversation, light activities, and community engagement to reduce isolation and promote emotional wellbeing. A friendly face can make all the difference.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/companion-care-niagara">Learn more<span class="sr"> about Companion Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/companion-care-niagara" tabindex="-1" aria-hidden="true"><span class="svc-num">02</span><img src="https://static.wixstatic.com/media/b9daef_39aad5d05dae4eaabbd0c87d80084649~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/read.jpg" srcset="https://static.wixstatic.com/media/b9daef_39aad5d05dae4eaabbd0c87d80084649~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/read.jpg 600w, https://static.wixstatic.com/media/b9daef_39aad5d05dae4eaabbd0c87d80084649~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/read.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Friendly caregiver sharing conversation and companionship with older adult at home." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Companion Care</h3><p class="svc-tag">Meaningful presence that brightens the day.</p><p>We provide social interaction, conversation, light activities, and community engagement to reduce isolation and promote emotional wellbeing. A friendly face can make all the difference.</p><a class="tlink" href="https://www.dailyhomecare.ca/companion-care-niagara">Learn more<span class="sr"> about Companion Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal" id="svc-respite">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/respite-care-niagara" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_bf982b5a2c1a46879469d8bf771bb230~mv2.jpeg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/comfort.jpg" alt="Caregiver offering comfort and emotional support to a client at home." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">03</span>
-          <h3>Respite Care</h3>
-          <p class="sp-tag">Relief for families, peace for everyone.</p>
-          <p class="sp-txt">Caregiving is rewarding but demanding. Our respite services allow family caregivers to rest, recharge, or attend to personal needs, knowing their loved one is in compassionate, capable hands.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/respite-care-niagara">Learn more<span class="sr"> about Respite Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/respite-care-niagara" tabindex="-1" aria-hidden="true"><span class="svc-num">03</span><img src="https://static.wixstatic.com/media/b9daef_bf982b5a2c1a46879469d8bf771bb230~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/comfort.jpg" srcset="https://static.wixstatic.com/media/b9daef_bf982b5a2c1a46879469d8bf771bb230~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/comfort.jpg 600w, https://static.wixstatic.com/media/b9daef_bf982b5a2c1a46879469d8bf771bb230~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/comfort.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver offering comfort and emotional support to a client at home." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Respite Care</h3><p class="svc-tag">Relief for families, peace for everyone.</p><p>Caregiving is rewarding but demanding. Our respite services allow family caregivers to rest, recharge, or attend to personal needs, knowing their loved one is in compassionate, capable hands.</p><a class="tlink" href="https://www.dailyhomecare.ca/respite-care-niagara">Learn more<span class="sr"> about Respite Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal d1" id="svc-palliative">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/palliative-home-care-niagara" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_062f9f396f33493b94f1b561252efe8c~mv2.jpg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/comf2.jpg" alt="Caregiver comforting a client." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">04</span>
-          <h3>Palliative Care</h3>
-          <p class="sp-tag">Comfort, compassion, and dignity in every moment.</p>
-          <p class="sp-txt">We provide gentle support for clients and families navigating serious illness or end of life care. Our caregivers focus on comfort, respect, and emotional presence, working alongside healthcare teams when needed.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/palliative-home-care-niagara">Learn more<span class="sr"> about Palliative Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/palliative-home-care-niagara" tabindex="-1" aria-hidden="true"><span class="svc-num">04</span><img src="https://static.wixstatic.com/media/b9daef_062f9f396f33493b94f1b561252efe8c~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/comf2.jpg" srcset="https://static.wixstatic.com/media/b9daef_062f9f396f33493b94f1b561252efe8c~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/comf2.jpg 600w, https://static.wixstatic.com/media/b9daef_062f9f396f33493b94f1b561252efe8c~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/comf2.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver comforting a client." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Palliative Care</h3><p class="svc-tag">Comfort, compassion, and dignity in every moment.</p><p>We provide gentle support for clients and families navigating serious illness or end of life care. Our caregivers focus on comfort, respect, and emotional presence, working alongside healthcare teams when needed.</p><a class="tlink" href="https://www.dailyhomecare.ca/palliative-home-care-niagara">Learn more<span class="sr"> about Palliative Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal" id="svc-dementia">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/dementia-care-niagara" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_d6a37e809bf24728882c40e6ed03b5cf~mv2.jpeg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/dem1.jpg" alt="Trained caregiver supporting person with dementia through gentle interaction at home." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">05</span>
-          <h3>Dementia Care</h3>
-          <p class="sp-tag">Understanding care for unique needs.</p>
-          <p class="sp-txt">Our dementia support emphasizes patience, consistency, and connection. We adapt routines, activities, and communication styles to maintain familiarity and calm, helping clients feel secure at home.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/dementia-care-niagara">Learn more<span class="sr"> about Dementia Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/dementia-care-niagara" tabindex="-1" aria-hidden="true"><span class="svc-num">05</span><img src="https://static.wixstatic.com/media/b9daef_d6a37e809bf24728882c40e6ed03b5cf~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/dem1.jpg" srcset="https://static.wixstatic.com/media/b9daef_d6a37e809bf24728882c40e6ed03b5cf~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/dem1.jpg 600w, https://static.wixstatic.com/media/b9daef_d6a37e809bf24728882c40e6ed03b5cf~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/dem1.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Trained caregiver supporting person with dementia through gentle interaction at home." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Dementia Care</h3><p class="svc-tag">Understanding care for unique needs.</p><p>Our dementia support emphasizes patience, consistency, and connection. We adapt routines, activities, and communication styles to maintain familiarity and calm, helping clients feel secure at home.</p><a class="tlink" href="https://www.dailyhomecare.ca/dementia-care-niagara">Learn more<span class="sr"> about Dementia Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal d1" id="svc-posthospital">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_6232135bd3704d39815a9610d0d8991b~mv2.jpeg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/home.jpg" alt="Caregiver assisting client returning home from hospital with mobility and recovery support." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">06</span>
-          <h3>Post Hospital Support</h3>
-          <p class="sp-tag">Safe transitions, steady recovery.</p>
-          <p class="sp-txt">Returning home after hospitalization can be overwhelming. We provide assistance with mobility, medication reminders, nutrition, and daily tasks to ensure a smooth, confident recovery at home.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara">Learn more<span class="sr"> about Post Hospital Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara" tabindex="-1" aria-hidden="true"><span class="svc-num">06</span><img src="https://static.wixstatic.com/media/b9daef_6232135bd3704d39815a9610d0d8991b~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/home.jpg" srcset="https://static.wixstatic.com/media/b9daef_6232135bd3704d39815a9610d0d8991b~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/home.jpg 600w, https://static.wixstatic.com/media/b9daef_6232135bd3704d39815a9610d0d8991b~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/home.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver assisting client returning home from hospital with mobility and recovery support." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Post Hospital Support</h3><p class="svc-tag">Safe transitions, steady recovery.</p><p>Returning home after hospitalization can be overwhelming. We provide assistance with mobility, medication reminders, nutrition, and daily tasks to ensure a smooth, confident recovery at home.</p><a class="tlink" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara">Learn more<span class="sr"> about Post Hospital Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal" id="svc-overnight">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/overnight-care" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/night.jpg" alt="Caregiver assisting an older adult with a walker during overnight care at home." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">07</span>
-          <h3>Overnight Care</h3>
-          <p class="sp-tag">Reassuring support through the night, when being alone may no longer feel safe.</p>
-          <p class="sp-txt">Personalized overnight support for older adults who may need assistance with nighttime routines, mobility, toileting, personal care, or reassurance throughout the night.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/overnight-care">Learn more<span class="sr"> about Overnight Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/overnight-care" tabindex="-1" aria-hidden="true"><span class="svc-num">07</span><img src="https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/night.jpg" srcset="https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/night.jpg 600w, https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/night.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver assisting an older adult with a walker during overnight care at home." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Overnight Care</h3><p class="svc-tag">Reassuring support through the night, when being alone may no longer feel safe.</p><p>Personalized overnight support for older adults who may need assistance with nighttime routines, mobility, toileting, personal care, or reassurance throughout the night.</p><a class="tlink" href="https://www.dailyhomecare.ca/overnight-care">Learn more<span class="sr"> about Overnight Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
-      <article class="sp-card reveal d1" id="svc-retirement">
-        <a class="sp-img" href="https://www.dailyhomecare.ca/retirement-home-support" tabindex="-1" aria-hidden="true"><img src="https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_720,h_540,al_c,q_85,enc_auto/retire.jpg" alt="Caregiver accompanying a senior using a walker to the dining room." width="720" height="540" loading="lazy" decoding="async"></a>
-        <div class="sp-body">
-          <span class="sp-num">08</span>
-          <h3>Retirement Home Support</h3>
-          <p class="sp-tag">Dedicated care, right where you live.</p>
-          <p class="sp-txt">Dedicated one on one support for individuals living in retirement residences and other supportive living settings. We complement the care already provided by the residence with dedicated time, attention and support tailored to your loved one.</p>
-          <a class="tlink" href="https://www.dailyhomecare.ca/retirement-home-support">Learn more<span class="sr"> about Retirement Home Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+      <article class="svc">
+        <a class="svc-img" href="https://www.dailyhomecare.ca/retirement-home-support" tabindex="-1" aria-hidden="true"><span class="svc-num">08</span><img src="https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/retire.jpg" srcset="https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/retire.jpg 600w, https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/retire.jpg 1050w" sizes="(max-width:600px) calc(100vw - 2.5rem), (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver accompanying a senior using a walker to the dining room." width="600" height="400" loading="lazy" decoding="async"></a>
+        <div class="svc-body"><h3>Retirement Home Support</h3><p class="svc-tag">Dedicated care, right where you live.</p><p>Dedicated one on one support for individuals living in retirement residences and other supportive living settings. We complement the care already provided by the residence with dedicated time, attention and support tailored to your loved one.</p><a class="tlink" href="https://www.dailyhomecare.ca/retirement-home-support">Learn more<span class="sr"> about Retirement Home Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
     </div>
   </div>
 </section>
 <section class="sec" id="routine">
-  <div class="wrap adapt">
-    <div class="reveal-l">
-      <div class="eyebrow"><span class="eb-dot indigo"></span><span class="eb-txt indigo">Care at Home</span></div>
-      <h2 class="display wipe">Home Care That Adapts <em>to Your Routine</em></h2>
-      <p>Our services are personalized to meet each client&rsquo;s unique circumstances, whether it&rsquo;s aging in place, recovering from illness, or adjusting to ongoing health or care changes. We support individuals in remaining at home with confidence, comfort, and independence.</p>
-      <div class="pullq">At Daily Home Care, home care is more than a service. It&rsquo;s a relationship built on trust, consistency, and compassion, guided by close involvement and thoughtful coordination.</div>
-      <p style="margin-top:0;">We&rsquo;re proud to serve families across Niagara, from St. Catharines, Niagara Falls, Thorold, Welland and surrounding Niagara communities, providing local care that feels personal, responsive, and close to home.</p>
-      <div class="towns"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>St. Catharines</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Niagara Falls</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Thorold</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Welland</span></div>
-    </div>
-    <div class="collage reveal-r">
-      <div class="col-a"><img src="https://static.wixstatic.com/media/b9daef_06338adaaddd4184a5f9ade433f62361~mv2.jpg/v1/fill/w_700,h_560,al_c,q_85,enc_auto/kitchen.jpg" alt="A caregiver supporting a senior with daily routine in the kitchen" width="700" height="560" loading="lazy" decoding="async"></div>
-      <div class="col-b"><img src="https://static.wixstatic.com/media/b9daef_0a2586cf88ce4db989fe7b0c97ae2a9b~mv2.png/v1/fill/w_520,h_400,al_c,q_85,enc_auto/garden.jpg" alt="Caregiver and an older adult caring for a plant together" width="520" height="400" loading="lazy" decoding="async"></div>
-    </div>
+  <div class="wrap pg-text reveal">
+    <h2 class="display wipe">Home Care That Adapts <em>to Your Routine</em></h2>
+    <p class="lead" style="margin-top:1.4rem;">Our services are personalized to meet each client&rsquo;s unique circumstances, whether it&rsquo;s aging in place, recovering from illness, or adjusting to ongoing health or care changes. We support individuals in remaining at home with confidence, comfort, and independence.</p>
+    <p class="lead">At Daily Home Care, home care is more than a service: it&rsquo;s a relationship built on trust, consistency, and compassion, guided by close involvement and thoughtful coordination.</p>
+    <p class="lead">We&rsquo;re proud to serve families <a href="https://www.dailyhomecare.ca/niagara-home-care">across Niagara</a>, from St. Catharines, Niagara Falls, Thorold, Welland and surrounding Niagara communities, providing local care that feels personal, responsive, and close to home.</p>
   </div>
 </section>
 <section class="sec navy" id="consult">
-  <div class="wrap sp-cta reveal">
-    <div class="eyebrow light"><span class="eb-dot rose"></span><span class="eb-txt rose">Free Care Consultation</span></div>
+  <div class="wrap pg-cta reveal">
     <h2 class="display wipe">Ready to explore care at home? <em>Let&rsquo;s discuss your care needs.</em></h2>
     <p>Every family&rsquo;s situation is unique. Whether you&rsquo;re exploring options or need help right away, we&rsquo;ll listen first and guide you through the next steps, with no pressure and no obligation.</p>
-    <div class="btns"><a class="btn btn-rose" href="https://www.dailyhomecare.ca/contact-us">Request a Care Consultation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost-w" href="tel:9052275354"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg> Need care soon? Call 905 227 5354</a></div>
+    <a class="btn btn-rose" href="https://www.dailyhomecare.ca/contact-us">Request a Care Consultation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <p class="pg-call">Need care soon? <a href="tel:9052275354">Call us at 905 227 5354</a></p>
   </div>
 </section>
 </main>

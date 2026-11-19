@@ -348,7 +348,7 @@ a,button,.chip,.flt,.gi{touch-action:manipulation;}
 .faq-a p+p{margin-top:.8rem;}
 
 /* contact */
-.c-banner{height:170px;position:relative;overflow:hidden;border-radius:var(--rc);max-width:1100px;margin:0 auto;}
+.c-banner{aspect-ratio:4/1;position:relative;overflow:hidden;border-radius:var(--rc);max-width:800px;margin:0 auto;}
 .c-banner img{width:100%;height:100%;object-fit:cover;}
 .c-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,251,243,0) 40%,var(--cream) 100%);}
 .contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:start;}
@@ -455,49 +455,27 @@ textarea.fi{min-height:110px;resize:vertical;line-height:1.6;}
 /* grain */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;}
 
-/* services page */
-.sp-hero{position:relative;padding:8.5rem 0 3.25rem;overflow:hidden;background:linear-gradient(160deg,var(--white) 0%,var(--cream) 60%,var(--indigo-pale) 100%);}
-.sp-head{position:relative;z-index:2;text-align:center;max-width:880px;margin:0 auto;}
-.crumbs{display:flex;align-items:center;justify-content:center;gap:.45rem;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+/* services page: her sections, built from the homepage parts */
+.pg-hero{padding:8.5rem 0 3.5rem;background:linear-gradient(160deg,var(--white) 0%,var(--cream) 60%,var(--indigo-pale) 100%);text-align:center;}
+.crumbs{display:flex;align-items:center;justify-content:center;gap:.45rem;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
 .crumbs a{color:var(--indigo);min-height:44px;display:inline-flex;align-items:center;}
 .crumbs [aria-current]{color:var(--navy);}
-.sp-head h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,4.2vw,4rem);line-height:1.04;color:var(--navy);margin-bottom:1.1rem;letter-spacing:-.01em;}
-.sp-head h1 em{font-style:italic;font-weight:600;color:var(--indigo);}
-.sp-sub{font-size:1.15rem;line-height:1.75;color:var(--body);max-width:620px;margin:0 auto 1.9rem;}
-.sp-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-bottom:1.4rem;}
-.sp-head .chips{justify-content:center;}
-.sp-banner{position:relative;z-index:2;margin-top:2.6rem;border-radius:var(--rc);overflow:hidden;aspect-ratio:1180/390;box-shadow:var(--sh-xl);background:var(--cream2);}
-.sp-banner img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;}
-.sp-intro{display:grid;grid-template-columns:1.15fr .85fr;gap:3.5rem;align-items:start;}
-.sp-intro-a{font-family:var(--serif);font-weight:600;font-size:1.7rem;line-height:1.45;color:var(--navy);}
-.sp-intro-b p{font-size:1.06rem;line-height:1.85;color:var(--body);margin-bottom:1.4rem;}
-.sp-need{display:flex;align-items:center;gap:.9rem;border-radius:var(--r);background:var(--rose-ghost);border-left:4px solid var(--rose);padding:1rem 1.2rem;}
-.sp-need small{display:block;font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-ink);}
-.sp-need a{font-weight:800;font-size:1.15rem;color:var(--navy);min-height:44px;display:inline-flex;align-items:center;}
-.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:.45rem;margin:0 auto 2.2rem;max-width:900px;}
-.jump a{display:inline-flex;align-items:center;min-height:44px;padding:.35rem 1rem;border-radius:999px;border:1.5px solid var(--rule);background:var(--white);font-size:.78rem;font-weight:800;color:var(--navy);transition:border-color .2s,background .2s,color .2s;}
-.jump a:hover{border-color:var(--navy);background:var(--navy);color:var(--white);}
-.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
-.sp-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;background:var(--white);border:1px solid var(--rule);border-radius:var(--rc);overflow:hidden;scroll-margin-top:24px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
-.sp-card.reveal{transform:none;}
-.sp-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
-.sp-img{position:relative;overflow:hidden;background:var(--cream2);aspect-ratio:16/10;}
-.sp-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);}
-.sp-card:hover .sp-img img{transform:scale(1.05);}
-.sp-body{padding:1.4rem 1.5rem 1.2rem;display:flex;flex-direction:column;}
-.sp-num{font-family:var(--serif);font-weight:700;font-size:.95rem;color:var(--rose-ink);margin-bottom:.2rem;}
-.sp-body h3{font-family:var(--serif);font-weight:700;font-size:1.55rem;line-height:1.1;color:var(--navy);}
-.sp-tag{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.12rem;color:var(--indigo);margin:.3rem 0 .6rem;}
-.sp-body p.sp-txt{font-size:.95rem;line-height:1.72;color:var(--body);flex:1;}
-.sp-body .tlink{margin-top:.5rem;}
-.adapt{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;}
-.adapt p{font-size:1.05rem;line-height:1.85;color:var(--body);margin-top:1.1rem;}
-.towns{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem;}
-.towns span{display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;background:var(--white);border:1px solid var(--rule);padding:.4rem .85rem;font-size:.78rem;font-weight:800;color:var(--navy);}
-.towns svg{width:14px;height:14px;color:var(--rose);}
-.sp-cta{text-align:center;max-width:780px;margin:0 auto;}
-.sp-cta p{font-size:1.08rem;line-height:1.85;margin-top:1.1rem;}
-.sp-cta .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-top:1.9rem;}
+.pg-hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,4.2vw,4rem);line-height:1.04;color:var(--navy);letter-spacing:-.01em;max-width:880px;margin:0 auto;}
+.pg-hero h1 em{font-style:italic;font-weight:600;color:var(--indigo);}
+.pg-banner{max-width:800px;margin:2.4rem auto 0;border-radius:var(--rc);overflow:hidden;aspect-ratio:10/3;box-shadow:var(--sh-xl);background:var(--cream2);}
+.pg-banner img{width:100%;height:100%;object-fit:cover;}
+.pg-line{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,2.3vw,1.95rem);line-height:1.3;color:var(--navy);max-width:760px;margin:2.4rem auto 1.7rem;}
+.pg-text{max-width:780px;margin:0 auto;text-align:center;}
+.pg-text .pg-big{font-family:var(--serif);font-weight:600;font-size:1.6rem;line-height:1.5;color:var(--navy);}
+.pg-text p+p{margin-top:1.2rem;}
+.pg-hero h1,.pg-text .display,.pg-cta .display{text-wrap:balance;}
+.pg-text a{color:var(--indigo);font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+.svc p.svc-tag{flex:none;font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.08rem;line-height:1.35;color:var(--indigo);margin:-.25rem 0 .6rem;}
+.pg-cta{text-align:center;max-width:780px;margin:0 auto;}
+.pg-cta p{font-size:1.08rem;line-height:1.85;margin-top:1.1rem;}
+.pg-cta .btn{margin-top:1.9rem;}
+.pg-call{margin-top:1.2rem!important;font-weight:700;color:var(--white);}
+.pg-call a{color:var(--white);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;display:inline-flex;align-items:center;min-height:44px;}
 
 /* breakpoints, one block each, in order */
 @media(max-width:1024px){
@@ -505,8 +483,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .hdr-in{gap:1rem;}
   .hdr-links>a,.dd-top{font-size:.98rem;padding:.5rem .55rem;}
   .hdr-phone{font-size:.98rem;}
-  .sp-intro{gap:2.5rem;}
-  .adapt{gap:3rem;}
   .hero-grid{gap:2.5rem;}
   .icard{width:240px;margin-left:-1.4rem;}
   .svc-grid{grid-template-columns:repeat(2,1fr);}
@@ -515,6 +491,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .rv-card{padding:2.6rem 2.2rem;}
 }
 @media(max-width:900px){
+  .pg-hero{padding:6.5rem 0 2.5rem;}
   html{scroll-padding-top:72px;}
   .hdr{height:72px;}
   .hdr-in{padding:0 1.2rem;gap:.6rem;}
@@ -523,9 +500,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .hdr-phone{margin-left:auto;width:46px;height:46px;justify-content:center;border:1px solid rgba(255,255,255,.35);border-radius:var(--r);}
   .hdr-phone span{display:none;}
   .ham{display:flex;}
-  .sp-hero{padding:6.5rem 0 2.5rem;}
-  .sp-intro,.adapt{grid-template-columns:minmax(0,1fr);gap:2rem;}
-  .sp-grid{grid-template-columns:minmax(0,1fr);}
   .hero{padding:6.5rem 0 2.5rem;}
   .hero-grid{grid-template-columns:minmax(0,1fr);gap:3rem;}
   .hero-r{padding:1rem 0 3rem;max-width:640px;}
@@ -580,6 +554,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .svc-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 1.25rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.9rem;margin:0 -1.25rem;padding:0 1.25rem .4rem;}
   .svc-grid::-webkit-scrollbar{display:none;}
   .svc{flex:0 0 80%;scroll-snap-align:start;}
+  .team-bg img,.check-bg img{display:none;}
+  .svc-grid.svc-list{display:grid;grid-template-columns:minmax(0,1fr);gap:1.1rem;overflow:visible;margin:0;padding:0;}
+  .svc-list .svc{flex:none;}
+  .pg-banner{margin-top:1.8rem;}
+  .pg-line{font-size:1.35rem;margin:1.8rem auto 1.4rem;}
+  .pg-text .pg-big{font-size:1.3rem;}
   .swipe-hint{display:block;text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.9rem;}
   .team-strip{grid-template-columns:repeat(3,1fr);gap:.5rem;}
   .team-strip figure.wide{grid-column:auto;aspect-ratio:1/1;}
@@ -589,24 +569,16 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .foot-close{padding-bottom:1.8rem;margin-bottom:1.8rem;}
   .collage{height:320px;}
   .faq-photo{display:none;}
-  .c-banner{height:110px;}
   .sm-b{bottom:-1.5rem;width:36%;}
   .rv-card{padding:2.2rem 1.4rem;}
   .cf{padding:1.8rem 1.3rem;}
   .check-in{padding:2rem 1.3rem;}
   .refer{grid-template-columns:90px 1fr;}
   .post{flex:0 0 86%;}
-  .sp-banner{aspect-ratio:16/9;margin-top:2rem;}
-  .sp-intro-a{font-size:1.4rem;}
-  .sp-body{padding:1.2rem 1.25rem 1.1rem;}
-  .jump{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -1.25rem 1.8rem;padding:0 1.25rem;max-width:none;}
-  .jump::-webkit-scrollbar{display:none;}
-  .jump a{flex-shrink:0;}
 }
 @media(max-width:480px){
+  .pg-hero h1{font-size:2.45rem;}
   .hdr-logo svg{height:46px;}
-  .sp-head h1{font-size:2.45rem;}
-  .sp-sub{font-size:1.04rem;}
   .hero h1{font-size:2.6rem;}
   .hero-sub{font-size:1.02rem;}
   .stat{padding:2rem .8rem;}
@@ -616,8 +588,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   .check h3{font-size:1.8rem;}
 }
 @media(max-width:390px){
+  .pg-hero h1{font-size:2.2rem;}
   .hero h1{font-size:2.3rem;}
-  .sp-head h1{font-size:2.2rem;}
   .mob-sub{grid-template-columns:1fr;}
   .pill span{font-size:.6rem;letter-spacing:.14em;}
   .stat-l{font-size:.6rem;letter-spacing:.1em;}
@@ -718,35 +690,35 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
     <div class="sec-head center reveal"><div class="eyebrow"><span class="eb-dot rose"></span><span class="eb-txt rose">Our Services</span></div><h2 class="display wipe">Thoughtful Support <em>for Everyday Life</em></h2></div>
     <div class="svc-grid reveal">
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/personal-care-niagara" aria-label="Personal Care"><span class="svc-num">01</span><img src="https://static.wixstatic.com/media/b9daef_ce72f7d7283c490b8c4f505560eec4f6~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_auto/feed.jpg" alt="Caregiver assisting an older adult with a meal at home" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/personal-care-niagara" aria-label="Personal Care"><span class="svc-num">01</span><img src="https://static.wixstatic.com/media/b9daef_ce72f7d7283c490b8c4f505560eec4f6~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_auto/feed.jpg" srcset="https://static.wixstatic.com/media/b9daef_ce72f7d7283c490b8c4f505560eec4f6~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_auto/feed.jpg 600w, https://static.wixstatic.com/media/b9daef_ce72f7d7283c490b8c4f505560eec4f6~mv2.png/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/feed.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver assisting an older adult with a meal at home" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Personal Care</h3><p>Respectful assistance with daily living activities that support comfort, dignity, and independence at home, especially during recovery and life's transitions.</p><a class="tlink" href="https://www.dailyhomecare.ca/personal-care-niagara">Learn more<span class="sr"> about Personal Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/companion-care-niagara" aria-label="Companionship"><span class="svc-num">02</span><img src="https://static.wixstatic.com/media/b9daef_9a3d84968d6c4741bb7a7cd106af0b00~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/walk.jpg" alt="Caregiver providing companionship and support while walking with an older adult outdoors" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/companion-care-niagara" aria-label="Companionship"><span class="svc-num">02</span><img src="https://static.wixstatic.com/media/b9daef_9a3d84968d6c4741bb7a7cd106af0b00~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/walk.jpg" srcset="https://static.wixstatic.com/media/b9daef_9a3d84968d6c4741bb7a7cd106af0b00~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/walk.jpg 600w, https://static.wixstatic.com/media/b9daef_9a3d84968d6c4741bb7a7cd106af0b00~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/walk.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver providing companionship and support while walking with an older adult outdoors" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Companionship</h3><p>Meaningful connection that reduces isolation, provides reassurance, and supports emotional wellbeing, particularly when someone is adjusting to changes in life or care.</p><a class="tlink" href="https://www.dailyhomecare.ca/companion-care-niagara">Learn more<span class="sr"> about Companionship</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/dementia-care-niagara" aria-label="Dementia Support"><span class="svc-num">03</span><img src="https://static.wixstatic.com/media/b9daef_eb60373ff54642a487f8e095c0fe6fd0~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/puzzle2.jpg" alt="Home caregiver assisting an older client with a puzzle activity" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/dementia-care-niagara" aria-label="Dementia Support"><span class="svc-num">03</span><img src="https://static.wixstatic.com/media/b9daef_eb60373ff54642a487f8e095c0fe6fd0~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/puzzle2.jpg" srcset="https://static.wixstatic.com/media/b9daef_eb60373ff54642a487f8e095c0fe6fd0~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/puzzle2.jpg 600w, https://static.wixstatic.com/media/b9daef_eb60373ff54642a487f8e095c0fe6fd0~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/puzzle2.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Home caregiver assisting an older client with a puzzle activity" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Dementia Support</h3><p>Calm, consistent routines delivered with patience, understanding, and respect, helping individuals feel safe and supported at home.</p><a class="tlink" href="https://www.dailyhomecare.ca/dementia-care-niagara">Learn more<span class="sr"> about Dementia Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/respite-care-niagara" aria-label="Respite Care"><span class="svc-num">04</span><img src="https://static.wixstatic.com/media/b9daef_18a7010f32d64656adcf464268a0636a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/respite.jpg" alt="Respite care for family caregivers" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/respite-care-niagara" aria-label="Respite Care"><span class="svc-num">04</span><img src="https://static.wixstatic.com/media/b9daef_18a7010f32d64656adcf464268a0636a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/respite.jpg" srcset="https://static.wixstatic.com/media/b9daef_18a7010f32d64656adcf464268a0636a~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/respite.jpg 600w, https://static.wixstatic.com/media/b9daef_18a7010f32d64656adcf464268a0636a~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/respite.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Respite care for family caregivers" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Respite Care</h3><p>Respite care in Niagara that gives family caregivers time to rest while their loved one receives compassionate, reliable support in the comfort of home.</p><a class="tlink" href="https://www.dailyhomecare.ca/respite-care-niagara">Learn more<span class="sr"> about Respite Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara" aria-label="Post Hospital Support"><span class="svc-num">05</span><img src="https://static.wixstatic.com/media/b9daef_fd9c9809b9844c9aabb86056e56b7479~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/posthos.jpg" alt="Caregiver supporting an older adult after a hospital stay" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara" aria-label="Post Hospital Support"><span class="svc-num">05</span><img src="https://static.wixstatic.com/media/b9daef_fd9c9809b9844c9aabb86056e56b7479~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/posthos.jpg" srcset="https://static.wixstatic.com/media/b9daef_fd9c9809b9844c9aabb86056e56b7479~mv2.jpeg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/posthos.jpg 600w, https://static.wixstatic.com/media/b9daef_fd9c9809b9844c9aabb86056e56b7479~mv2.jpeg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/posthos.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver supporting an older adult after a hospital stay" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Post Hospital Support</h3><p>Returning to a private home, apartment or retirement residence after a hospital stay, surgery, rehabilitation, or medical procedure can bring unexpected challenges.</p><a class="tlink" href="https://www.dailyhomecare.ca/post-hospital-home-care-niagara">Learn more<span class="sr"> about Post Hospital Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/overnight-care" aria-label="Overnight Care"><span class="svc-num">06</span><img src="https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/night.jpg" alt="Caregiver assisting an older adult with a walker during overnight care at home" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/overnight-care" aria-label="Overnight Care"><span class="svc-num">06</span><img src="https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/night.jpg" srcset="https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/night.jpg 600w, https://static.wixstatic.com/media/b9daef_f526c4eca74746a19fde4c1a02502c71~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/night.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver assisting an older adult with a walker during overnight care at home" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Overnight Care</h3><p>Reassuring support through the night, when being alone may no longer feel safe.</p><a class="tlink" href="https://www.dailyhomecare.ca/overnight-care">Learn more<span class="sr"> about Overnight Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/retirement-home-support" aria-label="Retirement Home Support"><span class="svc-num">07</span><img src="https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/retire.jpg" alt="Caregiver accompanying a senior using a walker to the dining room" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/retirement-home-support" aria-label="Retirement Home Support"><span class="svc-num">07</span><img src="https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/retire.jpg" srcset="https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/retire.jpg 600w, https://static.wixstatic.com/media/b9daef_6c1754a7b5954b039aa73879891913b4~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/retire.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Caregiver accompanying a senior using a walker to the dining room" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Retirement Home Support</h3><p>Dedicated one on one support for individuals living in retirement residences and other supportive living settings.</p><a class="tlink" href="https://www.dailyhomecare.ca/retirement-home-support">Learn more<span class="sr"> about Retirement Home Support</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="svc">
-        <a class="svc-img" href="https://www.dailyhomecare.ca/palliative-home-care-niagara" aria-label="Palliative Care"><span class="svc-num">08</span><img src="https://static.wixstatic.com/media/b9daef_1f91c7e797d04990b0e7b40b67f4e0ee~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/pal1.jpg" alt="Palliative caregiver offering comfort and companionship" width="600" height="400" decoding="async"></a>
+        <a class="svc-img" href="https://www.dailyhomecare.ca/palliative-home-care-niagara" aria-label="Palliative Care"><span class="svc-num">08</span><img src="https://static.wixstatic.com/media/b9daef_1f91c7e797d04990b0e7b40b67f4e0ee~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/pal1.jpg" srcset="https://static.wixstatic.com/media/b9daef_1f91c7e797d04990b0e7b40b67f4e0ee~mv2.jpg/v1/fill/w_600,h_400,al_c,q_85,enc_auto/pal1.jpg 600w, https://static.wixstatic.com/media/b9daef_1f91c7e797d04990b0e7b40b67f4e0ee~mv2.jpg/v1/fill/w_1050,h_700,al_c,q_85,enc_auto/pal1.jpg 1050w" sizes="(max-width:600px) 80vw, (max-width:1024px) calc(50vw - 3rem), 270px" alt="Palliative caregiver offering comfort and companionship" width="600" height="400" decoding="async"></a>
         <div class="svc-body"><h3>Palliative Care</h3><p>Comfort focused support for individuals and families navigating serious illness at home.</p><a class="tlink" href="https://www.dailyhomecare.ca/palliative-home-care-niagara">Learn more<span class="sr"> about Palliative Care</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
     </div>
@@ -763,7 +735,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <a class="btn btn-indigo" href="https://www.dailyhomecare.ca/holistic-approach">Learn About Our Approach to Care <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="collage reveal-r">
-      <div class="col-a"><img src="https://static.wixstatic.com/media/b9daef_eff1b9107723416491adc129cb4b415a~mv2.jpg/v1/fill/w_700,h_560,al_c,q_85,enc_auto/holistic.jpg" alt="A kind caregiver in royal blue scrubs assisting an older adult with a gentle smile" width="700" height="560" loading="lazy" decoding="async"></div>
+      <div class="col-a"><img src="https://static.wixstatic.com/media/b9daef_eff1b9107723416491adc129cb4b415a~mv2.jpg/v1/fill/w_960,h_768,al_c,q_85,enc_auto/holistic.jpg" alt="A kind caregiver in royal blue scrubs assisting an older adult with a gentle smile" width="960" height="768" loading="lazy" decoding="async"></div>
       <div class="col-b"><img src="https://static.wixstatic.com/media/b9daef_39aad5d05dae4eaabbd0c87d80084649~mv2.jpeg/v1/fill/w_520,h_400,al_c,q_85,enc_auto/read.jpg" alt="Caregiver sharing reading time with an older adult" width="520" height="400" loading="lazy" decoding="async"></div>
       <div class="col-c"><img src="https://static.wixstatic.com/media/b9daef_e069ab706f324c8b8e42c384047343ad~mv2.png/v1/fill/w_360,h_300,al_c,q_85,enc_auto/house.jpg" alt="Hands holding a small house, a symbol of compassionate home care" width="360" height="300" loading="lazy" decoding="async"></div>
       <div class="dfloat df1"><i style="background:#E1264C"></i>Comfort</div>
@@ -782,7 +754,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <p>We also value feedback from clients and families. If you have concerns about the match, we encourage you to contact us so we can discuss them.</p>
     </div>
     <div class="team-strip reveal-r">
-      <figure class="wide"><img src="https://static.wixstatic.com/media/b9daef_5be1469701154c05b28071301d101385~mv2.jpg/v1/fill/w_900,h_270,al_c,q_85,enc_auto/team3.jpg" alt="Caregivers together outside a home" width="900" height="270" loading="lazy" decoding="async"></figure>
+      <figure class="wide"><img src="https://static.wixstatic.com/media/b9daef_5be1469701154c05b28071301d101385~mv2.jpg/v1/fill/w_1600,h_480,al_c,q_85,enc_auto/team3.jpg" alt="Caregivers together outside a home" width="1600" height="480" loading="lazy" decoding="async"></figure>
       <figure class="sq"><img src="https://static.wixstatic.com/media/b9daef_6e018f8cf82442318e2ccb7a4f820044~mv2.png/v1/fill/w_440,h_440,al_c,q_85,enc_auto/team1.jpg" alt="A caregiver with an older adult and family at home" width="440" height="440" loading="lazy" decoding="async"></figure>
       <figure class="sq"><img src="https://static.wixstatic.com/media/b9daef_aa91e307785d467f985092dcb6308d5d~mv2.png/v1/fill/w_440,h_440,al_c,q_85,enc_auto/team4.jpg" alt="A group of diverse caregivers" width="440" height="440" loading="lazy" decoding="async"></figure>
     </div>
@@ -801,7 +773,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <div class="steps-cta"><a class="btn btn-rose" href="#contact">Request a Free Care Consultation</a><a class="btn btn-ghost" href="tel:9052275354"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg> 905 227 5354</a></div>
     </div>
     <div class="steps-media reveal-r">
-      <div class="sm-a"><img src="https://static.wixstatic.com/media/b9daef_3d29a31bf0af43c09754e9e5e311b08a~mv2.jpg/v1/fill/w_760,h_490,al_c,q_85,enc_auto/plan.jpg" alt="Organized care planning to coordinate home care services and support needs" width="760" height="490" loading="lazy" decoding="async"></div>
+      <div class="sm-a"><img src="https://static.wixstatic.com/media/b9daef_3d29a31bf0af43c09754e9e5e311b08a~mv2.jpg/v1/fill/w_930,h_600,al_c,q_85,enc_auto/plan.jpg" alt="Organized care planning to coordinate home care services and support needs" width="930" height="600" loading="lazy" decoding="async"></div>
       <div class="sm-b"><img src="https://static.wixstatic.com/media/b9daef_f6c7ddd46dec4bda9a75eff8671cb479~mv2.jpg/v1/fill/w_320,h_320,al_c,q_85,enc_auto/coord.jpg" alt="Home care program coordination" width="320" height="320" loading="lazy" decoding="async"></div>
     </div>
   </div>
@@ -810,7 +782,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   <div class="wrap">
     <div class="sec-head center reveal"><div class="eyebrow light"><span class="eb-dot rose"></span><span class="eb-txt rose">Peace of Mind at Home</span></div><h2 class="display wipe">What families <em>tell us</em></h2></div>
     <div class="review reveal">
-      <div class="rv-photo"><img src="https://static.wixstatic.com/media/b9daef_1fbf49ecd0924d60b5d505d57affca46~mv2.jpg/v1/fill/w_960,h_640,al_c,q_85,enc_auto/couple.jpg" alt="A senior couple, the wife consoling her spouse" width="960" height="640" loading="lazy" decoding="async"></div>
+      <div class="rv-photo"><img src="https://static.wixstatic.com/media/b9daef_1fbf49ecd0924d60b5d505d57affca46~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_auto/couple.jpg" alt="A senior couple, the wife consoling her spouse" width="1200" height="900" loading="lazy" decoding="async"></div>
       <div class="rv-card">
         <div class="rv-q">&ldquo;</div>
         <div class="rv-stars" role="img" aria-label="5 stars"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></div>
@@ -875,15 +847,15 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
     <div class="blog-all"><a class="tlink" href="https://www.dailyhomecare.ca/blog">See all articles <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     <div class="blog-grid reveal">
       <a class="post" href="https://www.dailyhomecare.ca/blogs/home-care-for-veterans-in-niagara-understanding-vip-support">
-        <div class="post-img"><img src="https://static.wixstatic.com/media/b9daef_f3c57bf6939a4030866265736f2a3afc~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/vet.jpg" alt="A veteran and a caregiver going out for afternoon walk." width="640" height="400" loading="lazy" decoding="async"></div>
+        <div class="post-img"><img src="https://static.wixstatic.com/media/b9daef_f3c57bf6939a4030866265736f2a3afc~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/vet.jpg" srcset="https://static.wixstatic.com/media/b9daef_f3c57bf6939a4030866265736f2a3afc~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/vet.jpg 640w, https://static.wixstatic.com/media/b9daef_f3c57bf6939a4030866265736f2a3afc~mv2.jpg/v1/fill/w_960,h_600,al_c,q_85,enc_auto/vet.jpg 960w" sizes="(max-width:600px) 86vw, (max-width:1024px) 45vw, 350px" alt="A veteran and a caregiver going out for afternoon walk." width="640" height="400" loading="lazy" decoding="async"></div>
         <div class="post-body"><div class="post-tag">Home Care Tips</div><h3>Home Care for Veterans in Niagara: Understanding VIP Support</h3><span class="tlink">Read the article <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
       <a class="post" href="https://www.dailyhomecare.ca/blogs/how-do-you-introduce-a-new-caregiver-to-someone-with-dementia">
-        <div class="post-img"><img src="https://static.wixstatic.com/media/b9daef_c933e3d584b54d4cbc221d16bf7c6530~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/teacup.jpg" alt="An older woman points to her favourite teacup as her new caregiver listens and her daughter sits beside her." width="640" height="400" loading="lazy" decoding="async"></div>
+        <div class="post-img"><img src="https://static.wixstatic.com/media/b9daef_c933e3d584b54d4cbc221d16bf7c6530~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/teacup.jpg" srcset="https://static.wixstatic.com/media/b9daef_c933e3d584b54d4cbc221d16bf7c6530~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/teacup.jpg 640w, https://static.wixstatic.com/media/b9daef_c933e3d584b54d4cbc221d16bf7c6530~mv2.jpg/v1/fill/w_960,h_600,al_c,q_85,enc_auto/teacup.jpg 960w" sizes="(max-width:600px) 86vw, (max-width:1024px) 45vw, 350px" alt="An older woman points to her favourite teacup as her new caregiver listens and her daughter sits beside her." width="640" height="400" loading="lazy" decoding="async"></div>
         <div class="post-body"><div class="post-tag">Home Care Tips</div><h3>How Do You Introduce a New Caregiver to Someone With Dementia?</h3><span class="tlink">Read the article <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
       <a class="post" href="https://www.dailyhomecare.ca/blogs/consistent-caregivers-for-dementia-patients-why-familiar-faces-matter">
-        <div class="post-img"><img src="https://static.wixstatic.com/media/b9daef_813b81c9d22841faa66a32b940db8a51~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/photos.jpg" alt="Caregiver and older adult browsing through old photos." width="640" height="400" loading="lazy" decoding="async"></div>
+        <div class="post-img"><img src="https://static.wixstatic.com/media/b9daef_813b81c9d22841faa66a32b940db8a51~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/photos.jpg" srcset="https://static.wixstatic.com/media/b9daef_813b81c9d22841faa66a32b940db8a51~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/photos.jpg 640w, https://static.wixstatic.com/media/b9daef_813b81c9d22841faa66a32b940db8a51~mv2.jpg/v1/fill/w_960,h_600,al_c,q_85,enc_auto/photos.jpg 960w" sizes="(max-width:600px) 86vw, (max-width:1024px) 45vw, 350px" alt="Caregiver and older adult browsing through old photos." width="640" height="400" loading="lazy" decoding="async"></div>
         <div class="post-body"><div class="post-tag">Home Care Tips</div><h3>Consistent Caregivers for Dementia Patients: Why Familiar Faces Matter</h3><span class="tlink">Read the article <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
     </div>
@@ -896,7 +868,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <h2 class="display wipe">Frequently Asked <em>Questions</em></h2>
       <p class="lead">If you're unsure what kind of help is needed, we're happy to talk through your concerns with you.</p>
       <a class="tlink" href="https://www.dailyhomecare.ca/faq">View all frequently asked questions <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <div class="faq-photo"><img src="https://static.wixstatic.com/media/b9daef_8b3d6db844894483a91edd909ab20945~mv2.jpg/v1/fill/w_620,h_328,al_c,q_85,enc_auto/blocks.jpg" alt="Wooden blocks showing the home care services available" width="620" height="328" loading="lazy" decoding="async"></div>
+      <div class="faq-photo"><img src="https://static.wixstatic.com/media/b9daef_8b3d6db844894483a91edd909ab20945~mv2.jpg/v1/fill/w_1240,h_656,al_c,q_85,enc_auto/blocks.jpg" alt="Wooden blocks showing the home care services available" width="1240" height="656" loading="lazy" decoding="async"></div>
     </div>
     <div>
       <div class="faq-item reveal open"><button class="faq-q" type="button" aria-expanded="true">How do you start home care with Daily Home Care?<span class="faq-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-a"><div><p>Simply call us or complete our online inquiry form. We'll listen to your concerns, discuss your care needs and schedule, and explain the next steps. From there, we can arrange an assessment and develop a personalized care plan with you.</p></div></div></div>
@@ -907,7 +879,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   </div>
 </section>
 <section class="sec cream" id="contact" style="padding-top:2rem;">
-  <div class="wrap"><div class="c-banner"><img src="https://static.wixstatic.com/media/b9daef_2fef3573370845119d1e21414fbe4f3f~mv2.jpg/v1/fill/w_1600,h_400,al_c,q_85,enc_auto/contact.jpg" alt="Contact Daily Home Care" width="1600" height="400" loading="lazy" decoding="async"></div></div>
+  <div class="wrap"><div class="c-banner"><img src="https://static.wixstatic.com/media/b9daef_2fef3573370845119d1e21414fbe4f3f~mv2.jpg/v1/fill/w_1584,h_396,al_c,q_85,enc_auto/contact.jpg" alt="Contact Daily Home Care" width="1584" height="396" loading="lazy" decoding="async"></div></div>
   <div class="wrap" style="margin-top:2rem;">
     <div class="contact">
       <div class="reveal-l">
@@ -944,7 +916,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       </div>
     </div>
     <div class="check reveal" id="checklist">
-      <div class="check-bg"><img src="https://static.wixstatic.com/media/b9daef_6d2ce8474ce34744b05de95cfb872a60~mv2.jpg/v1/fill/w_1400,h_420,al_c,q_85,enc_auto/houseb.jpg" alt="Symbol of compassionate home care representing support, dignity, and trust" width="1400" height="420" loading="lazy" decoding="async"></div>
+      <div class="check-bg"><img src="https://static.wixstatic.com/media/b9daef_6d2ce8474ce34744b05de95cfb872a60~mv2.jpg/v1/fill/w_1600,h_480,al_c,q_85,enc_auto/houseb.jpg" alt="Symbol of compassionate home care representing support, dignity, and trust" width="1600" height="480" loading="lazy" decoding="async"></div>
       <div class="check-in">
         <div><h3>Not sure where to start?</h3><p>Download our free 10 Minute Home Safety Check to identify common household hazards and practical ways to improve safety at home.</p><p>For families managing cognitive changes, we also offer dementia focused home safety guidance.</p></div>
         <div>
