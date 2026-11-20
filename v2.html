@@ -295,6 +295,30 @@ button { touch-action: manipulation; }
 .bld-modal-totline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: var(--ps-fs-small); }
 .bld-modal-totlbl { color: var(--ps-muted); }
 .bld-modal-totval { color: var(--ps-navy); font-weight: 600; }
+/* PSV2-6 the ten systems: the one visit animation and the cards. Every word is the homepage's. */
+.ps-sys-sec { padding: 88px 0 96px; border-top: 1px solid var(--ps-line); border-bottom: 1px solid var(--ps-line); background: var(--ps-white); }
+.flow-wrap { margin-top: 40px; padding: 32px 28px; border: 1px solid var(--ps-line); border-radius: 16px; background: var(--ps-page); }
+.flow-caption { margin: 0 0 28px; color: var(--ps-muted); font-size: var(--ps-fs-small); text-align: center; }
+.flow-body { position: relative; }
+.flow-line { position: absolute; top: 26px; left: 8%; right: 8%; height: 2px; background: var(--ps-line); }
+.flow-pulse { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--ps-teal); opacity: 0; transform: translate(-50%, -50%); }
+.flow-track { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.flow-stage { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.flow-node { display: grid; place-items: center; flex: none; width: 54px; height: 54px; border: 1.5px solid var(--ps-navy); border-radius: 50%; background: var(--ps-navy); color: var(--ps-white); transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+.flow-label { display: flex; flex-direction: column; gap: 2px; color: var(--ps-ink); font-size: 14px; font-weight: 600; line-height: 1.3; transition: color 0.3s ease; }
+.flow-sub { color: var(--ps-muted); font-size: 13px; font-weight: 400; }
+/* with scripts on, a step waits unlit until the pass reaches it; without scripts every step shows lit */
+.ps-js .flow-stage:not(.lit) .flow-node { border-color: var(--ps-line); background: var(--ps-white); color: #8C8A84; }
+.ps-js .flow-stage:not(.lit) .flow-label { color: var(--ps-muted); }
+.flow-footer { margin: 28px 0 0; color: var(--ps-ink); font-size: 17px; text-align: center; }
+.ps-systems { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 40px 0 0; padding: 0; list-style: none; }
+.ps-sys { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 20px; border: 1px solid var(--ps-line); border-radius: 12px; background: var(--ps-white); }
+.ps-sys-top { display: flex; align-items: center; gap: 8px; min-height: 24px; }
+.ps-sys-num { margin-right: auto; color: var(--ps-muted); font-family: var(--ps-mono); font-size: 13px; }
+.ps-sys-badge { padding: 2px 8px; border: 1px solid var(--ps-teal); border-radius: 100px; color: var(--ps-teal); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.ps-sys-ico { display: flex; color: var(--ps-navy); }
+.ps-sys-name { margin: 0; color: var(--ps-ink); font-size: 17px; font-weight: 600; line-height: 1.25; }
+.ps-sys-line { margin: 0; color: var(--ps-muted); font-size: var(--ps-fs-small); line-height: 1.5; }
 @media (max-width: 900px) {
   .ps-hero { padding: 48px 0 64px; }
   .ps-hero-in { grid-template-columns: minmax(0, 1fr); gap: 44px; }
@@ -305,6 +329,8 @@ button { touch-action: manipulation; }
   .ps-bld { grid-template-columns: minmax(0, 1fr); }
   .ps-plans { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
   .ps-pricing-sec { padding: 64px 0 80px; }
+  .ps-sys-sec { padding: 64px 0 80px; }
+  .ps-systems { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 768px) {
   :root { --ps-gutter: 24px; --ps-hdr-h: 64px; }
@@ -322,6 +348,11 @@ button { touch-action: manipulation; }
   .bld-modal-overlay { align-items: flex-end; padding: 0; }
   .bld-modal { max-height: 92dvh; padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); border-radius: 16px 16px 0 0; transform: translateY(24px); }
   .mf-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .flow-track { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .flow-line { top: 27px; bottom: 27px; left: 26px; right: auto; width: 2px; height: auto; }
+  .flow-pulse { display: none; }
+  .flow-stage { flex-direction: row; gap: 16px; text-align: left; }
+  .flow-caption, .flow-footer { text-align: left; }
 }
 @media (max-width: 480px) {
   :root { --ps-gutter: 20px; }
@@ -348,12 +379,16 @@ button { touch-action: manipulation; }
   .ps-gband { flex-direction: column; }
   .ps-plan-price { font-size: 40px; }
   .ps-pricing-sec { padding: 48px 0 64px; }
+  .ps-sys-sec { padding: 48px 0 64px; }
+  .flow-wrap { padding: 24px 20px; }
+  .ps-systems { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .ps-btn, .ps-pill { transition: none; }
   .ps-shot, .bld-modal-overlay, .bld-modal, .mf-submit { transition: none; }
   .bld-cp-btn { transition: none; }
+  .flow-node, .flow-label { transition: none; }
 }
 </style>
 <script type="application/ld+json">
@@ -673,6 +708,81 @@ button { touch-action: manipulation; }
       <li><span class="ps-gband-mark" aria-hidden="true">✓</span><span>You pay after we're live</span></li>
       <li><span class="ps-gband-mark ps-gband-dot" aria-hidden="true">●</span><span>Onboarding 3 agencies at a time</span></li>
     </ul>
+  </div>
+</section>
+<section class="ps-sys-sec" id="product" aria-labelledby="productTitle">
+  <div class="ps-wrap">
+    <div class="ps-sec-head">
+      <h2 class="ps-h2" id="productTitle">Everything you need. <em>Nothing you don't.</em></h2>
+      <p class="ps-lead"><strong>We build it. We install it. We hand it to you running.</strong> Not a template. Not a course. Not a DIY tool. We come in, build your entire system from scratch, and hand it back running.</p>
+    </div>
+    <div class="flow-wrap" id="flowWrap">
+      <p class="flow-caption" id="flowCap">Watch one visit move through the system</p>
+      <div class="flow-body">
+        <div class="flow-line" aria-hidden="true"><div class="flow-pulse" id="flowPulse"></div></div>
+        <ol class="flow-track" aria-labelledby="flowCap">
+          <li class="flow-stage" data-c="var(--ps-teal)"><span class="flow-node" aria-hidden="true"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span class="flow-label">Lead books<span class="flow-sub">Chatbot captures</span></span></li>
+          <li class="flow-stage" data-c="var(--ps-teal)"><span class="flow-node" aria-hidden="true"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span><span class="flow-label">Shift scheduled<span class="flow-sub">PSW assigned</span></span></li>
+          <li class="flow-stage" data-c="var(--ps-teal)"><span class="flow-node" aria-hidden="true"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="flow-label">PSW checks in<span class="flow-sub">GPS verified</span></span></li>
+          <li class="flow-stage" data-c="var(--ps-teal)"><span class="flow-node" aria-hidden="true"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4Z"/><path d="M8 14h8M6 20a6 6 0 0 1 12 0"/></svg></span><span class="flow-label">AI writes note<span class="flow-sub">Anonymized</span></span></li>
+          <li class="flow-stage" data-c="var(--ps-teal)"><span class="flow-node" aria-hidden="true"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7l9 6 9-6M3 7v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7M3 7l9-4 9 4"/></svg></span><span class="flow-label">Family notified<span class="flow-sub">Live summary</span></span></li>
+          <li class="flow-stage" data-c="var(--ps-teal)"><span class="flow-node" aria-hidden="true"><svg width="22" height="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2Z"/><path d="M9 7h6M9 11h6M9 15h3"/></svg></span><span class="flow-label">Invoice sent</span></li>
+        </ol>
+      </div>
+      <p class="flow-footer">Six systems. One thread. Zero admin staff touched it.</p>
+    </div>
+    <ol class="ps-systems" aria-label="The ten systems">
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">01</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">Visit Logging</h3>
+          <p class="ps-sys-line">GPS check-in · AI visit note</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">02</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><path d="M5 3h12v16l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8h6M8 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">Auto Invoicing</h3>
+          <p class="ps-sys-line">Invoice PDF · Pay stub · Payroll CSV · AR updated</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">03</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="1" fill="currentColor"/></svg></span></div>
+          <h3 class="ps-sys-name">Lead Capture</h3>
+          <p class="ps-sys-line">AI chatbot · Books calls 24/7</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">04</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><path d="M3 6l8 5 8-5M3 6v10a1 1 0 001 1h14a1 1 0 001-1V6M3 6l8-3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3 class="ps-sys-name">Follow-Up Engine</h3>
+          <p class="ps-sys-line">Day 1/3/7/30 automatic · Zero manual</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">05</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><path d="M11 11a3 3 0 100-6 3 3 0 000 6zM5 19a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">Family Portal</h3>
+          <p class="ps-sys-line">Visit history · AI summaries · No more 9pm calls</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">06</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><rect x="4" y="6" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="14" cy="11" r="1.2" fill="currentColor"/><path d="M11 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">AI Chat</h3>
+          <p class="ps-sys-line">Website chatbot · Answers 24/7 · Books calls automatically</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">07</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+          <h3 class="ps-sys-name">Client Onboarding</h3>
+          <p class="ps-sys-line">Sign → portal live → care plan ready · Nothing manual</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">08</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">HQ Dashboard</h3>
+          <p class="ps-sys-line">Scheduling · Revenue · PSW compliance</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">09</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">PSW Management</h3>
+          <p class="ps-sys-line">Digital profiles · Cert expiry alerts</p>
+        </li>
+        <li class="ps-sys">
+          <div class="ps-sys-top"><span class="ps-sys-num">10</span><span class="ps-sys-badge">Free add-on</span><span class="ps-sys-ico"><svg width="20" height="20" aria-hidden="true" focusable="false" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+          <h3 class="ps-sys-name">Converting Website</h3>
+          <p class="ps-sys-line">AI chatbot · Lead capture wired to HQ · Built free</p>
+        </li>
+    </ol>
   </div>
 </section>
 </main>
@@ -1138,6 +1248,45 @@ var bookingAttempted = false;
   for (var k = 0; k < tabs.length; k++) (function (i) { tabs[i].addEventListener('click', function () { show(i); stop(); }); })(k);
   pause.addEventListener('click', function () { if (timer) stop(); else play(); });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) stop(); else play();
+})();
+/* PSV2-6 one visit through the systems, the homepage's animation: one pass when it comes into view, then every step stays lit */
+(function(){try{
+  var wrap=document.getElementById('flowWrap');
+  var pulse=document.getElementById('flowPulse');
+  if(!wrap||!pulse) return;
+  var stages=Array.prototype.slice.call(wrap.querySelectorAll('.flow-stage'));
+  stages.forEach(function(s){ s.style.setProperty('--stage-c', s.getAttribute('data-c')); });
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function lightAll(){ stages.forEach(function(s){ s.classList.add('lit'); }); }
+  function runOnce(cb){
+    var n=stages.length, i=0;
+    stages.forEach(function(s){ s.classList.remove('lit'); });
+    pulse.style.transition='none'; pulse.style.left='0%'; pulse.style.opacity='1';
+    void pulse.offsetWidth;
+    function step(){
+      if(i>=n){ pulse.style.opacity='0'; if(cb) setTimeout(cb,1400); return; }
+      var pct = n>1 ? (i/(n-1))*100 : 0;
+      pulse.style.transition='left .55s ease';
+      pulse.style.left=pct+'%';
+      var st=stages[i];
+      var c=st.getAttribute('data-c');
+      pulse.style.background=c; pulse.style.boxShadow='0 0 14px 3px '+c;
+      st.classList.add('lit');
+      i++;
+      setTimeout(step, 620);
+    }
+    step();
+  }
+  if(reduce){ lightAll(); return; }
+  var started=false;
+  new IntersectionObserver(function(es,obs){
+    if(es[0].isIntersecting && !started){
+      started=true;
+      runOnce();
+    }
+  }, {threshold:.4}).observe(wrap);
+}catch(e){ console.warn('workflow anim isolated:',e);
+  try{ var w=document.getElementById('flowWrap'); if(w) w.querySelectorAll('.flow-stage').forEach(function(s){s.classList.add('lit');}); }catch(e2){} }
 })();
 </script>
 </body>
