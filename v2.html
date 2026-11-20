@@ -319,6 +319,17 @@ button { touch-action: manipulation; }
 .ps-sys-ico { display: flex; color: var(--ps-navy); }
 .ps-sys-name { margin: 0; color: var(--ps-ink); font-size: 17px; font-weight: 600; line-height: 1.25; }
 .ps-sys-line { margin: 0; color: var(--ps-muted); font-size: var(--ps-fs-small); line-height: 1.5; }
+/* PSV2-7 from call to live: four steps in order, then the button. Every word is the homepage's, with the listed changes. */
+.ps-how-sec { padding: 88px 0 96px; }
+.ps-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 40px 0 0; padding: 0; list-style: none; }
+.ps-step { position: relative; padding: 28px 4px 0 0; border-top: 2px solid var(--ps-navy); }
+.ps-step::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--ps-navy); }
+.ps-step-last { border-top-color: var(--ps-gold); }
+.ps-step-last::before { background: var(--ps-gold); }
+.ps-step-day { margin: 0 0 8px; color: var(--ps-teal); font-size: var(--ps-fs-small); font-weight: 600; }
+.ps-step-title { margin: 0 0 10px; color: var(--ps-ink); font-size: 20px; font-weight: 600; line-height: 1.25; }
+.ps-step-body { margin: 0; color: var(--ps-muted); font-size: 15px; line-height: 1.55; }
+.ps-how-cta { margin-top: 40px; }
 @media (max-width: 900px) {
   .ps-hero { padding: 48px 0 64px; }
   .ps-hero-in { grid-template-columns: minmax(0, 1fr); gap: 44px; }
@@ -331,6 +342,8 @@ button { touch-action: manipulation; }
   .ps-pricing-sec { padding: 64px 0 80px; }
   .ps-sys-sec { padding: 64px 0 80px; }
   .ps-systems { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ps-how-sec { padding: 64px 0 80px; }
+  .ps-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
 }
 @media (max-width: 768px) {
   :root { --ps-gutter: 24px; --ps-hdr-h: 64px; }
@@ -382,6 +395,9 @@ button { touch-action: manipulation; }
   .ps-sys-sec { padding: 48px 0 64px; }
   .flow-wrap { padding: 24px 20px; }
   .ps-systems { grid-template-columns: minmax(0, 1fr); }
+  .ps-how-sec { padding: 48px 0 64px; }
+  .ps-steps { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .ps-how-cta .ps-btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -783,6 +799,37 @@ button { touch-action: manipulation; }
           <p class="ps-sys-line">AI chatbot · Lead capture wired to HQ · Built free</p>
         </li>
     </ol>
+  </div>
+</section>
+<section class="ps-sec ps-how-sec" id="how" aria-labelledby="howTitle">
+  <div class="ps-wrap">
+    <div class="ps-sec-head">
+      <h2 class="ps-h2" id="howTitle">From call to live in <em>7 days</em></h2>
+      <p class="ps-lead">No drawn-out timelines. No endless revisions. We build fast because we've built this system for our own agency, we know exactly what works.</p>
+    </div>
+    <ol class="ps-steps">
+      <li class="ps-step">
+        <p class="ps-step-day">Day 1</p>
+        <h3 class="ps-step-title">Discovery Call</h3>
+        <p class="ps-step-body">We walk through your agency, PSWs, clients, rates, workflow. You tell us how you run. We map exactly what gets built.</p>
+      </li>
+      <li class="ps-step">
+        <p class="ps-step-day">Day 2 to 3</p>
+        <h3 class="ps-step-title">We Build</h3>
+        <p class="ps-step-body">Systems built from scratch. Your branding, your PSW names, your clients. Nothing generic. Everything customized.</p>
+      </li>
+      <li class="ps-step">
+        <p class="ps-step-day">Day 5 to 6</p>
+        <h3 class="ps-step-title">You Review</h3>
+        <p class="ps-step-body">We hand you the full system to test. PSW portal, lead capture, chatbot, invoices. You approve everything before it goes live.</p>
+      </li>
+      <li class="ps-step ps-step-last">
+        <p class="ps-step-day">Day 7</p>
+        <h3 class="ps-step-title">You're Live</h3>
+        <p class="ps-step-body">Everything goes live. First PSW logs a visit.</p>
+      </li>
+    </ol>
+    <div class="ps-how-cta"><a class="ps-btn ps-btn-gold" href="#book" data-ps-book>Reserve My Spot</a></div>
   </div>
 </section>
 </main>
