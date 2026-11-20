@@ -217,6 +217,84 @@ button { touch-action: manipulation; }
 .ps-pain-g { display: flex; align-items: center; gap: 8px; margin: 4px 0 0; color: var(--ps-teal); font-size: var(--ps-fs-small); font-weight: 500; }
 .ps-pain-g svg { flex: none; }
 .ps-pain-close { margin: 0; color: var(--ps-navy); font-size: 22px; font-weight: 500; line-height: 1.35; letter-spacing: -0.01em; }
+/* PSV2-5 pricing: the builder, the three plans and the guarantee band. Every word is the homepage's. */
+.ps-pricing-sec { padding: 88px 0 96px; }
+.ps-price { display: flex; flex-direction: column; gap: 40px; }
+/* the builder only works with scripts on, so it only shows with scripts on; the plans below still offer Reserve My Spot */
+.ps-bld { display: none; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.ps-js .ps-bld { display: grid; }
+.bld-chips-area { min-width: 0; }
+.bld-chips-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 12px; }
+.bld-chip-count { color: var(--ps-muted); font-size: var(--ps-fs-small); }
+.bld-chip-count span { color: var(--ps-ink); font-weight: 600; }
+.bld-chip-selall { min-height: 44px; padding: 0 16px; border: 1px solid var(--ps-line); border-radius: 100px; background: var(--ps-white); color: var(--ps-ink); font-family: var(--ps-sans); font-size: var(--ps-fs-small); font-weight: 500; cursor: pointer; }
+.bld-chip-selall:hover { border-color: var(--ps-navy); }
+.bld-chips-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.bld-row { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 0 14px; border: 1px solid var(--ps-line); border-radius: 10px; background: var(--ps-white); color: var(--ps-ink); font-family: var(--ps-sans); font-size: 15px; text-align: left; cursor: pointer; }
+.bld-row:hover { border-color: var(--ps-navy); }
+.bld-row.sel { border-color: var(--ps-navy); box-shadow: inset 0 0 0 1px var(--ps-navy); }
+.bld-row-box { display: grid; place-items: center; flex: none; width: 18px; height: 18px; border: 1.5px solid #8C8A84; border-radius: 4px; }
+.bld-row-box svg { opacity: 0; }
+.bld-row-box svg path { stroke: var(--ps-white); }
+.bld-row.sel .bld-row-box { border-color: var(--ps-navy); background: var(--ps-navy); }
+.bld-row.sel .bld-row-box svg { opacity: 1; }
+.bld-row-ico { display: flex; flex: none; color: var(--ps-muted); }
+.bld-row-ico svg { width: 16px; height: 16px; }
+.bld-row.sel .bld-row-ico { color: var(--ps-navy); }
+.bld-row-name { flex: 1; min-width: 0; }
+.bld-row-free { margin-left: auto; padding: 2px 8px; border: 1px solid var(--ps-teal); border-radius: 100px; color: var(--ps-teal); font-size: 12px; font-weight: 500; }
+.bld-row-added { position: absolute; top: 50%; right: 12px; padding: 2px 6px; border-radius: 4px; background: var(--ps-white); color: var(--ps-teal); font-size: 12px; font-weight: 600; transform: translateY(-50%); pointer-events: none; }
+.bld-compact-panel { border: 1px solid var(--ps-line); border-radius: 12px; background: var(--ps-white); }
+.bld-cp-head { padding: 16px 20px; border-bottom: 1px solid var(--ps-line); }
+.bld-cp-title { color: var(--ps-navy); font-size: 18px; font-weight: 600; }
+.bld-cp-body { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
+.bld-cp-empty { padding: 12px 0; color: var(--ps-muted); font-size: 15px; text-align: center; }
+.bld-cp-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; color: var(--ps-muted); font-size: 15px; }
+.bld-cp-row b { color: var(--ps-ink); font-weight: 600; }
+.bld-cp-big b { color: var(--ps-navy); font-size: 28px; font-weight: 500; letter-spacing: -0.02em; }
+.bld-cp-free { color: var(--ps-teal) !important; }
+.bld-cp-rule { height: 1px; margin: 4px 0 12px; background: var(--ps-line); }
+.bld-cp-note { color: var(--ps-teal); font-size: var(--ps-fs-small); font-weight: 500; }
+.bld-cp-btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; border: 0; border-radius: 0; background: var(--ps-gold); color: var(--ps-ink); font-family: var(--ps-sans); font-size: 16px; font-weight: 600; cursor: pointer; clip-path: var(--ps-cut); transition: background-color 0.2s ease, clip-path 0.2s ease; }
+.bld-cp-btn:hover:not(:disabled) { background: #C99A33; clip-path: var(--ps-cut-deep); }
+.bld-cp-btn:focus-visible { outline: 2px solid var(--ps-ink); outline-offset: -5px; }
+.bld-cp-btn:disabled { background: var(--ps-line); color: var(--ps-muted); cursor: not-allowed; }
+.bld-cp-ghost { width: 100%; min-height: 44px; border: 1px solid var(--ps-line); border-radius: 8px; background: transparent; color: var(--ps-ink); font-family: var(--ps-sans); font-size: var(--ps-fs-small); cursor: pointer; }
+.bld-cp-ghost:hover { border-color: var(--ps-navy); }
+.ps-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.ps-plan { display: flex; flex-direction: column; gap: 14px; padding: 28px 24px; border: 1px solid var(--ps-line); border-radius: 12px; background: var(--ps-white); }
+.ps-plan-featured { border-color: var(--ps-navy); background: var(--ps-navy); color: var(--ps-white); }
+.ps-plan-badge { align-self: flex-start; margin: 0; padding: 4px 10px; border-radius: 100px; background: var(--ps-gold); color: var(--ps-ink); font-size: 13px; font-weight: 600; }
+.ps-plan-name { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.ps-plan-sub { margin: -8px 0 0; color: var(--ps-muted); font-size: 15px; }
+.ps-plan-featured .ps-plan-sub { color: var(--ps-navy-muted); }
+.ps-plan-price { margin: 4px 0 0; color: var(--ps-navy); font-size: 44px; font-weight: 500; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums lining-nums; }
+.ps-plan-terms { margin: 0; color: var(--ps-muted); font-size: var(--ps-fs-small); line-height: 1.5; }
+.ps-plan-featured .ps-plan-terms { color: var(--ps-navy-muted); }
+.ps-plan-receipt { margin: 4px 0 0; padding: 0; }
+.ps-plan-receipt div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--ps-navy-line); font-size: var(--ps-fs-small); }
+.ps-plan-receipt dt { color: var(--ps-navy-muted); }
+.ps-plan-receipt dd { margin: 0; color: var(--ps-white); font-weight: 500; text-align: right; }
+.ps-plan-receipt .ps-plan-due dt { color: var(--ps-white); font-weight: 600; }
+.ps-plan-receipt .ps-plan-due dd { color: var(--ps-gold); font-size: 22px; }
+.ps-plan-feats { display: flex; flex-direction: column; gap: 10px; flex: 1; margin: 4px 0 0; padding: 0; list-style: none; }
+.ps-plan-feats li { display: flex; gap: 10px; font-size: 15px; line-height: 1.45; }
+.ps-plan-feats svg { flex: none; margin-top: 3px; color: var(--ps-teal); }
+.ps-plan-featured .ps-plan-feats svg { color: var(--ps-gold); }
+.ps-plan-note { margin: 0; color: var(--ps-muted); font-size: var(--ps-fs-small); line-height: 1.5; }
+.ps-plan-btn { width: 100%; min-height: 48px; margin-top: 6px; }
+.ps-gband { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 28px; margin: 0; padding: 20px 0; border-top: 1px solid var(--ps-line); border-bottom: 1px solid var(--ps-line); list-style: none; }
+.ps-gband li { display: inline-flex; align-items: center; gap: 8px; color: var(--ps-ink); font-size: 15px; }
+.ps-gband-mark { color: var(--ps-teal); font-weight: 700; }
+.ps-gband-dot { color: var(--ps-gold-text); font-size: 12px; }
+.bld-modal-pkg { margin: 0 0 18px; padding: 14px; border: 1px solid var(--ps-line); border-radius: 10px; background: var(--ps-page); }
+.bld-modal-pkg-label { margin-bottom: 8px; color: var(--ps-muted); font-size: 13px; }
+.bld-modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.bld-modal-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid var(--ps-line); border-radius: 100px; background: var(--ps-white); color: var(--ps-ink); font-size: 13px; }
+.bld-modal-tag svg { width: 14px; height: 14px; color: var(--ps-navy); }
+.bld-modal-totline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: var(--ps-fs-small); }
+.bld-modal-totlbl { color: var(--ps-muted); }
+.bld-modal-totval { color: var(--ps-navy); font-weight: 600; }
 @media (max-width: 900px) {
   .ps-hero { padding: 48px 0 64px; }
   .ps-hero-in { grid-template-columns: minmax(0, 1fr); gap: 44px; }
@@ -224,6 +302,9 @@ button { touch-action: manipulation; }
   .ps-sec { padding: 32px 0 80px; }
   .ps-pains { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ps-pain-sec { padding: 56px 0; }
+  .ps-bld { grid-template-columns: minmax(0, 1fr); }
+  .ps-plans { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+  .ps-pricing-sec { padding: 64px 0 80px; }
 }
 @media (max-width: 768px) {
   :root { --ps-gutter: 24px; --ps-hdr-h: 64px; }
@@ -263,11 +344,16 @@ button { touch-action: manipulation; }
   .ps-pains { grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .ps-pain-sec { padding: 44px 0; }
   .ps-pain-close { font-size: 19px; }
+  .bld-chips-grid { grid-template-columns: minmax(0, 1fr); }
+  .ps-gband { flex-direction: column; }
+  .ps-plan-price { font-size: 40px; }
+  .ps-pricing-sec { padding: 48px 0 64px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .ps-btn, .ps-pill { transition: none; }
   .ps-shot, .bld-modal-overlay, .bld-modal, .mf-submit { transition: none; }
+  .bld-cp-btn { transition: none; }
 }
 </style>
 <script type="application/ld+json">
@@ -502,6 +588,93 @@ button { touch-action: manipulation; }
     <p class="ps-pain-close">Every hour you spend on this is an hour you&#8217;re not growing.</p>
   </div>
 </section>
+<section class="ps-sec ps-pricing-sec" id="pricing" aria-labelledby="pricingTitle">
+  <div class="ps-wrap ps-price">
+    <div class="ps-sec-head">
+      <h2 class="ps-h2" id="pricingTitle">Pick what you need. <em>Pay after we deliver.</em></h2>
+      <p class="ps-lead">We build first. You pay after. Live in 7 days or you owe us nothing. <strong>First month free on every plan.</strong></p>
+    </div>
+    <div class="ps-bld">
+      <div class="bld-chips-area">
+        <div class="bld-chips-controls">
+          <span class="bld-chip-count"><span id="bldCount">0</span> of 10 selected</span>
+          <button class="bld-chip-selall" id="bldSelAll" type="button">Select all 10</button>
+        </div>
+        <div class="bld-chips-grid" id="bldGrid"></div>
+      </div>
+      <div class="bld-compact-panel">
+        <div class="bld-cp-head"><div class="bld-cp-title">Your Build</div></div>
+        <div class="bld-cp-body">
+          <div class="bld-cp-empty" id="bldEmpty">Select systems to build your package</div>
+          <div id="bldActive" hidden>
+            <div class="bld-cp-row"><span>Package</span><b id="bldTierName"></b></div>
+            <div class="bld-cp-row bld-cp-big"><span>Setup</span><b id="bldSetupVal"></b></div>
+            <div class="bld-cp-rule"></div>
+            <div class="bld-cp-row"><span>Month 1</span><b class="bld-cp-free">Free</b></div>
+            <div class="bld-cp-row"><span>Due today</span><b id="bldTotalVal">$0</b></div>
+            <div class="bld-cp-note" id="bldSaveNote" aria-live="polite"></div>
+          </div>
+          <button class="bld-cp-btn" id="bldBookBtn" type="button" disabled>Reserve My Spot</button>
+          <button class="bld-cp-ghost" id="bldUnsure" type="button">Not sure what I need</button>
+        </div>
+      </div>
+    </div>
+    <div class="ps-plans">
+      <article class="ps-plan">
+        <h3 class="ps-plan-name">Operations</h3>
+        <p class="ps-plan-sub">The agency you have</p>
+        <p class="ps-plan-price">$2,499</p>
+        <p class="ps-plan-terms">setup &middot; month 1 free &middot; $500/mo after</p>
+        <ul class="ps-plan-feats">
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Visit Logging + GPS + AI notes</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Auto Invoicing + payroll CSV</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>HQ Dashboard + scheduling board</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>PSW portal + broadcast messaging</span></li>
+        </ul>
+        <p class="ps-plan-note">Runs the agency you have. No lead capture, no family portal, no website, no guarantee.</p>
+        <a class="ps-btn ps-btn-navy ps-plan-btn" href="#book" data-ps-book>Reserve My Spot</a>
+      </article>
+      <article class="ps-plan ps-plan-featured">
+        <p class="ps-plan-badge">Most Popular</p>
+        <h3 class="ps-plan-name">The Full Build</h3>
+        <p class="ps-plan-sub">The agency you want</p>
+        <dl class="ps-plan-receipt">
+          <div><dt>Full Build &middot; 10 systems</dt><dd>$3,499</dd></div>
+          <div><dt>Setup &middot; built in 7 days</dt><dd>one-time</dd></div>
+          <div><dt>Monthly &middot; all systems</dt><dd><span>$500</span><span>/mo</span></dd></div>
+          <div><dt>Month 1</dt><dd>FREE</dd></div>
+          <div class="ps-plan-due"><dt>Due after launch</dt><dd>$3,499</dd></div>
+        </dl>
+        <p class="ps-plan-terms">then $500/mo after month 1 &middot; cancel anytime</p>
+        <ul class="ps-plan-feats">
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Everything in Operations</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Plus the six that bring clients in: Lead Capture, AI Chat, Family Portal, Client Onboarding, Follow-Up, your website</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Live in 7 days or you owe nothing</span></li>
+        </ul>
+        <a class="ps-btn ps-btn-gold ps-plan-btn" href="#book" data-ps-book>Reserve My Spot</a>
+      </article>
+      <article class="ps-plan">
+        <h3 class="ps-plan-name">Growth Partner</h3>
+        <p class="ps-plan-sub">Everything, forever</p>
+        <p class="ps-plan-price">$4,499</p>
+        <p class="ps-plan-terms">setup &middot; month 1 free &middot; $750/mo after</p>
+        <ul class="ps-plan-feats">
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Everything in The Full Build</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Every system we build from here on, included, forever</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Monthly call with Lance, pipeline review, priority support</span></li>
+          <li><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>Live in 7 days or you owe nothing</span></li>
+        </ul>
+        <a class="ps-btn ps-btn-navy ps-plan-btn" href="#book" data-ps-book>Reserve My Spot</a>
+      </article>
+    </div>
+    <ul class="ps-gband">
+      <li><span class="ps-gband-mark" aria-hidden="true">✓</span><span>We build first</span></li>
+      <li><span class="ps-gband-mark" aria-hidden="true">✓</span><span>7-day guarantee, top two plans</span></li>
+      <li><span class="ps-gband-mark" aria-hidden="true">✓</span><span>You pay after we're live</span></li>
+      <li><span class="ps-gband-mark ps-gband-dot" aria-hidden="true">●</span><span>Onboarding 3 agencies at a time</span></li>
+    </ul>
+  </div>
+</section>
 </main>
 
 <footer class="ps-ftr">
@@ -589,11 +762,135 @@ button { touch-action: manipulation; }
 <script>
 /* PSV2-2 the booking popup, the behaviour engine and the hero screens. The popup's functions, the calendar and the
    behaviour engine are copied from the homepage (index.html bc7197dc) and changed only where noted. */
-/* What the builder has picked. PSV2-4 brings the builder and fills this; until then nothing is picked and the popup
-   shows the plain form, as the homepage does when no system is picked. items: [{name, svg}], tier: {name, setup}. */
-var psBuild = { items: [], tier: null };
+  const BLD_SYSTEMS=[
+    {id:'s01',metric:'GPS verified',color:'var(--sys-gps)',tag:'GPS check-in, AI notes',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 4V2.5M15 4V2.5M3 9h16M7 13h2M11 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Visit Logging',live:true,addon:false},
+    {id:'s02',metric:'from visits',color:'var(--sys-invoice)',tag:'Dual PDF, payroll CSV',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M5 3h12v16l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8h6M8 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Auto Invoicing',live:true,addon:false},
+    {id:'s03',metric:'24/7 active',color:'var(--sys-lead)',tag:'24/7 chatbot capture',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="1" fill="currentColor"/></svg>',name:'Lead Capture',live:true,addon:false},
+    {id:'s04',metric:'auto-fire',color:'var(--sys-lead)',tag:'Auto reminder sequence',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M3 6l8 5 8-5M3 6v10a1 1 0 001 1h14a1 1 0 001-1V6M3 6l8-3 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',name:'Follow-Up Engine',live:true,addon:false},
+    {id:'s05',metric:'live sync',color:'var(--sys-family)',tag:'Live updates, AI summaries',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M11 11a3 3 0 100-6 3 3 0 000 6zM5 19a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Family Portal',live:true,addon:false},
+    {id:'s06',metric:'24/7',color:'var(--sys-ai)',tag:'Books while you sleep',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect x="4" y="6" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/><circle cx="14" cy="11" r="1.2" fill="currentColor"/><path d="M11 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'AI Chat',live:true,addon:false},
+    {id:'s07',metric:'instant',color:'var(--sys-lead)',tag:'PSW + client setup',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M4 16c4-1 4-7 7-7s3 6 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>',name:'Client Onboarding',live:true,addon:false},
+    {id:'s08',metric:'realtime',color:'var(--sys-sched)',tag:'Full agency control room',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><path d="M3 18h16M5 18V8m4 10V12m4 6V6m4 12v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'HQ Dashboard',live:true,addon:false},
+    {id:'s09',metric:'scheduling',color:'var(--sys-sched)',tag:'Scheduling, conflicts',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 18a5 5 0 0110 0M12 18a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'PSW Management',live:true,addon:false},
+    {id:'s10',metric:'live',color:'var(--sys-ai)',tag:'Converting landing site',svg:'<svg width="14" height="14" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',name:'Converting Website',live:true,addon:true},
+  ];
+  const bldSelected=new Set();
+
+  function bldRender(){
+  /* COMPACT ROWS, NOT CHIPS. Same contract: renders into #bldGrid, each element keeps
+     id="bldchip-<id>" and data-sid so bldToggle can find it, selection is still the .sel
+     class, and clicking still calls bldToggle. Nothing downstream knows this changed.
+     The elements are buttons rather than divs because the chips had no tabindex and no
+     role, which made the builder impossible to use from a keyboard. aria-pressed is synced
+     here, in the handler, so bldToggle itself stays exactly as it was. */
+  var grid=document.getElementById('bldGrid'); if(!grid)return;
+  grid.innerHTML=BLD_SYSTEMS.map(function(s,i){
+    var badge=s.addon?'<span class="bld-row-free">Free</span>':'';
+    return '<button type="button" class="bld-row" id="bldchip-'+s.id+'" data-sid="'+s.id+'"'
+      +' aria-pressed="false">'
+      +'<span class="bld-row-box"><svg width="9" height="9" viewBox="0 0 9 9" fill="none">'
+      +'<path d="M1.5 4.5l2.5 2.5 3.5-4" stroke="#04130f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      +'<span class="bld-row-ico">'+s.svg+'</span>'
+      +'<span class="bld-row-name">'+s.name+'</span>'+badge+'</button>';
+  }).join('');
+  grid.querySelectorAll('.bld-row').forEach(function(el){
+    el.addEventListener('click',function(){
+      var id=el.getAttribute('data-sid');
+      bldToggle(id);
+      el.setAttribute('aria-pressed', bldSelected.has(id)?'true':'false');
+      bldAdded(el, bldSelected.has(id));
+    });
+  });
+}
+
+  function bldAdded(el,on){
+    var old=el.querySelector('.bld-row-added'); if(old)old.remove();
+    if(!on)return;
+    var tag=document.createElement('span'); tag.className='bld-row-added'; tag.setAttribute('aria-hidden','true');
+    tag.textContent='Added \u2713'; el.appendChild(tag);
+    setTimeout(function(){ if(tag.parentNode)tag.remove(); },1700);
+  }
+
+  function bldToggle(id){
+    const chip=document.getElementById('bldchip-'+id);
+    if(!chip)return;
+    if(bldSelected.has(id)){bldSelected.delete(id);chip.classList.remove('sel');}
+    else{bldSelected.add(id);chip.classList.add('sel');}
+    bldUpdate();
+  }
+
+  function selectAll(){
+    const allSel=BLD_SYSTEMS.every(s=>bldSelected.has(s.id));
+    BLD_SYSTEMS.forEach(s=>{
+      const chip=document.getElementById('bldchip-'+s.id);
+      if(allSel){bldSelected.delete(s.id);chip&&chip.classList.remove('sel');}
+      else{bldSelected.add(s.id);chip&&chip.classList.add('sel');}
+    });
+    bldUpdate();
+  }
+
+
+  // TIER MAPPING. Operations holds s01, s02, s08, s09, which is visit logging,
+  // invoicing, the HQ dashboard and PSW management. A selection inside that set is
+  // charged Operations. Anything beyond it is The Full Build. Growth Partner holds the
+  // same ten systems as The Full Build, so it cannot be reached by selecting tiles and
+  // is not offered here.
+  var BLD_T1 = ['s01', 's02', 's08', 's09'];
+  // ids arrive in SELECTION order, from Array.from(bldSelected), because the rule is to
+  // name the tile that moved them. A Set iterates in insertion order, and bldToggle
+  // deletes before it re adds, so a deselect and reselect updates that order correctly.
+  function bldTierOf(ids) {
+    var beyond = [];
+    for (var i = 0; i < ids.length; i++) if (BLD_T1.indexOf(ids[i]) < 0) beyond.push(ids[i]);
+    return beyond.length === 0
+      ? { name: 'Operations', setup: '$2,499', monthly: '$500 / mo', beyond: null }
+      : { name: 'The Full Build', setup: '$3,499', monthly: '$500 / mo', beyond: beyond[0] };
+  }
+  function bldUpdate(){
+  var items=BLD_SYSTEMS.filter(function(s){return bldSelected.has(s.id);});
+  var count=items.length;
+  var cEl=document.getElementById('bldCount'); if(cEl)cEl.textContent=count;
+  /* the picker tells a screen reader what is pressed; bldToggle is left untouched */
+  var grid=document.getElementById('bldGrid');
+  if(grid)grid.querySelectorAll('.bld-row').forEach(function(r){
+    r.setAttribute('aria-pressed', bldSelected.has(r.getAttribute('data-sid'))?'true':'false');
+  });
+  var empty=document.getElementById('bldEmpty');
+  var active=document.getElementById('bldActive');
+  var btn=document.getElementById('bldBookBtn');
+  if(count===0){
+    if(empty)empty.style.display='block';
+    if(active)active.style.display='none';
+    if(btn)btn.disabled=true;
+    return;
+  }
+  if(empty)empty.style.display='none';
+  if(active)active.style.display='block';
+  if(btn)btn.disabled=false;
+  /* TIER MAPPING, written from the selection rather than left static. */
+  var _t=bldTierOf(Array.from(bldSelected));
+  var _tn=document.getElementById('bldTierName'); if(_tn)_tn.textContent=_t.name;
+  var _sv=document.getElementById('bldSetupVal'); if(_sv)_sv.textContent=_t.setup;
+  /* Due today is always zero. Setup is paid after go live and month 1 is free, which is
+     what the rest of the page promises in six places across these two files. */
+  var _tv=document.getElementById('bldTotalVal'); if(_tv)_tv.textContent='$0';
+  var sn=document.getElementById('bldSaveNote');
+  if(sn){
+    if(_t.beyond){
+      var _m=BLD_SYSTEMS.filter(function(s){return s.id===_t.beyond;})[0];
+      sn.textContent=(_m?_m.name:'That system')+' moves you to The Full Build';
+    } else { sn.textContent=count+' system'+(count===1?'':'s')+' selected, Operations'; }
+  }
+}
+
+  function openUnsure(){
+    bldSelected.clear();
+    document.querySelectorAll('.bld-row').forEach(c=>c.classList.remove('sel'));
+    bldUpdate();
+    openBldModal();
+  }
   function openBldModal(){
-    const items=psBuild.items;
+    const items=BLD_SYSTEMS.filter(s=>bldSelected.has(s.id));
     const pkg=document.getElementById('bldModalPkg');
     if(pkg){
       // PSRSV2. Shown only when systems are picked; every other button opens the plain form.
@@ -601,7 +898,7 @@ var psBuild = { items: [], tier: null };
       if(items.length){
         pkg.innerHTML='<div class="bld-modal-pkg-label">Your selected package</div>'
           +'<div class="bld-modal-tags">'+items.map(s=>'<span class="bld-modal-tag">'+s.svg+' '+s.name+'</span>').join('')+'</div>'
-          +'<div class="bld-modal-totline"><span class="bld-modal-totlbl">'+items.length+' system'+(items.length===1?'':'s')+' · '+psBuild.tier.name+'</span><span class="bld-modal-totval">'+psBuild.tier.setup+' setup, due after launch</span></div>';
+          +'<div class="bld-modal-totline"><span class="bld-modal-totlbl">'+items.length+' system'+(items.length===1?'':'s')+' · '+bldTierOf(Array.from(bldSelected)).name+'</span><span class="bld-modal-totval">'+bldTierOf(Array.from(bldSelected)).setup+' setup, due after launch</span></div>';
       }
     }
     const overlay=document.getElementById('bldModalOverlay');
@@ -695,7 +992,7 @@ var psBuild = { items: [], tier: null };
       var parts=name.split(/\s+/), first=parts.shift(), last=parts.join(' '), when=label(slot.t,slot.h);
       if($('mfHp').value){done(first,when,email);return;}
       busy=true;go.disabled=true;go.textContent='Reserving...';
-      var items=psBuild.items.map(function(s){return s.name;});
+      var items=BLD_SYSTEMS.filter(function(s){return bldSelected.has(s.id);}).map(function(s){return s.name;});
       var u=($('utmSource')||{}).value||'';   // filled by the page's behaviour engine (src or utm_source)
       var src=(/\/v2\.html$/.test(location.pathname)?'v2_reserve':'index_reserve')+(items.length?' builder: '+items.join(', '):'')+(u&&u!=='direct'?' utm:'+u.slice(0,40):'');
       fetch(API+'/leads/book-discovery',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({first_name:first,last_name:last,phone:phone,email:email,slot:when,operator_id:'proximity-systems',lead_type:'operator',source:src})})
@@ -711,6 +1008,11 @@ var psBuild = { items: [], tier: null };
   document.getElementById('bldModalOverlay').addEventListener('click', handleBldOverlay);
   document.getElementById('bldModalClose').addEventListener('click', closeBldModal);
   document.getElementById('mfSubmit').addEventListener('click', submitBldBooking);
+  /* PSV2-5 the builder's buttons, as listeners instead of the homepage's inline onclick */
+  document.getElementById('bldSelAll').addEventListener('click', selectAll);
+  document.getElementById('bldBookBtn').addEventListener('click', openBldModal);
+  document.getElementById('bldUnsure').addEventListener('click', openUnsure);
+  bldRender();
   /* A Reserve link inside the phone menu closes the menu as the popup opens, so focus comes back to the Menu button
      when the popup shuts; anywhere else it comes back to the link itself. */
   document.querySelectorAll('[data-ps-book]').forEach(function (el) { el.addEventListener('click', function (e) {
@@ -779,7 +1081,7 @@ var bookingAttempted = false;
      whole querySelectorAll threw on every page load, killing every script
      that ran after it. It came in with S79 and has been live ever since.
      Selecting on href alone is what was meant. */
-  document.querySelectorAll('#mfSubmit, [data-ps-book]').forEach(function(el) {
+  document.querySelectorAll('#mfSubmit, #bldBookBtn, [data-ps-book]').forEach(function(el) {
     el.addEventListener('click', function() { bookingAttempted = true; });
   });
 
