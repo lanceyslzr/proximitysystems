@@ -330,6 +330,13 @@ button { touch-action: manipulation; }
 .ps-step-title { margin: 0 0 10px; color: var(--ps-ink); font-size: 20px; font-weight: 600; line-height: 1.25; }
 .ps-step-body { margin: 0; color: var(--ps-muted); font-size: 15px; line-height: 1.55; }
 .ps-how-cta { margin-top: 40px; }
+/* PSV2-8 the dark band: the page's one navy moment, before the visitor books. Every word is the homepage's, less "live". */
+.ps-band-sec { padding: 96px 0; border-bottom: 1px solid var(--ps-navy-line); background: var(--ps-navy); color: var(--ps-white); }
+.ps-band { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ps-band-h2 { max-width: 760px; margin: 0; color: var(--ps-white); }
+.ps-band-h2 em { color: var(--ps-navy-muted); }
+.ps-band-line { max-width: 600px; margin: 20px 0 0; color: var(--ps-navy-muted); font-size: var(--ps-fs-lead); line-height: 1.6; }
+.ps-band-btn { min-height: 52px; margin-top: 32px; padding: 0 32px; font-size: 16px; }
 @media (max-width: 900px) {
   .ps-hero { padding: 48px 0 64px; }
   .ps-hero-in { grid-template-columns: minmax(0, 1fr); gap: 44px; }
@@ -343,6 +350,7 @@ button { touch-action: manipulation; }
   .ps-sys-sec { padding: 64px 0 80px; }
   .ps-systems { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ps-how-sec { padding: 64px 0 80px; }
+  .ps-band-sec { padding: 72px 0; }
   .ps-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
 }
 @media (max-width: 768px) {
@@ -398,6 +406,9 @@ button { touch-action: manipulation; }
   .ps-how-sec { padding: 48px 0 64px; }
   .ps-steps { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .ps-how-cta .ps-btn { width: 100%; }
+  .ps-band-sec { padding: 56px 0; }
+  .ps-band { align-items: stretch; text-align: left; }
+  .ps-band-btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -830,6 +841,13 @@ button { touch-action: manipulation; }
       </li>
     </ol>
     <div class="ps-how-cta"><a class="ps-btn ps-btn-gold" href="#book" data-ps-book>Reserve My Spot</a></div>
+  </div>
+</section>
+<section class="ps-band-sec" id="showcase" aria-labelledby="showcaseTitle">
+  <div class="ps-wrap ps-band">
+    <h2 class="ps-h2 ps-band-h2" id="showcaseTitle">See exactly what you're buying. <em>Before you book a call.</em></h2>
+    <p class="ps-band-line">Walk through the HQ dashboard, PSW app, and family portal, build your package, and see your ROI. The same system running a real Mississauga agency right now.</p>
+    <a class="ps-btn ps-btn-gold ps-band-btn" href="product.html">Explore the product</a>
   </div>
 </section>
 </main>
